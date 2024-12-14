@@ -13,25 +13,22 @@ revolution = {
 		current_age = age_of_revolutions
 		is_revolutionary = no
 		if = {
-			limit = { NOT = { has_disaster = tur_disaster_ottoman_power_struggle } }
-			if = {
-				limit = {
-					has_dlc = "Emperor"
-				}
-				is_great_power = yes
-				revolution_spread = 0.2
-				capital_scope = {
-					OR = {
-						continent = europe
-						has_revolution_in_province = yes
-					}
+			limit = {
+				has_dlc = "Emperor"
+			}
+			is_great_power = yes
+			revolution_spread = 0.2
+			capital_scope = {
+				OR = {
+					continent = europe
+					has_revolution_in_province = yes
 				}
 			}
-			else = {
-				num_of_cities = 30
-				capital_scope = { continent = europe }
-				NOT = { revolution_target_exists = yes }
-			}
+		}
+		else = {
+			num_of_cities = 30
+			capital_scope = { continent = europe }
+			NOT = { revolution_target_exists = yes }
 		}
 	}
 
@@ -39,21 +36,7 @@ revolution = {
 	
 	can_start = {
 		current_age = age_of_revolutions
-		if = {
-			limit = {
-				NOT = { has_disaster = tur_disaster_ottoman_power_struggle }
-			}
-			has_any_disaster = no
-		}
-		else = {
-			calc_true_if = {
-				has_disaster = tur_disaster_eyalet_rebellion
-				has_disaster = tur_disaster_janissary_coup
-				has_disaster = tur_disaster_pasha_decadence
-				has_disaster = tur_disaster_plot_of_the_harem
-				amount = 3
-			}
-		}
+		has_any_disaster = no
 		OR = {
 			NOT = { stability = 2 }
 			AND = {
@@ -92,14 +75,8 @@ revolution = {
 	}
 	
 	can_stop = { 
-		if = {
-			limit = { NOT = { has_disaster = tur_disaster_ottoman_power_struggle } }
-			OR = {
-				has_any_disaster = yes
-				stability = 3
-			}
-		}
-		else = {
+		OR = {
+			has_any_disaster = yes
 			stability = 3
 		}
 	}
