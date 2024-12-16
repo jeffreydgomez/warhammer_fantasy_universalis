@@ -1,0 +1,116 @@
+country_decisions = {
+	
+	khuresh_nation = {
+		major = yes
+		
+		potential = {
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_khuresh_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
+			NOT = { exists = Z94 }
+			culture_group = snakefolk_cg
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 20
+				}
+			}
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+		}
+		
+		provinces_to_highlight = {
+				AND = {
+					region = khuresh_region
+					root = {
+						NOT = {
+							num_of_owned_provinces_with = {
+								value = 20
+								region = khuresh_region
+								is_core = root
+							}
+						}
+					}
+				}
+		}
+		
+		allow = {
+			is_free_or_tributary_trigger = yes
+			is_at_war = no
+			num_of_owned_provinces_with = {
+				value = 20
+				region = khuresh_region
+				is_core = root
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					is_part_of_hre = yes
+					is_elector = no
+					is_emperor = no
+				}
+				emperor = {
+					add_opinion = {
+						who = root
+						modifier = opinion_left_empire
+					}
+				}
+				set_in_empire = no
+				emperor = {
+					country_event = { id = hre_event.5 }
+				}
+			}
+			if = {
+				limit = {
+					NOT = { government_rank = 3 }
+				}
+				hidden_effect = {
+					set_in_empire = no
+				}
+				set_government_rank = 3
+			}
+			change_tag = Z94
+			on_change_tag_effect = yes
+			khuresh_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = Z94
+			}
+			add_prestige = 25
+			if = {
+				limit = { has_custom_ideas = no }
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			swap_non_generic_missions = yes
+			set_country_flag = formed_khuresh_flag
+		}
+		
+		ai_will_do = {
+			factor = 400
+			modifier = {
+				factor = 0
+				NOT = {
+					num_of_cities = 20
+				}
+			}
+		}
+	}
+}

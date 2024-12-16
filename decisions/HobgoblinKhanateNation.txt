@@ -1,0 +1,94 @@
+country_decisions = {
+	form_hobgoblin_khanate = {
+		major = yes
+		potential = {
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = {
+				has_country_flag = formed_hobgoblin_khanate_flag
+			}
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
+			NOT = {
+				exists = G36
+			}
+			primary_culture = steppe_hobgoblin
+		}
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					OR = {
+						culture = steppe_hobgoblin
+					}
+					ROOT = {
+						NOT = {
+							num_of_owned_provinces_with = {
+								value = 20
+								culture = steppe_hobgoblin
+								owned_by = ROOT
+							}
+						}
+						owns_core_province = 730
+						owns_core_province = 2108
+					}
+				}
+			}
+			OR = {
+				NOT = {
+					owned_by = ROOT
+				}
+				NOT = {
+					is_core = ROOT
+				}
+			}
+		}
+		allow = {
+			is_free_or_tributary_trigger = yes
+			is_at_war = no
+			num_of_owned_provinces_with = {
+				custom_trigger_tooltip = {
+					tooltip = hobgoblin_khanate_formable.tooltip
+					is_core = ROOT
+					culture = steppe_hobgoblin
+				}
+				value = 20
+			}
+		}
+		effect = {
+			add_prestige = 25
+			change_tag = G36
+			swap_non_generic_missions = yes
+			on_change_tag_effect = yes
+			if = {
+				limit = {
+					NOT = {
+						government_rank = 3
+					}
+				}
+				set_government_rank = 3
+			}
+			the_eastern_steppes_region = {
+				limit = {
+					NOT = {
+						is_core = ROOT
+					}
+					is_city = yes
+				}
+				add_core = G36
+			}
+			set_country_flag = formed_hobgoblin_khanate_flag
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 1000
+	}
+}
+
+#End of country decisions

@@ -1,0 +1,126 @@
+country_decisions = {
+	asur_nation = {
+		major = yes
+		potential = {
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = {
+				has_country_flag = formed_ulthuan_flag
+			}
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
+			NOT = {
+				tag = H11
+			}
+			OR = {
+				ai = no
+				AND = {
+					NOT = {
+						exists = H11
+					}
+					num_of_cities = 6
+				}
+			}
+			NOT = {
+				tag = A99
+			}
+			NOT = {
+				tag = PAP
+			}
+			culture_group = asur_group
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+		}
+		provinces_to_highlight = {
+			AND = {
+				OR = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+				OR = {
+					province_id = 451				# Lothern
+					province_id = 1810				# Hoeth
+					province_id = 1948				# Tor Yvresse
+					province_id = 1965				# Tor Korauli
+					province_id = 1941				# Tor Achare
+					province_id = 1879				# Tor Anlec
+					province_id = 1828				# Gaen Vale
+					province_id = 1802				# Isle of Flame
+					province_id = 1858				# Vaul's Anvil
+					province_id = 1869				# Tor Anroc
+					province_id = 1838				# Tor Anroc
+				}
+			}
+		}
+		allow = {
+			NOT = {
+				exists = H11
+			}
+			is_at_war = no
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			owns_or_non_sovereign_subject_of = 451			# Lothern
+			owns_or_non_sovereign_subject_of = 1819			# Hoeth
+			owns_or_non_sovereign_subject_of = 1948			#  Tor Yvresse
+			owns_or_non_sovereign_subject_of = 1965			# Tor Korauli
+			owns_or_non_sovereign_subject_of = 1941			# Tor Achare
+			owns_or_non_sovereign_subject_of = 1879			# Tor Anlec
+			owns_or_non_sovereign_subject_of = 1828			# Gaen Vale
+			owns_or_non_sovereign_subject_of = 1802			# Isle of Flame
+			owns_or_non_sovereign_subject_of = 1858			# Vaul's Anvil
+			owns_or_non_sovereign_subject_of = 1869			# Tor Anroc
+			owns_or_non_sovereign_subject_of = 1838			# Tor Anroc
+		}
+		effect = {
+			change_tag = H11
+			swap_non_generic_missions = yes
+			on_change_tag_effect = yes
+			remove_non_electors_emperors_from_empire_effect = yes
+			if = {
+				limit = {
+					NOT = {
+						government_rank = 3
+					}
+				}
+				set_government_rank = 3
+			}
+			ulthuan_superregion = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+					}
+				}
+				add_permanent_claim = H11
+			}
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			451 = {
+				move_capital_effect = yes
+			}
+			add_prestige = 100
+			#	if = {
+			#		limit = { has_custom_ideas = no }
+			#		country_event = { id = ideagroups.1 } #Swap Ideas
+			#	}
+			set_country_flag = formed_ulthuan_flag
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}

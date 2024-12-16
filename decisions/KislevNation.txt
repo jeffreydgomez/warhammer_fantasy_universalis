@@ -1,0 +1,101 @@
+country_decisions = {
+
+	kislev_nation = {
+		major = yes
+		potential = {
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_kislev_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
+			NOT = { tag = A29 }
+			OR = {
+				ai = no
+				AND = {
+					NOT = { exists = A29 }
+					num_of_cities = 6
+				}
+			}
+			NOT = { tag = A99 }
+			NOT = { tag = PAP }
+			OR = {
+				culture_group = kislevite_group
+				culture_group = ungol_group
+			}
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 339	# Praag
+				province_id = 325	# Kislev City
+				province_id = 332	# Erengard
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		allow = {
+			NOT = { exists = A29 }
+			is_at_war = no
+			is_free_or_tributary_trigger = yes
+			is_nomad = no			
+			owns_core_province = 339	# Praag
+			owns_core_province = 325	# Kislev City
+			owns_core_province = 332	# Erengard
+		}
+		effect = {
+			change_tag = A29
+			swap_non_generic_missions = yes
+			on_change_tag_effect = yes
+			remove_non_electors_emperors_from_empire_effect = yes
+			if = {
+				limit = { NOT = { government_rank = 3 } }
+				set_government_rank = 3
+			}
+			kislev_heartlands_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = A29
+			}
+			troll_country_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = A29
+			}
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			325 = {
+				move_capital_effect = yes
+			}
+			add_prestige = 25
+			if = {
+				limit = { has_custom_ideas = no }
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			set_country_flag = formed_kislev_flag
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400 #If there is no kislev then kislevite minors will prioritize reforming it.
+	}
+	
+}
