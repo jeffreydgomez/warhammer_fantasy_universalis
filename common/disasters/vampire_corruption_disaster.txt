@@ -1,22 +1,28 @@
 
 ### 
 
-chaos_corruption_disaster = {
+vampire_corruption_disaster = {
 	ended_by_country_breaking_to_rebels = no
 	potential = {
-		NOT = { religion_group = ruinous_powers_denominations }
+		NOT = { religion = vampiric }
+		NOT = { religion = nagash_worship }
+		NOT = { has_country_modifier = undead_administration }
 	}
 
 	can_start = {
-		any_owned_province = { religion_group = ruinous_powers_denominations }
+		any_owned_province = { religion = vampiric }
 		NOT = { religious_unity = 1.0 }
 	}
 
 	can_stop = {
 		OR = {
-			NOT = { any_owned_province = { religion_group = ruinous_powers_denominations } }
-			religion_group = ruinous_powers_denominations
+			NOT = { any_owned_province = { religion = vampiric } }
+			OR = {
+				religion = vampiric
+				religion = nagash_worship
+			}
 			religious_unity = 1.0
+			has_country_modifier = undead_administration
 		}
 	}
 
@@ -83,13 +89,13 @@ chaos_corruption_disaster = {
 
 		modifier = {
 			factor = 0.25
-			any_owned_province = { religion_group = ruinous_powers_denominations }
+			any_owned_province = { religion = vampiric }
 		}
 
 		modifier = {
 			factor = 1
 			capital_scope = {
-				religion_group = ruinous_powers_denominations
+				religion = vampiric
 			}
 		}
 
@@ -106,26 +112,30 @@ chaos_corruption_disaster = {
 
 	can_end = {
 		OR = {
-			NOT = { any_owned_province = { religion_group = ruinous_powers_denominations } }
-			religion_group = ruinous_powers_denominations
+			NOT = { any_owned_province = { religion = vampiric } }
+			OR = {
+				religion = vampiric
+				religion = nagash_worship
+			}
 			religious_unity = 1.0
+			has_country_modifier = undead_administration
 		}
 	}
 	modifier = {
 		global_unrest = 2
 		stability_cost_modifier = 0.1
 	}
-	on_start = chaos_corruption_events.1
-	on_end = 0 #chaos_corruption.9
+	on_start = vampire_corruption_events.1
+	on_end = 0
 	on_monthly = {
 		events = { }
 		random_events = {
-			2500 = chaos_corruption_events.10
-			100 = chaos_corruption_events.2
-			100 = chaos_corruption_events.3
-			100 = chaos_corruption_events.4
-			100 = chaos_corruption_events.5
-			100 = chaos_corruption_events.6
+			2500 = vampire_corruption_events.10
+			100 = vampire_corruption_events.2
+			100 = vampire_corruption_events.3
+			100 = vampire_corruption_events.4
+			100 = vampire_corruption_events.5
+			100 = vampire_corruption_events.6
 		}
 	}
 }

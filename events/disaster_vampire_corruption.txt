@@ -1,0 +1,271 @@
+########################################
+# End Times Events
+########################################
+
+namespace = vampire_corruption_events
+
+
+
+country_event = {
+	id = vampire_corruption_events.1
+	title = vampire_corruption_events.1.t
+	desc = vampire_corruption_events.1.d
+	picture = DEFENESTRATION_PRAGUE_eventPicture
+
+	is_triggered_only = yes
+	
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = { months = 1 }
+
+### 
+	option = {
+		name = vampire_corruption_events.1.option_1
+		ai_chance = { factor = 50 }
+		add_stability = -2
+
+	}
+}
+
+
+#### Guilds
+
+country_event = {
+	id = vampire_corruption_events.2
+	title = vampire_corruption_events.2.t
+	desc = vampire_corruption_events.2.d
+	picture = DEFENESTRATION_PRAGUE_eventPicture
+
+	is_triggered_only = yes
+	
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = { months = 1 }
+
+### Put them down
+	option = {
+		name = vampire_corruption_events.2.option_1
+		ai_chance = { factor = 15 }
+		random_owned_province = {
+			spawn_rebels = {
+			    size = 1
+			    type = vampiric_rebels
+			}
+		}
+		add_estate_loyalty = {
+		    estate = estate_burghers
+		    loyalty = -10
+		}
+	}
+
+### Pay them off
+	option = {
+		name = vampire_corruption_events.2.option_2
+		ai_chance = { factor = 35 }
+		add_years_of_income = -1.5
+		add_estate_loyalty = {
+		    estate = estate_burghers
+		    loyalty = 5
+		}
+	}
+
+### Convert to Vamprism
+	option = {
+		name = vampire_corruption_events.2.option_3
+		ai_chance = { factor = 1 }
+		change_religion = vampiric
+	}
+}
+
+
+
+#### Nobles
+
+country_event = {
+	id = vampire_corruption_events.3
+	title = vampire_corruption_events.3.t
+	desc = vampire_corruption_events.3.d
+	picture = DEFENESTRATION_PRAGUE_eventPicture
+
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = { months = 1 }
+
+### Put them down
+	option = {
+		name = vampire_corruption_events.3.option_1
+		ai_chance = { factor = 15 }
+		random_owned_province = {
+			spawn_rebels = {
+			    size = 1
+			    type = vampiric_rebels
+			}
+		}
+		add_estate_loyalty = {
+		    estate = estate_nobles
+		    loyalty = -10
+		}
+	}
+
+## Give them peasants
+	option = {
+		name = vampire_corruption_events.3.option_2
+		ai_chance = { factor = 35 }
+		trigger = { years_of_manpower = 1.5 }
+		add_yearly_manpower = -1.5
+		add_estate_loyalty = {
+		    estate = estate_nobles
+		    loyalty = 5
+		}
+	}
+
+### Convert
+	option = {
+		name = vampire_corruption_events.3.option_3
+		ai_chance = { factor = 1 }
+		change_religion = vampiric
+	}
+}
+
+
+#### Church
+
+country_event = {
+	id = vampire_corruption_events.4
+	title = vampire_corruption_events.4.t
+	desc = vampire_corruption_events.4.d
+	picture = DEFENESTRATION_PRAGUE_eventPicture
+
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = { months = 1 }
+
+### Things going crazy
+	option = {
+		name = vampire_corruption_events.4.option_1
+		ai_chance = { factor = 15 }
+		random_owned_province = {
+			spawn_rebels = {
+			    size = 1
+			    type = vampiric_rebels
+			}
+		}
+		add_estate_loyalty = {
+		    estate = estate_church
+		    loyalty = -10
+		}
+	}
+
+### Change Doctrine
+	option = {
+		name = vampire_corruption_events.4.option_2
+		ai_chance = { factor = 35 }
+		trigger = { stability = -2 }
+		add_stability = -1
+		add_estate_loyalty = {
+		    estate = estate_church
+		    loyalty = 5
+		}
+	}
+
+### Convert
+	option = {
+		name = vampire_corruption_events.4.option_3
+		ai_chance = { factor = 1 }
+		change_religion = vampiric
+	}
+}
+
+
+#### Peasants
+
+country_event = {
+	id = vampire_corruption_events.5
+	title = vampire_corruption_events.5.t
+	desc = vampire_corruption_events.5.d
+	picture = DEFENESTRATION_PRAGUE_eventPicture
+
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = { months = 1 }
+
+### Destroy them
+	option = {
+		name = vampire_corruption_events.5.option_1
+		ai_chance = { factor = 15 }
+		random_owned_province = {
+			spawn_rebels = {
+			    size = 1
+			    type = vampiric_rebels
+			}
+		}
+	}
+
+
+### Placate them
+
+	option = {
+		name = vampire_corruption_events.5.option_2
+		ai_chance = { factor = 35 }
+		trigger = {
+			any_owned_province = {
+				NOT = { local_autonomy = 75 }
+			}
+		}
+
+
+		random_owned_province = {
+			limit = { NOT = { local_autonomy = 75 } }
+			add_local_autonomy = 75
+		}
+	}
+
+### Convert
+	option = {
+		name = vampire_corruption_events.5.option_3
+		ai_chance = { factor = 1 }
+		change_religion = vampiric
+	}
+}
+
+
+### Dummy
+country_event = {
+	id = vampire_corruption_events.10
+	title = vampire_corruption_events.10.t
+	desc = vampire_corruption_events.10.d
+	picture = DEFENESTRATION_PRAGUE_eventPicture
+	hidden = yes
+
+	is_triggered_only = yes
+	
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = { months = 1 }
+
+	option = {
+		name = vampire_corruption_events.10.option_1
+		ai_chance = { factor = 50 }
+	}
+}
