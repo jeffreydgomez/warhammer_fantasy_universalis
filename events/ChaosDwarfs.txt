@@ -1,0 +1,412 @@
+########################################
+# Events for chaos_dwarfs
+########################################
+namespace = chaos_dwarfs
+country_event = {
+	id = chaos_dwarfs.1
+	title = chaos_dwarfs.1.t
+	desc = chaos_dwarfs.1.desc
+	picture = RELIGION_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		or = {
+			has_reform = sorcerers_conclave_reform
+		}
+		has_government_attribute = heir
+		NOT = {
+			has_country_flag = in_chaos_dwarfs_heir_selection
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = in_chaos_dwarfs_heir_selection
+			random_core_province = {
+				save_event_target_as = dark_prophet_province
+			}
+			random_core_province = {
+				save_event_target_as = war_smith_province
+			}
+			random_core_province = {
+				save_event_target_as = former_castellan_province
+			}
+		}
+	}
+	option = {
+		name = chaos_dwarfs.1.a		# A Dark Prophet
+		goto = dark_prophet_province
+		set_country_flag = cdf_dark_prophet_flag		# USED IN DEVOTION.TXT
+		if = {
+			limit = {
+				has_government_attribute = can_see_theocratic_heir_stats
+			}
+			if = {
+				limit = {
+					has_saved_event_target = dark_prophet_province
+					NOT = {
+						has_global_modifier_value = {
+							which = female_advisor_chance
+							value = 1
+						}
+					}
+				}
+				define_heir = {
+					age = 35
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+			else_if = {
+				limit = {
+					has_saved_event_target = dark_prophet_province
+					has_global_modifier_value = {
+						which = female_advisor_chance
+						value = 1
+					}
+				}
+				define_heir = {
+					age = 35
+					female = yes
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+			else_if = {
+				limit = {
+					has_saved_event_target = dark_prophet_province
+					has_global_modifier_value = {
+						which = female_advisor_chance
+						value = 1
+					}
+				}
+				define_heir = {
+					age = 35
+					female = yes
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+			else = {
+				define_heir = {
+					age = 35
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					has_saved_event_target = dark_prophet_province
+					NOT = {
+						has_global_modifier_value = {
+							which = female_advisor_chance
+							value = 1
+						}
+					}
+				}
+				define_heir = {
+					age = 35
+					hidden = yes
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+			else_if = {
+				limit = {
+					has_saved_event_target = dark_prophet_province
+					has_global_modifier_value = {
+						which = female_advisor_chance
+						value = 1
+					}
+				}
+				define_heir = {
+					age = 35
+					hidden = yes
+					female = yes
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+			else_if = {
+				limit = {
+					has_saved_event_target = dark_prophet_province
+					has_global_modifier_value = {
+						which = female_advisor_chance
+						value = 1
+					}
+				}
+				define_heir = {
+					age = 35
+					hidden = yes
+					female = yes
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+			else = {
+				define_heir = {
+					age = 35
+					hidden = yes
+					religion = hashut
+					culture = chaos_dwarf
+				}
+			}
+		}
+		add_adm_power = 20
+		add_dip_power = 20
+		add_mil_power = 20
+		clr_country_flag = in_chaos_dwarfs_heir_selection
+	}
+	option = {
+		name = chaos_dwarfs.1.b		# A War Smith
+		goto = war_smith_province
+		set_country_flag = cdf_war_smith_flag		# USED IN DEVOTION.TXT
+		if = {
+			limit = {
+				has_government_attribute = can_see_theocratic_heir_stats
+			}
+			if = {
+				limit = {
+					has_saved_event_target = war_smith_province
+					NOT = {
+						has_global_modifier_value = {
+							which = female_advisor_chance
+							value = 1
+						}
+					}
+				}
+				define_heir = {
+					age = 35
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+			else_if = {
+				limit = {
+					has_saved_event_target = war_smith_province
+					has_global_modifier_value = {
+						which = female_advisor_chance
+						value = 1
+					}
+				}
+				define_heir = {
+					age = 35
+					female = yes
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+			else_if = {
+				limit = {
+					has_saved_event_target = war_smith_province
+					has_global_modifier_value = {
+						which = female_advisor_chance
+						value = 1
+					}
+				}
+				define_heir = {
+					age = 35
+					female = yes
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+			else = {
+				define_heir = {
+					age = 35
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					has_saved_event_target = war_smith_province
+					NOT = {
+						has_global_modifier_value = {
+							which = female_advisor_chance
+							value = 1
+						}
+					}
+				}
+				define_heir = {
+					age = 35
+					hidden = yes
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+			else_if = {
+				limit = {
+					has_saved_event_target = war_smith_province
+					has_global_modifier_value = {
+						which = female_advisor_chance
+						value = 1
+					}
+				}
+				define_heir = {
+					age = 35
+					hidden = yes
+					female = yes
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+			else_if = {
+				limit = {
+					has_saved_event_target = war_smith_province
+					has_global_modifier_value = {
+						which = female_advisor_chance
+						value = 1
+					}
+				}
+				define_heir = {
+					age = 35
+					hidden = yes
+					female = yes
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+			else = {
+				define_heir = {
+					age = 35
+					hidden = yes
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+		}
+		add_adm_power = 20
+		add_dip_power = 20
+		add_mil_power = 20
+		clr_country_flag = in_chaos_dwarfs_heir_selection
+	}
+	option = {
+		name = chaos_dwarfs.1.c		# A Dark Prophet
+		goto = former_castellan_province
+		set_country_flag = cdf_former_castellan_flag		# USED IN DEVOTION.TXT
+		if = {
+			limit = {
+				has_government_attribute = can_see_theocratic_heir_stats
+			}
+			if = {
+				limit = {
+					has_saved_event_target = former_castellan_province
+					NOT = {
+						has_global_modifier_value = {
+							which = female_advisor_chance
+							value = 1
+						}
+					}
+				}
+				define_heir = {
+					age = 35
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+			else_if = {
+				limit = {
+					has_saved_event_target = former_castellan_province
+					has_global_modifier_value = {
+						which = female_advisor_chance
+						value = 1
+					}
+				}
+				define_heir = {
+					age = 35
+					female = yes
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+			else_if = {
+				limit = {
+					has_saved_event_target = former_castellan_province
+					has_global_modifier_value = {
+						which = female_advisor_chance
+						value = 1
+					}
+				}
+				define_heir = {
+					age = 35
+					female = yes
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+			else = {
+				define_heir = {
+					age = 35
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					has_saved_event_target = former_castellan_province
+					NOT = {
+						has_global_modifier_value = {
+							which = female_advisor_chance
+							value = 1
+						}
+					}
+				}
+				define_heir = {
+					age = 35
+					hidden = yes
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+			else_if = {
+				limit = {
+					has_saved_event_target = former_castellan_province
+					has_global_modifier_value = {
+						which = female_advisor_chance
+						value = 1
+					}
+				}
+				define_heir = {
+					age = 35
+					hidden = yes
+					female = yes
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+			else_if = {
+				limit = {
+					has_saved_event_target = former_castellan_province
+					has_global_modifier_value = {
+						which = female_advisor_chance
+						value = 1
+					}
+				}
+				define_heir = {
+					age = 35
+					hidden = yes
+					female = yes
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+			else = {
+				define_heir = {
+					age = 35
+					hidden = yes
+					culture = chaos_dwarf
+					religion = hashut
+				}
+			}
+		}
+		add_adm_power = 20
+		add_dip_power = 20
+		add_mil_power = 20
+		clr_country_flag = in_chaos_dwarfs_heir_selection
+	}
+}
