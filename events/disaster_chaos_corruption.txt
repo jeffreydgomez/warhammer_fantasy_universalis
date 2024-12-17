@@ -50,19 +50,25 @@ country_event = {
 ### Slaaneshi Party
 	option = {
 		name = chaos_corruption_events.2.option_1
-		ai_chance = { factor = 50 }
+		ai_chance = { factor = 15 }
 		random_owned_province = {
 			spawn_rebels = {
 			    size = 1
 			    type = slaaneshi_religion
 			}
-			add_years_of_income = -0.5
 		}
+	}
+
+### Slaaneshi Party
+	option = {
+		name = chaos_corruption_events.2.option_2
+		ai_chance = { factor = 35 }
+		add_years_of_income = -1.0
 	}
 
 ### Convert to Slaanesh
 	option = {
-		name = chaos_corruption_events.2.option_2
+		name = chaos_corruption_events.2.option_3
 		ai_chance = { factor = 1 }
 		change_religion = slaaneshi_religion
 	}
@@ -90,19 +96,25 @@ country_event = {
 ### Nurgle Plague
 	option = {
 		name = chaos_corruption_events.3.option_1
-		ai_chance = { factor = 50 }
+		ai_chance = { factor = 15 }
 		random_owned_province = {
 			spawn_rebels = {
 			    size = 1
 			    type = nurglite_religion_rebels
 			}
-			add_yearly_manpower = -0.5
 		}
+	}
+
+	option = {
+		name = chaos_corruption_events.3.option_2
+		ai_chance = { factor = 35 }
+		trigger = { years_of_manpower = 1.0 }
+		add_yearly_manpower = -1.0
 	}
 
 ### Convert to Nurgle
 	option = {
-		name = chaos_corruption_events.3.option_2
+		name = chaos_corruption_events.3.option_3
 		ai_chance = { factor = 1 }
 		change_religion = nurglite_religion
 	}
@@ -128,18 +140,33 @@ country_event = {
 ### They just want to fight
 	option = {
 		name = chaos_corruption_events.4.option_1
-		ai_chance = { factor = 50 }
+		ai_chance = { factor = 15 }
 		random_owned_province = {
 			spawn_rebels = {
-			    size = 2
+			    size = 1
 			    type = khornate_religion_rebels
+			}
+		}
+	}
+
+	option = {
+		name = chaos_corruption_events.4.option_2
+		ai_chance = { factor = 35 }
+		random_owned_province = {
+			spawn_rebels = {
+			    size = 1
+			    type = khornate_religion_rebels
+			}
+			spawn_rebels = {
+			    size = 1
+			    type = chaos_undivided_religion_rebels
 			}
 		}
 	}
 
 ### Convert to Khorne
 	option = {
-		name = chaos_corruption_events.4.option_2
+		name = chaos_corruption_events.4.option_3
 		ai_chance = { factor = 1 }
 		change_religion = khornate_religion
 	}
@@ -166,19 +193,25 @@ country_event = {
 ### Things going crazy
 	option = {
 		name = chaos_corruption_events.5.option_1
-		ai_chance = { factor = 50 }
+		ai_chance = { factor = 15 }
 		random_owned_province = {
 			spawn_rebels = {
-			    size = 2
+			    size = 1
 			    type = tzeentchian_religion_rebels
 			}
 		}
+	}
+
+	option = {
+		name = chaos_corruption_events.5.option_2
+		ai_chance = { factor = 35 }
+		trigger = { stability = -2 }
 		add_stability = -1
 	}
 
 ### Convert to Tzeentch
 	option = {
-		name = chaos_corruption_events.5.option_2
+		name = chaos_corruption_events.5.option_3
 		ai_chance = { factor = 1 }
 		change_religion = tzeentchian_religion
 	}
@@ -205,13 +238,18 @@ country_event = {
 ### The Estates are corrupted! Root them out.
 	option = {
 		name = chaos_corruption_events.6.option_1
-		ai_chance = { factor = 50 }
+		ai_chance = { factor = 15 }
 		random_owned_province = {
 			spawn_rebels = {
 			    size = 1
 			    type = chaos_undivided_religion_rebels
 			}
 		}
+	}
+
+	option = {
+		name = chaos_corruption_events.6.option_2
+		ai_chance = { factor = 35 }
 		add_estate_loyalty = {
 		    estate = estate_nobles
 		    loyalty = -10
@@ -224,15 +262,35 @@ country_event = {
 		    estate = estate_burghers
 		    loyalty = -10
 		}
-
-
 	}
 
 ### Convert to Chaos Undivided
 	option = {
-		name = chaos_corruption_events.6.option_2
+		name = chaos_corruption_events.6.option_3
 		ai_chance = { factor = 1 }
 		change_religion = chaos_undivided_religion
 	}
 }
 
+
+### Dummy
+country_event = {
+	id = chaos_corruption_events.10
+	title = chaos_corruption_events.10.t
+	desc = chaos_corruption_events.10.d
+	picture = EP_POLYNESIAN_DANCES_eventPicture
+	hidden = yes
+
+	is_triggered_only = yes
+	
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = { months = 1 }
+
+	option = {
+		name = chaos_corruption_events.10.option_1
+		ai_chance = { factor = 50 }
+	}
+}
