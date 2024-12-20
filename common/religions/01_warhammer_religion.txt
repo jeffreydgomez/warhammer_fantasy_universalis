@@ -70,7 +70,7 @@ old_world_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -93,7 +93,7 @@ old_world_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -177,7 +177,7 @@ old_world_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -200,7 +200,7 @@ old_world_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -242,11 +242,11 @@ old_world_denominations = {
 		}
 		icon = 27
 		country = {
-			stability_cost_modifier = -0.1
-			tolerance_own = 1
+			global_missionary_strength = 0.02
+			religious_unity = 0.15
 		}
 		country_as_secondary = {
-			global_missionary_strength = 0.02
+			stability_cost_modifier = -0.1
 			infantry_power = 0.10
 		}
 		on_convert = {
@@ -292,7 +292,7 @@ old_world_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -315,7 +315,7 @@ old_world_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -548,7 +548,7 @@ old_world_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -570,7 +570,7 @@ old_world_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -599,6 +599,19 @@ old_world_denominations = {
 			SIGMAR_HERETIC
 			OLD_FAITH
 		}
+		
+		uses_church_power = yes
+		aspects = {
+			order_of_silver_hammer
+			order_of_anvil
+			order_of_torch
+			order_of_cleansing_flame
+			templar_fiery_heart
+			templar_sigmars_blood
+			templar_knights_griffon
+		}
+		aspects_name = PROTESTANT_ASPECTS
+
 	}
 	########################################################################################################################
 	#	Ulric
@@ -659,7 +672,7 @@ old_world_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -682,7 +695,7 @@ old_world_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -712,6 +725,9 @@ old_world_denominations = {
 			ULRIC_HERETIC
 			OLD_FAITH
 		}
+
+		fervor = yes
+
 	}
 	########################################################################################################################
 	#	Taal
@@ -772,7 +788,7 @@ old_world_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -795,7 +811,7 @@ old_world_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -824,6 +840,107 @@ old_world_denominations = {
 			TAAL_HERETIC
 			OLD_FAITH
 		}
+
+		uses_judaism_power = yes
+		aspects_name = JEWISH_ASPECTS
+
+		aspects = {
+			taal_reverence
+			taal_study_nature
+			taal_sell_pelts
+			taal_communal_hunt
+			taal_empire_roots
+			taal_home
+			taal_hunt_aggressive
+			taal_hunt_defensive
+			taal_efficient_hunt
+		}
+
+		 celebrate = {
+		 	cost = 200
+		 	potential = {
+		 	}
+		 	allow = {
+		 		custom_trigger_tooltip = {
+		 			tooltip = JUDAISM_HAS_ADM_ASPECT
+		 			OR = {
+		 				has_church_aspect = taal_reverence
+		 				has_church_aspect = taal_study_nature
+		 				has_church_aspect = taal_sell_pelts
+		 			}
+		 		}
+		 		if = {
+		 			limit = {
+		 				has_church_aspect = taal_reverence
+		 			}
+		 			NOT = { stability = 3 }
+		 		}
+		 	}
+		 	effect = {
+		 		if = {
+		 			limit = {
+		 				has_church_aspect = taal_reverence
+		 			}
+		 			add_stability = 1
+		 		}
+		 		if = {
+		 			limit = {
+		 				has_church_aspect = taal_study_nature
+		 			}
+		 			change_government_reform_progress = 25
+		 			add_legitimacy_equivalent = {
+		 				amount = 5
+		 				republican_tradition = 5
+		 			}
+		 			if = {
+		 				limit = {
+		 					has_heir = yes
+		 				}
+		 				add_heir_claim = 5
+		 			}
+		 		}
+		 		if = {
+		 			limit = {
+		 				has_church_aspect = taal_sell_pelts
+		 			}
+		 			add_years_of_income = 0.3
+		 			add_inflation = -1
+		 		}
+		 		if = {
+		 			limit = {
+		 				has_government_attribute = loyalty_from_celebration
+		 			}
+		 			add_estate_loyalty = {
+		 				estate = estate_church
+		 				loyalty = 20
+		 			}
+		 		}
+		 		hidden_effect = {
+		 			if = {
+		 				limit = { NOT = { has_country_flag = has_celebrated_festival } }
+		 				set_country_flag = has_celebrated_festival
+		 			}
+		 		}
+		 	}
+		 	ai_will_do = {
+		 		factor = 1
+		 		modifier = {
+		 			factor = 0
+		 			OR = {
+		 				AND = {
+		 					NOT = { has_church_aspect = taal_communal_hunt }
+		 					NOT = { has_church_aspect = taal_empire_roots }
+		 					NOT = { has_church_aspect = taal_home }
+		 				}
+		 				AND = {
+		 					NOT = { has_church_aspect = taal_hunt_aggressive }
+		 					NOT = { has_church_aspect = taal_hunt_defensive }
+		 					NOT = { has_church_aspect = taal_efficient_hunt }
+		 				}
+		 			}
+		 		}
+		 	}
+	 	}
 	}
 	########################################################################################################################
 	#	Generalized Old World Cults
@@ -883,7 +1000,7 @@ old_world_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -906,7 +1023,7 @@ old_world_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -1051,7 +1168,7 @@ old_world_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -1074,7 +1191,7 @@ old_world_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -1206,7 +1323,7 @@ ruinous_powers_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -1229,7 +1346,7 @@ ruinous_powers_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -1242,8 +1359,9 @@ ruinous_powers_denominations = {
 						}
 					}
 				}
-			}			}
-		}	
+			}			
+		}
+		
 		aspects_name = ANGLICAN_ASPECTS
 	}
 	########################################################################################################################
@@ -1313,7 +1431,7 @@ ruinous_powers_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -1336,7 +1454,7 @@ ruinous_powers_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -1349,7 +1467,7 @@ ruinous_powers_denominations = {
 						}
 					}
 				}
-			}			}
+			}			
 		}	
 		heretic = {
 			CHAOS_HERETIC
@@ -1418,7 +1536,7 @@ ruinous_powers_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -1441,7 +1559,7 @@ ruinous_powers_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -1454,8 +1572,9 @@ ruinous_powers_denominations = {
 						}
 					}
 				}
-			}			}
-		}	
+			}			
+		}
+		
 		heretic = {
 			CHAOS_HERETIC
 		}
@@ -1524,7 +1643,7 @@ ruinous_powers_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -1547,7 +1666,7 @@ ruinous_powers_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -1632,7 +1751,7 @@ ruinous_powers_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -1655,7 +1774,7 @@ ruinous_powers_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -1748,7 +1867,7 @@ ruinous_powers_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -1771,7 +1890,7 @@ ruinous_powers_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -1895,7 +2014,7 @@ ruinous_powers_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -1918,7 +2037,7 @@ ruinous_powers_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -2013,7 +2132,7 @@ greenskin_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -2036,7 +2155,7 @@ greenskin_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -2112,7 +2231,7 @@ greenskin_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -2135,7 +2254,7 @@ greenskin_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -2229,7 +2348,7 @@ ogre_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -2252,7 +2371,7 @@ ogre_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -2334,9 +2453,6 @@ elven_denominations = {
 			durthu_aspect
 			orion_aspect
 			loirath_aspect
-			oak_aspect
-			glade_aspect
-			stream_aspect
 		}
 		aspects_name = ELVEN_ASPECTS
 
@@ -2385,7 +2501,7 @@ elven_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -2408,7 +2524,7 @@ elven_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -2475,9 +2591,6 @@ elven_denominations = {
 			durthu_aspect
 			orion_aspect
 			loirath_aspect
-			oak_aspect
-			glade_aspect
-			stream_aspect
 		}
 		aspects_name = ELVEN_ASPECTS
 		on_convert = {
@@ -2523,7 +2636,7 @@ elven_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -2546,7 +2659,7 @@ elven_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -2613,9 +2726,6 @@ elven_denominations = {
 			durthu_aspect
 			orion_aspect
 			loirath_aspect
-			oak_aspect
-			glade_aspect
-			stream_aspect
 		}
 		aspects_name = ELVEN_ASPECTS
 
@@ -2664,7 +2774,7 @@ elven_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -2687,7 +2797,7 @@ elven_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -2791,7 +2901,7 @@ dawi_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -2814,7 +2924,7 @@ dawi_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -2839,7 +2949,7 @@ dawi_denominations = {
 			thungni_aspect
 			morgrim_aspect
 		}
-		aspects_name = PROTESTANT_ASPECTS	}
+		aspects_name = PROTESTANT_ASPECTS
 	crusade_name = CRUSADE
 	harmonized_modifier = harmonized_dwarf
 }
@@ -2912,7 +3022,7 @@ the_old_faith = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -2935,7 +3045,7 @@ the_old_faith = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -3010,7 +3120,7 @@ the_old_faith = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -3033,7 +3143,7 @@ the_old_faith = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -3111,7 +3221,7 @@ the_old_faith = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -3134,7 +3244,7 @@ the_old_faith = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -3227,7 +3337,7 @@ arabyn_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -3250,7 +3360,7 @@ arabyn_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -3331,7 +3441,7 @@ arabyn_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -3354,7 +3464,7 @@ arabyn_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -3488,7 +3598,7 @@ arabyn_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -3511,7 +3621,7 @@ arabyn_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -3620,7 +3730,7 @@ skaven_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -3643,7 +3753,7 @@ skaven_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -3997,7 +4107,7 @@ lizardmen_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -4020,7 +4130,7 @@ lizardmen_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -4176,7 +4286,7 @@ eastern_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -4199,7 +4309,7 @@ eastern_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
@@ -4295,7 +4405,7 @@ indish_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = order_nation } }
 
 						add_opinion = {
@@ -4318,7 +4428,7 @@ indish_denominations = {
 						NOT = { tag = PREV }
 					}
 
-					if {
+					if = {
 						limit = { ROOT = { has_country_modifier = destruction_nation } }
 
 						add_opinion = {
