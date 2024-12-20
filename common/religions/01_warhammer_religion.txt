@@ -840,6 +840,107 @@ old_world_denominations = {
 			TAAL_HERETIC
 			OLD_FAITH
 		}
+
+		uses_judaism_power = yes
+		aspects_name = JEWISH_ASPECTS
+
+		aspects = {
+			taal_reverence
+			taal_study_nature
+			taal_sell_pelts
+			taal_communal_hunt
+			taal_empire_roots
+			taal_home
+			taal_hunt_aggressive
+			taal_hunt_defensive
+			taal_efficient_hunt
+		}
+
+		 celebrate = {
+		 	cost = 200
+		 	potential = {
+		 	}
+		 	allow = {
+		 		custom_trigger_tooltip = {
+		 			tooltip = JUDAISM_HAS_ADM_ASPECT
+		 			OR = {
+		 				has_church_aspect = taal_reverence
+		 				has_church_aspect = taal_study_nature
+		 				has_church_aspect = taal_sell_pelts
+		 			}
+		 		}
+		 		if = {
+		 			limit = {
+		 				has_church_aspect = taal_reverence
+		 			}
+		 			NOT = { stability = 3 }
+		 		}
+		 	}
+		 	effect = {
+		 		if = {
+		 			limit = {
+		 				has_church_aspect = taal_reverence
+		 			}
+		 			add_stability = 1
+		 		}
+		 		if = {
+		 			limit = {
+		 				has_church_aspect = taal_study_nature
+		 			}
+		 			change_government_reform_progress = 25
+		 			add_legitimacy_equivalent = {
+		 				amount = 5
+		 				republican_tradition = 5
+		 			}
+		 			if = {
+		 				limit = {
+		 					has_heir = yes
+		 				}
+		 				add_heir_claim = 5
+		 			}
+		 		}
+		 		if = {
+		 			limit = {
+		 				has_church_aspect = taal_sell_pelts
+		 			}
+		 			add_years_of_income = 0.3
+		 			add_inflation = -1
+		 		}
+		 		if = {
+		 			limit = {
+		 				has_government_attribute = loyalty_from_celebration
+		 			}
+		 			add_estate_loyalty = {
+		 				estate = estate_church
+		 				loyalty = 20
+		 			}
+		 		}
+		 		hidden_effect = {
+		 			if = {
+		 				limit = { NOT = { has_country_flag = has_celebrated_festival } }
+		 				set_country_flag = has_celebrated_festival
+		 			}
+		 		}
+		 	}
+		 	ai_will_do = {
+		 		factor = 1
+		 		modifier = {
+		 			factor = 0
+		 			OR = {
+		 				AND = {
+		 					NOT = { has_church_aspect = taal_communal_hunt }
+		 					NOT = { has_church_aspect = taal_empire_roots }
+		 					NOT = { has_church_aspect = taal_home }
+		 				}
+		 				AND = {
+		 					NOT = { has_church_aspect = taal_hunt_aggressive }
+		 					NOT = { has_church_aspect = taal_hunt_defensive }
+		 					NOT = { has_church_aspect = taal_efficient_hunt }
+		 				}
+		 			}
+		 		}
+		 	}
+	 	}
 	}
 	########################################################################################################################
 	#	Generalized Old World Cults
