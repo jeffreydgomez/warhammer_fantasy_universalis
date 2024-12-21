@@ -437,10 +437,16 @@ gen_war_empire_ultimate = {
 		provinces_to_highlight = {
 			owner = {
 				technology_group = ROOT
-				OR = {
-					NOT = { tag = ROOT }
-					NOT = { is_subject_of = ROOT }
-					NOT = { alliance_with = ROOT }
+				NOT = { tag = ROOT }
+				NOT = { is_subject_of = ROOT }
+				NOT = { alliance_with = ROOT }
+				NOT = {
+					ROOT = {
+						has_won_war_against = {
+							who = PREV
+							max_years_since = 50
+						}
+					}
 				}
 			}
 		}
@@ -450,10 +456,16 @@ gen_war_empire_ultimate = {
 				any_province = {
 					owner = {
 						technology_group = ROOT
-						OR = {
-							NOT = { tag = ROOT }
-							NOT = { is_subject_of = ROOT }
-							NOT = { alliance_with = ROOT }
+						NOT = { tag = ROOT }
+						NOT = { is_subject_of = ROOT }
+						NOT = { alliance_with = ROOT }
+						NOT = {
+							ROOT = {
+								has_won_war_against = {
+									who = PREV
+									max_years_since = 50
+								}
+							}
 						}
 					}
 				}

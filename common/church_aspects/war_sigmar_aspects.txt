@@ -1,0 +1,134 @@
+order_of_silver_hammer = {
+    cost = 100
+
+    modifier = {
+        morale_damage_received = -0.05
+    }
+    effect = {
+        add_mil_power = 50
+    }
+    ai_will_do = {
+		factor = 1
+	}
+}
+
+order_of_anvil = {
+    cost = 100
+
+    modifier = {
+        development_cost = -0.05
+    }
+    effect = {
+        add_dip_power = 50
+    }
+    ai_will_do = {
+		factor = 0
+	}
+}
+
+order_of_torch = {
+    cost = 100
+
+    modifier = {
+        tolerance_own = 2
+    }
+    effect = {
+        add_adm_power = 50
+    }
+    ai_will_do = {
+        factor 5
+        modifier = {
+            factor = 0
+            NOT { religious_unity = 1.0 }
+        }
+    }
+}
+
+order_of_cleansing_flame = {
+    cost = 100
+    effect = {
+        custom_tooltip = convert_a_province_to_sigmar_tt
+        hidden_effect = {
+            random_owned_province = {
+                limit = {
+                    NOT = { religion = ROOT }
+                    is_reformation_center = no
+                }
+                change_religion = ROOT
+            }
+            add_yearly_manpower = 0.5
+        }
+    }
+
+    modifier = {
+        global_missionary_strength = 0.01
+    }
+
+    ai_will_do = {
+		factor = 5
+        modifier = {
+            factor = 0
+            religious_unity = 1.0
+        }
+	}
+}
+
+templar_fiery_heart = {
+    cost = 100
+
+    trigger = {
+        AND {
+            NOT = { has_church_aspect = templar_sigmars_blood }
+            NOT = { has_church_aspect = templar_knights_griffon }
+        }
+    }
+    effect = {
+        custom_tooltip = only_one_templar_tt
+    }
+    modifier = {
+        infantry_power = 0.05
+    }
+    ai_will_do = {
+        factor = 0
+    }
+}
+
+templar_sigmars_blood = {
+    cost = 100
+
+    trigger = {
+        AND {
+            NOT = { has_church_aspect = templar_fiery_heart }
+            NOT = { has_church_aspect = templar_knights_griffon }
+        }
+    }
+    effect = {
+        custom_tooltip = only_one_templar_tt
+    }
+    modifier = {
+        discipline = 0.025
+    }
+    ai_will_do = {
+        factor = 1
+    }
+}
+
+templar_knights_griffon = {
+    cost = 100
+
+    trigger = {
+        AND {
+            NOT = { has_church_aspect = templar_fiery_heart }
+            NOT = { has_church_aspect = templar_sigmars_blood }
+        }
+    }
+    effect = {
+        custom_tooltip = only_one_templar_tt
+    }
+    modifier = {
+        cavalry_power = 0.05
+    }
+    ai_will_do = {
+        factor = 0
+    }
+}

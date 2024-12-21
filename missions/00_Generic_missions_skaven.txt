@@ -200,13 +200,20 @@ gen_skaven_ultimate_missions = {
 			NOT = { owned_by = ROOT }
 		}
 		trigger = {
-			NOT = {
-				any_province = {
-					NOT = { owned_by = ROOT }
+			OR = {
+				NOT = {
+					any_province = {
+						NOT = { owned_by = ROOT }
+						NOT = { owned_by_subject_of = ROOT }
+						trade_goods = warpstone
+					}
+				}
+				development_in_provinces = {
+					value = 400
+					owned_by = ROOT 
 					trade_goods = warpstone
 				}
 			}
-
 		}
 		effect = {
 
