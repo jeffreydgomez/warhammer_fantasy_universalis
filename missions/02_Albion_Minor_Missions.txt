@@ -1,0 +1,352 @@
+albion_minor_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		culture_group = albionise_group
+	}
+	albion_conquer_south = {
+		icon = mission_build_up_to_force_limit
+		position = 2
+		required_missions = {
+			albion_rally_the_clans
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = trogland_area
+				area = boreni_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			trogland_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			boreni_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			land_of_lakes_area = {
+				limit = {
+					NOT = {
+						is_core = ROOT
+					}
+					NOT = {
+						owned_by = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			belenii_area = {
+				limit = {
+					NOT = {
+						is_core = ROOT
+					}
+					NOT = {
+						owned_by = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+}
+
+albion_minor_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		culture_group = albionise_group
+	}
+	albion_conquer_west = {
+		icon = mission_trade_company_region_abroad
+		position = 2
+		required_missions = {
+			albion_rally_the_clans
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = belenii_area
+				area = land_of_lakes_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			land_of_lakes_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			belenii_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			trogland_area = {
+				limit = {
+					NOT = {
+						is_core = ROOT
+					}
+					NOT = {
+						owned_by = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			boreni_area = {
+				limit = {
+					NOT = {
+						is_core = ROOT
+					}
+					NOT = {
+						owned_by = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	albion_to_the_victor = {
+		icon = mission_have_two_subjects
+		position = 3
+		required_missions = {
+			albion_conquer_west
+			albion_conquer_south
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
+	}
+}
+
+#albion 3
+
+albion_minor_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		culture_group = albionise_group
+	}
+	albion_rally_the_clans = {
+		icon = mission_build_up_to_force_limit
+		position = 1
+		trigger = { army_size_percentage = 1 }
+		effect = {
+			add_mil_power = 100
+			add_country_modifier = {
+				name = "expansionist_country"
+				duration = 9125 #25 years
+			}
+			custom_tooltip = perma_claim_neighbor_area
+			hidden_effect = {
+				every_owned_province = {
+					every_neighbor_province = {
+						area = {
+							limit = {
+								region = albion_region
+								NOT = { owned_by = ROOT }
+								NOT = { is_permanent_claim = ROOT    }
+								NOT = { is_core = ROOT    }
+							}
+							add_permanent_claim = ROOT
+						}
+					}
+				}
+			}
+		}
+	}
+	albion_rise_of_albion = {
+		icon = mission_build_up_to_force_limit
+		position = 4
+		required_missions = {
+			albion_the_spoils_of_war
+			albion_to_the_victor
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
+	}
+}
+
+#albion 4
+
+albion_minor_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		culture_group = albionise_group
+	}
+	albion_conquer_east = {
+		icon = mission_teutonic_lancer
+		position = 2
+		required_missions = {
+			albion_rally_the_clans
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = toulenii_area
+				area = neuland_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			neuland_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			toulenii_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			plain_of_battles_area = {
+				limit = {
+					NOT = {
+						is_core = ROOT
+					}
+					NOT = {
+						owned_by = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			lost_valley_area = {
+				limit = {
+					NOT = {
+						is_core = ROOT
+					}
+					NOT = {
+						owned_by = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	albion_the_spoils_of_war = {
+		icon = mission_unite_home_region
+		position = 3
+		required_missions = {
+			albion_conquer_east
+			albion_conquer_north
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
+	}
+	albion_forge_of_the_old_ones = {
+		icon = mission_lizardmen_religion
+		position = 4
+		required_missions = {
+			albion_the_spoils_of_war
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
+	}
+}
+
+#albion 5
+
+albion_minor_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		culture_group = albionise_group
+	}
+	albion_conquer_north = {
+		icon = mission_build_up_to_force_limit
+		position = 2
+		required_missions = {
+			albion_rally_the_clans
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = plain_of_battles_area
+				area = lost_valley_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			plain_of_battles_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			lost_valley_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			neuland_area = {
+				limit = {
+					NOT = {
+						is_core = ROOT
+					}
+					NOT = {
+						owned_by = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			toulenii_area = {
+				limit = {
+					NOT = {
+						is_core = ROOT
+					}
+					NOT = {
+						owned_by = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	albion_the_citadel_of_lead = {
+		icon = mission_chaos_religion
+		position = 4
+		required_missions = {
+			albion_the_spoils_of_war
+		}
+		provinces_to_highlight = {
+			province_id = 4369
+		}
+		trigger = {
+		}
+		effect = {
+		}
+	}
+}
