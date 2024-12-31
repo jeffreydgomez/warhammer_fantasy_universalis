@@ -1,5 +1,5 @@
 ########################################
-# Events for vampires
+# Events for Cathay
 ########################################
 
 namespace = cathay_events
@@ -14,21 +14,44 @@ country_event = {
 	desc = cathay_events.0.d 
 	picture = SHOGUNATE_AUTHORITY_INCIDENT_eventPicture
 	
-	fire_only_once = yes
-	is_triggered_only = yes 
-		
+#	fire_only_once = yes
+	is_triggered_only = yes
+
 	trigger = {
-		NOT = {
-			is_year = 2503
+		OR = {
+			tag = I25
+			is_subject_of = I25
 		}
-		tag = I25
+
 	}
+		
+#	trigger = {
+#		NOT = {
+#			is_year = 2503
+#		}
+#		tag = I25
+#	}
 
 	option = { 
 		ai_chance = { factor = 100 }
 		name = cathay_events.0.a 
 		trigger = { }
-		
+		change_estate_land_share = {
+	    	estate = estate_nobles
+	    	share = 10
+		}
+		change_estate_land_share = {
+	    	estate = estate_church
+	    	share = 10
+		}
+		change_estate_land_share = {
+	    	estate = estate_burghers
+	    	share = 10
+		}
+		change_estate_land_share = {
+	    	estate = estate_eunuchs
+	    	share = 10
+		}
 	}
 }
 
