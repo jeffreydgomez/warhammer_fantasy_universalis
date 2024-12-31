@@ -22,7 +22,8 @@ country_event = {
 		is_at_war = yes
 		any_war_enemy_country = {
 			NOT = { is_enemy = ROOT }
-			total_development = ROOT
+			NOT = { has_been_eclipsed_by = ROOT }
+			NOT = { has_eclipsed = ROOT }
 			military_strength = {
 				who = ROOT
 				value = 1.0
@@ -40,7 +41,8 @@ country_event = {
 		random_war_enemy_country = {
 			limit = {
 				NOT = { is_enemy = ROOT }
-				total_development = ROOT
+				NOT = { has_been_eclipsed_by = ROOT }
+				NOT = { has_eclipsed = ROOT }
 				military_strength = {
 					who = ROOT
 					value = 1.0
@@ -48,6 +50,10 @@ country_event = {
 			}
 			ROOT = {
 				add_rival = PREV
+			}
+			add_opinion = {
+			    who = ROOT
+			    modifier = they_grudged_us
 			}
 		}
 	}
@@ -62,5 +68,67 @@ country_event = {
 	}
 }
 
+### Grudge from Afar
+
+country_event = { 
+	id = dwarf_events.1
+	title = dwarf_events.1.t 
+	desc = dwarf_events.1.d 
+	picture = muslimgfx_BIG_BOOK_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = no
+		
+	trigger = {
+		culture_group = dwarf_group
+		any_country = {
+			NOT = { is_enemy = ROOT }
+			capital_scope = { has_discovered = ROOT }
+			NOT = { has_been_eclipsed_by = ROOT }
+			NOT = { has_eclipsed = ROOT }
+			military_strength = {
+				who = ROOT
+				value = 1.0
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 200
+	}
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = dwarf_events.1.a 
+		random_country = {
+			limit = {
+				NOT = { is_enemy = ROOT }
+				capital_scope = { has_discovered = ROOT }
+				NOT = { has_been_eclipsed_by = ROOT }
+				NOT = { has_eclipsed = ROOT }
+				military_strength = {
+					who = ROOT
+					value = 1.0
+				}
+			}
+			ROOT = {
+				add_rival = PREV
+			}
+			add_opinion = {
+			    who = ROOT
+			    modifier = they_grudged_us
+			}
+		}
+	}
+
+	option = { 
+		ai_chance = { factor = 5 }
+		name = dwarf_events.1.b 
+
+		add_prestige = -10
+		add_legitimacy = -5
+		add_devotion = -5	
+	}
+}
 
 
