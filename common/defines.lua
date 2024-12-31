@@ -224,7 +224,7 @@ NDiplomacy = {
 
 	AE_OTHER_CONTINENT = 10,
 	AE_SAME_CULTURE = 0.5,
-	AE_SAME_CULTURE_GROUP = 0.25,
+	AE_SAME_CULTURE_GROUP = 0.5,
 	AE_INFIDEL_CONQUEST = 0.25, 		-- different religion group conquered same religion province
 	AE_SAME_RELIGION = 0.5,
 	AE_SAME_RELIGION_GROUP = 0.0,
@@ -1858,9 +1858,9 @@ NAI = {
 
 	PEACE_TERMS_PROVINCE_IMPERIAL_LIBERATION_MULT = 0.25, --AI Emperor's desire for a province is multiplied by this if this is an Imperial Liberation CB war.
 	PEACE_TERMS_PROVINCE_NO_CB_MULT = 0.5, -- AI desire for a province is multiplied by this if it doesn't have a valid cb for it (only used when annexing, not applied to cores)
-	PEACE_TERMS_PROVINCE_CORE_MULT = 3.0, -- AI desire for a province is multiplied by this if it has a core on it
+	PEACE_TERMS_PROVINCE_CORE_MULT = 4.0, -- AI desire for a province is multiplied by this if it has a core on it
 	PEACE_TERMS_PROVINCE_WARGOAL_MULT = 2.0, -- AI desire for a province is multiplied by this if it is the wargoal
-	PEACE_TERMS_PROVINCE_CLAIM_MULT = 2.0, -- AI desire for a province is multiplied by this if it has a claim on it
+	PEACE_TERMS_PROVINCE_CLAIM_MULT = 4.0, -- AI desire for a province is multiplied by this if it has a claim on it WAR THIS IS CHANGED FROM 2.0
 	PEACE_TERMS_PROVINCE_NOT_CULTURE_MULT = 0.75, -- AI desire for a province is multiplied by this if it is not the same culture
 	PEACE_TERMS_PROVINCE_VASSAL_MULT = 0.75, -- AI desire for a province is multiplied by this if it would go to their vassal instead of themselves
 	PEACE_TERMS_PROVINCE_REAL_ADJACENT_MULT = 0.5, -- AI desire for a province is increased by this multiplier for each owned adjacent province

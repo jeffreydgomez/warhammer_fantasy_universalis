@@ -1,0 +1,134 @@
+########################################
+# Events for Elves
+########################################
+
+namespace = asur_events
+normal_or_historical_nations = yes
+
+
+### Ulthuan for the Asur
+
+country_event = { 
+	id = asur_events.0
+	title = asur_events.0.t 
+	desc = asur_events.0.d 
+	picture = NUSANTARA_THRONE_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = no 
+		
+	trigger = {
+		culture_group = asur_group
+		is_at_war = no
+		capital_scope = { superregion = ulthuan_superregion }
+		any_country = {
+			NOT = { culture_group = asur_group }
+			NOT = { religion = ROOT }
+			NOT = { truce_with = ROOT }
+			ROOT = {
+				NOT = {
+					has_opinion = {
+						who = PREV
+						value = 0
+					}
+				}
+			}
+			provinces_on_capital_continent_of = ROOT
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 1
+	}
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = asur_events.0.a 
+		random_country = {
+			limit = {
+				NOT = { culture_group = asur_group }
+				NOT = { religion = ROOT }
+				NOT = { truce_with = ROOT }
+				ROOT = {
+					NOT = {
+						has_opinion = {
+							who = PREV
+							value = 0
+						}
+					}
+				}
+				provinces_on_capital_continent_of = ROOT
+			}
+			ROOT = {
+				declare_war_with_cb = {
+				    who = PREV
+				    casus_belli = cb_super_badboy
+				}
+			}
+		}
+		add_prestige = 25
+	}
+
+	option = { 
+		ai_chance = { factor = 15 }
+		name = asur_events.0.b 
+
+		add_prestige = -50
+		add_legitimacy = -25
+		add_devotion = -25
+		add_republican_tradition = -15
+	}
+
+
+	option = { 
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 100
+				has_matching_religion = H12
+			}
+		}
+		name = asur_events.0.c
+		trigger = {
+			any_country = {
+				tag = H12
+				NOT = { culture_group = asur_group }
+				NOT = { religion = ROOT }
+				NOT = { truce_with = ROOT }
+				ROOT = {
+					NOT = {
+						has_opinion = {
+							who = PREV
+							value = 0
+						}
+					}
+				}
+				provinces_on_capital_continent_of = ROOT
+			}			
+		}
+		random_country = {
+			limit = {
+				tag = H12
+				NOT = { culture_group = asur_group }
+				NOT = { religion = ROOT }
+				NOT = { truce_with = ROOT }
+				ROOT = {
+					NOT = {
+						has_opinion = {
+							who = PREV
+							value = 0
+						}
+					}
+				}
+				provinces_on_capital_continent_of = ROOT
+			}
+			create_subject = {
+			    subject_type = dominion
+			    subject = ROOT
+			}
+		}
+	}
+}
+
+
+

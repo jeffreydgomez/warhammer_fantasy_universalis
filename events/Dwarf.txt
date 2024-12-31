@@ -1,0 +1,66 @@
+########################################
+# Events for Dwarfs
+########################################
+
+namespace = dwarf_events
+normal_or_historical_nations = yes
+
+
+### War Grudge
+
+country_event = { 
+	id = dwarf_events.0
+	title = dwarf_events.0.t 
+	desc = dwarf_events.0.d 
+	picture = muslimgfx_BIG_BOOK_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = no 
+		
+	trigger = {
+		culture_group = dwarf_group
+		is_at_war = yes
+		any_war_enemy_country = {
+			NOT = { is_enemy = ROOT }
+			total_development = ROOT
+			military_strength = {
+				who = ROOT
+				value = 1.0
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 12
+	}
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = dwarf_events.0.a 
+		random_war_enemy_country = {
+			limit = {
+				NOT = { is_enemy = ROOT }
+				total_development = ROOT
+				military_strength = {
+					who = ROOT
+					value = 1.0
+				}
+			}
+			ROOT = {
+				add_rival = PREV
+			}
+		}
+	}
+
+	option = { 
+		ai_chance = { factor = 5 }
+		name = dwarf_events.0.b 
+
+		add_prestige = -25
+		add_legitimacy = -10
+		add_devotion = -10	
+	}
+}
+
+
+
