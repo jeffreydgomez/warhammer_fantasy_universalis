@@ -4,7 +4,9 @@
 country_decisions = {
 
 	lets_raid_decision = {
-		potential = { NOT = { has_country_modifier = lets_raid_modifier } }
+		potential = {
+			NOT = { has_country_modifier = lets_raid_modifier }
+		}
 		allow = { always = yes }
 		color = { 125 0 0 }
 		effect = {
@@ -15,27 +17,53 @@ country_decisions = {
 		}
 		ai_will_do = {
 			factor = 1
+
+# Won't raid while at peace
 			modifier = {
 			 	factor = 0
-			 	is_subject = yes
+			 	is_at_war = no
+			}
+
+# won't raid if an order nation
+
+			modifier = {
+			 	factor = 0
+			 	NOT = { has_country_modifier = destruction_nation }
+			}
+
+# Won't raid as long as long as they aren't either a war attacker leader or defender leader
+# Make this so it's only if they are in war with player
+			modifier = {
+			 	factor = 0
+			 	NOT = {
+			 		OR = {
+						is_in_war = {
+				    		attacker_leader = ROOT
+						}
+						is_in_war = {
+				    		defender_leader = ROOT
+						}
+					}
+				}
 			}
 		}
 	}
 
 
 	lets_not_raid_decision = {
-		potential = { has_country_modifier = lets_raid_modifier }
-		allow = { always = yes }
+		potential = {
+			has_country_modifier = lets_raid_modifier
+		}
+		allow = {
+			is_at_war = no
+		}
 		color = { 125 0 0 }
 		effect = {
 			remove_country_modifier = lets_raid_modifier
 		}
 		ai_will_do = {
-			factor = 1
-			modifier = {
-			 	factor = 0
-			 	is_subject = no
-			}
+			factor = 10
 		}
 	}
 }
+
