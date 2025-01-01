@@ -31,20 +31,29 @@ country_decisions = {
 			 	NOT = { has_country_modifier = destruction_nation }
 			}
 
-# Won't raid as long as long as they aren't either a war attacker leader or defender leader
-# Make this so it's only if they are in war with player
+# Won't raid if on the same side of a war as a player
 			modifier = {
 			 	factor = 0
-			 	NOT = {
-			 		OR = {
-						is_in_war = {
-				    		attacker_leader = ROOT
-						}
-						is_in_war = {
-				    		defender_leader = ROOT
-						}
+
+			 	any_country = {
+			 		was_player = yes
+			 		has_opinion_modifier = {
+						who = ROOT
+						modifier = in_war_together
 					}
-				}
+			 	}
+
+#			 	NOT = {
+#			 		OR = {
+#						is_in_war = {
+#				    		attacker_leader = ROOT
+#						}
+#						is_in_war = {
+#				    		defender_leader = ROOT
+#						}
+#					}
+#				}
+
 			}
 		}
 	}
