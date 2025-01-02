@@ -18,45 +18,15 @@ country_decisions = {
 		ai_will_do = {
 			factor = 1
 
-# Won't raid while at peace
-			modifier = {
-			 	factor = 0
-			 	is_at_war = no
-			}
-
-# won't raid if an order nation
+# won't raid if an order or neutral nation
 
 			modifier = {
 			 	factor = 0
 			 	NOT = { has_country_modifier = destruction_nation }
 			}
-
-# Won't raid if on the same side of a war as a player
-			modifier = {
-			 	factor = 0
-
-			 	any_country = {
-			 		was_player = yes
-			 		has_opinion_modifier = {
-						who = ROOT
-						modifier = in_war_together
-					}
-			 	}
-
-#			 	NOT = {
-#			 		OR = {
-#						is_in_war = {
-#				    		attacker_leader = ROOT
-#						}
-#						is_in_war = {
-#				    		defender_leader = ROOT
-#						}
-#					}
-#				}
-
-			}
 		}
 	}
+
 
 
 	lets_not_raid_decision = {
@@ -67,12 +37,20 @@ country_decisions = {
 			is_at_war = no
 		}
 		color = { 125 0 0 }
+		
 		effect = {
 			remove_country_modifier = lets_raid_modifier
 		}
+
+
 		ai_will_do = {
-			factor = 10
+			factor = 1
+			modifier = {
+			 	factor = 0
+			 	has_country_modifier = destruction_nation
+			}
 		}
 	}
+
 }
 
