@@ -43,7 +43,7 @@ province_event = {
 ### Increases the chance if it's a player
 		modifier = {
 			factor = 0.1
-			owner = { was_player = yes }
+			owner = { ai = no }
 		}
 
 
@@ -379,6 +379,11 @@ province_event = {
 			}
 
 			add_reform_center = chaos_undivided_religion
+
+			add_province_modifier = { 
+			    name = chaos_gate_defenses
+			    duration = -1  
+			}
 
 			save_global_event_target_as = original_everchosen_country
 
@@ -1231,7 +1236,19 @@ country_event = {
 		}
 	}
 
-
+## Fully Get Eaten
+	option = {
+		name = submit_to_everchosen.1.option_4
+		ai_chance = { factor = 1000 }
+		trigger = {
+			NOT = { total_development = 300 }
+			ai = yes
+		}
+		random_country = { 
+			limit = { has_reform = everchosen_reform }
+			inherit = ROOT
+		}
+	}
 }
 
 

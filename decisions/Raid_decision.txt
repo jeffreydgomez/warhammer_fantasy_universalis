@@ -4,7 +4,9 @@
 country_decisions = {
 
 	lets_raid_decision = {
-		potential = { NOT = { has_country_modifier = lets_raid_modifier } }
+		potential = {
+			NOT = { has_country_modifier = lets_raid_modifier }
+		}
 		allow = { always = yes }
 		color = { 125 0 0 }
 		effect = {
@@ -15,27 +17,40 @@ country_decisions = {
 		}
 		ai_will_do = {
 			factor = 1
+
+# won't raid if an order or neutral nation
+
 			modifier = {
 			 	factor = 0
-			 	is_subject = yes
+			 	NOT = { has_country_modifier = destruction_nation }
 			}
 		}
 	}
 
 
+
 	lets_not_raid_decision = {
-		potential = { has_country_modifier = lets_raid_modifier }
-		allow = { always = yes }
+		potential = {
+			has_country_modifier = lets_raid_modifier
+		}
+		allow = {
+			is_at_war = no
+		}
 		color = { 125 0 0 }
+		
 		effect = {
 			remove_country_modifier = lets_raid_modifier
 		}
+
+
 		ai_will_do = {
 			factor = 1
 			modifier = {
 			 	factor = 0
-			 	is_subject = no
+			 	has_country_modifier = destruction_nation
 			}
 		}
 	}
+
 }
+
