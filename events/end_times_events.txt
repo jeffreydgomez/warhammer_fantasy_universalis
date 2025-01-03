@@ -366,8 +366,16 @@ province_event = {
 
 				change_religion = chaos_undivided_religion
 
-				add_prestige = 50
-				add_stability = 2
+				add_prestige = 100
+				add_stability = 6
+
+				add_adm_power = 999
+				add_dip_power = 999
+				add_mil_power = 999
+
+				add_adm_tech = 4
+				add_dip_tech = 4
+				add_mil_tech = 4
 
 				change_adm = 6
 				change_dip = 6
@@ -777,6 +785,7 @@ country_event = {
 	desc = end_times_events.2000.d
 	picture = FAILED_REVOLUTION_eventPicture
 	is_triggered_only = yes
+	fire_only_once = yes
 	major = no
 	hidden = yes
 	immediate = {
@@ -1271,6 +1280,9 @@ country_event = {
 	trigger = {
 		has_reform = everchosen_reform
 		NOT = { is_at_war = yes }
+		any_neighbor_country = {
+			total_development = 1
+		}
 	}
 
 	mean_time_to_happen = { months = 6 }
@@ -1393,37 +1405,16 @@ country_event = {
 
 	option = {
 		name = everchosen_events.1.option_4
-		ai_chance = { factor = 10000 }
+		ai_chance = { factor = 1 }
 		trigger = {
 			any_neighbor_country = {
-				NOT = { is_subject_of = root }
-				NOT = { overlord_of = root }
-				NOT = { alliance_with = root }
-				NOT = { ROOT = { truce_with = prev } }
-				ROOT = {
-					army_strength = {
-						who = prev
-						value = 4.00
-					}
-				}
+				total_development = 1
 			}
 		}
+		
 		add_yearly_manpower = 0.5
 
 		random_neighbor_country = {
-			LIMIT = {
-				NOT = { is_subject_of = root }
-				NOT = { overlord_of = root }
-				NOT = { alliance_with = root }
-				NOT = { ROOT = { truce_with = prev } }
-				ROOT = {
-					army_strength = {
-						who = prev
-						value = 4.00
-					}
-				}
-			}
-
 			ROOT = {
 				declare_war_with_cb = {
 		  			who = PREV
