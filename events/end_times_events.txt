@@ -59,7 +59,15 @@ province_event = {
 			religion = hashut
 		}
 
-### ALbion is basically impossible
+### Unless Hashut is a player
+		modifier = {
+			factor = .04
+			religion = hashut
+			owner = { ai = no }
+		}
+
+
+### Albion is basically impossible
 		modifier = {
 			factor = 1000
 			OR = {
@@ -68,6 +76,7 @@ province_event = {
 				island = yes
 				province_is_on_an_island = yes
 			}
+			owner = { ai = yes }
 		}
 
 
@@ -404,7 +413,162 @@ province_event = {
 					}
 				}
 
+### Player based Buffs
+
+
+				if = {
+					limit = {
+						calc_true_if = {
+							all_country = {
+								ai = no
+								NOT = { religion_group = ruinous_powers_denominations }
+							}
+							amount = 10
+						}
+					}
+					add_country_modifier = { 
+					    name = everchosen_buff_10
+					    duration = -1  
+					}
+				} else_if = {
+					limit = {
+						calc_true_if = {
+							all_country = {
+								ai = no
+								NOT = { religion_group = ruinous_powers_denominations }
+							}
+							amount = 9
+						}
+					}
+					add_country_modifier = { 
+					    name = everchosen_buff_9
+					    duration = -1  
+					}
+				} else_if = {
+					limit = {
+						calc_true_if = {
+							all_country = {
+								ai = no
+								NOT = { religion_group = ruinous_powers_denominations }
+							}
+							amount = 8
+						}
+					}
+					add_country_modifier = { 
+					    name = everchosen_buff_8
+					    duration = -1  
+					}
+				} else_if = {
+					limit = {
+						calc_true_if = {
+							all_country = {
+								ai = no
+								NOT = { religion_group = ruinous_powers_denominations }
+							}
+							amount = 7
+						}
+					}
+					add_country_modifier = { 
+					    name = everchosen_buff_7
+					    duration = -1  
+					}
+				} else_if = {
+					limit = {
+						calc_true_if = {
+							all_country = {
+								ai = no
+								NOT = { religion_group = ruinous_powers_denominations }
+							}
+							amount = 6
+						}
+					}
+					add_country_modifier = { 
+					    name = everchosen_buff_6
+					    duration = -1  
+					}
+				} else_if = {
+					limit = {
+						calc_true_if = {
+							all_country = {
+								ai = no
+								NOT = { religion_group = ruinous_powers_denominations }
+							}
+							amount = 5
+						}
+					}
+					add_country_modifier = { 
+					    name = everchosen_buff_5
+					    duration = -1  
+					}
+				} else_if = {
+					limit = {
+						calc_true_if = {
+							all_country = {
+								ai = no
+								NOT = { religion_group = ruinous_powers_denominations }
+							}
+							amount = 4
+						}
+					}
+					add_country_modifier = { 
+					    name = everchosen_buff_4
+					    duration = -1  
+					}
+				} else_if = {
+					limit = {
+						calc_true_if = {
+							all_country = {
+								ai = no
+								NOT = { religion_group = ruinous_powers_denominations }
+							}
+							amount = 3
+						}
+					}
+					add_country_modifier = { 
+					    name = everchosen_buff_3
+					    duration = -1  
+					}
+				} else_if = {
+					limit = {
+						calc_true_if = {
+							all_country = {
+								ai = no
+								NOT = { religion_group = ruinous_powers_denominations }
+							}
+							amount = 2
+						}
+					}
+					add_country_modifier = { 
+					    name = everchosen_buff_2
+					    duration = -1  
+					}
+				} else_if = {
+					limit = {
+						calc_true_if = {
+							all_country = {
+								ai = no
+								NOT = { religion_group = ruinous_powers_denominations }
+							}
+							amount = 1
+						}
+					}
+					add_country_modifier = { 
+					    name = everchosen_buff_1
+					    duration = -1  
+					}
+				} 
+
+
+
+###
+
 			}
+
+
+
+
+
+
 
 			add_reform_center = chaos_undivided_religion
 
@@ -774,7 +938,7 @@ country_event = {
 		all_province = {
 			OR = {
 				is_reformation_center = no
-				NOT = { religion_group = chaos_undivided_religion }
+#				NOT = { religion_group = chaos_undivided_religion } # Is this broken
 			}
 		}
 	}
@@ -1578,52 +1742,57 @@ country_event = {
 }
 
 
-#### OPEN ANOTHER CHAOS GATE - But this isn't working
+## Everchosen gets everybody mad at him
 
-#country_event = {
-#	id = everchosen_events.2
-#	title = everchosen_events.2.t
-#	desc = everchosen_events.2.d
-#	picture = ARTWORK_eventPicture
-#	
-#	is_triggered_only = no
-#	
-#	trigger = {
-#		any_owned_province = {
-#			is_reformation_center = no
-#			fort_level = 1
-#			religion = chaos_undivided_religion
-#		}
-#		has_reform = everchosen_reform
-#	}
-#
-#	mean_time_to_happen = { months = 24 }
-#
-### Open One here?
-#	option = {
-#		name = everchosen_events.2.option_1
-#		ai_chance = { factor = 5 }
-#		random_owned_province = {
-#			limit = {
-#				is_reformation_center = no
-#				fort_level = 1
-#				religion = chaos_undivided_religion
-#			}
-#			add_reform_center = chaos_undivided_religion
-#			add_devastation = 100
-#		}
-#	}
-#
-### Better Not
-#	option = {
-#		name = everchosen_events.2.option_4
-#		ai_chance = { factor = 1 }
-#		add_adm_power = 50
-#		add_dip_power = 50
-#		add_mil_power = 50
-#	}
-#}
+country_event = {
+	id = everchosen_events.4
+	title = everchosen_events.4.t
+	desc = everchosen_events.4.d
+	picture = TRADEGOODS_eventPicture
+	
+	hidden = yes
+
+	fire_only_once = no
+
+	trigger = {
+		has_reform = everchosen_reform
+	}
+
+	mean_time_to_happen = {
+		months = 12
+	}
+	
+	option = {
+		name = everchosen_events.3.a
+
+		every_country = {
+		    limit = {
+		        not = { religion_group = ruinous_powers_denominations }
+		        total_development = 200
+		    }
+
+		    add_aggressive_expansion = {
+				who = ROOT
+				value = 5
+				apply_calc = no
+			}
+
+		}
 
 
+		every_country = {
+		    limit = {
+		        religion_group = ruinous_powers_denominations
+		    }
 
+		    add_aggressive_expansion = {
+				who = ROOT
+				value = -1000
+				apply_calc = no
+			}
+
+		}
+
+	}
+}
 
