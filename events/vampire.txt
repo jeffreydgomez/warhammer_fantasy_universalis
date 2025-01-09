@@ -233,3 +233,50 @@ country_event = {
 
 	}
 }
+
+
+
+### Mousilion Intro Event
+
+#Intro Event
+country_event = { 
+	id = vampire_events.2
+	title = vampire_events.2.t 
+	desc = vampire_events.2.d 
+	picture = IMPALED_SOLDIERS_eventPicture
+	
+	fire_only_once = yes
+	is_triggered_only = yes 
+		
+	trigger = {
+		NOT = {
+			is_year = 2503
+		}
+		tag = A20
+	}
+
+	option = {
+		ai_chance = { factor = 100 }
+		name = vampire_events.2.a 
+		trigger = { }
+		
+		every_country = {
+			limit = {
+				culture_group = bretonnian_group
+				has_country_modifier = order_nation
+			}
+
+			add_opinion = {
+			    who = ROOT
+			    modifier = diplomatic_tolerance
+			}
+
+			ROOT = {
+				add_opinion = {
+				    who = PREV
+				    modifier = diplomatic_tolerance
+				}
+			}
+		}
+	}
+}

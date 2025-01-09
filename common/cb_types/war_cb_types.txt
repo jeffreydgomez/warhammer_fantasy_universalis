@@ -98,35 +98,36 @@ cb_civ_vs_monster = {
 
 ### Racial Unification
 
-cb_war_racial_unification = {
-	valid_for_subject = no
+#cb_war_racial_unification = {
+#	valid_for_subject = no
+#
+#	prerequisites_self = {
+#		NOT = { is_subject_of_type = dominion }
+#	}
+#
+#	prerequisites = {
+#		OR = {
+#			technology_group = FROM
+#			religion = FROM
+#			culture_group = FROM
+#		}
+#		NOT = { is_subject_of = FROM }		
+#		NOT = { bretonnian_dukedom_subject = 1 }
+#
+#	}
+#
+#	war_goal = force_dominion_wargoal
+#
+#	attacker_disabled_po = {
+#		po_demand_provinces
+#		po_revoke_cores
+#		po_release_vassals
+#		po_release_annexed
+#		po_return_cores
+#		po_transfer_vassals
+#	}
+#}
 
-	prerequisites_self = {
-		NOT = { is_subject_of_type = dominion }
-	}
-
-	prerequisites = {
-		OR = {
-			technology_group = FROM
-			religion = FROM
-			culture_group = FROM
-		}
-		NOT = { is_subject_of = FROM }		
-		NOT = { bretonnian_dukedom_subject = 1 }
-
-	}
-
-	war_goal = force_dominion_wargoal
-
-	attacker_disabled_po = {
-		po_demand_provinces
-		po_revoke_cores
-		po_release_vassals
-		po_release_annexed
-		po_return_cores
-		po_transfer_vassals
-	}
-}
 
 
 cb_war_racial_raiding = {
@@ -144,7 +145,6 @@ cb_war_racial_raiding = {
 	attacker_disabled_po = {
 		po_demand_provinces
 		po_revoke_cores
-		po_release_vassals
 		po_release_annexed
 		po_return_cores
 		po_become_vassal
@@ -182,4 +182,15 @@ cb_war_end_end_times = {
 	}
 }	
 
+cb_war_cultural_unification_take = {
+	valid_for_subject = yes
 
+	prerequisites = {
+		FROM = {
+			any_owned_province = {
+				culture_group = ROOT
+			}
+		}
+	}
+	war_goal = cultural_unification_wargoal
+}

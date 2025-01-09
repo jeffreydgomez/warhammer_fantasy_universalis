@@ -23,7 +23,6 @@ country_event = {
 		capital_scope = { superregion = ulthuan_superregion }
 		any_country = {
 			NOT = { culture_group = asur_group }
-			NOT = { religion = ROOT }
 			NOT = { truce_with = ROOT }
 			ROOT = {
 				NOT = {
@@ -41,13 +40,16 @@ country_event = {
 		months = 1
 	}
 
+
+## Declare War
 	option = { 
-		ai_chance = { factor = 100 }
+		ai_chance = {
+			factor = 100
+		}
 		name = asur_events.0.a 
 		random_country = {
 			limit = {
 				NOT = { culture_group = asur_group }
-				NOT = { religion = ROOT }
 				NOT = { truce_with = ROOT }
 				ROOT = {
 					NOT = {
@@ -62,7 +64,7 @@ country_event = {
 			ROOT = {
 				declare_war_with_cb = {
 				    who = PREV
-				    casus_belli = cb_super_badboy
+				    casus_belli = cb_war_cultural_unification_take
 				}
 			}
 		}
@@ -70,7 +72,19 @@ country_event = {
 	}
 
 	option = { 
-		ai_chance = { factor = 15 }
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 10
+				OR = {
+					NOT = { manpower_percentage = 0.10 }
+					is_at_war = yes
+					num_of_loans = 10
+					is_bankrupt = yes
+					NOT = { stability = -1 }
+				}
+			}
+		}
 		name = asur_events.0.b 
 
 		add_prestige = -50
@@ -80,48 +94,40 @@ country_event = {
 	}
 
 
+
+## Submit to Naggaroth
 	option = { 
 		ai_chance = {
 			factor = 1
 			modifier = {
-				factor = 100
+				factor = 50
+				H12 = { religion = cytharai }
 				has_matching_religion = H12
+			}
+			modifier = {
+				factor = 50
+				H12 = { 
+					ROOT = {
+						has_opinion = {
+							who = PREV
+							value = 150
+						}
+					}
+				}
 			}
 		}
 		name = asur_events.0.c
 		trigger = {
-			any_country = {
-				tag = H12
-				NOT = { culture_group = asur_group }
-				NOT = { religion = ROOT }
-				NOT = { truce_with = ROOT }
-				ROOT = {
-					NOT = {
-						has_opinion = {
-							who = PREV
-							value = 0
-						}
+			H12 = {
+				provinces_on_capital_continent_of = ROOT
+				NOT = {
+					ROOT = {
+						is_subject_of = PREV
 					}
 				}
-				provinces_on_capital_continent_of = ROOT
 			}			
 		}
-		random_country = {
-			limit = {
-				tag = H12
-				NOT = { culture_group = asur_group }
-				NOT = { religion = ROOT }
-				NOT = { truce_with = ROOT }
-				ROOT = {
-					NOT = {
-						has_opinion = {
-							who = PREV
-							value = 0
-						}
-					}
-				}
-				provinces_on_capital_continent_of = ROOT
-			}
+		H12 = {
 			create_subject = {
 			    subject_type = dominion
 			    subject = ROOT
