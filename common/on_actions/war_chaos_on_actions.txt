@@ -1,9 +1,9 @@
 ## KHORNE
 
 on_battle_won_country = {
-    ROOT = {
+    if = {
         limit = {
-            religion = khornate_religion
+            ROOT = { religion = khornate_religion }
         }
         ROOT =  {
             add_church_power = 5
@@ -74,5 +74,84 @@ on_mil_development = {
         ROOT = {
             owner = { add_church_power = 2 }
         }
+    }
+}
+
+## TZEENTCH 
+
+on_province_religion_converted = {
+    if = {
+        limit = {
+            ROOT = {
+                owner = { religion = tzeentchian_religion }
+            }
+        }
+        ROOT = {
+            owner = { add_church_power = 5 }
+        }
+    }
+}
+
+on_tech_taken = {
+    if = {
+        limit = {
+            ROOT = {
+                religion = tzeentchian_religion
+            }
+        }
+        ROOT = { 
+            country_event = { id = tzeentch_events.1 }
+        }
+    }
+}
+
+## SLAANESH
+
+on_create_vassal = {
+    if = {
+        limit = {
+            FROM = { religion = slaaneshi_religion }
+        }
+        FROM = { 
+            country_event = { id = slaanesh_events.1 }
+        }
+    }
+}
+
+on_alliance_created = {
+    if = {
+        limit = {
+            ROOT = {
+                religion = slaaneshi_religion
+            }
+        }
+        ROOT = { add_church_power = 10 }
+    }
+    if = {
+        limit = {
+            FROM = {
+                religion = slaaneshi_religion
+            }
+        }
+        FROM = { add_church_power = 10 }
+    }
+}
+
+on_royal_marriage  = {
+    if = {
+        limit = {
+            ROOT = {
+                religion = slaaneshi_religion
+            }
+        }
+        ROOT = { add_church_power = 10 }
+    }
+    if = {
+        limit = {
+            FROM = {
+                religion = slaaneshi_religion
+            }
+        }
+        FROM = { add_church_power = 10 }
     }
 }
