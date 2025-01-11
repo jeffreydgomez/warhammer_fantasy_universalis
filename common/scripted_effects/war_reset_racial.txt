@@ -1,0 +1,425 @@
+# Humans: imperial_group estalian_group bretonnian_group kislevite_group roppsmenn_group tilean_group norse_group norse_group albionise_group arabyan_group hung_group kurgan_group darkland_human_group amazon_group cathayan_cg indish_cg nipponese_cg
+# Non-human humans: halfling_group gnome_group
+# Undead Humans: nehekharan_group strigany_group nagashi_group (?) vampire_coast_cg
+
+# Greenskins: greenskins_group hobgoblin_group
+# Elves: asrai_group asur_group druchii_group
+# Beatmen: beastmen_group snakefolk_cg eastern_beastfolk_cg
+# Fimir: fimir_group
+# Dwarf: dwarf_group chaos_dwarf_group
+# Ogre: ogre_group
+# Skaven: skaven_group
+# Lizardfolk: lizardmen_group
+
+# undead religions: vampiric nagash_worship  nehekharan_pantheon (usually)
+
+war_reset_racial_modifiers = {
+
+	remove_country_modifier = human_administration
+	remove_country_modifier = human_military
+
+	remove_country_modifier = orcish_administration
+	remove_country_modifier = orcish_military
+
+	remove_country_modifier = dwarven_administration
+	remove_country_modifier = dwarven_military
+
+	remove_country_modifier = elven_administration
+	remove_country_modifier = elven_military
+
+	remove_country_modifier = lizardmen_administration
+	remove_country_modifier = lizardmen_military
+
+	remove_country_modifier = fimir_administration
+	remove_country_modifier = fimir_military
+
+	remove_country_modifier = ogre_administration
+	remove_country_modifier = ogre_military
+
+	remove_country_modifier = skaven_administration
+	remove_country_modifier = skaven_military
+
+	remove_country_modifier = beastfolk_administration
+	remove_country_modifier = beastfolk_military
+
+
+# Don't remove udnead these, because once you go undead, you can't go back
+
+#	remove_country_modifier = undead_administration
+#	remove_country_modifier = undead_military
+
+
+# Undead
+	if = {
+		limit = {
+			or = {
+				religion = vampiric
+				religion = nagash_worship
+				religion = nehekharan_pantheon
+			}
+		}
+		add_country_modifier = {
+			name = undead_administration
+			duration = -1
+		}
+		add_country_modifier = {
+			name = undead_military
+			duration = -1
+		}
+	}
+
+
+	if = {
+		limit = {
+			OR = {
+				culture_group = imperial_group
+				culture_group = estalian_group
+				culture_group = bretonnian_group
+				culture_group = kislevite_group
+				culture_group = roppsmenn_group
+				culture_group = tilean_group
+				culture_group = norse_group
+				culture_group = norse_group
+				culture_group = albionise_group
+				culture_group = arabyan_group
+				culture_group = hung_group
+				culture_group = kurgan_group
+				culture_group = darkland_human_group
+				culture_group = amazon_group
+				culture_group = cathayan_cg
+				culture_group = indish_cg
+				culture_group = nipponese_cg
+
+				culture_group = halfling_group
+				culture_group = gnome_group
+				culture_group = nehekharan_group
+				culture_group = strigany_group
+				culture_group = nagashi_group
+				culture_group = vampire_coast_cg
+			}
+		}
+
+		add_country_modifier = {
+			name = human_military
+			duration = -1
+		}
+		add_country_modifier = {
+			name = human_administration
+			duration = -1
+		}
+	}
+
+	else_if = {
+		limit = {
+			or = {
+				culture_group = greenskins_group
+				culture_group = hobgoblin_group
+			}
+		}
+		add_country_modifier = {
+			name = orcish_administration
+			duration = -1
+		}
+		add_country_modifier = {
+			name = orcish_military
+			duration = -1
+		}
+	}
+
+	#elves
+	else_if = {
+		limit = {
+			or = {
+				culture_group = asrai_group
+				culture_group = asur_group
+				culture_group = druchii_group
+			}
+		}
+		add_country_modifier = {
+			name = elven_administration
+			duration = -1
+		}
+		add_country_modifier = {
+			name = elven_military
+			duration = -1
+		}
+	}
+
+	#dwarfs
+	else_if = {
+		limit = {
+			or = {
+				culture_group = dwarf_group
+				culture_group = chaos_dwarf_group
+			}
+		}
+		add_country_modifier = {
+			name = dwarven_military
+			duration = -1
+		}
+		add_country_modifier = {
+			name = dwarven_administration
+			duration = -1
+		}
+	}
+
+	#fimir
+	else_if = {
+		limit = {
+			culture_group = fimir_group
+		}
+		add_country_modifier = {
+			name = fimir_administration
+			duration = -1
+		}
+		add_country_modifier = {
+			name = fimir_military
+			duration = -1
+		}
+	}
+
+	#ogre
+	else_if = {
+		limit = {
+			culture_group = ogre_group
+		}
+		add_country_modifier = {
+			name = ogre_administration
+			duration = -1
+		}
+		add_country_modifier = {
+			name = ogre_military
+			duration = -1
+		}
+	}
+
+	#skaven
+	else_if = {
+		limit = {
+			culture_group = skaven_group
+		}
+		add_country_modifier = {
+			name = skaven_administration
+			duration = -1
+		}
+		add_country_modifier = {
+			name = skaven_military
+			duration = -1
+		}
+	}
+
+	#Lizardmen
+	else_if = {
+		limit = {
+			culture_group = lizardmen_group
+		}
+		add_country_modifier = {
+			name = lizardmen_administration
+			duration = -1
+		}
+		add_country_modifier = {
+			name = lizardmen_military
+			duration = -1
+		}
+
+	}
+
+	#Beastfolk
+	else_if = {
+		limit = {
+			OR = {
+				culture_group = beastmen_group
+				culture_group = snakefolk_cg
+				culture_group = eastern_beastfolk_cg
+			}
+		}
+		add_country_modifier = {
+			name = beastfolk_administration
+			duration = -1
+		}
+		add_country_modifier = {
+			name = beastfolk_military
+			duration = -1
+		}
+	}
+
+### Get claims if you are an AI
+
+
+#### Climate modifiers
+
+
+   	every_owned_province = {
+    	remove_province_modifier = lizardfolk_mild_winter
+    	remove_province_modifier = lizardfolk_normal_winter
+    	remove_province_modifier = lizardfolk_severe_winter
+    	remove_province_modifier = lizardfolk_arctic
+    	remove_province_modifier = wood_elves_magical_forest
+    	remove_province_modifier = wood_elves_non_forest
+    	remove_province_modifier = fimir_marsh_modifier
+    	remove_province_modifier = undergrounder_underground
+    	remove_province_modifier = undergrounder_above_ground
+    	remove_province_modifier = surface_dweller_underground
+    }
+
+
+	if = {
+		limit = {
+			has_country_modifier = lizardmen_administration
+			NOT = { has_country_modifier = undead_administration }
+		}
+
+		every_owned_province = { 
+			limit = { has_climate = mild_winter }
+			add_permanent_province_modifier = { 
+			    name = lizardfolk_mild_winter
+			    duration = -1  
+			}
+		}
+
+		every_owned_province = { 
+			limit = { has_climate = normal_winter }
+			add_permanent_province_modifier = { 
+			    name = lizardfolk_normal_winter
+			    duration = -1  
+			}
+		}
+
+		every_owned_province = { 
+			limit = { has_climate = severe_winter }
+			add_permanent_province_modifier = { 
+			    name = lizardfolk_severe_winter
+			    duration = -1  
+			}
+		}
+
+		every_owned_province = { 
+			limit = { has_climate = arctic }
+			add_permanent_province_modifier = { 
+			    name = lizardfolk_arctic
+			    duration = -1  
+			}
+		}
+	}
+
+
+
+	else_if = {
+		limit = {
+			culture_group = asrai_group
+			NOT = { has_country_modifier = undead_administration }
+		}
+
+		every_owned_province = { 
+			limit = { has_terrain = magical_forest_terrain }
+			add_permanent_province_modifier = { 
+			    name = wood_elves_magical_forest
+			    duration = -1  
+			}
+		}
+
+		every_owned_province = { 
+			limit = {
+				NOT = { has_terrain = magical_forest_terrain }
+				NOT = { has_terrain = forest }
+				NOT = { has_terrain = jungle }
+				NOT = { has_terrain = woods }
+			}
+			add_permanent_province_modifier = { 
+			    name = wood_elves_non_forest
+			    duration = -1  
+			}
+		}
+	}
+
+	if = {
+		limit = {
+			has_country_modifier = fimir_military
+			NOT = { has_country_modifier = undead_administration }
+		}
+
+		every_owned_province = { 
+			limit = { has_terrain = marsh }
+			add_permanent_province_modifier = { 
+			    name = fimir_marsh_modifier
+			    duration = -1  
+			}
+		}
+	}
+
+	if = {
+		limit = {
+			or = {
+				has_country_modifier = dwarven_administration
+				has_country_modifier = skaven_administration
+			}
+			NOT = { has_country_modifier = undead_administration }
+			NOT = { culture_group = chaos_dwarf_group }
+		}
+
+		every_owned_province = { 
+			limit = {
+				OR = {
+					has_terrain = subterranean_city_terrain
+					has_terrain = subterranean_terrain
+					has_terrain = dwarf_karak
+					has_terrain = underway
+					has_terrain = great_maze
+					has_terrain = cavern
+					has_terrain = warren_city
+
+				}
+			}
+			add_permanent_province_modifier = { 
+			    name = undergrounder_underground
+			    duration = -1  
+			}
+		}
+
+		every_owned_province = { 
+			limit = {
+				NOT = { has_terrain = subterranean_city_terrain }
+				NOT = { has_terrain = subterranean_terrain }
+				NOT = { has_terrain = dwarf_karak }
+				NOT = { has_terrain = underway }
+				NOT = { has_terrain = great_maze }
+				NOT = { has_terrain = cavern }
+				NOT = { has_terrain = warren_city }
+			}
+			add_permanent_province_modifier = { 
+			    name = undergrounder_above_ground
+			    duration = -1  
+			}
+		}
+	}
+
+
+### Surface Dweller underground
+
+	else_if = {
+		limit = {
+			NOT = { has_country_modifier = dwarven_administration }
+			NOT = { has_country_modifier = skaven_administration }
+			NOT = { has_country_modifier = undead_administration }
+			NOT = { has_country_modifier = orcish_administration }
+		}
+
+		every_owned_province = { 
+			limit = {
+				OR = {
+					has_terrain = subterranean_city_terrain
+					has_terrain = subterranean_terrain
+					has_terrain = dwarf_karak
+					has_terrain = underway
+					has_terrain = great_maze
+					has_terrain = cavern
+					has_terrain = warren_city
+				}
+			}
+			add_permanent_province_modifier = { 
+			    name = surface_dweller_underground
+			    duration = -1  
+			}
+		}
+	}
+}

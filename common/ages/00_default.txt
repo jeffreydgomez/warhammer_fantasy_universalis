@@ -1,3 +1,6 @@
+
+# 7 spendor givers, 11 abilities
+
 age_of_discovery = {
 	start = 2500
 	
@@ -9,7 +12,8 @@ age_of_discovery = {
 	papacy = 1.0
 	
 
-	objectives = {
+	objectives = { 
+
 #		obj_discover_america = {
 #			allow = {
 #				capital_scope = {
@@ -29,22 +33,242 @@ age_of_discovery = {
 #					}
 #				}
 #		}
-#		obj_100_development = {
-#			allow = {
-#				capital_scope = {
-#					NOT = {
-#						continent = europe
-#						continent = asia
-#						continent = africa
-#					}
-#				}
-#			}
-#			total_development = 100
-#		}
-		
-		
-		
+
+
+## 1 Adjusted
+		obj_100_development = {
+			total_development = 100
+			OR = {
+				religion = vampiric
+				religion_group = ruinous_powers_denominations
+			}
+		}
+
+# 2 Moved
+		obj_convert_10_provinces = {
+			custom_trigger_tooltip = {
+				tooltip = obj_convert_10_provinces_tooltip
+				check_variable = { which = num_converted_religion value = 10 }
+			}
+		}
+
+# 3 Moved
+		obj_force_converted = {
+			custom_trigger_tooltip = {
+				tooltip = obj_force_converted_tooltip
+				has_country_flag = force_converted
+			}
+		}
+
+# 4
+		obj_renaissance = {
+	 		has_institution = renaissance
+	 		all_state_province = {
+	 			renaissance = 100
+	 		}
+		}
+
+# 5 Could Move
+		obj_many_vassals = {
+			allow = {
+				NOT = { religion_group = christian }
+			}
+			num_of_subjects = 4
+		}		
+
+# 6
+		obj_30_development_city = {
+			custom_trigger_tooltip = {
+				tooltip = obj_30_development_city_tooltip
+				any_owned_province = {
+					exclude_from_progress = {
+						is_core = ROOT
+						controlled_by = owner
+					}
+					development_discounting_tribal = 30
+				}
+			}
+		}
+
+#7 
+		obj_humiliate_rival = {
+			custom_trigger_tooltip = {
+				tooltip = obj_humiliate_rival_tooltip
+				has_country_flag = humiliated_rival
+			}
+		}
+	}		
 	
+	abilities = {
+
+ #1
+		ab_allow_feudal_de_jure_law = {
+			effect = {
+				custom_tooltip = feudal_de_jure_law
+				set_country_flag = feudal_de_jure_law
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+
+#2
+		ab_warscore_vs_religion = {
+			modifier = {
+				warscore_cost_vs_other_religion = -0.25
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+
+#3			
+		ab_institution_spread_from_true_faith = {
+			modifier = {
+				institution_spread_from_true_faith = 0.5
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+
+#4
+		ab_prestige_per_development_from_conversion = {
+			modifier = {
+				prestige_per_development_from_conversion = 0.3
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+
+#5
+		ab_free_war_taxes = {
+			modifier = {
+				war_taxes_cost_modifier = -1.0
+			}
+			ai_will_do = {
+				factor = 10
+			}	
+		}
+		
+
+#6
+		ab_colony_boost_development = {
+			modifier = {
+				colony_development_boost = 1
+			}
+			ai_will_do = {
+				factor = 10
+				modifier = {
+					factor = 0
+					NOT = { num_of_colonists = 1 }
+				}
+			}
+		}
+
+#7
+		ab_attack_bonus_in_capital_terrain = {
+			modifier = {
+				attack_bonus_in_capital_terrain = 1
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+
+### War Added
+
+#8
+		ab_more_favor_trust = {
+			modifier = {
+				monthly_favor_modifier = 0.50
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+
+#9
+		ab_more_religious_unity = {
+			allow = {
+				NOT = { religion = vampiric }
+				NOT = { religion_group = ruinous_powers_denominations }
+			}
+			modifier = {
+				religious_unity = 0.15
+			}
+			ai_will_do = {
+				factor = 0
+			}
+		}
+
+#10
+		ab_more_spy_power = {
+			allow = {
+				OR = {
+					religion = vampiric
+					religion_group = ruinous_powers_denominations
+				}
+			}
+			modifier = {
+				spy_offence = 0.75
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+
+#11
+		ab_more_spies = {
+			allow = {
+				OR = {
+					religion = vampiric
+					religion_group = ruinous_powers_denominations
+				}
+			}
+			modifier = {
+				diplomats = 1
+			}
+			ai_will_do = {
+				factor = 0
+			}
+		}
+	}
+}
+
+age_of_reformation = { # Objectives should be good
+	start = 2600
+	
+	can_start = {
+		is_institution_enabled = printing_press
+	}
+	
+	
+	religious_conflicts = yes
+	papacy = 1.25
+	
+	objectives = {
+
+# 1		
+		obj_tide_of_destruction = {	
+			OR = {
+				is_papal_controller = yes
+				has_government_power = {
+					mechanic_type = orc_fightiness_mechanic
+					power_type = orc_fightiness_power
+					value = 50
+				}
+			}
+		}
+
+# 2		
+		obj_unify_culture = {	
+			is_subject = no
+			has_unified_culture_group = yes
+		}
+
+# 3
 		obj_5_centers_of_trade = {
 			calc_true_if = {
 				all_owned_province = {
@@ -59,156 +283,21 @@ age_of_discovery = {
 			}
 		}
 
-		obj_30_development_city = {
-			custom_trigger_tooltip = {
-				tooltip = obj_30_development_city_tooltip
-				any_owned_province = {
-					exclude_from_progress = {
-						is_core = ROOT
-						controlled_by = owner
-					}
-					development_discounting_tribal = 30
-				}
-			}
-		}
-		
-		obj_renaissance = {
-	 		has_institution = renaissance
-	 		all_state_province = {
-	 			renaissance = 100
-	 		}
-		}
-		
-		obj_many_vassals = {
-			allow = {
-				NOT = { religion_group = christian }
-			}
-			vassal = 5
-		}		
-	
+# 4
 		obj_two_continents = {
 			num_of_continents = 2
 		}
 	
-		obj_humiliate_rival = {
-			custom_trigger_tooltip = {
-				tooltip = obj_humiliate_rival_tooltip
-				has_country_flag = humiliated_rival
-			}
-		}
-	}		
-	
-	abilities = {
-		ab_allow_feudal_de_jure_law = {
-			effect = {
-				custom_tooltip = feudal_de_jure_law
-				set_country_flag = feudal_de_jure_law
-			}
-			ai_will_do = {
-				factor = 10
-			}
-		}
-		
-		ab_justified_wars = {
-			modifier = {
-				ae_impact = -0.1
-			}
-			ai_will_do = {
-				factor = 10
-			}			
-		}
-		
-
-		ab_transfer_vassal_wargoal = {
-			modifier = {
-				can_transfer_vassal_wargoal = yes
-				can_chain_claim = yes
-			}
-			ai_will_do = {
-				factor = 10
-			}
-		}
-		
-		ab_free_war_taxes = {
-			modifier = {
-				war_taxes_cost_modifier = -1.0
-			}
-			ai_will_do = {
-				factor = 10
-			}	
-		}
-		
-
-		ab_cavalry_armies = {
-			modifier = {
-				cav_to_inf_ratio = 0.2
-			}
-			ai_will_do = {
-				factor = 10
-			}
-		}
-		ab_colony_boost_development = {
-			modifier = {
-				colony_development_boost = 1
-			}
-			ai_will_do = {
-				factor = 10
-				modifier = {
-					factor = 0
-					NOT = { num_of_colonists = 1 }
-				}
-			}
-		}
-		
-		ab_attack_bonus_in_capital_terrain = {
-			modifier = {
-				attack_bonus_in_capital_terrain = 1
-			}
-			ai_will_do = {
-				factor = 10
-			}
-		}
-
-	}
-}
-
-age_of_reformation = {
-	start = 2600
-	
-	can_start = {
-		is_institution_enabled = printing_press
-	}
-	
-	
-	religious_conflicts = yes
-	papacy = 1.25
-	
-	objectives = {		
+# 5
 		obj_humanism_religious = {
 			OR = {
 				full_idea_group = humanist_ideas
 				full_idea_group = religious_ideas
 			}
 		}
-		
-		obj_convert_10_provinces = {
-			custom_trigger_tooltip = {
-				tooltip = obj_convert_10_provinces_tooltip
-				check_variable = { which = num_converted_religion value = 10 }
-			}
-		}
-		
-		obj_colonial_empire = {
-			colony = 5
-		}
-		
-		obj_force_converted = {
-			custom_trigger_tooltip = {
-				tooltip = obj_force_converted_tooltip
-				has_country_flag = force_converted
-			}
-		}
-		
+
+
+# 6
 		obj_asian_trade = {
 			OR = {
 				trading_bonus = {
@@ -229,25 +318,63 @@ age_of_reformation = {
 				}
 			}
 		}
-		
-		obj_unify_culture = {	
-			is_subject = no
-			has_unified_culture_group = yes
+
+# 7 
+
+		obj_huge_capital = {
+			capital_scope = {
+				development = 50
+			}
 		}
+
 	}	
 	
 	
 	abilities = {	
-		ab_allow_religion_enforced = {
-			effect = {
-				custom_tooltip = religion_enforced_edict
-				set_country_flag = religion_enforced_edict
+
+
+#1
+		ab_justified_wars = {
+			modifier = {
+				ae_impact = -0.1
 			}
 			ai_will_do = {
-				factor = 0
+				factor = 10
+			}			
+		}
+		
+#2
+		ab_transfer_vassal_wargoal = {
+			modifier = {
+				can_transfer_vassal_wargoal = yes
+				can_chain_claim = yes
+			}
+			ai_will_do = {
+				factor = 10
 			}
 		}
-	
+#3
+
+		ab_cavalry_armies = {
+			modifier = {
+				cav_to_inf_ratio = 0.2
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}	
+
+#4
+		ab_mercenary_discipline = {
+			modifier = {
+				mercenary_discipline = 0.05
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+
+#5
 		ab_siege_blockades = {
 			modifier = {
 				siege_blockade_progress = 1
@@ -257,31 +384,13 @@ age_of_reformation = {
 				modifier = {
 					factor = 0
 					NOT = {
-							num_of_ports = 5
+						num_of_ports = 5
 					}
 				}
 
 			}
 		}
-
-		
-		ab_warscore_vs_religion = {
-			modifier = {
-				warscore_cost_vs_other_religion = -0.25
-			}
-			ai_will_do = {
-				factor = 10
-			}
-		}
-		
-		ab_mercenary_discipline = {
-			modifier = {
-				mercenary_discipline = 0.05
-			}
-			ai_will_do = {
-				factor = 10
-			}
-		}
+#6
 		ab_ship_power_propagation = {
 			modifier = {
 				ship_power_propagation = 0.2
@@ -290,25 +399,80 @@ age_of_reformation = {
 				factor = 10
 			}
 		}
-		
-		
-		ab_institution_spread_from_true_faith = {
+#7
+		ab_more_ships_can_fire = {
 			modifier = {
-				institution_spread_from_true_faith = 0.5
+				global_naval_engagement_modifier = 0.20
 			}
 			ai_will_do = {
 				factor = 10
 			}
 		}
 
-		ab_prestige_per_development_from_conversion = {
+## War Added
+
+#7
+		ab_cheaper_forts = {
+			allow = {
+				NOT = { has_country_modifier = orcish_military }
+				NOT = { has_country_modifier = skaven_military }
+			}
 			modifier = {
-				prestige_per_development_from_conversion = 0.3
+				fort_maintenance_modifier = -0.50
 			}
 			ai_will_do = {
 				factor = 10
 			}
 		}
+
+#8
+		ab_brutal_conquest = {
+			allow = {
+				OR = {
+					has_country_modifier = orcish_military
+					has_country_modifier = skaven_military
+				}
+			}
+			modifier = {
+				years_of_nationalism = -5
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+#9
+		ab_brutal_conversion = {
+			allow = {
+				OR = {
+					has_country_modifier = orcish_military
+					has_country_modifier = skaven_military
+				}
+			}
+			modifier = {
+				global_heathen_missionary_strength = 0.05
+				missionaries = 1
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+#10
+		ab_brutal_culture = {
+			allow = {
+				OR = {
+					has_country_modifier = orcish_military
+					has_country_modifier = skaven_military
+				}
+			}
+			modifier = {
+				culture_conversion_cost = -0.50
+				culture_conversion_time = -0.50
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+
 
 #		ab_spain_shock_tactics = {
 #			allow = {
@@ -400,45 +564,99 @@ age_of_absolutism = {
 	}
 		
 	objectives = {
-		obj_3_trade_companies = {
-			num_of_trade_companies = 3
+
+
+# 1
+		obj_war_with_everchosen = {
+			any_war_enemy_country = {
+				has_reform = everchosen_reform
+			}
 		}
-		
+
+# 2
+		obj_rare_trade_good = {
+			OR = {
+				trading_bonus = {
+					trade_goods = gromril
+					value = yes
+				}
+				trading_bonus = {
+					trade_goods = old_ones_relics
+					value = yes
+				}
+				trading_bonus = {
+					trade_goods = warpstone
+					value = yes
+				}
+			}
+		}
+
+# 3
 		obj_universities = {
 			num_of_owned_provinces_with = {
 				has_building = university 
 				value = 5 
 			}
 		}
-	
+
+# 4
 		obj_large_forcelimit = {
 			land_forcelimit = 200
 		}
-		
+
+# 5 
 		obj_90_absolutism = {
 			absolutism = 90
 		}
-		
-		obj_emperor_of_china = {
-			is_emperor_of_china = yes
-			imperial_mandate = 50
-		}
-		
+
+# 6
 		obj_cultures_accepted = {
 			num_accepted_cultures = 5
 		}
-		
-		obj_win_religious_war = {
-			custom_trigger_tooltip = {
-				tooltip = obj_religious_league_war_on_winning_side_tooltip
-				has_country_flag = religious_league_war_on_winning_side
+
+# 7
+		obj_emperor = {
+			OR = {	
+				is_emperor = yes
+				government_rank = 3
+				is_emperor_of_china = yes
 			}
-			
 		}
+
+
+### Need to Change these
+#		obj_win_religious_war = {
+#			custom_trigger_tooltip = {
+#				tooltip = obj_religious_league_war_on_winning_side_tooltip
+#				has_country_flag = religious_league_war_on_winning_side
+#			}	
+#		}
+#
+#		obj_emperor_of_china = {
+#			is_emperor_of_china = yes
+#			imperial_mandate = 50
+#		}
+#
+#		obj_3_trade_companies = {
+#			num_of_trade_companies = 3
+#		}
+
 	}	
 	
 	abilities = {
-	
+
+#1
+		ab_allow_religion_enforced = {
+			effect = {
+				custom_tooltip = religion_enforced_edict
+				set_country_flag = religion_enforced_edict
+			}
+			ai_will_do = {
+				factor = 0
+			}
+		}
+
+#2	
 		ab_allow_edict_of_absolutism = {
 			effect = {
 				custom_tooltip = edict_of_absolutism_tt
@@ -449,6 +667,7 @@ age_of_absolutism = {
 			}
 		}
 
+#3
 		ab_rival_change = {
 			modifier = {
 				rival_change_cost = -0.5
@@ -458,6 +677,7 @@ age_of_absolutism = {
 			}
 		}
 
+#4
 		ab_rival_border_fort = {
 			modifier = {
 				rival_border_fort_maintenance = -1.0
@@ -467,7 +687,7 @@ age_of_absolutism = {
 			}
 		}
 
-
+#5
 		ab_autonomy = {
 			modifier = {
 				autonomy_change_time = -0.5
@@ -477,7 +697,7 @@ age_of_absolutism = {
 			}
 		}
 
-
+#6
 		ab_harsh_treatment = {
 			modifier = {
 				harsh_treatment_cost = -0.5
@@ -487,7 +707,7 @@ age_of_absolutism = {
 			}
 		}
 
-	
+#7
 		ab_adm_efficiency = {
 			modifier = {
 				administrative_efficiency = 0.05
@@ -497,6 +717,7 @@ age_of_absolutism = {
 			}
 		}
 
+#8
 		ab_yearly_absolutism = {
 			modifier = {
 				yearly_absolutism = 1
@@ -505,7 +726,48 @@ age_of_absolutism = {
 				factor = 100
 			}
 		}
-	
+
+#9
+		ab_more_religious_unity = {
+			allow = {
+				NOT = { religion_group = ruinous_powers_denominations }
+			}
+			modifier = {
+				religious_unity = 0.15
+			}
+			ai_will_do = {
+				factor = 0
+			}
+		}
+
+#10
+
+		ab_hellcannons = {
+			allow = {
+				religion_group = ruinous_powers_denominations
+			}
+			modifier = {
+				artillery_levels_available_vs_fort = 3
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+
+#11
+
+		ab_chaos_hordes = {
+			allow = {
+				religion_group = ruinous_powers_denominations
+			}
+			modifier = {
+				manpower_recovery_speed = 0.33
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+
 	
 #		ab_french_absolutism = {
 #			allow = {

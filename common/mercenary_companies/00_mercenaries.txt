@@ -1,0 +1,2732 @@
+	########################################################################################################################
+	#	Global Mercenaries
+	########################################################################################################################
+
+#Regiment of Renown
+merc_regiment_of_renown = {
+regiments_per_development = 0.06
+    cost_modifier = 0.75 #75% of base cost. All local companies have this cost
+    cavalry_weight = 0.2
+    artillery_weight = 0
+    cavalry_cap = 6
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        NOT = {
+            religion_group = elven_denominations #Elves do not need more mercs
+        }
+    }
+    min_size = 5
+}
+#Dogs of War
+merc_dogs_of_war = {
+    regiments_per_development = 0.06
+    cost_modifier = 0.75 #75% of base cost. All local companies have this cost
+    cavalry_weight = 0.1
+    artillery_weight = 0
+    cavalry_cap = 4
+    trigger = {
+        NOT = {
+            religion_group = elven_denominations #Elves do not need more mercs
+        }
+    }
+    min_size = 5
+}
+#Undead Horde
+merc_undead_horde = {
+    regiments_per_development = 0.07
+    cost_modifier = 0.75 #75% Base cost. All local companies have this cost.
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+    trigger = {
+        OR = {
+            religion = vampiric
+            religion = nagash_worship
+            religion = nehekharan_pantheon
+        }
+    }
+    modifier = {
+        land_morale = -0.1
+    }
+    min_size = 15
+}
+
+#Swords of Chaos 
+merc_swords_of_chaos = {
+    regiments_per_development = 0.04
+    cost_modifier = 1 #100% Base cost
+    cavalry_weight = 0.1
+    artillery_weight = 0.1
+    cavalry_cap = 4
+    trigger = {
+        AND = {
+            NOT = {
+                religion = norscan
+                religion = hashut
+            }
+            religion_group = ruinous_powers_denominations #Undivided and the four pantheons
+        }
+    }
+	modifier = {
+        discipline = 0.1
+	}
+    min_size = 5
+    max_size = 20 #Hits cap at 400 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Skulltakers 
+merc_skulltakers = {
+    mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.04
+    cost_modifier = 1.3 #130% Base cost
+    cavalry_weight = 0.1
+    artillery_weight = 0
+    cavalry_cap = 4
+    trigger = {
+        religion = khornate_religion
+    }
+	modifier = {
+        discipline = 0.1
+        shock_damage = 0.15
+        fire_damage_received = -0.1
+        shock_damage_received = -0.1
+	}
+    min_size = 5
+    max_size = 20 #Hits cap at 400 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Knights Entropic
+merc_knights_entropic = {
+    mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.04
+    cost_modifier = 1.4 #140% Base cost
+    cavalry_weight = 0.1
+    artillery_weight = 0.2
+    cavalry_cap = 4
+    trigger = {
+        religion = nurglite_religion
+    }
+	modifier = {
+        discipline = 0.1
+        land_attrition = -0.15
+        manpower_recovery_speed = 0.2
+        reinforce_speed = 0.1
+	}
+    min_size = 5
+    max_size = 20 #Hits cap at 400 dev 
+	no_additional_manpower_from_max_size = yes 
+}
+#Knights of Tzeentch
+merc_knights_of_tzeentch = {
+    mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.04
+    cost_modifier = 1.4 #140% Base cost
+    cavalry_weight = 1
+    artillery_weight = 0
+    cavalry_cap = 20
+    trigger = {
+        religion = tzeentchian_religion
+    }
+	modifier = {
+        discipline = 0.1
+        movement_speed = 0.25
+        cav_to_inf_ratio = 1
+        morale_damage = 0.1
+	}
+    min_size = 5
+    max_size = 20 #Hits cap at 400 dev 
+	no_additional_manpower_from_max_size = yes 
+}
+#Princes of Perfection
+merc_princes_of_perfection = {
+    mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.04
+    cost_modifier = 1.4 #140% Base cost
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+    trigger = {
+        religion = slaaneshi_religion
+    }
+	modifier = {
+        infantry_power = 0.1
+        reserves_organisation = 0.1
+        land_morale = 0.1
+        morale_damage_received = -0.1
+	}
+    min_size = 5
+    max_size = 20 #Hits cap at 400 dev 
+	no_additional_manpower_from_max_size = yes 
+}
+    ########################################################################################################################
+	#	Empire Mercenaries
+	########################################################################################################################
+
+#Carroburg Greatswords
+merc_carroburg_greatswords = {
+    regiments_per_development = 0.01
+    cost_modifier = 1.6 #160% of base cost
+    home_province = 4 #Carroburg
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            OR = {
+                owns = 4
+                4 = {
+                    owner = {
+                        is_subject_of = ROOT
+                    }
+                }
+            }
+
+            capital_scope = {
+                superregion = the_empire_superregion
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        discipline = 0.05
+        shock_damage_received = -0.10
+	}
+    min_size = 6
+	max_size = 18 #Hits cap at 1800 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Swords of Ulric
+merc_swords_of_ulric = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.2 #120% of base cost
+    home_province = 116 #Middenheim
+    cavalry_weight = 0.2
+    artillery_weight = 0
+    cavalry_cap = 4
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            OR = {
+                owns = 116
+                116 = {
+                    owner = {
+                        is_subject_of = ROOT
+                    }
+                }
+            }
+            capital_scope = {
+                superregion = the_empire_superregion
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        land_morale = 0.10
+	}
+    min_size = 6
+	max_size = 18 #Hits cap at 360 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Nordland Seahawks
+merc_nordland_seahawks = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.3 #130% of base cost
+    home_province = 123 #Salzenmund
+    cavalry_weight = 0.1
+    artillery_weight = 0.1
+    cavalry_cap = 4
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            OR = {
+                owns = 123
+                123 = {
+                    owner = {
+                        is_subject_of = ROOT
+                    }
+                }
+            }
+            capital_scope = {
+                superregion = the_empire_superregion
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        infantry_power = 0.10
+	}
+    min_size = 8
+	max_size = 24 #Hits cap at 480 dev
+	no_additional_manpower_from_max_size = yes
+}
+#The Bordermen
+merc_bordermen = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.4 #140% of base cost
+    home_province = 83 #Salfen
+    cavalry_weight = 0.66
+    artillery_weight = 0
+    cavalry_cap = 10
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            OR = {
+                owns = 79
+                79 = {
+                    owner = {
+                        is_subject_of = ROOT
+                    }
+                }
+            }
+            capital_scope = {
+                superregion = the_empire_superregion
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        cavalry_fire = 0.25
+        cav_to_inf_ratio = 1
+	}
+    min_size = 5
+	max_size = 15 #Hits cap at 300 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Ostland Black Guard
+merc_ostland_black_guard = {
+    regiments_per_development = 0.02
+    cost_modifier = 1.6 #160% of base cost
+    home_province = 147 #Wolfenburg
+    cavalry_weight = 0.1
+    artillery_weight = 0
+    cavalry_cap = 6
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            OR = {
+                owns = 147
+                147 = {
+                    owner = {
+                        is_subject_of = ROOT
+                    }
+                }
+            }
+            capital_scope = {
+                superregion = the_empire_superregion
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        discipline = 0.05
+	}
+    min_size = 6
+	max_size = 20 #Hits cap at 1000 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Sootson's Guns
+merc_sootsons_guns = {
+    regiments_per_development = 0.04
+    cost_modifier = 1 #base cost
+    home_province = 171 #Kusel
+    cavalry_weight = 0
+    artillery_weight = 0.5
+    cavalry_cap = 0
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            OR = {
+                owns = 171
+                171 = {
+                    owner = {
+                        is_subject_of = ROOT
+                    }
+                }
+            }
+            capital_scope = {
+                superregion = the_empire_superregion
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        artillery_power = 0.1
+        infantry_fire = 0.25
+	}
+    min_size = 4
+	max_size = 20 #Hits cap at 500 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Cursed Company
+#This one is undead, canon to lore, and I'm mostly just making up how to balance it right now, adjust if needed
+merc_cursed_company = {
+    regiments_per_development = 0.1
+    cost_modifier = 0.2 #20% base cost
+    home_province = 197 #Leichburg
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                superregion = the_empire_superregion
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+            NOT = {
+                religion = vampiric
+            }
+        }
+    }
+	modifier = {
+        infantry_power = -0.5
+        discipline = -0.10
+        movement_speed = -0.15
+        land_morale = 0.25
+        reinforce_cost_modifier = -0.50
+        land_attrition = -0.50
+        manpower_recovery_speed = 1
+        reinforce_speed = 3
+	}
+    min_size = 10
+	max_size = 60 #Hits cap at 600 dev
+}
+#Stirland's Revenge
+merc_stirlands_revenge = {
+    regiments_per_development = 0.08
+    cost_modifier = 0.7 #70% base cost
+    home_province = 71 #Halstedt
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                superregion = the_empire_superregion
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+            NOT = {
+                religion = vampiric
+            }
+        }
+    }
+	modifier = {
+        discipline = -0.05
+        recover_army_morale_speed = -0.10
+        movement_speed = 0.15
+	}
+    min_size = 4
+    max_size = 30 #375 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Noble Sons Abroad
+merc_noble_sons_abroad = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.2 #120% of base cost
+    home_province = 52 #Averheim
+    cavalry_weight = 0.6
+    artillery_weight = 0
+    cavalry_cap = 10
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            OR = {
+                owns = 52
+                52 = {
+                    owner = {
+                        is_subject_of = ROOT
+                    }
+                }
+            }
+            capital_scope = {
+                superregion = the_empire_superregion
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        cav_to_inf_ratio = 0.7
+        movement_speed = 0.15
+	}
+    min_size = 5
+	max_size = 15 #Hits cap at 300 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Sterntower Marksman
+merc_sterntower_marksmen = {
+    regiments_per_development = 0.04
+    cost_modifier = 1.1 #110% of base cost
+    home_province = 44 #Steingart
+    cavalry_weight = 0
+    artillery_weight = 0.2
+    cavalry_cap = 0
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            OR = {
+                owns = 35
+                35 = {
+                    owner = {
+                        is_subject_of = ROOT
+                    }
+                }
+            }
+            capital_scope = {
+                superregion = the_empire_superregion
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        fire_damage = 0.10
+	}
+    min_size = 4
+	max_size = 10 #Hits cap at 250 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Nuln Ironsides
+merc_nuln_ironsides = {
+    regiments_per_development = 0.02
+    cost_modifier = 1.6 #160% of base cost
+    home_province = 31 #Nuln
+    cavalry_weight = 0
+    artillery_weight = 0.1
+    cavalry_cap = 0
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            OR = {
+                owns = 31
+                31 = {
+                    owner = {
+                        is_subject_of = ROOT
+                    }
+                }
+            }
+            capital_scope = {
+                superregion = the_empire_superregion
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        discipline = 0.05
+        fire_damage = 0.10
+	}
+    min_size = 4
+	max_size = 10 #Hits cap at 500 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Gunderman's Surefires 
+merc_gundermans_surefires = {
+    regiments_per_development = 0.06
+    cost_modifier = 1.2 #120% of base cost
+    home_province = 137 #Breder
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            OR = {
+                owns = 137
+                137 = {
+                    owner = {
+                        is_subject_of = ROOT
+                    }
+                }
+            }
+            capital_scope = {
+                superregion = the_empire_superregion
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        reinforce_speed = 0.33
+	}
+    min_size = 4
+	max_size = 12 #Hits cap at 200 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Nordland Mariners
+merc_nordland_mariners = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.2 #120% of base cost
+    home_province = 130 #Nordland
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                superregion = the_empire_superregion
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        regiment_disembark_speed = 2
+        no attrition on transport
+        landing_penalty = -2
+        shock_damage_received = 0.10
+	}
+    min_size = 8
+	max_size = 18 #Hits cap at 360 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Sigmar's Sons
+merc_sigmars_sons = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.1 #110% of base cost
+    home_province = 3 #East Altdorf
+    cavalry_weight = 0.1
+    artillery_weight = 0.1
+    cavalry_cap = 6
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                superregion = the_empire_superregion
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        land_morale = 0.05
+	}
+    min_size = 8
+	max_size = 24 #Hits cap at 360 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Knights of Everlasting Light
+merc_knights_of_everlasting_light = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.01
+    cost_modifier = 1.8 #180% of base cost
+    home_province = 189 #Essen
+    cavalry_weight = 0.7
+    artillery_weight = 0
+    cavalry_cap = 12
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                superregion = the_empire_superregion
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+            NOT = {
+                religion = vampiric
+            }
+        }
+    }
+	modifier = {
+        discipline = 0.05
+        shock_damage = 0.10
+        reinforce_speed = -0.20
+        cav_to_inf_ratio = 1
+	}
+    min_size = 4
+	max_size = 12 #Hits cap at 1200 dev
+	no_additional_manpower_from_max_size = yes
+	manpower_pool = 5
+}
+#Knights of the Blazing Sun
+merc_knights_of_the_blazing_sun = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.01
+    cost_modifier = 1.8 #180% of base cost
+    home_province = 407 #Svunum
+    cavalry_weight = 0.7
+    artillery_weight = 0
+    cavalry_cap = 12
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            OR = {
+                owns = 407
+                407 = {
+                    owner = {
+                        is_subject_of = ROOT
+                    }
+                }
+            }            
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+            NOT = {
+                religion = vampiric
+            }
+        }
+    }
+	modifier = {
+        shock_damage = 0.20
+        reinforce_cost_modifier = 0.40
+        cav_to_inf_ratio = 1
+	}
+    min_size = 4
+	max_size = 12 #Hits cap at 1200 dev
+	no_additional_manpower_from_max_size = yes
+	manpower_pool = 5   
+}
+#White Wolves
+merc_white_wolves = {
+    regiments_per_development = 0.02
+    cost_modifier = 1.45 #145% of base cost
+    home_province = 116 #Middenheim
+    cavalry_weight = 0.4
+    artillery_weight = 0.1
+    cavalry_cap = 6
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                superregion = the_empire_superregion
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+            NOT = {
+                religion = vampiric
+            }
+        }
+    }
+	modifier = {
+        land_morale = 0.10
+        morale_damage_received = -0.05
+	}
+    min_size = 4
+	max_size = 12 #Hits cap at 600 dev
+	no_additional_manpower_from_max_size = yes
+	manpower_pool = 5   
+}
+#The Death's Heads
+merc_deaths_heads = {
+    regiments_per_development = 0.03
+    cost_modifier = 1.6 #160% of base cost
+    home_province = 178 #Bechafaen
+    cavalry_weight = 0.2
+    artillery_weight = 0.1
+    cavalry_cap = 6
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            OR = {
+                owns = 178
+                178 = {
+                    owner = {
+                        is_subject_of = ROOT
+                    }
+                }
+            }
+            capital_scope = {
+                superregion = the_empire_superregion
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        land_morale = 0.10
+        morale_damage_received = -0.05
+	}
+    min_size = 4
+	max_size = 24 #Hits cap at 800 dev
+	no_additional_manpower_from_max_size = yes  
+}
+#Griffon Legion
+merc_griffon_legion = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.02
+    cost_modifier = 2 #200% of base cost
+    home_province = 1 #East Altdorf
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            OR = {
+                owns = 1
+                1 = {
+                    owner = {
+                        is_subject_of = ROOT
+                    }
+                }
+            }
+            capital_scope = {
+                superregion = the_empire_superregion
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        discipline = 0.15
+        infantry_power = 0.05
+        reinforce_cost_modifier = 0.20
+	}
+    min_size = 4
+	max_size = 30 #Hits cap at 1500 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Knights Panther
+merc_knights_panther = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.02
+    cost_modifier = 1.8 #180% of base cost
+    home_province = 162 #Talabheim
+    cavalry_weight = 0.6
+    artillery_weight = 0
+    cavalry_cap = 8
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                superregion = the_empire_superregion
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+            NOT = {
+                religion = vampiric
+            }
+        }
+    }
+	modifier = {
+        cav_to_inf_ratio = 1
+        cavalry_power = 0.15
+        land_morale = 0.2
+        reinforce_cost_modifier = 0.15
+	}
+    min_size = 4
+	max_size = 12 #Hits cap at 600 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Von Kragsburg Guard
+merc_von_kragsburg_guard = {
+    regiments_per_development = 0.07
+    cost_modifier = 1 #base cost
+    home_province = 27 #Heideck
+    cavalry_weight = 0.2
+    artillery_weight = 0.1
+    cavalry_cap = 4
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                superregion = the_empire_superregion
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+	}
+    min_size = 6
+	max_size = 28 #Hits cap at 400 dev
+	no_additional_manpower_from_max_size = yes
+}
+#White Swords
+merc_white_swords = {
+    regiments_per_development = 0.04
+    cost_modifier = 1.6 #160% of base cost
+    home_province = 68 #Wurtbad
+    cavalry_weight = 0
+    artillery_weight = 0.1
+    cavalry_cap = 0
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            OR = {
+                owns = 68
+                68 = {
+                    owner = {
+                        is_subject_of = ROOT
+                    }
+                }
+            }
+            capital_scope = {
+                superregion = the_empire_superregion
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        infantry_power = 0.1
+        shock_damage_received = -0.15
+	}
+    min_size = 4
+	max_size = 20 #Hits cap at 500 dev
+	no_additional_manpower_from_max_size = yes  
+}
+#Knights Sepulchral
+merc_knights_sepulchral = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.02
+    cost_modifier = 1.6 #160% base cost
+    home_province = 199 #Castle Drakenhoff
+    cavalry_weight = 1
+    artillery_weight = 0
+    cavalry_cap = 20
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        tag = A13
+    }
+	modifier = {
+        discipline = 0.25
+        shock_damage = 0.25
+        movement_speed = 0.25
+        cav_to_inf_ratio = 1
+    }
+    min_size = 5
+    max_size = 20 #Hits cap at 1000 dev
+    manpower_pool = 10
+}
+#Sylvanian Levy
+merc_sylvanian_levy = {
+    regiments_per_development = 0.05
+    cost_modifier = 2 #200% base cost #Because they're inf for undead armies they will cost nothing otherwise
+    home_province = 192 #Templehof
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        tag = A13
+    }
+	modifier = {
+        infantry_power = 0.4
+        discipline = 0.1
+        movement_speed = 0.15
+        land_morale = -0.1
+        morale_damage = -0.05
+    }
+    min_size = 5
+    max_size = 10 #Hits cap at 200 dev
+	no_additional_manpower_from_max_size = yes
+    manpower_pool = 10
+}
+	########################################################################################################################
+	#	Bretonnian Mercenaries
+	########################################################################################################################
+
+#The Bowmen of Bergerac
+merc_bowmen_of_bergerac = {
+    regiments_per_development = 0.04
+    cost_modifier = 0.8 #80% base cost
+    home_province = 247 #Garamont
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                region = bretonnia_region
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+            NOT = {
+                religion = vampiric
+            }
+        }
+    }
+	modifier = {
+        discipline = -0.05
+	}
+    min_size = 10
+    max_size = 40 #Hits cap at 1000 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Questing Knights
+merc_questing_knights = {
+    regiments_per_development = 0.03
+    cost_modifier = 1.3 #130% base cost
+    home_province = 298 #Chatlon
+    cavalry_weight = 0.8
+    artillery_weight = 0
+    cavalry_cap = 12
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                region = bretonnia_region
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+            NOT = {
+                religion = vampiric
+            }
+        }
+    }
+	modifier = {
+        cav_to_inf_ratio = 1
+    }
+    min_size = 5
+    max_size = 15 #Hits cap at 500 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Companions of Quenelles
+merc_companions_of_quenelles = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.01
+    cost_modifier = 1.5 #150% base cost
+    home_province = 236 #Quenelles
+    cavalry_weight = 1
+    artillery_weight = 0
+    cavalry_cap = 0
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                region = bretonnia_region
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+            NOT = {
+                religion = vampiric
+            }
+        }
+    }
+	modifier = {
+        fire_damage_received = -0.4
+        reinforce_speed = -0.3
+        cav_to_inf_ratio = 1
+	}
+    min_size = 2
+    max_size = 8 #Hits cap at 800 dev
+	no_additional_manpower_from_max_size = yes
+    manpower_pool = 4
+}
+#Beastslayers of Bastonne
+merc_beastslayers_of_bastonne = {
+    regiments_per_development = 0.04
+    cost_modifier = 1.2 #120% base cost
+    home_province = 257 #Bastonne
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                region = bretonnia_region
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+            NOT = {
+                religion = vampiric
+            }
+        }
+    }
+	modifier = {
+        discipline = 0.05
+	}
+    min_size = 6
+    max_size = 24 #Hits cap at 600 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Seneschals
+merc_seneschals = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.04
+    cost_modifier = 1.5 #150% base cost
+    home_province = 283 #Mousilion
+    cavalry_weight = 0.5
+    artillery_weight = 0
+    cavalry_cap = 14
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        tag = A20 #Mousilion
+    }
+	modifier = {
+        discipline = 0.2
+        infantry_power = 0.3
+        shock_damage = 0.2
+        #These modifiers are meant to counteract the huge penalties to undead units, but I did just notice Mousilion gets +30% CCA in their traditions which might make this too powerful, will find in testing.
+	}
+    min_size = 8
+    max_size = 30 #Hits cap at 750 dev
+}
+#Doomed Legion
+merc_doomed_legion = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.04
+    cost_modifier = 1.8 #180% base cost
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        tag = A74 #Barrow Legion
+    }
+	modifier = {
+        discipline = 0.25
+        infantry_power = 0.3
+	}
+    min_size = 6
+    max_size = 20 #Hits cap at 500 dev
+}
+#Blood Dragons
+merc_blood_dragons = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.03
+    cost_modifier = 1.8 #180% base cost
+    home_province = 577 #Viadranga
+    cavalry_weight = 1
+    artillery_weight = 0
+    cavalry_cap = 15
+	sprites = { dlc056_mlo_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        tag = A76 #Ordo Draconis
+    }
+	modifier = {
+        discipline = 0.20
+        cavalry_power = 0.15
+        cav_to_inf_ratio = 1
+	}
+    min_size = 4
+    max_size = 15 #Hits cap at 500 dev
+}
+	########################################################################################################################
+	#	Estalia/Tilea Mercenaries
+	########################################################################################################################
+
+#Alcatani Fellowship
+merc_alcatani_felloswhips = {
+    regiments_per_development = 0.06
+    cost_modifier = 0.7 #70% base cost
+    home_province = 594 #Prato
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                OR = {
+                    region = tilea_region
+                    region = estalia_region
+                    region = border_princes_region
+                }
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        discipline = -0.1
+	}
+    min_size = 6
+    max_size = 24 #Hits cap at 400 dev
+
+}
+#Birdmen of Catrazza
+merc_birdmen_of_catrazza = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.2 #120% base cost
+    home_province = 585 #Catrazza
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                OR = {
+                    region = tilea_region
+                    region = estalia_region
+                    region = border_princes_region
+                }
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        movement_speed = 0.2
+        reinforce_speed = 0.1
+	}
+    min_size = 4
+    max_size = 14 #Hits cap at 280 dev
+	no_additional_manpower_from_max_size = yes
+
+}
+#Braganza's Besiegers 
+merc_braganzas_besiegers = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.2 #120% base cost
+    home_province = 568 #Gerosa
+    cavalry_weight = 0
+    artillery_weight = 0.3
+    cavalry_cap = 0
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                OR = {
+                    region = tilea_region
+                    region = estalia_region
+                    region = border_princes_region
+                }
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        siege_ability = 0.10
+	}
+    min_size = 8
+    max_size = 30 #Hits cap at 600 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Marksmen of Miragliano
+merc_marksmen_of_miragliano = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.3 #130% base cost
+    home_province = 569 #Viadarra
+    cavalry_weight = 0
+    artillery_weight = 0.1
+    cavalry_cap = 0
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                OR = {
+                    region = tilea_region
+                    region = estalia_region
+                    region = border_princes_region
+                }
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        fire_damage = 0.10
+	}
+    min_size = 6
+    max_size = 28 #Hits cap at 560 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Bronzio's Galloper Guns
+merc_bronzios_galloper_guns = {
+    regiments_per_development = 0.04
+    cost_modifier = 0.8 #80% base cost. The goal of this regiment is to provide canons cheaply, which is not often available
+    home_province = 571 #Ravola
+    cavalry_weight = 0
+    artillery_weight = 0.8
+    cavalry_cap = 0
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                OR = {
+                    region = tilea_region
+                    region = estalia_region
+                    region = border_princes_region
+                }
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+         movement_speed = 0.05
+	}
+    min_size = 5
+    max_size = 20 #Hits cap at 500 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Carmen's Maiden Knights
+merc_carmens_maiden_knights = {
+    regiments_per_development = 0.04
+    cost_modifier = 1.2 #120% base cost
+    home_province = 538 #Llaqueno
+    cavalry_weight = 0.5
+    artillery_weight = 0
+    cavalry_cap = 10
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                OR = {
+                    region = tilea_region
+                    region = estalia_region
+                    region = border_princes_region
+                }
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        cavalry_power = 0.1
+        cavalry_shock = 0.2
+        may_recruit_female_generals = yes
+        female_advisor_chance = 1.0 #I don't fully understand why I'm putting this here, but it shows up in Dahomey Amazons and the order of joan arc. I suspect it increases the chance of a female general.
+	}
+    min_size = 4
+    max_size = 16 #Hits cap at 400 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Leopold's Leopard Company
+merc_leopolds_leopard_company = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.05
+    cost_modifier = 1.5 #150% base cost
+    home_province = 608 #Luccini
+    cavalry_weight = 0.2
+    artillery_weight = 0.1
+    cavalry_cap = 6
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                OR = {
+                    region = tilea_region
+                    region = estalia_region
+                    region = border_princes_region
+                }
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        infantry_power = 0.1
+        discipline = 0.05
+        shock_damage_received = -0.05
+	}
+    min_size = 8
+    max_size = 30 #Hits cap at 400 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Long Drong's Slayer Pirates
+merc_long_drongs_slayer_pirates = {
+    regiments_per_development = 0.03
+    cost_modifier = 1.5 #150% base cost
+    home_province = 625 #Sartosa
+    cavalry_weight = 0
+    artillery_weight = 0.1
+    cavalry_cap = 0
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                OR = {
+                    region = tilea_region
+                    region = estalia_region
+                    region = border_princes_region
+                }
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        regiment_disembark_speed = 2
+        no attrition on transport
+        landing_penalty = -2
+        manpower_recovery_speed = -0.2
+        artillery_power = 0.1
+        siege_ability = 0.1
+        movement_speed = -0.15
+        shock_damage_received = -0.1
+        shock_damage = 0.3
+        fire_damage_received = 0.2
+	}
+    min_size = 4
+    max_size = 12 #Hits cap at 400 dev  
+	no_additional_manpower_from_max_size = yes  
+}
+#Luccini Lancers
+merc_luccini_lancers = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.02
+    cost_modifier = 1.3 #130% base cost
+    home_province = 612 #Lanzara
+    cavalry_weight = 1
+    artillery_weight = 0
+    cavalry_cap = 16
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                OR = {
+                    region = tilea_region
+                    region = estalia_region
+                    region = border_princes_region
+                }
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        shock_damage_received = 0.1
+        shocK_damage = 0.2
+        fire_damage_received = -0.2
+	}
+    min_size = 4
+    max_size = 16 #Hits cap at 800 dev  
+	no_additional_manpower_from_max_size = yes  
+}
+#Knights of Magritta
+merc_knights_of_magritta = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.03
+    cost_modifier = 1.2 #120% base cost. Intentionally cheaper than their stats suggest because they are a special regiment for Estalia
+    home_province = 553 #Magritta
+    cavalry_weight = 0.6
+    artillery_weight = 0.1
+    cavalry_cap = 40
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        tag = A59 #Estalia
+    }
+	modifier = {
+        cav_to_inf_ratio = 1
+        land_morale = 0.2
+        cavalry_power = 0.15
+        fire_damage_received = -0.1
+	}
+    min_size = 10
+    max_size = 60 #Hits cap at 2000 dev  
+	no_additional_manpower_from_max_size = yes  
+}
+#Pirazzo's Lost Legion
+merc_pirazzos_lost_legion = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.1 #110% base cost
+    home_province = 562 #Tobaro
+    cavalry_weight = 0.2
+    artillery_weight = 0.2
+    cavalry_cap = 8
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                OR = {
+                    region = tilea_region
+                    region = estalia_region
+                    region = border_princes_region
+                }
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        land_attrition = -0.5
+	}
+    min_size = 8
+    max_size = 30 #Hits cap at 600 dev  
+}
+#Ricco's Republican Guard
+merc_riccos_republican_guard = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.5 #150% base cost
+    home_province = 590 #Remas
+    cavalry_weight = 0.1
+    artillery_weight = 0.1
+    cavalry_cap = 6
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                OR = {
+                    region = tilea_region
+                    region = estalia_region
+                    region = border_princes_region
+                }
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        discipline = 0.05
+        land_morale = 0.1
+	}
+    min_size = 8
+    max_size = 24 #Hits cap at 480 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Verezzo Twenty Four Ninety five
+merc_Verezzo_2495 = {
+    regiments_per_development = 0.05
+    cost_modifier = 1 #base cost
+    home_province = 603 #Verezzo
+    cavalry_weight = 0
+    artillery_weight = 0.3
+    cavalry_cap = 0
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                OR = {
+                    region = tilea_region
+                    region = estalia_region
+                    region = border_princes_region
+                }
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+	}
+    min_size = 6
+    max_size = 28 #Hits cap at 560 dev  
+}
+#Vespero's Vendetta
+merc_vesperos_vendetta = {
+    regiments_per_development = 0.02
+    cost_modifier = 1.9 #190% base cost
+    home_province = 566 #Miragaliano
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                OR = {
+                    region = tilea_region
+                    region = estalia_region
+                    region = border_princes_region
+                }
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        discipline = 0.15
+        infantry_power = 0.25
+	}
+    min_size = 2
+    max_size = 8 #Hits cap at 400 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Voland's Venators
+merc_volands_venators = {
+    regiments_per_development = 0.04
+    cost_modifier = 1.2 #120% base cost
+    home_province = 579 #Trantio
+    cavalry_weight = 0.4
+    artillery_weight = 0
+    cavalry_cap = 10
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                OR = {
+                    region = tilea_region
+                    region = estalia_region
+                    region = border_princes_region
+                }
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        reserves_organisation = 0.15
+        recover_army_morale_speed = 0.2
+	}
+    min_size = 5
+    max_size = 25 #Hits cap at 625 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Bandolleros Gringos
+merc_bandolleros_gringos = {
+    regiments_per_development = 0.05
+    cost_modifier = 0.8 #80% base cost
+    home_province = 554 #Bilbali
+    cavalry_weight = 0.1
+    artillery_weight = 0.1
+    cavalry_cap = 4
+	sprites = { dlc056_lan_sprite_pack sav_base_sprite_pack westerngfx_sprite_pack }
+    trigger = {
+        AND = {
+            capital_scope = {
+                OR = {
+                    region = tilea_region
+                    region = estalia_region
+                    region = border_princes_region
+                }
+            }
+            religion_group = old_world_denominations #All imperial religions, grail knights, vampiric, myrmidia, and orthodoxy
+        }
+    }
+	modifier = {
+        land_morale = -0.05
+	}
+    min_size = 5
+    max_size = 40 #Hits cap at 800 dev  
+}
+	########################################################################################################################
+	#	Greenskins
+	########################################################################################################################
+#Broffo's Bouncers
+merc_broffos_bouncers = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.1 #110% Base cost
+    home_province = 4556 #Gurnar
+    cavalry_weight = 0.4
+    artillery_weight = 0
+    cavalry_cap = 10
+    trigger = {
+            religion_group = greenskin_denominations #Gork and Mork, and Spider Cult
+    }
+	modifier = {
+        discipline = 0.05
+	}
+    min_size = 6
+    max_size = 18 #Hits cap at 360 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#The Toofy Legion
+merc_toofy_legion = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.1 #110% Base cost
+    home_province = 4549 #Grom's Peak
+    cavalry_weight = 0.4
+    artillery_weight = 0
+    cavalry_cap = 10
+    trigger = {
+            religion_group = greenskin_denominations #Gork and Mork, and Spider Cult
+    }
+	modifier = {
+        land_morale = 0.1
+	}
+    min_size = 6
+    max_size = 18 #Hits cap at 360 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Crooked Jabbers
+merc_crooked_jabbers = {
+    regiments_per_development = 0.05
+    cost_modifier = 1 #Base cost
+    home_province = 4416 #Karag Yar
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+    trigger = {
+            religion_group = greenskin_denominations #Gork and Mork, and Spider Cult
+    }
+	modifier = {
+        infantry_power = 0.1
+	}
+    min_size = 8
+    max_size = 30 #Hits cap at 600 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Da Beadyeyes
+merc_beady_eyes = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.3 #130% of Base cost
+    home_province = 870 #Nesrek
+    cavalry_weight = 0.2
+    artillery_weight = 0
+    cavalry_cap = 4
+    trigger = {
+            religion_group = greenskin_denominations #Gork and Mork, and Spider Cult
+    }
+	modifier = {
+        fire_damage = 0.15
+	}
+    min_size = 6
+    max_size = 24 #Hits cap at 480 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Da Blackbows 
+merc_blackbows = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.3 #130% Base cost
+    home_province = 868 #Bekhata
+    cavalry_weight = 0.2
+    artillery_weight = 0
+    cavalry_cap = 0
+    trigger = {
+            religion_group = greenskin_denominations #Gork and Mork, and Spider Cult
+    }
+	modifier = {
+        infantry_fire = 0.15
+	}
+    min_size = 6
+    max_size = 24 #Hits cap at 480 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Da Immortulz
+merc_immortulz = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.02
+    cost_modifier = 1.6 #160% Base cost
+    home_province = 4440 #Black Crag
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+    trigger = {
+        AND = {
+            OR = {
+                owns = 4440
+                4440 = {
+                    owner = {
+                        is_subject_of = ROOT
+                    }
+                }
+            }
+            religion_group = greenskin_denominations #Gork and Mork, and Spider Cult
+        }
+    }
+	modifier = {
+        discipline = 0.15
+        shock_damage_received = -0.3
+        fire_damage_received = -0.3
+	}
+    min_size = 4
+    max_size = 10 #Hits cap at 500 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Drillaz Killaz 
+merc_drillaz_killaz = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.03
+    cost_modifier = 1.4 #140% Base cost
+    home_province = 4420 #Karag Zilfin
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+    trigger = {
+        AND = {
+            OR = {
+                owns = 4420
+                4420 = {
+                    owner = {
+                        is_subject_of = ROOT
+                    }
+                }
+            }
+            religion_group = greenskin_denominations #Gork and Mork, and Spider Cult
+        }
+    }
+	modifier = {
+        discipline = 0.1
+        infantry_power = 0.1
+	}
+    min_size = 4
+    max_size = 18 #Hits cap at 600 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Grokkamobs
+merc_grokkamobs = {
+    regiments_per_development = 0.05
+    cost_modifier = 1 #100% Base cost
+    home_province = 705 #Gorlag Rock
+    cavalry_weight = 0.4
+    artillery_weight = 0
+    cavalry_cap = 12
+    trigger = {
+        religion_group = greenskin_denominations #Gork and Mork, and Spider Cult
+    }
+	modifier = {
+	}
+    min_size = 6
+    max_size = 28 #Hits cap at 560 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Oglah Khan's Wolfboys 
+merc_oglah_khans_wolfboys = {
+    regiments_per_development = 0.04
+    cost_modifier = 1.3 #130% Base cost
+    home_province = 4044 #Banyou
+    cavalry_weight = 0.8
+    artillery_weight = 0
+    cavalry_cap = 20
+    trigger = {
+        religion_group = greenskin_denominations #Gork and Mork, and Spider Cult
+    }
+	modifier = {
+        cav_to_inf_ratio = 1
+        cavalry_power = 0.2
+	}
+    min_size = 4
+    max_size = 20 #Hits cap at 500 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Ruglud's Armoured Orcs
+merc_rugluds_armoured_orcs = {
+    mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.03
+    cost_modifier = 1.3 #130% Base cost
+    home_province = 694 #Grimstone Ridge
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+    trigger = {
+        religion_group = greenskin_denominations #Gork and Mork, and Spider Cult
+    }
+	modifier = {
+        discipline = 0.1
+        fire_damage = 0.1
+        shock_damage_received = -0.15
+	}
+    min_size = 4
+    max_size = 15 #Hits cap at 500 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#snagla_grobspit's_deff_creepers
+merc_deff_creepers = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.3 #130% Base cost
+    home_province = 4530 #Karagril
+    cavalry_weight = 1
+    artillery_weight = 0
+    cavalry_cap = 24
+    trigger = {
+        religion_group = greenskin_denominations #Gork and Mork, and Spider Cult
+    }
+	modifier = {
+        cav_to_inf_ratio = 1
+        fire_damage_received = 0.1
+        shock_damage_received = -0.1
+        shock_damage = 0.15
+	}
+    min_size = 6
+    max_size = 24 #Hits cap at 480 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Stabba's Stikpokers
+merc_stabbas_stikpokers = {
+    regiments_per_development = 0.06
+    cost_modifier = 0.9 #90% Base cost
+    home_province = 2182 #Zarruk's Reach
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+    trigger = {
+        religion_group = greenskin_denominations #Gork and Mork, and Spider Cult
+    }
+	modifier = {
+	}
+    min_size = 10
+    max_size = 42 #Hits cap at 700 dev  
+}
+	########################################################################################################################
+	#	Albion/Norsca
+	########################################################################################################################
+#Albion Truthsayers
+merc_albion_truthsayers = {
+    regiments_per_development = 0.03
+    cost_modifier = 1.3 #130% Base cost
+    home_province = 1082 #Thurelach
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+    trigger = {
+        AND = {
+            capital_scope = {
+                region = albion_region
+            }
+            religion_group = the_old_faith #I think basically this is just Druidism
+        }
+    }
+	modifier = {
+        shock_damage_received = -0.2
+        fire_damage_received = -0.2
+        land_morale = 0.1
+	}
+    min_size = 2
+    max_size = 12 #Hits cap at 400 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Dark Emmissaries
+merc_dark_emissaries = {
+    regiments_per_development = 0.03
+    cost_modifier = 1.3 #130% Base cost
+    home_province = 4369 #Lost Valley
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+    trigger = {
+        AND = {
+            capital_scope = {
+                region = albion_region
+            }
+            religion_group = ruinous_powers_denominations #All Chaos religions
+        }
+    }
+	modifier = {
+		morale_damage = 0.2
+        fire_damage = 0.25
+	}
+    min_size = 2
+    max_size = 12 #Hits cap at 400 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Questlords of Albion, not canon, requested by Taiho
+merc_questlords = {
+    regiments_per_development = 0.03
+    cost_modifier = 1.1 #110% Base cost
+    home_province = 1182 #Everpeak
+    cavalry_weight = 0.4
+    artillery_weight = 0.2
+    cavalry_cap = 12
+    trigger = {
+        AND = {
+            capital_scope = {
+                region = albion_region
+            }
+            religion_group = the_old_faith #I think basically this is just Druidism
+        }
+    }
+	modifier = {
+        shock_damage = 0.15
+        movement_speed = 0.2
+	}
+    min_size = 4
+    max_size = 12 #Hits cap at 400 dev
+	no_additional_manpower_from_max_size = yes
+}
+#Claws of Skael
+merc_claws_of_skael = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.2 #120% Base cost
+    home_province = 432 #Skaldinghold. I was gonna put it in the capital, but I couldn't spell it
+    cavalry_weight = 0.1
+    artillery_weight = 0
+    cavalry_cap = 4
+    trigger = {
+        religion_group = ruinous_powers_denominations #All Chaos religions
+    }
+	modifier = {
+        fire_damage_received = -0.15
+	}
+    min_size = 6
+    max_size = 28 #Hits cap at 560 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Crowfane horde
+merc_crowfane_horde = {
+    regiments_per_development = 0.05
+    cost_modifier = 1 #100% Base cost
+    home_province = 446 #Stormstaad
+    cavalry_weight = 0.2
+    artillery_weight = 0
+    cavalry_cap = 6
+    trigger = {
+        religion_group = ruinous_powers_denominations #All Chaos religions
+    }
+	modifier = {
+	}
+    min_size = 6
+    max_size = 30 #Hits cap at 600 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Crowhunger_Brethren 
+merc_crowhunger_brethren = {
+    regiments_per_development = 0.04
+    cost_modifier = 1.2 #120% Base cost
+    home_province = 419 #Hrothrax Monolith
+    cavalry_weight = 0.2
+    artillery_weight = 0.1
+    cavalry_cap = 4
+    trigger = {
+        religion_group = ruinous_powers_denominations #All Chaos religions
+    }
+	modifier = {
+        discipline = 0.1
+	}
+    min_size = 5
+    max_size = 18 #Hits cap at 450 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Daakon Har's Blackshields
+merc_daakon_hars_blackshields = {
+    regiments_per_development = 0.05
+    cost_modifier = 1 #100% Base cost
+    home_province = 452 #Knife Peaks
+    cavalry_weight = 0.1
+    artillery_weight = 0.1
+    cavalry_cap = 4
+    trigger = {
+        religion_group = ruinous_powers_denominations #All Chaos religions
+    }
+	modifier = {
+	}
+    min_size = 8
+    max_size = 24 #Hits cap at 560 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Great Vanguard
+merc_great_vanguard ={
+    regiments_per_development = 0.04
+    cost_modifier = 1.3 #130% Base cost
+    home_province = 335 #Graennae
+    cavalry_weight = 0.2
+    artillery_weight = 0.1
+    cavalry_cap = 4
+    trigger = {
+        religion_group = ruinous_powers_denominations #All Chaos religions
+    }
+	modifier = {
+        discipline = 0.1
+        reinforce_speed = 0.1
+	}
+    min_size = 5
+    max_size = 18 #Hits cap at 450 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Hounds of Herumar
+merc_hounds_of_herumar = {
+    regiments_per_development = 0.04
+    cost_modifier = 1.3 #130% Base cost
+    home_province = 486 #Keep of Asavar Kul
+    cavalry_weight = 1
+    artillery_weight = 0
+    cavalry_cap = 12
+    trigger = {
+        religion_group = ruinous_powers_denominations #All Chaos religions
+    }
+	modifier = {
+        discipline = 0.1
+        cav_to_inf_ratio = 1
+        cavalry_power = 0.05
+	}
+    min_size = 4
+    max_size = 12 #Hits cap at 300 dev 
+	no_additional_manpower_from_max_size = yes 
+}
+#Hounds of Khoros
+merc_hounds_of_khoros = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.2 #120% Base cost
+    home_province = 457 #Morghaar Fortress
+    cavalry_weight = 1
+    artillery_weight = 0
+    cavalry_cap = 16
+    trigger = {
+        religion_group = ruinous_powers_denominations #All Chaos religions
+    }
+	modifier = {
+        cav_to_inf_ratio = 1
+        cavalry_power = 0.15
+	}
+    min_size = 4
+    max_size = 16 #Hits cap at 320 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Sons of Nifflecht 
+merc_sons_of_nifflecht = {
+    regiments_per_development = 0.04
+    cost_modifier = 1.4 #140% Base cost
+    home_province = 344 #Skraevold
+    cavalry_weight = 0.2
+    artillery_weight = 0.1
+    cavalry_cap = 4
+    trigger = {
+        religion_group = ruinous_powers_denominations #All Chaos religions
+    }
+	modifier = {
+        discipline = 0.15
+        shock_damage_received = -0.1
+	}
+    min_size = 5
+    max_size = 18 #Hits cap at 450 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Sons of the last Plague
+merc_sons_of_the_last_plague = {
+    regiments_per_development = 0.04
+    cost_modifier = 1.3 #130% Base cost
+    home_province = 1165 #Helspire
+    cavalry_weight = 0.2
+    artillery_weight = 0.1
+    cavalry_cap = 4
+    trigger = {
+        religion_group = ruinous_powers_denominations #All Chaos religions
+    }
+	modifier = {
+        discipline = 0.1
+        land_morale = 0.05
+	}
+    min_size = 5
+    max_size = 18 #Hits cap at 450 dev 
+	no_additional_manpower_from_max_size = yes 
+}
+#The Unclean
+merc_the_unclean = {
+    regiments_per_development = 0.05
+    cost_modifier = 0.6 #60% Base cost
+    home_province = 424 #Mount Barak
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+    trigger = {
+        religion_group = ruinous_powers_denominations #All Chaos religions
+    }
+	modifier = {
+        land_morale = -0.1
+        recover_army_morale_speed = -0.1
+	}
+    min_size = 8
+    max_size = 24 #Hits cap at 560 dev  
+}
+#Wildkin of Hralder
+merc_wildkin_of_hralder = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.2 #120% Base cost
+    home_province = 762 #Wheatlands Plains
+    cavalry_weight = 0.8
+    artillery_weight = 0.1
+    cavalry_cap = 14
+    trigger = {
+        religion_group = ruinous_powers_denominations #All Chaos religions
+    }
+	modifier = {
+        cav_to_inf_ratio = 1
+        cavalry_power = 0.1
+        movement_speed = 0.15
+	}
+    min_size = 8
+    max_size = 16 #Hits cap at 320 dev  
+	no_additional_manpower_from_max_size = yes
+}
+	########################################################################################################################
+	#	Kislev
+	########################################################################################################################
+#Gryphon Legion
+merc_gryphon_legion = {
+    mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.035
+    cost_modifier = 1.5 #150% Base cost
+    home_province = 325 #Kislev
+    cavalry_weight = 1
+    artillery_weight = 0
+    cavalry_cap = 14
+    trigger = {
+        OR = {
+            tag = A29
+            A29 = {
+                OR = {
+                    alliance_with = ROOT
+                    is_subject_of = ROOT
+                }
+            }
+        }
+    }
+	modifier = {
+        cav_to_inf_ratio = 1
+        cavalry_power = 0.3
+        movement_speed = 0.1
+        cavalry_flanking = 0.25
+	}
+    min_size = 4
+    max_size = 14 #Hits cap at 400 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Brotherhood of the Bear
+merc_brotherhood_of_the_bear = {
+    regiments_per_development = 0.04
+    cost_modifier = 1.3 #130% Base cost
+    home_province = 384 #Bolgasgrad
+    cavalry_weight = 0.6
+    artillery_weight = 0
+    cavalry_cap = 14
+    trigger = {
+        OR = {
+            tag = A29
+            religion = cult_of_taal_religion
+        }
+    }
+	modifier = {
+        cav_to_inf_ratio = 1
+        discipline = 0.05
+	}
+    min_size = 4
+    max_size = 16 #Hits cap at 400 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Sons of Ursa 
+merc_sons_of_ursa = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.2 #120% Base cost
+    home_province = A29 #Lynsk
+    cavalry_weight = 0.4
+    artillery_weight = 0.1
+    cavalry_cap = 14
+    trigger = {
+        tag = A29
+    }
+	modifier = {
+        land_morale = 0.1
+	}
+    min_size = 6
+    max_size = 24 #Hits cap at 480 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Watchmen in the Night 
+merc_watchmen_in_the_night = {
+    mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.03
+    cost_modifier = 1.5 #150% Base cost
+    home_province = 339 #Praag
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+    trigger = {
+        tag = A29
+    }
+	modifier = {
+        discipline = 0.1
+        infantry_power = 0.1
+	}
+    min_size = 4
+    max_size = 12 #Hits cap at 400 dev  
+	no_additional_manpower_from_max_size = yes
+}
+	########################################################################################################################
+	#	Araby
+	########################################################################################################################
+#Desert Dogs
+merc_desert_dogs = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.3 #130% Base cost
+    home_province = 974 #Al-Haka
+    cavalry_weight = 0.4
+    artillery_weight = 0
+    cavalry_cap = 10
+    trigger = {
+        religion = the_one_faith
+    }
+	modifier = {
+        loot_amount = 0.5
+        movement_speed = 0.15
+        land_attrition = -0.1
+	}
+    min_size = 6
+    max_size = 20 #Hits cap at 400 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Deathstalkers, non canon because there are no other canon regiments. Based on the araby deathstalker.
+merc_deathstalkers = {
+    regiments_per_development = 0.04
+    cost_modifier = 1.4 #150% Base cost
+    home_province = 1744 #Al-Rashid
+    cavalry_weight = 0.2
+    artillery_weight = 0
+    cavalry_cap = 4
+    trigger = {
+        religion = the_one_faith
+    }
+	modifier = {
+        morale_damage = 0.15
+	}
+    min_size = 4
+    max_size = 12 #Hits cap at 300 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Jag's Janissaries, again non canon. Janissaries are an arabian unit though.
+merc_jags_janissaries = {
+    regiments_per_development = 0.05
+    cost_modifier = 1.2 #120% Base cost
+    home_province = 1746 #Lashiek
+    cavalry_weight = 0
+    artillery_weight = 0.2
+    cavalry_cap = 0
+    trigger = {
+        religion = the_one_faith
+    }
+	modifier = {
+        discipline = 0.05
+        fire_damage = 0.05
+	}
+    min_size = 4
+    max_size = 24 #Hits cap at 480 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Fremen Company, non canon. This is based on the Fremen from Dune.
+merc_fremen_company = {
+    mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.02
+    cost_modifier = 1.7 #170% Base cost
+    home_province = 574 #Bonomia
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+    trigger = {
+        religion = the_one_faith
+    }
+	modifier = {
+        discipline = 0.15
+        land_attrition = -0.5
+        morale_damage_received = -0.1
+	}
+    min_size = 2
+    max_size = 8 #Hits cap at 400 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Tahar Desert Raiders, non canon. This is based on the Tallarn Desert Raiders from Warahmmer.
+merc_tahar_desert_raiders = {
+    regiments_per_development = 0.04
+    cost_modifier = 1.2 #120% Base cost
+    home_province = 4206 #Tahar
+    cavalry_weight = 0.2
+    artillery_weight = 0.2
+    cavalry_cap = 8
+    trigger = {
+        religion = the_one_faith
+    }
+	modifier = {
+        recover_army_morale_speed = 0.15
+        land_morale = 0.1
+	}
+    min_size = 6
+    max_size = 30 #Hits cap at 750 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Knights of Antoch
+merc_knights_of_antoch = {
+    regiments_per_development = 0.02
+    cost_modifier = 1.6 #160% Base cost
+    home_province = 1115 #Antoch
+    cavalry_weight = 1
+    artillery_weight = 0
+    cavalry_cap = 12
+    trigger = {
+        OR = {
+            owns = 1115
+            1115 = {
+                owner = {
+                    is_subject_of = ROOT
+                }
+            }
+        }
+        religion = lady_of_the_lake
+    }
+	modifier = {
+        discipline = 0.1
+        shock_damage = 0.1
+        cavalry_flanking = 0.25
+        cav_to_inf_ratio = 1
+	}
+    min_size = 3
+    max_size = 12 #Hits cap at 400 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#The Zealots of Sarib, not canon. This isn't really inspired by anything I just decided religious order made sense.
+merc_zealots_of_sarib = {
+    regiments_per_development = 0.08
+    cost_modifier = 0.9 #90% Base cost
+    home_province = 999 #Sarib
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+    trigger = {
+        religion = the_one_faith
+    }
+	modifier = {
+        land_morale = 0.05
+        discipline = -0.05
+	}
+    min_size = 10
+    max_size = 40 #Hits cap at 500 dev  
+}
+	########################################################################################################################
+	#	Nehekara
+	########################################################################################################################
+#Bright Shields
+merc_bright_shields = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.08
+    cost_modifier = 1.1 #110% Base cost
+    home_province = 1064 #Rasetya
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+    trigger = {
+        OR = {
+            religion = nagash_worship
+            religion = nehekharan_pantheon
+        }
+        1064 = {
+            OR = {
+                owned_by = ROOT
+                owner = {
+                    is_subject_of = ROOT
+                }
+            }
+        }
+    }
+	modifier = {
+        shock_damage_received = -0.1
+        fire_damage_received = -0.1
+	}
+    min_size = 10
+    max_size = 40 #Hits cap at 500 dev  
+}
+#Bronze Gate Battery
+merc_bronze_gate_battery = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.05
+    cost_modifier = 1.2 #120% Base cost
+    home_province = 851 #Numas
+    cavalry_weight = 0
+    artillery_weight = 0.8
+    cavalry_cap = 0
+    trigger = {
+        OR = {
+            religion = nagash_worship
+            religion = nehekharan_pantheon
+        }
+        851 = {
+            OR = {
+                owned_by = ROOT
+                owner = {
+                    is_subject_of = ROOT
+                }
+            }
+        }
+    }
+	modifier = {
+        artillery_power = 0.1
+        siege_ability = 0.1
+	}
+    min_size = 4
+    max_size = 16 #Hits cap at 320 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Cobra Legion 
+merc_cobra_legion = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.06
+    cost_modifier = 1.2 #120% Base cost
+    home_province = 1058 #Lybaras
+    cavalry_weight = 0
+    artillery_weight = 0.1
+    cavalry_cap = 0
+    trigger = {
+        OR = {
+            religion = nagash_worship
+            religion = nehekharan_pantheon
+        }
+        1058 = {
+            OR = {
+                owned_by = ROOT
+                owner = {
+                    is_subject_of = ROOT
+                }
+            }
+        }
+    }
+	modifier = {
+        infantry_fire = 0.2
+        fire_damage = 0.05
+	}
+    min_size = 6
+    max_size = 24 #Hits cap at 400 dev  
+}
+#Hawk Legion of Settra
+merc_hawk_legion_of_settra = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.05
+    cost_modifier = 1.6 #160% Base cost
+    home_province = 862 #East Khemri
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+    trigger = {
+        OR = {
+            religion = nagash_worship
+            religion = nehekharan_pantheon
+        }
+        862 = {
+            OR = {
+                owned_by = ROOT
+                owner = {
+                    is_subject_of = ROOT
+                }
+            }
+        }
+    }
+	modifier = {
+        infantry_power = 0.3
+        discipline = 0.15
+	}
+    min_size = 4
+    max_size = 20 #Hits cap at 400 dev  
+}
+#Lions of the Sand 
+merc_lions_of_the_sand = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.01
+    cost_modifier = 2.4 #240% Base cost
+    home_province = 896 #Zandri
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+    trigger = {
+        OR = {
+            religion = nagash_worship
+            religion = nehekharan_pantheon
+        }
+        896 = {
+            OR = {
+                owned_by = ROOT
+                owner = {
+                    is_subject_of = ROOT
+                }
+            }
+        }
+    }
+	modifier = {
+        infantry_power = 0.5
+        shock_damage_received = -0.3
+        fire_damage_received = -0.3
+        reinforce_cost_modifier = 1
+	}
+    min_size = 2
+    max_size = 6 #Hits cap at 600 dev  
+}
+#Sepulchrex
+merc_sepulchrex = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.01
+    cost_modifier = 2.4 #240% Base cost
+    home_province = 871 #The Black Pyramid
+    cavalry_weight = 0
+    artillery_weight = 0
+    cavalry_cap = 0
+    trigger = {
+        religion = nagash_worship
+        871 = {
+            OR = {
+                owned_by = ROOT
+                owner = {
+                    is_subject_of = ROOT
+                }
+            }
+        }
+    }
+	modifier = {
+        infantry_power = 0.5
+        morale_damage = 0.25
+        shock_damage = 0.5
+        reinforce_cost_modifier = 1
+	}
+    min_size = 2
+    max_size = 6 #Hits cap at 600 dev  
+	no_additional_manpower_from_max_size = yes
+}
+#Wights of Stonewrath Tarn 
+merc_wights_of_stonewrath_tarn = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.08
+    cost_modifier = 0.75 #75% Base cost
+    home_province = 934 #Zektara
+    cavalry_weight = 0.1
+    artillery_weight = 0.1
+    cavalry_cap = 6
+    trigger = {
+        religion = nagash_worship
+        934 = {
+            OR = {
+                owned_by = ROOT
+                owner = {
+                    is_subject_of = ROOT
+                }
+            }
+        }
+    }
+	modifier = {
+	}
+    min_size = 15
+    max_size = 60 #Hits cap at 750 dev  
+}
+#Crimson Guard
+merc_crimson_guard = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.08
+    cost_modifier = 1 #100% Base cost
+    home_province = 920 #Tuket
+    cavalry_weight = 0.1
+    artillery_weight = 0
+    cavalry_cap = 4
+    trigger = {
+        OR = {
+            religion = nagash_worship
+            religion = nehekharan_pantheon
+        }
+        920 = {
+            OR = {
+                owned_by = ROOT
+                owner = {
+                    is_subject_of = ROOT
+                }
+            }
+        }
+    }
+	modifier = {
+        discipline = 0.05
+	}
+    min_size = 10
+    max_size = 40 #Hits cap at 500 dev  
+}
+#Crocogar Legion
+merc_crocogar_legion = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.06
+    cost_modifier = 1.1 #110% Base cost
+    home_province = 901 #Karakht
+    cavalry_weight = 0.4
+    artillery_weight = 0
+    cavalry_cap = 2
+    trigger = {
+        OR = {
+            religion = nagash_worship
+            religion = nehekharan_pantheon
+        }
+        901 = {
+            OR = {
+                owned_by = ROOT
+                owner = {
+                    is_subject_of = ROOT
+                }
+            }
+        }
+    }
+	modifier = {
+        cavalry_fire = 0.5
+	}
+    min_size = 6
+    max_size = 24 #Hits cap at 400 dev  
+}
+#Golden Host
+merc_golden_host = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.05
+    cost_modifier = 1.2 #120% Base cost
+    home_province = 970 #Valley of the Kings
+    cavalry_weight = 0
+    artillery_weight = 0.2
+    cavalry_cap = 0
+    trigger = {
+        OR = {
+            religion = nagash_worship
+            religion = nehekharan_pantheon
+        }
+        970 = {
+            OR = {
+                owned_by = ROOT
+                owner = {
+                    is_subject_of = ROOT
+                }
+            }
+        }
+    }
+	modifier = {
+        land_morale = 0.15
+	}
+    min_size = 6
+    max_size = 28 #Hits cap at 560 dev  
+}
+#Royal Chariot Guard
+merc_royal_chariot_guard = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.04
+    cost_modifier = 1.4 #140% Base cost
+    home_province = 860 #West Khemri
+    cavalry_weight = 1
+    artillery_weight = 0
+    cavalry_cap = 18
+    trigger = {
+        OR = {
+            religion = nagash_worship
+            religion = nehekharan_pantheon
+        }
+        860 = {
+            OR = {
+                owned_by = ROOT
+                owner = {
+                    is_subject_of = ROOT
+                }
+            }
+        }
+    }
+	modifier = {
+        cav_to_inf_ratio = 1
+        cavalry_power = 0.25
+        shock_damage = 0.1
+	}
+    min_size = 4
+    max_size = 18 #Hits cap at 450 dev  
+}
+#Legion of Phakth
+merc_legion_of_phakth = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.06
+    cost_modifier = 1.2 #120% Base cost
+    home_province = 838 #Khephet
+    cavalry_weight = 0
+    artillery_weight = 0.3
+    cavalry_cap = 0
+    trigger = {
+        OR = {
+            religion = nagash_worship
+            religion = nehekharan_pantheon
+        }
+        838 = {
+            OR = {
+                owned_by = ROOT
+                owner = {
+                    is_subject_of = ROOT
+                }
+            }
+        }
+    }
+	modifier = {
+        siege_ability = 0.15
+        assault_fort_ability = 0.5
+	}
+    min_size = 8
+    max_size = 30 #Hits cap at 500 dev  
+}
+#Legion of the Asp
+merc_legion_of_the_asp = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.08
+    cost_modifier = 1 #100% Base cost
+    home_province = 824 #Sutekh
+    cavalry_weight = 0.1
+    artillery_weight = 0.1
+    cavalry_cap = 8
+    trigger = {
+        OR = {
+            religion = nagash_worship
+            religion = nehekharan_pantheon
+        }
+        824 = {
+            OR = {
+                owned_by = ROOT
+                owner = {
+                    is_subject_of = ROOT
+                }
+            }
+        }
+    }
+	modifier = {
+	}
+    min_size = 14
+    max_size = 50 #Hits cap at 625 dev  
+}
+#Mahrak Longspears
+merc_mahrak_longspears = {
+	mercenary_desc_key = FREE_OF_ARMY_PROFESSIONALISM_COST
+    regiments_per_development = 0.05
+    cost_modifier = 1.2 #120% Base cost
+    home_province = 1071 #Mahrak
+    cavalry_weight = 1
+    artillery_weight = 0
+    cavalry_cap = 24
+    trigger = {
+        OR = {
+            religion = nagash_worship
+            religion = nehekharan_pantheon
+        }
+        1071 = {
+            OR = {
+                owned_by = ROOT
+                owner = {
+                    is_subject_of = ROOT
+                }
+            }
+        }
+    }
+	modifier = {
+        cav_to_inf_ratio = 1
+        cavalry_flanking = 0.25
+	}
+    min_size = 6
+    max_size = 24 #Hits cap at 480 dev  
+}

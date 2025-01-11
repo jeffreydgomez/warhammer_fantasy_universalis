@@ -1,0 +1,140 @@
+########################################
+# Events for Elves
+########################################
+
+namespace = asur_events
+normal_or_historical_nations = yes
+
+
+### Ulthuan for the Asur
+
+country_event = { 
+	id = asur_events.0
+	title = asur_events.0.t 
+	desc = asur_events.0.d 
+	picture = NUSANTARA_THRONE_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = no 
+		
+	trigger = {
+		culture_group = asur_group
+		is_at_war = no
+		capital_scope = { superregion = ulthuan_superregion }
+		any_country = {
+			NOT = { culture_group = asur_group }
+			NOT = { truce_with = ROOT }
+			ROOT = {
+				NOT = {
+					has_opinion = {
+						who = PREV
+						value = 0
+					}
+				}
+			}
+			provinces_on_capital_continent_of = ROOT
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 1
+	}
+
+
+## Declare War
+	option = { 
+		ai_chance = {
+			factor = 100
+		}
+		name = asur_events.0.a 
+		random_country = {
+			limit = {
+				NOT = { culture_group = asur_group }
+				NOT = { truce_with = ROOT }
+				ROOT = {
+					NOT = {
+						has_opinion = {
+							who = PREV
+							value = 0
+						}
+					}
+				}
+				provinces_on_capital_continent_of = ROOT
+			}
+			ROOT = {
+				declare_war_with_cb = {
+				    who = PREV
+				    casus_belli = cb_war_cultural_unification_take
+				}
+			}
+		}
+		add_prestige = 25
+	}
+
+	option = { 
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 10
+				OR = {
+					NOT = { manpower_percentage = 0.10 }
+					is_at_war = yes
+					num_of_loans = 10
+					is_bankrupt = yes
+					NOT = { stability = -1 }
+				}
+			}
+		}
+		name = asur_events.0.b 
+
+		add_prestige = -50
+		add_legitimacy = -25
+		add_devotion = -25
+		add_republican_tradition = -15
+	}
+
+
+
+## Submit to Naggaroth
+	option = { 
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 50
+				H12 = { religion = cytharai }
+				has_matching_religion = H12
+			}
+			modifier = {
+				factor = 50
+				H12 = { 
+					ROOT = {
+						has_opinion = {
+							who = PREV
+							value = 150
+						}
+					}
+				}
+			}
+		}
+		name = asur_events.0.c
+		trigger = {
+			H12 = {
+				provinces_on_capital_continent_of = ROOT
+				NOT = {
+					ROOT = {
+						is_subject_of = PREV
+					}
+				}
+			}			
+		}
+		H12 = {
+			create_subject = {
+			    subject_type = dominion
+			    subject = ROOT
+			}
+		}
+	}
+}
+
+
+

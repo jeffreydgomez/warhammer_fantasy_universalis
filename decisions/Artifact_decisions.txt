@@ -645,6 +645,200 @@ country_decisions = {
 	}
 
 
+	take_nagashs_tome = {
+		potential = {
+			OR = {
+				technology_group = tech_tomb_kings
+				religion = vampiric
+				religion = nagash_worship
+				has_country_modifier = undead_administration
+				any_neighbor_country = {
+					any_owned_province = { has_province_modifier = location_of_nagashs_tome }
+				}
+				any_war_enemy_country = {
+					any_owned_province = { has_province_modifier = location_of_nagashs_tome }
+				}
+			}
+			all_owned_province = { NOT = { has_province_modifier = location_of_nagashs_tome} }
+		 }
+
+		provinces_to_highlight = {
+			has_province_modifier = location_of_nagashs_tome
+		}
+
+		allow = {
+			capital_scope = { controlled_by = ROOT }
+			any_province = {
+				controlled_by = ROOT
+				has_province_modifier = location_of_nagashs_tome
+			}
+		}
+
+		effect = {
+			every_province ={
+				limit = { has_province_modifier = location_of_nagashs_tome }
+				remove_province_modifier = location_of_nagashs_tome
+				owner = {
+					country_event = { 
+    					id = artifact_events.0
+    				}
+    			}
+			}
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_nagashs_tome
+				    duration = -1  
+				}
+			}
+		}
+
+		ai_will_do = { factor = 100 }
+	}
+
+
+
+	take_the_plaque_of_tepok = {
+		potential = {
+			OR = {
+				religion = old_ones
+				any_neighbor_country = {
+					any_owned_province = { has_province_modifier = location_of_the_plaque_of_tepok }
+				}
+				any_war_enemy_country = {
+					any_owned_province = { has_province_modifier = location_of_the_plaque_of_tepok }
+				}
+			}
+			all_owned_province = { NOT = { has_province_modifier = location_of_the_plaque_of_tepok} }
+		 }
+
+		allow = {
+			capital_scope = { controlled_by = ROOT }
+			any_province = {
+				controlled_by = ROOT
+				has_province_modifier = location_of_the_plaque_of_tepok
+			}
+		}
+
+		provinces_to_highlight = {
+			has_province_modifier = location_of_the_plaque_of_tepok
+		}
+
+		effect = {
+			every_province ={
+				limit = { has_province_modifier = location_of_the_plaque_of_tepok }
+				remove_province_modifier = location_of_the_plaque_of_tepok
+				owner = {
+					country_event = { 
+    					id = artifact_events.0
+    				}
+    			}
+			}
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_plaque_of_tepok
+				    duration = -1  
+				}
+			}
+		}
+
+		ai_will_do = { factor = 100 }
+	}
+
+
+	take_the_cloak_of_twilight = {
+		potential = {
+			OR = {
+				any_neighbor_country = {
+					any_owned_province = { has_province_modifier = location_of_the_cloak_of_twilight }
+				}
+				any_war_enemy_country = {
+					any_owned_province = { has_province_modifier = location_of_the_cloak_of_twilight }
+				}
+			}
+			all_owned_province = { NOT = { has_province_modifier = location_of_the_cloak_of_twilight} }
+		 }
+
+		allow = {
+			capital_scope = { controlled_by = ROOT }
+			any_province = {
+				controlled_by = ROOT
+				has_province_modifier = location_of_the_cloak_of_twilight
+			}
+		}
+
+		provinces_to_highlight = {
+			has_province_modifier = location_of_the_cloak_of_twilight
+		}
+
+		effect = {
+			every_province ={
+				limit = { has_province_modifier = location_of_the_cloak_of_twilight }
+				remove_province_modifier = location_of_the_cloak_of_twilight
+				owner = {
+					country_event = { 
+    					id = artifact_events.0
+    				}
+    			}
+			}
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_cloak_of_twilight
+				    duration = -1  
+				}
+			}
+		}
+
+		ai_will_do = { factor = 100 }
+	}
+
+
+	take_the_dragon_armor_of_aenarion = {
+		potential = {
+			OR = {
+				culture_group = asur_group
+				any_neighbor_country = {
+					any_owned_province = { has_province_modifier = location_of_the_dragon_armor_of_aenarion }
+				}
+				any_war_enemy_country = {
+					any_owned_province = { has_province_modifier = location_of_the_dragon_armor_of_aenarion }
+				}
+			}
+			all_owned_province = { NOT = { has_province_modifier = location_of_the_dragon_armor_of_aenarion} }
+		 }
+
+		allow = {
+			capital_scope = { controlled_by = ROOT }
+			any_province = {
+				controlled_by = ROOT
+				has_province_modifier = location_of_the_dragon_armor_of_aenarion
+			}
+		}
+
+		provinces_to_highlight = {
+			has_province_modifier = location_of_the_dragon_armor_of_aenarion
+		}
+
+		effect = {
+			every_province ={
+				limit = { has_province_modifier = location_of_the_dragon_armor_of_aenarion }
+				remove_province_modifier = location_of_the_dragon_armor_of_aenarion
+				owner = {
+					country_event = { 
+    					id = artifact_events.0
+    				}
+    			}
+			}
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_dragon_armor_of_aenarion
+				    duration = -1  
+				}
+			}
+		}
+
+		ai_will_do = { factor = 100 }
+	}
+
 ### Resurrect Nagash
 
 	resurrect_nagash_decision = {
@@ -666,8 +860,23 @@ country_decisions = {
 					owned_by = ROOT
 					has_province_modifier = location_of_the_carstein_ring
 				}
+				any_province = {
+					owned_by = ROOT
+					has_province_modifier = location_of_nagashs_tome
+				}
 			}
-			all_country = { NOT = { has_country_modifier = nagash_resurrected_modifier } }
+			any_province = {
+				has_province_modifier = location_of_the_jade_blooded_vial
+			}
+			any_province = {
+				has_province_modifier = location_of_the_staff_of_nagash
+			}
+			any_province = {
+				has_province_modifier = location_of_the_carstein_ring
+			}
+			any_province = {
+				has_province_modifier = location_of_nagashs_tome
+			}
 		 }
 		 provinces_to_highlight = {
 		 	OR = {
@@ -681,6 +890,10 @@ country_decisions = {
 				}
 				AND = {
 					has_province_modifier = location_of_the_carstein_ring
+					NOT = { owned_by = ROOT }
+				}
+				AND = {
+					has_province_modifier = location_of_nagashs_tome
 					NOT = { owned_by = ROOT }
 				}
 			}
@@ -703,6 +916,10 @@ country_decisions = {
 			any_province = {
 				owned_by = ROOT
 				has_province_modifier = location_of_the_carstein_ring
+			}
+			any_province = {
+				owned_by = ROOT
+				has_province_modifier = location_of_nagashs_tome
 			}
 
 		manpower = 50
@@ -729,6 +946,12 @@ country_decisions = {
 				limit = { has_province_modifier = location_of_the_carstein_ring }
 				remove_province_modifier = location_of_the_carstein_ring
 			}
+
+			every_province ={
+				limit = { has_province_modifier = location_of_nagashs_tome }
+				remove_province_modifier = location_of_nagashs_tome
+			}
+
 
 			add_country_modifier = { 
 			    name = nagash_resurrected_modifier

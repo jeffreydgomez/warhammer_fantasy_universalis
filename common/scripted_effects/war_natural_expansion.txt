@@ -1,0 +1,139 @@
+# Humans: imperial_group estalian_group bretonnian_group kislevite_group roppsmenn_group tilean_group norse_group norse_group albionise_group arabyan_group hung_group kurgan_group darkland_human_group amazon_group cathayan_cg indish_cg nipponese_cg
+# Non-human humans: halfling_group gnome_group
+# Undead Humans: nehekharan_group strigany_group nagashi_group (?) vampire_coast_cg
+
+# Greenskins: greenskins_group hobgoblin_group
+# Elves: asrai_group asur_group druchii_group
+# Beatmen: beastmen_group snakefolk_cg eastern_beastfolk_cg
+# Fimir: fimir_group
+# Dwarf: dwarf_group chaos_dwarf_group
+# Ogre: ogre_group
+# Skaven: skaven_group
+# Lizardfolk: lizardmen_group
+
+# undead religions: vampiric nagash_worship  nehekharan_pantheon (usually)
+
+war_natural_expansion = {
+
+# Everybody
+
+	every_neighbor_province = {
+		limit = {
+			culture_group = ROOT
+			NOT = {
+				owner = {
+					reverse_has_opinion = {
+						who = ROOT
+						value = 50
+					}
+				}
+			}
+		}
+		add_claim = ROOT
+	}
+
+# Undergrounders
+
+	if = {
+		limit = {
+			or = {
+				culture_group = dwarf_group
+				culture_group = skaven_group
+			}
+		}
+		every_neighbor_province = {
+			limit = {
+				continent = underempire
+				NOT = {
+					owner = {
+						reverse_has_opinion = {
+							who = ROOT
+							value = 50
+						}
+					}
+				}
+			}
+			add_claim = ROOT
+		}
+	}
+
+# Wood Elves
+
+	else_if = {
+		limit = {
+			or = {
+				culture_group = asrai_group
+			}
+		}
+		every_neighbor_province = {
+			limit = {
+				OR = {
+					has_terrain = magical_forest_terrain
+					has_terrain = forest
+					has_terrain = jungle
+					has_terrain = woods
+				}
+				NOT = {
+					owner = {
+						reverse_has_opinion = {
+							who = ROOT
+							value = 50
+						}
+					}
+				}
+			}
+			add_claim = ROOT
+		}
+	}
+
+### Lizards
+
+	else_if = {
+		limit = {
+			or = {
+				has_country_modifier = lizardmen_administration
+			}
+		}
+		every_neighbor_province = {
+			limit = {
+				NOT = { has_winter = mild_winter }
+				NOT = { has_winter = normal_winter }
+				NOT = { has_winter = severe_winter }
+				NOT = { has_winter = arctic }
+			}
+			NOT = {
+				owner = {
+					reverse_has_opinion = {
+						who = ROOT
+						value = 50
+					}
+				}
+			}
+			add_claim = ROOT
+		}
+	}
+
+
+# Evil gets everybody
+
+	else_if = {
+		limit = {
+			or = {
+				has_country_modifier = destruction_nation
+			}
+		}
+		every_neighbor_province = {
+			limit = {
+				NOT = {
+					owner = {
+						reverse_has_opinion = {
+							who = ROOT
+							value = 50
+						}
+					}
+				}
+			}
+			add_claim = ROOT
+		}
+	}
+}

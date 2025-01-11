@@ -239,24 +239,32 @@ gen_asur_ultimate_missions = {
 		}
 		position = 9
 		trigger = {
-			all_country = {
-				NOT = { great_power_rank = 9 }
-				OR = {
-					AND = {
-						alliance_with = ROOT
-						trust = { who = ROOT value = 90 }
-					}
-					AND = {
-						is_subject_of = ROOT
-						trust = { who = ROOT value = 90 }
-					}
-					ROOT = {
-						has_won_war_against = {
-							who = PREV
-							max_years_since = 50
+			NOT = {
+				any_country = {
+					NOT = { great_power_rank = 9 }
+					NOT = {
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 90 }
 						}
 					}
-					tag = ROOT
+					NOT = {
+						AND = {
+							is_subject_of = ROOT
+							trust = { who = ROOT value = 90 }
+						}
+					}
+					NOT = {
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 50
+							}
+						}
+					}
+					NOT = {
+						tag = ROOT
+					}
 				}
 			}
 		}
