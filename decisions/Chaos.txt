@@ -1,0 +1,80 @@
+country_decisions = {
+	chaos_teleport = {
+		potential = {
+			ai = no
+			is_at_war = no
+			has_reform = chaos_warband
+			NOT = {
+				num_of_cities = 2
+			}
+		}
+		allow = {
+			is_at_war = no
+			ai = no
+			has_reform = chaos_warband
+			NOT = {
+				num_of_cities = 2
+			}
+			NOT = {
+				has_country_modifier = chaos_teleport_cooldown
+			}
+			capital_scope = {
+				NOT = {
+					has_construction = building
+				}
+			}
+		}
+		effect = {
+			country_event = {
+				id = flavor_chaos.1
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		ai_importance = 0
+	}
+	chaos_settle = {
+		potential = {
+			if = {
+				limit = {
+					ai = yes
+				}
+				capital_scope = {
+					or = {
+						has_terrain = urban_terrain
+						has_terrain = ruins
+					}
+				}
+			}
+			else = {
+				ai = no
+			}
+			has_reform = chaos_warband
+			NOT = {
+				num_of_cities = 2
+			}
+		}
+		allow = {
+			is_at_war = no
+			has_reform = chaos_warband
+			NOT = {
+				num_of_cities = 2
+			}
+			capital_scope = {
+				or = {
+					has_terrain = urban_terrain
+					has_terrain = ruins
+				}
+			}
+		}
+		effect = {
+			remove_government_reform = chaos_warband
+			add_government_reform = chaos_settled_horde
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 0
+	}
+}

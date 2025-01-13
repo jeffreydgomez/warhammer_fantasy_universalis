@@ -1,0 +1,286 @@
+chaos_setup_horde_development = {
+	every_country = {
+		limit = {
+			has_reform = chaos_warband
+			capital_scope = {
+				continent = chaos_wastes
+			}
+		}
+		set_variable = {
+			which = chaos_horde_development_tax
+			value = 2
+		}
+		set_variable = {
+			which = chaos_horde_development_production
+			value = 2
+		}
+		set_variable = {
+			which = chaos_horde_development_manpower
+			value = 2
+		}
+		chaos_horde_development_set_local = yes
+	}
+}
+
+chaos_horde_development_set_local = {
+	capital_scope = {
+		
+	}
+}
+
+
+remove_all_buildings = {
+	remove_building = conscription_center
+	remove_building = manufactory
+	remove_building = wharf
+	remove_building = weapons
+	remove_building = textile
+	remove_building = plantations
+	remove_building = tradecompany
+	remove_building = farm_estate
+	remove_building = mills
+	remove_building = furnace
+	remove_building = ramparts
+	remove_building = soldier_households
+	remove_building = impressment_offices
+	remove_building = state_house
+	remove_building = marketplace
+	remove_building = workshop
+	remove_building = temple
+	remove_building = barracks
+	remove_building = shipyard
+	remove_building = fort_15th
+	remove_building = coastal_defence
+	remove_building = courthouse
+	remove_building = dock
+	remove_building = regimental_camp
+	remove_building = fort_16th
+	remove_building = naval_battery
+	remove_building = cathedral
+	remove_building = university
+	remove_building = trade_depot
+	remove_building = grand_shipyard
+	remove_building = training_fields
+	remove_building = fort_17th
+	remove_building = stock_exchange
+	remove_building = counting_house
+	remove_building = town_hall
+	remove_building = drydock
+}
+
+# # # # # # # # # # # #
+chaos_migration_effect = {
+	change_culture = ROOT
+	change_religion = ROOT
+	add_core = ROOT
+	cede_province = ROOT
+	chaos_move_buildings_effect = yes
+	move_capital_effect = yes
+}
+
+chaos_move_buildings_effect = {
+	remove_building = fort_15th
+	remove_building = fort_16th
+	remove_building = fort_17th
+	remove_building = fort_18th
+	if = {
+		limit = {
+			ROOT = {
+				capital_scope = {
+					has_building = fort_15th
+				}
+			}
+		}
+		add_building = fort_15th
+	}
+	else_if = {
+		limit = {
+			ROOT = {
+				capital_scope = {
+					has_building = fort_16th
+				}
+			}
+		}
+		add_building = fort_16th
+	}
+	else_if = {
+		limit = {
+			ROOT = {
+				capital_scope = {
+					has_building = fort_17th
+				}
+			}
+		}
+		add_building = fort_17th
+	}
+	else_if = {
+		limit = {
+			ROOT = {
+				capital_scope = {
+					has_building = fort_18th
+				}
+			}
+		}
+		add_building = fort_18th
+	}
+	if = {
+		limit = {
+			ROOT = {
+				capital_scope = {
+					has_building = regimental_camp
+				}
+			}
+		}
+		add_building = regimental_camp
+	}
+	if = {
+		limit = {
+			ROOT = {
+				capital_scope = {
+					has_building = conscription_center
+				}
+			}
+		}
+		add_building = conscription_center
+	}
+	if = {
+		limit = {
+			ROOT = {
+				capital_scope = {
+					has_building = marketplace
+				}
+			}
+		}
+		add_building = marketplace
+	}
+	if = {
+		limit = {
+			ROOT = {
+				capital_scope = {
+					has_building = trade_depot
+				}
+			}
+		}
+		add_building = trade_depot
+	}
+	if = {
+		limit = {
+			ROOT = {
+				capital_scope = {
+					has_building = stock_exchange
+				}
+			}
+		}
+		add_building = stock_exchange
+	}
+	if = {
+		limit = {
+			ROOT = {
+				capital_scope = {
+					has_building = courthouse
+				}
+			}
+		}
+		add_building = courthouse
+	}
+	if = {
+		limit = {
+			ROOT = {
+				capital_scope = {
+					has_building = town_hall
+				}
+			}
+		}
+		add_building = town_hall
+	}
+	if = {
+		limit = {
+			ROOT = {
+				capital_scope = {
+					has_building = university
+				}
+			}
+		}
+		add_building = university
+	}
+	if = {
+		limit = {
+			ROOT = {
+				capital_scope = {
+					has_building = workshop
+				}
+			}
+		}
+		add_building = workshop
+	}
+	if = {
+		limit = {
+			ROOT = {
+				capital_scope = {
+					has_building = counting_house
+				}
+			}
+		}
+		add_building = counting_house
+	}
+	if = {
+		limit = {
+			ROOT = {
+				capital_scope = {
+					has_building = barracks
+				}
+			}
+		}
+		add_building = barracks
+	}
+	if = {
+		limit = {
+			ROOT = {
+				capital_scope = {
+					has_building = training_fields
+				}
+			}
+		}
+		add_building = training_fields
+	}
+}
+
+chaos_conquest_effects = {
+	remove_core = root
+	add_devastation = 100
+	remove_all_buildings = yes
+	while = {
+		limit = {
+			base_tax = 2
+		}
+		owner = {
+			add_adm_power = 5
+		}
+		add_base_tax = -1
+	}
+	while = {
+		limit = {
+			base_production = 2
+		}
+		owner = {
+			add_dip_power = 5
+		}
+		add_base_production = -1
+	}
+	while = {
+		limit = {
+			base_manpower = 2
+		}
+		owner = {
+			add_mil_power = 5
+		}
+		add_base_manpower = -1
+	}
+	owner = {
+		# if 1/1/1
+		add_adm_power = 5
+		add_dip_power = 5
+		add_mil_power = 5
+	}
+	decolonize = yes
+}

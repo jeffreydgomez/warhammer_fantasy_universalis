@@ -1,0 +1,129 @@
+########################################
+# Events for Chaos
+########################################
+namespace = flavor_chaos
+normal_or_historical_nations = yes
+country_event = {
+	id = flavor_chaos.1
+	title = flavor_chaos.1.t
+	desc = flavor_chaos.1.d
+	picture = SHOGUNATE_AUTHORITY_INCIDENT_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		government = chaos_gov
+	}
+	immediate = {
+		capital_scope = {
+			random_empty_neighbor_province = {
+				set_province_flag = chaos_move_prov_1
+				save_event_target_as = chaos_move_prov_et_1
+			}
+		}
+		capital_scope = {
+			random_empty_neighbor_province = {
+				limit = {
+					not = {
+						has_province_flag = chaos_move_prov_1
+					}
+				}
+				set_province_flag = chaos_move_prov_2
+				save_event_target_as = chaos_move_prov_et_2
+			}
+		}
+		capital_scope = {
+			random_empty_neighbor_province = {
+				limit = {
+					not = {
+						has_province_flag = chaos_move_prov_1
+						has_province_flag = chaos_move_prov_2
+					}
+				}
+				set_province_flag = chaos_move_prov_3
+				save_event_target_as = chaos_move_prov_et_3
+			}
+		}
+		capital_scope = {
+			save_event_target_as = chaos_former_capital
+		}
+	}
+	option = {
+		name = flavor_chaos.1.a
+		trigger = {
+			capital_scope = {
+				any_empty_neighbor_province = {
+					has_province_flag = chaos_move_prov_1
+				}
+			}
+		}
+		event_target:chaos_move_prov_et_1 = {
+			chaos_migration_effect = yes
+		}
+		hidden_effect = {
+			add_country_modifier = {
+				name = chaos_teleport_cooldown
+				duration = 90
+			}
+
+		}
+	}
+	option = {
+		name = flavor_chaos.1.b
+		trigger = {
+			capital_scope = {
+				any_empty_neighbor_province = {
+					has_province_flag = chaos_move_prov_2
+				}
+			}
+		}
+		event_target:chaos_move_prov_et_2 = {
+			chaos_migration_effect = yes
+		}
+		hidden_effect = {
+			add_country_modifier = {
+				name = chaos_teleport_cooldown
+				duration = 90
+			}
+
+		}
+	}
+	option = {
+		name = chaos.1.c
+		trigger = {
+			capital_scope = {
+				any_empty_neighbor_province = {
+					has_province_flag = chaos_move_prov_3
+				}
+			}
+		}
+		event_target:chaos_move_prov_et_3 = {
+			chaos_migration_effect = yes
+		}
+		hidden_effect = {
+			add_country_modifier = {
+				name = chaos_teleport_cooldown
+				duration = 120
+			}
+		}
+	}
+	after = {
+		event_target:chaos_move_prov_et_1 = {
+			clr_province_flag = chaos_move_prov_1
+		}
+		event_target:chaos_move_prov_et_2 = {
+			clr_province_flag = chaos_move_prov_2
+		}
+		event_target:chaos_move_prov_et_3 = {
+			clr_province_flag = chaos_move_prov_3
+		}
+		event_target:chaos_former_capital = {
+			remove_all_buildings = yes
+			remove_core = root
+			decolonize = yes
+			
+		}
+	}
+	#go back
+	option = {
+		name = flavor_chaos.1.z
+	}
+}
