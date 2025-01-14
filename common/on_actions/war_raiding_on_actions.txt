@@ -1,4 +1,4 @@
-### Skaven have raiding, orcs don't. If orcs take a province, then skaven take it back, it shouldn't be raided. If Skaven take it back, then they are both the Owner and Controller.
+### Skaven have raiding, humans don't. If humans take a province, then skaven take it back, it shouldn't be raided. If Skaven take it back, then they are both the Owner and Controller.
 
 ### Raiding # FROM = Loser country?
 on_siege_won_province = {
@@ -6,13 +6,16 @@ on_siege_won_province = {
 		limit = {
 			controller = {
 				has_country_modifier = lets_raid_modifier
-				NOT = { technology_group = FROM }
-#				NOT = { owner = PREV }
 			}
 
 			NOT = { has_province_modifier = recently_raided }
-			NOT = { has_influencing_fort = yes }
-			NOT = { controlled_by = owner } ### This is the new part Does this work?
+			NOT = {
+				owner = {
+					ROOT = {
+						controlled_by = PREV
+					}
+				}
+			}
 		}
 
 		if = {
@@ -27,7 +30,7 @@ on_siege_won_province = {
 			    duration = 3650  
 			}
 			add_devastation = 10
-			controller = { add_war_exhaustion = 0.05 }
+			owner = { add_war_exhaustion = 0.05 }
 		}
 
 		if = {
@@ -42,7 +45,7 @@ on_siege_won_province = {
 			    duration = 3650  
 				}
 			add_devastation = 10	
-			controller = { add_war_exhaustion = 0.05 }
+			owner = { add_war_exhaustion = 0.05 }
 		} 
 
 		if = {
@@ -57,8 +60,16 @@ on_siege_won_province = {
 			    duration = 3650  
 			}
 			add_devastation = 10
-			controller = { add_war_exhaustion = 0.05 }
+			owner = { add_war_exhaustion = 0.05 }
 		}
 	}
+}
+
+on_province_owner_change = {
+
+	if = {
+		has_province_modifier = recently_raided
+	}
+	add_nationalism = 10
 }
 

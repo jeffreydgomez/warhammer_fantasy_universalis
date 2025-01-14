@@ -16,7 +16,7 @@ gen_backup_missions = {
 		NOT = {
 			OR = {
 				technology_group = tech_imperial
-				culture_group = backup_cg
+				#culture_group = backup_cg
 				culture_group = snakefolk_cg
 				culture_group = nipponese_cg
 				culture_group = eastern_beastfolk_cg
@@ -39,6 +39,9 @@ gen_backup_missions = {
 				culture_group = asrai_group
 				is_part_of_hre = yes
 				culture_group = arabyan_group
+				has_reform = bretonnian_dukedom_reform
+				has_reform = bretonnian_royarch_reform
+				tag = A98
 			}
 		}
 	}
@@ -181,7 +184,7 @@ gen_backup_ultimate_missions = {
 		NOT = {
 			OR = {
 				technology_group = tech_imperial
-				culture_group = backup_cg
+				#culture_group = backup_cg
 				culture_group = snakefolk_cg
 				culture_group = nipponese_cg
 				culture_group = eastern_beastfolk_cg
@@ -205,6 +208,9 @@ gen_backup_ultimate_missions = {
 				culture_group = asrai_group
 				is_part_of_hre = yes
 				culture_group = arabyan_group
+				has_reform = bretonnian_dukedom_reform
+				has_reform = bretonnian_royarch_reform
+				tag = A98
 			}
 		}
 	}
@@ -239,24 +245,32 @@ gen_backup_ultimate_missions = {
 		}
 		position = 9
 		trigger = {
-			all_country = {
-				NOT = { great_power_rank = 9 }
-				OR = {
-					AND = {
-						alliance_with = ROOT
-						trust = { who = ROOT value = 90 }
-					}
-					AND = {
-						is_subject_of = ROOT
-						trust = { who = ROOT value = 90 }
-					}
-					ROOT = {
-						has_won_war_against = {
-							who = PREV
-							max_years_since = 50
+			NOT = {
+				any_country = {
+					NOT = { great_power_rank = 9 }
+					NOT = {
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 90 }
 						}
 					}
-					tag = ROOT
+					NOT = {
+						AND = {
+							is_subject_of = ROOT
+							trust = { who = ROOT value = 90 }
+						}
+					}
+					NOT = {
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 50
+							}
+						}
+					}
+					NOT = {
+						tag = ROOT
+					}
 				}
 			}
 		}
@@ -289,7 +303,7 @@ gen_backup_religion_missions = {
 		NOT = {
 			OR = {
 				religion = myrmidia
-				religion = the_backup_religion
+				#religion = the_backup_religion
 				religion = animism
 				religion = yin_yang
 				religion = nurglite_religion
@@ -316,6 +330,10 @@ gen_backup_religion_missions = {
 				religion = old_world_cults_religion
 				religion = vampiric
 				religion = the_one_faith
+
+				has_reform = bretonnian_dukedom_reform
+				has_reform = bretonnian_royarch_reform
+				tag = A98
 			}
 		}
 	}
