@@ -55,6 +55,19 @@ on_adm_development = {
 			}
 		}
 	}
+	if = {
+		limit = {
+			owner = {
+				has_reform = chaos_warband
+			}
+		}
+		owner = {
+			change_variable = {
+				which = chaos_country_horde_development_tax
+				value = 1
+			}
+		}
+	}
 }
 
 on_dip_development = {
@@ -71,6 +84,19 @@ on_dip_development = {
 			}
 		}
 	}
+	if = {
+		limit = {
+			owner = {
+				has_reform = chaos_warband
+			}
+		}
+		owner = {
+			change_variable = {
+				which = chaos_country_horde_development_production
+				value = 1
+			}
+		}
+	}
 }
 
 on_mil_development = {
@@ -84,6 +110,19 @@ on_mil_development = {
 		ROOT = {
 			owner = {
 				add_church_power = 2
+			}
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_reform = chaos_warband
+			}
+		}
+		owner = {
+			change_variable = {
+				which = chaos_country_horde_development_manpower
+				value = 1
 			}
 		}
 	}
@@ -186,20 +225,32 @@ on_royal_marriage = {
 
 #generic Chaos
 on_province_owner_change = {
+	#Removes Chaos Horde Development on Conquest or Migration
 	if = {
 		limit = {
 			owner = {
 				has_reform = chaos_warband
-				NOT = {
+				not = {
 					num_of_cities = 2
 				}
 			}
 			is_city = yes
 		}
 		chaos_conquest_effects = yes
-        add_province_modifier = {
-            name = chaos_decolonized_1
-            duration = 3600
-        }
+		add_province_modifier = {
+			name = chaos_decolonized_1
+			duration = 3600
+		}
+	}
+	#Removes Chaos Horde Development on Conquest or Migration
+	if = {
+		limit = {
+			has_province_modifier = chaos_horde_development
+		}
+		FROM = {
+			save_event_target_as = chaos_horde_development_handler
+		}
+		save_event_target_as = chaos_former_capital
+		chaos_horde_development_remove_handler = yes
 	}
 }
