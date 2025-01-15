@@ -1,0 +1,347 @@
+vampiric_raise_dead = {
+	sprite = "GFX_vampiric_raise_dead"
+	cost = 100
+
+	effect = {
+		custom_tooltip = vampiric_raise_dead_tt
+		hidden_effect = {
+			if = {
+				limit = {
+					land_forcelimit = 500
+				}
+				capital_scope = {
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+				}
+			}
+			else_if = {
+				limit = {
+					land_forcelimit = 100
+				}
+				capital_scope = {
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+				}
+			}
+			else_if = {
+				limit = {
+					land_forcelimit = 50
+				}
+				capital_scope = {
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+				}
+			}
+			else_if = {
+				limit = {
+					land_forcelimit = 20
+				}
+				capital_scope = {
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+					infantry = ROOT
+				}
+			}
+			else_if = {
+				limit = {
+					land_forcelimit = 10
+				}
+				capital_scope = {
+					infantry = ROOT
+					infantry = ROOT
+				}
+			}
+			else = {
+				capital_scope = {
+					infantry = ROOT
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 10
+			NOT = { manpower_percentage = 0.5 }
+		}
+		modifier = {
+			factor = 100
+			NOT = { manpower_percentage = 0.2 }
+		}
+	}
+}
+
+vampiric_infiltration = {
+	sprite = "GFX_vampiric_infiltration"
+	cost = 100
+
+	effect = {
+		custom_tooltip = vampiric_infiltration_tt
+		hidden_effect = {
+			every_ally = {
+				add_trust = {
+					who = ROOT
+					value = 25
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		factor = 5
+		modifier = {
+			factor = 0
+			NOT = { num_of_allies = 1 }
+		}
+	}
+}
+
+vampiric_dark_awakening = {
+	sprite = "GFX_vampiric_dark_awakening"
+	cost = 100
+
+	effect = {
+		custom_tooltip = vampiric_dark_awakening_tt
+		hidden_effect = {
+			ROOT = { 
+				country_event = { id = vampire_events.3 }
+			}
+		}
+	}
+
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 10
+			has_heir = no
+		}
+		modifier = {
+			factor = 5
+			NOT = { num_of_generals = 2 }
+		}
+	}
+}
+
+vampiric_whispers_of_night = {
+	sprite = "GFX_vampiric_whispers_of_night"
+	cost = 100
+
+	effect = {
+		custom_tooltip = vampiric_whispers_of_night_tt
+		hidden_effect = {
+			every_neighbor_country = {
+				limit = { 
+					religion_group = old_world_denominations
+					NOT = { religion = vampiric }
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = vampiric_whispers_opinion
+				}
+				reverse_add_opinion = {
+					who = ROOT
+					modifier = vampiric_whispers_opinion_reverse
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		factor = 5
+		modifier = {
+			factor = 100
+			NOT = { num_of_allies = 1 }
+		}
+	}
+}
+
+vampiric_blood_tax = {
+	sprite = "GFX_vampiric_blood_tax"
+	cost = 100
+
+	effect = {
+		add_years_of_income = 1
+	}
+
+	ai_will_do = {
+		factor = 5
+		modifier = {
+			factor = 5
+			NOT = { years_of_income = 1 }
+		}
+		modifier = {
+			factor = 10
+			num_of_loans = 5
+		}
+	}
+}
+
+vampiric_spread_vampirism = {
+	sprite = "GFX_vampiric_spread_vampirism"
+	cost = 50
+
+	effect = {
+		custom_tooltip = vampiric_spread_vampirism_tt
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					NOT = { religion = ROOT }
+					is_reformation_center = no
+				}
+				change_religion = ROOT
+			}
+			random_owned_province = {
+				limit = {
+					NOT = { religion = ROOT }
+					is_reformation_center = no
+				}
+				change_religion = ROOT
+			}
+			random_owned_province = {
+				limit = {
+					NOT = { religion = ROOT }
+					is_reformation_center = no
+				}
+				change_religion = ROOT
+			}
+		}
+	}
+
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 0
+			religious_unity = 1.0
+		}
+		modifier = {
+			factor = 10
+			NOT = { religious_unity = 0.5 }
+		}
+	}
+}
