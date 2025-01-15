@@ -28,7 +28,7 @@ chaos_setup_horde_development = {
 chaos_horde_development_set_handler = {
 	capital_scope = {
 		if = {
-			limit = { 
+			limit = {
 				not = {
 					has_province_modifier = chaos_horde_development
 				}
@@ -80,7 +80,9 @@ chaos_horde_development_set_type = {
 		}
 	}
 }
-
+#
+#removes On Migration/Conquest
+#
 chaos_horde_development_remove_handler = {
 	if = {
 		limit = {
@@ -121,12 +123,62 @@ chaos_horde_development_remove_type = {
 				which = chaos_local_horde_development_$TYPE$
 				value = 0
 			}
+			event_target:chaos_former_capital = {
+				base_$TYPE$ = 1
+			}
 		}
 		subtract_variable = {
 			which = chaos_local_horde_development_$TYPE$
 			value = 1
 		}
 		event_target:chaos_former_capital = {
+			add_base_$TYPE$ = -1
+		}
+	}
+}
+#
+#Used Generally
+#
+chaos_horde_development_remove_handler_2 = {
+	set_variable = {
+		which = chaos_local_horde_development_tax
+		which = chaos_country_horde_development_tax
+	}
+	set_variable = {
+		which = chaos_local_horde_development_production
+		which = chaos_country_horde_development_production
+	}
+	set_variable = {
+		which = chaos_local_horde_development_manpower
+		which = chaos_country_horde_development_manpower
+	}
+	chaos_horde_development_remove_type_2 = {
+		TYPE = tax
+	}
+	chaos_horde_development_remove_type_2 = {
+		TYPE = production
+	}
+	chaos_horde_development_remove_type_2 = {
+		TYPE = manpower
+	}
+}
+
+chaos_horde_development_remove_type_2 = {
+	while = {
+		limit = {
+			check_variable = {
+				which = chaos_local_horde_development_$TYPE$
+				value = 0
+			}
+			capital_scope = {
+				base_$TYPE$ = 1
+			}
+		}
+		subtract_variable = {
+			which = chaos_local_horde_development_$TYPE$
+			value = 1
+		}
+		capital_scope = {
 			add_base_$TYPE$ = -1
 		}
 	}

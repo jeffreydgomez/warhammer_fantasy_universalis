@@ -1,4 +1,4 @@
-po_chaos_vassalize = {
+po_chaos_absorb_warriors = {
 	# Values default to 0 or "no" unless otherwise stated
 	category = 6	# Any number between 0 and 6. Represents the tab under which it will be listed. 6 corresponds to "treaties". This value currently defaults to 6.
 	power_projection = vassalized_rival	# "power_projection" will only be applied if giver is your rival.
@@ -21,43 +21,47 @@ po_chaos_vassalize = {
 	is_make_subject = yes	# This will make the treaty mutually exclusive with other treaties that makes the giver a subject, or that explicitly frees the giver from their current overlord.
 	requires_is_allowed = yes	# If set to "yes", treaty will only be visible when explicitly allowed by casus belli. If not, it will be available but cost diplomatic power.
 	is_visible = {
-		# Defaults to equivalent of "always = yes"
-		can_be_overlord = chaos_warband_vassal
 		OR = {
 			government = chaos_gov
 			religion_group = ruinous_powers_denominations
 		}
 		is_subject = no
-		FROM = { is_subject = no }
+		ai = no
 	}
 	is_allowed = {
 		always = yes
 	}
+	# THIS is the Taker and FROM the Giver in all scopes unless otherwise stated
 	effect = {
+		#To Remove intended amount
+		chaos_horde_development_remove_handler_2 = yes
+
+		#adds to variable
+		change_variable = {
+			which = chaos_country_horde_development_tax
+			value = 2
+		}
+		change_variable = {
+			which = chaos_country_horde_development_production
+			value = 2
+		}
+		change_variable = {
+			which = chaos_country_horde_development_manpower
+			value = 2
+		}
+
+		#Then adds to development
+		chaos_horde_development_set_handler = yes
+		#Deletes Loser
 		FROM = {
-			every_war_enemy_country = {
-				limit = {
-					OR = {
-						defensive_war_with = FROM						# peace out of vassals offensive wars
-						is_in_war = {
-							defender_leader = FROM
-							attacker_leader = THIS
-							casus_belli = cb_independence_war
-						}
-						# to fix a very rare edge case crash when vassalising an overlord fighting an independence war
-					}
-				}
-				white_peace = FROM
+			capital_scope = {
+				cede_province = ---
 			}
 		}
-		create_subject = {
-			subject = FROM
-			subject_type = chaos_warband_vassal
-		}
 	}
-	ai_weight = { 
+	ai_weight = {
 		export_to_variable = {
-			variable_name = ai_value 
+			variable_name = ai_value
 			value = 1000
 		}
 		limit = {
