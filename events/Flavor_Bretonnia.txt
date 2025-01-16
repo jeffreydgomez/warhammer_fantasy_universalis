@@ -3134,18 +3134,22 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = flavor_bretonnia.200.a
+		add_country_modifier = {
+			name = brt_honor_and_chivalry_modifier
+			duration = -1
+		}
 		hidden_effect = {
-			set_variable = {
-				which = brt_adm
-				value = 0
-			}
-			set_variable = {
-				which = brt_dip
-				value = 0
-			}
-			set_variable = {
-				which = brt_mil
-				value = 0
+			every_country = {
+				limit = {
+					culture_group = bretonnian_group
+					capital = {
+						region = bretonnia_region
+					}
+				}
+				add_country_modifier = {
+					name = brt_honor_and_chivalry_modifier
+					duration = -1
+				}
 			}
 		}
 	}
@@ -3161,25 +3165,64 @@ country_event = {
 	option = {
 		#ADM 
 		name = flavor_bretonnia.210.a
-		change_variable = {
-			which = brt_adm
-			value = 1
+		add_country_modifier = {
+			name = brt_modern_warfare_modifier
+			duration = -1
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					culture_group = bretonnian_group
+					capital = {
+						region = bretonnia_region
+					}
+				}
+				country_event = {
+					id = flavor_bretonnia.210
+				}
+			}
 		}
 	}
 	option = {
 		#DIP
 		name = flavor_bretonnia.210.b
-		change_variable = {
-			which = brt_dip
-			value = 1
+		add_country_modifier = {
+			name = brt_traditional_warfare_modifier
+			duration = -1
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					culture_group = bretonnian_group
+					capital = {
+						region = bretonnia_region
+					}
+				}
+				country_event = {
+					id = flavor_bretonnia.210
+				}
+			}
 		}
 	}
 	option = {
 		#MIL
 		name = flavor_bretonnia.210.c
-		change_variable = {
-			which = brt_mil
-			value = 1
+		add_country_modifier = {
+			name = brt_gunpowder_mercenaries_modifier
+			duration = -1
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					culture_group = bretonnian_group
+					capital = {
+						region = bretonnia_region
+					}
+				}
+				country_event = {
+					id = flavor_bretonnia.210
+				}
+			}
 		}
 	}
 }
