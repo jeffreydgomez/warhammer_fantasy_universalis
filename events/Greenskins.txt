@@ -1,0 +1,364 @@
+########################################
+# Events for Greenskins
+########################################
+
+namespace = greenskin_events
+normal_or_historical_nations = yes
+
+
+
+### Template
+
+
+### A Challenger Approaches
+
+country_event = { 
+	id = greenskin_events.1
+	title = greenskin_events.1.t 
+	desc = greenskin_events.1.d 
+	picture = ANGRY_MOB_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = greenskins_group
+			culture_group = hobgoblin_group
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# I'm still the boss
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = greenskin_events.1.a 
+
+		add_legitimacy = -10
+
+		add_piety = -0.1
+
+		}
+
+# The throne is theirs
+	option = { 
+		ai_chance = { factor = 50 }
+		name = greenskin_events.1.b
+
+		kill_ruler = yes
+
+		add_piety = 0.1
+
+	}
+
+# Let's fight it out!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = greenskin_events.1.c
+
+		add_piety = 0.1
+
+		random_list = {
+			50 = {
+				if = {
+					limit = {
+						mil = 6
+					}
+					add_mil_power = 100
+				}
+				else = {
+					change_mil = 1
+				}
+				add_prestige = 10
+				add_legitimacy = 5
+			}
+
+			50 = {
+				kill_ruler = yes
+				add_prestige = 10
+				add_legitimacy = 5
+			}
+		}
+	}
+}
+
+
+### Squigs Gone Wild
+
+country_event = { 
+	id = greenskin_events.2
+	title = greenskin_events.2.t 
+	desc = greenskin_events.2.d 
+	picture = ANGRY_MOB_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = greenskins_group
+			culture_group = hobgoblin_group
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Round them Up
+	option = { 
+		ai_chance = { factor = 100 }
+		name = greenskin_events.2.a
+
+		random_owned_province = {
+			add_base_production = 1
+			add_devastation = 10
+		}
+
+		add_manpower = -1
+		add_piety = -0.1
+	}
+
+#Eat them Up
+	option = { 
+		ai_chance = { factor = 5 }
+		name = greenskin_events.2.b
+
+		add_manpower = 1
+		add_piety = 0.1
+	}
+}
+
+### Loot Own Lands
+
+country_event = { 
+	id = greenskin_events.3
+	title = greenskin_events.3.t 
+	desc = greenskin_events.3.d 
+	picture = ANGRY_MOB_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = greenskins_group
+			culture_group = hobgoblin_group
+		}
+
+		any_owned_province = {
+			base_tax = 2
+			base_production = 2
+			base_manpower = 2
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = { 
+		ai_chance = { factor = 5 }
+		name = greenskin_events.3.a
+
+		add_treasury = -100
+		add_piety = -0.1
+
+	}
+
+	option = { 
+		ai_chance = { factor = 15 }
+		name = greenskin_events.3.b
+
+		random_owned_province = {
+			limit = {
+				base_tax = 2
+				base_production = 2
+				base_manpower = 2
+			}
+			add_base_tax = -1
+			add_base_production = -1
+			add_base_manpower = -1
+		}
+
+		add_piety = 0.1
+	}
+
+	option = { 
+		ai_chance = { factor = 1 }
+		name = greenskin_events.3.c
+		add_stability = -1
+
+		add_piety = -0.1
+	}
+}
+
+
+### Troll Trouble
+
+country_event = { 
+	id = greenskin_events.4
+	title = greenskin_events.4.t 
+	desc = greenskin_events.4.d 
+	picture = ANGRY_MOB_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = greenskins_group
+			culture_group = hobgoblin_group
+		}
+		army_professionalism = 0.05
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = greenskin_events.4.a
+
+		add_army_professionalism = -0.02
+		add_piety = 0.1
+	}
+
+	option = { 
+		ai_chance = { factor = 5 }
+		name = greenskin_events.4.b
+		add_yearly_manpower = -0.25
+
+	}
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = greenskin_events.4.c
+
+		add_army_professionalism = 0.05
+		add_yearly_manpower = -1
+
+		add_piety = -0.1
+	}
+}
+
+
+# Trial By Fire
+
+country_event = { 
+	id = greenskin_events.5
+	title = greenskin_events.5.t 
+	desc = greenskin_events.5.d 
+	picture = ANGRY_MOB_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = greenskins_group
+			culture_group = hobgoblin_group
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = greenskin_events.5.a 
+		add_prestige = -10
+		add_piety = -0.1
+	}
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = greenskin_events.5.b
+		add_piety = 0.1
+
+		random_list = {
+			25 = {
+				add_prestige = 10
+			}
+
+			25 = {
+				add_prestige = 25
+				kill_ruler = yes
+			}
+
+			25 = {
+				kill_ruler = yes
+			}
+
+			25 = {
+				add_prestige = -25
+			}
+		}
+	}
+}
+
+### Raiding Party
+
+country_event = { 
+	id = greenskin_events.6
+	title = greenskin_events.6.t 
+	desc = greenskin_events.6.d 
+	picture = ANGRY_MOB_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = greenskins_group
+			culture_group = hobgoblin_group
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = greenskin_events.6.a
+		add_piety = -0.1
+	}
+
+	option = { 
+		ai_chance = { factor = 5 }
+		name = greenskin_events.6.b
+		add_piety = 0.1
+
+		random_province = {
+			limit = {
+				is_neighbor_of = ROOT
+				NOT = { owned_by = ROOT }
+			}
+
+			spawn_rebels = {
+	  	 		size = 1
+	    		type = noble_rebels
+	    		friend = ROOT
+	    		culture = ROOT
+	    		religion = ROOT
+			}
+
+			owner = {
+				add_opinion = {
+			    	who = ROOT
+			    	modifier = ravaged_border
+				}
+			}
+
+		}
+	}
+}
+
+
