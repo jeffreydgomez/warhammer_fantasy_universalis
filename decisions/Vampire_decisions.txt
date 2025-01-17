@@ -1,27 +1,113 @@
 country_decisions = {
 	
-#	purge_undead_from_administration = {
-#
-#		potential = {
-#			has_country_modifier = { undead_administration }
-#			NOT = { religion = vampiric }
-#			NOT = { religion = nagash_worship }
-#			NOT = { religion = nagash_worship }
-#
-#
-#
-#
-#		}
-#
-#
-#
-#	}
-#
-#	purge_undead_from_military = {
-#
-#
-#	
-#	}
+	purge_undead_from_administration = {
+		potential = {
+			has_country_modifier =  undead_administration 
+			NOT = { religion = vampiric }
+			NOT = { religion = nagash_worship }
+			NOT = { religion = nehekharan_pantheon }
+		}
+
+		allow = {
+			stability = 1
+		}
+
+		effect = {
+
+			kill_heir = { allow_new_heir = no }
+
+			kill_ruler = yes
+
+			add_stability = -3
+
+			kill_advisor = random
+
+			add_estate_loyalty = {
+			    estate = estate_nobles
+			    loyalty = -30
+			}
+			add_estate_loyalty = {
+			    estate = estate_church
+			    loyalty = -30
+			}
+			add_estate_loyalty = {
+			    estate = estate_burghers
+			    loyalty = -30
+			}
+			add_estate_loyalty = {
+			    estate = estate_eunichs
+			    loyalty = -30
+			}
+
+			random_owned_province = {
+				spawn_rebels = {
+				    size = 1
+				    type = vampiric_rebels
+				}
+			}
+
+			remove_country_modifier = undead_administration
+		}
+
+		ai_will_do = { factor = 0 }
+
+	}
+
+	purge_undead_from_military = {
+
+		potential = {
+			has_country_modifier =  undead_military 
+			NOT = { religion = vampiric }
+			NOT = { religion = nagash_worship }
+			NOT = { religion = nehekharan_pantheon }
+		}
+
+		allow = {
+			always = yes
+		}
+
+		effect = {
+
+			add_yearly_manpower = -3
+
+			add_army_tradition = -15
+
+			random_owned_province = {
+				spawn_rebels = {
+				    size = 1
+				    type = vampiric_rebels
+				}
+			}
+
+			random_owned_province = {
+				spawn_rebels = {
+				    size = 1
+				    type = vampiric_rebels
+				}
+			}
+
+			random_owned_province = {
+				spawn_rebels = {
+				    size = 1
+				    type = vampiric_rebels
+				}
+			}
+
+			remove_country_modifier = undead_military
+
+			kill_leader = random
+			kill_leader = random
+			kill_leader = random
+
+			kill_advisor = random
+
+
+		}
+
+
+		ai_will_do = { factor = 0 }
+	
+	}
 
 
 
