@@ -4,21 +4,20 @@
 #    tooltip = localisation_key #Can use customizable localisation
 #    #To localize it, use the name of the button as a key, can also use customizable localisation
 #}	
-
 custom_button = {
 	name = chaos_toggle_button
 	tooltip = chaos_toggle_button_tt
 	potential = {
-		FROM = {
-			government = chaos_gov
+		and = {
+			or = {
+				has_reform = chaos_settled_horde
+				has_reform = chaos_warband
+				has_reform = everchosen_reform
+			}
 			ai = no
 		}
 	}
 	trigger = {
-		hidden_trigger = {
-			always = yes
-			ai = no
-		}
 	}
 	effect = {
 		if = {
@@ -33,9 +32,28 @@ custom_button = {
 	}
 }
 
+custom_icon = {
+	name = chaos_floating_strip
+	potential = {
+		and = {
+			or = {
+				has_reform = chaos_settled_horde
+				has_reform = chaos_warband
+				has_reform = everchosen_reform
+			}
+			ai = no
+		}
+	}
+}
+
 custom_text_box = {
 	name = chaos_window_title
 	potential = {
+		or = {
+			has_reform = chaos_settled_horde
+			has_reform = chaos_warband
+			has_reform = everchosen_reform
+		}
 	}
 }
 
@@ -48,18 +66,19 @@ custom_window = {
 
 custom_button = {
 	name = chaos_window_close
-	potential = { 
+	potential = {
 	}
-	trigger = { 
+	trigger = {
 		hidden_trigger = {
 			always = yes
 		}
 	}
-	effect = { 
+	effect = {
 		clr_country_flag = chaos_window_open
 		play_sound = back_click
 	}
 }
+
 custom_button = {
 	name = gifts_of_chaos_1_1
 	tooltip = gifts_of_chaos_1_1_tt
@@ -96,7 +115,7 @@ custom_button = {
 		if = {
 			limit = {
 				has_country_flag = chaos_gift_1_1_active
-				}
+			}
 			clr_country_flag = chaos_gift_1_1_active
 			remove_country_modifier = chaos_test_1
 		}
@@ -234,6 +253,7 @@ custom_button = {
 		}
 	}
 }
+
 custom_button = {
 	name = gifts_of_chaos_1_5
 	tooltip = gifts_of_chaos_1_5_tt
@@ -430,7 +450,7 @@ custom_button = {
 		if = {
 			limit = {
 				has_country_flag = chaos_gift_2_1_active
-				}
+			}
 			clr_country_flag = chaos_gift_2_1_active
 			remove_country_modifier = chaos_test_1
 		}
@@ -568,6 +588,7 @@ custom_button = {
 		}
 	}
 }
+
 custom_button = {
 	name = gifts_of_chaos_2_5
 	tooltip = gifts_of_chaos_2_5_tt
@@ -764,7 +785,7 @@ custom_button = {
 		if = {
 			limit = {
 				has_country_flag = chaos_gift_3_1_active
-				}
+			}
 			clr_country_flag = chaos_gift_3_1_active
 			remove_country_modifier = chaos_test_1
 		}
@@ -902,6 +923,7 @@ custom_button = {
 		}
 	}
 }
+
 custom_button = {
 	name = gifts_of_chaos_3_5
 	tooltip = gifts_of_chaos_3_5_tt
@@ -1098,7 +1120,7 @@ custom_button = {
 		if = {
 			limit = {
 				has_country_flag = chaos_gift_4_1_active
-				}
+			}
 			clr_country_flag = chaos_gift_4_1_active
 			remove_country_modifier = chaos_test_1
 		}
@@ -1236,6 +1258,7 @@ custom_button = {
 		}
 	}
 }
+
 custom_button = {
 	name = gifts_of_chaos_4_5
 	tooltip = gifts_of_chaos_4_5_tt
@@ -1432,7 +1455,7 @@ custom_button = {
 		if = {
 			limit = {
 				has_country_flag = chaos_gift_5_1_active
-				}
+			}
 			clr_country_flag = chaos_gift_5_1_active
 			remove_country_modifier = chaos_test_1
 		}
@@ -1570,6 +1593,7 @@ custom_button = {
 		}
 	}
 }
+
 custom_button = {
 	name = gifts_of_chaos_5_5
 	tooltip = gifts_of_chaos_5_5_tt
@@ -1729,7 +1753,6 @@ custom_button = {
 		}
 	}
 }
-
 
 custom_text_box = {
 	name = chaos_power_value
