@@ -1,0 +1,667 @@
+
+########################################
+# Events for Old World
+########################################
+
+namespace = old_world_events
+normal_or_historical_nations = yes
+
+
+### Flavor Events
+
+
+### TEMPLATE
+
+country_event = { 
+	id = old_world_events.X
+	title = old_world_events.X.title
+	desc = old_world_events.X.desc
+	picture = NOBLE_ESTATE_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion_group = old_world_denominations
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# FIRST OPTION
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.X.a 
+
+	}
+
+# SECOND OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.X.b
+
+
+	}
+
+# THIRD OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.X.c
+	}
+}
+
+
+
+### There are cultists in our capital. Our witch hunters have informed us that they are...
+
+country_event = { 
+	id = old_world_events.1
+	title = old_world_events.1.title
+	desc = old_world_events.1.desc
+	picture = NOBLE_ESTATE_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion_group = old_world_denominations
+		num_of_provinces_in_states = 5
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# A sexy Slaanesh seductress
+
+	option = { 
+		ai_chance = { factor = 1 }
+		trigger = { NOT = { religion = slaaneshi_religion } }
+		name = old_world_events.1.a 
+
+		capital_scope = { change_religion = slaaneshi_religion }
+
+	}
+
+# A vicious Vampiric vicar
+	option = { 
+		ai_chance = { factor = 1 }
+		trigger = { NOT = { religion = vampiric } }
+		name = old_world_events.1.b
+
+		capital_scope = { change_religion = vampiric }
+
+	}
+
+# Even worse ... A Bretonnian!
+	option = { 
+		ai_chance = { factor = 50 }
+		trigger = { NOT = { religion = lady_of_the_lake } }
+		name = old_world_events.1.c
+
+		capital_scope = { change_religion = lady_of_the_lake }
+		add_prestige = -15
+	}
+
+# The bear people have gotten into our vodka again!
+	option = { 
+		ai_chance = { factor = 50 }
+		trigger = { NOT = { religion = ursun } }
+		name = old_world_events.1.d
+
+		capital_scope = { change_religion = ursun }
+		add_treasury = -50
+	}
+
+# It's the ... who are these people? And what are they eating?
+	option = { 
+		ai_chance = { factor = 50 }
+		trigger = { NOT = { religion = the_great_maw_religion } }
+		name = old_world_events.1.e
+
+		capital_scope = { change_religion = the_great_maw_religion }
+		add_manpower = -1
+	}
+}
+
+
+## Beastmen Horde approaches
+
+country_event = { 
+	id = old_world_events.2
+	title = old_world_events.2.title
+	desc = old_world_events.2.desc
+	picture = NOBLE_ESTATE_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion_group = old_world_denominations
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Drive them off!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.2.a 
+
+		random_owned_province = {
+			spawn_rebels = {
+			    type = beastmen_warband_rebels
+			    size = 3
+			}
+		}
+	}
+
+# Pay off the few who will take it
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.2.b
+
+		add_treasury = -100
+
+		random_owned_province = {
+			spawn_rebels = {
+			    type = beastmen_warband_rebels
+			    size = 2
+			}
+		}
+	}
+}
+
+
+## We've discovered an interesting piece of information at a meeting of the elector counts
+
+country_event = { 
+	id = old_world_events.3
+	title = old_world_events.3.title
+	desc = old_world_events.3.desc
+	picture = NOBLE_ESTATE_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		is_part_of_hre = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Blackmail, of course
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.3.a 
+
+		add_country_modifier = { 
+		    name = war_better_spies
+		    duration = 1825
+		}
+
+	}
+
+# Let's not embarrass them
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.3.b
+
+		random_country = {
+			limit = {
+				is_elector = yes
+				NOT = { tag = ROOT }
+			}
+			ROOT = {
+				add_favors = {
+				   who = PREV
+				   amount = 15
+				}
+			}
+		}
+	}
+
+# We are above all this
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.3.c
+
+		add_country_modifier = { 
+		    name = war_better_dip_rep
+		    duration = 3650
+		}
+	}
+
+}
+
+
+### Birth of a Mage. A child has demonstrated strong magical power. Where should we send her?
+
+country_event = { 
+	id = old_world_events.4
+	title = old_world_events.4.title
+	desc = old_world_events.4.desc
+	picture = NOBLE_ESTATE_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = asur_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Send her to the College of Magic
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.4.a
+
+		add_country_modifier = { 
+		    name = war_all_power_cost
+		    duration = 1825
+		}
+
+	}
+
+# Bring her into the army
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.4.b
+		add_country_modifier = { 
+		    name = war_fire_damage
+		    duration = 3650
+		}
+
+
+	}
+
+# Let the child decide
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.4.c
+
+		add_prestige_or_monarch_power = { amount = 10 }
+
+		random_list = {
+		    40 = {
+				add_country_modifier = { 
+				    name = war_all_power_cost
+				    duration = 1825
+				}
+		    }
+		    40 = {
+				add_country_modifier = { 
+				    name = war_fire_damage
+				    duration = 3650
+				}
+		    }
+		    20 = {
+		    }
+		}
+	}
+}
+
+
+### A Bretonnian legendary knight wants to duel.
+
+
+country_event = { 
+	id = old_world_events.5
+	title = old_world_events.5.title
+	desc = old_world_events.5.desc
+	picture = NOBLE_ESTATE_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = { has_country_modifier = destruction_nation }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Accept the Duel
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.5.a 
+
+		random_list = {
+		    30 = {
+		        kill_leader = {
+				    type = random
+				}
+		    }
+		    30 = {
+		        add_prestige = -15
+		    }
+		    20 = {
+		        add_prestige = 15
+		    }
+		    20 = {
+		        create_general = { tradition = 100 }
+		    }
+		}
+	}
+
+# Reject the Duel
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.5.b
+
+		add_prestige = -5
+	}
+
+}
+
+
+
+## We've discovered an interesting piece of information at a Bretonnian Tournement
+
+country_event = { 
+	id = old_world_events.6
+	title = old_world_events.6.title
+	desc = old_world_events.6.desc
+	picture = NOBLE_ESTATE_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = bretonnian_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Blackmail, of course
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.6.a 
+
+		add_country_modifier = { 
+		    name = war_better_spies
+		    duration = 1825
+		}
+
+	}
+
+# Let's not embarrass them
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.6.b
+
+		random_country = {
+			limit = {
+				culture_group = bretonnian_group
+				NOT = { tag = ROOT }
+			}
+
+			add_favors = {
+			   who = ROOT
+			   amount = 15
+			}
+		}
+	}
+
+# We are above all this
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.6.c
+
+		add_country_modifier = { 
+		    name = war_better_dip_rep
+		    duration = 3650
+		}
+	}
+
+}
+
+
+### Witch Hunts! The evidence is dubious, but our witch hunters seek to purge all sorts of radical elements from our midst, including chaos and rat-men.
+
+country_event = { 
+	id = old_world_events.7
+	title = old_world_events.7.title
+	desc = old_world_events.7.desc
+	picture = NOBLE_ESTATE_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion_group = old_world_denominations
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Strike with fury
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.7.a 
+
+		add_country_modifier = { 
+		    name = war_witch_hunts
+		    duration = 3650
+		}
+	}
+
+# Be forceful, but discrete
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.7.b
+
+		add_country_modifier = { 
+		    name = war_witch_hunts
+		    duration = 1825
+		}
+
+		add_estate_loyalty = {
+		    estate = estate_church
+		    loyalty = -10
+		}
+
+
+	}
+
+# There's nothing to be afraid of
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.7.c
+
+		add_estate_loyalty = {
+		    estate = estate_church
+		    loyalty = -20
+		}
+
+	}
+}
+
+
+### Are there rat men beneath our cities? In our homes? In our walls?
+
+country_event = { 
+	id = old_world_events.8
+	title = old_world_events.8.title
+	desc = old_world_events.8.desc
+	picture = NOBLE_ESTATE_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = { culture_group = skaven_group }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# The rat men are everywhere! Time to panic!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.8.a 
+
+		add_stability = -1
+
+	}
+
+# There's no such thing as rat men!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.8.b
+
+		add_country_modifier = { 
+		    name = war_reduced_spy_defense
+		    duration = 3650
+		}
+	}
+}
+
+
+## "Mutants in the Provinces" - Reports of mutated beasts terrorizing villages have reached the court. Chaos corruption appears to have taken hold in the region, warping the people and the land. Fear grips the populace as more fall victim to the dark taint. What shall we do to restore order?"
+
+country_event = { 
+	id = old_world_events.9
+	title = old_world_events.9.title
+	desc = old_world_events.9.desc
+	picture = NOBLE_ESTATE_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = { religion_group = ruinous_powers_denominations }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			change_religion = chaos_undivided_religion
+			add_devastation = 10
+		}
+	}
+
+# Burn the cultists to the ground
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.9.a 
+
+		random_owned_province = {
+			limit = { religion = chaos_undivided_religion }
+			add_devastation = 50
+			change_religion = ROOT
+		}
+		add_manpower = -1
+
+	}
+
+# Activate the witch hunters
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.9.b
+
+		add_country_modifier = { 
+		    name = war_witch_hunts
+		    duration = 1825
+		}
+	}
+
+# No need to panic. We will handle this through normal means.
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.9.c
+	}
+}
+
+
+### The College of Magic offers Transmutation for iron into gold. We'll have to completely remake the mine, but it could be quite lucrative in the long run. Of course, spells can fail...
+
+country_event = { 
+	id = old_world_events.10
+	title = old_world_events.10.title
+	desc = old_world_events.10.desc
+	picture = NOBLE_ESTATE_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion_group = old_world_denominations
+		any_owned_province = {
+			trade_goods = iron
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Take them up on it
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.10.a 
+
+		random_owned_province = {
+		    limit = { trade_goods = iron }
+
+		    random_list = {
+		    	10 = {
+			        change_trade_goods = gold
+			    }
+			    40 = {
+			        change_trade_goods = gold
+			        set_base_production = 1
+			    }
+				40 = {
+			   		change_trade_goods = gold
+			        set_base_production = 1
+			        add_devastation = 25
+			    }
+			    10 = {
+			    	add_devastation = 75
+			    }
+			}
+		}
+	}
+
+# We'll keep our iron, thanks
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.10.b
+	}
+}
+
+
