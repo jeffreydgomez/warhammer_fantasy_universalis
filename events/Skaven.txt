@@ -4,6 +4,52 @@
 namespace = skaven
 
 
+### TEMPLATE
+
+country_event = { 
+	id = skaven.X
+	title = skaven.X.t 
+	desc = skaven.X.d 
+	picture = ANGRY_MOB_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = skaven_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# FIRST OPTION
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.X.a 
+
+	}
+
+# SECOND OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.X.b
+
+
+	}
+
+# THIRD OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.X.c
+	}
+}
+
+
+
+
+
 ### Somebody took our Gray Seer!
 country_event = {
 	id = skaven.1
@@ -16,5 +62,398 @@ country_event = {
 	option = {
         name = skaven.1.a
         ai_chance = { factor = 100 }
+	}
+}
+
+
+
+### Flavor Events
+
+
+### A Challenger wants the throne.
+
+country_event = { 
+	id = skaven.2
+	title = skaven.2.t 
+	desc = skaven.2.d 
+	picture = COUNTRY_COLLAPSE_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = skaven_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# I'm still the boss
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.2.a 
+
+		add_legitimacy = -10
+
+		}
+
+# The throne is theirs
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.2.b
+
+		kill_ruler = yes
+
+	}
+
+# Let's fight it out!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.2.c
+
+		random_list = {
+			50 = {
+				if = {
+					limit = {
+						mil = 6
+					}
+					add_mil_power = 100
+				}
+				else = {
+					change_mil = 1
+				}
+			}
+
+			50 = {
+				kill_ruler = yes
+			}
+		}
+		
+		add_prestige = 10
+		add_legitimacy = 5
+
+	}
+}
+
+
+
+### Raiding Party. A group of our soldiers are getting uppity, and want to raid a neighbor. Should we let them?
+
+country_event = { 
+	id = skaven.3
+	title = skaven.3.t 
+	desc = skaven.3.d 
+	picture = COUNTRY_COLLAPSE_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = skaven_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Better Not
+	option = { 
+		ai_chance = { factor = 100 }
+		name = skaven.3.a
+	}
+
+## Send them out.
+	option = { 
+		ai_chance = { factor = 5 }
+		name = skaven.3.b
+		add_piety = 0.1
+
+		random_province = {
+			limit = {
+				is_neighbor_of = ROOT
+				NOT = { owned_by = ROOT }
+			}
+
+			spawn_rebels = {
+	  	 		size = 1
+	    		type = noble_rebels
+	    		culture = ROOT
+	    		religion = ROOT
+			}
+
+			owner = {
+				add_opinion = {
+			    	who = ROOT
+			    	modifier = ravaged_border
+				}
+			}
+
+		}
+	}
+}
+
+
+
+### A group of skaven spies approaches, interested in working for us.
+
+country_event = { 
+	id = skaven.4
+	title = skaven.4.t 
+	desc = skaven.4.d 
+	picture = COUNTRY_COLLAPSE_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = skaven_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# What's the worst that could happen?
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.4.a
+
+		add_country_modifier = { 
+		    name = war_better_spies
+		    duration = 1825
+		}
+
+		random = { 
+		    chance = 20
+		    kill_ruler = yes
+		}
+
+
+	}
+
+# Better let my advisors handle this
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.4.b
+
+		add_country_modifier = { 
+		    name = war_better_spies
+		    duration = 730
+		}
+
+		random = { 
+		    chance = 20
+		    kill_advisor = random
+		}
+	}
+
+# No way!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.4.c
+
+		random = { 
+		    chance = 5
+		    kill_ruler = yes
+		}
+
+	}
+}
+
+
+
+### A new Warpstone deposit has been discovered! But it's under a thriving warren, and the only way to get at it is to destroy the warren.
+
+country_event = { 
+	id = skaven.5
+	title = skaven.5.t 
+	desc = skaven.5.d 
+	picture = COUNTRY_COLLAPSE_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = skaven_group
+		any_owned_province = {
+			development = 9
+			NOT = { trade_goods = warpstone }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Start blasting!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.5.a 
+
+		random_owned_province = {
+
+			limit = {
+				development = 9
+				NOT = { trade_goods = warpstone }
+			}
+
+			set_base_tax = 1
+			set_base_production = 3
+			set_base_manpower = 1
+
+			change_trade_goods = warpstone
+		}
+	}
+
+# Wait, there's an even bigger deposit here! I think...
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.5.b
+
+		random_owned_province = {
+
+			limit = {
+				development = 9
+				NOT = { trade_goods = warpstone }
+			}
+
+			set_base_tax = 1
+			set_base_production = 1
+			set_base_manpower = 1
+
+			random = { 
+    			chance = 50 
+    			change_trade_goods = warpstone
+    			set_base_production = 10
+			}
+		}
+	}
+
+# Leave it alone ...
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.5.c
+		add_prestige = -5
+	}
+}
+
+
+### Scientific Discovery - Our researchers are on the cusp of a scientific discovery. They just need a few more resources to make it happen
+
+country_event = { 
+	id = skaven.6
+	title = skaven.6.t 
+	desc = skaven.6.d 
+	picture = COUNTRY_COLLAPSE_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = skaven_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Throw money at the problem
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.6.a
+
+		change_innovativeness = 10
+		add_years_of_income = -2.0
+
+	}
+
+# Need bodies to experiment on?
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.6.b
+
+		add_yearly_manpower = -2.0
+		change_innovativeness = 10
+
+
+	}
+
+# Shut it down. We don't have time for such nonesense.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.6.c
+
+		change_innovativeness = -3
+
+	}
+}
+
+
+### Warpstone Addition - Skaven keep consuming the warpston
+
+country_event = { 
+	id = skaven.7
+	title = skaven.7.t 
+	desc = skaven.7.d 
+	picture = COUNTRY_COLLAPSE_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = skaven_group
+		any_owned_province = {
+			trade_goods = warpstone
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Grind it up and snort it!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.7.a 
+		random_owned_province = {
+			limit = {
+				trade_goods = warpstone
+				base_production = 2
+			}
+			add_base_production = -1
+		}
+		change_innovativeness = 2
+	}
+
+# Stop eating the warpstone!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.7.b
+
+		random_owned_province = {
+			limit = {
+				trade_goods = warpstone
+			}
+			add_base_production = 3
+		}
+
+		add_stability = -1
+
+	}
+
+# Eh, let them do what they want
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.7.c
 	}
 }

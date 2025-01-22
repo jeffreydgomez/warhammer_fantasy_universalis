@@ -1,0 +1,365 @@
+#####################
+# RULER SKILL EVENTS
+#####################
+namespace = ruler_skill_events
+
+
+country_event = {
+    id = ruler_skill_events.X
+    title = ruler_skill_events.X.t
+    desc = ruler_skill_events.X.d
+    picture = WESTERNISATION_eventPicture
+
+    is_triggered_only = yes
+
+    option = {
+        name = ruler_skill_events.X.a
+    }
+
+    option = {
+        name = ruler_skill_events.X.b
+    }
+
+    option = {
+        name = ruler_skill_events.X.c
+    }
+
+    option = {
+        name = ruler_skill_events.X.e
+    }
+}
+
+
+### Mysterious Tutor arrives, offering teachings. But his trainings are rigourous, to the detriment of other areas of state. However, he is strange and suspicious
+
+country_event = {
+    id = ruler_skill_events.1
+    title = ruler_skill_events.1.t
+    desc = ruler_skill_events.1.d
+    picture = indiangfx_ADVISOR_eventPicture
+
+    is_triggered_only = yes
+
+
+# I need help with administration
+    option = {
+        name = ruler_skill_events.1.a
+        trigger = { NOT = { adm = 6} }
+        ai_chance = { factor = 50 }
+
+        change_adm = 1
+        add_dip_power = -75
+        add_mil_power = -75
+
+
+        random = { 
+		    chance = 10
+		    set_ruler_religion = chaos_undivided_religion
+		    capital_scope = { change_religion = chaos_undivided_religion }
+		}
+
+    }
+
+#I need help with diplomacy
+    option = {
+        name = ruler_skill_events.1.b
+        trigger = { NOT = { dip = 6} }
+        ai_chance = { factor = 50 }
+
+        change_dip = 1
+        add_adm_power = -75
+        add_mil_power = -75
+
+        random = { 
+		    chance = 10
+		    set_ruler_religion = chaos_undivided_religion
+		    capital_scope = { change_religion = chaos_undivided_religion }
+		}
+
+    }
+
+# I need help with military
+    option = {
+        name = ruler_skill_events.1.c
+        trigger = { NOT = { mil = 6} }
+        ai_chance = { factor = 50 }
+
+        change_mil = 1
+        add_adm_power = -75
+        add_dip_power = -75
+
+        random = { 
+		    chance = 10
+		    set_ruler_religion = chaos_undivided_religion
+		    capital_scope = { change_religion = chaos_undivided_religion }
+		}
+
+    }
+
+## Get out of here!
+    option = {
+        name = ruler_skill_events.1.e
+        ai_chance = { factor = 50 }
+        add_legitimacy = 5
+        add_devotion = 5
+        add_horde_unity = 5
+        add_meritocracy = 5
+        add_republican_tradition = 2
+    }
+}
+
+
+## An Obsession. I need to produce something that will last the ages! It might kill me, and permanently damage my faculties, but I will stay up late nights and do whatever it takes to make it happen!
+
+country_event = {
+    id = ruler_skill_events.2
+    title = ruler_skill_events.2.t
+    desc = ruler_skill_events.2.d
+    picture = ENLIGHTENMENT_eventPicture
+
+
+    is_triggered_only = yes
+
+# A masterpiece of scientific theory
+    option = {
+        name = ruler_skill_events.2.a
+        trigger = { adm = 3 }
+        ai_chance = { factor = 50 }
+
+		random_list = {
+			50 = {
+				change_adm = -1
+				add_adm_power = 150
+			}
+			50 = {
+				change_adm = -3
+				add_adm_tech = 1
+			}
+		}
+
+    }
+
+# An astounding work of art
+    option = {
+        name = ruler_skill_events.2.b
+        trigger = { dip = 3 }
+        ai_chance = { factor = 50 }
+
+		random_list = {
+			50 = {
+				change_dip = -1
+				add_dip_power = 150
+			}
+			50 = {
+				change_dip = -3
+				add_dip_tech = 1
+			}
+		}
+
+    }
+
+# A treatise on military theory
+    option = {
+        name = ruler_skill_events.2.c
+        trigger = { mil = 3 }
+        ai_chance = { factor = 50 }
+
+		random_list = {
+			50 = {
+				change_mil = -1
+				add_mil_power = 150
+			}
+			50 = {
+				change_mil = -3
+				add_mil_tech = 1
+			}
+		}
+
+    }
+
+## I'll find other ways to express myself! Dance!
+    option = {
+        name = ruler_skill_events.2.e
+        ai_chance = { factor = 50 }
+        add_legitimacy = -5
+        add_devotion = -5
+        add_horde_unity = -5
+        add_meritocracy = -5
+        add_republican_tradition = -2
+    }
+}
+
+
+
+### Changing interests. As I grow older, my interests change over time.
+
+country_event = {
+    id = ruler_skill_events.3
+    title = ruler_skill_events.3.t
+    desc = ruler_skill_events.3.d
+    picture = PROTESTANT_RELIGIOUS_DOUBTS_eventPicture
+
+    is_triggered_only = yes
+
+
+# Now is the time for peace, not war
+    option = {
+        name = ruler_skill_events.3.a
+        trigger = {
+        	NOT = { adm = 6}
+        	mil = 1
+        }
+        ai_chance = { factor = 50 }
+
+        change_adm = 1
+        change_mil = -1
+
+    }
+
+# Who needs taxes when you have friends!
+    option = {
+        name = ruler_skill_events.3.b
+        trigger = {
+        	NOT = { dip = 6}
+        	adm = 1
+        }
+        ai_chance = { factor = 50 }
+
+        change_dip = 1
+        change_adm = -1
+
+    }
+
+# Now is the time for war, not diplomacy!
+    option = {
+        name = ruler_skill_events.3.c
+        trigger = {
+        	NOT = { mil = 6}
+        	dip = 1
+        }
+        ai_chance = { factor = 50 }
+
+        change_mil = 1
+        change_dip = -1
+
+    }
+
+## No need to change! I'm perfect just the way I am
+    option = {
+        name = ruler_skill_events.3.e
+        ai_chance = { factor = 50 }
+        add_prestige = 5
+    }
+}
+
+
+
+
+### Self-Improvement. I've set myself to the task of self-improvement
+
+country_event = {
+    id = ruler_skill_events.4
+    title = ruler_skill_events.4.t
+    desc = ruler_skill_events.4.d
+    picture = FAT_WARRIORS_eventPicture
+
+    is_triggered_only = yes
+
+
+# Hold a symposium on taxation
+    option = {
+        name = ruler_skill_events.4.a
+        trigger = { NOT = { adm = 6} }
+        ai_chance = { factor = 50 }
+
+        change_adm = 1
+        add_years_of_income = -2.0
+    }
+
+# Prostrate myself before the experts to learn their ways
+    option = {
+        name = ruler_skill_events.4.b
+        trigger = { NOT = { dip = 6} }
+        ai_chance = { factor = 50 }
+
+        change_dip = 1
+
+        add_prestige = -50
+
+    }
+
+# Let me borrow the army for some military exercises.
+    option = {
+        name = ruler_skill_events.4.c
+        trigger = { NOT = { mil = 6} }
+        ai_chance = { factor = 50 }
+
+        change_mil = 1
+        add_yearly_manpower = -0.5
+        add_army_tradition = -10
+        add_army_professionalism = -0.05
+
+    }
+
+## What was I thinking? I'll just treat myself.
+    option = {
+        name = ruler_skill_events.4.e
+        ai_chance = { factor = 50 }
+
+        add_legitimacy = 5
+        add_devotion = 5
+        add_horde_unity = 5
+        add_meritocracy = 5
+        add_republican_tradition = 2
+    }
+}
+
+
+### Going Mad with Stress. I need to let it out somehow. But how?
+
+country_event = {
+    id = ruler_skill_events.5
+    title = ruler_skill_events.5.t
+    desc = ruler_skill_events.5.d
+    picture = MYSTIC_IN_PRAYER_eventPicture
+
+    is_triggered_only = yes
+
+
+# Burn the books that I don't like!
+    option = {
+        name = ruler_skill_events.5.a
+        trigger = { adm = 1 }
+        ai_chance = { factor = 50 }
+
+        change_adm = -1
+
+    }
+
+# Write naughty letters to our allies
+    option = {
+        name = ruler_skill_events.5.b
+        trigger = { dip = 1 }
+        ai_chance = { factor = 50 }
+
+        change_dip = -1
+
+    }
+
+# Play chess with real soldiers
+    option = {
+        name = ruler_skill_events.5.c
+        trigger = { mil = 1 }
+        ai_chance = { factor = 50 }
+
+        change_mil = -1
+
+    }
+
+## I know! I'll streak around the palace naked!
+    option = {
+        name = ruler_skill_events.5.e
+        ai_chance = { factor = 50 }
+        add_prestige = -75
+    }
+}
