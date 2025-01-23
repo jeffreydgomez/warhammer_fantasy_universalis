@@ -51,8 +51,6 @@ country_event = {
 }
 
 
-
-
 #### Revive Vampire Count
 
 country_event = {
@@ -359,3 +357,450 @@ country_event = {
 		add_church_power = 100
 	}
 }
+
+
+
+### FLAVOR EVENTS
+
+country_event = { 
+	id = vampire_events.X
+	title = vampire_events.X.title
+	desc = vampire_events.X.desc
+	picture = IMPALED_SOLDIERS_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		has_country_modifier = undead_administration
+		has_country_modifier = undead_military
+
+#		religion = vampiric
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# FIRST OPTION
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.X.a 
+
+	}
+
+# SECOND OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.X.b
+
+
+	}
+
+# THIRD OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.X.c
+	}
+}
+
+
+### The undead rest uneasily, and armies crumble to dust
+
+country_event = { 
+	id = vampire_events.4
+	title = vampire_events.4.title
+	desc = vampire_events.4.desc
+	picture = IMPALED_SOLDIERS_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		has_country_modifier = undead_military
+
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Reinforce the spells.
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.4.a 
+
+		add_mil_power = -50
+
+	}
+
+# Let them rot. We can always raise more
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.4.b
+
+		add_yearly_manpower = -0.5
+	}
+
+}
+
+
+
+### Restless Ghosts wander the countryside. note this can trigger for the living or dead
+
+country_event = { 
+	id = vampire_events.5
+	title = vampire_events.5.title
+	desc = vampire_events.5.desc
+	picture = IMPALED_SOLDIERS_eventPicture
+
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Set them at ease
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.5.a 
+
+		add_treasury = -100
+
+	}
+
+# Let them roam!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.5.b
+
+		random_owned_province = {
+			add_devastation = 25
+		}
+
+		random_owned_province = {
+			add_devastation = 25
+		}
+
+
+	}
+
+# Want a job in the army?
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.5.c
+		highlight = yes
+		trigger = { has_country_modifier = undead_military }
+		add_treasury = -100
+
+		add_country_modifier = { 
+		    name = war_spectral_forces
+		    duration = 1825
+		}
+	}
+}
+
+
+
+
+### Tomb of a forgotten king - a forgotten king's tomb has been found. What should we do? Note this can trigger for the living or dead
+
+country_event = { 
+	id = vampire_events.6
+	title = vampire_events.6.title
+	desc = vampire_events.6.desc
+	picture = IMPALED_SOLDIERS_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Seal the tomb
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.6.a 
+
+		add_prestige_or_monarch_power = { amount = 10 }
+
+	}
+
+# Loot the tomb, and risk angering the ghosts inside
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.6.b
+
+		add_treasury = 250
+
+		random = { 
+		    chance = 50 
+
+			random_owned_province = {
+				add_devastation = 50
+			}
+
+			random_owned_province = {
+				add_devastation = 25
+			}
+			random_owned_province = {
+				add_devastation = 25
+			}
+
+			random_owned_province = {
+				add_devastation = 25
+			}
+		}
+
+
+	}
+
+# Ressurect him!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.6.c
+		highlight = yes
+		trigger = {
+			OR = {
+				has_country_modifier = undead_administration
+				has_country_modifier = undead_military
+			}
+		}
+
+		add_mil_power = -25
+
+		create_general = { tradition = 100 }
+
+	}
+}
+
+
+### A FEAST OF BLOOD - My vampiric hunger is taking over. It's time to select a new victim.  I want somebody special
+
+country_event = { 
+	id = vampire_events.7
+	title = vampire_events.7.title
+	desc = vampire_events.7.desc
+	picture = IMPALED_SOLDIERS_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion = vampiric
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# An Oligarch
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.7.a 
+		add_manpower = -0.001
+		remove_advisor_by_category = ADM
+		if = {
+			limit = {
+				adm = 6
+			}
+		add_adm_power = 100
+		}
+		else = {
+			change_adm = 1
+		}
+	}
+
+# A great diplomat
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.7.b
+		remove_advisor_by_category = DIP
+
+		add_manpower = -0.001
+
+		if = {
+			limit = {
+				dip = 6
+			}
+		add_dip_power = 100
+		}
+		else = {
+			change_dip = 1
+		}
+
+	}
+
+# A famous warrior
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.7.c
+		remove_advisor_by_category = MIL
+
+		add_manpower = -0.001
+
+		if = {
+			limit = {
+				mil = 6
+			}
+		add_mil_power = 100
+		}
+		else = {
+			change_mil = 1
+		}
+
+	}
+
+
+# Did I say a feast? I meant a festival!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.7.d
+		remove_advisor_by_category = ADM
+		remove_advisor_by_category = DIP
+		remove_advisor_by_category = MIL
+
+		add_yearly_manpower = -2
+		add_stability = -1
+
+		if = {
+			limit = {
+				adm = 6
+			}
+		add_adm_power = 100
+		}
+		else = {
+			change_adm = 1
+		}
+
+		if = {
+			limit = {
+				dip = 6
+			}
+		add_dip_power = 100
+		}
+		else = {
+			change_dip = 1
+		}
+
+		if = {
+			limit = {
+				mil = 6
+			}
+		add_mil_power = 100
+		}
+		else = {
+			change_mil = 1
+		}
+	}
+}
+
+
+
+### A New Necromancer Rises with strange new ideas
+
+country_event = { 
+	id = vampire_events.8
+	title = vampire_events.8.title
+	desc = vampire_events.8.desc
+	picture = IMPALED_SOLDIERS_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		has_country_modifier = undead_administration
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Bring him to court, and test out his ideas
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.8.a 
+
+		change_innovativeness = 10
+		add_stability = -1
+
+	}
+
+# Consume his soul. He's too dangerous
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.8.b
+
+		add_adm_power = 25
+		add_dip_power = 25
+		add_mil_power = 25
+	}
+}
+
+
+
+### Shall we summon storms of vampiric energy?
+
+country_event = { 
+	id = vampire_events.9
+	title = vampire_events.9.title
+	desc = vampire_events.9.desc
+	picture = IMPALED_SOLDIERS_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		has_country_modifier = undead_administration
+		is_at_war = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# The cost is too great
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.9.a 
+	}
+
+# Unleash the storms!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.9.b
+
+		add_mil_power = -50
+		add_yearly_manpower = -0.5
+
+		add_country_modifier = { 
+		    name = magical_storms
+		    duration = 3650
+		}
+	}
+}
+
+
