@@ -23,18 +23,25 @@ military_missions = { #Series name is displayed over the slot?
 				duration = 9125 #25 years
 			}
 			custom_tooltip = claim_neighbor_province
-			hidden_effect = {
-				every_owned_province = {
-					every_neighbor_province = {
-						limit = {
-							NOT = { owned_by = ROOT }
-							NOT = { is_permanent_claim = ROOT	}
-							NOT = { is_core = ROOT	}
+
+			if = { ## AI has natural expansion, they don't need this and better borders without it.
+
+				limit = { ai = no }
+				hidden_effect = {
+					every_owned_province = {
+						every_neighbor_province = {
+							limit = {
+								NOT = { owned_by = ROOT }
+								NOT = { is_permanent_claim = ROOT	}
+								NOT = { is_core = ROOT	}
+							}
+							add_claim = ROOT
 						}
-						add_claim = ROOT
 					}
 				}
 			}
+
+
 		}
 		ai_weight = {
 			factor = 10 # AI will go (up to) this many percent above army budget in order to reach the army size needed
@@ -59,15 +66,18 @@ military_missions = { #Series name is displayed over the slot?
 				}
 			}
 			custom_tooltip = claim_neighbor_province
-			hidden_effect = {
-				every_owned_province = {
-					every_neighbor_province = {
-						limit = {
-							NOT = { owned_by = ROOT }
-							NOT = { is_permanent_claim = ROOT	}
-							NOT = { is_core = ROOT	}
+			if = { ## AI has natural expansion, they don't need this and better borders without it.
+				limit = { ai = no }
+				hidden_effect = {
+					every_owned_province = {
+						every_neighbor_province = {
+							limit = {
+								NOT = { owned_by = ROOT }
+								NOT = { is_permanent_claim = ROOT	}
+								NOT = { is_core = ROOT	}
+							}
+							add_claim = ROOT
 						}
-						add_claim = ROOT
 					}
 				}
 			}
@@ -86,15 +96,18 @@ military_missions = { #Series name is displayed over the slot?
 			}
 			custom_tooltip = perma_claim_neighbor_area
 			hidden_effect = {
-				every_owned_province = {
-					every_neighbor_province = {
-						area = {
-							limit = {
-								NOT = { owned_by = ROOT }
-								NOT = { is_permanent_claim = ROOT    }
-								NOT = { is_core = ROOT    }
+				if = { ## AI has natural expansion, they don't need this and better borders without it.
+					limit = { ai = no }
+					every_owned_province = {
+						every_neighbor_province = {
+							area = {
+								limit = {
+									NOT = { owned_by = ROOT }
+									NOT = { is_permanent_claim = ROOT    }
+									NOT = { is_core = ROOT    }
+								}
+								add_permanent_claim = ROOT
 							}
-							add_permanent_claim = ROOT
 						}
 					}
 				}
@@ -113,15 +126,18 @@ military_missions = { #Series name is displayed over the slot?
 				duration = 9125 #25 years
 			}
 			custom_tooltip = perma_claim_home_region
-			hidden_effect = {
-				capital_scope = {
-					every_province = {
-						limit = {
-							region = PREV
-							NOT = { owned_by = ROOT }
-							NOT = { is_core = ROOT }
+			if = { ## AI has natural expansion, they don't need this and better borders without it.
+				limit = { ai = no }
+				hidden_effect = {
+					capital_scope = {
+						every_province = {
+							limit = {
+								region = PREV
+								NOT = { owned_by = ROOT }
+								NOT = { is_core = ROOT }
+							}
+							add_permanent_claim = ROOT
 						}
-						add_permanent_claim = ROOT
 					}
 				}
 			}
@@ -165,15 +181,18 @@ military_missions = { #Series name is displayed over the slot?
 			custom_tooltip = " "
 			custom_tooltip = perma_claim_neighbor_area
 			hidden_effect = {
-				every_owned_province = {
-					every_neighbor_province = {
-						area = {
-							limit = {
-								NOT = { owned_by = ROOT }
-								NOT = { is_permanent_claim = ROOT    }
-								NOT = { is_core = ROOT    }
+				if = { ## AI has natural expansion, they don't need this and better borders without it.
+					limit = { ai = no }
+					every_owned_province = {
+						every_neighbor_province = {
+							area = {
+								limit = {
+									NOT = { owned_by = ROOT }
+									NOT = { is_permanent_claim = ROOT    }
+									NOT = { is_core = ROOT    }
+								}
+								add_permanent_claim = ROOT
 							}
-							add_permanent_claim = ROOT
 						}
 					}
 				}
