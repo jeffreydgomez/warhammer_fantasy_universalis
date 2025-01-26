@@ -1,0 +1,52 @@
+
+country_decisions = {
+
+	form_cold_empire = {
+		major = yes
+		potential = {
+			culture_group = lizardmen_group
+			NOT = { culture = dragon_isles_lizardmen }
+			NOT = { tag = Z93 }
+			OR = {
+				ai = no
+				NOT = { exists = Z93 }
+			}
+			is_colonial_nation = no
+			normal_or_historical_nations = yes
+			OR = {
+				ai = no
+				num_of_cities = 15
+			}
+		}
+		provinces_to_highlight = {
+			has_terrain = temple_city_terrain
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		allow = {
+			culture_group = lizardmen_group
+			is_at_war = no
+			is_free_or_tributary_trigger = yes
+			is_tribal = no
+			NOT = { exists = Z93 }
+
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 15
+				has_terrain = temple_city_terrain
+			}
+		}
+		effect = {
+			change_tag = Z93
+			hidden_effect = { restore_country_name = yes }
+			swap_non_generic_missions = yes
+			country_event = { id = ideagroups.1 }
+	
+			add_country_modifier = { name = centralization_modifier duration = 7300 }
+			add_prestige = 100
+		}
+		ai_will_do = { factor = 400 }
+		ai_importance = 400
+	}
+
+
+	
+}

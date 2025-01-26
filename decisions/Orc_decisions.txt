@@ -2,6 +2,55 @@
 
 
 country_decisions = {
+
+
+	form_greentide = {
+		major = yes
+		potential = {
+			culture_group = greenskins_group
+			NOT = { tag = G99 } 
+			OR = {
+				ai = no
+				NOT = { exists = G99 }
+			}
+			is_colonial_nation = no
+			normal_or_historical_nations = yes
+			OR = {
+				ai = no
+				num_of_cities = 80
+			}
+		}
+		provinces_to_highlight = {
+			culture_group = greenskins_group
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		allow = {
+			culture_group = greenskins_group
+			is_at_war = no
+			is_free_or_tributary_trigger = yes
+			NOT = { exists = G99 }
+
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 100
+				culture_group = greenskins_group
+			}
+		}
+		effect = {
+			change_tag = G99
+			hidden_effect = { restore_country_name = yes }
+			swap_non_generic_missions = yes
+			country_event = { id = ideagroups.1 }
+	
+			add_country_modifier = { name = centralization_modifier duration = 7300 }
+			add_prestige = 100
+		}
+		ai_will_do = { factor = 400 }
+		ai_importance = 400
+	}
+
+
+
+
 	war_for_mork = {
 		potential = { uses_piety = yes }
 
