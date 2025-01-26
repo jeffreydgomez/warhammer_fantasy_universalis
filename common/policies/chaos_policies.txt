@@ -14,28 +14,15 @@ chaos_expansion_policy = {
 		full_idea_group = expansion_ideas
 	}
 
-	army_tradition = 0.5
-	shock_damage = 0.1
+	build_cost = -0.15
 	
 	effect = {}
 	removed_effect = {}
 	ai_will_do = {
-		factor = 0.75
+		factor = 1
 		modifier = {
-			factor = 0
-			NOT = { army_tradition = 2 }
-		}			
-		modifier = {
-			factor = 1.5
-			army_tradition = 30
-		}
-		modifier = {
-			factor = 1.5
-			army_tradition = 50
-		}
-		modifier = {
-			factor = 1.5
-			army_tradition = 80
+			factor = 0.1
+			is_at_war = yes
 		}
 	}
 }
@@ -53,17 +40,13 @@ chaos_innovativness_policy = {
 		full_idea_group = innovativeness_ideas
 	}
 
-	shock_damage_received = -0.05
-	fire_damage_received = -0.05
-	
+	development_cost = -0.05
+	global_institution_spread = 0.2
+
 	effect = {}
 	removed_effect = {}
 	ai_will_do = {
-		factor = 1.0
-		modifier = {
-			factor = 1.5
-			is_at_war = yes
-		}
+		factor = 1
 	}
 }
 
@@ -80,17 +63,13 @@ chaos_diplomatic_policy = {
 		full_idea_group = diplomatic_ideas
 	}
 
-	shock_damage = 0.1
-	siege_ability = 0.1
-	
+	diplomatic_reputation = 1
+	improve_relation_modifier = 0.15
+
 	effect = {}
 	removed_effect = {}
 	ai_will_do = {
 		factor = 1.0
-		modifier = {
-			factor = 1.5
-			is_at_war = yes
-		}
 	}
 }
 
@@ -107,13 +86,13 @@ chaos_spy_policy = {
 		full_idea_group = spy_ideas
 	}
 
-	cavalry_flanking = 0.5
-	cavalry_power = 0.1
+	movement_speed = 0.1
+	land_attrition = -0.1
 
 	effect = {}
 	removed_effect = {}
 	ai_will_do = {
-		factor = 1.0
+		factor = 1
 		modifier = {
 			factor = 1.5
 			is_at_war = yes
@@ -134,17 +113,13 @@ chaos_influence_policy = {
 		full_idea_group = influence_ideas
 	}
 
-	land_morale = 0.05
-	vassal_forcelimit_bonus = 1.0
+	diplomatic_upkeep = 1
+	liberty_desire_from_subject_development = -0.15
 
 	effect = {}
 	removed_effect = {}
 	ai_will_do = {
-		factor = 1.0
-		modifier = {
-			factor = 1.5
-			is_at_war = yes
-		}
+		factor = 1
 	}
 }
 
@@ -162,11 +137,9 @@ chaos_infrastructure_policy = {
 		full_idea_group = chaos_gov_ideas 
 	}
 	
-	global_monthly_devastation = -0.25
-	land_maintenance_modifier = -0.1
+	development_cost = -0.05
+	global_institution_spread = 0.33
 
-	effect = {}
-	removed_effect = {}
 	ai_will_do = {
 		factor = 1
 	}
@@ -186,13 +159,12 @@ chaos_court_policy = {
 		full_idea_group = chaos_gov_ideas 
 	}
 	
-	horde_unity = 1
-	ae_impact = -0.1
+	cavalry_power = 0.10
+	mil_advisor_cost = -0.15
+	
 
-	effect = {}
-	removed_effect = {}
 	ai_will_do = {
-		factor = 1
+		factor = 1.0
 	}
 }
 
@@ -209,13 +181,17 @@ chaos_exploration_policy = {
 		full_idea_group = exploration_ideas
 	}
 	
-	colonist_placement_chance = 0.05
-	native_uprising_chance = -0.5
-
+	discipline = 0.025
+	land_morale = 0.1
+	
 	effect = {}
 	removed_effect = {}
 	ai_will_do = {
-		factor = 0
+		factor = 1.0
+		modifier = {
+			factor = 2.5
+			is_at_war = yes
+		}
 	}
 }
 
@@ -231,18 +207,33 @@ chaos_administrative_policy = {
 		full_idea_group = administrative_ideas
 		full_idea_group = chaos_gov_ideas
 	}
-	
-	global_manpower_modifier = 0.1
-	manpower_recovery_speed = 0.15
+	land_maintenance_modifier = -0.1
+	development_cost = -0.1
 	
 	effect = {}
 	removed_effect = {}
 	ai_will_do = {
 		factor = 1
 		modifier = {
+			factor = 0
+			NOT = { army_size_percentage = 0.9 }
+		}			
+		modifier = {
 			factor = 1.5
-			is_at_war = yes
+			army_size_percentage = 1.1
 		}
+		modifier = {
+			factor = 1.5
+			army_size_percentage = 1.5
+		}
+		modifier = {
+			factor = 1.5
+			army_size_percentage = 2
+		}
+		modifier = {
+			factor = 1.5
+			army_size_percentage = 2.5
+		}		
 	}
 }
 
@@ -260,13 +251,17 @@ chaos_economic_policy = {
 		full_idea_group = chaos_gov_ideas
 	}
 	
-	raze_power_gain = 0.33
-	horde_unity = 1
+	land_morale = 0.05
+	infantry_cost = -0.15
 	
 	effect = {}
 	removed_effect = {}
 	ai_will_do = {
-		factor = 1
+		factor = 1.0
+		modifier = {
+			factor = 1.5
+			is_at_war = yes
+		}
 	}
 }
 
@@ -283,29 +278,16 @@ chaos_humanist_policy = {
 		full_idea_group = chaos_gov_ideas
 	}
 	
-	global_unrest = -2
-	prestige = 0.5
+	defensiveness = 0.25
+	garrison_size = 0.1
 	
 	effect = {}
 	removed_effect = {}
 	ai_will_do = {
-		factor = 1
-
+		factor = 1.0
 		modifier = {
 			factor = 1.5
-			average_effective_unrest = 2
-		}
-		modifier = {
-			factor = 1.5
-			average_effective_unrest = 4
-		}			
-		modifier = {
-			factor = 1.5
-			average_effective_unrest = 6
-		}
-		modifier = {
-			factor = 1.5
-			average_effective_unrest = 8
+			is_at_war = yes
 		}
 	}
 }
@@ -323,30 +305,13 @@ chaos_religious_policy = {
 		full_idea_group = chaos_gov_ideas
 	}
 	
-	years_of_nationalism = -5
-	global_missionary_strength = 0.01
-	
+	missionaries = 1
+	tolerance_own = 1
+
 	effect = {}
 	removed_effect = {}
 	ai_will_do = {
 		factor = 1
-
-		modifier = {
-			factor = 1.5
-			average_effective_unrest = 2
-		}
-		modifier = {
-			factor = 1.5
-			average_effective_unrest = 4
-		}			
-		modifier = {
-			factor = 1.5
-			average_effective_unrest = 6
-		}
-		modifier = {
-			factor = 1.5
-			average_effective_unrest = 8
-		}
 	}
 }
 
@@ -363,13 +328,13 @@ chaos_trade_policy = {
 		full_idea_group = trade_ideas
 	}
 	
-	mercantilism_cost = -0.2
-	global_own_trade_power = 0.1
+	trade_range_modifier = 0.15
+	range = 0.25
 
 	effect = {}
 	removed_effect = {}
 	ai_will_do = {
-		factor = 1
+		factor = 0
 	}
 }
 
@@ -387,16 +352,11 @@ chaos_mairitime_policy = {
 		full_idea_group = maritime_ideas
 	}
 	
-	naval_forcelimit_modifier = 0.1
-	navy_tradition = 1
+	disengagement_chance = 0.25
 
 	effect = {}
 	removed_effect = {}
 	ai_will_do = {
-		factor = 1.0
-		modifier = {
-			factor = 0
-			NOT = { navy_size = 20 }
-		}				
+		factor = 1
 	}
 }

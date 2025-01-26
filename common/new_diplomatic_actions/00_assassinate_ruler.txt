@@ -1,0 +1,51 @@
+
+assassinate_ruler = {
+	category = covert
+
+	require_acceptance = no
+
+	is_visible = {
+		root = {
+			can_potentially_assassinate = yes
+			ai = no
+		}
+		from = {
+			ai = yes
+			has_regency = no
+		}
+	}
+
+	is_allowed = {
+		root = {
+			#can_assassinate = yes
+			ai = no
+			#has_spy_network_in = {
+			#	who = FROM
+			#	value = 75
+			#}
+		}
+	}
+
+    on_accept = {
+		hidden_effect = {
+			FROM = {
+				save_global_event_target_as  = target_of_assassination
+			}
+		}
+		ROOT = {
+			country_event = {
+				id = flavor_eshin.1
+			}
+			add_years_of_income = -1
+			add_spy_network_in = {
+   				who = FROM
+    			value = -75
+			}
+		}
+    }
+
+    ai_will_do = {
+		always = no
+	}
+}
+
