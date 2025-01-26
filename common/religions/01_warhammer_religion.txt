@@ -2278,6 +2278,113 @@ greenskin_denominations = {
 			MORK
 		}
 	}
+	hobgoblin_religion = {
+		color = {
+			73
+			9
+			96
+		}
+		icon = 1
+		country = {
+			movement_speed = 0.15
+			shock_damage = 0.10
+		}
+		on_convert = {
+
+			add_country_modifier = { 
+			    name = war_religious_fervor
+	    		duration = 5475
+			}
+			hidden_effect = {
+				every_country = {
+					remove_opinion = {
+					    who = PREV
+					    modifier = root_destruction
+					}
+
+					reverse_remove_opinion = {
+					    who = PREV
+					    modifier = root_destruction
+					}
+
+					remove_opinion = {
+					    who = PREV
+					    modifier = both_destruction
+					}
+
+					reverse_remove_opinion = {
+					    who = PREV
+					    modifier = both_destruction
+					}
+				}
+			}
+
+			change_religion = spider_cult_religion
+			add_prestige = -100
+			add_stability = -1
+
+			remove_country_modifier = neutral_nation
+			remove_country_modifier = order_nation
+			remove_country_modifier = chaos_nation
+			add_country_modifier = {
+				name = destruction_nation
+				duration = -1
+			}
+
+			hidden_effect = {
+				every_country = {
+					limit = {
+						has_country_modifier = destruction_nation
+						NOT = { tag = PREV }
+					}
+
+					if = {
+						limit = { ROOT = { has_country_modifier = order_nation } }
+
+						add_opinion = {
+							who = PREV
+							modifier = root_destruction
+						}
+						reverse_add_opinion = {
+							who = PREV
+							modifier = root_destruction
+						}
+					}
+				}
+			}
+
+
+			hidden_effect = {
+				every_country = {
+					limit = {
+						has_country_modifier = order_nation
+						NOT = { tag = PREV }
+					}
+
+					if = {
+						limit = { ROOT = { has_country_modifier = destruction_nation } }
+
+						add_opinion = {
+							who = PREV
+							modifier = root_destruction
+						}
+						reverse_add_opinion = {
+							who = PREV
+							modifier = root_destruction
+						}
+					}
+				}
+			}
+		}
+		country_as_secondary = {
+			movement_speed = 0.10
+			shock_damage = 0.05
+		}
+		heretic = {
+			GORK
+			MORK
+		}
+	}
 	crusade_name = WAAAGH
 	harmonized_modifier = harmonized_greenskin
 }
