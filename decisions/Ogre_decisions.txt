@@ -2,6 +2,54 @@
 
 
 country_decisions = {
+
+	form_ogre_kingdoms = {
+		major = yes
+		potential = {
+			culture_group = ogre_group
+			NOT = { tag = I96 } ##Under-Empire
+			OR = {
+				ai = no
+				NOT = { exists = I96 }
+			}
+			is_colonial_nation = no
+			normal_or_historical_nations = yes
+			OR = {
+				ai = no
+				num_of_cities = 40
+			}
+		}
+		provinces_to_highlight = {
+			culture_group = ogre_group
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		allow = {
+			culture_group = ogre_group
+			is_at_war = no
+			is_free_or_tributary_trigger = yes
+			is_tribal = no
+			NOT = { exists = I96 }
+
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 60
+				culture_group = ogre_group
+			}
+		}
+		effect = {
+			change_tag = I96
+			hidden_effect = { restore_country_name = yes }
+			swap_non_generic_missions = yes
+			country_event = { id = ideagroups.1 }
+	
+			add_country_modifier = { name = centralization_modifier duration = 7300 }
+			add_prestige = 100
+		}
+		ai_will_do = { factor = 400 }
+		ai_importance = 400
+	}
+
+
+
 	sacrifice_for_maw = {
 		potential = { 
 			religion = the_great_maw_religion

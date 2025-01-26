@@ -1,0 +1,596 @@
+#####################
+# LIZARDMEN EVENTS
+#####################
+
+namespace = lizardmen_events
+normal_or_historical_nations = yes
+
+
+### TEMPLATE
+
+country_event = { 
+	id = lizardmen_events.X
+	title = lizardmen_events.X.title
+	desc = lizardmen_events.X.desc
+	picture = AZTEC_PYRAMID_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		has_country_modifier = lizardmen_administration
+		religion = old_ones
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# FIRST OPTION
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.X.a 
+
+	}
+
+# SECOND OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.X.b
+
+
+	}
+
+# THIRD OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.X.c
+	}
+}
+
+
+## Temple Robbing: Two skinks have been caught stealing golden tablets and selling them. What should we do?
+
+
+country_event = { 
+	id = lizardmen_events.1
+	title = lizardmen_events.1.title
+	desc = lizardmen_events.1.desc
+	picture = AZTEC_PYRAMID_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		has_country_modifier = lizardmen_administration
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Kill them, and return the loot
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.1.a
+		add_prestige = 10
+
+	}
+
+# Kill them and keep the loot
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.1.b
+
+		add_years_of_income = 0.5
+		add_prestige = -10
+
+	}
+
+# Go get some more!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.1.c
+
+		add_years_of_income = 1.0
+		add_prestige = -20
+	}
+}
+
+
+### Wax poetic about how Lizardfolk are the best in the world, and the followers of the gret plan. But what makes us oh so incredible?
+
+country_event = { 
+	id = lizardmen_events.2
+	title = lizardmen_events.2.title
+	desc = lizardmen_events.2.desc
+	picture = AZTEC_PYRAMID_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion = old_ones
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# We are the true protectors of the world
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.2.a 
+
+		add_prestige_or_monarch_power = { amount = 20 }
+
+	}
+
+# The Old One's Design is perfect
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.2.b
+
+		add_stability_or_adm_power = yes
+
+	}
+
+# Our people are unified
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.2.c
+
+		add_legitimacy = 20
+		add_republican_tradition = 6
+		add_devotion = 20
+		add_horde_unity = 20
+		add_meritocracy = 20
+
+	}
+}
+
+## The Corruption of the Nexus Description: "The geomantic web, once a conduit of the Old Ones' power, now pulses with unnatural energy. The Chaos-tainted nexus stones glow with an eerie light, driving the skink priests into wild visions. The temple cities are abuzz with debate—should this new power be embraced or exorcised?"
+
+country_event = { 
+	id = lizardmen_events.3
+	title = lizardmen_events.3.title
+	desc = lizardmen_events.3.desc
+	picture = AZTEC_PYRAMID_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion = old_ones
+		num_of_provinces_in_states = 5
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Purge the corruption at all costs
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.3.a 
+
+		add_prestige = 10
+		add_adm_power = -25
+		add_dip_power = -25
+		add_mil_power = -25
+
+	}
+
+# Harness the Tainted power
+	option = { 
+		ai_chance = { factor = 0 }
+		name = lizardmen_events.3.b
+
+		add_prestige = -10
+		add_adm_power = 25
+		add_dip_power = 25
+		add_mil_power = 25
+
+		random_owned_province = {
+			change_religion = chaos_undivided_religion
+		}
+	}
+
+# More power!
+	option = { 
+		ai_chance = { factor = 0 }
+		name = lizardmen_events.3.c
+
+		add_prestige = -20
+		add_adm_power = 50
+		add_dip_power = 50
+		add_mil_power = 50
+
+		random_owned_province = {
+			change_religion = chaos_undivided_religion
+		}
+
+		random_owned_province = {
+			change_religion = chaos_undivided_religion
+		}
+
+		random_owned_province = {
+			change_religion = chaos_undivided_religion
+		}
+
+
+	}
+}
+
+
+### 2. Feral Spawnings Description: "The spawning pools have produced something... strange. The newly born warriors are larger and more aggressive, but their minds seem clouded by primal instincts. They claw and hiss at even their kin, causing unease among the skink attendants. Are these spawnings a gift from the gods, or a curse of the Chaos taint?"
+
+country_event = { 
+	id = lizardmen_events.4
+	title = lizardmen_events.4.title
+	desc = lizardmen_events.4.desc
+	picture = AZTEC_PYRAMID_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		has_country_modifier = lizardmen_administration
+		religion = old_ones
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Let them into the army
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.4.a 
+
+		add_yearly_manpower = 1.0
+		add_army_tradition = -10
+		add_army_professionalism = -0.05
+
+	}
+
+# Destroy these abominations, and the pools themselves
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.4.b
+
+		add_yearly_manpower = -0.5
+
+		add_stability = 1
+
+	}
+}
+
+
+### A slann has entered a meditative trance, warning of terrible things to come. Are these genuine visions, or the whispers of chaos at work?
+
+country_event = { 
+	id = lizardmen_events.5
+	title = lizardmen_events.5.title
+	desc = lizardmen_events.5.desc
+	picture = AZTEC_PYRAMID_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		has_country_modifier = lizardmen_administration
+		religion = old_ones
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# They are genuine visions. We must unite.
+
+	option = { 
+		ai_chance = { factor = 0 }
+		name = lizardmen_events.5.a 
+
+		random_list = {
+		    50 = {
+		        add_stability_or_adm_power = yes
+		    }
+		    50 = {
+		        capital_scope = { change_religion = chaos_undivided_religion }
+		    }
+		}
+
+	}
+
+# He's been corrupted by chaos! Kill him!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.5.b
+
+		add_manpower = -0.001
+
+
+	}
+}
+
+
+### The Jungle Hungers Description: "The once-lush jungles surrounding the temple cities have grown restless, twisting into unnatural shapes. Wild beasts infused with chaotic power stalk the shadows, attacking both settlers and warriors alike. The skinks report that the jungle itself seems alive with malice."
+
+country_event = { 
+	id = lizardmen_events.6
+	title = lizardmen_events.6.title
+	desc = lizardmen_events.6.desc
+	picture = AZTEC_PYRAMID_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		has_country_modifier = lizardmen_administration
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Send hunters to clear it out
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.6.a 
+
+		add_manpower = -5
+		add_army_tradition = 5
+
+	}
+
+# let the jungle run its course
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.6.b
+
+		random_owned_province = {
+			add_devastation = 25
+		}
+	}
+}
+
+
+### Feral instincts run wild: Lizardfolk across the land are gripped by feral fervor
+
+country_event = { 
+	id = lizardmen_events.7
+	title = lizardmen_events.7.title
+	desc = lizardmen_events.7.desc
+	picture = AZTEC_PYRAMID_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		has_country_modifier = lizardmen_administration
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+
+# Send in the army!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.7.a 
+
+		random_owned_province = {
+			spawn_rebels = {
+			    type = particularist_rebels
+			    size = 1
+			}
+		}
+
+	}
+
+# Encourage the mayhem
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.7.b
+
+		random_owned_province = {
+			spawn_rebels = {
+			    type = particularist_rebels
+			    size = 1
+			}
+		}
+
+		random_owned_province = {
+			spawn_rebels = {
+			    type = particularist_rebels
+			    size = 1
+			}
+		}
+
+		add_country_modifier = { 
+		    name = war_better_morale
+		    duration = 3650
+		}
+
+
+	}
+
+# Just ... Let it pass
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.7.c
+
+		add_stability = -1
+
+		random_owned_province = {
+			add_devastation = 25
+		}
+
+		random_owned_province = {
+			add_devastation = 25
+		}
+
+	}
+}
+
+
+
+### The Old Ones' Test Description: "A sacred temple deep within the jungle has suddenly activated, its walls glowing with celestial glyphs. The priests believe it is a test from the Old Ones, but the energies within are wild and chaotic. Entering the temple could reveal great secrets—or unleash devastation."
+
+country_event = { 
+	id = lizardmen_events.8
+	title = lizardmen_events.8.title
+	desc = lizardmen_events.8.desc
+	picture = AZTEC_PYRAMID_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		has_country_modifier = lizardmen_administration
+		religion = old_ones
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Seal the Temple and Let it be
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.8.a 
+
+		add_prestige = -5
+
+	}
+
+# Enter the Temple and Claim its Secrets
+	option = { 
+		ai_chance = { factor = 0 }
+		name = lizardmen_events.8.b
+
+		random = { 
+		    chance = 33
+		    add_prestige = 15
+		}
+
+		random = { 
+		    chance = 33
+		    add_prestige = -15
+		}
+
+		random = { 
+		    chance = 33
+		    change_innovativeness = 8
+		}
+
+		random = { 
+		    chance = 33
+		    change_innovativeness = -8
+		}
+
+		random = { 
+		    chance = 33
+		    add_manpower = -5
+		}
+
+		random = { 
+		    chance = 33
+		    add_treasury = 50
+		}
+
+		random = { 
+		    chance = 10
+		    add_treasury = 1000
+		    add_inflation = 2
+		}
+
+		random = { 
+		    chance = 5
+		    add_mil_tech = 1
+		}
+
+		random = { 
+		    chance = 15
+		    random_owned_province = {
+				spawn_rebels = {
+		    		size = 3
+		    		type = chaos_undivided_religion_rebels
+				}
+		    }
+		}
+	}
+
+}
+
+
+
+### Mutant Spawning has resulted in a massive Sauron, stronger and powerful with shimmering scales. He is a natural born leader, but his rhetoric is borderline heretical. What should we do?
+
+country_event = { 
+	id = lizardmen_events.9
+	title = lizardmen_events.9.title
+	desc = lizardmen_events.9.desc
+	picture = AZTEC_PYRAMID_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		has_country_modifier = lizardmen_administration
+		religion = old_ones
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Kill him!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.9.a 
+
+		random_owned_province = {
+			spawn_rebels = {
+			    type = particularist_rebels
+			    leader = rebel_preacher
+			    size = 1
+			}
+		}
+
+	}
+
+# Make him a general
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.9.b
+
+		add_stability = -1
+		create_general = { tradition = 100 }
+
+	}
+
+
+}

@@ -79,7 +79,7 @@ country_event = {
 # A sexy Slaanesh seductress
 
 	option = { 
-		ai_chance = { factor = 1 }
+		ai_chance = { factor = 0 }
 		trigger = { NOT = { religion = slaaneshi_religion } }
 		name = old_world_events.1.a 
 
@@ -89,7 +89,7 @@ country_event = {
 
 # A vicious Vampiric vicar
 	option = { 
-		ai_chance = { factor = 1 }
+		ai_chance = { factor = 0 }
 		trigger = { NOT = { religion = vampiric } }
 		name = old_world_events.1.b
 
@@ -152,13 +152,13 @@ country_event = {
 # Drive them off!
 
 	option = { 
-		ai_chance = { factor = 50 }
+		ai_chance = { factor = 0 }
 		name = old_world_events.2.a 
 
 		random_owned_province = {
 			spawn_rebels = {
 			    type = beastmen_warband_rebels
-			    size = 3
+			    size = 1
 			}
 		}
 	}
@@ -169,13 +169,6 @@ country_event = {
 		name = old_world_events.2.b
 
 		add_treasury = -100
-
-		random_owned_province = {
-			spawn_rebels = {
-			    type = beastmen_warband_rebels
-			    size = 2
-			}
-		}
 	}
 }
 
@@ -563,12 +556,6 @@ country_event = {
 		days = 1
 	}
 
-	immediate = {
-		random_owned_province = {
-			change_religion = chaos_undivided_religion
-			add_devastation = 10
-		}
-	}
 
 # Burn the cultists to the ground
 
@@ -577,9 +564,7 @@ country_event = {
 		name = old_world_events.9.a 
 
 		random_owned_province = {
-			limit = { religion = chaos_undivided_religion }
-			add_devastation = 50
-			change_religion = ROOT
+			add_devastation = 25
 		}
 		add_manpower = -1
 
@@ -587,8 +572,12 @@ country_event = {
 
 # Activate the witch hunters
 	option = { 
-		ai_chance = { factor = 50 }
+		ai_chance = { factor = 0 }
 		name = old_world_events.9.b
+
+		random_owned_province = {
+			change_religion = chaos_undivided_religion
+		}
 
 		add_country_modifier = { 
 		    name = war_witch_hunts
@@ -599,8 +588,12 @@ country_event = {
 # No need to panic. We will handle this through normal means.
 
 	option = { 
-		ai_chance = { factor = 50 }
+		ai_chance = { factor = 0 }
 		name = old_world_events.9.c
+		
+		random_owned_province = {
+			change_religion = chaos_undivided_religion
+		}
 	}
 }
 
@@ -661,6 +654,111 @@ country_event = {
 	option = { 
 		ai_chance = { factor = 50 }
 		name = old_world_events.10.b
+	}
+}
+
+
+
+
+### Magical snowstorms ravage our lands. Some think that Ursun is angry, or that the ice witches are out of control.
+
+country_event = { 
+	id = old_world_events.11
+	title = old_world_events.11.title
+	desc = old_world_events.11.desc
+	picture = SIERRA_DE_LA_PLATA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion = ursun
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Do a sacrifice to please him
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.11.a 
+
+		add_years_of_income = -1.5
+		add_stability = 1
+
+	}
+
+# Ride out the Storm
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.11.b
+
+		random_owned_province = { add_devastation = 50 }
+		random_owned_province = { add_devastation = 50 }
+		random_owned_province = { add_devastation = 50 }
+	}
+
+# Great Ursun, turn this storm on our enemies!
+	option = { 
+		ai_chance = { factor = 1 }
+		name = old_world_events.11.c
+
+		add_years_of_income = -3
+		add_stability = 1
+
+		add_country_modifier = { 
+		    name = magical_storms
+		    duration = 1825
+		}
+	}
+}
+
+
+### Conjure Storms - the Ice witches have devised a way of conjuring a great blizzard
+
+country_event = { 
+	id = old_world_events.12
+	title = old_world_events.12.title
+	desc = old_world_events.12.desc
+	picture = SIERRA_DE_LA_PLATA_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion = ursun
+		is_at_war = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# It's too risky
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.12.a 
+	}
+
+# Unleash the storms!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.12.b
+
+		add_mil_power = -100
+
+		random_owned_province = { add_devastation = 50 }
+		random_owned_province = { add_devastation = 50 }
+		random_owned_province = { add_devastation = 50 }
+
+		add_country_modifier = { 
+		    name = magical_storms
+		    duration = 3650
+		}
 	}
 }
 

@@ -1,0 +1,112 @@
+
+########################################
+# Events for wood Elves
+########################################
+
+namespace = wood_elf_events
+normal_or_historical_nations = yes
+
+
+
+### The winds of magic are ravaging our forests, blowing up immense storms
+
+country_event = { 
+	id = wood_elf_events.1
+	title = wood_elf_events.1.title
+	desc = wood_elf_events.1.desc
+	picture = SIERRA_DE_LA_PLATA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion = asrai_cadai
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Perform a ritual to redirect the magic
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = wood_elf_events.1.a 
+
+		add_years_of_income = -1.5
+		add_stability = 1
+
+	}
+
+# Ride out the Storm
+	option = { 
+		ai_chance = { factor = 50 }
+		name = wood_elf_events.1.b
+
+		random_owned_province = { add_devastation = 50 }
+		random_owned_province = { add_devastation = 50 }
+		random_owned_province = { add_devastation = 50 }
+	}
+
+# Turn this storm on our enemies!
+	option = { 
+		ai_chance = { factor = 1 }
+		name = wood_elf_events.1.c
+
+		add_years_of_income = -3
+		add_stability = 1
+
+		add_country_modifier = { 
+		    name = magical_storms
+		    duration = 1825
+		}
+	}
+}
+
+
+### Conjure Storms - our mages have a way to conjure a storm to batter our enemies in their tracks.
+
+country_event = { 
+	id = wood_elf_events.2
+	title = wood_elf_events.2.title
+	desc = wood_elf_events.2.desc
+	picture = SIERRA_DE_LA_PLATA_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion = asrai_cadai
+		is_at_war = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# It's too risky
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = wood_elf_events.2.a 
+	}
+
+# Unleash the storms!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = wood_elf_events.2.b
+
+		add_mil_power = -100
+
+		random_owned_province = { add_devastation = 50 }
+		random_owned_province = { add_devastation = 50 }
+		random_owned_province = { add_devastation = 50 }
+
+		add_country_modifier = { 
+		    name = magical_storms
+		    duration = 3650
+		}
+	}
+}
+

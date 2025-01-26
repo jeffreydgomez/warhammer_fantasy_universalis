@@ -1,0 +1,1261 @@
+#####################
+# Winds of Magic Events EVENTS
+#####################
+
+namespace = winds_of_magic_events
+normal_or_historical_nations = yes
+
+
+### TEMPLATE
+
+country_event = { 
+	id = winds_of_magic_events.X
+	title = winds_of_magic_events.X.title
+	desc = winds_of_magic_events.X.desc
+	picture = CROSSROAD_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# We are magic experts!
+	option = { 
+		ai_chance = { factor = 100 }
+		name = winds_of_magic_events.X.a
+		highlight = yes
+		trigger = {
+			AND ={
+				OR = {
+					has_country_modifier = war_modern_science
+					has_country_modifier = human_administration
+					has_country_modifier = elven_administration
+					has_country_modifier = lizardmen_administration
+					religion = tzeentchian_religion
+				}
+				NOT = { has_country_modifier = dwarven_administration }
+			}
+		}
+
+		# Normal Benefit
+
+		random = { 
+		    chance = 10 
+		#	Normal Harm    
+		}
+	}
+
+# We suck at magic, but let's try to siphon it into runes #note to self, half the benefit
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.X.b
+		trigger = {  has_country_modifier = dwarven_administration }
+
+		# Half Benefit
+
+		random = { 
+		    chance = 25 
+		# Normal Harm
+		}
+	}
+
+# Maybe some warpstone would help-help? # twice the benefit, twice the chance
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.X.c
+		highlight = yes
+		trigger = { has_country_modifier = skaven_administration }
+
+		# Double Benefit
+
+		random = { 
+		    chance = 50
+		# Normal Harm
+		}
+	}
+
+# Let's flavor this up with some chaos! #twice the benefit, twice the harm
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.X.d
+		highlight = yes
+		trigger = { religion_group = ruinous_powers_denominations }
+
+		# Double Benefit
+
+		random = { 
+		    chance = 25 
+		# Double Harm
+		}
+	}
+
+
+# Try to control the winds
+	option = { 
+		ai_chance = { factor = 5 }
+		name = winds_of_magic_events.X.e
+		trigger = { NOT = { has_country_modifier = dwarven_administration } }
+
+		# Normal Benefit
+
+		random = { 
+		    chance = 25 
+		# Normal Harm
+		}
+	}
+
+# Let the winds blow...
+	option = { 
+		ai_chance = { factor = 5 }
+		name = winds_of_magic_events.X.f
+
+		# 1/5 benefit, no harm
+
+	}
+}
+
+### END TEMPLATE
+
+
+
+
+### Aqshy (pronounced "AKK-Shee"[11a][10a]), the Lore of Fire, also called the Seventh Lore and known in Grand Cathay as the Burning Winds or the Elemental Wind of Fire, is the Red Wind of Magic, and it is the coalesence within the Aethyr of the emotional experience and abstract of passion among mortals in its widest possible sense. It is the projection into the Aethyr of the emotions of brashness, courage, and enthusiasm. It is also an expression of the mortal feelings of warmth and heat that is often felt in a state of high emotion. Aqshy blows down from the north as a hot and searing Wind of Magic, unnoticed by those not sensitive to the Aethyric currents. It is attracted to wherever there is passion, argument, or excitement. Actual physical flame also seems to draw the power of Aqshy.
+
+country_event = { 
+	id = winds_of_magic_events.1
+	title = winds_of_magic_events.1.title
+	desc = winds_of_magic_events.1.desc
+	picture = CROSSROAD_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# We are magic experts!
+	option = { 
+		ai_chance = { factor = 100 }
+		name = winds_of_magic_events.1.a
+		highlight = yes
+		trigger = {
+			AND ={
+				OR = {
+					has_country_modifier = war_modern_science
+					has_country_modifier = human_administration
+					has_country_modifier = elven_administration
+					has_country_modifier = lizardmen_administration
+					religion = tzeentchian_religion
+				}
+				NOT = { has_country_modifier = dwarven_administration }
+			}
+		}
+
+		add_country_modifier = { 
+		    name = war_fire_damage
+		    duration = 3650
+		}
+
+		random = { 
+		    chance = 10 
+		    random_owned_province = {
+		    	add_devastation = 25
+		    }
+		    random_owned_province = {
+		    	add_devastation = 25
+		    }
+		}
+	}
+
+# We suck at magic, but let's try to siphon it into runes
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.1.b
+		trigger = {  has_country_modifier = dwarven_administration }
+
+		add_country_modifier = { 
+		    name = war_fire_damage
+		    duration = 1825
+		}
+
+		random = { 
+		    chance = 25
+		    random_owned_province = {
+		    	add_devastation = 25
+		    }
+		    random_owned_province = {
+		    	add_devastation = 25
+		    }
+		}
+	}
+
+# Maybe some warpstone would help?
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.1.c
+		highlight = yes
+		trigger = { has_country_modifier = skaven_administration }
+
+		add_country_modifier = { 
+		    name = war_fire_damage
+		    duration = 7300
+		}
+
+		random = { 
+		    chance = 50 
+		    random_owned_province = {
+		    	add_devastation = 25
+		    }
+		    random_owned_province = {
+		    	add_devastation = 25
+		    }
+		}
+	}
+
+# Let's flavor this up with some chaos!
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.1.d
+		highlight = yes
+		trigger = { religion_group = ruinous_powers_denominations }
+
+		add_country_modifier = { 
+		    name = war_fire_damage
+		    duration = 7300
+		}
+
+		random = { 
+		    chance = 25
+		    random_owned_province = {
+		    	add_devastation = 25
+		    }
+		    random_owned_province = {
+		    	add_devastation = 25
+		    }
+		    random_owned_province = {
+		    	add_devastation = 25
+		    }
+		    random_owned_province = {
+		    	add_devastation = 25
+		    }
+		}
+	}
+
+
+# Try to control the winds
+	option = { 
+		ai_chance = { factor = 5 }
+		name = winds_of_magic_events.1.e
+		trigger = { NOT = { has_country_modifier = dwarven_administration } }
+
+		add_country_modifier = { 
+		    name = war_fire_damage
+		    duration = 3650
+		}
+
+		random = { 
+		    chance = 25
+		    random_owned_province = {
+		    	add_devastation = 25
+		    }
+		    random_owned_province = {
+		    	add_devastation = 25
+		    }
+		}
+	}
+
+# Let the winds blow...
+	option = { 
+		ai_chance = { factor = 5 }
+		name = winds_of_magic_events.1.f
+
+		add_country_modifier = { 
+		    name = war_fire_damage
+		    duration = 365
+		}
+	}
+}
+
+
+
+
+### Azyr (pronounced "Azz-EAR"[8a]), the Lore of Heavens, also called the Fourth Lore and known in Grand Cathay as the Meteor Winds or the Elemental Wind of Stone, is the Blue Wind of Magic, and it is said to be a manifestation within the Aethyr of mortals' capability to be inspired and to seek that which is out of reach. The magic of this wind is based upon knowledge of the unknowable and the manipulation of the skies. This magical lore, also known as "astromancy," is practiced by Magisters of the Celestial Order, called "astromancers," to divine the future and pluck the strands of fate.[1a]
+
+country_event = { 
+	id = winds_of_magic_events.2
+	title = winds_of_magic_events.2.title
+	desc = winds_of_magic_events.2.desc
+	picture = CROSSROAD_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# We are magic experts!
+	option = { 
+		ai_chance = { factor = 100 }
+		name = winds_of_magic_events.2.a
+		highlight = yes
+		trigger = {
+			AND ={
+				OR = {
+					has_country_modifier = war_modern_science
+					has_country_modifier = human_administration
+					has_country_modifier = elven_administration
+					has_country_modifier = lizardmen_administration
+					religion = tzeentchian_religion
+				}
+				NOT = { has_country_modifier = dwarven_administration }
+			}
+		}
+
+		change_innovativeness = 5
+
+		random = { 
+		    chance = 10 
+		    add_prestige = -15
+		}
+	}
+
+# We suck at magic, but let's try to siphon it into runes
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.2.b
+		trigger = {  has_country_modifier = dwarven_administration }
+
+		change_innovativeness = 3
+
+		random = { 
+		    chance = 25
+		    add_prestige = -15
+		}
+	}
+
+# Maybe some warpstone would help? (written in skaven patter)
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.2.c
+		highlight = yes
+		trigger = { has_country_modifier = skaven_administration }
+
+		change_innovativeness = 10
+
+		random = { 
+		    chance = 50
+		    add_prestige = -15
+		}
+	}
+
+# Let's flavor this up with some chaos!
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.2.d
+		highlight = yes
+		trigger = { religion_group = ruinous_powers_denominations }
+
+		change_innovativeness = 10
+
+		random = { 
+		    chance = 25
+		    add_prestige = -30
+		}
+	}
+
+
+# Try to control the winds
+	option = { 
+		ai_chance = { factor = 5 }
+		name = winds_of_magic_events.2.e
+		trigger = { NOT = { has_country_modifier = dwarven_administration } }
+
+		change_innovativeness = 5
+
+		random = { 
+		    chance = 25
+		    add_prestige = -15
+		}
+	}
+
+# Let the winds blow...
+	option = { 
+		ai_chance = { factor = 5 }
+		name = winds_of_magic_events.2.f
+		change_innovativeness = 1
+	}
+}
+
+
+
+### Chamon (pronounced "Sha-MONN"[8a]), the Lore of Metal, also called the Second Lore and known in Grand Cathay as the Iron Winds or the Elemental Wind of Metal, is the Yellow Wind of Magic, and it is a manifestation within the Aethyr of the abstract and reality of logic, the mortal desire to quantify, the mortal desire and need to learn and instruct, and the wish to implement learning to practical or tangible ends as embodied. The magic of Chamon is called alchemy, the art and science of transmutation, creation and investigation. Most of its spells have to do with change -- rusting new metal to old, turning one metal into another, or enchanting it to become more effective.[1a]
+
+country_event = { 
+	id = winds_of_magic_events.3
+	title = winds_of_magic_events.3.title
+	desc = winds_of_magic_events.3.desc
+	picture = CROSSROAD_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# We are magic experts!
+	option = { 
+		ai_chance = { factor = 100 }
+		name = winds_of_magic_events.3.a
+		highlight = yes
+		trigger = {
+			AND ={
+				OR = {
+					has_country_modifier = war_modern_science
+					has_country_modifier = human_administration
+					has_country_modifier = elven_administration
+					has_country_modifier = lizardmen_administration
+					religion = tzeentchian_religion
+				}
+				NOT = { has_country_modifier = dwarven_administration }
+			}
+		}
+
+		add_years_of_income = 1.0
+
+		random = { 
+		    chance = 10 
+		    random_owned_province = {
+		    	limit = { base_production = 3 }
+		    	add_base_production = -2
+		    }
+		    random_owned_province = {
+		    	limit = { base_production = 3 }
+		    	add_base_production = -2
+		    }
+		}
+	}
+
+# We suck at magic, but let's try to siphon it into runes #note to self, half the benefit
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.3.b
+		trigger = {  has_country_modifier = dwarven_administration }
+
+		add_years_of_income = 0.5
+
+		random = { 
+		    chance = 25
+		    random_owned_province = {
+		    	limit = { base_production = 3 }
+		    	add_base_production = -2
+		    }
+		    random_owned_province = {
+		    	limit = { base_production = 3 }
+		    	add_base_production = -2
+		    }
+		}
+	}
+
+# Maybe some warpstone would help-help? # twice the benefit, twice the chance
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.3.c
+		highlight = yes
+		trigger = { has_country_modifier = skaven_administration }
+
+		add_years_of_income = 2.0
+
+		random = { 
+		    chance = 50
+		    random_owned_province = {
+		    	limit = { base_production = 3 }
+		    	add_base_production = -2
+		    }
+		    random_owned_province = {
+		    	limit = { base_production = 3 }
+		    	add_base_production = -2
+		    }
+		}
+	}
+
+# Let's flavor this up with some chaos! #twice the benefit, twice the harm
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.3.d
+		highlight = yes
+		trigger = { religion_group = ruinous_powers_denominations }
+
+		add_years_of_income = 2.0
+
+		random = { 
+		    chance = 25
+		    random_owned_province = {
+		    	limit = { base_production = 3 }
+		    	add_base_production = -2
+		    }
+		    random_owned_province = {
+		    	limit = { base_production = 3 }
+		    	add_base_production = -2
+		    }
+		    random_owned_province = {
+		    	limit = { base_production = 3 }
+		    	add_base_production = -2
+		    }
+		    random_owned_province = {
+		    	limit = { base_production = 3 }
+		    	add_base_production = -2
+		    }
+		}
+	}
+
+
+# Try to control the winds
+	option = { 
+		ai_chance = { factor = 5 }
+		name = winds_of_magic_events.3.e
+		trigger = { NOT = { has_country_modifier = dwarven_administration } }
+
+		add_years_of_income = 1.0
+
+		random = { 
+		    chance = 25
+		    random_owned_province = {
+		    	limit = { base_production = 3 }
+		    	add_base_production = -2
+		    }
+		    random_owned_province = {
+		    	limit = { base_production = 3 }
+		    	add_base_production = -2
+		    }
+		}
+	}
+
+# Let the winds blow...
+	option = { 
+		ai_chance = { factor = 5 }
+		name = winds_of_magic_events.3.f
+		
+		add_years_of_income = 0.2
+
+	}
+}
+
+
+
+
+
+
+### Ghur (pronounced "Gur" or even "Grrrr"[10a]), also called Garrack, Ghurrag, Gur-maan[9a], the Lore of Beasts, and the Eighth Lore[11e] and known in Grand Cathay as the Elemental Wind of Wood,[12] is the Brown Wind of Magic[1d] or the Amber Wind of Magic[11d], which is the manifestation within the Aethyr of the wild and bestial spirit of the mortal world and its animal inhabitants.[1a][1d][1h] Ghur is formed from the existence, experiences, and observation of wild beasts and the untamed places in which they dwell. It is the breath of the animal wild, the hunt of the predator and energy of the prey, and resides most strongly in the minds of wild animals.[1d][11e] The Amber Wind, along with its magic, is a cold, primal, nigh-untamable force, closely related to the inconvertibly wild. It is like a thin, chill breeze that cuts through any protection, like the tooth and claw of a hunting beast. The savage wind cares little for, and in fact is antithetical to civilisation and domestication. It is merciless, its magical energies those of beasts and wild places inimical to most Humans.[1a][5a][5b][8b][11e] Indeed, Ghur is completely inhuman, for it is as primal and unreasoning as it is devoid of malice. To learn its ways is to open one's mind to the raw and savage power of the wild, and to become one with the creatures of the dark wood. However, animals are not without fear of the Amber Wind. The chill, primal ferocity that Ghur carries with it unnerves beasts and intelligent mortals alike.[1a][1d][11e][11k]
+
+country_event = { 
+	id = winds_of_magic_events.4
+	title = winds_of_magic_events.4.title
+	desc = winds_of_magic_events.4.desc
+	picture = CROSSROAD_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# We are magic experts!
+	option = { 
+		ai_chance = { factor = 100 }
+		name = winds_of_magic_events.4.a
+		highlight = yes
+		trigger = {
+			AND ={
+				OR = {
+					has_country_modifier = war_modern_science
+					has_country_modifier = human_administration
+					has_country_modifier = elven_administration
+					has_country_modifier = lizardmen_administration
+					religion = tzeentchian_religion
+				}
+				NOT = { has_country_modifier = dwarven_administration }
+			}
+		}
+
+		add_country_modifier = { 
+		    name = war_better_morale
+		    duration = 3650
+		}
+
+		random = { 
+		    chance = 10 
+		    add_army_professionalism = -0.05
+		}
+	}
+
+# We suck at magic, but let's try to siphon it into runes
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.4.b
+		trigger = {  has_country_modifier = dwarven_administration }
+
+		add_country_modifier = { 
+		    name = war_better_morale
+		    duration = 1825
+		}
+
+		random = { 
+		    chance = 25
+		    add_army_professionalism = -0.05
+		}
+	}
+
+# Maybe some warpstone would help?
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.4.c
+		highlight = yes
+		trigger = { has_country_modifier = skaven_administration }
+
+		add_country_modifier = { 
+		    name = war_better_morale
+		    duration = 7300
+		}
+
+		random = { 
+		    chance = 50 
+		    add_army_professionalism = -0.05
+		}
+	}
+
+# Let's flavor this up with some chaos!
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.4.d
+		highlight = yes
+		trigger = { religion_group = ruinous_powers_denominations }
+
+		add_country_modifier = { 
+		    name = war_better_morale
+		    duration = 7300
+		}
+
+		random = { 
+		    chance = 25
+		    add_army_professionalism = -0.10
+		}
+	}
+
+
+# Try to control the winds
+	option = { 
+		ai_chance = { factor = 5 }
+		name = winds_of_magic_events.4.e
+		trigger = { NOT = { has_country_modifier = dwarven_administration } }
+
+		add_country_modifier = { 
+		    name = war_better_morale
+		    duration = 3650
+		}
+
+		random = { 
+		    chance = 25
+		    add_army_professionalism = -0.05
+		}
+	}
+
+# Let the winds blow...
+	option = { 
+		ai_chance = { factor = 5 }
+		name = winds_of_magic_events.4.f
+
+		add_country_modifier = { 
+		    name = war_better_morale
+		    duration = 365
+		}
+	}
+}
+
+
+
+
+
+### Ghyran (pronounced "GUY-ran"[8a]), also called the Lore of Life, Druid Lore, and the Third Lore[9d][10], and known in Grand Cathay as the Storm Winds or the Elemental Wind of Water[10][11], is the Green Wind of Magic or the Jade Wind of Magic[1d][9c], often described by Imperial Magisters as the embodiment of the Aethyr's momentum towards growth and the need to nourish and be nourished. Ghyran is the Aethyr's echo and mirror of life's fertile and nurturing aspects, the wind of healing most associated with concepts of vitality and health, and its brimming energy has granted the spells powered by it their title as the "Lore of Life."[1a][1d][9e] Life and nature, at least when not corrupted by the venomous tendrils of eternal darkness, are inextricably linked. Ghyran is the very spirit of the land, and through it, the secrets of nature can be unlocked. However, though its spells are often concerned with them, the Jade Wind of Magic is not just about plants, but is intrinsic to all life.[1a][1b][1i][9e][10]Animals kick up ediies of the Jade Wind wherever they go, and Humans can be affected by it as well. Ghyran is also the wind of childbirth, the one most associated with fecundity. It is strongly drawn towards the desire and drive for natural fertility and growth, including the raising of families, and promotes the natural urges which lead to them.[1a][1b][1i][9e][10]
+
+country_event = { 
+	id = winds_of_magic_events.5
+	title = winds_of_magic_events.5.title
+	desc = winds_of_magic_events.5.desc
+	picture = CROSSROAD_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# We are magic experts!
+	option = { 
+		ai_chance = { factor = 100 }
+		name = winds_of_magic_events.5.a
+		highlight = yes
+		trigger = {
+			AND ={
+				OR = {
+					has_country_modifier = war_modern_science
+					has_country_modifier = human_administration
+					has_country_modifier = elven_administration
+					has_country_modifier = lizardmen_administration
+					religion = tzeentchian_religion
+				}
+				NOT = { has_country_modifier = dwarven_administration }
+			}
+		}
+
+		all_owned_province = {
+			add_devastation = -15
+			add_prosperity = 15
+		}
+
+		random = { 
+		    chance = 10 
+			all_owned_province = {
+				add_local_autonomy = 10
+			}
+		}
+	}
+
+# We suck at magic, but let's try to siphon it into runes #note to self, half the benefit
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.5.b
+		trigger = {  has_country_modifier = dwarven_administration }
+
+		all_owned_province = {
+			add_devastation = -10
+			add_prosperity = 10
+		}
+
+		random = { 
+		    chance = 25 
+			all_owned_province = {
+				add_local_autonomy = 10
+			}
+		}
+	}
+
+# Maybe some warpstone would help-help? # twice the benefit, twice the chance
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.5.c
+		highlight = yes
+		trigger = { has_country_modifier = skaven_administration }
+
+		all_owned_province = {
+			add_devastation = -30
+			add_prosperity = 30
+		}
+
+		random = { 
+		    chance = 50 
+			all_owned_province = {
+				add_local_autonomy = 10
+			}
+		}
+	}
+
+# Let's flavor this up with some chaos! #twice the benefit, twice the harm
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.5.d
+		highlight = yes
+		trigger = { religion_group = ruinous_powers_denominations }
+
+		all_owned_province = {
+			add_devastation = -30
+			add_prosperity = 30
+		}
+
+		random = { 
+		    chance = 25 
+			all_owned_province = {
+				add_local_autonomy = 20
+			}
+		}
+	}
+
+
+# Try to control the winds
+	option = { 
+		ai_chance = { factor = 5 }
+		name = winds_of_magic_events.5.e
+		trigger = { NOT = { has_country_modifier = dwarven_administration } }
+
+		all_owned_province = {
+			add_devastation = -15
+			add_prosperity = 15
+		}
+
+		random = { 
+		    chance = 25 
+			all_owned_province = {
+				add_local_autonomy = 10
+			}
+		}
+	}
+
+# Let the winds blow...
+	option = { 
+		ai_chance = { factor = 5 }
+		name = winds_of_magic_events.5.f
+
+		all_owned_province = {
+			add_devastation = -5
+			add_prosperity = 5
+		}
+	}
+}
+
+
+
+
+### Hysh (pronounced "Hissh"), the Lore of Light, also called the First Lore and known in Grand Cathay as the Elemental Wind of Light, is the White Wind of Magic, a magical force of illumination and holy radiance. It is the Aethyric manifestation of light, and the abstract, metaphysical concepts light sometimes represents to mortals, like moral enlightenment and spiritual purity. Hysh is the light that banishes darkness and keeps terror from your doorstep. Although diffuse and difficult to manipulate, Hysh is a constant and steady luminence, the complete opposite of Chaos' randomness.[1a]
+
+country_event = { 
+	id = winds_of_magic_events.6
+	title = winds_of_magic_events.6.title
+	desc = winds_of_magic_events.6.desc
+	picture = CROSSROAD_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# We are magic experts!
+	option = { 
+		ai_chance = { factor = 100 }
+		name = winds_of_magic_events.6.a
+		highlight = yes
+		trigger = {
+			AND ={
+				OR = {
+					has_country_modifier = war_modern_science
+					has_country_modifier = human_administration
+					has_country_modifier = elven_administration
+					has_country_modifier = lizardmen_administration
+					religion = tzeentchian_religion
+				}
+				NOT = { has_country_modifier = dwarven_administration }
+			}
+		}
+
+		add_stability_or_adm_power = yes
+
+		random = { 
+		    chance = 10 
+			add_mil_power = -200   
+		}
+	}
+
+# We suck at magic, but let's try to siphon it into runes #note to self, half the benefit
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.6.b
+		trigger = {  has_country_modifier = dwarven_administration }
+
+		add_adm_power = 75 
+
+		random = { 
+		    chance = 25 
+			add_mil_power = -200   
+		}
+	}
+
+# Maybe some warpstone would help-help? # twice the benefit, twice the chance
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.6.c
+		highlight = yes
+		trigger = { has_country_modifier = skaven_administration }
+
+		add_stability_or_adm_power = yes
+		add_stability_or_adm_power = yes
+
+		random = { 
+		    chance = 50
+			add_mil_power = -200   
+		}
+	}
+
+# Let's flavor this up with some chaos! #twice the benefit, twice the harm
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.6.d
+		highlight = yes
+		trigger = { religion_group = ruinous_powers_denominations }
+
+		add_stability_or_adm_power = yes
+		add_stability_or_adm_power = yes
+
+		random = { 
+		    chance = 25
+			add_mil_power = -400   
+		}
+	}
+
+
+# Try to control the winds
+	option = { 
+		ai_chance = { factor = 5 }
+		name = winds_of_magic_events.6.e
+		trigger = { NOT = { has_country_modifier = dwarven_administration } }
+
+		add_stability_or_adm_power = yes
+
+		random = { 
+		    chance = 25
+			add_mil_power = -200   
+		}
+	}
+
+# Let the winds blow...
+	option = { 
+		ai_chance = { factor = 5 }
+		name = winds_of_magic_events.6.f
+
+		add_adm_power = 25
+
+	}
+}
+
+
+
+### Shyish (pronounced "Shy-EESH"[8a]), also called the Lore of Death, Spirit Lore and the Sixth Lore[14d], and known in Grand Cathay as the Spirit Winds or the Elemental Wind of Spirit[9], is the Purple Wind of Magic or the Amethyst Wind of Magic[1c][14c], and best understood as the Aethyric embodiment of the certainty of mortals regarding the passage of time, endings and death. Shyish is a metaphysical projection of mortals' dread, a reflection of all trepidation felt when faced with the unknown and the fear self-aware life feels towards death and its own ending. Yet, it was also the terrible awe of death, a manifestation of the non-divine reverence and respect mortals projected onto that which they considered sacred or special.[1a][1c] Most profoundly, Shyish is said to be formed by the realisation of the transience of mortal life. It is reminiscences of days gone by, acceptance of the day currently lived, and longing for the days that may come. And yet for its focus on endings, it is said to be the belief that there is something larger than life -- the knowledge that creation itself is permanent, even if all things within it are not. Shyish must be the dusty murk where all the above concepts meet.[1c]
+
+
+country_event = { 
+	id = winds_of_magic_events.7
+	title = winds_of_magic_events.7.title
+	desc = winds_of_magic_events.7.desc
+	picture = CROSSROAD_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# We are magic experts!
+	option = { 
+		ai_chance = { factor = 100 }
+		name = winds_of_magic_events.7.a
+		highlight = yes
+		trigger = {
+			AND ={
+				OR = {
+					has_country_modifier = war_modern_science
+					has_country_modifier = human_administration
+					has_country_modifier = elven_administration
+					has_country_modifier = lizardmen_administration
+					religion = tzeentchian_religion
+				}
+				NOT = { has_country_modifier = dwarven_administration }
+			}
+		}
+
+		add_country_modifier = { 
+		    name = war_spectral_forces
+		    duration = 3650
+		}
+
+		random = { 
+		    chance = 5
+		    add_stability = -1
+		}
+	}
+
+# We suck at magic, but let's try to siphon it into runes
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.7.b
+		trigger = {  has_country_modifier = dwarven_administration }
+
+		add_country_modifier = { 
+		    name = war_spectral_forces
+		    duration = 1825
+		}
+
+		random = { 
+		    chance = 10
+		    add_stability = -1
+		}
+	}
+
+# Maybe some warpstone would help?
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.7.c
+		highlight = yes
+		trigger = { has_country_modifier = skaven_administration }
+
+		add_country_modifier = { 
+		    name = war_spectral_forces
+		    duration = 7300
+		}
+
+		random = { 
+		    chance = 20
+		    add_stability = -1
+		}
+	}
+
+# Let's flavor this up with some chaos!
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.7.d
+		highlight = yes
+		trigger = { religion_group = ruinous_powers_denominations }
+
+		add_country_modifier = { 
+		    name = war_spectral_forces
+		    duration = 7300
+		}
+
+		random = { 
+		    chance = 10
+		    add_stability = -2
+		}
+	}
+
+
+# Try to control the winds
+	option = { 
+		ai_chance = { factor = 5 }
+		name = winds_of_magic_events.7.e
+		trigger = { NOT = { has_country_modifier = dwarven_administration } }
+
+		add_country_modifier = { 
+		    name = war_spectral_forces
+		    duration = 3650
+		}
+
+		random = { 
+		    chance = 10
+		    add_stability = -1
+		}
+	}
+
+# Let the winds blow...
+	option = { 
+		ai_chance = { factor = 5 }
+		name = winds_of_magic_events.7.f
+
+		add_country_modifier = { 
+		    name = war_spectral_forces
+		    duration = 365
+		}
+	}
+
+# Now we're talking!
+	option = { 
+		ai_chance = { factor = 500 }
+		name = winds_of_magic_events.7.g
+		highlight = yes
+		trigger = { has_country_modifier = undead_administration }
+
+		add_country_modifier = { 
+		    name = war_spectral_forces
+		    duration = 7300
+		}
+
+		add_adm_power = 50
+		add_dip_power = 50
+		add_mil_power = 50
+
+		random = { 
+		    chance = 10
+		    add_stability = -1
+		}
+	}
+}
+
+
+
+### Ulgu (pronounced "OOL-goo" [11a]), the Lore of Shadow, also called the Fifth Lore and known in Grand Cathay as the Elemental Wind of Darkness, is the Grey Wind of Magic, and one which is the Aethyr's embodiment of and reaction to the emotional experience among mortals of being lost or confused. This Wind of Magic is full of unseen depths, plots, shadows, and illusion. Grey Wizards weave Ulgu into elaborate spells that wreathe them in its mysterious presence. The Lore of Shadow contains spells of darkness, invisibility, shadowy death, and panicked bewilderment.
+
+
+country_event = { 
+	id = winds_of_magic_events.8
+	title = winds_of_magic_events.8.title
+	desc = winds_of_magic_events.8.desc
+	picture = CROSSROAD_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# We are magic experts!
+	option = { 
+		ai_chance = { factor = 100 }
+		name = winds_of_magic_events.8.a
+		highlight = yes
+		trigger = {
+			AND ={
+				OR = {
+					has_country_modifier = war_modern_science
+					has_country_modifier = human_administration
+					has_country_modifier = elven_administration
+					has_country_modifier = lizardmen_administration
+					religion = tzeentchian_religion
+				}
+				NOT = { has_country_modifier = dwarven_administration }
+			}
+		}
+
+		add_country_modifier = { 
+		    name = war_better_spies
+		    duration = 3650
+		}
+
+		random = { 
+		    chance = 10 
+		    add_prestige = -15
+		}
+	}
+
+# We suck at magic, but let's try to siphon it into runes
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.8.b
+		trigger = {  has_country_modifier = dwarven_administration }
+
+		add_country_modifier = { 
+		    name = war_better_spies
+		    duration = 1825
+		}
+
+		random = { 
+		    chance = 25
+		    add_prestige = -15
+		}
+	}
+
+# Maybe some warpstone would help?
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.8.c
+		highlight = yes
+		trigger = { has_country_modifier = skaven_administration }
+
+		add_country_modifier = { 
+		    name = war_better_spies
+		    duration = 7300
+		}
+
+		random = { 
+		    chance = 50 
+		    add_prestige = -15
+		}
+	}
+
+# Let's flavor this up with some chaos!
+	option = { 
+		ai_chance = { factor = 0 }
+		name = winds_of_magic_events.8.d
+		highlight = yes
+		trigger = { religion_group = ruinous_powers_denominations }
+
+		add_country_modifier = { 
+		    name = war_better_spies
+		    duration = 7300
+		}
+
+		random = { 
+		    chance = 25
+		    add_prestige = -30
+		}
+	}
+
+
+# Try to control the winds
+	option = { 
+		ai_chance = { factor = 5 }
+		name = winds_of_magic_events.8.e
+		trigger = { NOT = { has_country_modifier = dwarven_administration } }
+
+		add_country_modifier = { 
+		    name = war_better_spies
+		    duration = 3650
+		}
+
+		random = { 
+		    chance = 25
+		    add_prestige = -15
+		}
+	}
+
+# Let the winds blow...
+	option = { 
+		ai_chance = { factor = 5 }
+		name = winds_of_magic_events.8.f
+
+		add_country_modifier = { 
+		    name = war_better_spies
+		    duration = 365
+		}
+	}
+}
