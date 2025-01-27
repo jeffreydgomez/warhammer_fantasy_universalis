@@ -48,5 +48,43 @@ country_decisions = {
 	}
 
 
+	begin_vermintide = {
+		major = yes
+		potential = {
+			culture_group = skaven_group
+			NOT = { has_country_modifier = vermintide }
+
+		}
+		provinces_to_highlight = {
+			continent =  underempire
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		allow = {
+			is_at_war = no
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				NOT = { continent = underempire }
+			}
+
+		}
+		effect = {
+
+			add_stability = -1
+
+			add_country_modifier = {
+				name = vermintide
+				duration = -1
+			}
+
+			hidden_effect = {
+				war_reset_racial_modifiers = yes
+			}
+		}
+
+		ai_will_do = { factor = 400 }
+		ai_importance = 400
+	}
+
+
 	
 }
