@@ -4,6 +4,7 @@ chaos_gov_mechanic = {
 	republican_name = yes
 	valid_for_new_country = yes
 	allow_convert = yes
+	has_devotion = yes
 	royal_marriage = no
 	is_eligible_for_hre_emperor = no
 	rulers_can_be_generals = yes
@@ -27,6 +28,11 @@ chaos_gov_mechanic = {
 		relation_with_same_religion = -50
 		can_recruit_revolutionary_guards = yes
 		allowed_rev_guard_fraction  = 0.2
+		may_recruit_female_generals = yes
+		female_advisor_chance = 0.25
+	}
+	trigger = {
+		religion_group = ruinous_powers_denominations
 	}
 	valid_for_nation_designer = yes
 	nation_designer_cost = 50
@@ -127,7 +133,7 @@ chaos_chosen_of_the_dark_gods = {
 	icon = "chaos_warriors"
 	lock_level_when_selected  = yes
 	modifiers = {
-
+		devotion = 1
 	}
 }
 
@@ -145,7 +151,25 @@ chaos_settled_horde = {
 	start_territory_to_estates = 0.5
 
 	modifiers = {
-        global_manpower_modifier = 0.1
+		loot_amount = 0.33
+		cavalry_cost = -0.1
+		movement_speed = 0.1
+	}
+
+}
+
+chaos_realm = {
+	icon = "horde_riding"
+	allow_normal_conversion = no
+	allow_migration = no
+	valid_for_nation_designer = yes
+
+	lock_level_when_selected = yes
+
+	modifiers = {
+		church_privilege_slots = 1
+		church_loyalty_modifier = 0.1
+		tolerance_own = 1 
 	}
 
 }
@@ -222,134 +246,6 @@ everchosen_reform = {
 #
 # Teir 3
 #
-chaos_internal_corruption = {
-	icon = "clergyman"
-	allow_normal_conversion = yes
-	modifiers = {
-		tolerance_own = 2
-	}
-	custom_attributes = {
-		on_church_built_clergy_loyalty = yes
-	}
-}
-
-chaos_external_devastation = {
-	icon = "soldiers"
-	allow_normal_conversion = yes
-	modifiers = {
-		manpower_recovery_speed = 0.1
-	}
-}
-
-chaos_balance_of_chaos = {
-	icon = "generic_people"
-	allow_normal_conversion = yes
-	modifiers = {
-		national_focus_years = -10
-	}
-	custom_attributes = {
-		free_expansionist_zealotry = yes
-	}
-}
-
-chaos_profane_commercialism = {
-	icon = "merchant"
-	allow_normal_conversion = yes
-	modifiers = {
-		global_trade_power = 0.1
-		merchants = 1
-	}
-}
-
-
-chaos_mission_of_descration = {
-	icon = "castle"
-	allow_normal_conversion = yes
-	modifiers = {
-		defensiveness = 0.1
-		missionaries = 1
-		prestige_per_development_from_conversion = 0.2
-	}
-	custom_attributes = {
-		recruiting_generals_increases_church_loyalty = yes
-	}
-}
-
-
-chaos_bloody_the_seas = {
-	icon = "mission_to_kill_pirates_reform"
-	allow_normal_conversion = yes
-	trigger = {
-		num_of_ports = 1
-	}
-	modifiers = {
-		global_sailors_modifier = 0.2
-		naval_forcelimit_modifier = 0.25
-		capture_ship_chance = 0.33
-		allowed_marine_fraction = 0.1
-	}
-}
-
-#
-# Teir 4
-#
-
-chaos_corruption_of_the_ruler_reform = {
-	icon = "reformer"
-	allow_normal_conversion = yes
-	modifiers = {
-		monarch_lifespan = 0.2
-	}
-	effect = {
-		hidden_effect = {
-			country_event = {
-				id = flavor_sca.2
-			}
-		}
-	}
-	removed_effect = {
-		hidden_effect = {
-			remove_country_modifier = sca_administrative_focus
-			remove_country_modifier = sca_diplomatic_focus
-			remove_country_modifier = sca_military_focus
-			remove_country_modifier = sca_administrative_focus_non_heir
-			remove_country_modifier = sca_diplomatic_focus_non_heir
-			remove_country_modifier = sca_military_focus_non_heir
-		}
-	}
-	custom_attributes = {
-		education_focus_enabled = yes
-	}
-}
-
-chaos_corruption_of_the_court_reform = {
-	icon = "arabic_scripture"
-	allow_normal_conversion = yes
-	modifiers = {
-		advisor_cost = -0.15
-	}
-}
-
-chaos_corruption_of_the_missionaries_reform = {
-	icon = "church"
-	allow_normal_conversion = yes
-	modifiers = {
-		global_missionary_strength = 0.02
-		#power_points_per_development_from_conversion = 0.25	#For 1.36
-		missionary_maintenance_cost = -0.5
-		max_absolutism = 5
-	}
-}
-
-chaos_corruption_of_the_masses_reform = {
-	icon = "peasants"
-	allow_normal_conversion = yes
-	modifiers = {
-		idea_cost = -0.05
-		institution_spread_from_true_faith = 0.33
-	}
-}
-
 
 #
 # Teir 5
