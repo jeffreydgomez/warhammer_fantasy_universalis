@@ -839,6 +839,61 @@ country_decisions = {
 		ai_will_do = { factor = 100 }
 	}
 
+
+## Take the Grail
+	take_the_grail = {
+		potential = { 
+			OR = {
+				religion = lady_of_the_lake
+				any_neighbor_country = {
+					any_owned_province = { has_province_modifier = location_of_the_grail }
+				}
+				any_war_enemy_country = {
+					any_owned_province = { has_province_modifier = location_of_the_grail }
+				}
+			}
+			all_owned_province = { NOT = { has_province_modifier = location_of_the_grail } }
+		 }
+
+		allow = {
+			capital_scope = { controlled_by = ROOT }
+			any_province = {
+				controlled_by = ROOT
+				has_province_modifier = location_of_the_grail
+			}
+		}
+
+		provinces_to_highlight = {
+			has_province_modifier = location_of_the_grail
+		}
+
+		effect = {
+			every_province ={
+				limit = { has_province_modifier = location_of_the_grail }
+				remove_province_modifier = location_of_the_grail
+				owner = {
+					country_event = { 
+    					id = artifact_events.0
+    				}
+    			}
+				owner = {
+					country_event = { 
+    					id = artifact_events.0
+    				}
+    			}
+			}
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_grail
+				    duration = -1  
+				}
+			}
+		}
+
+		ai_will_do = { factor = 100 }
+	}
+
+
 ### Resurrect Nagash
 
 	resurrect_nagash_decision = {
