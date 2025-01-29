@@ -10,7 +10,7 @@ country_event = {
 	picture = SHOGUNATE_AUTHORITY_INCIDENT_eventPicture
 	is_triggered_only = yes
 	trigger = {
-		government = chaos_gov
+		has_reform = chaos_warband
 	}
 	immediate = {
 		save_event_target_as = chaos_horde_development_handler
@@ -60,13 +60,27 @@ country_event = {
 			chaos_migration_effect = yes
 		}
 		hidden_effect = {
-			add_country_modifier = {
-				name = chaos_teleport_cooldown
-				duration = 120
+			if = {
+				limit = { 
+					ai = yes
+				}
+				add_country_modifier = {
+					name = chaos_teleport_cooldown
+					duration = 720
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = chaos_teleport_cooldown
+					duration = 120
+				}
 			}
 			event_target:chaos_former_capital = {
 				chaos_former_capital_effect = yes
 			}
+		}
+		ai_chance = {
+			factor = 100
 		}
 	}
 	option = {
@@ -82,9 +96,20 @@ country_event = {
 			chaos_migration_effect = yes
 		}
 		hidden_effect = {
-			add_country_modifier = {
-				name = chaos_teleport_cooldown
-				duration = 120
+			if = {
+				limit = { 
+					ai = yes
+				}
+				add_country_modifier = {
+					name = chaos_teleport_cooldown
+					duration = 720
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = chaos_teleport_cooldown
+					duration = 120
+				}
 			}
 			event_target:chaos_former_capital = {
 				chaos_former_capital_effect = yes
@@ -104,9 +129,20 @@ country_event = {
 			chaos_migration_effect = yes
 		}
 		hidden_effect = {
-			add_country_modifier = {
-				name = chaos_teleport_cooldown
-				duration = 120
+			if = {
+				limit = { 
+					ai = yes
+				}
+				add_country_modifier = {
+					name = chaos_teleport_cooldown
+					duration = 720
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = chaos_teleport_cooldown
+					duration = 120
+				}
 			}
 			event_target:chaos_former_capital = {
 				chaos_former_capital_effect = yes
@@ -116,6 +152,9 @@ country_event = {
 	#go back
 	option = {
 		name = flavor_chaos.1.z
+		ai_chance = {
+			factor = 0
+		}
 	}
 	after = {
 		event_target:chaos_move_prov_et_1 = {
