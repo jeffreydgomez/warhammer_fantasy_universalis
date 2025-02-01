@@ -215,47 +215,136 @@ country_event = {
     }
 
     option = {
+<<<<<<< HEAD
         name = slaanesh_events.3.b 
+=======
+        name = slaanesh_events.3.b
+>>>>>>> main
         add_prestige = -100
         add_church_power = -200
         ai_chance = { factor = 0.01 }
     }
 }
 
-#country_event = {
-#    id = slaanesh_events.4
-#    title = slaanesh_events.4.t
-#    desc = slaanesh_events.4.d 
-#    picture = CORRUPTION_eventPicture
-#
-#    trigger = {
-#        any_ally = {
-#            AND = {
-#                religion = slaaneshi_religion
-#                NOT = { total_own_and_non_tributary_subject_development = ROOT }
-#            }
-#        }
-#    }
-#
-#    mean_time_to_happen = {
-#        months = 300
-#    }
-#
-#    option = {
-#        name = slaanesh_events.4.a 
-#        random_ally = {
-#            limit = {
-#                religion = slaaneshi_religion
-#                NOT = { total_own_and_non_tributary_subject_development = ROOT }
-#            }
-#            ROOT = {
-#                vassalize = PREV
-#            }
-#        }
-#    }
-#
-#    option = {
-#        name = slaanesh_events.4.b 
-#        add_prestige = -25
-#    }
-#}
+country_event = {
+    id = slaanesh_events.4
+    title = slaanesh_events.4.t
+    desc = slaanesh_events.4.d 
+    picture = CORRUPTION_eventPicture
+
+    trigger = {
+        any_ally = {
+            AND = {
+                religion = slaaneshi_religion
+                NOT = { total_own_and_non_tributary_subject_development = ROOT }
+            }
+        }
+    }
+
+    mean_time_to_happen = {
+        months = 300
+    }
+
+    option = {
+        name = slaanesh_events.4.a
+        random_ally = {
+            limit = {
+                religion = slaaneshi_religion
+                NOT = { total_own_and_non_tributary_subject_development = ROOT }
+            }
+            custom_tooltip = slaanesh_events.4.a.desc
+            country_event = {
+                id = slaanesh_events.5
+            }
+        }
+    }
+
+    option = {
+        name = slaanesh_events.4.b 
+    }
+}
+
+country_event = {
+    id = slaanesh_events.5
+    title = slaanesh_events.5.t
+    desc = slaanesh_events.5.d 
+    picture = CORRUPTION_eventPicture
+
+    is_triggered_only = yes
+
+    option = {
+        name = slaanesh_events.5.a
+        FROM = {
+            country_event = {
+                id = slaanesh_events.6
+            }
+        }
+        ai_chance = {
+            factor = 0.5
+            modifier = {
+                factor = 2
+                has_opinion = {
+                    who = FROM
+                    value = 100
+                }
+            }
+            modifier = {
+                factor = 0
+                NOT = {
+                    has_opinion = {
+                        who = FROM
+                        value = 0
+                    }
+                }
+            }
+        }
+    }
+
+    option = {
+        name = slaanesh_events.5.b
+        FROM = {
+            country_event = {
+                id = slaanesh_events.7
+            }
+        }
+        ai_chance = {
+            factor = 0.5
+            modifier = {
+                factor = 0
+                has_opinion = {
+                    who = FROM
+                    value = 200
+                }
+            }
+        }
+    }
+}
+
+country_event = {
+    id = slaanesh_events.6
+    title = slaanesh_events.6.t
+    desc = slaanesh_events.6.d 
+    picture = CORRUPTION_eventPicture
+
+    is_triggered_only = yes
+
+    option = {
+        name = slaanesh_events.6.a
+        vassalize = FROM
+    }
+}
+
+country_event = {
+    id = slaanesh_events.7
+    title = slaanesh_events.7.t
+    desc = slaanesh_events.7.d 
+    picture = CORRUPTION_eventPicture
+
+    is_triggered_only = yes
+
+    option = {
+        name = slaanesh_events.7.a
+        add_church_power = -25
+        add_prestige = -10
+    }
+}
