@@ -1,29 +1,29 @@
 ########################################
 # Events for Elves
 ########################################
-
 namespace = asur_events
 normal_or_historical_nations = yes
-
-
 ### Ulthuan for the Asur
-
-country_event = { 
+country_event = {
 	id = asur_events.0
-	title = asur_events.0.t 
-	desc = asur_events.0.d 
+	title = asur_events.0.t
+	desc = asur_events.0.d
 	picture = NUSANTARA_THRONE_eventPicture
-	
 	fire_only_once = no
-	is_triggered_only = no 
-		
+	is_triggered_only = no
 	trigger = {
 		culture_group = asur_group
 		is_at_war = no
-		capital_scope = { superregion = ulthuan_superregion }
+		capital_scope = {
+			superregion = ulthuan_superregion
+		}
 		any_country = {
-			NOT = { culture_group = asur_group }
-			NOT = { truce_with = ROOT }
+			NOT = {
+				culture_group = asur_group
+			}
+			NOT = {
+				truce_with = ROOT
+			}
 			ROOT = {
 				NOT = {
 					has_opinion = {
@@ -35,22 +35,23 @@ country_event = {
 			provinces_on_capital_continent_of = ROOT
 		}
 	}
-
 	mean_time_to_happen = {
 		months = 160
 	}
-
-
-## Declare War
-	option = { 
+	## Declare War
+	option = {
 		ai_chance = {
 			factor = 100
 		}
-		name = asur_events.0.a 
+		name = asur_events.0.a
 		random_country = {
 			limit = {
-				NOT = { culture_group = asur_group }
-				NOT = { truce_with = ROOT }
+				NOT = {
+					culture_group = asur_group
+				}
+				NOT = {
+					truce_with = ROOT
+				}
 				ROOT = {
 					NOT = {
 						has_opinion = {
@@ -63,50 +64,51 @@ country_event = {
 			}
 			ROOT = {
 				declare_war_with_cb = {
-				    who = PREV
-				    casus_belli = cb_war_cultural_unification_take
+					who = PREV
+					casus_belli = cb_war_cultural_unification_take
 				}
 			}
 		}
 		add_prestige = 25
 	}
-
-	option = { 
+	option = {
 		ai_chance = {
 			factor = 25
 			modifier = {
 				factor = 10
 				OR = {
-					NOT = { manpower_percentage = 0.10 }
+					NOT = {
+						manpower_percentage = 0.1
+					}
 					is_at_war = yes
 					num_of_loans = 10
 					is_bankrupt = yes
-					NOT = { stability = -1 }
+					NOT = {
+						stability = -1
+					}
 				}
 			}
 		}
-		name = asur_events.0.b 
-
+		name = asur_events.0.b
 		add_prestige = -50
 		add_legitimacy = -25
 		add_devotion = -25
 		add_republican_tradition = -15
 	}
-
-
-
-## Submit to Naggaroth
-	option = { 
+	## Submit to Naggaroth
+	option = {
 		ai_chance = {
 			factor = 1
 			modifier = {
 				factor = 50
-				H12 = { religion = cytharai }
+				H12 = {
+					religion = cytharai
+				}
 				has_matching_religion = H12
 			}
 			modifier = {
 				factor = 50
-				H12 = { 
+				H12 = {
 					ROOT = {
 						has_opinion = {
 							who = PREV
@@ -125,348 +127,311 @@ country_event = {
 						is_subject_of = PREV
 					}
 				}
-			}			
+			}
 		}
 		H12 = {
 			create_subject = {
-			    subject_type = dominion
-			    subject = ROOT
+				subject_type = dominion
+				subject = ROOT
 			}
 		}
 	}
 }
 
-
-
 ### Passing of an age. The high elves are depressed as their power in the world wanes.
-
-country_event = { 
+country_event = {
 	id = asur_events.2
 	title = asur_events.2.title
 	desc = asur_events.2.desc
 	picture = NUSANTARA_THRONE_eventPicture
-	
 	fire_only_once = no
 	is_triggered_only = yes
-		
 	trigger = {
 		culture_group = asur_group
 	}
-
 	mean_time_to_happen = {
 		days = 1
 	}
-
-# The army seems hardest hit
-
-	option = { 
-		ai_chance = { factor = 50 }
-		name = asur_events.2.a 
-
-		add_country_modifier = { 
-		    name = war_worse_morale
-		    duration = 3650 
+	# The army seems hardest hit
+	option = {
+		ai_chance = {
+			factor = 50
 		}
-
+		name = asur_events.2.a
+		add_country_modifier = {
+			name = war_worse_morale
+			duration = 3650
+		}
 	}
-
-# Our philosophers just aren't producing
-	option = { 
-		ai_chance = { factor = 50 }
+	# Our philosophers just aren't producing
+	option = {
+		ai_chance = {
+			factor = 50
+		}
 		name = asur_events.2.b
 		add_dip_power = -50
 	}
-
-# Look at this shiny new statue!
-	option = { 
-		ai_chance = { factor = 50 }
+	# Look at this shiny new statue!
+	option = {
+		ai_chance = {
+			factor = 50
+		}
 		name = asur_events.2.c
 		add_years_of_income = -0.5
 	}
 }
 
-
-
 ## Intrigue in the phoenix court. One of our diplomats finds himself with a piece of unusual knowledge. How should he use it?
-
-country_event = { 
+country_event = {
 	id = asur_events.3
 	title = asur_events.3.title
 	desc = asur_events.3.desc
 	picture = NUSANTARA_THRONE_eventPicture
-	
 	fire_only_once = no
 	is_triggered_only = yes
-		
 	trigger = {
 		culture_group = asur_group
 	}
-
 	mean_time_to_happen = {
 		days = 1
 	}
-
-# Blackmail, of course
-
-	option = { 
-		ai_chance = { factor = 50 }
-		name = asur_events.3.a 
-
-		add_country_modifier = { 
-		    name = war_better_spies
-		    duration = 1825
+	# Blackmail, of course
+	option = {
+		ai_chance = {
+			factor = 50
 		}
-
+		name = asur_events.3.a
+		add_country_modifier = {
+			name = war_better_spies
+			duration = 1825
+		}
 	}
-
-# Let's not embarrass them
-	option = { 
-		ai_chance = { factor = 50 }
+	# Let's not embarrass them
+	option = {
+		ai_chance = {
+			factor = 50
+		}
 		name = asur_events.3.b
-
 		random_country = {
 			limit = {
 				culture_group = asur_group
-				NOT = { tag = ROOT }
+				NOT = {
+					tag = ROOT
+				}
 			}
-			
 			ROOT = {
 				add_favors = {
-				   who = PREV
-				   amount = 15
+					who = PREV
+					amount = 15
 				}
 			}
 		}
 	}
-
-# We are above all this
-	option = { 
-		ai_chance = { factor = 50 }
+	# We are above all this
+	option = {
+		ai_chance = {
+			factor = 50
+		}
 		name = asur_events.3.c
-
-		add_country_modifier = { 
-		    name = war_better_dip_rep
-		    duration = 3650
+		add_country_modifier = {
+			name = war_better_dip_rep
+			duration = 3650
 		}
 	}
-
 }
 
-
 ### Birth of a Mage. A child has demonstrated strong magical power. Where should we send her?
-
-country_event = { 
+country_event = {
 	id = asur_events.4
 	title = asur_events.4.title
 	desc = asur_events.4.desc
 	picture = NUSANTARA_THRONE_eventPicture
-	
 	fire_only_once = no
 	is_triggered_only = yes
-		
 	trigger = {
 		culture_group = asur_group
 	}
-
 	mean_time_to_happen = {
 		days = 1
 	}
-
-# Send them to the White Tower of Hoeth!
-
-	option = { 
-		ai_chance = { factor = 50 }
+	# Send them to the White Tower of Hoeth!
+	option = {
+		ai_chance = {
+			factor = 50
+		}
 		name = asur_events.4.a
-
-		add_country_modifier = { 
-		    name = war_all_power_cost
-		    duration = 1825
+		add_country_modifier = {
+			name = war_all_power_cost
+			duration = 1825
 		}
-
 	}
-
-# Bring her into the army
-	option = { 
-		ai_chance = { factor = 50 }
+	# Bring her into the army
+	option = {
+		ai_chance = {
+			factor = 50
+		}
 		name = asur_events.4.b
-		add_country_modifier = { 
-		    name = war_fire_damage
-		    duration = 3650
+		add_country_modifier = {
+			name = war_fire_damage
+			duration = 3650
 		}
-
-
 	}
-
-# Let the child decide
-	option = { 
-		ai_chance = { factor = 50 }
+	# Let the child decide
+	option = {
+		ai_chance = {
+			factor = 50
+		}
 		name = asur_events.4.c
-
-		add_prestige_or_monarch_power = { amount = 10 }
-
+		add_prestige_or_monarch_power = {
+			amount = 10
+		}
 		random_list = {
-		    40 = {
-				add_country_modifier = { 
-				    name = war_all_power_cost
-				    duration = 1825
+			40 = {
+				add_country_modifier = {
+					name = war_all_power_cost
+					duration = 1825
 				}
-		    }
-		    40 = {
-				add_country_modifier = { 
-				    name = war_fire_damage
-				    duration = 3650
+			}
+			40 = {
+				add_country_modifier = {
+					name = war_fire_damage
+					duration = 3650
 				}
-		    }
-		    20 = {
-		    }
+			}
+			20 = {
+			}
 		}
 	}
 }
 
-
 ### Description: "One of the Swordmasters of Hoeth, legendary warriors and scholars, has issued a challenge to the finest swordsman in our court. The duel is to be fought in front of the noble houses, a contest of both skill and honor. The victor will inspire respect and admiration among all who witness the duel."
-
-
-country_event = { 
+country_event = {
 	id = asur_events.5
 	title = asur_events.5.title
 	desc = asur_events.5.desc
 	picture = NUSANTARA_THRONE_eventPicture
-	
 	fire_only_once = no
 	is_triggered_only = yes
-		
 	trigger = {
 		OR = {
 			has_country_modifier = elven_administration
 			has_country_modifier = human_administration
+			not = {
+				has_country_modifier = destruction_nation
+				has_country_modifier = chaos_nation
+			}
 		}
 	}
-
 	mean_time_to_happen = {
 		days = 1
 	}
-
-# Accept the Duel
-
-	option = { 
-		ai_chance = { factor = 50 }
-		name = asur_events.5.a 
-
+	# Accept the Duel
+	option = {
+		ai_chance = {
+			factor = 50
+		}
+		name = asur_events.5.a
 		random_list = {
-		    30 = {
-		        kill_leader = {
-				    type = random
+			30 = {
+				kill_leader = {
+					type = random
 				}
-		    }
-		    30 = {
-		        add_prestige = -15
-		    }
-		    20 = {
-		        add_prestige = 15
-		    }
-		    20 = {
-		        create_general = { tradition = 100 }
-		    }
+			}
+			30 = {
+				add_prestige = -15
+			}
+			20 = {
+				add_prestige = 15
+			}
+			20 = {
+				create_general = {
+					tradition = 80
+				}
+			}
 		}
 	}
-
-# Reject the Duel
-	option = { 
-		ai_chance = { factor = 50 }
+	# Reject the Duel
+	option = {
+		ai_chance = {
+			factor = 50
+		}
 		name = asur_events.5.b
-
 		add_prestige = -5
 	}
-
 }
 
-
-
-
 ### Description: "One of the ancient waystones that protects Ulthuan has begun to falter, its energies dissipating into the winds. Without it, the magic that stabilizes our homeland will weaken, leaving us vulnerable to the tides of chaos. Mages have proposed a solution.
-
-country_event = { 
+country_event = {
 	id = asur_events.6
 	title = asur_events.6.title
 	desc = asur_events.6.desc
 	picture = NUSANTARA_THRONE_eventPicture
-	
 	fire_only_once = no
 	is_triggered_only = yes
-		
 	trigger = {
 		culture_group = asur_group
 	}
-
 	mean_time_to_happen = {
 		days = 1
 	}
-
-# Repair the Stone
-
-	option = { 
-		ai_chance = { factor = 50 }
-		name = asur_events.6.a 
+	# Repair the Stone
+	option = {
+		ai_chance = {
+			factor = 50
+		}
+		name = asur_events.6.a
 		add_treasury = -100
-
 	}
-
-# Let it fall
-	option = { 
-		ai_chance = { factor = 50 }
+	# Let it fall
+	option = {
+		ai_chance = {
+			factor = 50
+		}
 		name = asur_events.6.b
-
 		random_owned_province = {
 			add_devastation = 25
 		}
 	}
 }
 
-
 ### Call of the forests - some of our people seek to disappear into a peaceful existance
-
-country_event = { 
+country_event = {
 	id = asur_events.7
 	title = asur_events.7.title
 	desc = asur_events.7.desc
 	picture = NUSANTARA_THRONE_eventPicture
-	
 	fire_only_once = no
 	is_triggered_only = yes
-		
 	trigger = {
 		culture_group = asur_group
 	}
-
 	mean_time_to_happen = {
 		days = 1
 	}
-
-# Let them go!
-
-	option = { 
-		ai_chance = { factor = 50 }
-		name = asur_events.7.a 
-
+	# Let them go!
+	option = {
+		ai_chance = {
+			factor = 50
+		}
+		name = asur_events.7.a
 		add_yearly_manpower = -1.5
-
 	}
-
-# Some army time will do them good.
-	option = { 
-		ai_chance = { factor = 50 }
+	# Some army time will do them good.
+	option = {
+		ai_chance = {
+			factor = 50
+		}
 		name = asur_events.7.b
-
-		add_country_modifier = { 
-		    name = war_worse_morale
-		    duration = 3650 
+		add_country_modifier = {
+			name = war_worse_morale
+			duration = 3650
 		}
 	}
-
-# Punish those who would leave, and take thier lands
-	option = { 
-		ai_chance = { factor = 50 }
+	# Punish those who would leave, and take thier lands
+	option = {
+		ai_chance = {
+			factor = 50
+		}
 		name = asur_events.7.c
 		add_stability = -1
 		add_years_of_income = 0.5
