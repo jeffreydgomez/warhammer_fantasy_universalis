@@ -1,14 +1,14 @@
 po_chaos_absorb_warriors = {
 	# Values default to 0 or "no" unless otherwise stated
 	category = 6	# Any number between 0 and 6. Represents the tab under which it will be listed. 6 corresponds to "treaties". This value currently defaults to 6.
-	power_projection = vassalized_rival	# "power_projection" will only be applied if giver is your rival.
+	power_projection = humiliated_rival	# "power_projection" will only be applied if giver is your rival.
 	power_cost_base = 1	# Base factor for diplomatic power cost when treaty is not allowed by casus belli. Scales with war score cost.
 	prestige_base = 0.1	# Base factor for prestige gain and loss. Scales with war score cost.
 	ae_base = 0.45	# Base factor for aggressive expansion. Scales with war score cost.
 	warscore_cost = {
 		# Which of the giver's provinces' war score costs are included and by how much. All entries default to 0. Any combination of entries can be used. Try negative values at your own risk.
 		all_provinces = 0.5		# All the giver's provinces
-		no_provinces = 0		# This is just a constant. Equivalent to a single province with with war score cost 1
+		no_provinces = 50.0		# This is just a constant. Equivalent to a single province with with war score cost 1
 		owner_keeps = 0		# The provinces that are not of any of the types below
 		conquered = 0		# Provinces that are selected by a Demand Province treaty
 		returned_core = 0		# Provinces that are selected by a Return Core treaty
@@ -65,7 +65,13 @@ po_chaos_absorb_warriors = {
 			value = 1000
 		}
 		limit = {
-			total_development = FROM
+			FROM = {
+				capital_scope = {
+					NOT = { controlled_by = FROM }
+				}
+			}
 		}
+
+		
 	}
 }
