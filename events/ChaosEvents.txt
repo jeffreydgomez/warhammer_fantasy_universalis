@@ -368,7 +368,10 @@ country_event = {
 	option = { 
 		ai_chance = { factor = 0 }
 		name = chaos_nations_events.5.a 
-		trigger = { NOT = { religion = slaaneshi_religion} }
+		trigger = {
+			NOT = { religion = slaaneshi_religion}
+			NOT = { has_reform = everchosen_reform }
+		}
 
 		change_religion = slaaneshi_religion
 
@@ -436,7 +439,10 @@ country_event = {
 	option = { 
 		ai_chance = { factor = 0 }
 		name = chaos_nations_events.6.a 
-		trigger = { NOT = { religion = nurglite_religion} }
+		trigger = {
+			NOT = { religion = nurglite_religion}
+			NOT = { has_reform = everchosen_reform }
+		}
 
 		change_religion = nurglite_religion
 
@@ -504,7 +510,10 @@ country_event = {
 	option = { 
 		ai_chance = { factor = 0 }
 		name = chaos_nations_events.7.a 
-		trigger = { NOT = { religion = khornate_religion} }
+		trigger = {
+			NOT = { religion = khornate_religion }
+			NOT = { has_reform = everchosen_reform }
+		}
 
 		change_religion = khornate_religion
 
@@ -572,7 +581,10 @@ country_event = {
 	option = { 
 		ai_chance = { factor = 0 }
 		name = chaos_nations_events.8.a 
-		trigger = { NOT = { religion = tzeentchian_religion} }
+		trigger = {
+			NOT = { religion = tzeentchian_religion }
+			NOT = { has_reform = everchosen_reform }
+		}
 
 		change_religion = tzeentchian_religion
 
@@ -637,6 +649,12 @@ country_event = {
 		days = 1
 	}
 
+	immediate = {
+		random_owned_province = {
+			save_event_target_as = event_target
+		}
+	}
+
 # Let the chaos spread
 
 	option = { 
@@ -657,15 +675,15 @@ country_event = {
 	option = { 
 		ai_chance = { factor = 50 }
 		name = chaos_nations_events.9.c
+		goto = event_target
 
-		random_owned_province = {
+		event_target:event_target = {
 			spawn_rebels = {
-	 		   type = pretender_rebels
-	  		  size = 1
-	   		 leader = rebel_preacher
+	 			type = pretender_rebels
+	  			size = 1
+	   			leader = rebel_preacher
 			}
 		}
-
 	}
 }
 
