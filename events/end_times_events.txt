@@ -1172,6 +1172,7 @@ country_event = {
 			is_reformation_center = yes
 			religion = chaos_undivided_religion
 		}
+		NOT = { religion_group = ruinous_powers_denominations }
 	}
 
 	mean_time_to_happen = { months = 30 }
@@ -1423,6 +1424,211 @@ country_event = {
 		}
 	}
 }
+
+
+
+### Bolt of Chaos Energy
+
+country_event = {
+	id = end_times_events.4
+	title = end_times_events.4.t
+	desc = end_times_events.4.d
+	picture = BORDER_TENSION_eventPicture
+	
+	
+	is_triggered_only = no
+
+	immediate = {
+		random_owned_province = { save_event_target_as = event_target }
+	}
+
+	goto = event_target
+	
+	trigger = {
+		any_province = {
+			is_reformation_center = yes
+			religion = chaos_undivided_religion
+		}
+		NOT = { religion_group = ruinous_powers_denominations }
+	}
+
+	mean_time_to_happen = { months = 35 }
+	
+### There's nothing we can do
+	option = {
+		name = end_times_events.4.option_1
+		ai_chance = { factor = 5 }
+		event_target:event_target = {
+			add_devastation = 50
+
+			random = { 
+			    chance = 1
+			    change_trade_goods = warpstone
+			}
+
+		}
+	}
+
+### Try to mitigate the damage
+	option = {
+		name = end_times_events.4.option_2
+		ai_chance = { factor = 10 }
+		event_target:event_target = {
+			add_devastation = 25
+			random = { 
+			    chance = 2
+			    change_trade_goods = warpstone
+			}
+		}
+	}
+}
+
+
+
+### Since the gate is open, solders have been corrupted into unusable piles of goo
+
+country_event = {
+	id = end_times_events.5
+	title = end_times_events.5.t
+	desc = end_times_events.5.d
+	picture = BORDER_TENSION_eventPicture
+	
+	
+	is_triggered_only = no
+	
+	trigger = {
+		any_province = {
+			is_reformation_center = yes
+			religion = chaos_undivided_religion
+		}
+		NOT = { religion_group = ruinous_powers_denominations }
+	}
+
+	mean_time_to_happen = { months = 40 }
+	
+### End their misery
+	option = {
+		name = end_times_events.5.option_1
+		ai_chance = { factor = 5 }
+		add_yearly_manpower = -0.25
+	}
+
+### They can still fire a gun!
+	option = {
+		name = end_times_events.5.option_2
+		ai_chance = { factor = 10 }
+		add_country_modifier = { 
+		    name = war_worse_morale
+		    duration = 3650
+		}
+	}
+}
+
+
+
+
+### Since the chaos gate is open, our goods our rotting, and our stores of gold are turning to ash
+
+country_event = {
+	id = end_times_events.6
+	title = end_times_events.6.t
+	desc = end_times_events.6.d
+	picture = BORDER_TENSION_eventPicture
+	
+	
+	is_triggered_only = no
+	
+	trigger = {
+		any_province = {
+			is_reformation_center = yes
+			religion = chaos_undivided_religion
+		}
+		NOT = { religion_group = ruinous_powers_denominations }
+	}
+
+	mean_time_to_happen = { months = 25 }
+	
+### There's nothing we can do
+	option = {
+		name = end_times_events.6.option_1
+		ai_chance = { factor = 5 }
+		add_years_of_income = -0.25
+	}
+
+### Replace the currency with cheap copper!
+	option = {
+		name = end_times_events.6.option_2
+		ai_chance = { factor = 10 }
+		add_inflation = 1
+	}
+}
+
+
+
+
+### Since the gate has opened, our infrastructure is literally warping away. We need to destroy it to stay safe
+
+country_event = {
+	id = end_times_events.7
+	title = end_times_events.7.t
+	desc = end_times_events.7.d
+	picture = BORDER_TENSION_eventPicture
+	
+	
+	is_triggered_only = no
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				base_manpower = 2
+				base_production = 2
+				base_tax = 2
+				NOT = { religion = chaos_undivided_religion }
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+	
+	trigger = {
+		any_province = {
+			is_reformation_center = yes
+			religion = chaos_undivided_religion
+		}
+		any_owned_province = {
+			base_manpower = 2
+			base_production = 2
+			base_tax = 2
+			NOT = { religion = chaos_undivided_religion }
+		}
+		NOT = { religion_group = ruinous_powers_denominations }
+	}
+
+	mean_time_to_happen = { months = 20 }
+	
+### There's nothing we can do
+	option = {
+		name = end_times_events.7.option_1
+		ai_chance = { factor = 5 }
+		event_target:event_target = {
+			add_base_tax = -1
+			add_base_production = -1
+			add_base_manpower = -1
+		}
+	}
+
+### Just scrape the corruption off, it's fine
+	option = {
+		name = end_times_events.7.option_2
+		ai_chance = { factor = 10 }
+		event_target:event_target = {
+			change_religion = chaos_undivided_religion
+		}
+	}
+}
+
+
 
 
 namespace = submit_to_everchosen
