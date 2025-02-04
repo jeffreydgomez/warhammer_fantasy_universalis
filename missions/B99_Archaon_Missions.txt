@@ -3,86 +3,179 @@ archaon_1 = {
 	generic = no
 	ai = yes
 	has_country_shield = yes
-	potential = { tag = B99 } 
-
+	potential = {
+		tag = B99
+	}
 	archaon_trial_of_khorne = {
-		icon = mission_chaos_culture
+		icon = mission_khorne
 		position = 8
-		required_missions = { archaon_the_slayer_of_kings } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			archaon_the_slayer_of_kings
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
 	}
 }
+
 archaon_2 = {
 	slot = 2
 	generic = no
 	ai = yes
 	has_country_shield = yes
-	potential = { tag = B99 } 
-
+	potential = {
+		tag = B99
+	}
 	archaon_laws_of_strength = {
 		icon = mission_chaos_religion
 		position = 1
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		provinces_to_highlight = {
+			owner = {
+				has_reform = chaos_warband
+				not = {
+					is_subject = yes
+				}
+			}
+		}
+		trigger = {
+			any_subject_country = {
+				is_subject_of_type = chaos_warband_vassal
+			}
+		}
+		effect = {
+		}
 	}
-
 	archaon_lieutenants = {
 		icon = mission_chaos_religion
 		position = 2
-		required_missions = { archaon_laws_of_strength } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			archaon_laws_of_strength
+		}
+		provinces_to_highlight = {
+			owner = {
+				has_reform = chaos_warband
+				not = {
+					is_subject = yes
+				}
+			}
+		}
+		trigger = {
+			calc_true_if = {
+				any_subject_country = {
+					country_religion = khornate_religion
+					is_subject_of_type = chaos_warband_vassal
+					not = {
+						liberty_desire = 25
+					}
+				}
+				amount = 1
+			}
+			calc_true_if = {
+				any_subject_country = {
+					country_religion = nurglite_religion
+					is_subject_of_type = chaos_warband_vassal
+					not = {
+						liberty_desire = 25
+					}
+				}
+				amount = 1
+			}
+			calc_true_if = {
+				any_subject_country = {
+					country_religion = tzeentchian_religion
+					is_subject_of_type = chaos_warband_vassal
+					not = {
+						liberty_desire = 25
+					}
+				}
+				amount = 1
+			}
+			calc_true_if = {
+				any_subject_country = {
+					country_religion = chaos_undivided_religion
+					is_subject_of_type = chaos_warband_vassal
+					not = {
+						liberty_desire = 25
+					}
+				}
+				amount = 1
+			}
+			calc_true_if = {
+				any_subject_country = {
+					country_religion = slaaneshi_religion
+					is_subject_of_type = chaos_warband_vassal
+					not = {
+						liberty_desire = 25
+					}
+				}
+				amount = 1
+			}
+		}
+		effect = {
+		}
 	}
-
 	archaon_dorghar = {
 		icon = mission_chaos_religion
 		position = 6
-		required_missions = { archaon_an_unlikely_ally } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			archaon_an_unlikely_ally
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
 	}
-
 	archaon_trial_of_slannesh = {
-		icon = mission_chaos_culture
+		icon = mission_slaanesh
 		position = 8
-		required_missions = { archaon_the_slayer_of_kings } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			archaon_the_slayer_of_kings
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
 	}
 }
+
 archaon_3 = {
 	slot = 3
 	generic = no
 	ai = yes
 	has_country_shield = yes
-	potential = { tag = B99 } 
-
+	potential = {
+		tag = B99
+	}
 	archaon_preparing_the_horde = {
 		icon = mission_chaos_religion
 		position = 1
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		provinces_to_highlight = {
+			is_capital_of = B99
+		}
+		trigger = {
+			check_variable = {
+				which = chaos_country_horde_development_tax
+				value = 5
+			}
+			check_variable = {
+				which = chaos_country_horde_development_production
+				value = 5
+			}
+			check_variable = {
+				which = chaos_country_horde_development_manpower
+				value = 5
+			}
+		}
+		effect = {
+		}
 	}
-
 	archaon_begin_the_journey = {
 		icon = mission_chaos_religion
 		position = 2
@@ -91,46 +184,58 @@ archaon_3 = {
 			archaon_scouring_the_weak
 			archaon_preparing_the_horde
 		}
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		trigger = {
+			army_size_percentage = 1
+		}
+		effect = {
+			define_general = {
+				name = "Gelman the Unyielding"
+				fire = 2
+				shock = 5
+				manuever = 3
+				siege = 3
+			}
+		}
 	}
-
 	archaon_the_atlar_of_darkness = {
 		icon = mission_chaos_religion
 		position = 3
-		required_missions = { archaon_begin_the_journey } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			archaon_begin_the_journey
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
 	}
-
 	archaon_an_unlikely_ally = {
 		icon = mission_dark_elf_culture
 		position = 5
-		required_missions = { archaon_the_atlar_of_darkness } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			archaon_the_atlar_of_darkness
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
 	}
-
 	archaon_eye_of_sheerin = {
 		icon = mission_chaos_religion
 		position = 6
-		required_missions = { archaon_an_unlikely_ally } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			archaon_an_unlikely_ally
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
 	}
-
 	archaon_the_slayer_of_kings = {
 		icon = mission_chaos_religion
 		position = 7
@@ -139,13 +244,13 @@ archaon_3 = {
 			archaon_eye_of_sheerin
 			archaon_armor_of_morkar
 		}
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
 	}
-
 	archaon_be_crowned_everchosen = {
 		icon = mission_chaos_religion
 		position = 9
@@ -155,67 +260,120 @@ archaon_3 = {
 			archaon_trial_of_nurgle
 			archaon_trial_of_tzteentch
 		}
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
 	}
 }
+
 archaon_4 = {
 	slot = 4
 	generic = no
 	ai = yes
 	has_country_shield = yes
-	potential = { tag = B99 } 
-
+	potential = {
+		tag = B99
+	}
 	archaon_scouring_the_weak = {
 		icon = mission_chaos_religion
 		position = 1
-		provinces_to_highlight = {  } 
 
-		trigger = {  } 
-
-		effect = {  } 
+		trigger = {
+			is_in_war = {
+				casus_belli = cb_chaos_invasion
+			}
+		}
+		effect = {
+		}
 	}
-
+	archaon_the_bounties_of_war = {
+		icon = mission_war_chest
+		required_missions = {
+			archaon_scouring_the_weak
+		 }
+		position = 2
+		
+		trigger = { 
+			num_of_war_reparations = 5
+		}
+		
+		effect = {
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+		}
+	}
+	archaon_let_them_come = {
+		icon = mission_cannons_firing
+		required_missions = { 
+			archaon_the_bounties_of_war
+		}
+		position = 3
+		
+		trigger = {
+			is_in_war = {
+				defender_leader = ROOT
+				casus_belli = cb_super_badboy
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "archaon_let_them_come"
+				duration = 7300
+			}
+		}
+	}
 	archaon_armor_of_morkar = {
 		icon = mission_chaos_religion
 		position = 6
-		required_missions = { archaon_an_unlikely_ally } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			archaon_an_unlikely_ally
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
 	}
-
 	archaon_trial_of_nurgle = {
-		icon = mission_chaos_culture
+		icon = mission_nurgle
 		position = 8
-		required_missions = { archaon_the_slayer_of_kings } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			archaon_the_slayer_of_kings
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
 	}
 }
+
 archaon_5 = {
 	slot = 5
 	generic = no
 	ai = yes
 	has_country_shield = yes
-	potential = { tag = B99 } 
-
+	potential = {
+		tag = B99
+	}
 	archaon_trial_of_tzteentch = {
-		icon = mission_chaos_culture
+		icon = mission_tzeentch
 		position = 8
-		required_missions = { archaon_the_slayer_of_kings } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			archaon_the_slayer_of_kings
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
 	}
 }

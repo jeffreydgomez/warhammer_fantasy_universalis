@@ -7,6 +7,9 @@ chaos_setup_horde_development = {
 				continent = chaos_wastes
 			}
 		}
+		set_country_flag = chaos_tax_0_cf
+		set_country_flag = chaos_production_0_cf
+		set_country_flag = chaos_manpower_0_cf
 		set_variable = {
 			which = chaos_country_horde_development_tax
 			value = 2
@@ -130,9 +133,8 @@ chaos_horde_modifier_setter = {
 		remove_province_modifier = chaos_$TYPE$_5
 		if = {
 			limit = {
-				base_$TYPE$ = 1
-				not = {
-					base_$TYPE$ = 10
+				owner = {
+					has_country_flag = chaos_$TYPE$_0_cf
 				}
 			}
 			add_province_modifier = {
@@ -142,9 +144,8 @@ chaos_horde_modifier_setter = {
 		}
 		else_if = {
 			limit = {
-				base_$TYPE$ = 10
-				not = {
-					base_$TYPE$ = 20
+				owner = {
+					has_country_flag = chaos_$TYPE$_1_cf
 				}
 			}
 			add_province_modifier = {
@@ -154,9 +155,8 @@ chaos_horde_modifier_setter = {
 		}
 		else_if = {
 			limit = {
-				base_$TYPE$ = 20
-				not = {
-					base_$TYPE$ = 30
+				owner = {
+					has_country_flag = chaos_$TYPE$_2_cf
 				}
 			}
 			add_province_modifier = {
@@ -166,9 +166,8 @@ chaos_horde_modifier_setter = {
 		}
 		else_if = {
 			limit = {
-				base_$TYPE$ = 30
-				not = {
-					base_$TYPE$ = 40
+				owner = {
+					has_country_flag = chaos_$TYPE$_3_cf
 				}
 			}
 			add_province_modifier = {
@@ -178,9 +177,8 @@ chaos_horde_modifier_setter = {
 		}
 		else_if = {
 			limit = {
-				base_$TYPE$ = 40
-				not = {
-					base_$TYPE$ = 50
+				owner = {
+					has_country_flag = chaos_$TYPE$_4_cf
 				}
 			}
 			add_province_modifier = {
@@ -190,7 +188,9 @@ chaos_horde_modifier_setter = {
 		}
 		else_if = {
 			limit = {
-				base_$TYPE$ = 50
+				owner = {
+					has_country_flag = chaos_$TYPE$_5_cf
+				}
 			}
 			add_province_modifier = {
 				name = chaos_$TYPE$_5
@@ -567,4 +567,109 @@ chaos_conquest_effects = {
 		add_mil_power = 5
 	}
 	decolonize = yes
+}
+
+
+
+chaos_horde_upgrader = {
+	if = {
+		limit = {
+			has_country_flag = chaos_$type$_0_cf
+		}
+		add_treasury = -100
+		add_dip_power = -10
+		add_mil_power = -10
+		add_adm_power = -10
+		hidden_effect = {
+			capital_scope = {
+				remove_province_modifier = chaos_$type$_0
+				add_province_modifier = {
+					name = chaos_$type$_1
+					duration = -1
+				}
+			}
+			clr_country_flag  = chaos_$type$_0_cf
+			set_country_flag = chaos_$type$_1_cf
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_flag = chaos_$type$_1_cf
+		}
+		add_treasury = -200
+		add_dip_power = -15
+		add_mil_power = -15
+		add_adm_power = -15
+		hidden_effect = {
+			capital_scope = {
+				remove_province_modifier = chaos_$type$_1
+				add_province_modifier = {
+					name = chaos_$type$_2
+					duration = -1
+				}
+			}
+			clr_country_flag  = chaos_$type$_1_cf
+			set_country_flag = chaos_$type$_2_cf
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_flag = chaos_$type$_2_cf
+		}
+		add_treasury = -300
+		add_dip_power = -20
+		add_mil_power = -20
+		add_adm_power = -20
+		hidden_effect = {
+			capital_scope = {
+				remove_province_modifier = chaos_$type$_2
+				add_province_modifier = {
+					name = chaos_$type$_3
+					duration = -1
+				}
+			}
+			clr_country_flag  = chaos_$type$_2_cf
+			set_country_flag = chaos_$type$_3_cf
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_flag = chaos_$type$_3_cf
+		}
+		add_treasury = -400
+		add_dip_power = -20
+		add_mil_power = -20
+		add_adm_power = -20
+		hidden_effect = {
+			capital_scope = {
+				remove_province_modifier = chaos_$type$_3
+				add_province_modifier = {
+					name = chaos_$type$_4
+					duration = -1
+				}
+			}
+			clr_country_flag  = chaos_$type$_3_cf
+			set_country_flag = chaos_$type$_4_cf
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_flag = chaos_$type$_4_cf
+		}
+		add_treasury = -500
+		add_dip_power = -20
+		add_mil_power = -20
+		add_adm_power = -20
+		hidden_effect = {
+			capital_scope = {
+				remove_province_modifier = chaos_$type$_4
+				add_province_modifier = {
+					name = chaos_$type$_5
+					duration = -1
+				}
+			}
+			clr_country_flag  = chaos_$type$_4_cf
+			set_country_flag = chaos_$type$_5_cf
+		}
+	}
 }
