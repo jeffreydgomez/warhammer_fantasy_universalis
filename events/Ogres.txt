@@ -1,0 +1,604 @@
+########################################
+# Events for Ogre
+########################################
+
+namespace = ogre_events
+normal_or_historical_nations = yes
+
+
+
+
+### TEMPLATE
+
+country_event = { 
+	id = ogre_events.X
+	title = ogre_events.X.t 
+	desc = ogre_events.X.d 
+	picture = ANGRY_MOB_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = ogre_group
+			religion = the_great_maw_religion
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# FIRST OPTION
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = ogre_events.X.option_1 
+
+	}
+
+# SECOND OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = ogre_events.X.option_2
+
+
+	}
+
+# THIRD OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = ogre_events.X.option_3
+	}
+}
+
+
+
+### That livestock looks awfully tasty!
+
+country_event = { 
+	id = ogre_events.1
+	title = ogre_events.1.t 
+	desc = ogre_events.1.d 
+	picture = ANGRY_MOB_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = ogre_group
+			religion = the_great_maw_religion
+		}
+		any_owned_province = {
+			OR = {
+				trade_goods = livestock
+				trade_goods = wool
+			}
+			base_production = 3
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				OR = {
+					trade_goods = livestock
+					trade_goods = wool
+				}
+				base_production = 3
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Don't eat the livestock!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = ogre_events.1.option_1 
+
+	}
+
+# Eat up to increase our bulk!
+	option = { 
+		ai_chance = { factor = 0 }
+		name = ogre_events.1.option_2
+
+		event_target:event_target = {
+			add_base_production = -2
+		}
+
+		add_country_modifier = { 
+		    name = war_increased_shock_damage
+		    duration = 3650
+		}
+
+
+	}
+
+# Into the pot to feed our gut magic!
+	option = { 
+		ai_chance = { factor = 0 }
+		name = ogre_events.1.option_3
+
+		event_target:event_target = {
+			add_base_production = -2
+		}
+
+		change_innovativeness = 1
+	}
+}
+
+
+
+### That Caffiene looks awfully tasty!
+
+country_event = { 
+	id = ogre_events.2
+	title = ogre_events.2.t 
+	desc = ogre_events.2.d 
+	picture = ANGRY_MOB_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = ogre_group
+			religion = the_great_maw_religion
+		}
+		any_owned_province = {
+			OR = {
+				trade_goods = livestock
+				trade_goods = wool
+			}
+			base_production = 3
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				OR = {
+					trade_goods = cocoa
+					trade_goods = tea
+					trade_goods = coffee
+				}	
+				base_production = 3
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Don't eat the plantations!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = ogre_events.2.option_1 
+
+	}
+
+# Ireallylovetodrinkthesedrinks
+	option = { 
+		ai_chance = { factor = 0 }
+		name = ogre_events.2.option_2
+
+		event_target:event_target = {
+			add_base_production = -2
+		}
+
+		add_country_modifier = { 
+		    name = war_increased_speed
+		    duration = 3650
+		}
+
+
+	}
+
+# Into the pot to feed our gut magic!
+	option = { 
+		ai_chance = { factor = 0 }
+		name = ogre_events.2.option_3
+
+		event_target:event_target = {
+			add_base_production = -2
+		}
+		
+		change_innovativeness = 1
+	}
+}
+
+
+
+### That alchohol looks just wonderful!
+
+country_event = { 
+	id = ogre_events.3
+	title = ogre_events.3.t 
+	desc = ogre_events.3.d 
+	picture = ANGRY_MOB_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = ogre_group
+			religion = the_great_maw_religion
+		}
+		any_owned_province = {
+			OR = {
+				trade_goods = livestock
+				trade_goods = wool
+			}
+			base_production = 3
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				OR = {
+					trade_goods = beer
+					trade_goods = wine
+				}	
+				base_production = 3
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Don't eat the breweries!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = ogre_events.3.option_1 
+
+	}
+
+# Let's party!
+	option = { 
+		ai_chance = { factor = 0 }
+		name = ogre_events.3.option_2
+
+		event_target:event_target = {
+			add_base_production = -2
+		}
+
+		add_country_modifier = { 
+		    name = war_reduced_unrest
+		    duration = 3650
+		}
+
+
+	}
+
+# Into the pot to feed our gut magic!
+	option = { 
+		ai_chance = { factor = 0 }
+		name = ogre_events.3.option_3
+
+		event_target:event_target = {
+			add_base_production = -2
+		}
+		
+		change_innovativeness = 1
+	}
+}
+
+
+
+### It's time to honor the great maw! The shamans declare a great feast
+
+country_event = { 
+	id = ogre_events.4
+	title = ogre_events.4.t 
+	desc = ogre_events.4.d 
+	picture = ANGRY_MOB_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion = the_great_maw_religion
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Very well, we shall have a feast
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = ogre_events.4.option_1
+		add_years_of_income = -1
+
+	}
+
+# Not a good time
+	option = { 
+		ai_chance = { factor = 0 }
+		name = ogre_events.4.option_2
+		add_stability = -1
+
+
+	}
+
+# It will be the biggest feast you've ever seen!
+	option = { 
+		ai_chance = { factor = 0 }
+		name = ogre_events.4.option_3
+		add_stability = 1
+		add_years_of_income = -2
+	}
+}
+
+
+
+### A Challenger wants the throne.
+
+country_event = { 
+	id = ogre_events.5
+	title = ogre_events.5.t 
+	desc = ogre_events.5.d 
+	picture = COUNTRY_COLLAPSE_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = ogre_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# I'm still the boss
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = ogre_events.5.a 
+
+		add_legitimacy = -10
+
+		}
+
+# The throne is theirs
+	option = { 
+		ai_chance = { factor = 50 }
+		name = ogre_events.5.b
+
+		kill_ruler = yes
+
+	}
+
+# Let's fight it out!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = ogre_events.5.c
+
+		random_list = {
+			50 = {
+				if = {
+					limit = {
+						mil = 6
+					}
+					add_mil_power = 100
+				}
+				else = {
+					change_mil = 1
+				}
+			}
+
+			50 = {
+				kill_ruler = yes
+			}
+		}
+		
+		add_prestige = 10
+		add_legitimacy = 5
+
+	}
+}
+
+
+
+### Raiding Party. A group of our soldiers are getting uppity, and want to raid a neighbor. Should we let them?
+
+country_event = { 
+	id = ogre_events.6
+	title = ogre_events.6.t 
+	desc = ogre_events.6.d 
+	picture = COUNTRY_COLLAPSE_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = ogre_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				is_neighbor_of = ROOT
+				NOT = { owned_by = ROOT }
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Better Not
+	option = { 
+		ai_chance = { factor = 100 }
+		name = ogre_events.6.a
+	}
+
+## Send them out.
+	option = { 
+		ai_chance = { factor = 5 }
+		name = ogre_events.6.b
+
+		event_target:event_target = {
+
+			spawn_rebels = {
+	  	 		size = 1
+	    		type = raiding_party_rebels
+	    		culture = ROOT
+	    		religion = ROOT
+			}
+
+			owner = {
+				add_opinion = {
+			    	who = ROOT
+			    	modifier = ravaged_border
+				}
+			}
+
+		}
+	}
+}
+
+
+
+### An Ogre Maneater Returns - A famous Ogre mercenary, having fought across the world, has returned to your lands. He offers his experience to the ruling Tyrant.
+
+country_event = { 
+	id = ogre_events.7
+	title = ogre_events.7.t 
+	desc = ogre_events.7.d 
+	picture = COUNTRY_COLLAPSE_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = ogre_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Welcome aboard! What's the worst that could happen?
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = ogre_events.7.a
+
+		create_general = { tradition = 100 }
+
+		random = { 
+		    chance = 20
+		    kill_ruler = yes
+		}
+
+
+	}
+
+# No way! He looks like he wants power
+	option = { 
+		ai_chance = { factor = 50 }
+		name = ogre_events.7.c
+
+	}
+}
+
+
+### Our Ogres are famous mercenaries. Do we use this to bring in more cash, make better mercenary contracts, or improve our relations with our neighbors?
+
+country_event = { 
+	id = ogre_events.8
+	title = ogre_events.8.t 
+	desc = ogre_events.8.d 
+	picture = ANGRY_MOB_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = ogre_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+
+# Let's get some cash
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = ogre_events.8.option_1 
+
+		add_years_of_income = 1
+
+	}
+
+# Use their contacts for better contracts
+	option = { 
+		ai_chance = { factor = 50 }
+		name = ogre_events.8.option_2
+
+		add_country_modifier = { 
+		    name = war_better_mercenaries
+		    duration = 3650
+		}
+
+
+	}
+
+# We're legitimate buisnessmen!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = ogre_events.8.option_3
+
+
+		add_country_modifier = { 
+		    name = war_better_dip_rep
+		    duration = 3650
+		}
+
+	}
+}
+
