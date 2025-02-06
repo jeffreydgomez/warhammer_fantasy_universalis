@@ -10,6 +10,7 @@ country_event = {
 	desc = bad_terrain_events.1.d
 	picture = indiangfx_CITY_VIEW_eventPicture
 
+	goto = event_target
 
 	trigger = {
 		any_owned_province = {
@@ -19,6 +20,20 @@ country_event = {
 				has_province_modifier = lizardfolk_severe_winter
 				has_province_modifier = lizardfolk_arctic
 			}
+		}
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				OR = {
+					has_province_modifier = lizardfolk_mild_winter
+					has_province_modifier = lizardfolk_normal_winter
+					has_province_modifier = lizardfolk_severe_winter
+					has_province_modifier = lizardfolk_arctic
+				}
+			}
+			save_event_target_as = event_target
 		}
 	}
 
@@ -40,17 +55,7 @@ country_event = {
 	option = {
 		name = bad_terrain_events.1.option_2
 		ai_chance = { factor = 1 }
-		random_owned_province = {
-			limit = {
-
-				OR = {
-					has_province_modifier = lizardfolk_mild_winter
-					has_province_modifier = lizardfolk_normal_winter
-					has_province_modifier = lizardfolk_severe_winter
-					has_province_modifier = lizardfolk_arctic
-				}
-			}
-
+		event_target:event_target = {
 			if = {
 				limit = { base_production = 2 }
 				add_base_production = -1
@@ -74,10 +79,21 @@ country_event = {
 	desc = bad_terrain_events.2.d
 	picture = indiangfx_CITY_VIEW_eventPicture
 
+	goto = event_target
+
 
 	trigger = {
 		any_owned_province = {
 			has_province_modifier = wood_elves_non_forest
+		}
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				has_province_modifier = wood_elves_non_forest
+			}
+			save_event_target_as = event_target
 		}
 	}
 
@@ -99,11 +115,7 @@ country_event = {
 	option = {
 		name = bad_terrain_events.2.option_2
 		ai_chance = { factor = 1 }
-		random_owned_province = {
-			limit = {
-				has_province_modifier = wood_elves_non_forest
-			}
-
+		event_target:event_target = {
 			if = {
 				limit = { base_production = 2 }
 				add_base_production = -1
@@ -126,11 +138,24 @@ country_event = {
 	desc = bad_terrain_events.3.d
 	picture = indiangfx_CITY_VIEW_eventPicture
 
+	goto = event_target
+
 
 	trigger = {
 		any_owned_province = {
 			has_province_modifier = undergrounder_above_ground
 		}
+	}
+
+	immediate = {
+
+		random_owned_province = {
+			limit = {
+				has_province_modifier = undergrounder_above_ground
+			}
+			save_event_target_as = event_target
+		}
+
 	}
 
 	is_triggered_only = yes
@@ -151,11 +176,7 @@ country_event = {
 	option = {
 		name = bad_terrain_events.3.option_2
 		ai_chance = { factor = 1 }
-		random_owned_province = {
-			limit = {
-				has_province_modifier = undergrounder_above_ground
-			}
-
+		event_target:event_target = {
 			if = {
 				limit = { base_production = 2 }
 				add_base_production = -1
@@ -179,10 +200,21 @@ country_event = {
 	desc = bad_terrain_events.4.d
 	picture = indiangfx_CITY_VIEW_eventPicture
 
+	goto = event_target
+
 
 	trigger = {
 		any_owned_province = {
 			has_province_modifier = surface_dweller_underground
+		}
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				has_province_modifier = surface_dweller_underground
+			}
+			save_event_target_as = event_target
 		}
 	}
 
@@ -202,13 +234,9 @@ country_event = {
 ### Let it lie fallow
 
 	option = {
-		name = bad_terrain_events.4.option_1
+		name = bad_terrain_events.4.option_2
 		ai_chance = { factor = 1 }
-		random_owned_province = {
-			limit = {
-				has_province_modifier = surface_dweller_underground
-			}
-
+		event_target:event_target = {
 			if = {
 				limit = { base_production = 2 }
 				add_base_production = -1
