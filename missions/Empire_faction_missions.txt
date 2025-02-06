@@ -1,0 +1,953 @@
+
+##### For all Empire Members
+
+
+war_empire_faction_1 = {
+
+	slot = 1
+	generic = no
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		is_part_of_hre = yes
+		always = no
+	}
+
+
+## Make the guilds happy - The guilds are an important part of trade in the empire. With so many different nations and customs, only the guilds can truely work cross border.
+	empire_make_guilds_happy = {
+		icon = mission_trade_company_region_abroad
+		required_missions = {  }
+		trigger = {
+			estate_loyalty = {
+ 				estate = estate_burghers
+    			loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_burghers
+				value = 1
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+## Center of Imperial Trade.
+	empire_center_of_imperial_trade = {
+		icon = mission_trade_company_region_abroad
+		required_missions = { empire_make_guilds_happy  }
+		trigger = {
+			any_owned_province = {
+				OR = {
+				 	has_building = marketplace
+				 	has_building = trade_depot
+				 	has_building = stock_exchange
+				}
+				province_has_center_of_trade_of_level = 3
+				province_trade_power = 50
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+## Dominate Imperial Trade
+	empire_dominate_home_trade_node = {
+		icon = empire_center_of_imperial_trade
+		required_missions = { empire_center_of_imperial_trade }
+		trigger = {
+			home_trade_node = {
+				trade_share = {
+					country = ROOT
+					share = 75
+				}
+			}
+		}
+		effect = {
+			hidden_effect = {
+				home_trade_node_effect_scope = {
+					random_trade_node_member_province = {
+						limit = {
+							owned_by = ROOT
+						}
+						save_event_target_as = reward_province
+					}
+					random_trade_node_member_province = {
+						limit = {
+							owned_by = ROOT
+							is_capital = yes
+						}
+						save_event_target_as = reward_province
+					}
+					random_trade_node_member_province = {
+						limit = {
+							owned_by = ROOT
+							development = CAPITAL
+							is_capital = no
+						}
+						save_event_target_as = reward_province
+					}
+					random_trade_node_member_province = {
+						limit = {
+							owned_by = ROOT
+							development = CAPITAL
+							is_capital = no
+							development = 20
+						}
+						save_event_target_as = reward_province
+					}
+					random_trade_node_member_province = {
+						limit = {
+							owned_by = ROOT
+							development = CAPITAL
+							is_capital = no
+							development = 25
+						}
+						save_event_target_as = reward_province
+					}
+					random_trade_node_member_province = {
+						limit = {
+							owned_by = ROOT
+							development = CAPITAL
+							is_capital = no
+							development = 30
+						}
+						save_event_target_as = reward_province
+					}
+				}
+			}
+			if = {
+				limit = { has_saved_event_target = reward_province }
+				event_target:reward_province = {
+					add_province_modifier = {
+						name = "dominant_trade_hub"
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = dominant_home_node_reward_tooltip
+			}
+		}
+	}
+
+
+## Production Powerhouse
+	empire_production_powerhouse = {
+		icon = mission_have_manufactories
+		required_missions = {   }
+		trigger = {
+			any_owned_province = {
+				OR = {
+					has_building = workshop
+					has_building = counting_house
+				}
+				OR = {
+					has_building = mills
+					has_building = farm_estate
+					has_building = tradecompany
+					has_building = plantations
+					has_building = textile
+					has_building = weapons
+					has_building = wharf
+					has_building = furnace
+				}
+				base_production = 30
+			}
+		}
+		# flood of investments leading to increased production
+		effect = {
+
+		}
+	}
+
+
+### Has Flagship ###
+	empire_build_up_navy = {
+		icon = mission_galleys_in_port
+		required_missions = {  }
+		position = 6
+		trigger = {
+			has_flagship = yes
+			navy_tradition = 25
+		}
+
+## Explorer and Conquistador plus claims on Albion seashore
+		effect = {
+			create_explorer = { tradition = 100 }
+			create_conquistador = { tradition = 100 }
+		}
+	}
+
+	empire_foothold_across_the_sea = {
+		icon = mission_establish_high_seas_navy
+		required_missions = {  }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 1
+				OR = {
+					region = norsca_region
+					region = albion_region
+				}
+				is_city = yes
+			}
+		}
+
+#claims on the rest of albion
+		effect = {
+
+		}
+	}
+
+	empire_convert_the_heathens = {
+		icon = mission_establish_high_seas_navy
+		required_missions = { empire_foothold_across_the_sea }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = norsca_region
+					region = albion_region
+				}
+				is_city = yes
+				religion = ROOT
+			}
+		}
+
+		effect = {
+
+		}
+	}
+
+## Invest government funds in the research and application of magic
+	empire_invest_in_magic = {
+		icon = mission_empire_culture
+		required_missions = {  }
+		trigger = {
+			innovativeness = 25
+			treasury = 1000
+		}
+
+# A country modifier that costs money, but gains innovativeness every month?
+		effect = {
+			add_treasury = -1000
+
+		}
+	}
+
+
+## Invest in the College of Magic
+	empire_invest_in_magic = {
+		icon = mission_empire_culture
+		required_missions = { empire_invest_in_magic }
+		trigger = {
+			any_owned_province = {
+				OR = {
+					has_great_project = {
+						type = altdorf_college_of_mages
+						tier = 3
+					}
+					has_building = university
+					higher_development_than = 3
+				}
+			}
+		}
+
+## Upgrade previous modifier
+		effect = {
+
+		}
+	}
+
+}
+
+
+
+
+####
+
+
+war_empire_faction_2 = {
+
+	slot = 2
+	generic = no
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		is_part_of_hre = yes
+		always = no
+	}
+
+## Get cannons from Nuln
+	empire_cannons_of_nuln = {
+		icon = mission_conquer_50_development
+		required_missions = {  }
+		trigger = {
+			any_owned_province = {
+				trade_goods = iron
+				base_production = 10
+			}
+			num_of_artillery = 10
+			31 = {
+				OR = {
+					owned_by = ROOT
+					owner = {
+						alliance_with = ROOT
+					}
+				}
+			}
+		}
+
+## Better cannons
+		effect = {
+
+		}
+	}
+
+
+
+## Military Powerhouse
+	empire_military_powerhouse = {
+		icon = mission_build_up_to_force_limit
+		required_missions = {   }
+		trigger = {
+			any_owned_province = {
+				OR = {
+					has_building = barracks
+					has_building = training_fields
+				}
+				has_building = soldier_households
+				base_manpower = 30
+			}
+		}
+
+		# Professionalism?
+		effect = {
+
+		}
+	}
+
+	empire_sword_of_the_empire = {
+		icon = mission_empire_culture
+		position = 4
+		required_missions = { }
+		provinces_to_highlight = {
+			owner = {
+				army_size = ROOT
+				army_tradition = ROOT
+				is_part_of_hre = yes
+			}
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			NOT = {
+				any_country = {
+					army_size = ROOT
+					army_tradition = ROOT
+					is_part_of_hre = yes
+				}
+			}
+			army_tradition = 25
+			any_war_enemy_country = {
+				NOT = { religion_group = old_world_denominations }
+			}
+		}
+
+		effect = {
+		}
+	}
+
+	empire_reconquered_lost_lands = {
+		icon = mission_empire_culture
+		required_missions = { empire_sword_of_the_empire }
+
+		provinces_to_highlight = {
+			is_part_of_hre = yes
+			owner = { is_part_of_hre = no }
+		}
+
+		trigger = {
+			NOT = { num_of_foreign_hre_provinces = 1 }
+			is_emperor = yes
+		}
+
+		effect = {
+
+		}
+	}
+
+
+	empire_old_alliances_elf = {
+		icon = mission_high_elf_culture
+		position = 7
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = elven_administration }
+		}
+		trigger = {
+			any_country = {
+				has_country_modifier = elven_administration
+				trust = {
+					who = ROOT
+					value = 100
+				}
+				has_opinion = {
+					who = ROOT
+					value = 200
+				}
+				OR = {
+					alliance_with = ROOT
+					is_subject_of = ROOT
+				}
+			}
+		}
+		effect = {
+
+		}
+	}
+
+	empire_weaken_kislev = {
+		icon = mission_empire_culture
+		required_missions = {  }
+
+		provinces_to_highlight = {
+		}
+
+		trigger = {
+			330 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						alliance_with = ROOT
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+
+			379 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						alliance_with = ROOT
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+
+			}
+			332 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						alliance_with = ROOT
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+		}
+
+## Restoration of Union on Kislev, claims on the kislev area
+		effect = {
+
+		}
+	}
+
+
+
+	empire_subjugate_kislev = {
+		icon = mission_empire_culture
+		required_missions = { empire_weaken_kislev }
+
+		provinces_to_highlight = {
+		}
+
+		trigger = {
+			339 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+
+			325 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+
+			}
+		}
+
+## Restoration of Union on Kislev?
+		effect = {
+
+		}
+	}
+
+
+
+
+
+}
+
+###
+
+
+
+war_empire_faction_3 = {
+
+	slot = 1
+	generic = no
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		is_part_of_hre = yes
+		always = no
+	}
+
+
+	empire_please_nobility = {
+		icon = mission_empire_culture
+		required_missions = { }
+		trigger = {
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+		effect = {
+			define_general = {
+				shock = 6
+				fire = 5
+				manuever = 5
+				siege = 2
+			}
+		}
+	}
+
+
+	empire_happy_estates = {
+		icon = mission_asian_trader
+		required_missions = {  }
+		trigger = {
+			estate_loyalty = {
+    			estate = estate_burghers
+    			loyalty = 70
+			}
+			estate_loyalty = {
+    			estate = estate_church
+    			loyalty = 70
+			}
+			estate_loyalty = {
+    			estate = estate_nobles
+    			loyalty = 70
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 2
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_burghers
+				value = 2
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 2
+			}
+
+		}
+		effect = {
+			add_country_modifier = {
+				name = "gen_happy_estates"
+				duration = -1
+			}
+		}
+	}
+
+	empire_get_more_crown_land = {
+		icon = mission_asian_trader
+		required_missions = { empire_happy_estates }
+		trigger = {
+			crown_land_share = 50
+			NOT = {
+				estate_influence = {
+			    	estate = all
+			    	influence = 45
+				}
+			}
+		}
+
+# Stability effect maybe? Or the can revoke anything
+		effect = {
+
+		}
+	}
+
+
+	empire_backed_by_some_electors = {
+		icon = mission_empire_culture
+		required_missions = { }
+		
+		trigger = {
+			if = {
+				limit = {
+					government = monarchy
+				}
+				calc_true_if = {
+					desc = gen_hre_electors.tooltip
+					all_elector = {
+						preferred_emperor = ROOT
+					}
+					amount = 6
+				}
+			}
+			else = {
+				num_of_trusted_allies = 3
+				power_projection = 25
+			}
+		}
+		
+		effect = {
+			add_prestige_or_monarch_power = { amount = 10 }
+			add_country_modifier = {
+				name = empire_backed_by_electors
+				duration = -1
+			}
+		}
+	}
+
+
+	empire_backed_by_many_electors = {
+		icon = mission_empire_culture
+		required_missions = { empire_backed_by_some_electors }
+		
+		trigger = {
+			if = {
+				limit = {
+					government = monarchy
+				}
+				calc_true_if = {
+					desc = gen_hre_electors.tooltip
+					all_elector = {
+						preferred_emperor = ROOT
+					}
+					amount = 10
+				}
+			}
+			else = {
+				num_of_trusted_allies = 4
+				power_projection = 50
+			}
+		}
+		
+		effect = {
+			add_prestige_or_monarch_power = { amount = 10 }
+			add_country_modifier = {
+				name = empire_backed_by_electors
+				duration = -1
+			}
+		}
+	}
+
+
+	empire_very_influential_emperor = {
+		icon = mission_empire_culture
+		required_missions = { empire_backed_by_many_electors }
+		
+		trigger = {
+			if = {
+				limit = {
+					government = monarchy
+				}
+				imperial_influence = 100
+				is_emperor = yes
+			}
+			else = {
+				num_of_trusted_allies = 5
+				power_projection = 75
+			}
+		}
+		
+		effect = {
+			add_prestige_or_monarch_power = { amount = 10 }
+			add_country_modifier = {
+				name = empire_backed_by_electors
+				duration = -1
+			}
+		}
+	}
+
+
+
+	empire_human_allies_outside_the_empire = {
+		icon = mission_empire_culture
+		required_missions = { 
+		}
+		provinces_to_highlight = {
+			owner = {
+				has_country_modifier = human_administration
+				is_part_of_hre = no
+			}
+		}
+		trigger = {
+			any_country = {
+				has_country_modifier = human_administration
+				is_part_of_hre = no
+				trust = {
+					who = ROOT
+					value = 100
+				}
+				has_opinion = {
+					who = ROOT
+					value = 200
+				}
+				OR = {
+					alliance_with = ROOT
+					is_subject_of = ROOT
+				}
+			}
+		}
+		effect = {
+
+		}
+	}
+
+	empire_far_reaching_emperor = {
+		icon = mission_empire_culture
+		required_missions = { empire_old_alliances_elf empire_human_allies_outside_the_empire empire_old_alliances_dwarf
+		}
+		provinces_to_highlight = {
+			owner = {
+				OR = { 
+					prestige = ROOT
+					diplomatic_reputation = ROOT
+				}
+				is_part_of_hre = yes
+			}
+			NOT = { owned_by = ROOT }
+
+		}
+		trigger = {
+			stability = 3
+			NOT = {
+				any_country = {
+					prestige = ROOT
+					is_part_of_hre = yes
+				}
+			}
+			NOT = {
+				any_country = {
+					diplomatic_reputation = ROOT
+					is_part_of_hre = yes
+				}
+			}
+			legitimacy_equivalent = 95
+		}
+		effect = {
+
+		}
+	}
+
+
+
+	empire_weaken_borderlands = {
+		icon = mission_empire_culture
+		required_missions = {  }
+
+		provinces_to_highlight = {
+		}
+
+		trigger = {
+			655 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						alliance_with = ROOT
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+
+			872 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						alliance_with = ROOT
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+
+			}
+		}
+
+## Restoration of Union on Human Borderlands folks, claims on the borderlands area
+		effect = {
+
+		}
+	}
+
+
+
+	empire_subjugate_borderlands = {
+		icon = mission_empire_culture
+		required_missions = { empire_weaken_borderlands }
+
+		provinces_to_highlight = {
+		}
+
+		trigger = {
+			650 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+
+			754 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+
+			882 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+			704 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+
+		effect = {
+
+		}
+	}
+
+
+}
+
+
+
+
+
+war_empire_faction_4 = {
+
+	slot = 4
+	generic = no
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		is_part_of_hre = yes
+		always = no
+	}
+
+}
+
+
+
+
+war_empire_faction_5 = {
+
+	slot = 5
+	generic = no
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		is_part_of_hre = yes
+		always = no
+	}
+
+}
+

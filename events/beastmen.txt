@@ -42,8 +42,26 @@ country_event = {
 	title = beastmen.0101.t
 	desc = beastmen.0101.d
 	picture = IMPALED_SOLDIERS_eventPicture
+
+	goto = event_target
 	
 	is_triggered_only = yes
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				OR = {
+					continent = europe
+				}
+				OR = {
+					has_terrain = forest
+				}
+				any_neighbor_province = { has_terrain = forest }
+			}
+			save_event_target_as = event_target
+		}
+
+	}
 	
 	trigger = {
 		any_owned_province = {
@@ -60,22 +78,11 @@ country_event = {
 	option = {
         name = beastmen.0101.a
         ai_chance = { factor = 100 }
-		hidden_effect = {
-			random_owned_province = {
-				limit = {
-					OR = {
-						continent = europe
-					}
-					OR = {
-						has_terrain = forest
-					}
-					any_neighbor_province = { has_terrain = forest }
-				}
-				spawn_rebels = {
-					type = beastmen_warband_rebels
-					culture = beastmen
-					size = 2
-				}
+		event_target:event_target = {
+			spawn_rebels = {
+				type = beastmen_warband_rebels
+				culture = beastmen
+				size = 2
 			}
 		}
 	}

@@ -158,6 +158,18 @@ country_event = {
 		days = 1
 	}
 
+	immediate = {
+		random_owned_province = {
+			limit = {
+				is_neighbor_of = ROOT
+				NOT = { owned_by = ROOT }
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
 # Better Not
 	option = { 
 		ai_chance = { factor = 100 }
@@ -170,11 +182,7 @@ country_event = {
 		name = skaven.3.b
 		add_piety = 0.1
 
-		random_province = {
-			limit = {
-				is_neighbor_of = ROOT
-				NOT = { owned_by = ROOT }
-			}
+		event_target:event_target = {
 
 			spawn_rebels = {
 	  	 		size = 1
@@ -290,18 +298,25 @@ country_event = {
 		days = 1
 	}
 
+	immediate = {
+		random_owned_province = {
+			limit = {
+				development = 9
+				NOT = { trade_goods = warpstone }
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
 # Start blasting!
 
 	option = { 
 		ai_chance = { factor = 50 }
 		name = skaven.5.a 
 
-		random_owned_province = {
-
-			limit = {
-				development = 9
-				NOT = { trade_goods = warpstone }
-			}
+		event_target:event_target = {
 
 			set_base_tax = 1
 			set_base_production = 3
@@ -316,12 +331,7 @@ country_event = {
 		ai_chance = { factor = 50 }
 		name = skaven.5.b
 
-		random_owned_province = {
-
-			limit = {
-				development = 9
-				NOT = { trade_goods = warpstone }
-			}
+		event_target:event_target = {
 
 			set_base_tax = 1
 			set_base_production = 1
@@ -420,16 +430,24 @@ country_event = {
 		days = 1
 	}
 
+	immediate = {
+		limit = {
+			trade_goods = warpstone
+			base_production = 2
+		}
+		random_owned_province = {
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
 # Grind it up and snort it!
 
 	option = { 
 		ai_chance = { factor = 50 }
 		name = skaven.7.a 
-		random_owned_province = {
-			limit = {
-				trade_goods = warpstone
-				base_production = 2
-			}
+		event_target:event_target = {
 			add_base_production = -1
 		}
 		change_innovativeness = 2
@@ -440,10 +458,7 @@ country_event = {
 		ai_chance = { factor = 50 }
 		name = skaven.7.b
 
-		random_owned_province = {
-			limit = {
-				trade_goods = warpstone
-			}
+		event_target:event_target = {
 			add_base_production = 3
 		}
 

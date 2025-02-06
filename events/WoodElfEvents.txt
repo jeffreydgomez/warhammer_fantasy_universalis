@@ -7,6 +7,63 @@ namespace = wood_elf_events
 normal_or_historical_nations = yes
 
 
+country_event = { 
+	id = wood_elf_events.X
+	title = wood_elf_events.X.t 
+	desc = wood_elf_events.X.d 
+	picture = FORESTS_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = asrai_group
+			religion = asrai_cadai
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# FIRST OPTION
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = wood_elf_events.X.option_1 
+
+	}
+
+# SECOND OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = wood_elf_events.X.option_2
+
+
+	}
+
+# THIRD OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = wood_elf_events.X.option_3
+	}
+}
+
+
+
 
 ### The winds of magic are ravaging our forests, blowing up immense storms
 
@@ -99,14 +156,372 @@ country_event = {
 
 		add_mil_power = -100
 
-		random_owned_province = { add_devastation = 50 }
-		random_owned_province = { add_devastation = 50 }
-		random_owned_province = { add_devastation = 50 }
+		random_owned_province = { add_devastation = 25 }
+		random_owned_province = { add_devastation = 25 }
+		random_owned_province = { add_devastation = 25 }
 
 		add_country_modifier = { 
 		    name = magical_storms
 		    duration = 3650
 		}
 	}
+}
+
+
+## Isolation or Intervention?
+
+country_event = { 
+	id = wood_elf_events.3
+	title = wood_elf_events.3.t 
+	desc = wood_elf_events.3.d 
+	picture = FORESTS_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = asrai_group
+			religion = asrai_cadai
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Isolation of course
+
+	option = { 
+		ai_chance = { factor = 75 }
+		name = wood_elf_events.3.option_1 
+
+		add_country_modifier = { 
+		    name = asrai_isolation_modifier
+		    duration = 3650
+		}
+
+	}
+
+# People may not like it, but let's try interventionist tactics
+	option = { 
+		ai_chance = { factor = 10 }
+		name = wood_elf_events.3.option_2
+
+		add_stability = -1
+
+		add_country_modifier = { 
+		    name = asrai_intervention_modifier
+		    duration = 3650
+		}
+	}
+
+}
+
+
+## A group of high elves are looking to join our lands. (Could trigger on wood elves or dark elves)
+country_event = { 
+	id = wood_elf_events.4
+	title = wood_elf_events.4.t 
+	desc = wood_elf_events.4.d 
+	picture = FORESTS_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = asrai_group
+			culture_group = druchii_group
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				NOT = { culture_group = asur_group }
+				NOT = { is_capital = yes }
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Let them in
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = wood_elf_events.4.option_1
+
+
+
+		event_target:event_target = {
+			change_culture = eatainian
+			change_religion = cadai
+			add_base_tax = 1
+		}
+	}
+
+# No way!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = wood_elf_events.4.option_2
+
+		add_country_modifier = { 
+		    name = war_worse_dip_rep
+		    duration = 3650
+		}
+	}
+}
+
+
+
+
+
+## A group of dark elves are looking to join our lands. (Could trigger on high elves or wood elves)
+country_event = { 
+	id = wood_elf_events.5
+	title = wood_elf_events.5.t 
+	desc = wood_elf_events.5.d 
+	picture = FORESTS_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = asrai_group
+			culture_group = asur_group
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				NOT = { culture_group = druchii_group }
+				NOT = { is_capital = yes }
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Let them in
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = wood_elf_events.5.option_1
+
+
+
+		event_target:event_target = {
+			change_culture = naggarondi
+			change_religion = cytharai
+			add_base_manpower = 1
+		}
+	}
+
+# No way!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = wood_elf_events.5.option_2
+
+		add_country_modifier = { 
+		    name = war_worse_dip_rep
+		    duration = 3650
+		}
+	}
+}
+
+
+
+
+## A group of wood elves are looking to join our lands. (Could trigger on high elves or dark elves)
+country_event = { 
+	id = wood_elf_events.6
+	title = wood_elf_events.6.t 
+	desc = wood_elf_events.6.d 
+	picture = FORESTS_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = druchii_group
+			culture_group = asur_group
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				NOT = { culture_group = asrai_group }
+				NOT = { is_capital = yes }
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Let them in
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = wood_elf_events.6.option_1
+
+		event_target:event_target = {
+			change_culture = loren
+			change_religion = asrai_cadai
+			add_base_production = 1
+		}
+	}
+
+# No way!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = wood_elf_events.6.option_2
+
+		add_country_modifier = { 
+		    name = war_worse_dip_rep
+		    duration = 3650
+		}
+	}
+}
+
+
+## The trees are alive, and they want to join our war effort
+country_event = { 
+	id = wood_elf_events.7
+	title = wood_elf_events.7.t 
+	desc = wood_elf_events.7.d 
+	picture = FORESTS_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = asrai_group
+			religion = asrai_cadai
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		capital_scope = {
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# We'd love to have you!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = wood_elf_events.7.option_1
+
+		event_target:event_target = {
+			cossack_infantry = ROOT
+		}
+
+	}
+
+# No need for the moment, thanks
+	option = { 
+		ai_chance = { factor = 50 }
+		name = wood_elf_events.7.option_2
+
+
+	}
+
+}
+
+
+
+## A citizen from a neighboring land has wandered into our land. How should we react?
+country_event = { 
+	id = wood_elf_events.8
+	title = wood_elf_events.8.t 
+	desc = wood_elf_events.8.d 
+	picture = FORESTS_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = asrai_group
+			religion = asrai_cadai
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+
+# The usual way. Disembowled, intestines over the branches, all that.
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = wood_elf_events.8.option_1 
+
+		every_neighbor_country = {
+
+			add_trust = {
+			    who = ROOT
+			    value = -20
+			    mutual = yes
+			}
+		}
+	}
+
+# Sigh. Let's let him go on his way.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = wood_elf_events.8.option_2
+
+		add_legitimacy = -10
+		add_devotion = -10
+
+	}
+
 }
 
