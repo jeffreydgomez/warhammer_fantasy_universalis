@@ -3084,3 +3084,59 @@ estate_church_sponsor_waqf_payments = {
 		factor = 10
 	}
 }
+
+
+#### WARHAMMER ADDED
+
+
+estate_church_legitimacy_to_rule = {
+	icon = privilege_royal_authority
+	max_absolutism = -5
+	conditional_modifier = { trigger = { has_absolutism_reduction_for_estate_privileges = yes } modifier = { max_absolutism = 1 } }
+	influence = 0.05
+	is_valid = {
+		religion = the_thousand_gods
+	}
+	penalties = {
+		church_loyalty_modifier = -0.05
+	}
+	benefits = {
+		religious_unity = 0.25
+		tolerance_heathen = 1
+	}
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 2
+			NOT = {
+				religious_unity = 0.5
+			}
+		}
+		modifier = {
+			factor = 10
+			NOT = {
+				religious_unity = 0.65
+			}
+		}
+		modifier = {
+			factor = 7.5
+			NOT = { religious_unity = 1 }
+			has_estate_privilege = estate_brahmins_legitimacy_to_rule
+		}
+		modifier = {
+			factor = 0
+			NOT = {
+				any_owned_province = {
+					NOT = { religion = root }
+				}
+			}
+		}
+		modifier = {
+			factor = 0.75
+			is_absolutism_active = yes
+		}
+	}
+}
+
+
+
