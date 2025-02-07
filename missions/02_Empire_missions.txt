@@ -1,0 +1,2396 @@
+
+##### For all Empire Members
+
+
+war_empire_faction_1 = {
+
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		is_part_of_hre = yes
+#		always = no
+	}
+
+
+## Make the guilds happy - The guilds are an important part of trade in the empire. With so many different nations and customs, only the guilds can truely work cross border.
+## Worth half an idea
+	empire_make_guilds_happy = {
+		icon = mission_trade_company_region_abroad
+		required_missions = {  }
+		trigger = {
+			estate_loyalty = {
+ 				estate = estate_burghers
+    			loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_burghers
+				value = 1
+			}
+		}
+
+## This could be a three tier trade efficiency, trade steering, and then merchant modifier.
+		effect = {
+			add_country_modifier = { 
+    			name = empire_trade_1
+    			duration = -1  
+			}
+
+		}
+	}
+
+
+## Build a center of trade for the empire.
+## Worth half an idea
+	empire_center_of_imperial_trade = {
+		icon = mission_early_game_buildings
+		required_missions = { empire_make_guilds_happy  }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			province_has_center_of_trade_of_level = 1
+		}
+		trigger = {
+			any_owned_province = {
+				OR = {
+				 	has_building = marketplace
+				 	has_building = trade_depot
+				 	has_building = stock_exchange
+				}
+				province_has_center_of_trade_of_level = 3
+				province_trade_power = 50
+			}
+		}
+		effect = {
+			custom_tooltip = empire_trade_powerhouse_tt
+			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						OR = {
+						 	has_building = marketplace
+						 	has_building = trade_depot
+						 	has_building = stock_exchange
+						}
+						province_has_center_of_trade_of_level = 3
+						province_trade_power = 50
+					}
+					add_permanent_province_modifier = { 
+					    name = empire_local_trade_efficiency
+					    duration = -1 
+					}
+				}
+			}
+		}
+	}
+
+
+## Dominate Imperial Trade
+## This worth an idea
+	empire_dominate_home_trade_node = {
+		icon = mission_dominate_home_trade_node
+		required_missions = { empire_center_of_imperial_trade }
+		trigger = {
+			home_trade_node = {
+				trade_share = {
+					country = ROOT
+					share = 75
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = empire_trade_1
+			add_country_modifier = { 
+    			name = empire_trade_2
+    			duration = -1  
+			}
+		}
+	}
+
+
+## Develop the production base for the empire.
+## Reward worth about 1/3 of an idea
+	empire_production_powerhouse = {
+		icon = mission_have_manufactories
+		required_missions = {   }
+		trigger = {
+			any_owned_province = {
+				OR = {
+					has_building = workshop
+					has_building = counting_house
+				}
+				OR = {
+					has_building = mills
+					has_building = farm_estate
+					has_building = tradecompany
+					has_building = plantations
+					has_building = textile
+					has_building = weapons
+					has_building = wharf
+					has_building = furnace
+				}
+				base_production = 30
+			}
+		}
+		# flood of investments leading to increased production
+		effect = {
+			custom_tooltip = empire_production_powerhouse_tt
+			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_building = workshop
+							has_building = counting_house
+						}
+						OR = {
+							has_building = mills
+							has_building = farm_estate
+							has_building = tradecompany
+							has_building = plantations
+							has_building = textile
+							has_building = weapons
+							has_building = wharf
+							has_building = furnace
+						}
+						base_production = 30
+					}
+					add_permanent_province_modifier = { 
+					    name = empire_local_production_efficiency
+					    duration = -1 
+					}
+				}
+			}
+		}
+	}
+
+
+## Reward is worth 1/3
+	empire_build_up_navy = {
+		icon = mission_establish_high_seas_navy
+		required_missions = {  }
+		position = 6
+		trigger = {
+			has_flagship = yes
+			navy_tradition = 25
+		}
+
+		effect = {
+			create_explorer = { tradition = 25 }
+			create_conquistador = { tradition = 25 }
+			custom_tooltip = empire_claims_on_norcsa_albion_coasts_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						OR = {
+							region = norsca_region
+							region = albion_region
+						}
+						has_port = yes
+					}
+					add_claim = ROOT
+				}
+			}
+		}
+	}
+
+## Norsca and Albion are ripe for the taking.
+## Rewards is basically nothing
+	empire_foothold_across_the_sea = {
+		icon = mission_invade_island
+		required_missions = { empire_build_up_navy }
+		provinces_to_highlight = {
+			OR = {
+				region = norsca_region
+				region = albion_region
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 1
+				OR = {
+					region = norsca_region
+					region = albion_region
+				}
+				is_city = yes
+			}
+		}
+
+#claims on the rest of albion
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = empire_claims_on_norcsa_albion_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						OR = {
+							region = norsca_region
+							region = albion_region
+						}
+						has_port = yes
+					}
+					add_claim = ROOT
+				}
+			}
+		}
+	}
+
+### Our conquests of the northern lands proceed apace, but we must remove the heathens and install our own people.
+## Reward is basically nothing
+	empire_convert_the_heathens = {
+		icon = mission_rb_settle_the_north
+		required_missions = { empire_foothold_across_the_sea }
+		provinces_to_highlight = {
+			OR = {
+				region = norsca_region
+				region = albion_region
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = norsca_region
+					region = albion_region
+				}
+				is_city = yes
+				religion = ROOT
+			}
+		}
+
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = empire_claims_on_norcsa_albion_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						OR = {
+							region = norsca_region
+							region = albion_region
+						}
+						has_port = yes
+					}
+					add_claim = ROOT
+				}
+			}
+		}
+	}
+
+## Invest government funds in the research and application of magic
+## Worth half an idea
+	empire_invest_in_magic = {
+		icon = mission_table_of_ranks
+		position = 10
+		required_missions = {  }
+		trigger = {
+			innovativeness = 25
+			treasury = 500
+		}
+
+# A country modifier that costs money, but gains innovativeness every month?
+		effect = {
+			add_treasury = -500
+			add_country_modifier = {
+				name = empire_invested_in_magic_1
+				duration = -1
+			}
+		}
+	}
+
+
+## Invest in the College of Magic, or build our own to rival it.
+## Worth another half an idea
+	empire_invest_in_college = {
+		icon = bibliotheca_corviana
+		required_missions = { empire_invest_in_magic }
+		trigger = {
+			any_owned_province = {
+				OR = {
+					has_great_project = {
+						type = altdorf_college_of_mages
+						tier = 3
+					}
+					has_building = university
+					higher_development_than = 3
+				}
+			}
+		}
+
+## Upgrade previous modifier
+		effect = {
+			remove_country_modifier = empire_invested_in_magic_1
+			add_country_modifier = {
+				name = empire_invested_in_magic_2
+				duration = -1
+			}
+
+		}
+	}
+
+}
+
+
+
+
+####
+
+
+war_empire_faction_2 = {
+
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		is_part_of_hre = yes
+#		always = no
+	}
+
+## Nuln produced the best cannons in the empire - nay, the world! Get cannons from Nuln
+## Half an idea
+	empire_cannons_of_nuln = {
+		icon = mission_cannons_firing
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = iron
+			superregion = the_empire_superregion
+		}
+		trigger = {
+			any_owned_province = {
+				trade_goods = iron
+				base_production = 10
+			}
+			num_of_artillery = 10
+			31 = {
+				OR = {
+					owned_by = ROOT
+					owner = {
+						alliance_with = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = empire_nuln_cannons
+				duration = -1
+			}
+		}
+	}
+
+
+
+## Our soldiers are well trained, well fed, and well equipped.
+## Worth 1/3 an idea
+	empire_military_powerhouse = {
+		icon = mission_landsknecht_soldier
+		required_missions = {   }
+		trigger = {
+			any_owned_province = {
+				OR = {
+					has_building = barracks
+					has_building = training_fields
+				}
+				base_manpower = 30
+			}
+		}
+
+		effect = {
+			custom_tooltip = empire_manpower_powerhouse_tt
+			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_building = barracks
+							has_building = training_fields
+						}
+						base_manpower = 30
+					}
+					add_permanent_province_modifier = { 
+					    name = empire_local_manpower_efficiency
+					    duration = -1 
+					}
+				}
+			}
+		}
+	}
+
+
+
+## are the sword of the empire, as the largest most skilled army within it.
+## Worth half an idea
+	empire_sword_of_the_empire = {
+		icon = mission_build_up_to_force_limit
+		position = 4
+		required_missions = {  }
+		provinces_to_highlight = {
+			owner = {
+				OR = {
+					army_size = ROOT
+					army_tradition = ROOT
+				}
+				is_part_of_hre = yes
+			}
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			NOT = {
+				any_country = {
+					army_size = ROOT
+					is_part_of_hre = yes
+				}
+			}
+			NOT = {
+				any_country = {
+					army_tradition = ROOT
+					is_part_of_hre = yes
+				}
+			}
+			army_tradition = 25
+			any_war_enemy_country = {
+				NOT = { religion_group = old_world_denominations }
+			}
+		}
+
+		effect = {
+			if = {
+				limit = { is_emperor = yes }
+				add_imperial_influence = 5
+			}
+			add_country_modifier = {
+				name = empire_better_morale_1
+				duration = -1
+			}
+		}
+	}
+
+
+
+## We need to expand the empire to it's natural borders
+## Worth half an idea
+	empire_reconquered_lost_lands = {
+		icon = assert_our_sovereignty
+		required_missions = { empire_sword_of_the_empire }
+
+		provinces_to_highlight = {
+			is_part_of_hre = yes
+			owner = { is_part_of_hre = no }
+		}
+
+		trigger = {
+			NOT = { num_of_foreign_hre_provinces = 1 }
+			is_emperor = yes
+		}
+
+		effect = {
+			if = {
+				limit = { is_emperor = yes }
+				add_imperial_influence = 5
+			}
+
+
+			remove_country_modifier = empire_better_morale_1
+			add_country_modifier = {
+				name = empire_better_morale_2
+				duration = -1
+			}
+		}
+	}
+
+
+## WE should rekindle old alliances with the dwarves
+# Worth half an idea
+	empire_old_alliances_dwarf = {
+		icon = mission_dwarf_culture
+		position = 7
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = dwarven_administration }
+		}
+		trigger = {
+			any_country = {
+				has_country_modifier = dwarven_administration
+				trust = {
+					who = ROOT
+					value = 100
+				}
+				has_opinion = {
+					who = ROOT
+					value = 200
+				}
+				OR = {
+					alliance_with = ROOT
+					is_subject_of = ROOT
+				}
+			}
+		}
+		effect = {
+			add_splendor = 400
+			if = {
+				limit = {
+					adm = 6
+				}
+				add_adm_power = 100
+			}
+			else = {
+				change_adm = 1
+			}
+
+		}
+	}
+
+
+
+# We must decide how to deal with kislev - weaken or ally ourselves with them.
+## Worth no ideas
+	empire_weaken_kislev = {
+		icon = mission_handle_the_streltsy
+		required_missions = {  }
+		position = 9
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 330
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 379
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+			330 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+
+			379 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+
+			330 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 10 } }
+					} else {
+						custom_tooltip = empire_claims_on_kislev_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									region = kislev_heartlands_region
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					ROOT = {
+						add_casus_belli = {
+						    target = PREV
+						    type = cb_restore_personal_union
+						    months = 600
+						}
+					}
+				}
+			}
+
+
+			379 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 10 } }
+					} else {
+						custom_tooltip = empire_claims_on_kislev_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									region = kislev_heartlands_region
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					ROOT = {
+						add_casus_belli = {
+						    target = PREV
+						    type = cb_restore_personal_union
+						    months = 600
+						}
+					}
+				}
+			}
+
+		}
+	}
+
+
+# Should we destroy or form everlasting bonds of friendship with kislev?
+# Worth 1 idea
+	empire_subjugate_kislev = {
+		icon = anatolian_frontier
+		required_missions = { empire_weaken_kislev }
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 339
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 100 }
+									owes_favors = { who = ROOT value = 100 }
+								}
+								is_subject_of = ROOT
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 325
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 100 }
+									owes_favors = { who = ROOT value = 100 }
+								}
+								is_subject_of = ROOT
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+			339 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+
+			325 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+			    name = empire_kislev_ice_magic
+			    duration = -1  
+			}
+
+		}
+	}
+
+
+
+
+
+}
+
+###
+
+
+
+war_empire_faction_3 = {
+
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		is_part_of_hre = yes
+#		always = no
+	}
+
+
+## The noble rulers of the empire are critical to our organization as a nation.
+## Worth no ideas
+	empire_please_nobility = {
+		icon = mission_rb_rein_in_the_highland_clans
+		required_missions = { }
+		trigger = {
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+		effect = {
+			define_general = {
+				shock = 6
+				fire = 5
+				manuever = 5
+				siege = 2
+			}
+		}
+	}
+
+## Humans are fractous - we need to please the various groups within our nation to function properly.
+# Worth 1 idea
+	empire_happy_estates = {
+		icon = mission_rb_control_electors
+		required_missions = { empire_make_guilds_happy empire_please_nobility empire_happy_church }
+		trigger = {
+			estate_loyalty = {
+    			estate = estate_burghers
+    			loyalty = 70
+			}
+			estate_loyalty = {
+    			estate = estate_church
+    			loyalty = 70
+			}
+			estate_loyalty = {
+    			estate = estate_nobles
+    			loyalty = 70
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 2
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_burghers
+				value = 2
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 2
+			}
+
+		}
+		effect = {
+			add_country_modifier = {
+				name = empire_happy_estates
+				duration = -1
+			}
+		}
+	}
+
+# With the estates under our sway, we can seize more power for the crown.
+# 1 idea
+	empire_get_more_crown_land = {
+		icon = mission_asian_trader
+		required_missions = { empire_happy_estates }
+		trigger = {
+			crown_land_share = 50
+			NOT = {
+				estate_influence = {
+			    	estate = all
+			    	influence = 40
+				}
+			}
+		}
+
+		effect = {
+			add_stability_or_adm_power = yes
+			add_country_modifier = {
+				name = empire_more_absolutism
+				duration = -1
+			}	
+		}
+	}
+
+
+# We need to gain the support of electors to become emperor.
+# Worth half an idea
+	empire_backed_by_some_electors = {
+		icon = mission_alliances
+		required_missions = { }
+		provinces_to_highlight = {
+			owner = {
+				is_elector = yes
+				NOT = { preferred_emperor = ROOT }
+			}
+		}		
+		trigger = {
+			if = {
+				limit = {
+					government = monarchy
+				}
+				calc_true_if = {
+					desc = gen_hre_electors.tooltip
+					all_elector = {
+						preferred_emperor = ROOT
+					}
+					amount = 6
+				}
+			}
+			else = {
+				num_of_trusted_allies = 3
+				power_projection = 25
+			}
+		}
+		
+		effect = {
+			add_legitimacy = 20
+			add_republican_tradition = 10
+			add_devotion = 20
+			add_horde_unity = 20
+			add_meritocracy = 20
+			add_country_modifier = {
+				name = empire_backed_by_electors_1
+				duration = -1
+			}
+		}
+	}
+
+
+## A unanimous election is stronger than a divided one.
+## Worth half an idea
+	empire_backed_by_many_electors = {
+		icon = mission_empire
+		required_missions = {  empire_backed_by_some_electors }
+		provinces_to_highlight = {
+			owner = {
+				is_elector = yes
+				NOT = { preferred_emperor = ROOT }
+			}
+		}		
+		trigger = {
+			if = {
+				limit = {
+					government = monarchy
+				}
+				calc_true_if = {
+					desc = gen_hre_electors.tooltip
+					all_elector = {
+						preferred_emperor = ROOT
+					}
+					amount = 10
+				}
+			}
+			else = {
+				num_of_trusted_allies = 4
+				power_projection = 50
+			}
+		}
+		
+		effect = {
+			add_legitimacy = 20
+			add_republican_tradition = 10
+			add_devotion = 20
+			add_horde_unity = 20
+			add_meritocracy = 20
+			remove_country_modifier = empire_backed_by_electors_1
+			add_country_modifier = {
+				name = empire_backed_by_electors_2
+				duration = -1
+			}
+		}
+	}
+
+
+### We've had a long string of weak emperors. It is time to show the squabbling countries our full power!
+## Worth an idea
+	empire_very_influential_emperor = {
+		icon = mission_monarch_in_throne_room
+		required_missions = { empire_reconquered_lost_lands empire_backed_by_many_electors empire_deal_with_laurelon }
+		
+		trigger = {
+			if = {
+				limit = {
+					government = monarchy
+				}
+				imperial_influence = 100
+				is_emperor = yes
+			}
+			else = {
+				num_of_trusted_allies = 5
+				power_projection = 75
+			}
+		}
+		
+		effect = {
+			add_prestige_or_monarch_power = { amount = 10 }
+			remove_country_modifier = empire_backed_by_electors_2
+			remove_country_modifier = empire_better_morale_2
+			add_country_modifier = {
+				name = empire_powerful_emperor_1
+				duration = -1
+			}
+		}
+	}
+
+
+# Should this be outside the old world?
+#	empire_human_allies_outside_the_empire = {
+#		icon = mission_empire_culture
+#		required_missions = { 
+#		}
+#		provinces_to_highlight = {
+#			owner = {
+#				has_country_modifier = human_administration
+#				is_part_of_hre = no
+#			}
+#		}
+#		trigger = {
+#			any_country = {
+#				has_country_modifier = human_administration
+#				is_part_of_hre = no
+#				trust = {
+#					who = ROOT
+#					value = 100
+#				}
+#				has_opinion = {
+#					who = ROOT
+#					value = 200
+#				}
+#				OR = {
+#					alliance_with = ROOT
+#					is_subject_of = ROOT
+#				}
+#			}
+#		}
+#		effect = {
+#
+#		}
+#	}
+
+## We are a shining beacon in the world of diplomacy. We speak for the empire.
+## Worth another idea and a half
+	empire_far_reaching_emperor = {
+		icon = mission_pf_map_table
+		required_missions = { empire_old_alliances_elf empire_very_influential_emperor empire_old_alliances_dwarf
+		}
+		position = 8
+		provinces_to_highlight = {
+			owner = {
+				OR = { 
+					prestige = ROOT
+					diplomatic_reputation = ROOT
+				}
+				is_part_of_hre = yes
+			}
+			NOT = { owned_by = ROOT }
+
+		}
+		trigger = {
+			stability = 3
+			NOT = {
+				any_country = {
+					prestige = ROOT
+					is_part_of_hre = yes
+				}
+			}
+			NOT = {
+				any_country = {
+					diplomatic_reputation = ROOT
+					is_part_of_hre = yes
+				}
+			}
+			legitimacy_equivalent = 95
+		}
+		effect = {
+
+			remove_country_modifier = empire_powerful_emperor_1
+			add_country_modifier = {
+				name = empire_powerful_emperor_2
+				duration = -1
+			}
+		}
+	}
+
+
+## What should we do with the borderlands? Weaken or ally them?
+## Worth no ideas
+	empire_weaken_borderlands = {
+		icon = alpine_fortifications
+		required_missions = {  }
+		position = 9
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 655
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 872
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+			655 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+
+			872 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+
+
+
+		}
+		effect = {
+
+			655 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 10 } }
+					} else {
+						custom_tooltip = empire_claims_on_borderlands_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									region = border_princes_region
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					ROOT = {
+						add_casus_belli = {
+						    target = PREV
+						    type = cb_restore_personal_union
+						    months = 600
+						}
+					}
+				}
+			}
+
+
+			872 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 10 } }
+					} else {
+						custom_tooltip = empire_claims_on_borderlands_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									region = border_princes_region
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					ROOT = {
+						add_casus_belli = {
+						    target = PREV
+						    type = cb_restore_personal_union
+						    months = 600
+						}
+					}
+				}
+			}
+
+		}
+	}
+
+
+## WE must make a final choice on the borderlands. Do we destroy them, or forge eternal bonds of friendship?
+## Worth 1 idea
+	empire_subjugate_borderlands = {
+		icon = alpine_defenses
+		required_missions = { empire_weaken_borderlands }
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 650
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 100 }
+									owes_favors = { who = ROOT value = 100 }
+								}
+								is_subject_of = ROOT
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 754
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 100 }
+									owes_favors = { who = ROOT value = 100 }
+								}
+								is_subject_of = ROOT
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 882
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 100 }
+									owes_favors = { who = ROOT value = 100 }
+								}
+								is_subject_of = ROOT
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 704
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 100 }
+									owes_favors = { who = ROOT value = 100 }
+								}
+								is_subject_of = ROOT
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+			650 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+
+			754 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+
+			882 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+			704 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = empire_border_forts
+				duration = -1
+			}
+		}
+	}
+
+
+## With our immediate neighbors taken care of, it is time to project power into the old Remen Empire.
+## Worth no ideas
+	empire_expand_into_remen = {
+		icon = mission_secure_hajj_ports
+		required_missions = { empire_subjugate_bretonnia empire_subjugate_borderlands empire_subjugate_kislev }
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 590
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 535
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+			590 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+
+			535 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+
+			}
+		}
+
+		effect = {
+			590 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 10 } }
+					} else {
+						custom_tooltip = empire_claims_on_remen_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									OR = {
+										region = tilea_region
+										region = estalia_region
+									}
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					ROOT = {
+						add_casus_belli = {
+						    target = PREV
+						    type = cb_restore_personal_union
+						    months = 600
+						}
+					}
+				}
+			}
+			535 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 10 } }
+					} else {
+						custom_tooltip = empire_claims_on_remen_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									OR = {
+										region = tilea_region
+										region = estalia_region
+									}
+
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					ROOT = {
+						add_casus_belli = {
+						    target = PREV
+						    type = cb_restore_personal_union
+						    months = 600
+						}
+					}
+				}
+			}
+
+		}
+	}
+
+
+## We shall become the undisputed master of man.
+	empire_ultimate_leader_of_mankind = {
+		icon = mission_empire_culture
+		required_missions = { empire_expand_into_remen }
+		provinces_to_highlight = {
+			owner = {
+				technology_group = ROOT
+				NOT = { tag = ROOT }
+				NOT = { is_subject_of = ROOT }
+				NOT = { alliance_with = ROOT }
+				NOT = {
+					ROOT = {
+						has_won_war_against = {
+							who = PREV
+							max_years_since = 100
+						}
+					}
+				}
+			}
+		}
+		
+		trigger = {
+			NOT = {
+				any_province = {
+					owner = {
+						technology_group = ROOT
+						NOT = { tag = ROOT }
+						NOT = { is_subject_of = ROOT }
+						NOT = { alliance_with = ROOT }
+						NOT = {
+							ROOT = {
+								has_won_war_against = {
+									who = PREV
+									max_years_since = 100
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		effect = {
+			add_prestige_or_monarch_power = { amount = 200 }
+			add_country_modifier = {
+				name = empire_ultimate
+				duration = -1
+			}
+		}
+	}
+
+}
+
+
+
+
+
+war_empire_faction_4 = {
+
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		is_part_of_hre = yes
+#		always = no
+	}
+
+## Get cavalry trained by the Reiksguard
+## Worth half an idea
+	empire_reiksguard = {
+		icon = mission_subdue_rajputana
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = livestock
+			superregion = the_empire_superregion
+		}
+		trigger = {
+			any_owned_province = {
+				trade_goods = livestock
+				base_production = 10
+			}
+			num_of_cavalry = 10
+			18 = {
+				OR = {
+					owned_by = ROOT
+					owner = {
+						alliance_with = ROOT
+					}
+				}
+			}
+		}
+
+## Better cavalry
+		effect = {
+			add_country_modifier = {
+				name = empire_better_cavalry
+				duration = -1
+			}
+		}
+	}
+
+
+## Reform the Imperial Army
+## Worth 1 idea
+	empire_reform_imperial_army = {
+		icon = mission_hundred_years_war
+		required_missions = {  }
+		trigger = {
+			army_tradition = 75
+			army_professionalism = 0.25
+		}
+
+		effect = {
+			add_army_tradition = -50
+			add_country_modifier = {
+				name = empire_better_discipline
+				duration = -1
+			}
+
+		}
+	}
+
+
+### WE shoudl become the bank of the empire
+## Worth 0.5 idea
+	empire_bank_of_the_empire = {
+		icon = mission_high_income
+		position = 4
+		required_missions = { }
+		provinces_to_highlight = {
+			owner = {
+				monthly_income = ROOT
+				is_part_of_hre = yes
+			}
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			NOT = {
+				any_country = {
+					monthly_income = ROOT
+					is_part_of_hre = yes
+				}
+			}
+			calc_true_if = {
+				amount = 4
+				all_elector = {
+					has_opinion_modifier = {
+						who = ROOT
+						modifier = great_power_influence
+					}
+				}
+			}
+			monthly_income = 50
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = empire_bank_of_the_empire
+				duration = -1
+			}
+		}
+	}
+
+
+
+
+## Deal with Laurelon. These wood elves are within the empire, but not part of it.
+### Event to enter the empire
+## Worth no ideas
+	empire_deal_with_laurelon = {
+		icon = mission_wood_elf_culture
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 4892
+		}
+		trigger = {
+			4892 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+
+## Maybe they enter into the empire if they are allies or subjects?
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			if = {
+				limit = { is_emperor = yes }
+				add_imperial_influence = 25
+			}
+			if = {
+				limit = { B71 = { ai = yes } }
+				B71 = { set_in_empire = yes }
+			}
+		}
+	}
+
+
+### We should rekindle old alliances with the elves
+## Worth half an idea
+	empire_old_alliances_elf = {
+		icon = mission_high_elf_culture
+		position = 7
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = elven_administration }
+		}
+		trigger = {
+			any_country = {
+				has_country_modifier = elven_administration
+				trust = {
+					who = ROOT
+					value = 100
+				}
+				has_opinion = {
+					who = ROOT
+					value = 200
+				}
+				OR = {
+					alliance_with = ROOT
+					is_subject_of = ROOT
+				}
+			}
+		}
+		effect = {
+			add_splendor = 400
+			if = {
+				limit = {
+					dip = 6
+				}
+				add_dip_power = 100
+			}
+			else = {
+				change_dip = 1
+			}
+
+		}
+	}
+
+
+## What should we do with Bretonnia? Weaken them, or ally with them?
+## Worth no ideas
+
+	empire_weaken_bretonnia = {
+		icon = mission_mansure_army
+		required_missions = {  }
+		position = 9
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 263
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 281
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+
+			263 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+
+			281 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+
+			}
+		}
+
+		effect = {
+
+			263 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 10 } }
+					} else {
+						custom_tooltip = empire_claims_on_bretonnia_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									region = bretonnia_region
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					ROOT = {
+						add_casus_belli = {
+						    target = PREV
+						    type = cb_restore_personal_union
+						    months = 600
+						}
+					}
+				}
+			}
+
+			281 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 10 } }
+					} else {
+						custom_tooltip = empire_claims_on_bretonnia_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									region = bretonnia_region
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					ROOT = {
+						add_casus_belli = {
+						    target = PREV
+						    type = cb_restore_personal_union
+						    months = 600
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+### What should we do with Bretonnia? Destroy them, or forge eternal bonds of friendship.
+## Worth 1 idea
+	empire_subjugate_bretonnia = {
+		icon = mission_teutonic_lancer
+		required_missions = { empire_weaken_bretonnia }
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 314
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 100 }
+									owes_favors = { who = ROOT value = 100 }
+								}
+								is_subject_of = ROOT
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 257
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 100 }
+									owes_favors = { who = ROOT value = 100 }
+								}
+								is_subject_of = ROOT
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 280
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 100 }
+									owes_favors = { who = ROOT value = 100 }
+								}
+								is_subject_of = ROOT
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 237
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 100 }
+									owes_favors = { who = ROOT value = 100 }
+								}
+								is_subject_of = ROOT
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+			314 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+
+			257 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+
+			280 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+			237 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+ 				name = empire_bretonnian_cavalry
+				duration = -1
+			}
+		}
+	}
+
+}
+
+
+
+
+war_empire_faction_5 = {
+
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		is_part_of_hre = yes
+#		always = no
+	}
+
+## The empire is religiously fractured. We need good relations with the church to navigate it.
+## Worth 1/3
+	empire_happy_church = { 
+		icon = mission_hands_praying
+		required_missions = {  } 
+		trigger = {
+			estate_loyalty = {
+			    estate = estate_church
+			    loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 1
+			}
+		}
+
+		effect = { 
+			add_country_modifier = { 
+ 				name = empire_happy_church
+				duration = -1
+			}
+		}
+	}
+
+## Do we empower or push away the witch hunters?
+## Worth 1 idea
+	empire_decide_on_witch_hunters = { 
+		icon = mission_empire_religion
+		required_missions = { empire_happy_church  } 
+		trigger = {
+			estate_influence = {
+			    estate = estate_church
+			    influence = 80
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 3
+			}
+		}
+
+		effect = { 
+			custom_tooltip = empire_empowered_witch_hunters_tt
+		}
+	}
+
+
+## Religious Center Powerhouse. This church is amoung the greatest in the world.
+### Worth .33
+
+	empire_religious_center = {
+		icon = mission_european_church
+		position = 4
+		required_missions = {   }
+		trigger = {
+			any_owned_province = {
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+				base_tax = 30
+			}
+			religious_unity = 1
+		}
+		# flood of investments leading to increased production
+		effect = {
+			custom_tooltip = empire_tax_powerhouse_tt
+			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_building = temple
+							has_building = cathedral
+						}
+						base_tax = 30
+					}
+					add_permanent_province_modifier = { 
+					    name = empire_local_tax_efficiency
+					    duration = -1 
+					}
+				}
+			}
+		}
+	}
+
+
+## With our economy and tithes flowing in, we have an opportunity to develop a single unified currency for the empire.
+## Half an idea
+	empire_imperial_currency = {
+		icon = mission_war_chest
+		required_missions = { empire_bank_of_the_empire empire_religious_center }
+		provinces_to_highlight = {
+			OR = {
+				trade_goods = gold
+				trade_goods = copper
+			}
+			superregion = the_empire_superregion
+		}
+		trigger = {
+			any_owned_province = {
+				trade_goods = gold
+				base_production = 15
+				OR = {
+					has_building = workshop
+					has_building = counting_house
+				}
+			}
+			any_owned_province = {
+				trade_goods = copper
+				base_production = 15
+				OR = {
+					has_building = workshop
+					has_building = counting_house
+				}
+			}
+			NOT = { num_of_loans = 1 }
+			NOT = { inflation = 0.01 }
+			innovativeness = 15
+		}
+
+		effect = {
+			add_years_of_income = 5
+			add_inflation = 4
+		}
+	}
+
+## With the currency in place, we have the authority to write laws and mandates the establish order across the empire.
+## Worth 1
+	empire_law_and_order = { 
+		icon = appease_the_estates
+		required_missions = { empire_imperial_currency }
+		trigger = {
+			OR = {
+				num_of_owned_provinces_with = {
+					OR = {
+						has_building = courthouse
+						has_building = town_hall
+					}
+					NOT =  { unrest = 1 }
+					value = 10
+				}
+				all_owned_province = {
+					OR = {
+						has_building = courthouse
+						has_building = town_hall
+					}
+					NOT =  { unrest = 1 }
+					value = 10
+				}
+			}
+		}
+
+		effect = { 
+			add_country_modifier = { 
+ 				name = empire_place_of_law
+				duration = -1
+			}
+		}
+	}
+
+
+
+
+
+### We shall become synonymous with our religion.
+## Half an idea
+	empire_defender_of_faith = { 
+		icon = catholic_volunteers
+		required_missions = {  }
+		position = 8
+		provinces_to_highlight = {
+			owner = {
+				total_development = ROOT
+				religion = ROOT
+			}
+		}
+		trigger = {
+			OR = {
+				is_defender_of_faith = yes
+				AND = {
+					NOT = {
+						any_country = {
+							total_development = ROOT
+							religion = ROOT
+						}
+					}
+					any_country = {
+						religion = ROOT
+						OR = {
+							alliance_with = ROOT
+							is_subject_of = ROOT
+						}
+					}
+					at_war_with_religious_enemy = yes
+				}
+			}
+			prestige = 99
+			religious_unity = 1.0
+		}
+
+		effect = {
+			add_country_modifier = { 
+ 				name = empire_historical_defender
+				duration = -1
+			}
+		}
+	}
+
+
+## WE are moving towards unifying the empire towards our religion.
+## Worth 1/2 an idea
+	empire_most_of_empire_your_faith = { 
+		icon = catholic_confraternity
+		required_missions = { empire_defender_of_faith }
+		provinces_to_highlight = {
+			NOT = { religion = ROOT}
+			is_part_of_hre = yes
+		}		
+		trigger = {
+			calc_true_if = {
+				all_province = {
+					is_part_of_hre = yes
+					religion = ROOT
+				}
+				amount = 100
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+ 				name = empire_united_religion_1
+				duration = -1
+			}
+		}
+	}
+
+
+### With the electors all following our faith, our election becomes much easier.
+### Worth 1/2 an idea
+	empire_is_your_faith = { 
+		icon = Control_Junkers
+		required_missions = { empire_most_of_empire_your_faith }
+		provinces_to_highlight = {
+			owner = {
+				NOT = { religion = ROOT}
+				is_elector = yes
+			}
+		}
+		trigger = {
+			NOT = {
+				any_elector = {
+					NOT = { religion = ROOT }
+				}
+			}
+		}
+
+		effect = {
+			remove_country_modifier = empire_united_religion_1
+			add_country_modifier = { 
+ 				name = empire_united_religion_2
+				duration = -1
+			}
+		}
+	}
+
+
+}
+
