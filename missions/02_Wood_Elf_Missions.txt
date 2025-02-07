@@ -1,0 +1,984 @@
+
+##################################
+##### WOOD ELVES CULTURE GROUP
+##################################
+
+
+wood_elf_missions_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = asrai_group
+	}
+
+## While we are isolated, we can still benefit from trade, and ensure that our citizens have appropriate access to all goods.
+	wood_elf_build_markets = {
+		icon = mission_treetop_left
+		required_missions = { wood_elf_guilds_happy }
+		position = 3
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_building = marketplace }
+			NOT = { has_building = trade_depot }
+			NOT = { has_building = stock_exchange }
+		}
+		trigger = {
+			OR = {
+				num_of_owned_provinces_with = {
+					OR = {
+				 		has_building = marketplace
+				 		has_building = trade_depot
+				 		has_building = stock_exchange
+					}
+					value = 15
+				}
+				all_owned_province = {
+					OR = {
+				 		has_building = marketplace
+				 		has_building = trade_depot
+				 		has_building = stock_exchange
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = wood_elf_trade_steering
+				duration = -1
+			}
+
+		}
+	}
+
+### Build up a fund for when we can use it best - Fall
+	wood_elf_building_in_fall = {
+		icon = mission_treetop_left
+		required_missions = { wood_elf_magic_spring }
+		position = 5
+		trigger = {
+			treasury = 1000
+			has_government_power = {
+				mechanic_type = wood_elf_seasons_mechanic
+				power_type = season_time_power
+				value = 50
+			}
+
+			NOT = {
+				has_government_power = {
+					mechanic_type = wood_elf_seasons_mechanic
+					power_type = season_time_power
+					value = 75
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = asrai_motivated_building
+				duration = 48
+			}
+		}
+	}
+
+
+
+### A well advised society is a well run society. Our court shall be made up of the finest advisors in the world.
+	wood_elf_well_advised = {
+		icon = mission_treetop_left
+		required_missions = { wood_elf_stability_mission }
+		position = 7
+		trigger = {
+			employed_advisor = {
+				category = ADM
+			    skill = 5
+			}
+			employed_advisor = {
+				category = DIP
+			    skill = 5
+			}
+			employed_advisor = {
+				category = MIL
+			    skill = 5
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = wood_elf_state_cap
+				duration = -1
+			}			
+
+		}
+	}
+
+
+### Build up our forests into thriving economic systems
+	wood_elf_four_buildings = {
+		icon = mission_treetop_left
+		required_missions = { wood_elf_two_buildings }
+		position = 9
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { num_of_buildings_in_province = 4 }
+		}
+		trigger = {
+			OR = {
+				calc_true_if = {
+					all_owned_province = {
+						num_of_buildings_in_province = 4
+					}
+					amount = 15
+				}
+				all_owned_province = {
+					num_of_buildings_in_province = 4
+				}				
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = wood_elf_tax
+				duration = -1
+			}
+		}
+	}
+
+### Build in tune with nature
+	wood_elf_infrastructure = {
+		icon = mission_treetop_left
+		required_missions = { wood_elf_build_manufactories }
+		position = 11
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { num_of_times_expanded_infrastructure = 1 }
+		}
+		
+
+		trigger = {
+			OR = {
+				calc_true_if = {
+					all_owned_province = {
+						num_of_times_expanded_infrastructure = 1
+					}
+					amount = 15
+				}
+				all_owned_province = {
+					num_of_times_expanded_infrastructure = 1
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = wood_elf_production
+				duration = -1
+			}
+		}
+	}
+
+}
+
+
+wood_elf_missions_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = asrai_group
+	}
+
+
+### Make sure the people who handle our goods are pleased with our governmenr
+	wood_elf_guilds_happy = {
+		icon = mission_treetop_left
+		required_missions = {  }
+		position = 2
+		trigger = {
+			estate_loyalty = {
+ 				estate = estate_burghers
+    			loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_burghers
+				value = 1
+			}
+		}
+		effect = {
+			add_mercantilism = 5
+		}
+	}
+
+	wood_elf_invest_in_infrastructure = {
+		icon = mission_treeleft
+		required_missions = {  }
+		position = 3
+		trigger = {
+			adm_power = 400
+		}
+		effect = {
+			add_adm_power = -400
+			add_country_modifier = {
+				name = wood_elf_cheaper_infrastructure
+				duration = -1
+			}
+		}
+	}
+
+## Spring is the time for magic! Let's build up a reserve.
+	wood_elf_magic_spring = {
+		icon = mission_treeleft
+		required_missions = {  }
+		position = 4
+		trigger = {
+			adm_power = 800
+			dip_power = 800
+			mil_power = 800
+
+			NOT = {
+				has_government_power = {
+					mechanic_type = wood_elf_seasons_mechanic
+					power_type = season_time_power
+					value = 25
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = asrai_powerful_magic
+				duration = 48
+			}
+		}
+	}
+
+
+## Our lands are a beacon of stability and security.
+	wood_elf_stability_mission = {
+		icon = mission_treeleft
+		required_missions = { }
+		position = 6
+		provinces_to_highlight = {
+			owned_by = ROOT
+			OR = {
+				AND = {
+					has_owner_accepted_culture = no
+					has_owner_culture = no
+				}
+				has_owner_religion = no
+				is_prosperous = no
+			}
+		}
+		trigger = {
+			stability = 3
+			legitimacy_equivalent = 99
+			all_owned_province = {
+				OR = {
+					has_owner_accepted_culture = yes
+					has_owner_culture = yes
+				}
+			}
+			all_owned_province = {
+				has_owner_religion = yes
+			}
+			all_owned_province = {
+				is_prosperous = yes
+			}
+		}
+		effect = {
+
+			add_prestige_or_monarch_power = { amount = 50 }
+
+		}
+	}
+
+
+### We should build up our structures.
+	wood_elf_two_buildings = {
+		icon = mission_treeleft
+		required_missions = {  }
+		position = 8
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { num_of_buildings_in_province = 2 }
+		}
+		trigger = {
+			OR = {
+				calc_true_if = {
+					all_owned_province = {
+						num_of_buildings_in_province = 2
+					}
+					amount = 15
+				}
+				all_owned_province = {
+					num_of_buildings_in_province = 2
+				}				
+			}
+		}
+
+		effect = {
+			capital_scope = {
+				add_base_tax = 2
+				add_base_production = 2
+				add_base_manpower = 2
+			}
+		}
+	}
+
+
+## We have discovered a way to build factories using natural means.
+	wood_elf_build_manufactories = {
+		icon = mission_treeleft
+		required_missions = { }
+		position = 10
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_building = mills }
+			NOT = { has_building = farm_estate }
+			NOT = { has_building = tradecompany }
+			NOT = { has_building = plantations }
+			NOT = { has_building = textile }
+			NOT = { has_building = weapons }
+			NOT = { has_building = wharf }
+			NOT = { has_building = furnace }
+		}
+		trigger = {
+			OR = {
+				calc_true_if = {
+					all_owned_province = {
+						OR = {
+							has_building = mills
+							has_building = farm_estate
+							has_building = tradecompany
+							has_building = plantations
+							has_building = textile
+							has_building = weapons
+							has_building = wharf
+							has_building = furnace
+						}
+					}
+					amount = 15
+				}
+				all_owned_province = {
+					OR = {
+						has_building = mills
+						has_building = farm_estate
+						has_building = tradecompany
+						has_building = plantations
+						has_building = textile
+						has_building = weapons
+						has_building = wharf
+						has_building = furnace
+					}
+				}
+			}
+		}
+		effect = {
+			change_innovativeness = 5
+		}
+	}
+
+}
+
+wood_elf_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = asrai_group
+	}
+
+### Happy tree spirits make for easier development
+	wood_elf_happy_church = {
+		icon = mission_treetop
+		required_missions = {
+		}
+		trigger = {
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 1
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+			    name = wood_elf_dev_bonus_1
+			    duration = -1  
+			}
+		}
+	}
+
+## We should set aside places to worship the elven gods
+	wood_elf_build_churches = {
+		icon = mission_treecenter
+		required_missions = { wood_elf_happy_church }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_building = temple }
+			NOT = { has_building = cathedral }
+		}
+		trigger = {
+			OR = {
+				num_of_owned_provinces_with = {
+					OR = {
+						has_building = temple
+						has_building = cathedral
+					}
+					value = 15
+				}
+				all_owned_province = {
+					OR = {
+						has_building = temple
+						has_building = cathedral
+					}
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = wood_elf_dev_bonus_1
+			add_country_modifier = { 
+			    name = wood_elf_dev_bonus_2
+			    duration = -1  
+			}
+		}
+	}
+
+	wood_elf_dev_1 = {
+		icon = mission_treecenter
+		required_missions = { wood_elf_guilds_happy wood_elf_build_churches wood_elf_please_nobility }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { development = 10 }
+		}
+		trigger = {
+			all_owned_province = {
+				development = 10
+			}
+			total_development = 50
+		}
+
+		effect = {
+			remove_country_modifier = wood_elf_dev_bonus_2
+			add_country_modifier = { 
+			    name = wood_elf_dev_bonus_3
+			    duration = -1  
+			}
+		}
+	}
+
+	wood_elf_dev_2 = {
+		icon = mission_treecenter
+		required_missions = { wood_elf_dev_1 }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { development = 15 }
+		}
+		trigger = {
+			all_owned_province = {
+				development = 15
+			}
+			total_development = 75
+		}
+
+		effect = {
+			remove_country_modifier = wood_elf_dev_bonus_3
+			add_country_modifier = { 
+			    name = wood_elf_dev_bonus_4
+			    duration = -1  
+			}
+		}
+	}
+
+	wood_elf_dev_3 = {
+		icon = mission_treecenter
+		required_missions = { wood_elf_magic_spring wood_elf_dev_2 wood_elf_summer_war }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { development = 20 }
+		}
+		trigger = {
+			all_owned_province = {
+				development = 20
+			}
+			total_development = 100
+		}
+
+		effect = {
+			remove_country_modifier = wood_elf_dev_bonus_4
+			add_country_modifier = { 
+			    name = wood_elf_dev_bonus_5
+			    duration = -1  
+			}
+		}
+	}
+
+	wood_elf_dev_4 = {
+		icon = mission_treecenter
+		required_missions = { wood_elf_dev_3 }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { development = 25 }
+		}
+		trigger = {
+			all_owned_province = {
+				development = 25
+			}
+			total_development = 125
+		}
+
+		effect = {
+			remove_country_modifier = wood_elf_dev_bonus_5
+			add_country_modifier = { 
+			    name = wood_elf_dev_bonus_6
+			    duration = -1  
+			}
+		}
+	}
+
+	wood_elf_dev_5 = {
+		icon = mission_treecenter
+		required_missions = { wood_elf_stability_mission wood_elf_dev_4 wood_elf_bleed_them_dry }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { development = 30 }
+		}
+		trigger = {
+			all_owned_province = {
+				development = 30
+			}
+			total_development = 150
+		}
+
+		effect = {
+			remove_country_modifier = wood_elf_dev_bonus_6
+			add_country_modifier = { 
+			    name = wood_elf_dev_bonus_7
+			    duration = -1  
+			}
+		}
+	}
+
+	wood_elf_dev_6 = {
+		icon = mission_treecenter
+		required_missions = { wood_elf_dev_5 }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { development = 35 }
+		}
+		trigger = {
+			all_owned_province = {
+				development = 35
+			}
+			total_development = 175
+		}
+
+		effect = {
+			remove_country_modifier = wood_elf_dev_bonus_7
+			add_country_modifier = { 
+			    name = wood_elf_dev_bonus_8
+			    duration = -1  
+			}
+		}
+	}
+
+	wood_elf_dev_7 = {
+		icon = mission_treecenter
+		required_missions = { wood_elf_two_buildings wood_elf_dev_6 wood_elf_insult_others}
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { development = 40 }
+		}
+		trigger = {
+			all_owned_province = {
+				development = 40
+			}
+			total_development = 200
+		}
+
+		effect = {
+			remove_country_modifier = wood_elf_dev_bonus_8
+			add_country_modifier = { 
+			    name = wood_elf_dev_bonus_9
+			    duration = -1  
+			}
+		}
+	}
+
+wood_elf_dev_8 = {
+		icon = mission_treecenter
+		required_missions = { wood_elf_dev_7 }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { development = 45 }
+		}
+		trigger = {
+			all_owned_province = {
+				development = 45
+			}
+			total_development = 225
+		}
+
+		effect = {
+			remove_country_modifier = wood_elf_dev_bonus_9
+			add_country_modifier = { 
+			    name = wood_elf_dev_bonus_10
+			    duration = -1  
+			}
+		}
+	}
+
+wood_elf_dev_9 = {
+		icon = mission_treecenter
+		required_missions = { wood_elf_build_manufactories wood_elf_dev_8 wood_elf_drilled_army }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { development = 50 }
+		}
+		trigger = {
+			all_owned_province = {
+				development = 50
+			}
+			total_development = 250
+		}
+
+		effect = {
+			remove_country_modifier = wood_elf_dev_bonus_10
+			add_country_modifier = { 
+			    name = wood_elf_dev_bonus_11
+			    duration = -1  
+			}
+		}
+	}
+
+wood_elf_dev_10 = {
+		icon = mission_treebase
+		required_missions = { wood_elf_dev_9 }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { development = 60 }
+		}
+		trigger = {
+			all_owned_province = {
+				development = 60
+			}
+			total_development = 300
+		}
+
+		effect = {
+			remove_country_modifier = wood_elf_dev_bonus_11
+			add_country_modifier = { 
+			    name = wood_elf_dev_bonus_12
+			    duration = -1  
+			}
+		}
+	}
+
+}
+
+
+wood_elf_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = asrai_group
+	}
+
+### Nobles offer up their private armies to the cause
+	wood_elf_please_nobility = {
+		icon = mission_treetop_right
+		required_missions = { }
+		position = 2
+		trigger = {
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+		effect = {
+			add_yearly_manpower = 2.0
+		}
+	}
+
+	wood_elf_invest_in_monuments = {
+		icon = mission_treeleft
+		required_missions = {  }
+		position = 3
+		trigger = {
+			treasury = 1000
+		}
+		effect = {
+			add_treasury = -1000
+			add_country_modifier = {
+				name = wood_elf_cheaper_monuments
+				duration = -1
+			}
+		}
+	}
+
+### Summer is the time for offense!
+	wood_elf_summer_war = {
+		icon = mission_treeright
+		required_missions = { }
+		position = 4
+		trigger = {
+			at_war_with_religious_enemy = yes
+
+			has_government_power = {
+				mechanic_type = wood_elf_seasons_mechanic
+				power_type = season_time_power
+				value = 25
+			}
+
+			NOT = {
+				has_government_power = {
+					mechanic_type = wood_elf_seasons_mechanic
+					power_type = season_time_power
+					value = 50
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = asrai_summer_war_modifier
+				duration = -1
+			}		
+		}
+
+	}
+
+## We need to show these outsiders how powerful we are, and compeltely destroy them
+	wood_elf_bleed_them_dry = {
+		icon = mission_treeright
+		required_missions = { }
+		position = 6
+		trigger = {
+			any_war_enemy_country = {
+				OR = {
+					NOT = { manpower = 0.001 }
+					NOT = {	army_size = 1 }
+				}
+			}
+		}
+
+		effect = {
+			capital_scope = {
+				add_base_manpower = 5
+			}
+		}
+	}
+
+
+## We are better than everybody! And we can prove it!
+	wood_elf_insult_others = {
+		icon = mission_treeright
+		required_missions = {  }
+		position = 8
+		provinces_to_highlight = {
+			is_neighbor_of = ROOT
+			owner = {
+				total_development = ROOT
+				NOT = { TAG = ROOT }
+			}
+		}
+		trigger = {
+			all_neighbor_country = {
+				NOT = { total_development = ROOT }
+			}
+			calc_true_if = {
+				amount = 6
+				all_country = {
+					has_opinion_modifier = {
+						who = ROOT
+						modifier = insulted
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = asrai_insulting
+				duration = -1
+			}
+		}
+	}
+
+### Constant vigilance keeps our woods safe.
+	wood_elf_drilled_army = {
+		icon = mission_treeright
+		required_missions = {  }
+		position = 10
+		trigger = {
+			num_of_regiments_at_full_drill = 20
+			is_at_war = yes
+			army_tradition = 50
+		}
+		effect = {
+			add_army_professionalism = 0.1
+		}
+	}
+
+}
+
+
+wood_elf_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = asrai_group
+	}
+
+
+## We need places to house, feed, and train our armies.
+	wood_elf_build_barracks = {
+		icon = mission_treetop_right
+		required_missions = { wood_elf_please_nobility }
+		position = 3
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_building = barracks }
+			NOT = { has_building = training_fields }
+		}
+		trigger = {
+			OR = {
+				num_of_owned_provinces_with = {
+					OR = {
+				 		has_building = barracks
+				 		has_building = training_fields
+					}
+					value = 15
+				}
+				all_owned_province = {
+					OR = {
+				 		has_building = barracks
+				 		has_building = training_fields
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = wood_elf_no_attrition
+				duration = -1
+			}
+
+		}
+	}
+
+## Winter is the time for defense
+	wood_elf_winter_war = {
+		icon = mission_treetop_right
+		required_missions = { wood_elf_summer_war }
+		position = 5
+		trigger = {
+			at_war_with_religious_enemy = yes
+
+			has_government_power = {
+				mechanic_type = wood_elf_seasons_mechanic
+				power_type = season_time_power
+				value = 75
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = asrai_winter_war_modifier
+				duration = -1
+			}		
+		}
+	}
+
+## Raid those nearby and cut them down to size.
+	wood_elf_raiding_area = {
+		icon = mission_treetop_right
+		position = 7
+		required_missions = { wood_elf_bleed_them_dry }
+		provinces_to_highlight = {
+			is_neighbor_of = ROOT
+			development = 4
+			NOT = { has_province_modifier = recently_raided }
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+
+		trigger = {
+			all_province = {
+				OR = {
+					NOT = { development = 4 }
+					has_province_modifier = recently_raided
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+					NOT = { is_neighbor_of = ROOT }
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = asrai_faster_looting
+				duration = -1
+			}
+			capital_scope = {
+				add_base_tax = 5
+			}	
+		}
+	}
+
+## We can show our dominance by gathering tribute from outsiders
+	wood_elf_demand_tribute = {
+		icon = mission_treetop_right
+		required_missions = { wood_elf_insult_others }
+		position = 9
+		trigger = {
+			num_of_war_reparations = 10
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = wood_elf_morale
+				duration = -1
+			}
+
+		}
+	}
+
+## Treemen are powerful allies. We should bring them onside.
+	wood_elf_get_treemen = {
+		icon = mission_treetop_right
+		required_missions = { wood_elf_drilled_army }
+		position = 11
+		trigger = {
+			num_of_cossacks = 5
+			army_tradition = 20
+			mil_power = 100
+			is_at_war = yes
+		}
+		effect = {
+			add_army_tradition = -20
+			add_mil_power = -100
+
+			add_country_modifier = {
+				name = wood_elf_treemen
+				duration = -1
+			}
+		}
+	}
+
+
+}
