@@ -10,6 +10,69 @@ on_battle_won_country = {
 			add_church_power = 5
 		}
 	}
+	if = {
+		limit = {
+			has_government_mechanic = chaos_favor_mechanic
+		}
+		set_variable = {
+			which = ChaosDeathCount
+			value = 0
+		}
+		change_variable = {
+			which = ChaosDeathCount
+			which = land_units_killed 
+		}
+		change_variable = {
+			which = ChaosDeathCount
+			which = land_units_lost 
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = ChaosDeathCount
+					value = 1000
+				}
+			}
+			add_government_power = { mechanic_type = chaos_favor_mechanic power_type = chaos_favor value = 0.5 }
+			subtract_variable = {
+				which = ChaosDeathCount
+				value = 1000
+			}
+		}
+	}
+}
+
+on_battle_lost_country = {
+	if = {
+		limit = {
+			has_government_mechanic = chaos_favor_mechanic
+		}
+		set_variable = {
+			which = ChaosDeathCount
+			value = 0
+		}
+		change_variable = {
+			which = ChaosDeathCount
+			which = land_units_killed 
+		}
+		change_variable = {
+			which = ChaosDeathCount
+			which = land_units_lost 
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = ChaosDeathCount
+					value = 1000
+				}
+			}
+			add_government_power = { mechanic_type = chaos_favor_mechanic power_type = chaos_favor value = 0.5 }
+			subtract_variable = {
+				which = ChaosDeathCount
+				value = 1000
+			}
+		}
+	}
 }
 
 on_siege_won_country = {
@@ -255,4 +318,22 @@ on_province_owner_change = {
 		save_event_target_as = chaos_former_capital
 		chaos_horde_development_remove_handler = yes
 	}
+}
+
+
+on_conquest = {
+	if = { #Chaos Favor
+		limit = { 
+			owner = { has_government_mechanic = chaos_favor_mechanic } 
+			NOT = { is_core = owner }
+		}
+		owner = {
+			add_government_power = {
+				mechanic_type = chaos_favor_mechanic
+				power_type = chaos_favor
+				value = 2
+			}
+		}
+	}
+
 }
