@@ -786,3 +786,175 @@ country_event = {
 }
 
 
+
+
+### Meeting of the Elector Counts
+country_event = { 
+	id = old_world_events.100
+	title = old_world_events.100.title
+	desc = old_world_events.100.desc
+	picture = DIET_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+#	immediate = {
+#		hidden_effect = {
+#			random_list = {
+#			    25 = {
+#			        set_variable = {
+#					    which = elector_focus
+#					    value = 1
+#					}
+#			    }
+#			    25 = {
+#			        set_variable = {
+#					    which = elector_focus
+#					    value = 2
+#					}
+#			    }
+#			    25 = {
+#			        set_variable = {
+#					    which = elector_focus
+#					    value = 3
+#					}
+#			    }
+#
+#			    25 = {
+#			        set_variable = {
+#					    which = elector_focus
+#					    value = 4
+#					}
+#			    }
+#			}
+#		}
+#	}
+
+# They want money
+## Reikland starts making 8 a month
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.100.option_1
+
+		every_elector = {
+			limit = { NOT = { tag = ROOT } }
+			add_treasury = 50
+			ROOT = {
+				add_treasury = -50
+				add_imperial_influence = 1
+			}
+		}
+
+#		if = {
+#			limit = {
+#				check_variable = {
+#				    which = elector_focus
+#				    value = 1
+#				}
+#				NOT = {
+#					check_variable = {
+#					    which = elector_focus
+#					    value = 2
+#					}
+#				}
+#			}
+#			custom_tooltip = elector_focus_tt
+#			hidden_effect = { add_imperial_influence = 5 }
+#		}
+		
+
+	}
+
+# They want men - Give 5% of your max manpower to electors until you run out
+## Reikland starts making 350 a month, with 35k mak
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.100.option_2
+		trigger = {
+			manpower = 25
+		}
+
+		every_elector = {
+			limit = { NOT = { tag = ROOT } }
+			if = {
+				limit = { ROOT = { manpower = variable:elector_manpower } }
+				add_manpower = 2
+				ROOT = {
+					add_manpower = -2
+					add_imperial_influence = 1
+				}
+			}
+		}
+	}
+
+
+# They want Prestige and Legitimacy
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.100.option_3
+
+		every_elector = {
+			limit = { NOT = { tag = ROOT } }
+			add_prestige = 10
+			ROOT = {
+				add_prestige = -10
+				add_imperial_influence = 1
+			}
+		}
+	}
+
+
+# They want help running their countries
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.100.option_4
+
+		every_elector = {
+			limit = { NOT = { tag = ROOT } }
+			custom_tooltip = elector_gains_power_tt
+			hidden_effect = {
+				add_adm_power = 25
+				add_dip_power = 25
+				add_mil_power = 25
+			}
+			ROOT = {
+				custom_tooltip = emperor_loses_power_tt
+				hidden_effect = {
+					add_adm_power = -25
+					add_dip_power = -25
+					add_mil_power = -25
+				}
+				add_imperial_influence = 1
+			}
+		}
+
+	}
+
+
+
+# This is all too much! Get out, all of you!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.100.option_5
+
+		remove_country_modifier =  empire_summoned_the_counts
+		add_country_modifier = {
+		    name = empire_failed_summoned_the_counts
+		    duration = 3650
+		}
+
+	}
+
+}
+
