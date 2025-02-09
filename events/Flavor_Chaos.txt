@@ -13,38 +13,40 @@ country_event = {
 		has_reform = chaos_warband
 	}
 	immediate = {
-		save_event_target_as = chaos_horde_development_handler
-		capital_scope = {
-			random_empty_neighbor_province = {
-				set_province_flag = chaos_move_prov_1
-				save_event_target_as = chaos_move_prov_et_1
-			}
-		}
-		capital_scope = {
-			random_empty_neighbor_province = {
-				limit = {
-					not = {
-						has_province_flag = chaos_move_prov_1
-					}
+		hidden_effect = {
+			save_event_target_as = chaos_horde_development_handler
+			capital_scope = {
+				random_empty_neighbor_province = {
+					set_province_flag = chaos_move_prov_1
+					save_event_target_as = chaos_move_prov_et_1
 				}
-				set_province_flag = chaos_move_prov_2
-				save_event_target_as = chaos_move_prov_et_2
 			}
-		}
-		capital_scope = {
-			random_empty_neighbor_province = {
-				limit = {
-					not = {
-						has_province_flag = chaos_move_prov_1
-						has_province_flag = chaos_move_prov_2
+			capital_scope = {
+				random_empty_neighbor_province = {
+					limit = {
+						not = {
+							has_province_flag = chaos_move_prov_1
+						}
 					}
+					set_province_flag = chaos_move_prov_2
+					save_event_target_as = chaos_move_prov_et_2
 				}
-				set_province_flag = chaos_move_prov_3
-				save_event_target_as = chaos_move_prov_et_3
 			}
-		}
-		capital_scope = {
-			save_event_target_as = chaos_former_capital
+			capital_scope = {
+				random_empty_neighbor_province = {
+					limit = {
+						not = {
+							has_province_flag = chaos_move_prov_1
+							has_province_flag = chaos_move_prov_2
+						}
+					}
+					set_province_flag = chaos_move_prov_3
+					save_event_target_as = chaos_move_prov_et_3
+				}
+			}
+			capital_scope = {
+				save_event_target_as = chaos_former_capital
+			}
 		}
 	}
 	option = {
@@ -420,9 +422,8 @@ country_event = {
 		# dip
 		name = flavor_chaos.3.b
 		trigger = {
-			chaos_can_upgrade_dip = yes	
+			chaos_can_upgrade_dip = yes
 		}
-		
 		chaos_horde_upgrader = {
 			type = production
 		}

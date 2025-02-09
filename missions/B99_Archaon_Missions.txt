@@ -124,10 +124,22 @@ archaon_2 = {
 			archaon_an_unlikely_ally
 		}
 		provinces_to_highlight = {
+			province_id = 4051
 		}
 		trigger = {
+			4051 = {
+				controlled_by = ROOT
+				has_ruler_leader_from = ROOT
+				infantry_in_province = 20
+			}
 		}
 		effect = {
+			custom_tooltip = B99_dorghar_tt
+	
+			hidden_effect = {
+				country_event = { id = flavor_archaon.2 days = 5 }
+				set_ruler_flag = B99_dorghar_battle_attempt_1
+			}
 		}
 	}
 	archaon_trial_of_slannesh = {
@@ -204,8 +216,13 @@ archaon_3 = {
 			archaon_begin_the_journey
 		}
 		provinces_to_highlight = {
+			province_id = 2525
 		}
 		trigger = {
+			2525 = {
+				controlled_by = ROOT
+				has_ruler_leader_from = ROOT
+			}
 		}
 		effect = {
 		}
@@ -216,11 +233,27 @@ archaon_3 = {
 		required_missions = {
 			archaon_the_atlar_of_darkness
 		}
-		provinces_to_highlight = {
-		}
 		trigger = {
+			is_at_war = no
+			capital_scope = {
+				NOT = {
+					has_construction = building
+				}
+			}
+			treasury = 500
+			capital_scope = {
+				has_port = yes
+				num_of_units_in_province = {
+					amount = 30
+					who = ROOT
+				}
+			}
 		}
 		effect = {
+			add_treasury = -500
+			country_event = {
+				id = flavor_archaon.1
+			}
 		}
 	}
 	archaon_eye_of_sheerin = {
@@ -280,7 +313,6 @@ archaon_4 = {
 	archaon_scouring_the_weak = {
 		icon = mission_chaos_religion
 		position = 1
-
 		trigger = {
 			is_in_war = {
 				casus_belli = cb_chaos_invasion
