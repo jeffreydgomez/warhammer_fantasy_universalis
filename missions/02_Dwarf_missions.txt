@@ -1,0 +1,2163 @@
+##### Dwarf Culture, Chaos Dwarf Culture
+#### Ancestor Gods, Hashut
+
+
+##################################
+##### DWARF CULTURE GROUP
+##################################
+
+
+
+war_dwarf_faction_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = dwarf_group
+	}
+
+
+### List a few human grudges that need to be dealt with.
+## Worth nothing
+	dwarf_human_grudge = {
+		icon = mission_empire_culture
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = human_military }
+		}
+		trigger = {
+
+			custom_trigger_tooltip = {
+				tooltip = defeated_humans_tt
+				has_country_flag = defeated_humans
+			}
+
+			any_country = {
+				has_opinion_modifier = {
+					who = ROOT
+					modifier = insulted
+				}
+				has_country_modifier = human_administration
+			}
+
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 15 }
+			add_legitimacy = 10
+			add_republican_tradition = 3
+			add_devotion = 10
+			add_horde_unity = 10
+			add_meritocracy = 10
+		}
+	}
+
+
+### Explain why Iron is important for dwarves
+## Worth nothing
+	dwarf_iron_1 = { 
+		icon = mission_dalaskogen
+		position = 3
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = iron
+		}	
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = iron
+				amount = 5
+			}
+		}
+
+		effect = {
+			custom_tooltip = claim_all_iron_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						trade_goods = iron
+						continent = underempire
+					}
+					add_permanent_claim = ROOT
+				}
+			}			
+		}
+	}
+
+### With so much iron, we can afford to upgrade our iron industrial tools into steel. Strike the earth!
+## Worth half an idea
+	dwarf_iron_2 = { 
+		icon = mission_dalaskogen
+		required_missions = { dwarf_iron_1 }
+		provinces_to_highlight = {
+			trade_goods = iron
+		}	
+		trigger = {
+			OR = {
+				trade_goods_produced_amount = {
+					trade_goods = iron
+					amount = 20
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+			    name = dwarf_steel_tools
+			    duration = -1  
+			}
+			
+		}
+	}
+
+## Monopoly on Iron - we control the iron market, and can control iron output to better control the price
+## Worth half an idea
+	dwarf_iron_3 = { 
+		icon = mission_dalaskogen
+		required_missions = { dwarf_iron_2 }
+		provinces_to_highlight = {
+			trade_goods = iron
+		}	
+		trigger = {
+			trading_part = {
+				trade_goods = iron
+				value = 0.3
+			}
+		}
+
+		effect = {
+			change_price = {
+			    trade_goods = iron
+			    value = 0.25
+			    duration = -1
+			}
+		}
+	}
+
+### Explain why Copper is so important for the dwarves
+	dwarf_copper_1 = { 
+		icon = mission_dalaskogen
+		position = 7
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = copper
+		}	
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = iron
+				amount = 5
+			}
+		}
+
+		effect = {
+			custom_tooltip = claim_all_copper_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						trade_goods = copper
+						continent = underempire
+					}
+					add_permanent_claim = ROOT
+				}
+			}			
+		}
+	}
+
+
+### Runemarked Shells - With so much copper, we can afford to runemark our copper artillery shells, makign them more powerful and punishing
+# Worth half an idea
+	dwarf_copper_2 = { 
+		icon = mission_dalaskogen
+		required_missions = { dwarf_copper_1 }
+		provinces_to_highlight = {
+			trade_goods = copper
+		}	
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = iron
+				amount = 20
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+			    name = dwarf_runemarked_shells
+			    duration = -1  
+			}			
+		}
+	}
+
+## Monopoly on Copper - we control the Copper market!
+## Worth half an idea
+	dwarf_copper_3 = { 
+		icon = mission_dalaskogen
+		required_missions = { dwarf_copper_2 }
+		provinces_to_highlight = {
+			trade_goods = copper
+		}	
+		trigger = {
+			trading_part = {
+				trade_goods = copper
+				value = 0.3
+			}
+		}
+
+		effect = {
+			change_price = {
+			    trade_goods = copper
+			    value = 0.25
+			    duration = -1
+			}
+		}
+	}
+
+
+## Reclaim Karak Norn (Center Left on Map)
+	dwarf_karak_norn_1 = { 
+		icon = mission_dwarf_religion
+		position = 11
+		required_missions = { }
+		provinces_to_highlight = {
+			area = karak_norn_area
+			OR = {
+				is_prosperous = no
+				AND = {
+					NOT = { owned_by = ROOT }
+					NOT = { owned_by_subject_of = ROOT }
+				}
+			}
+		}	
+		trigger = {
+			4486 = {
+				all_province_in_state = {
+					OR = {
+						owned_by = ROOT 
+						owned_by_subject_of	= ROOT
+					}
+					is_prosperous = yes
+				}
+			}
+		}
+
+		effect = {
+			every_province = {
+				limit = { area = karak_norn_area }
+				add_random_development = 1
+			}
+			every_province = {
+				limit = {
+					area = karak_norn_area
+					has_terrain = dwarf_karak
+				}
+				add_province_modifier = { 
+				    name = dwarf_reclaimed_hold
+				    duration = -1 
+				}
+			}
+			grey_mountains_region = {
+				add_claim = ROOT
+			}
+		}
+	}
+
+## Rebuild the Sentinel Keep
+# Lore: While it trades with humans and some Elves, relations with Athel Loren’s Wood Elves remain tense. The Dwarfs of Karak Norn often skirmish with forest spirits and protect trade routes leading to the Empire.
+# A stronghold guarding the southern Dwarf realm, bordering the dangerous Wood Elf kingdom of Athel Loren. Notable Features: A highly defensible position, guarding the Grey Mountains against invaders.
+## Worth Half an idea
+	dwarf_karak_norn_2 = { 
+		icon = mission_dwarf_culture
+		required_missions = { dwarf_karak_norn_1 }
+		provinces_to_highlight = {
+			area = karak_norn_area
+			OR = {
+				NOT = { development = 10 }
+				NOT = { num_of_buildings_in_province = 2 }
+				is_prosperous = no
+				AND = {
+					NOT = { owned_by = ROOT }
+					NOT = { owned_by_subject_of = ROOT }
+				}
+			}
+		}	
+		trigger = {
+			4486 = {
+				all_province_in_state = {
+					development = 10
+					num_of_buildings_in_province = 2
+					is_prosperous = yes
+				}
+				development = 25
+				num_of_times_expanded_infrastructure = 1
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+			    name = dwarf_trade_routes_of_karak_hirn
+			    duration = -1  
+			}
+		}
+	}
+
+
+## Reclaim Karak Hirn (Center Left on Map)
+	dwarf_karak_hirn_1 = { 
+		icon = mission_dwarf_religion
+		required_missions = { }
+		provinces_to_highlight = {
+			area = karak_hirn_area
+			OR = {
+				is_prosperous = no
+				AND = {
+					NOT = { owned_by = ROOT }
+					NOT = { owned_by_subject_of = ROOT }
+				}
+			}
+		}	
+		trigger = {
+			4481 = {
+				all_province_in_state = {
+					OR = {
+						owned_by = ROOT 
+						owned_by_subject_of	= ROOT
+					}
+					is_prosperous = yes
+				}
+			}
+		}
+
+		effect = {
+			every_province = {
+				limit = { area = karak_hirn_area }
+				add_random_development = 1
+			}
+			every_province = {
+				limit = {
+					area = karak_hirn_area
+					has_terrain = dwarf_karak
+				}
+				add_province_modifier = { 
+				    name = dwarf_reclaimed_hold
+				    duration = -1 
+				}
+			}
+			black_mountains_region = {
+				add_claim = ROOT
+			}			
+		}
+	}
+
+## Rebuild the Sky Touched Fortress
+# Lore: One of the few above-ground Dwarf strongholds, it has large gates and towers rather than deep tunnels. Less warlike than other Karaks, Karak Hirn thrives through diplomacy and commerce, serving as an important link between the Dwarfs and the human Empire. It remains one of the wealthier and more stable strongholds. It needs to juggle different alliances and trade agreements
+## Worth half an idea
+	dwarf_karak_hirn_2 = { 
+		icon = mission_dwarf_culture
+		required_missions = { dwarf_karak_hirn_1 }
+		provinces_to_highlight = {
+			area = karak_hirn_area
+			OR = {
+				NOT = { development = 10 }
+				NOT = { num_of_buildings_in_province = 2 }
+				is_prosperous = no
+				AND = {
+					NOT = { owned_by = ROOT }
+					NOT = { owned_by_subject_of = ROOT }
+				}
+			}
+		}	
+		trigger = {
+			4481 = {
+				all_province_in_state = {
+					development = 10
+					num_of_buildings_in_province = 2
+					is_prosperous = yes
+				}
+				development = 25
+				num_of_times_expanded_infrastructure = 1
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+			    name = dwarf_diplomatic_relations_of_karak_hirn
+			    duration = -1  
+			}
+		}
+	}
+
+
+
+}
+
+
+
+war_dwarf_faction_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = dwarf_group
+	}
+
+	dwarf_skaven_grudge_1 = {
+		icon = mission_skaven_culture
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = skaven_military }
+		}
+		trigger = {
+
+			custom_trigger_tooltip = {
+				tooltip = defeated_skaven_tt
+				has_country_flag = defeated_skaven
+			}
+
+			any_country = {
+				has_opinion_modifier = {
+					who = ROOT
+					modifier = insulted
+				}
+				has_country_modifier = skaven_administration
+			}
+
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 15 }
+			add_legitimacy = 10
+			add_republican_tradition = 3
+			add_devotion = 10
+			add_horde_unity = 10
+			add_meritocracy = 10
+		}
+	}
+
+## Too long have we seen our walls breached by Skaven! We shall build them twice, no, three times thicker!
+# Worth half an idea
+	dwarf_skaven_grudge_2 = {
+		icon = mission_skaven_religion
+		required_missions = { dwarf_skaven_grudge_1 }
+		provinces_to_highlight = {
+			province_id = 169
+		}
+		trigger = {
+			169 = {
+				OR = {
+					controlled_by = ROOT
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}	
+		}
+		effect = {
+			add_country_modifier = { 
+			    name = dwarf_defense_against_the_skaven
+			    duration = -1  
+			}
+		}
+	}
+
+
+## Those who maintain our temples must be reminded that ancestor worship is forward looking as well as backward looking. To be worthy of the honor of the ancestors, we must reclaim our birthright!
+# Worth no ideas
+	dwarf_please_church = { 
+		icon = mission_dwarf_religion
+		required_missions = { dwarf_stability}
+		position = 5
+		trigger = {
+			estate_loyalty = {
+			    estate = estate_church
+			    loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 1
+			}
+		}
+
+		effect = {
+			add_splendor = 200
+		}
+	}
+
+## If we are to expand, it must be built upon a pious base. Our dwarves must have places to honor the dead.
+## Worth no ideas
+	dwarf_build_churches = {
+		icon = mission_dwarf_religion
+		required_missions = { dwarf_please_church }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_building = temple }
+			NOT = { has_building = cathedral }
+		}
+		trigger = {
+			religious_unity = 0.90
+			OR = {
+				num_of_owned_provinces_with = {
+					OR = {
+						has_building = temple
+						has_building = cathedral
+					}
+					value = 5
+				}
+				all_owned_province = {
+					OR = {
+						has_building = temple
+						has_building = cathedral
+					}
+				}
+			}
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+		}
+	}
+
+
+### While other races see Alcohol as base, we dwarves understand its social importance. It is a drink of honor and glory. For what is conquest without celebration?
+# Worth half an idea
+	dwarf_beer_1 = { 
+		icon = mission_dwarf_religion
+		required_missions = { dwarf_build_churches }
+		provinces_to_highlight = {
+			trade_goods = beer
+		}	
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = beer
+				amount = 3
+			}
+		}
+
+		effect = {
+			custom_tooltip = claim_all_beer_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						trade_goods = beer
+						continent = underempire
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			add_country_modifier = { 
+			    name = dwarf_beer_1
+			    duration = -1  
+			}
+
+		}
+	}
+
+## With a steady supply of beer, our people are happy
+## Worth half an idea
+	dwarf_beer_2 = { 
+		icon = mission_dwarf_religion
+		required_missions = { dwarf_beer_1 }
+		provinces_to_highlight = {
+			trade_goods = beer
+		}	
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = beer
+				amount = 6
+			}
+		}
+
+		effect = {
+			remove_country_modifier = dwarf_beer_1
+			add_country_modifier = { 
+			    name = dwarf_beer_2
+			    duration = -1  
+			}			
+		}
+	}
+
+## Monopoly on beer - we control the beer! Or any ally has the production bonus for beer?
+## Worthhalf an idea
+	dwarf_beer_3 = { 
+		icon = mission_dwarf_religion
+		required_missions = { dwarf_beer_2 }
+		provinces_to_highlight = {
+			trade_goods = beer
+		}	
+		trigger = {
+			OR = {
+				trading_bonus = {
+					trade_goods = beer
+					value = yes
+				}
+				trade_goods_produced_amount = {
+					trade_goods = beer
+					amount = 15
+				}
+				any_ally = {
+					production_leader = {
+						trade_goods = beer
+					}
+				}
+				any_subject_country = {
+					production_leader = {
+						trade_goods = beer
+					}
+				}
+			}
+		}
+
+		effect = {
+			remove_country_modifier = dwarf_beer_2
+			add_country_modifier = { 
+			    name = dwarf_beer_3
+			    duration = -1  
+			}
+		}
+	}
+
+
+## Reclaim Karak Kadrin
+	dwarf_karak_kadrin_1 = { 
+		icon = mission_dwarf_religion
+		position = 11
+		required_missions = { }
+		provinces_to_highlight = {
+			area = karak_kadrin_area
+			OR = {
+				is_prosperous = no
+				AND = {
+					NOT = { owned_by = ROOT }
+					NOT = { owned_by_subject_of = ROOT }
+				}
+			}
+		}	
+		trigger = {
+			4537 = {
+				all_province_in_state = {
+					OR = {
+						owned_by = ROOT 
+						owned_by_subject_of	= ROOT
+					}
+					is_prosperous = yes
+				}
+			}
+		}
+
+		effect = {
+			every_province = {
+				limit = { area = karak_kadrin_area }
+				add_random_development = 1
+			}
+			every_province = {
+				limit = {
+					area = karak_kadrin_area
+					has_terrain = dwarf_karak
+				}
+				add_province_modifier = { 
+				    name = dwarf_reclaimed_hold
+				    duration = -1 
+				}
+			}
+			world_edge_mountains_region = {
+				add_claim = ROOT
+			}
+		}
+	}
+
+## Rebuild the Slayer Hold
+# Lore: Ruled by the famed Slayer King Ungrim Ironfist, who upholds both his kingly duties and a Slayer oath. This Karak is an unbreakable bastion against the northern Chaos invasions and a place where disgraced Dwarfs seek redemption through death in battle. - Morale or morale damage reduction
+
+	dwarf_karak_kadrin_2 = { 
+		icon = mission_dwarf_culture
+		required_missions = { dwarf_karak_kadrin_1 }
+		provinces_to_highlight = {
+			area = karak_kadrin_area
+			OR = {
+				NOT = { development = 10 }
+				NOT = { num_of_buildings_in_province = 2 }
+				is_prosperous = no
+				AND = {
+					NOT = { owned_by = ROOT }
+					NOT = { owned_by_subject_of = ROOT }
+				}
+			}
+		}	
+		trigger = {
+			4537 = {
+				all_province_in_state = {
+					development = 10
+					num_of_buildings_in_province = 2
+					is_prosperous = yes
+				}
+				development = 25
+				num_of_times_expanded_infrastructure = 1
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+			    name = dwarf_slayer_morale
+			    duration = -1  
+			}
+		}
+	}
+
+
+## Reclaim Karaz a Karak
+	dwarf_karaz_a_karak_1 = { 
+		icon = mission_dwarf_religion
+		required_missions = { }
+		provinces_to_highlight = {
+			area = karaz_a_karak_area
+			OR = {
+				is_prosperous = no
+				AND = {
+					NOT = { owned_by = ROOT }
+					NOT = { owned_by_subject_of = ROOT }
+				}
+			}
+		}	
+		trigger = {
+			700 = {
+				all_province_in_state = {
+					OR = {
+						owned_by = ROOT 
+						owned_by_subject_of	= ROOT
+					}
+					is_prosperous = yes
+				}
+			}
+		}
+
+		effect = {
+			every_province = {
+				limit = { area = karaz_a_karak_area }
+				add_random_development = 1
+			}
+			every_province = {
+				limit = {
+					area = karaz_a_karak_area
+					has_terrain = dwarf_karak
+				}
+				add_province_modifier = { 
+				    name = dwarf_reclaimed_hold
+				    duration = -1 
+				}
+			}
+			world_edge_mountains_region = {
+				add_claim = ROOT
+			}			
+		}
+	}
+
+## Rebuild the Everpeak
+# Lore: The political and spiritual heart of the Dwarf race, Karaz-a-Karak is the final bastion that must never fall. It holds the grandest forges and breweries, producing some of the finest arms, armor, and ale in the Old World.
+## Worth half an idea
+
+	dwarf_karaz_a_karak_2 = { 
+		icon = mission_dwarf_culture
+		required_missions = { dwarf_karaz_a_karak_1 }
+		provinces_to_highlight = {
+			area = karaz_a_karak_area
+			OR = {
+				NOT = { development = 10 }
+				NOT = { num_of_buildings_in_province = 2 }
+				is_prosperous = no
+				AND = {
+					NOT = { owned_by = ROOT }
+					NOT = { owned_by_subject_of = ROOT }
+				}
+			}
+		}	
+		trigger = {
+			700 = {
+				all_province_in_state = {
+					development = 10
+					num_of_buildings_in_province = 2
+					is_prosperous = yes
+				}
+				development = 25
+				num_of_times_expanded_infrastructure = 1
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+			    name = dwarf_glory_of_the_everpeak
+			    duration = -1  
+			}
+		}
+	}
+
+
+
+	
+}
+
+war_dwarf_faction_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = dwarf_group
+	}
+
+## Talk about the grudge against the hated Dawi-Zharr
+	dwarf_chaos_dwarf_grudge_1 = {
+		icon = mission_chaos_culture
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { culture_group = chaos_dwarf_group }
+		}
+		trigger = {
+
+			custom_trigger_tooltip = {
+				tooltip = defeated_humans_tt
+				has_country_flag = defeated_humans
+			}
+
+			any_country = {
+				has_opinion_modifier = {
+					who = ROOT
+					modifier = insulted
+				}
+				culture_group = chaos_dwarf_group
+			}
+
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 15 }
+			add_legitimacy = 10
+			add_republican_tradition = 3
+			add_devotion = 10
+			add_horde_unity = 10
+			add_meritocracy = 10
+		}
+	}
+
+
+## We can take some learnings from Zharr Nagrund back with us
+# Worth half an idea
+	dwarf_chaos_dwarf_grudge_2 = {
+		icon = mission_hashut_religion
+		required_missions = { dwarf_chaos_dwarf_grudge_1 }
+		provinces_to_highlight = {
+			province_id = 810
+		}
+		trigger = {
+			810 = {
+				OR = {
+					controlled_by = ROOT
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}	
+		}
+		effect = {
+			add_country_modifier = {
+				name = dwarf_chaos_dwarf_factory_learnings
+				duration = -1
+			}
+		}
+	}
+
+
+## Our Grudges have been settled! Own
+## Worth half an idea
+	dwarf_book_of_grudges = {
+		icon = mission_court_education
+		required_missions = { dwarf_skaven_grudge_2 dwarf_chaos_dwarf_grudge_2 dwarf_greenskin_grudge_2 }
+		provinces_to_highlight = {
+			has_province_modifier = location_of_the_book_of_grudges
+		}
+		trigger = {
+			any_owned_province = {
+				has_province_modifier = location_of_the_book_of_grudges
+			}
+			OR = {
+				power_projection = 90
+				AND = {
+					great_power_rank = 1
+					NOT = { great_power_rank = 2 }
+				}
+			}
+			calc_true_if = {
+				amount = 6
+				all_country = {
+					has_opinion_modifier = {
+						who = ROOT
+						modifier = insulted
+					}
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = dwarf_chaos_dwarf_factory_learnings
+			remove_country_modifier = dwarf_defense_against_the_skaven
+			remove_country_modifier = dwarf_orc_siege
+			add_country_modifier = {
+				name = dwarf_book_of_grudges_settled
+				duration = -1
+			}
+			add_legitimacy = 25
+			add_republican_tradition = 10
+			add_devotion = 25
+			add_horde_unity = 25
+			add_meritocracy = 25
+			add_prestige_or_monarch_power = { amount = 50 }
+		}
+	}
+
+### Relight the Fires
+### Our people have too long settled for what we had. It is time to mobilize and reclaim the Karaz Ankor! We must get to work convincing our factions to dream bigger.
+# Worth no ideas
+	dwarf_stability = {
+		icon = alpine_fortifications
+		required_missions = { }
+		position = 4
+		trigger = {
+			stability = 2
+			legitimacy_equivalent = 99
+			is_at_war = yes
+		}
+		effect = {
+			add_army_professionalism = 0.05
+		}
+	}
+
+## Our Clan leaders are too busy squabbling amoung themselves to see the bigger picture. We must convince them to sacrifice for the greater good.
+## Worth no ideas
+	dwarf_please_nobility = { 
+		icon = mission_guns_of_urban
+		required_missions = { dwarf_stability }
+		trigger = {
+			estate_loyalty = {
+			    estate = estate_nobles
+			    loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+
+		effect = {
+			define_general = {
+			    shock = 5
+			    fire = 6
+			    manuever = 2
+			    siege = 6
+			}
+		}
+	}
+
+## With new facilities to house our armies, people are signing up
+## Worth no ideas
+	dwarf_build_barracks = {
+		icon = mission_guns_of_urban
+		required_missions = { dwarf_please_nobility }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_building = barracks }
+			NOT = { has_building = training_fields }
+		}
+		trigger = {
+			OR = {
+				num_of_owned_provinces_with = {
+					OR = {
+				 		has_building = barracks
+				 		has_building = training_fields
+					}
+					value = 5
+				}
+				all_owned_province = {
+					OR = {
+				 		has_building = barracks
+				 		has_building = training_fields
+					}
+				}
+			}
+		}
+		effect = {
+			add_yearly_manpower = 2
+		}
+	}
+
+## One of a dwarf's greatests strengths is an unbreakable will and unbreakable walls. Walls we can shoot from behind!
+## Half an idea
+	dwarf_build_forts = {
+		icon = mission_guns_of_urban
+		required_missions = { dwarf_build_barracks }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { fort_level = 1 }
+		}
+		trigger = {
+			OR = {
+				num_of_owned_provinces_with = {
+			 		fort_level = 1
+					value = 5
+				}
+				all_owned_province = {
+			 		fort_level = 1
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+			    name = dwarf_fire_1
+			    duration = -1  
+			}
+		}
+	}
+
+# Artillery is another strength!
+# Half an idea
+	dwarf_build_artillery = {
+		icon = mission_guns_of_urban
+		required_missions = { dwarf_build_forts }
+		provinces_to_highlight = {
+			OR = {
+				has_terrain = copper
+				has_terrain = iron
+				has_terrain = gromril
+			}
+		}
+		trigger = {
+			artillery_fraction = 0.5
+			weapons = 3
+		}
+		effect = {
+			remove_country_modifier = dwarf_fire_1
+			add_country_modifier = { 
+			    name = dwarf_fire_2
+			    duration = -1  
+			}
+		}
+	}
+
+## Just let them try to attack us!
+## Half an idea
+	dwarf_build_ramparts = {
+		icon = mission_guns_of_urban
+		required_missions = { dwarf_build_artillery }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_building = ramparts }
+		}
+		trigger = {
+			OR = {
+				num_of_owned_provinces_with = {
+			 		has_building = ramparts
+					value = 5
+				}
+				all_owned_province = {
+				 	has_building = ramparts
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = dwarf_fire_2
+			add_country_modifier = { 
+			    name = dwarf_fire_3
+			    duration = -1  
+			}
+		}
+	}
+
+
+## We have distinguished ourselves as the true and unquestioned leader of the dwarves. We have mobilized our people and inspired them. For the Karaz Ankor!
+## Worth one idea
+	dwarf_best_dwarf = {
+		icon = mission_dwarf_culture
+		required_missions = { dwarf_beer_3 dwarf_build_ramparts dwarf_industrialize }
+		provinces_to_highlight = {
+			owner = {
+				NOT = { tag = ROOT }
+				OR = {
+					AND = {
+						has_country_modifier = dwarven_administration
+						OR = {
+							total_development = ROOT
+							diplomatic_reputation = ROOT
+							prestige = ROOT
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			NOT = {
+				any_country = {
+					has_country_modifier = dwarven_administration
+					total_development = ROOT
+				}
+			}
+			OR = {
+				NOT = {
+					any_country = {
+						has_country_modifier = dwarven_administration
+						diplomatic_reputation = ROOT
+					}
+				}
+				diplomatic_reputation = 7
+			}
+			OR = {
+				NOT = {
+					any_country = {
+						has_country_modifier = dwarven_administration
+						prestige = ROOT
+					}
+				}
+				prestige = 100
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+			    name = dwarf_inspired_populace
+			    duration = -1  
+			}
+		}
+	}
+
+## It is the dawning of a new dwarven golden age!
+## Worth two ideas
+	dwarf_golden_age = {
+		icon = mission_crown_of_denmark
+		required_missions = { dwarf_best_dwarf dwarf_karak_norn_2 dwarf_karak_hirn_2 dwarf_karak_kadrin_2 dwarf_karaz_a_karak_2 dwarf_karak_8_peaks_2 dwarf_karaz_azul_2 dwarf_karak_vlag_2 dwarf_karak_zorn_2}
+		position = 15
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				has_had_golden_age = yes
+				in_golden_age = yes
+			}
+		}
+		effect = {
+			reset_golden_age = yes
+			extend_golden_age = 600
+
+			remove_country_modifier = dwarf_trade_routes_of_karak_hirn
+			remove_country_modifier = dwarf_diplomatic_relations_of_karak_hirn
+			remove_country_modifier = dwarf_slayer_morale
+			remove_country_modifier = dwarf_glory_of_the_everpeak
+			remove_country_modifier = dwarf_resolve_of_karak_8_peaks
+			remove_country_modifier = dwarf_armor_of_karak_azul
+			remove_country_modifier = dwarf_mines_of_karak_vlag
+			remove_country_modifier = dwarf_resilience_of_karak_zorn
+
+			add_country_modifier = {
+			    name = dwarf_reformed_empire
+			    duration = -1  
+			}
+		}
+	}
+
+## A new age dawns in Gromril!
+## Worth 8 ideas
+	dwarf_gromril_age = { 
+		icon = mission_sw_torquoise_mining
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = gromril 
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			NOT = {
+				any_province = {
+					NOT = { owned_by = ROOT }
+					NOT = { owned_by_subject_of = ROOT }
+					trade_goods = gromril
+				}
+			}
+			trade_goods_produced_amount = {
+				trade_goods = gromril
+				amount = 50
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+ 				name = dwarf_gromril_age
+				duration = -1
+			}
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_gromril_crown
+				    duration = -1  
+				}			
+			}
+			set_global_flag = gromril_crown_forged
+		}
+	}
+
+}
+
+war_dwarf_faction_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = dwarf_group
+	}
+
+## Talk about the greenskin grudges of the past
+# Worth no ideas
+	dwarf_greenskin_grudge_1 = {
+		icon = mission_orc_culture
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = orcish_military }
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = defeated_orcs_tt
+				has_country_flag = defeated_orcs
+			}
+			any_country = {
+				has_opinion_modifier = {
+					who = ROOT
+					modifier = insulted
+				}
+				has_country_modifier = orcish_administration
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 15 }
+			add_legitimacy = 10
+			add_republican_tradition = 3
+			add_devotion = 10
+			add_horde_unity = 10
+			add_meritocracy = 10
+		}
+	}
+
+
+## Greenskin forts are made of twigs and paper compared to ours. Perhaps we can learn to move quicker when setting up a siege as a result.
+## Worth half an idea
+	dwarf_greenskin_grudge_2 = {
+		icon = mission_orc_religion
+		required_missions = { dwarf_greenskin_grudge_1 }
+		provinces_to_highlight = {
+			has_terrain = dwarf_karak
+			controller = { has_country_modifier = orcish_administration }
+		}
+		trigger = {
+			NOT = {
+				any_province = {
+					has_terrain = dwarf_karak
+					controller = { has_country_modifier = orcish_administration }
+				}
+			}	
+		}
+		effect = {
+			add_country_modifier = { 
+			    name = dwarf_orc_siege
+			    duration = -1  
+			}
+		}
+	}
+
+
+### It is time to get our merchants and money lenders on side
+## Worth no ideas
+	dwarf_please_guilds = {
+		icon = mission_african_gold
+		required_missions = { dwarf_stability }
+		position = 5
+		trigger = {
+			estate_loyalty = {
+ 				estate = estate_burghers
+    			loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_burghers
+				value = 1
+			}
+		}
+		effect = {
+			add_years_of_income = 2
+			country_event = { 
+			    id = dwarf_events.11
+			    days = 1
+			}
+		}
+	}
+
+## Trade must flow through our keeps.
+## Worth no ideas
+	dwarf_command_trade = {
+		icon = mission_african_gold
+		required_missions = { dwarf_please_guilds }
+		provinces_to_highlight = {
+			province_has_center_of_trade_of_level = 1
+		}
+		trigger = {
+			any_owned_province = {
+				province_has_center_of_trade_of_level = 2
+				OR = {
+			 		has_building = marketplace
+			 		has_building = trade_depot
+			 		has_building = stock_exchange
+				}
+			}
+		}
+		effect = {
+			country_event = { 
+			    id = dwarf_events.11
+			    days = 1
+			}
+			country_event = { 
+			    id = dwarf_events.11
+			    days = 10
+			}
+			country_event = { 
+			    id = dwarf_events.11
+			    days = 20
+			}
+		}
+	}
+
+## It is time to establish a base of production, and use the proceeds to industrialize!
+## Worth half an idea
+	dwarf_production_powerhouse = {
+		icon = mission_african_gold
+		required_missions = { dwarf_command_trade }
+		provinces_to_highlight = {
+			has_province_modifier = dwarf_industrialized
+			has_province_modifier = dwarf_industrialized_wasteland
+		}
+		trigger = {
+			any_owned_province = {
+				OR = {
+					has_building = workshop
+					has_building = counting_house
+				}
+				OR = {
+					has_building = mills
+					has_building = farm_estate
+					has_building = tradecompany
+					has_building = plantations
+					has_building = textile
+					has_building = weapons
+					has_building = wharf
+					has_building = furnace
+				}
+				OR = {
+					has_province_modifier = dwarf_industrialized
+					has_province_modifier = dwarf_industrialized_wasteland
+				}
+				base_production = 20
+			}
+		}
+		effect = {
+			country_event = { 
+			    id = dwarf_events.11
+			    days = 1
+			}
+			add_country_modifier = { 
+			    name = dwarf_goods_1
+			    duration = -1  
+			}
+		}
+	}
+
+## A solid infrastructure is needed to rebuild the Karaz Ankor
+## Worth half an idea
+	dwarf_infrastructure = {
+		icon = mission_african_gold
+		required_missions = { dwarf_production_powerhouse }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { num_of_times_expanded_infrastructure = 1 }
+		}
+		
+
+		trigger = {
+			OR = {
+				calc_true_if = {
+					all_owned_province = {
+						num_of_times_expanded_infrastructure = 1
+					}
+					amount = 10
+				}
+				all_owned_province = {
+					num_of_times_expanded_infrastructure = 1
+				}
+			}
+		}
+
+		effect = {
+			country_event = { 
+			    id = dwarf_events.11
+			    days = 1
+			}
+			remove_country_modifier = dwarf_goods_1
+			add_country_modifier = { 
+			    name = dwarf_goods_2
+			    duration = -1  
+			}
+		}
+	}
+
+## Full industrialization!
+## Worth half an idea
+	dwarf_industrialize = {
+		icon = mission_african_gold
+		required_missions = { dwarf_infrastructure }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_province_modifier = dwarf_industrialized }
+			NOT = { has_province_modifier = dwarf_industrialized_wasteland }
+			NOT = { has_province_modifier = dwarf_rail_system }
+		}
+		
+
+		trigger = {
+			OR = {
+				calc_true_if = {
+					all_owned_province = {
+						OR = {
+							has_province_modifier = dwarf_industrialized
+							has_province_modifier = dwarf_industrialized_wasteland
+							has_province_modifier = dwarf_rail_system
+						}
+					}
+					amount = 10
+				}
+				all_owned_province = {
+					OR = {
+						has_province_modifier = dwarf_industrialized
+						has_province_modifier = dwarf_industrialized_wasteland
+						has_province_modifier = dwarf_rail_system
+					}
+				}
+			}
+		}
+
+		effect = {
+			country_event = { 
+			    id = dwarf_events.11
+			    days = 1
+			}
+			remove_country_modifier = dwarf_goods_2
+			add_country_modifier = {
+			    name = dwarf_goods_3
+			    duration = -1  
+			}
+		}
+	}
+
+## Reclaim Karak 8 Peaks
+## Worth half an idea
+	dwarf_karak_8_peaks_1 = { 
+		icon = mission_dwarf_religion
+		position = 11
+		required_missions = { }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4420
+				province_id = 4530
+				province_id = 4434
+				province_id = 4412
+				province_id = 4410
+				province_id = 4414
+				province_id = 4418
+				province_id = 4416
+
+			}
+			OR = {
+				is_prosperous = no
+				AND = {
+					NOT = { owned_by = ROOT }
+					NOT = { owned_by_subject_of = ROOT }
+				}
+			}
+		}	
+		trigger = {
+			4420 = {
+				OR = {
+					owned_by = ROOT 
+					owned_by_subject_of	= ROOT
+				}
+				is_prosperous = yes			
+			}
+			4530 = {
+				OR = {
+					owned_by = ROOT 
+					owned_by_subject_of	= ROOT
+				}
+				is_prosperous = yes			
+			}
+			4434 = {
+				OR = {
+					owned_by = ROOT 
+					owned_by_subject_of	= ROOT
+				}
+				is_prosperous = yes			
+			}
+			4412 = {
+				OR = {
+					owned_by = ROOT 
+					owned_by_subject_of	= ROOT
+				}
+				is_prosperous = yes			
+			}
+			4410 = {
+				OR = {
+					owned_by = ROOT 
+					owned_by_subject_of	= ROOT
+				}
+				is_prosperous = yes			
+			}
+			4414 = {
+				OR = {
+					owned_by = ROOT 
+					owned_by_subject_of	= ROOT
+				}
+				is_prosperous = yes			
+			}
+			4418 = {
+				OR = {
+					owned_by = ROOT 
+					owned_by_subject_of	= ROOT
+				}
+				is_prosperous = yes			
+			}
+			4416 = {
+				OR = {
+					owned_by = ROOT 
+					owned_by_subject_of	= ROOT
+				}
+				is_prosperous = yes			
+			}
+		}
+
+		effect = {
+			4420 = {
+				add_random_development = 1
+				add_province_modifier = { 
+				    name = dwarf_reclaimed_hold
+				    duration = -1 
+				}
+			}
+			4530 = {
+				add_random_development = 1
+				add_province_modifier = { 
+				    name = dwarf_reclaimed_hold
+				    duration = -1 
+				}		
+			}
+			4434 = {
+				add_random_development = 1
+				add_province_modifier = { 
+				    name = dwarf_reclaimed_hold
+				    duration = -1 
+				}	
+			}
+			4412 = {
+				add_random_development = 1
+				add_province_modifier = { 
+				    name = dwarf_reclaimed_hold
+				    duration = -1 
+				}		
+			}
+			4410 = {
+				add_random_development = 1
+				add_province_modifier = { 
+				    name = dwarf_reclaimed_hold
+				    duration = -1 
+				}		
+			}
+			4414 = {
+				add_random_development = 1
+				add_province_modifier = { 
+				    name = dwarf_reclaimed_hold
+				    duration = -1 
+				}		
+			}
+			4418 = {
+				add_random_development = 1
+				add_province_modifier = { 
+				    name = dwarf_reclaimed_hold
+				    duration = -1 
+				}		
+			}
+			4416 = {
+				add_random_development = 1
+				add_province_modifier = { 
+				    name = dwarf_reclaimed_hold
+				    duration = -1 
+				}		
+			}
+			karak_eight_peaks_region = {
+				add_claim = ROOT
+			}
+		}
+	}
+
+## Rebuild Karak 8 Peaks
+# Lore: One of the most tragic losses in Dwarf history. Belegar Ironhammer, a descendant of its last true king, leads an ongoing struggle to reclaim it, though the odds are stacked against him. - War exhaustion reduction?
+# Worth half an idea
+
+	dwarf_karak_8_peaks_2 = { 
+		icon = mission_dwarf_culture
+		required_missions = { dwarf_karak_8_peaks_1 }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4420
+				province_id = 4530
+				province_id = 4434
+				province_id = 4412
+				province_id = 4410
+				province_id = 4414
+				province_id = 4418
+				province_id = 4416
+
+			}
+			OR = {
+				NOT = { development = 25 }
+				NOT = { num_of_buildings_in_province = 2 }
+				NOT = { num_of_times_expanded_infrastructure = 1 }
+				is_prosperous = no
+				AND = {
+					NOT = { owned_by = ROOT }
+					NOT = { owned_by_subject_of = ROOT }
+				}
+			}
+		}	
+		trigger = {
+			4420 = {
+				development = 25
+				num_of_buildings_in_province = 2
+				num_of_times_expanded_infrastructure = 1
+				OR = {
+					owned_by = ROOT 
+					owned_by_subject_of	= ROOT
+				}
+			}
+			4530 = {
+				development = 25
+				num_of_buildings_in_province = 2
+				num_of_times_expanded_infrastructure = 1
+				OR = {
+					owned_by = ROOT 
+					owned_by_subject_of	= ROOT
+				}			
+			}
+			4434 = {
+				development = 25
+				num_of_buildings_in_province = 2
+				num_of_times_expanded_infrastructure = 1
+				OR = {
+					owned_by = ROOT 
+					owned_by_subject_of	= ROOT
+				}		
+			}
+			4412 = {
+				development = 25
+				num_of_buildings_in_province = 2
+				num_of_times_expanded_infrastructure = 1
+				OR = {
+					owned_by = ROOT 
+					owned_by_subject_of	= ROOT
+				}			
+			}
+			4410 = {
+				development = 25
+				num_of_buildings_in_province = 2
+				num_of_times_expanded_infrastructure = 1
+				OR = {
+					owned_by = ROOT 
+					owned_by_subject_of	= ROOT
+				}			
+			}
+			4414 = {
+				development = 25
+				num_of_buildings_in_province = 2
+				num_of_times_expanded_infrastructure = 1
+				OR = {
+					owned_by = ROOT 
+					owned_by_subject_of	= ROOT
+				}			
+			}
+			4418 = {
+				development = 25
+				num_of_buildings_in_province = 2
+				num_of_times_expanded_infrastructure = 1
+				OR = {
+					owned_by = ROOT 
+					owned_by_subject_of	= ROOT
+				}			
+			}
+			4416 = {
+				development = 25
+				num_of_buildings_in_province = 2
+				num_of_times_expanded_infrastructure = 1
+				OR = {
+					owned_by = ROOT 
+					owned_by_subject_of	= ROOT
+				}			
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+			    name = dwarf_resolve_of_karak_8_peaks
+			    duration = -1  
+			}
+		}
+	}
+
+
+## Reclaim Karaz Azul
+	dwarf_karaz_azul_1 = { 
+		icon = mission_dwarf_religion
+		required_missions = { }
+		provinces_to_highlight = {
+			area = karak_azul_area
+			OR = {
+				is_prosperous = no
+				AND = {
+					NOT = { owned_by = ROOT }
+					NOT = { owned_by_subject_of = ROOT }
+				}
+			}
+		}	
+		trigger = {
+			4409 = {
+				all_province_in_state = {
+					OR = {
+						owned_by = ROOT 
+						owned_by_subject_of	= ROOT
+					}
+					is_prosperous = yes
+				}
+			}
+		}
+
+		effect = {
+			every_province = {
+				limit = { area = karak_azul_area }
+				add_random_development = 1
+			}
+			every_province = {
+				limit = {
+					area = karak_azul_area
+					has_terrain = dwarf_karak
+				}
+				add_province_modifier = { 
+				    name = dwarf_reclaimed_hold
+				    duration = -1 
+				}
+			}
+			southern_world_edge_mountains_region = {
+				add_claim = ROOT
+			}			
+		}
+	}
+
+## Rebuild Karaz Azul
+# Lore: This Karak produces the finest armor and weapons, used by Dwarf kings and warriors across the Old World. It is also home to King Kazador, who harbors a personal grudge against the Greenskins after his hold was ravaged and his son taken. - Shock Damage reduction
+
+	dwarf_karaz_azul_2 = { 
+		icon = mission_dwarf_culture
+		required_missions = { dwarf_karaz_azul_1 }
+		provinces_to_highlight = {
+			area = karak_azul_area
+			OR = {
+				NOT = { development = 10 }
+				NOT = { num_of_buildings_in_province = 2 }
+				is_prosperous = no
+				AND = {
+					NOT = { owned_by = ROOT }
+					NOT = { owned_by_subject_of = ROOT }
+				}
+			}
+		}	
+		trigger = {
+			4409 = {
+				all_province_in_state = {
+					development = 10
+					num_of_buildings_in_province = 2
+					is_prosperous = yes
+				}
+				development = 25
+				num_of_times_expanded_infrastructure = 1
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+			    name = dwarf_armor_of_karak_azul
+			    duration = -1  
+			}
+		}
+	}
+
+
+}
+
+war_dwarf_faction_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = dwarf_group
+	}
+
+	dwarf_elf_grudge = {
+		icon = mission_wood_elf_culture
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = elven_military }
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = defeated_elves_tt
+				has_country_flag = defeated_elves
+			}
+			any_country = {
+				has_opinion_modifier = {
+					who = ROOT
+					modifier = insulted
+				}
+				has_country_modifier = elven_administration
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 15 }
+			add_legitimacy = 10
+			add_republican_tradition = 3
+			add_devotion = 10
+			add_horde_unity = 10
+			add_meritocracy = 10
+		}
+	}
+
+
+
+### TAlk about why gems are important to dwarves
+	dwarf_gems_1 = { 
+		icon = mission_rb_inland_india
+		position = 3
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = gems
+		}	
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = gems
+				amount = 3
+			}
+		}
+
+		effect = {
+			custom_tooltip = claim_all_gems_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						trade_goods = gems
+						continent = underempire
+					}
+					add_permanent_claim = ROOT
+				}
+			}			
+		}
+	}
+
+
+## The Gem Coin - We have so much metal flowing it, it is time to mint a new type of coin. These rune inscribed gems will help keep inflation in check
+# Worth half a point
+	dwarf_gems_2 = { 
+		icon = mission_rb_inland_india
+		required_missions = { dwarf_gems_1 }
+		provinces_to_highlight = {
+			trade_goods = gems
+		}	
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = gems
+				amount = 6
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+			    name = dwarf_gem_coins
+			    duration = -1  
+			}			
+		}
+	}
+
+## Monopoly on gems - we control the gem!
+	dwarf_gems_3 = { 
+		icon = mission_rb_inland_india
+		required_missions = { dwarf_gems_2 }
+		provinces_to_highlight = {
+			trade_goods = gems
+		}	
+		trigger = {
+			trading_part = {
+				trade_goods = gems
+				value = 0.3
+			}
+		}
+
+		effect = {
+			change_price = {
+			    trade_goods = gems
+			    value = 0.25
+			    duration = -1
+			}
+		}
+	}
+
+
+
+
+### Talk about why gold is important to Dwarves
+	dwarf_gold_1 = { 
+		icon = dominant_economy
+		position = 7
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = gold
+		}	
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = gold
+				amount = 3
+			}
+		}
+
+		effect = {
+			custom_tooltip = claim_all_gold_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						trade_goods = gold
+						continent = underempire
+					}
+					add_permanent_claim = ROOT
+				}
+			}			
+		}
+	}
+
+
+## Worth no ideas
+	dwarf_gold_2 = { 
+		icon = dominant_economy
+		required_missions = { dwarf_gold_1 }
+		provinces_to_highlight = {
+			trade_goods = gold
+		}	
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = gold
+				amount = 6
+			}
+		}
+
+		effect = {
+			add_years_of_income = 1
+		}
+	}
+
+## Worth half an idea
+	dwarf_gold_3 = { 
+		icon = dominant_economy
+		required_missions = { dwarf_gold_2 }
+		provinces_to_highlight = {
+			trade_goods = gold
+		}	
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = gold
+				amount = 15
+			}
+		}
+
+		effect = {
+			add_years_of_income = 2.5
+		}
+	}
+
+## Reclaim Karak Vlagg
+	dwarf_karak_vlag_1 = { 
+		icon = mission_dwarf_religion
+		position = 11
+		required_missions = { }
+		provinces_to_highlight = {
+			area = karak_vlag_area
+			OR = {
+				is_prosperous = no
+				AND = {
+					NOT = { owned_by = ROOT }
+					NOT = { owned_by_subject_of = ROOT }
+				}
+			}
+		}	
+		trigger = {
+			4577 = {
+				all_province_in_state = {
+					OR = {
+						owned_by = ROOT 
+						owned_by_subject_of	= ROOT
+					}
+					is_prosperous = yes
+				}
+			}
+		}
+
+		effect = {
+			every_province = {
+				limit = { area = karak_vlag_area }
+				add_random_development = 1
+			}
+			every_province = {
+				limit = {
+					area = karak_vlag_area
+					has_terrain = dwarf_karak
+				}
+				add_province_modifier = { 
+				    name = dwarf_reclaimed_hold
+				    duration = -1 
+				}
+			}
+			world_edge_mountains_region = {
+				add_claim = ROOT
+			}
+		}
+	}
+
+## Rebuild Karak Vlag
+#Although the most northerly of the major Dwarf realms is Karak Kadrin, there used to be another hold situated on the southern side of the High Pass. Karak Vlag, which means "Desolation Hold" in Khazalid, was famed for its quality of stone-masonry. It had vast qualities of iron ore in the rocks below its walls. The blacksmiths of Karak Vlag were among the best in Karaz Ankor, some say even as good as the blacksmiths of the High King in Karaz-a-Karak.
+
+	dwarf_karak_vlag_2 = { 
+		icon = mission_dwarf_culture
+		required_missions = { dwarf_karak_vlag_1 }
+		provinces_to_highlight = {
+			area = karak_vlag_area
+			OR = {
+				NOT = { development = 10 }
+				NOT = { num_of_buildings_in_province = 2 }
+				is_prosperous = no
+				AND = {
+					NOT = { owned_by = ROOT }
+					NOT = { owned_by_subject_of = ROOT }
+				}
+			}
+		}	
+		trigger = {
+			4577 = {
+				all_province_in_state = {
+					development = 10
+					num_of_buildings_in_province = 2
+					is_prosperous = yes
+				}
+				development = 25
+				num_of_times_expanded_infrastructure = 1
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+			    name = dwarf_mines_of_karak_vlag
+			    duration = -1  
+			}	
+		}
+	}
+
+
+## Reclaim Karak Zorn
+	dwarf_karak_zorn_1 = { 
+		icon = mission_dwarf_religion
+		required_missions = { }
+		provinces_to_highlight = {
+			area = karak_zorn_area
+			OR = {
+				is_prosperous = no
+				AND = {
+					NOT = { owned_by = ROOT }
+					NOT = { owned_by_subject_of = ROOT }
+				}
+			}
+		}	
+		trigger = {
+			4598 = {
+				all_province_in_state = {
+					OR = {
+						owned_by = ROOT 
+						owned_by_subject_of	= ROOT
+					}
+					is_prosperous = yes
+				}
+			}
+		}
+
+		effect = {
+			every_province = {
+				limit = { area = karak_zorn_area }
+				add_random_development = 1
+			}
+			every_province = {
+				limit = {
+					area = karak_zorn_area
+					has_terrain = dwarf_karak
+				}
+				add_province_modifier = { 
+				    name = dwarf_reclaimed_hold
+				    duration = -1 
+				}
+			}
+			southern_world_edge_mountains_region = {
+				add_claim = ROOT
+			}			
+		}
+	}
+
+## Rebuild Karak Zorn
+## Karak Zorn has survived against all manner of hostility, from Lizardmen, Greenskins, Tomb Kings, and worse.
+# Half an idea
+	dwarf_karak_zorn_2 = { 
+		icon = mission_dwarf_culture
+		required_missions = { dwarf_karak_zorn_1 }
+		provinces_to_highlight = {
+			area = karak_zorn_area
+			OR = {
+				NOT = { development = 10 }
+				NOT = { num_of_buildings_in_province = 2 }
+				is_prosperous = no
+				AND = {
+					NOT = { owned_by = ROOT }
+					NOT = { owned_by_subject_of = ROOT }
+				}
+			}
+		}	
+		trigger = {
+			4598 = {
+				all_province_in_state = {
+					development = 10
+					num_of_buildings_in_province = 2
+					is_prosperous = yes
+				}
+				development = 25
+				num_of_times_expanded_infrastructure = 1
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+			    name = dwarf_resilience_of_karak_zorn
+			    duration = -1  
+			}	
+		}
+	}
+
+	
+}

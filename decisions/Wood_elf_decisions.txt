@@ -36,7 +36,7 @@ country_decisions = {
 			hidden_effect {
 				every_province = {
 					limit = { has_terrain = magical_forest_terrain }
-					add_random_development = 2
+					add_random_development = 5
 				}
 
 				set_global_flag = world_tree_connected
@@ -47,4 +47,51 @@ country_decisions = {
 		ai_will_do = { factor = 100 }	
 	
 	}
+
+
+	burn_the_oak_of_ages = {
+		potential = {
+			OR = {
+				662 = {
+					controlled_by = ROOT
+				}
+				religion_group = ruinous_powers_denominations
+			}
+			NOT = { has_global_flag = oak_of_ages_destroyed }
+		}
+
+		provinces_to_highlight = {
+			province_id = 662
+		}
+
+		allow = {
+			religion_group = ruinous_powers_denominations
+			662 = {
+				controlled_by = ROOT
+			}
+		}
+
+		effect = {
+			add_adm_power = 900
+			add_dip_power = 900
+			add_mil_power = 900
+			set_global_flag = oak_of_ages_destroyed
+			destroy_great_project = {
+			    type = oak_of_ages
+			}
+
+
+			add_government_power = {
+				mechanic_type = everchosen_mechanic
+				power_type = everchosen_favor
+				value = 50
+			}			
+			
+
+		}
+
+		ai_will_do = { factor = 100 }	
+	
+	}
+
 }
