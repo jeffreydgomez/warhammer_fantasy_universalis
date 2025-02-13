@@ -16,16 +16,10 @@ chaos_favor_mechanic = {
 			
 			scaled_modifier = {
 				modifier = {
-					manpower_recovery_speed = 0.20
-					monthly_church_power = 1
+					land_morale = 0.1
+					manpower_in_own_culture_provinces = 0.15
+					manpower_in_accepted_culture_provinces = 0.15
 				}
-			}
-			range_modifier = {
-				trigger = { 
-					is_at_war = no 
-					has_country_flag = J84_halve_vainglory_loss_flag
-				}
-				modifier = { monthly_chaos_favor = 0.250 }
 			}
 		}
 	}
@@ -97,57 +91,6 @@ chaos_favor_mechanic = {
 				}
 			}
 		}
-		train_horsemanship = {
-			icon = GFX_train_horsemanship_button
-			cost_type = chaos_favor
-			cost = 30
-			trigger = {
-				NOT = {
-					has_country_modifier = train_horsemanship_modifier
-				}
-			}
-			effect = {
-				add_country_modifier = {
-					name = train_horsemanship_modifier
-					duration = 3650
-				}
-			}
-			cooldown_years = 0
-			ai_chance = {
-				factor = 1
-				modifier = {
-					factor = 0
-					not = {
-						cavalry_fraction = 0.1
-					}
-				}
-				modifier = {
-					factor = 0
-					is_at_war = no
-				}
-				modifier = {
-					factor = 0
-					NOT = {
-						manpower_percentage = 0.8
-					}
-				}
-				modifier = {
-					factor = 10
-					is_in_important_war = yes
-					has_government_power = {
-						mechanic_type = chaos_favor_mechanic
-						power_type = chaos_favor
-						value = 95
-					}
-				}
-				modifier = {
-					factor = 0.1
-					not = {
-						cavalry_fraction = 0.2
-					}
-				}
-			}
-		}
 		draw_warriors = {
 			icon = GFX_conscript_from_tribes_button
 			cost_type = chaos_favor
@@ -164,13 +107,13 @@ chaos_favor_mechanic = {
 				capital_scope = {
 					add_unit_construction = {
 						type = cavalry
-						amount = 3
+						amount = 2
 						speed = 0.25
 						cost = 0
 					}
 					add_unit_construction = {
 						type = infantry
-						amount = 3
+						amount = 2
 						speed = 0.25
 						cost = 0
 					}
@@ -179,6 +122,28 @@ chaos_favor_mechanic = {
 			cooldown_years = 0
 			ai_chance = {
 				factor = 0				#Just no
+			}
+		}
+		gifts_of_chaos = {
+			icon = GFX_train_horsemanship_button
+			cost_type = chaos_favor
+			cost = 100
+			trigger = {
+				NOT = {
+					has_country_flag = has_all_gifts
+				}
+			}
+			cooldown_years = 10
+			effect = {
+				custom_tooltip = SEPERATOR_TOOLTIP
+
+				country_event = {
+					id = flavor_chaos.4
+				}
+			}
+			cooldown_years = 0
+			ai_chance = {
+				factor = 1	
 			}
 		}
 	}
