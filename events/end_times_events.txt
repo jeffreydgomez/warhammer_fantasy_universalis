@@ -1150,55 +1150,6 @@ country_event = {
 
 
 
-### REBELS IF THERE ARE ANY GATES ANYWHERE
-
-country_event = {
-	id = end_times_events.2
-	title = end_times_events.2.t
-	desc = end_times_events.2.d
-	picture = BORDER_TENSION_eventPicture
-	
-	
-	is_triggered_only = no
-
-	immediate = {
-		random_owned_province = { save_event_target_as = event_target }
-	}
-
-	goto = event_target
-	
-	trigger = {
-		any_province = {
-			is_reformation_center = yes
-			religion = chaos_undivided_religion
-		}
-		NOT = { religion_group = ruinous_powers_denominations }
-	}
-
-	mean_time_to_happen = { months = 30 }
-	
-### Kill them
-	option = {
-		name = end_times_events.2.option_1
-		ai_chance = { factor = 5 }
-		event_target:event_target = {
-			spawn_rebels = {
-				size = 2
-				type = chaos_undivided_religion_rebels
-			}
-		}
-
-	}
-
-### Better Not
-	option = {
-		name = end_times_events.2.option_2
-		ai_chance = { factor = 10 }
-		add_stability = -1
-	}
-}
-
-
 
 #### Declare war on nearby person - CHAOS, NOT EVERCHOSEN
 country_event = {
@@ -1427,6 +1378,64 @@ country_event = {
 
 
 
+
+### REBELS IF THERE ARE ANY GATES ANYWHERE
+
+country_event = {
+	id = end_times_events.2
+	title = end_times_events.2.t
+	desc = end_times_events.2.d
+	picture = BORDER_TENSION_eventPicture
+	
+	
+	is_triggered_only = no
+
+	immediate = {
+		random_owned_province = { save_event_target_as = event_target }
+	}
+
+	goto = event_target
+	
+	trigger = {
+		any_province = {
+			is_reformation_center = yes
+			religion = chaos_undivided_religion
+		}
+		NOT = { religion_group = ruinous_powers_denominations }
+	}
+
+	mean_time_to_happen = { months = 30 }
+	
+### Kill them
+	option = {
+		name = end_times_events.2.option_1
+		ai_chance = { factor = 10 }
+		event_target:event_target = {
+			spawn_rebels = {
+				size = 2
+				type = chaos_undivided_religion_rebels
+			}
+		}
+
+	}
+
+### Better Not
+	option = {
+		name = end_times_events.2.option_2
+		trigger = { stability = -2 }
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 10
+				is_subject = yes
+			}
+		}
+		add_stability = -1
+	}
+}
+
+
+
 ### Bolt of Chaos Energy
 
 country_event = {
@@ -1546,7 +1555,7 @@ country_event = {
 		NOT = { religion_group = ruinous_powers_denominations }
 	}
 
-	mean_time_to_happen = { months = 25 }
+	mean_time_to_happen = { months = 50 }
 	
 ### There's nothing we can do
 	option = {
@@ -1610,7 +1619,13 @@ country_event = {
 ### There's nothing we can do
 	option = {
 		name = end_times_events.7.option_1
-		ai_chance = { factor = 5 }
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 10
+				is_subject = yes
+			}
+		}
 		event_target:event_target = {
 			add_base_tax = -1
 			add_base_production = -1
