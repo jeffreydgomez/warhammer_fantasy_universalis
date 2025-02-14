@@ -1968,7 +1968,7 @@ province_event = {
 	}
 
 	mean_time_to_happen = {
-		months = 12
+		months = 6
 	}
 	
 	option = {
@@ -2105,6 +2105,48 @@ country_event = {
 
 		}
 
+	}
+}
+
+
+## Give occupied cored Everchosen provinces back to owner
+
+province_event = {
+	id = everchosen_events.5
+	title = everchosen_events.5.t
+	desc = everchosen_events.5.d
+	picture = TRADEGOODS_eventPicture
+	
+	hidden = yes
+
+	trigger = {
+		owner = {
+			has_reform = everchosen_reform
+		}
+		controller = {
+			NOT = {
+				has_reform = everchosen_reform
+			}
+			ROOT = { is_core = PREV }
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 6
+	}
+	
+	option = {
+		name = everchosen_events.5.a
+
+
+		controller = {
+			ROOT = {
+		 		add_core = PREV
+				cede_province = PREV
+			}
+		}
+
+		add_nationalism = -100
 	}
 }
 

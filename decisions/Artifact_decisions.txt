@@ -1064,14 +1064,72 @@ country_decisions = {
 
 			add_country_modifier = { 
 			    name = nagash_resurrected_modifier
-			    duration = -1  
+			    duration = -1
 			}
+
+			country_event = { 
+			    id = tomb_king.100
+			}
+
+			set_global_flag = nagash_resurrected
+
 
 		}
 
-		set_global_flag = nagash_resurrected
+
+
 
 		ai_will_do = { factor = 100 }
+	}
+
+
+	destroy_nagash = {
+		major = yes
+		
+		potential = {
+			any_country = {
+				has_country_modifier = nagash_resurrected_modifier
+			}
+			NOT = { has_country_modifier = nagash_resurrected_modifier }
+
+		}
+		
+		provinces_to_highlight = {
+			owner = {
+				has_country_modifier = nagash_resurrected_modifier
+			}
+			is_capital = yes
+		}
+		
+		allow = {
+			any_province = {
+				owner = {
+					has_country_modifier = nagash_resurrected_modifier
+				}
+				is_capital = yes
+				controlled_by = ROOT
+			}
+		}
+		
+		effect = {
+			random_country = {
+				limit = { has_country_modifier = nagash_resurrected_modifier }
+				remove_country_modifier = nagash_resurrected_modifier
+				kill_ruler = yes
+			}
+
+			add_country_modifier = { 
+		    	name = destroyed_nagash
+		    	duration = -1
+			}
+
+			country_event = { 
+	   			id = tomb_king.101
+			}
+		}
+		ai_will_do = {
+			factor = 100000
+		}
 	}
 
 
