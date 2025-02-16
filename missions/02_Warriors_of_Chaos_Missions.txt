@@ -1,6 +1,6 @@
 chaos_1 = {
 	slot = 1
-	generic = yes
+	generic = no
 	ai = yes
 	has_country_shield = yes
 	potential = {
@@ -9,11 +9,22 @@ chaos_1 = {
 	woc_rivers_of_blood = {
 		icon = mission_khorne
 		position = 1
-		provinces_to_highlight = {
-		}
 		trigger = {
+			or = {
+				any_known_country = {
+					coalition_target = ROOT
+				}
+				is_in_war = {
+					defender_leader = ROOT
+					casus_belli = cb_super_badboy
+				}
+			}
 		}
 		effect = {
+			add_country_modifier = {
+				name = chaos_tried_khorne
+				duration = -1
+			}
 		}
 	}
 	woc_1_3 = {
@@ -30,20 +41,28 @@ chaos_1 = {
 		icon = mission_nurgle
 		position = 5
 		required_missions = {
-			woc_nurgle_1
-		}
-		provinces_to_highlight = {
+			
 		}
 		trigger = {
+			any_enemy_country = {
+				num_of_owned_provinces_with = {
+					value = 25
+					devastation = 77
+				}
+			}
 		}
 		effect = {
+			add_country_modifier = {
+				name = war_nurgle_blessing
+				duration = -1
+			}
 		}
 	}
 }
 
 chaos_2 = {
 	slot = 2
-	generic = yes
+	generic = no
 	ai = yes
 	has_country_shield = yes
 	potential = {
@@ -58,8 +77,19 @@ chaos_2 = {
 		provinces_to_highlight = {
 		}
 		trigger = {
+			all_known_country = {
+				or = {
+					war_with = ROOT
+					is_subject_of = ROOT
+					truce_with = ROOT
+				}
+			}
 		}
 		effect = {
+			add_country_modifier = {
+				name = war_khorne_blessing
+				duration = -1
+			}
 		}
 	}
 	woc_2_3 = {
@@ -72,9 +102,10 @@ chaos_2 = {
 		effect = {
 		}
 	}
+
 	woc_nurgle_1 = {
-		icon = mission_nurgle
-		position = 4
+		icon = mission_chaos_culture
+		position = 3
 		provinces_to_highlight = {
 		}
 		trigger = {
@@ -83,12 +114,13 @@ chaos_2 = {
 		}
 	}
 	woc_place_of_power_ulthuan = {
-		icon = mission_high_elf_culture
+		icon = mission_ind_culture
 		position = 9
 		required_missions = {
 			woc_the_eigthth_step
 		}
 		provinces_to_highlight = {
+			province_id = 116
 		}
 		trigger = {
 		}
@@ -99,7 +131,7 @@ chaos_2 = {
 
 chaos_3 = {
 	slot = 3
-	generic = yes
+	generic = no
 	ai = yes
 	has_country_shield = yes
 	potential = {
@@ -169,7 +201,6 @@ chaos_3 = {
 				}
 			}
 		}
-
 		effect = {
 		}
 	}
@@ -235,7 +266,6 @@ chaos_3 = {
 		required_missions = {
 			woc_seventh_step
 		}
-
 		trigger = {
 			is_great_power = yes
 		}
@@ -275,12 +305,12 @@ chaos_3 = {
 
 chaos_4 = {
 	slot = 4
-	generic = yes
+	generic = no
 	ai = yes
 	has_country_shield = yes
 	potential = {
 		has_reform = chaos_warband
-	}
+	} 
 	woc_trial_of_tzeentch = {
 		icon = mission_tzeentch
 		position = 2
@@ -331,7 +361,7 @@ chaos_4 = {
 
 chaos_5 = {
 	slot = 5
-	generic = yes
+	generic = no
 	ai = yes
 	has_country_shield = yes
 	potential = {
