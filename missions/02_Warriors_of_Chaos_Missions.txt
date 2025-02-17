@@ -27,12 +27,21 @@ chaos_1 = {
 			}
 		}
 	}
+	#the skaven
 	woc_1_3 = {
-		icon = mission_chaos_culture
+		icon = mission_skaven_religion
 		position = 3
 		provinces_to_highlight = {
+			has_discovered = ROOT
+			owner = {
+				technology_group = tech_skaven
+			}
 		}
 		trigger = {
+			any_known_country = {
+				technology_group = tech_skaven
+				has_100_opinion_improved_relation = { target = ROOT }
+			}
 		}
 		effect = {
 		}
@@ -41,13 +50,30 @@ chaos_1 = {
 		icon = mission_nurgle
 		position = 5
 		required_missions = {
-			
+			woc_nurgle_1
+		}
+		provinces_to_highlight = {
+			owner = {
+				war_with = ROOT
+				num_of_cities = 27
+			}
+			NOT = {
+				OR = {
+					has_province_modifier = scorched_earth
+					devastation = 77
+				}
+			}
 		}
 		trigger = {
-			any_enemy_country = {
+			monthly_mil = 10
+			any_war_enemy_country = {
+				war_with = ROOT
 				num_of_owned_provinces_with = {
-					value = 25
-					devastation = 77
+					value = 27
+					OR = {
+						has_province_modifier = scorched_earth
+						devastation = 77
+					}
 				}
 			}
 		}
@@ -102,27 +128,44 @@ chaos_2 = {
 		effect = {
 		}
 	}
-
 	woc_nurgle_1 = {
-		icon = mission_chaos_culture
+		icon = mission_nurgle
 		position = 3
 		provinces_to_highlight = {
+			is_capital_of = ROOT
 		}
 		trigger = {
+			capital_scope = {
+				development = 27
+			}
+			has_tax_building_trigger = yes
+			has_fort_building_trigger = yes
 		}
 		effect = {
+			add_country_modifier = {
+				name = chaos_tried_nurgle
+				duration = -1
+			}
 		}
 	}
 	woc_place_of_power_ulthuan = {
 		icon = mission_ind_culture
 		position = 9
 		required_missions = {
-			woc_the_eigthth_step
+			woc_seventh_step
 		}
 		provinces_to_highlight = {
-			province_id = 116
+			province_id = 1967
 		}
 		trigger = {
+			1967 = {
+				or = {
+					country_or_subject_holds = ROOT
+					or = {
+						has_province_modifier = chaos_decolonized_1
+					}
+				}
+			}
 		}
 		effect = {
 		}
@@ -155,15 +198,43 @@ chaos_3 = {
 			woc_first_steps
 		}
 		trigger = {
-			custom_trigger_tooltip = {
-				tooltip = destory_provinces_chaos_25_tooltip
+			or = {
 				check_variable = {
 					which = chaos_provs_destroyed
 					value = 25
 				}
+				num_of_owned_provinces_with = {
+					value = 25
+					religion_group = ruinous_powers_denominations
+				}
 			}
 		}
 		effect = {
+			if = {
+				limit = {
+					has_country_modifier = chaos_favor_of_the_gods
+				}
+				custom_tooltip = chaos_favor_of_the_gods_modifier_tt
+				hidden_effect = {
+					remove_country_modifier = chaos_favor_of_the_gods
+					add_country_modifier = {
+						name = chaos_favor_of_the_gods
+						duration = 3650
+					}
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = chaos_favor_of_the_gods
+					duration = 3650
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = chaos_favor_of_the_gods
+					duration = 3650
+				}
+			}
 		}
 	}
 	woc_third_step = {
@@ -173,15 +244,37 @@ chaos_3 = {
 			woc_second_step
 		}
 		trigger = {
-			custom_trigger_tooltip = {
-				tooltip = destory_provinces_chaos_100_tooltip
+			or = {
 				check_variable = {
 					which = chaos_provs_destroyed
-					value = 100
+					value = 50
+				}
+				num_of_owned_provinces_with = {
+					value = 50
+					religion_group = ruinous_powers_denominations
 				}
 			}
 		}
 		effect = {
+			if = {
+				limit = {
+					has_country_modifier = chaos_favor_of_the_gods
+				}
+				custom_tooltip = chaos_favor_of_the_gods_modifier_tt
+				hidden_effect = {
+					remove_country_modifier = chaos_favor_of_the_gods
+					add_country_modifier = {
+						name = chaos_favor_of_the_gods
+						duration = 3650
+					}
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = chaos_favor_of_the_gods
+					duration = 3650
+				}
+			}
 		}
 	}
 	woc_fourth_step = {
@@ -193,15 +286,37 @@ chaos_3 = {
 		provinces_to_highlight = {
 		}
 		trigger = {
-			custom_trigger_tooltip = {
-				tooltip = destory_provinces_chaos_250_tooltip
+			or = {
 				check_variable = {
 					which = chaos_provs_destroyed
-					value = 250
+					value = 100
+				}
+				num_of_owned_provinces_with = {
+					value = 100
+					religion_group = ruinous_powers_denominations
 				}
 			}
 		}
 		effect = {
+			if = {
+				limit = {
+					has_country_modifier = chaos_favor_of_the_gods
+				}
+				custom_tooltip = chaos_favor_of_the_gods_modifier_tt
+				hidden_effect = {
+					remove_country_modifier = chaos_favor_of_the_gods
+					add_country_modifier = {
+						name = chaos_favor_of_the_gods
+						duration = 3650
+					}
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = chaos_favor_of_the_gods
+					duration = 3650
+				}
+			}
 		}
 	}
 	woc_fifth_step = {
@@ -213,15 +328,37 @@ chaos_3 = {
 		provinces_to_highlight = {
 		}
 		trigger = {
-			custom_trigger_tooltip = {
-				tooltip = destory_provinces_chaos_500_tooltip
+			or = {
 				check_variable = {
 					which = chaos_provs_destroyed
-					value = 500
+					value = 250
+				}
+				num_of_owned_provinces_with = {
+					value = 250
+					religion_group = ruinous_powers_denominations
 				}
 			}
 		}
 		effect = {
+			if = {
+				limit = {
+					has_country_modifier = chaos_favor_of_the_gods
+				}
+				custom_tooltip = chaos_favor_of_the_gods_modifier_tt
+				hidden_effect = {
+					remove_country_modifier = chaos_favor_of_the_gods
+					add_country_modifier = {
+						name = chaos_favor_of_the_gods
+						duration = 3650
+					}
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = chaos_favor_of_the_gods
+					duration = 3650
+				}
+			}
 		}
 	}
 	woc_sixth_step = {
@@ -231,57 +368,97 @@ chaos_3 = {
 			woc_fifth_step
 		}
 		trigger = {
-			custom_trigger_tooltip = {
-				tooltip = destory_provinces_chaos_1000_tooltip
+			or = {
 				check_variable = {
 					which = chaos_provs_destroyed
-					value = 1000
+					value = 500
+				}
+				num_of_owned_provinces_with = {
+					value = 500
+					religion_group = ruinous_powers_denominations
 				}
 			}
 		}
 		effect = {
+			if = {
+				limit = {
+					has_country_modifier = chaos_favor_of_the_gods
+				}
+				custom_tooltip = chaos_favor_of_the_gods_modifier_tt
+				hidden_effect = {
+					remove_country_modifier = chaos_favor_of_the_gods
+					add_country_modifier = {
+						name = chaos_favor_of_the_gods
+						duration = 3650
+					}
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = chaos_favor_of_the_gods
+					duration = 3650
+				}
+			}
 		}
 	}
 	woc_seventh_step = {
 		icon = mission_chaos_religion
-		position = 7
+		position = 8
 		required_missions = {
 			woc_sixth_step
 		}
 		trigger = {
-			custom_trigger_tooltip = {
-				tooltip = destory_provinces_chaos_2000_tooltip
+			or = {
 				check_variable = {
 					which = chaos_provs_destroyed
-					value = 2000
+					value = 1000
+				}
+				num_of_owned_provinces_with = {
+					value = 1000
+					religion_group = ruinous_powers_denominations
 				}
 			}
 		}
 		effect = {
-		}
-	}
-	woc_the_eigthth_step = {
-		icon = mission_chaos_religion
-		position = 8
-		required_missions = {
-			woc_seventh_step
-		}
-		trigger = {
-			is_great_power = yes
-		}
-		effect = {
+			if = {
+				limit = {
+					has_country_modifier = chaos_favor_of_the_gods
+				}
+				custom_tooltip = chaos_favor_of_the_gods_modifier_tt
+				hidden_effect = {
+					remove_country_modifier = chaos_favor_of_the_gods
+					add_country_modifier = {
+						name = chaos_favor_of_the_gods
+						duration = 3650
+					}
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = chaos_favor_of_the_gods
+					duration = 3650
+				}
+			}
 		}
 	}
 	woc_place_of_power_middenhelm = {
 		icon = mission_ind_culture
 		position = 9
 		required_missions = {
-			woc_the_eigthth_step
+			woc_seventh_step
 		}
 		provinces_to_highlight = {
 			province_id = 116
 		}
 		trigger = {
+			116 = {
+				or = {
+					country_or_subject_holds = ROOT
+					or = {
+						has_province_modifier = chaos_decolonized_1
+					}
+				}
+			}
 		}
 		effect = {
 		}
@@ -292,9 +469,7 @@ chaos_3 = {
 		required_missions = {
 			woc_place_of_power_ulthuan
 			woc_place_of_power_middenhelm
-			woc_places_of_power_cathay
-		}
-		provinces_to_highlight = {
+			woc_place_of_power_cathay
 		}
 		trigger = {
 		}
@@ -310,7 +485,7 @@ chaos_4 = {
 	has_country_shield = yes
 	potential = {
 		has_reform = chaos_warband
-	} 
+	}
 	woc_trial_of_tzeentch = {
 		icon = mission_tzeentch
 		position = 2
@@ -320,8 +495,18 @@ chaos_4 = {
 		provinces_to_highlight = {
 		}
 		trigger = {
+			any_country = {
+				NOT = {
+					tech_difference = 1
+				}
+				NOT = { tag = ROOT }
+			}
 		}
 		effect = {
+			add_country_modifier = {
+				name = war_tzeentch_blessing
+				duration = -1
+			}
 		}
 	}
 	woc_4_3 = {
@@ -337,22 +522,36 @@ chaos_4 = {
 	woc_slannesh_1 = {
 		icon = mission_slaanesh
 		position = 4
-		provinces_to_highlight = {
-		}
 		trigger = {
+			any_subject_country = {
+				has_liberty_desire_modifier = subject_of_rivals
+			}
 		}
 		effect = {
+			add_country_modifier = {
+				name = chaos_tried_slaanesh
+				duration = -1
+			}
 		}
 	}
-	woc_places_of_power_cathay = {
+	woc_place_of_power_cathay = {
 		icon = mission_cathayan_culture
 		position = 9
 		required_missions = {
-			woc_the_eigthth_step
+			woc_seventh_step
 		}
 		provinces_to_highlight = {
+			province_id = 2838
 		}
 		trigger = {
+			2838 = {
+				or = {
+					country_or_subject_holds = ROOT
+					or = {
+						has_province_modifier = chaos_decolonized_1
+					}
+				}
+			}
 		}
 		effect = {
 		}
@@ -373,16 +572,38 @@ chaos_5 = {
 		provinces_to_highlight = {
 		}
 		trigger = {
+			or = {
+				is_ahead_of_time_in_technology = { tech = adm }
+				is_ahead_of_time_in_technology = { tech = dip }
+				is_ahead_of_time_in_technology = { tech = mil }
+			}
+			any_country = {
+				has_spy_network_from = {
+					who = ROOT
+					value = 50
+				}
+			}
 		}
 		effect = {
+			add_country_modifier = {
+				name = chaos_tried_tzeentch
+				duration = -1
+			}
 		}
 	}
+	#chaos dwarves
 	woc_5_3 = {
-		icon = mission_chaos_culture
+		icon = mission_hashut_religion
 		position = 3
 		provinces_to_highlight = {
+			has_discovered = root
+			owner = {
+				technology_group = tech_chaos_dwarfen
+			}
 		}
 		trigger = {
+			technology_group = tech_chaos_dwarfen
+			has_100_opinion_improved_relation = { target = ROOT }
 		}
 		effect = {
 		}
@@ -396,8 +617,22 @@ chaos_5 = {
 		provinces_to_highlight = {
 		}
 		trigger = {
+			prestige = 80
+			check_variable = {
+				which = chaos_implant_cult_counter
+				value = 6
+			}
 		}
 		effect = {
+			add_government_power = {
+				mechanic_type = chaos_favor_mechanic
+				power_type = chaos_favor
+				value = 25
+			}
+			add_country_modifier = {
+				name = war_slaanesh_blessing
+				duration = -1
+			}
 		}
 	}
 }
