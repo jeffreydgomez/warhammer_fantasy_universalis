@@ -40,10 +40,25 @@ chaos_1 = {
 		trigger = {
 			any_known_country = {
 				technology_group = tech_skaven
-				has_100_opinion_improved_relation = { target = ROOT }
+				has_100_opinion_improved_relation = {
+					target = ROOT
+				}
 			}
 		}
 		effect = {
+			random_known_country = {
+				limit = {
+					technology_group = tech_skaven
+					has_100_opinion_improved_relation = {
+						target = ROOT
+					}
+				}
+				create_alliance = ROOT
+				add_historical_friend = ROOT
+				ROOT = {
+					add_historical_friend = PREV
+				}
+			}
 		}
 	}
 	woc_nurgle_2 = {
@@ -118,19 +133,19 @@ chaos_2 = {
 			}
 		}
 	}
-	woc_2_3 = {
-		icon = mission_chaos_culture
-		position = 3
-		provinces_to_highlight = {
-		}
-		trigger = {
-		}
-		effect = {
-		}
-	}
+	# woc_2_3 = {
+	# 	icon = mission_chaos_culture
+	# 	position = 3
+	# 	provinces_to_highlight = {
+	# 	}
+	# 	trigger = {
+	# 	}
+	# 	effect = {
+	# 	}
+	# }
 	woc_nurgle_1 = {
 		icon = mission_nurgle
-		position = 3
+		position = 4
 		provinces_to_highlight = {
 			is_capital_of = ROOT
 		}
@@ -161,9 +176,7 @@ chaos_2 = {
 			1967 = {
 				or = {
 					country_or_subject_holds = ROOT
-					or = {
-						has_province_modifier = chaos_decolonized_1
-					}
+					has_province_modifier = chaos_decolonized_1
 				}
 			}
 		}
@@ -454,9 +467,7 @@ chaos_3 = {
 			116 = {
 				or = {
 					country_or_subject_holds = ROOT
-					or = {
-						has_province_modifier = chaos_decolonized_1
-					}
+					has_province_modifier = chaos_decolonized_1
 				}
 			}
 		}
@@ -464,7 +475,7 @@ chaos_3 = {
 		}
 	}
 	woc_undo_the_material_realm = {
-		icon = mission_chaos_religion
+		icon = mission_end_of_the_world
 		position = 10
 		required_missions = {
 			woc_place_of_power_ulthuan
@@ -495,12 +506,12 @@ chaos_4 = {
 		provinces_to_highlight = {
 		}
 		trigger = {
-			any_country = {
+			all_known_country = {
 				NOT = {
 					tech_difference = 1
 				}
-				NOT = { tag = ROOT }
 			}
+			is_lacking_institutions = no
 		}
 		effect = {
 			add_country_modifier = {
@@ -509,16 +520,16 @@ chaos_4 = {
 			}
 		}
 	}
-	woc_4_3 = {
-		icon = mission_chaos_culture
-		position = 3
-		provinces_to_highlight = {
-		}
-		trigger = {
-		}
-		effect = {
-		}
-	}
+	# woc_4_3 = {
+	# 	icon = mission_chaos_culture
+	# 	position = 3
+	# 	provinces_to_highlight = {
+	# 	}
+	# 	trigger = {
+	# 	}
+	# 	effect = {
+	# 	}
+	# }
 	woc_slannesh_1 = {
 		icon = mission_slaanesh
 		position = 4
@@ -547,9 +558,7 @@ chaos_4 = {
 			2838 = {
 				or = {
 					country_or_subject_holds = ROOT
-					or = {
-						has_province_modifier = chaos_decolonized_1
-					}
+					has_province_modifier = chaos_decolonized_1
 				}
 			}
 		}
@@ -573,9 +582,15 @@ chaos_5 = {
 		}
 		trigger = {
 			or = {
-				is_ahead_of_time_in_technology = { tech = adm }
-				is_ahead_of_time_in_technology = { tech = dip }
-				is_ahead_of_time_in_technology = { tech = mil }
+				is_ahead_of_time_in_technology = {
+					tech = adm
+				}
+				is_ahead_of_time_in_technology = {
+					tech = dip
+				}
+				is_ahead_of_time_in_technology = {
+					tech = mil
+				}
 			}
 			any_country = {
 				has_spy_network_from = {
@@ -602,10 +617,75 @@ chaos_5 = {
 			}
 		}
 		trigger = {
-			technology_group = tech_chaos_dwarfen
-			has_100_opinion_improved_relation = { target = ROOT }
+			or = {
+				if = {
+					limit = {
+						exists = B17
+					}
+					B17 = {
+						has_100_opinion_improved_relation = {
+							target = ROOT
+						}
+					}
+				}
+				else = {
+					any_known_country = {
+						technology_group = tech_chaos_dwarfen
+						has_100_opinion_improved_relation = {
+							target = ROOT
+						}
+					}
+				}
+				811 = {
+					or = {
+						has_province_modifier = chaos_decolonized_1
+						country_or_subject_holds = ROOT
+					}
+				}
+			}
 		}
 		effect = {
+			if = {
+				limit = {
+					exists = B17
+					B17 = {
+						has_100_opinion_improved_relation = {
+							target = ROOT
+						}
+					}
+				}
+				create_alliance = B17
+				add_historical_friend = B17
+				B17 = {
+					add_historical_friend = ROOT
+				}
+			}
+			else_if = {
+				limit = {
+					any_known_country = {
+						technology_group = tech_chaos_dwarfen
+						has_100_opinion_improved_relation = {
+							target = ROOT
+						}
+					}
+				}
+				random_known_country = {
+					limit = {
+						technology_group = tech_chaos_dwarfen
+					}
+					create_alliance = ROOT
+					add_historical_friend = ROOT
+					ROOT = {
+						add_historical_friend = PREV
+					}
+				}
+			}
+			else = {
+				add_power_projection = {
+					type = mission_rewards_power_projection
+					amount = 15
+				}
+			}
 		}
 	}
 	woc_slaanesh_2 = {

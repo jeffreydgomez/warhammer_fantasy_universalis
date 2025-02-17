@@ -37,7 +37,9 @@ chaos_setup_horde_development = {
 			add_ruler_personality = cruel_personality
 		}
 		if = {
-			limit = { ai = yes }
+			limit = {
+				ai = yes
+			}
 			add_manpower = 10
 			add_treasury = 400
 		}
@@ -46,7 +48,9 @@ chaos_setup_horde_development = {
 			add_treasury = 100
 		}
 		if = {
-			limit = { ai = yes }
+			limit = {
+				ai = yes
+			}
 			set_ai_personality = {
 				personality = ai_militarist
 				locked = yes
@@ -62,7 +66,6 @@ chaos_setup_horde_development = {
 			value = 0
 		}
 	}
-
 }
 
 #Always Call in Country Scope
@@ -578,8 +581,6 @@ chaos_conquest_effects = {
 	decolonize = yes
 }
 
-
-
 chaos_horde_upgrader = {
 	if = {
 		limit = {
@@ -597,7 +598,7 @@ chaos_horde_upgrader = {
 					duration = -1
 				}
 			}
-			clr_country_flag  = chaos_$type$_0_cf
+			clr_country_flag = chaos_$type$_0_cf
 			set_country_flag = chaos_$type$_1_cf
 		}
 	}
@@ -617,7 +618,7 @@ chaos_horde_upgrader = {
 					duration = -1
 				}
 			}
-			clr_country_flag  = chaos_$type$_1_cf
+			clr_country_flag = chaos_$type$_1_cf
 			set_country_flag = chaos_$type$_2_cf
 		}
 	}
@@ -637,7 +638,7 @@ chaos_horde_upgrader = {
 					duration = -1
 				}
 			}
-			clr_country_flag  = chaos_$type$_2_cf
+			clr_country_flag = chaos_$type$_2_cf
 			set_country_flag = chaos_$type$_3_cf
 		}
 	}
@@ -657,7 +658,7 @@ chaos_horde_upgrader = {
 					duration = -1
 				}
 			}
-			clr_country_flag  = chaos_$type$_3_cf
+			clr_country_flag = chaos_$type$_3_cf
 			set_country_flag = chaos_$type$_4_cf
 		}
 	}
@@ -677,8 +678,47 @@ chaos_horde_upgrader = {
 					duration = -1
 				}
 			}
-			clr_country_flag  = chaos_$type$_4_cf
+			clr_country_flag = chaos_$type$_4_cf
 			set_country_flag = chaos_$type$_5_cf
+		}
+	}
+}
+
+chaos_decolonize_150_random_prov_se = {
+	662 = {
+		set_variable = {
+			which = provs_destroyed_counter
+			value = 0
+		}
+	}
+	while = {
+		limit = {
+			any_province = {
+				is_city = yes
+			}
+			662 = {
+				not = {
+					is_variable_equal = {
+						which = provs_destroyed_counter
+						value = 150
+					}
+				}
+			}
+		}
+		662 = {
+			change_variable = {
+				which = provs_destroyed_counter
+				value = 1
+			}
+		}
+		random_province = {
+			limit = {
+				is_city = yes
+				not = {
+					province_id = 662
+				}
+			}
+			decolonize = yes
 		}
 	}
 }
