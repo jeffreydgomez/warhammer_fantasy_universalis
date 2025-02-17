@@ -1,0 +1,146 @@
+chaos_favor_mechanic = {
+	alert_icon_gfx = GFX_alerticons_government_mechanics
+	alert_icon_index = 5
+	available = {
+		OR = {
+			has_dlc = "Cradle of Civilization"
+			has_dlc = "King of Kings"
+		}
+	}
+	powers = {
+		chaos_favor = {
+			max = 100
+			reset_on_new_ruler = no
+			base_monthly_growth = 0
+			is_good = yes
+			
+			scaled_modifier = {
+				modifier = {
+					land_morale = 0.1
+					manpower_in_own_culture_provinces = 0.15
+					manpower_in_accepted_culture_provinces = 0.15
+				}
+			}
+		}
+	}
+	interactions = {
+		chaos_champion_arises = {
+			icon = GFX_enlist_general_button
+			cost_type = chaos_favor
+			cost = 30
+			trigger = {
+			}
+			effect = {
+				create_general = {
+					tradition = 40
+				}
+			}
+			cooldown_years = 0
+			ai_chance = {
+				factor = 1
+				modifier = {
+					factor = 0
+					is_at_war = no
+				}
+				modifier = {
+					factor = 10
+					is_in_important_war = yes
+					has_government_power = {
+						mechanic_type = chaos_favor_mechanic
+						power_type = chaos_favor
+						value = 95
+					}
+				}
+				modifier = {
+					factor = 2
+					not = {
+						has_leaders = {
+							value = 1
+							type = general
+							include_monarch = no
+							include_heir = no
+						}
+					}
+				}
+				modifier = {
+					factor = 2
+					not = {
+						has_leaders = {
+							value = 2
+							type = general
+							include_monarch = no
+							include_heir = no
+						}
+					}
+				}
+				modifier = {
+					factor = 2
+					not = {
+						has_leader_with = {
+							general = yes
+							total_pips = 6
+						}
+					}
+				}
+				modifier = {
+					factor = 0.1
+					has_leader_with = {
+						general = yes
+						total_pips = 11
+					}
+				}
+			}
+		}
+		gifts_of_chaos = {
+			icon = GFX_train_horsemanship_button
+			effect = {
+				country_event = {
+					id = flavor_chaos.4
+				}
+			}
+			trigger = {
+				not = {
+					chaos_has_all_chaos_gifts = yes
+				}
+			}
+			cost_type = chaos_favor
+			cost = 90
+			ai_chance = {
+				factor = 1	
+			}
+		}
+		draw_warriors = {
+			icon = GFX_conscript_from_tribes_button
+			cost_type = chaos_favor
+			cost = 30
+			trigger = {
+				capital_scope = {
+					controller = {
+						tag = ROOT
+					}
+					has_siege = no
+				}
+			}
+			effect = {
+				capital_scope = {
+					add_unit_construction = {
+						type = cavalry
+						amount = 3
+						speed = 0.25
+						cost = 0
+					}
+					add_unit_construction = {
+						type = infantry
+						amount = 3
+						speed = 0.25
+						cost = 0
+					}
+				}
+			}
+			cooldown_years = 0
+			ai_chance = {
+				factor = 0				#Just no
+			}
+		}
+	}
+}

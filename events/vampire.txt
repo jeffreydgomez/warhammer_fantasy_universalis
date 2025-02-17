@@ -101,6 +101,17 @@ country_event = {
 				NOT = { has_global_flag = flag_death_of_nagash }
 				NOT = { has_ruler = "Husk of Nagash" }
 			}
+			AND = {
+				is_or_was_tag =  { tag = V01 }
+				NOT = { has_global_flag = flag_death_of_harkon }
+				NOT = { has_ruler = "Luthor" }
+			}
+			AND = {
+				is_or_was_tag =  { tag = V19 }
+				NOT = { has_global_flag = flag_death_of_noctilus }
+				NOT = { has_ruler = "Noctilus" }
+			}
+
 
 		}
 	}
@@ -226,6 +237,54 @@ country_event = {
 				}
 				clear_scripted_personalities = yes
 				add_ruler_personality = immortal_personality
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					tag = V19
+					was_tag = V19
+				}
+			}
+			custom_tooltip = vampire_events_noctilus_revived
+			hidden_effect = {
+				define_ruler = {
+					name = "Noctilus"
+					dynasty = "von Carstein"
+					male = yes
+					age = 2000
+					adm = 1
+					dip = 1
+					mil = 1
+					claim = 100
+				}
+				clear_scripted_personalities = yes
+				add_ruler_personality = immortal_personality
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					tag = V01
+					was_tag = V01
+				}
+			}
+			custom_tooltip = vampire_events_harkon_revived
+			hidden_effect = {
+				define_ruler = {
+					name = "Luthor"
+					dynasty = "Harkon"
+					male = yes
+					age = 2000
+					adm = 1
+					dip = 1
+					mil = 6
+					claim = 100
+				}
+				clear_scripted_personalities = yes
+				add_ruler_personality = immortal_personality
+				add_ruler_personality = conqueror_personality
+				add_ruler_personality = malevolent_personality
 			}
 		}
 

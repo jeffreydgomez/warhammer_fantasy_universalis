@@ -1,0 +1,42 @@
+move_warband_action = {
+	category = influence
+	require_acceptance = no
+	alert_index = 42
+	alert_tooltip = demand_dummy_alert_tooltip
+	is_visible = {
+		ai = no
+		FROM = {
+			is_subject_of_type_with_overlord = {
+				who = ROOT
+				type = chaos_warband_vassal
+			}
+		}
+	}
+	is_allowed = {
+		ai = no #Double check
+		from = {
+			is_at_war = no
+			has_reform = chaos_warband
+			NOT = {
+				num_of_cities = 2
+			}
+			capital_scope = {
+				NOT = {
+					has_construction = building
+				}
+			}
+		}
+	}
+	on_accept = {
+		FROM = {
+			save_event_target_as = warband_to_be_moved
+		}
+		country_event = {
+			id = flavor_chaos.2
+		}
+
+	}
+	ai_will_do = {
+		always = no
+	}
+}

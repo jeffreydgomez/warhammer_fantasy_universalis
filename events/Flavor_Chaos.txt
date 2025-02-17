@@ -1,0 +1,641 @@
+########################################
+# Events for Chaos
+########################################
+namespace = flavor_chaos
+normal_or_historical_nations = yes
+country_event = {
+	id = flavor_chaos.1
+	title = flavor_chaos.1.t
+	desc = flavor_chaos.1.d
+	picture = SHOGUNATE_AUTHORITY_INCIDENT_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		has_reform = chaos_warband
+	}
+	immediate = {
+		hidden_effect = {
+			save_event_target_as = chaos_horde_development_handler
+			capital_scope = {
+				random_empty_neighbor_province = {
+					set_province_flag = chaos_move_prov_1
+					save_event_target_as = chaos_move_prov_et_1
+				}
+			}
+			capital_scope = {
+				random_empty_neighbor_province = {
+					limit = {
+						not = {
+							has_province_flag = chaos_move_prov_1
+						}
+					}
+					set_province_flag = chaos_move_prov_2
+					save_event_target_as = chaos_move_prov_et_2
+				}
+			}
+			capital_scope = {
+				random_empty_neighbor_province = {
+					limit = {
+						not = {
+							has_province_flag = chaos_move_prov_1
+							has_province_flag = chaos_move_prov_2
+						}
+					}
+					set_province_flag = chaos_move_prov_3
+					save_event_target_as = chaos_move_prov_et_3
+				}
+			}
+			capital_scope = {
+				save_event_target_as = chaos_former_capital
+			}
+		}
+	}
+	option = {
+		name = flavor_chaos.1.a
+		goto = chaos_move_prov_et_1
+		trigger = {
+			capital_scope = {
+				any_empty_neighbor_province = {
+					has_province_flag = chaos_move_prov_1
+				}
+			}
+		}
+		event_target:chaos_move_prov_et_1 = {
+			chaos_migration_effect = yes
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					ai = yes
+				}
+				add_country_modifier = {
+					name = chaos_teleport_cooldown
+					duration = 720
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = chaos_teleport_cooldown
+					duration = 120
+				}
+			}
+			event_target:chaos_former_capital = {
+				chaos_former_capital_effect = yes
+			}
+		}
+		ai_chance = {
+			factor = 25
+		}
+	}
+	option = {
+		name = flavor_chaos.1.b
+		goto = chaos_move_prov_et_2
+		trigger = {
+			capital_scope = {
+				any_empty_neighbor_province = {
+					has_province_flag = chaos_move_prov_2
+				}
+			}
+		}
+		event_target:chaos_move_prov_et_2 = {
+			chaos_migration_effect = yes
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					ai = yes
+				}
+				add_country_modifier = {
+					name = chaos_teleport_cooldown
+					duration = 720
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = chaos_teleport_cooldown
+					duration = 120
+				}
+			}
+			event_target:chaos_former_capital = {
+				chaos_former_capital_effect = yes
+			}
+		}
+		ai_chance = {
+			factor = 25
+		}
+	}
+	option = {
+		name = flavor_chaos.1.c
+		goto = chaos_move_prov_et_3
+		trigger = {
+			capital_scope = {
+				any_empty_neighbor_province = {
+					has_province_flag = chaos_move_prov_3
+				}
+			}
+		}
+		event_target:chaos_move_prov_et_3 = {
+			chaos_migration_effect = yes
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					ai = yes
+				}
+				add_country_modifier = {
+					name = chaos_teleport_cooldown
+					duration = 720
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = chaos_teleport_cooldown
+					duration = 120
+				}
+			}
+			event_target:chaos_former_capital = {
+				chaos_former_capital_effect = yes
+			}
+		}
+		ai_chance = {
+			factor = 25
+		}
+	}
+	#go back
+	option = {
+		name = flavor_chaos.1.z
+		ai_chance = {
+			factor = 0
+		}
+	}
+	after = {
+		event_target:chaos_move_prov_et_1 = {
+			clr_province_flag = chaos_move_prov_1
+		}
+		event_target:chaos_move_prov_et_2 = {
+			clr_province_flag = chaos_move_prov_2
+		}
+		event_target:chaos_move_prov_et_3 = {
+			clr_province_flag = chaos_move_prov_3
+		}
+	}
+}
+
+country_event = {
+	id = flavor_chaos.2
+	title = flavor_chaos.2.t
+	desc = flavor_chaos.2.d
+	picture = SHOGUNATE_AUTHORITY_INCIDENT_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		has_reform = chaos_warband
+		ai = no
+	}
+	immediate = {
+		event_target:warband_to_be_moved = {
+			save_event_target_as = chaos_horde_development_handler
+			capital_scope = {
+				save_event_target_as = chaos_former_capital
+			}
+		}
+		root = {
+			capital_scope = {
+				random_empty_neighbor_province = {
+					set_province_flag = chaos_move_prov_1
+					save_event_target_as = chaos_move_prov_et_1
+				}
+			}
+			capital_scope = {
+				random_empty_neighbor_province = {
+					limit = {
+						not = {
+							has_province_flag = chaos_move_prov_1
+						}
+					}
+					set_province_flag = chaos_move_prov_2
+					save_event_target_as = chaos_move_prov_et_2
+				}
+			}
+			capital_scope = {
+				random_empty_neighbor_province = {
+					limit = {
+						not = {
+							has_province_flag = chaos_move_prov_1
+							has_province_flag = chaos_move_prov_2
+						}
+					}
+					set_province_flag = chaos_move_prov_3
+					save_event_target_as = chaos_move_prov_et_3
+				}
+			}
+		}
+	}
+	option = {
+		name = flavor_chaos.1.a
+		trigger = {
+			capital_scope = {
+				any_empty_neighbor_province = {
+					has_province_flag = chaos_move_prov_1
+				}
+			}
+		}
+		event_target:warband_to_be_moved = {
+			event_target:chaos_move_prov_et_1 = {
+				change_culture = event_target:warband_to_be_moved
+				change_religion = event_target:warband_to_be_moved
+				add_core = event_target:warband_to_be_moved
+				cede_province = event_target:warband_to_be_moved
+				set_capital = event_target:warband_to_be_moved
+			}
+		}
+		hidden_effect = {
+			event_target:chaos_former_capital = {
+				chaos_former_capital_effect = yes
+			}
+		}
+		ai_chance = {
+			factor = 25
+		}
+	}
+	option = {
+		name = flavor_chaos.1.b
+		trigger = {
+			capital_scope = {
+				any_empty_neighbor_province = {
+					has_province_flag = chaos_move_prov_2
+				}
+			}
+		}
+		event_target:warband_to_be_moved = {
+			event_target:chaos_move_prov_et_2 = {
+				change_culture = event_target:warband_to_be_moved
+				change_religion = event_target:warband_to_be_moved
+				add_core = event_target:warband_to_be_moved
+				cede_province = event_target:warband_to_be_moved
+				set_capital = event_target:warband_to_be_moved
+			}
+		}
+		hidden_effect = {
+			event_target:chaos_former_capital = {
+				chaos_former_capital_effect = yes
+			}
+		}
+		ai_chance = {
+			factor = 25
+		}
+	}
+	option = {
+		name = flavor_chaos.1.c
+		trigger = {
+			capital_scope = {
+				any_empty_neighbor_province = {
+					has_province_flag = chaos_move_prov_3
+				}
+			}
+		}
+		event_target:warband_to_be_moved = {
+			event_target:chaos_move_prov_et_3 = {
+				change_culture = event_target:warband_to_be_moved
+				change_religion = event_target:warband_to_be_moved
+				add_core = event_target:warband_to_be_moved
+				cede_province = event_target:warband_to_be_moved
+				set_capital = event_target:warband_to_be_moved
+			}
+		}
+		hidden_effect = {
+			event_target:chaos_former_capital = {
+				chaos_former_capital_effect = yes
+			}
+		}
+		ai_chance = {
+			factor = 25
+		}
+	}
+	option = {
+		name = flavor_chaos.1.z
+		ai_chance = {
+			factor = 0
+		}
+	}
+	after = {
+		event_target:chaos_move_prov_et_1 = {
+			clr_province_flag = chaos_move_prov_1
+		}
+		event_target:chaos_move_prov_et_2 = {
+			clr_province_flag = chaos_move_prov_2
+		}
+		event_target:chaos_move_prov_et_3 = {
+			clr_province_flag = chaos_move_prov_3
+		}
+	}
+}
+
+#
+#Fires from Chaotic Subjugation
+#
+# country_event = {
+# 	id = flavor_chaos.2
+# 	title = flavor_chaos.2.t
+# 	desc = flavor_chaos.2.d
+# 	picture = SHOGUNATE_AUTHORITY_INCIDENT_eventPicture
+# 	is_triggered_only = yes
+# 	hidden = yes
+# 	trigger = {
+# 		government = chaos_gov
+# 		has_reform = chaos_warband
+# 	}
+# 	immediate = {
+# 		FROM = {
+# 			set_variable = {
+# 				which = chaos_defeated_horde_development_tax
+# 				which = chaos_country_horde_development_tax
+# 			}
+# 			set_variable = {
+# 				which = chaos_defeated_horde_development_production
+# 				which = chaos_country_horde_development_production
+# 			}
+# 			set_variable = {
+# 				which = chaos_defeated_horde_development_manpower
+# 				which = chaos_country_horde_development_manpower
+# 			}
+# 		}
+# 	}
+# 	#Destory Warband and Absorb the Worthy
+# 	option = {
+# 		name = flavor_chaos.2.a
+# 		FROM = {
+# 			set_variable = {
+# 				which = chaos_defeated_horde_development_tax
+# 				which = chaos_country_horde_development_tax
+# 			}
+# 			set_variable = {
+# 				which = chaos_defeated_horde_development_production
+# 				which = chaos_country_horde_development_production
+# 			}
+# 			set_variable = {
+# 				which = chaos_defeated_horde_development_manpower
+# 				which = chaos_country_horde_development_manpower
+# 			}
+# 		}
+# 		root = {
+# 			change_variable = {
+# 				which = chaos_country_horde_development_tax
+# 				which = chaos_defeated_horde_development_tax
+# 			}
+# 			change_variable = {
+# 				which = chaos_country_horde_development_production
+# 				which = chaos_defeated_horde_development_production
+# 			}
+# 			change_variable = {
+# 				which = chaos_country_horde_development_manpower
+# 				which = chaos_defeated_horde_development_manpower
+# 			}
+# 			capital_scope = {
+# 				save_event_target_as = chaos_former_capital
+# 			}
+# 			chaos_horde_development_remove_handler = yes
+# 			chaos_horde_development_set_handler = yes
+# 		}
+# 		FROM = {
+# 			capital_scope = {
+# 				cede_province = ---
+# 			}
+# 		}
+# 	}
+# }
+country_event = {
+	id = flavor_chaos.3
+	title = flavor_chaos.3.t
+	desc = flavor_chaos.3.desc
+	picture = FORT_eventPicture
+	is_triggered_only = yes
+	option = {
+		# adm
+		name = flavor_chaos.3.a
+		trigger = {
+			chaos_can_upgrade_adm = yes
+		}
+		chaos_horde_upgrader = {
+			type = tax
+		}
+	}
+	option = {
+		# dip
+		name = flavor_chaos.3.b
+		trigger = {
+			chaos_can_upgrade_dip = yes
+		}
+		chaos_horde_upgrader = {
+			type = production
+		}
+	}
+	option = {
+		# mil
+		name = flavor_chaos.3.c
+		trigger = {
+			chaos_can_upgrade_mil = yes
+		}
+		chaos_horde_upgrader = {
+			type = manpower
+		}
+	}
+	option = {
+		# Go Back
+		name = flavor_chaos.1.z
+		#no effect
+	}
+}
+
+#gifts of chaos event
+country_event = {
+	id = flavor_chaos.4
+	title = flavor_chaos.4.t
+	desc = flavor_chaos.4.d
+	picture = HUIZTILOPOCHTLI_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = flavor_chaos.4.a
+		ai_chance = {
+			factor = 1
+		}
+		trigger = {
+			NOT = {
+				has_country_flag = has_chaos_gift_1
+			}
+		}
+		add_country_modifier = {
+			name = chaos_gift_1
+			duration = -1
+		}
+		hidden_effect = {
+			set_country_flag = has_chaos_gift_1
+		}
+	}
+	option = {
+		name = flavor_chaos.4.b
+		ai_chance = {
+			factor = 1
+		}
+		trigger = {
+			NOT = {
+				has_country_flag = has_chaos_gift_2
+			}
+		}
+		add_country_modifier = {
+			name = chaos_gift_2
+			duration = -1
+		}
+		hidden_effect = {
+			set_country_flag = has_chaos_gift_2
+		}
+	}
+	option = {
+		name = flavor_chaos.4.c
+		ai_chance = {
+			factor = 1
+		}
+		trigger = {
+			NOT = {
+				has_country_flag = has_chaos_gift_3
+			}
+		}
+		add_country_modifier = {
+			name = chaos_gift_3
+			duration = -1
+		}
+		hidden_effect = {
+			set_country_flag = has_chaos_gift_3
+		}
+	}
+	option = {
+		name = flavor_chaos.4.dd
+		ai_chance = {
+			factor = 1
+		}
+		trigger = {
+			NOT = {
+				has_country_flag = has_chaos_gift_4
+			}
+		}
+		add_country_modifier = {
+			name = chaos_gift_4
+			duration = -1
+		}
+		hidden_effect = {
+			set_country_flag = has_chaos_gift_4
+		}
+	}
+	option = {
+		name = flavor_chaos.4.e
+		ai_chance = {
+			factor = 1
+		}
+		trigger = {
+			NOT = {
+				has_country_flag = has_chaos_gift_5
+			}
+		}
+		add_country_modifier = {
+			name = chaos_gift_5
+			duration = -1
+		}
+		hidden_effect = {
+			set_country_flag = has_chaos_gift_5
+		}
+	}
+	option = {
+		name = flavor_chaos.4.f
+		ai_chance = {
+			factor = 1
+		}
+		trigger = {
+			NOT = {
+				has_country_flag = has_chaos_gift_6
+			}
+		}
+		add_country_modifier = {
+			name = chaos_gift_6
+			duration = -1
+		}
+		hidden_effect = {
+			set_country_flag = has_chaos_gift_6
+		}
+	}
+	option = {
+		name = flavor_chaos.4.g
+		ai_chance = {
+			factor = 1
+		}
+		trigger = {
+			NOT = {
+				has_country_flag = has_chaos_gift_7
+			}
+		}
+		add_country_modifier = {
+			name = chaos_gift_7
+			duration = -1
+		}
+		hidden_effect = {
+			set_country_flag = has_chaos_gift_7
+		}
+	}
+	option = {
+		name = flavor_chaos.4.h
+		ai_chance = {
+			factor = 1
+		}
+		trigger = {
+			NOT = {
+				has_country_flag = has_chaos_gift_8
+			}
+		}
+		add_country_modifier = {
+			name = chaos_gift_8
+			duration = -1
+		}
+		hidden_effect = {
+			set_country_flag = has_chaos_gift_8
+		}
+	}
+}
+
+country_event = {
+	id = flavor_chaos.666
+	title = flavor_chaos.666.t
+	desc = flavor_chaos.666.d
+	picture = BONFIRE_OF_THE_VANITIES_eventPicture
+	is_triggered_only = yes
+
+	option = {
+		hidden_effect = {
+			662 = {
+				province_event = {
+					id = flavor_chaos.667
+					days = 15
+				}
+			}
+		}
+
+	}
+}
+
+province_event = {
+	id = flavor_chaos.667
+	title = flavor_chaos.666.t
+	desc = flavor_chaos.666.d
+	picture = BONFIRE_OF_THE_VANITIES_eventPicture
+	is_triggered_only = yes
+	hidden = yes
+
+	option = {
+		name = flavor_chaos.666.a
+		chaos_decolonize_150_random_prov_se = yes
+	}
+	after = {
+		662 = {
+			province_event = {
+				id = flavor_chaos.667
+				days = 15
+			}
+		}
+	}
+}

@@ -11161,138 +11161,7 @@ estate_vaisyas_build_university_in_y = {
 }
 
 # estate_jains_build_university_in_y = {
-# 	can_select = {
-# 		government = republic
-# 		adm_tech = 17
-# 		any_owned_province = {
-# 			is_state_core = root
-# 			NOT = { has_building = university }
-# 			OR = {
-# 				development = 10
-# 				is_capital = yes
-# 			}
-# 		}
-# 	}
-# 	selection_weight = {
-# 		factor = 1
-# 		modifier = {
-# 			factor = 0.75
-# 			NOT = {
-# 				any_owned_province = {
-# 					is_state_core = root
-# 					NOT = { has_building = university }
-# 					development = 15
-# 				}
-# 			}
-# 		}
-# 		modifier = {
-# 			factor = 1.2
-# 			any_owned_province = {
-# 				is_state_core = root
-# 				NOT = { has_building = university }
-# 				development = 20
-# 			}
-# 		}
-# 		modifier = {
-# 			factor = 2
-# 			is_institution_enabled = enlightenment
-# 			NOT = { has_institution = enlightenment }
-# 		}
-# 	}
-# 	pre_effect = {
-# 		random_owned_province = {
-# 			limit = {
-# 				is_state_core = root
-# 				NOT = { has_building = university }
-# 				development = 10
-# 			}
-# 			save_event_target_as = agenda_province
-# 		}
-# 		random_owned_province = {
-# 			limit = {
-# 				is_state_core = root
-# 				NOT = { has_building = university }
-# 				development = 15
-# 			}
-# 			save_event_target_as = agenda_province
-# 		}
-# 		random_owned_province = {
-# 			limit = {
-# 				is_state_core = root
-# 				NOT = { has_building = university }
-# 				development = 20
-# 			}
-# 			save_event_target_as = agenda_province
-# 		}
-# 		random_owned_province = {
-# 			limit = {
-# 				is_state_core = root
-# 				NOT = { has_building = university }
-# 				is_capital = yes
-# 			}
-# 			save_event_target_as = agenda_province
-# 		}
-# 	}
-# 	provinces_to_highlight = {
-# 		province_id = event_target:agenda_province
-# 	}
-# 	fail_if = {
-# 		event_target:agenda_province = {
-# 			NOT = { owned_by = root }
-# 		}
-# 	}
-#     task_requirements = {
-# 		if = {
-# 			limit = {
-# 				has_estate_agenda_auto_completion = {
-# 					estate = estate_jains
-# 				}
-# 			}
-# 			has_estate_agenda_auto_completion = {
-# 				estate = estate_jains
-# 			}
-# 		}
-# 		else = {
-# 			event_target:agenda_province = {
-# 				has_building = university
-# 			}
-# 		}
-#     }
-#     task_completed_effect = {
-# 		on_completed_agenda_effect = {
-# 			estate = estate_jains
-# 		}
-# 		add_estate_loyalty = {
-# 			estate = estate_jains
-# 			loyalty = 10
-# 		}
-# 		add_adm_power = 35
-# 		add_dip_power = 35
-# 		add_mil_power = 35
-#     }
-#     failing_effect = {
-# 		on_failed_agenda_effect = yes
-# 		clr_auto_complete_flag = yes
-# 		event_target:agenda_province = {
-# 			if = {
-# 				limit = { owned_by = root }
-# 				add_named_unrest = {
-# 					name = local_jains_displeased
-# 					value = 5
-# 				}
-# 			}
-# 		}
-#         add_estate_loyalty_modifier = {
-#             estate = estate_jains
-# 			desc = EST_VAL_AGENDA_DENIED
-# 			loyalty = -5
-# 			duration = 7300
-#         }
-#     }
-# }
-
-
-
+#Removed - Keep this in case it is needed in the Future
 
 #### Develop the province
 
@@ -11303,6 +11172,9 @@ estate_church_develop_x = {
 	can_select = {
 		capital_scope = {
 			is_state_core = root
+		}
+		not = {
+			has_reform = chaos_warband
 		}
 	}
 	pre_effect = {
@@ -11632,6 +11504,9 @@ estate_nobles_develop_x = {
 	can_select = {
 		capital_scope = {
 			is_state_core = root
+		}
+		not = {
+			has_reform = chaos_warband
 		}
 	}
 	pre_effect = {
@@ -12074,6 +11949,9 @@ estate_burghers_develop_x = {
 		capital_scope = {
 			is_state_core = root
 		}
+		not = {
+			has_reform = chaos_warband
+		}
 	}
 	pre_effect = {
 		random_list = {
@@ -12361,151 +12239,7 @@ estate_vaisyas_develop_x = {
 }
 
 # estate_jains_develop_x = {
-# 	selection_weight = {
-# 		factor = 1
-# 	}
-# 	can_select = {
-# 		capital_scope = {
-# 			is_state_core = root
-# 		}
-# 	}
-# 	pre_effect = {
-# 		random_list = {
-# 			1 = {
-# 				random_owned_province = {
-# 					limit = {
-# 						is_state_core = root
-# 						area_for_scope_province = {
-# 							is_capital_of = root
-# 						}
-# 					}
-# 					save_event_target_as = agenda_province
-# 				}
-# 			}
-# 			2 = {
-# 				trigger = {
-# 					any_owned_province = {
-# 						is_state_core = root
-# 						OR = {
-# 							AND = {
-# 								religion = root
-# 								OR = {
-# 									culture = root
-# 									has_owner_accepted_culture = yes
-# 								}
-# 							}
-# 						}
-# 						region_for_scope_province = {
-# 							is_capital_of = root
-# 						}
-# 					}
-# 				}
-# 				random_owned_province = {
-# 					limit = {
-# 						is_state_core = root
-# 						OR = {
-# 							AND = {
-# 								religion = root
-# 								OR = {
-# 									culture = root
-# 									has_owner_accepted_culture = yes
-# 								}
-# 							}
-# 						}
-# 						region_for_scope_province = {
-# 							is_capital_of = root
-# 						}
-# 					}
-# 					save_event_target_as = agenda_province
-# 				}
-# 			}
-# 			1 = {
-# 				random_owned_province = {
-# 					limit = {
-# 						is_state_core = root
-# 					}
-# 					save_event_target_as = agenda_province
-# 				}
-# 			}
-# 		}
-# 		event_target:agenda_province = {
-# 			if = {
-# 				limit = {
-# 					check_variable = {
-# 						which = province_dip_var
-# 						value = 1
-# 					}
-# 				}
-# 				set_variable = {
-# 					which = province_dip_var
-# 					value = 0
-# 				}
-# 			}
-# 			export_to_variable = {
-# 				which = province_dip_var
-# 				value = trigger_value:base_production
-# 			}
-# 			change_variable = {
-# 				which = province_dip_var
-# 				value = 2
-# 			}
-# 		}
-# 	}
-# 	provinces_to_highlight = {
-# 		province_id = event_target:agenda_province
-# 	}
-# 	fail_if = {
-# 		event_target:agenda_province = {
-# 			NOT = { owned_by = root }
-# 		}
-# 	}
-#     task_requirements = {
-# 		if = {
-# 			limit = {
-# 				has_estate_agenda_auto_completion = {
-# 					estate = estate_jains
-# 				}
-# 			}
-# 			has_estate_agenda_auto_completion = {
-# 				estate = estate_jains
-# 			}
-# 		}
-# 		else = {
-# 			event_target:agenda_province = {
-# 				base_production = "province_dip_var"
-# 			}
-# 		}
-#     }
-#     task_completed_effect = {
-# 		on_completed_agenda_effect = {
-# 			estate = estate_jains
-# 		}
-# 		add_estate_loyalty = {
-# 			estate = estate_jains
-# 			loyalty = 10
-# 		}
-# 		add_years_of_income = 0.3
-#     }
-#     failing_effect = {
-# 		on_failed_agenda_effect = yes
-# 		clr_auto_complete_flag = yes
-# 		event_target:agenda_province = {
-# 			if = {
-# 				limit = { owned_by = root }
-# 				add_named_unrest = {
-# 					name = local_jains_displeased
-# 					value = 5
-# 				}
-# 			}
-# 		}
-#         add_estate_loyalty_modifier = {
-#             estate = estate_jains
-# 			desc = EST_VAL_AGENDA_DENIED
-# 			loyalty = -5
-# 			duration = 7300
-#         }
-#     }
-# }
+#Removed - Keep this in case it is needed in the Future
 
 estate_nomadic_tribes_develop_x = {
 	selection_weight = {
@@ -12961,168 +12695,7 @@ estate_qizilbash_develop_x = {
 }
 
 # estate_ghulams_develop_x = {
-# 	selection_weight = {
-# 		factor = 1
-# 	}
-# 	can_select = {
-# 		capital_scope = {
-# 			is_state_core = root
-# 		}
-# 	}
-# 	pre_effect = {
-# 		random_list = {
-# 			1 = {
-# 				random_owned_province = {
-# 					limit = {
-# 						is_state_core = root
-# 						area_for_scope_province = {
-# 							is_capital_of = root
-# 						}
-# 					}
-# 					save_event_target_as = agenda_province
-# 				}
-# 			}
-# 			1 = {
-# 				trigger = {
-# 					any_owned_province = {
-# 						is_state_core = root
-# 						OR = {
-# 							AND = {
-# 								religion = root
-# 								OR = {
-# 									culture = root
-# 									has_owner_accepted_culture = yes
-# 								}
-# 							}
-# 						}
-# 						region_for_scope_province = {
-# 							is_capital_of = root
-# 						}
-# 					}
-# 				}
-# 				random_owned_province = {
-# 					limit = {
-# 						is_state_core = root
-# 						OR = {
-# 							AND = {
-# 								religion = root
-# 								OR = {
-# 									culture = root
-# 									has_owner_accepted_culture = yes
-# 								}
-# 							}
-# 						}
-# 						region_for_scope_province = {
-# 							is_capital_of = root
-# 						}
-# 					}
-# 					save_event_target_as = agenda_province
-# 				}
-# 			}
-# 			1 = {
-# 				random_owned_province = {
-# 					limit = {
-# 						is_state_core = root
-# 					}
-# 					save_event_target_as = agenda_province
-# 				}
-# 			}
-# 			7 = {
-# 				trigger = {
-# 					any_owned_province = {
-# 						is_state_core = root
-# 						culture_group = caucasian
-# 						region_for_scope_province = {
-# 							is_capital_of = root
-# 						}
-# 					}
-# 				}
-# 				random_owned_province = {
-# 					limit = {
-# 						is_state_core = root
-# 					}
-# 					save_event_target_as = agenda_province
-# 				}
-# 			}
-# 		}
-# 		event_target:agenda_province = {
-# 			if = {
-# 				limit = {
-# 					check_variable = {
-# 						which = province_mil_var
-# 						value = 1
-# 					}
-# 				}
-# 				set_variable = {
-# 					which = province_mil_var
-# 					value = 0
-# 				}
-# 			}
-# 			export_to_variable = {
-# 				which = province_mil_var
-# 				value = trigger_value:base_manpower
-# 			}
-# 			change_variable = {
-# 				which = province_mil_var
-# 				value = 2
-# 			}
-# 		}
-# 	}
-# 	provinces_to_highlight = {
-# 		province_id = event_target:agenda_province
-# 	}
-# 	fail_if = {
-# 		event_target:agenda_province = {
-# 			NOT = { owned_by = root }
-# 		}
-# 	}
-#     task_requirements = {
-# 		if = {
-# 			limit = {
-# 				has_estate_agenda_auto_completion = {
-# 					estate = estate_ghulams
-# 				}
-# 			}
-# 			has_estate_agenda_auto_completion = {
-# 				estate = estate_ghulams
-# 			}
-# 		}
-# 		else = {
-# 			event_target:agenda_province = {
-# 				base_manpower = "province_mil_var"
-# 			}
-# 		}
-#     }
-#     task_completed_effect = {
-# 		on_completed_agenda_effect = {
-# 			estate = estate_ghulams
-# 		}
-# 		add_estate_loyalty = {
-# 			estate = estate_ghulams
-# 			loyalty = 10
-# 		}
-# 		 add_yearly_manpower = 0.3
-#     }
-#     failing_effect = {
-# 		on_failed_agenda_effect = yes
-# 		clr_auto_complete_flag = yes
-# 		event_target:agenda_province = {
-# 			if = {
-# 				limit = { owned_by = root }
-# 				add_named_unrest = {
-# 					name = local_ghulams_displeased
-# 					value = 5
-# 				}
-# 			}
-# 		}
-#         add_estate_loyalty_modifier = {
-#             estate = estate_ghulams
-# 			desc = EST_VAL_AGENDA_DENIED
-# 			loyalty = -5
-# 			duration = 7300
-#         }
-#     }
-# }
+#Removed - Keep this in case it is needed in the Future
 
 estate_cossacks_develop_x = {
 	selection_weight = {
