@@ -15,6 +15,8 @@ country_event = {
 		has_country_flag = tomb_king_ruler
 		has_reform = nehekharan_government_reform
 		NOT = { has_country_flag = interregnum }
+		NOT = { has_ruler = "Nagash" }
+		NOT = { government = republic }
 
 	}
 	
@@ -715,6 +717,482 @@ country_event = {
 
 
 
+### Nagash is reborn, and the dead are rising across the world
+
+country_event = { 
+	id = tomb_king.100
+	title = tomb_king.100.title
+	desc = tomb_king.100.desc
+	picture = southamericagfx_ADVISOR_eventPicture
+
+	major = yes
+
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+	}
+
+	immediate = {
+		hidden_effect = {
+			every_province = {
+				limit = { is_city = yes }
+				random = { 
+				    chance = 10
+
+				    spawn_rebels = {
+					    size = 1
+					    type = nagash_worship_rebels
+					} 
+				}
+			}
+		}
+
+
+		U24 = {
+			if = {
+				limit = { has_ruler = "Husk of Nagash" }
+				kill_ruler = yes
+			}
+		}
+	}
+
+# He shall advise us
+
+	option = { 
+		ai_chance = { factor = 00 }
+		name = tomb_king.100.a 
+
+		add_adm_power = 250
+		add_dip_power = 250
+		add_mil_power = 250
+
+	}
+
+# He is our new ruler!
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = tomb_king.100.b
+
+		add_stability = -2
+
+		define_ruler = {
+		    name = "Nagash"
+		    dynasty = "the Returned"
+		    adm = 6
+		    dip = 3
+		    mil = 6
+		    age = 16
+		    claim = 50
+		}
+
+		add_ruler_personality = immortal_personality
+		add_ruler_personality = legendary_administrator_personality
+		add_ruler_personality = legendary_warrior_personality
+
+	}
+}
+
+
+
+### Nagash is destroyed 
+country_event = { 
+	id = tomb_king.101
+	title = tomb_king.101.title
+	desc = tomb_king.101.desc
+	picture = WITCHBURNING_eventPicture
+
+	major = yes
+
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+	}
+
+	immediate = {
+	}
+
+## He is finally gone
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = tomb_king.101.a 
+
+	}
+}
+
+
+
+### Mission events
+
+
+
+
+## It is time to enter the modern age and reform Government
+
+country_event = { 
+	id = tomb_king.140
+	title = tomb_king.140.title
+	desc = tomb_king.140.desc
+	picture = AZTEC_PYRAMID_eventPicture
+
+	major = yes
+
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+	}
+
+	immediate = {
+		set_country_flag = nehekhara_reformed_government
+	}
+
+## We shall remain a theocracy
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = tomb_king.140.a 
+
+		remove_government_reform = nehekharan_government_reform
+		change_government = theocracy
+		add_government_reform = nehekharan_reformed_theocracy
+
+	}
+
+## We shall become a monarchy!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = tomb_king.140.b 
+
+		remove_government_reform = nehekharan_government_reform
+		change_government = monarchy
+		add_government_reform = nehekhara_reformed_monarchy
+
+	}
+
+## We shall try this republic fad
+	option = { 
+		ai_chance = { factor = 50 }
+		name = tomb_king.140.c
+
+		remove_government_reform = nehekharan_government_reform
+		change_government = republic
+		add_government_reform = nehekharan_reformed_republic
+
+	}
+
+}
+
+
+
+
+## It is time to enter the modern age and reform our religion
+
+country_event = { 
+	id = tomb_king.141
+	title = tomb_king.141.title
+	desc = tomb_king.141.desc
+	picture = AZTEC_PYRAMID_eventPicture
+
+	major = yes
+
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+	}
+
+## We shall focus on rituals and the study of magic
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = tomb_king.141.a 
+
+		add_country_modifier = { 
+		    name = nehekhara_reformed_religion_magical_study
+		    duration = -1  
+		}
+
+
+	}
+
+## We shall focus inward and stabilize our country
+	option = { 
+		ai_chance = { factor = 50 }
+		name = tomb_king.141.b 
+
+		add_country_modifier = { 
+		    name = nehekhara_reformed_religion_internal_stability
+		    duration = -1  
+		}
+
+	}
+
+## We shall become evangelical and bring our faith to the outside world
+	option = { 
+		ai_chance = { factor = 50 }
+		name = tomb_king.141.c
+
+		add_country_modifier = { 
+		    name = nehekhara_reformed_religion_spread_faith
+		    duration = -1  
+		}
+
+	}
+
+}
+
+
+
+## Better option with the Tome? Or with Nagash resurrected?
+
+### First attempt to replicate Nagash's ritual spins quickly out of control. Necromantic energy blankets the land for miles. Doing this in half measures will get us nowhere, and we must go bigger next time. It is clear that our priests don't know what they are doing, and they must be sacrificed.
+country_event = { 
+	id = tomb_king.151
+	title = tomb_king.151.title
+	desc = tomb_king.151.desc
+	picture = BLACK_PYRAMID_eventPicture
+
+	major = yes
+
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+	}
+
+	immediate = {
+		871 = {
+			area = { add_devastation = 100 }
+		}
+	}
+
+## We must try again!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = tomb_king.151.a 
+
+	}
+}
+
+## My advisors burst into the ritual site, begging that we stop. Spineless parasites! Their bones shall be added to our ritual!
+
+country_event = { 
+	id = tomb_king.152
+	title = tomb_king.152.title
+	desc = tomb_king.152.desc
+	picture = BLACK_PYRAMID_eventPicture
+
+	major = yes
+
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+	}
+
+	immediate = {
+		871 = { add_devastation = 100 }
+		kill_advisor = random
+		kill_advisor = random
+		kill_advisor = random
+	}
+
+## We must try again!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = tomb_king.152.a 
+
+	}
+}
+
+## The traitorous generals didn't want to be sacrificed! They've raised their troops outside, and now that the ritual is completed their troops are revolting outside.
+country_event = { 
+	id = tomb_king.153
+	title = tomb_king.153.title
+	desc = tomb_king.153.desc
+	picture = BLACK_PYRAMID_eventPicture
+
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+	}
+
+	immediate = {
+		871 = {
+			add_devastation = 50
+			spawn_rebels = {
+			    size = 1
+			    type = noble_rebels
+			}
+		}
+	}
+
+## We must try again!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = tomb_king.153.a 
+
+	}
+}
+
+
+## We have learned much, but this tile the pyramid is damaged and dead rise around the world.
+
+country_event = { 
+	id = tomb_king.154
+	title = tomb_king.154.title
+	desc = tomb_king.154.desc
+	picture = BLACK_PYRAMID_eventPicture
+
+	major = yes
+
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+	}
+
+	immediate = {
+		871 = {
+			add_devastation = 25
+			add_great_project_tier = {
+				type = black_pyramid_of_nagash
+				tier = -1
+			}
+		}
+		hidden_effect = {
+			every_province = {
+				limit = { is_city = yes }
+				random = { 
+				    chance = 10
+
+				    spawn_rebels = {
+					    size = 1
+					    type = nagash_worship_rebels
+					} 
+				}
+			}
+		}
+	}
+
+## Success, if only temporarily!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = tomb_king.154.a 
+
+	}
+}
+
+
+## Dramatic summary of successful ritual - which decision should we make?
+
+country_event = { 
+	id = tomb_king.155
+	title = tomb_king.155.title
+	desc = tomb_king.155.desc
+	picture = BLACK_PYRAMID_eventPicture
+
+	major = yes
+
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+	}
+
+	immediate = {
+		871 = {
+			add_devastation = 100
+			add_great_project_tier = {
+				type = black_pyramid_of_nagash
+				tier = -3
+			}
+		}
+	}
+
+## We shall undo our curse and return to life!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = tomb_king.155.a 
+
+		set_global_flag = nagash_ritual_undone
+
+		remove_country_modifier = undead_administration
+		remove_country_modifier = undead_military
+
+		add_country_modifier = { 
+    		name = nehekhara_true_immortality
+    		duration = -1  
+		}
+
+		every_country = {
+		    limit = { religion = nehekharan_pantheon }
+		    remove_country_modifier = undead_administration
+		    remove_country_modifier = undead_military
+		}
+
+	}
+
+## Undeath is the future of Nehekhara! We shall use the ritual to grow more powerful.
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = tomb_king.155.b
+
+		add_country_modifier = { 
+    		name = nehekhara_embrace_undeath
+    		duration = -1 
+		}
+
+	}
+}
+
 
 #### Change Personal Diety
 
@@ -726,7 +1204,7 @@ country_event = {
 	picture = AZTEC_PYRAMID_eventPicture
 	is_triggered_only = yes
 
-	# Ptra (Unrest and STability Modifier)
+	# Ptra (Unrest and Stability Modifier)
 	option = {
 		name = tomb_king.1000.b
 		trigger = {

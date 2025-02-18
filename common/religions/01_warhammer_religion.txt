@@ -1,10 +1,6 @@
 # If you add religions, and use those tags, do not change them without changing everywhere they are used.
 # Uses all 'modifiers' possible thats exported as a Modifier.
-
 ### For church aspects, the static modifier should be worth 0.5 ideas, and the one time bonus should be worth an idea. To be worth an idea, consider that you should select one every 5 years. That would mean either 50 monarch points or 50% of an annual bonus (manpower, income)
-
-
-
 old_world_denominations = {
 	defender_of_faith = yes
 	can_form_personal_unions = yes
@@ -16,13 +12,13 @@ old_world_denominations = {
 	########################################################################################################################
 	#	lady_of_the_lake
 	########################################################################################################################
-	
 	### BALANCE: For now, base modifiers are overpowered at 4 idea value
-
 	lady_of_the_lake = {
 		color = {
 			#18 52 160
-			136 2 60
+			136
+			2
+			60
 		}
 		icon = 12
 		country = {
@@ -36,100 +32,18 @@ old_world_denominations = {
 			can_recruit_hussars = yes
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
 			change_religion = lady_of_the_lake
 			add_prestige = -100
 			add_stability = -1
-
-
-			remove_country_modifier = destruction_nation
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = chaos_nation
-
-			add_country_modifier = {
-				name = order_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
+			alignment_change_good = yes
 		}
-		
 		allow_female_defenders_of_the_faith = yes
 		misguided_heretic = yes
-#		ancestors = yes
-		
+		#		ancestors = yes
 		heretic = {
 			BLACK_GRAIL
 			FALSE_GRAIL
@@ -138,111 +52,34 @@ old_world_denominations = {
 	########################################################################################################################
 	#	myrmidia
 	########################################################################################################################	
-	
 	## BALANCE: 5 ideas. Base bonuses are worth two ideas, Fervor is worth about 3 ideas
-
 	myrmidia = {
 		color = {
 			#244 196 48
-			207 181 59
+			207
+			181
+			59
 		}
 		icon = 18
 		country = {
-			military_tactics = 0.25					
-			diplomatic_reputation = 1.5					
+			military_tactics = 0.25
+			diplomatic_reputation = 1.5
 			may_recruit_female_generals = yes
 			female_advisor_chance = 0.5
 		}
 		country_as_secondary = {
-			military_tactics = 0.5				
+			military_tactics = 0.5
 			diplomatic_reputation = 3
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
 			change_religion = myrmidia
 			add_prestige = -100
 			add_stability = -1
-
-			remove_country_modifier = destruction_nation
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = order_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
+			alignment_change_good = yes
 		}
 		allowed_conversion = {
 			myrmidia
@@ -252,7 +89,7 @@ old_world_denominations = {
 			cult_of_taal_religion
 			old_world_cults_religion
 			vampiric
-		}	
+		}
 		allow_female_defenders_of_the_faith = yes
 		misguided_heretic = yes
 		heretic = {
@@ -264,7 +101,6 @@ old_world_denominations = {
 	#	URSUN
 	########################################################################################################################		
 	## BALANCE: 5 ideas. Base bonuses are worth two ideas, Icons are worth two ideas, Metropolitans are worth 1-2 ideas
-
 	ursun = {
 		color = {
 			202
@@ -281,92 +117,15 @@ old_world_denominations = {
 			religious_unity = 0.3
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
 			change_religion = ursun
 			add_prestige = -100
 			add_stability = -1
-
-			remove_country_modifier = destruction_nation
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = order_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-		}	
+			alignment_change_good = yes
+		}
 		has_patriarchs = yes		# Uses patriarch authority
 		misguided_heretic = yes
 		heretic = {
@@ -382,24 +141,18 @@ old_world_denominations = {
 			old_world_cults_religion
 			vampiric
 			kislev_old_faith
-		}	
-
-
+		}
 		orthodox_icons = {
 			# If no icon has ai_will_do above 1 - <current patriarch authority> , the AI will not enact it. (60% PA = 0.6 -> ai_will_do has to be at least 0.4)
-
 			icon_michael = {
 				discipline = 0.05
 				manpower_recovery_speed = 0.1
-				
 				allow = {
 					always = yes
 				}
-
 				visible = {
 					always = yes
 				}
-
 				ai_will_do = {
 					factor = 0.05
 					modifier = {
@@ -412,19 +165,15 @@ old_world_denominations = {
 					}
 				}
 			}
-
 			icon_eleusa = {
 				global_unrest = -3
 				harsh_treatment_cost = -0.25
-				
 				allow = {
 					always = yes
 				}
-
 				visible = {
 					always = yes
 				}
-				
 				ai_will_do = {
 					factor = 0.02
 					modifier = {
@@ -449,32 +198,25 @@ old_world_denominations = {
 					}
 				}
 			}
-
 			icon_pancreator = {
-				development_cost = -0.10
+				development_cost = -0.1
 				build_cost = -0.1
-				
 				allow = {
 					always = yes
 				}
-
 				visible = {
 					always = yes
 				}
-				
 				ai_will_do = {
 					factor = 0
 				}
 			}
-	
 			icon_nicholas = {
 				improve_relation_modifier = 0.25
 				ae_impact = -0.1
-				
 				visible = {
 					always = yes
 				}
-				
 				allow = {
 					always = yes
 				}
@@ -482,15 +224,12 @@ old_world_denominations = {
 					factor = 0.01
 				}
 			}
-
 			icon_climacus = {
 				global_institution_spread = 0.25
 				embracement_cost = -0.2
-
 				visible = {
 					always = yes
 				}
-
 				allow = {
 					always = yes
 				}
@@ -502,7 +241,9 @@ old_world_denominations = {
 							calc_true_if = {
 								all_owned_province = {
 									current_institution = 1
-									NOT = { current_institution = 95 }
+									NOT = {
+										current_institution = 95
+									}
 								}
 								amount = 1
 							}
@@ -513,7 +254,9 @@ old_world_denominations = {
 						calc_true_if = {
 							all_owned_province = {
 								current_institution = 1
-								NOT = { current_institution = 95 }
+								NOT = {
+									current_institution = 95
+								}
 							}
 							amount = 5
 						}
@@ -521,19 +264,16 @@ old_world_denominations = {
 				}
 			}
 		}
-
-
-
 	}
 	########################################################################################################################
 	#	SIGMAR
 	########################################################################################################################		
-	
 	## BALANCE: 5 ideas. Base bonuses are worth two ideas. 3 aspects each worth 0.5 ideas is worth 1.5 ideas. One time bonuses from selecting aspects is worth 1 idea ongoing.
-
 	cult_of_sigmar = {
 		color = {
-			154 154 154
+			154
+			154
+			154
 		}
 		hre_religion = yes
 		icon = 9
@@ -546,90 +286,14 @@ old_world_denominations = {
 			global_missionary_strength = 0.04
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
 			change_religion = cult_of_sigmar
 			add_prestige = -100
 			add_stability = -1
-
-			remove_country_modifier = destruction_nation
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = order_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
+			alignment_change_good = yes
 		}
 		allowed_conversion = {
 			myrmidia
@@ -645,7 +309,6 @@ old_world_denominations = {
 			SIGMAR_HERETIC
 			OLD_FAITH
 		}
-		
 		uses_church_power = yes
 		aspects = {
 			order_of_silver_hammer
@@ -657,17 +320,16 @@ old_world_denominations = {
 			templar_knights_griffon
 		}
 		aspects_name = PROTESTANT_ASPECTS
-
 	}
 	########################################################################################################################
 	#	Ulric
 	########################################################################################################################		
-	
 	## BALANCE: 5 ideas. Base bonuses are worth two ideas, Fervor is worth about 3 ideas
-
 	cult_of_ulric_religion = {
 		color = {
-			0 43 108
+			0
+			43
+			108
 		}
 		icon = 10
 		country = {
@@ -679,92 +341,15 @@ old_world_denominations = {
 			land_morale = 0.2
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
 			change_religion = cult_of_ulric_religion
 			add_prestige = -100
 			add_stability = -1
-
-			remove_country_modifier = destruction_nation
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = order_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-		}	
+			alignment_change_good = yes
+		}
 		hre_heretic_religion = yes
 		misguided_heretic = yes
 		allowed_conversion = {
@@ -775,24 +360,22 @@ old_world_denominations = {
 			cult_of_taal_religion
 			old_world_cults_religion
 			vampiric
-		}	
+		}
 		heretic = {
 			ULRIC_HERETIC
 			OLD_FAITH
 		}
-
 		fervor = yes
-
 	}
 	########################################################################################################################
 	#	Taal
 	########################################################################################################################	
-
 	## BALANCE: 5 ideas. Base bonuses are worth two ideas. 3 aspects each worth 0.5 ideas is worth 1.5 ideas. Festival bonuses from selecting aspects is worth 1 idea ongoing.
-
 	cult_of_taal_religion = {
 		color = {
-			0 149 48
+			0
+			149
+			48
 		}
 		icon = 15
 		country = {
@@ -804,92 +387,15 @@ old_world_denominations = {
 			manpower_recovery_speed = 0.2
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
 			change_religion = cult_of_taal_religion
 			add_prestige = -100
 			add_stability = -1
-
-			remove_country_modifier = destruction_nation
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = order_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-		}	
+			alignment_change_good = yes
+		}
 		misguided_heretic = yes
 		allowed_conversion = {
 			myrmidia
@@ -899,15 +405,13 @@ old_world_denominations = {
 			cult_of_taal_religion
 			old_world_cults_religion
 			vampiric
-		}	
+		}
 		heretic = {
 			TAAL_HERETIC
 			OLD_FAITH
 		}
-
 		uses_judaism_power = yes
 		aspects_name = JEWISH_ASPECTS
-
 		aspects = {
 			taal_reverence
 			taal_study_nature
@@ -919,103 +423,121 @@ old_world_denominations = {
 			taal_hunt_defensive
 			taal_efficient_hunt
 		}
-
-		 celebrate = {
-		 	cost = 200
-		 	potential = {
-		 	}
-		 	allow = {
-		 		custom_trigger_tooltip = {
-		 			tooltip = JUDAISM_HAS_ADM_ASPECT
-		 			OR = {
-		 				has_church_aspect = taal_reverence
-		 				has_church_aspect = taal_study_nature
-		 				has_church_aspect = taal_sell_pelts
-		 			}
-		 		}
-		 		if = {
-		 			limit = {
-		 				has_church_aspect = taal_reverence
-		 			}
-		 			NOT = { stability = 3 }
-		 		}
-		 	}
-		 	effect = {
-		 		if = {
-		 			limit = {
-		 				has_church_aspect = taal_reverence
-		 			}
-		 			add_stability = 1
-		 		}
-		 		if = {
-		 			limit = {
-		 				has_church_aspect = taal_study_nature
-		 			}
-		 			change_government_reform_progress = 25
-		 			add_legitimacy_equivalent = {
-		 				amount = 5
-		 				republican_tradition = 5
-		 			}
-		 			if = {
-		 				limit = {
-		 					has_heir = yes
-		 				}
-		 				add_heir_claim = 5
-		 			}
-		 		}
-		 		if = {
-		 			limit = {
-		 				has_church_aspect = taal_sell_pelts
-		 			}
-		 			add_years_of_income = 0.3
-		 			add_inflation = -1
-		 		}
-		 		if = {
-		 			limit = {
-		 				has_government_attribute = loyalty_from_celebration
-		 			}
-		 			add_estate_loyalty = {
-		 				estate = estate_church
-		 				loyalty = 20
-		 			}
-		 		}
-		 		hidden_effect = {
-		 			if = {
-		 				limit = { NOT = { has_country_flag = has_celebrated_festival } }
-		 				set_country_flag = has_celebrated_festival
-		 			}
-		 		}
-		 	}
-		 	ai_will_do = {
-		 		factor = 1
-		 		modifier = {
-		 			factor = 0
-		 			OR = {
-		 				AND = {
-		 					NOT = { has_church_aspect = taal_communal_hunt }
-		 					NOT = { has_church_aspect = taal_empire_roots }
-		 					NOT = { has_church_aspect = taal_home }
-		 				}
-		 				AND = {
-		 					NOT = { has_church_aspect = taal_hunt_aggressive }
-		 					NOT = { has_church_aspect = taal_hunt_defensive }
-		 					NOT = { has_church_aspect = taal_efficient_hunt }
-		 				}
-		 			}
-		 		}
-		 	}
-	 	}
+		celebrate = {
+			cost = 200
+			potential = {
+			}
+			allow = {
+				custom_trigger_tooltip = {
+					tooltip = JUDAISM_HAS_ADM_ASPECT
+					OR = {
+						has_church_aspect = taal_reverence
+						has_church_aspect = taal_study_nature
+						has_church_aspect = taal_sell_pelts
+					}
+				}
+				if = {
+					limit = {
+						has_church_aspect = taal_reverence
+					}
+					NOT = {
+						stability = 3
+					}
+				}
+			}
+			effect = {
+				if = {
+					limit = {
+						has_church_aspect = taal_reverence
+					}
+					add_stability = 1
+				}
+				if = {
+					limit = {
+						has_church_aspect = taal_study_nature
+					}
+					change_government_reform_progress = 25
+					add_legitimacy_equivalent = {
+						amount = 5
+						republican_tradition = 5
+					}
+					if = {
+						limit = {
+							has_heir = yes
+						}
+						add_heir_claim = 5
+					}
+				}
+				if = {
+					limit = {
+						has_church_aspect = taal_sell_pelts
+					}
+					add_years_of_income = 0.3
+					add_inflation = -1
+				}
+				if = {
+					limit = {
+						has_government_attribute = loyalty_from_celebration
+					}
+					add_estate_loyalty = {
+						estate = estate_church
+						loyalty = 20
+					}
+				}
+				hidden_effect = {
+					if = {
+						limit = {
+							NOT = {
+								has_country_flag = has_celebrated_festival
+							}
+						}
+						set_country_flag = has_celebrated_festival
+					}
+				}
+			}
+			ai_will_do = {
+				factor = 1
+				modifier = {
+					factor = 0
+					OR = {
+						AND = {
+							NOT = {
+								has_church_aspect = taal_communal_hunt
+							}
+							NOT = {
+								has_church_aspect = taal_empire_roots
+							}
+							NOT = {
+								has_church_aspect = taal_home
+							}
+						}
+						AND = {
+							NOT = {
+								has_church_aspect = taal_hunt_aggressive
+							}
+							NOT = {
+								has_church_aspect = taal_hunt_defensive
+							}
+							NOT = {
+								has_church_aspect = taal_efficient_hunt
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 	########################################################################################################################
 	#	Generalized Old World Cults
 	########################################################################################################################		
 	### BALANCE: Base ideas are 2 ideas, each diety is worth 2 ideas.
-
 	old_world_cults_religion = {
 		color = {
-			218 145 0 
+			218
+			145
+			0
 		}
-		icon = 1
+		icon = 33
 		country = {
 			global_unrest = -2
 			tolerance_heretic = 3
@@ -1025,92 +547,15 @@ old_world_denominations = {
 			tolerance_heretic = 6
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
 			change_religion = old_world_cults_religion
 			add_prestige = -100
 			add_stability = -1
-
-			remove_country_modifier = destruction_nation
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = order_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-		}	
+			alignment_change_good = yes
+		}
 		misguided_heretic = yes
 		heretic = {
 			OLD_FAITH
@@ -1122,19 +567,15 @@ old_world_denominations = {
 			cult_of_ulric_religion
 			cult_of_taal_religion
 			vampiric
-		}	
+		}
 		personal_deity = yes
 	}
 	crusade_name = CRUSADE
 	harmonized_modifier = harmonized_old_world
-
-
 	########################################################################################################################
 	#	VAMPIRIC
 	########################################################################################################################	
-	
 	#BALANCE: 2 from base ideas, 4-6 from church aspects, they are fun and powerful. Maybe overtuned, but it gives people a reason to flip Vampiric.
-
 	vampiric = {
 		color = {
 			127
@@ -1151,153 +592,49 @@ old_world_denominations = {
 			global_tax_modifier = 0.2
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
 			## You become undead
-			#			remove_country_modifier = human_administration
-			#			remove_country_modifier = human_military
-			#			remove_country_modifier = orcish_administration
-			#			remove_country_modifier = orcish_military
-			#			remove_country_modifier = dwarven_administration
-			#			remove_country_modifier = dwarven_military
-			#			remove_country_modifier = elven_administration
-			#			remove_country_modifier = elven_military
-			#			remove_country_modifier = lizardmen_administration
-			#			remove_country_modifier = lizardmen_military
-			#			remove_country_modifier = fimir_administration
-			#			remove_country_modifier = fimir_military
-			#			remove_country_modifier = ogre_administration
-			#			remove_country_modifier = ogre_military
-			#			remove_country_modifier = skaven_administration
-			#			remove_country_modifier = skaven_military
-			#			remove_country_modifier = beastfolk_administration
-			#			remove_country_modifier = beastfolk_military
 
 			clear_scripted_personalities = yes
 			add_ruler_personality = immortal_personality
 			add_heir_personality = immortal_personality
-
-
-
-			add_country_modifier = { 
-			    name = undead_administration
-			    duration = -1
-		    }
-			add_country_modifier = { 
-			    name = undead_military
-			    duration = -1
-		    }
-
-		    hidden_effect = {
-			    every_owned_province = {
-			    	remove_province_modifier = lizardfolk_mild_winter
-			    	remove_province_modifier = lizardfolk_normal_winter
-			    	remove_province_modifier = lizardfolk_severe_winter
-			    	remove_province_modifier = lizardfolk_arctic
-			    	remove_province_modifier = wood_elves_magical_forest
-			    	remove_province_modifier = wood_elves_non_forest
-			    	remove_province_modifier = fimir_marsh_modifier
-			    	remove_province_modifier = undergrounder_underground
-			    	remove_province_modifier = undergrounder_above_ground
-			    	remove_province_modifier = surface_dweller_underground
-			    }
-		    }
-
-
-
-			### The normal Stuff
+			add_country_modifier = {
+				name = undead_administration
+				duration = -1
+			}
+			add_country_modifier = {
+				name = undead_military
+				duration = -1
+			}
 			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
+				every_owned_province = {
+					remove_province_modifier = lizardfolk_mild_winter
+					remove_province_modifier = lizardfolk_normal_winter
+					remove_province_modifier = lizardfolk_severe_winter
+					remove_province_modifier = lizardfolk_arctic
+					remove_province_modifier = wood_elves_magical_forest
+					remove_province_modifier = wood_elves_non_forest
+					remove_province_modifier = fimir_marsh_modifier
+					remove_province_modifier = undergrounder_underground
+					remove_province_modifier = undergrounder_above_ground
+					remove_province_modifier = surface_dweller_underground
 				}
 			}
-
+			### The normal Stuff
+			alignment_change_evil = yes
 			change_religion = vampiric
 			add_prestige = -100
 			add_stability = -1
-
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = order_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = destruction_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-		}	
+		}
 		heretic = {
 			BLACK_GRAIL
 		}
-
 		allowed_conversion = {
 			nagash_worship
 		}
-
 		uses_anglican_power = yes
 		aspects = {
 			vampiric_raise_dead
@@ -1309,26 +646,21 @@ old_world_denominations = {
 		}
 		aspects_name = VAMPIRIC_ASPECTS
 	}
-
-
-
 }
 
+#Commented out for now
 ########################################################################################################################
 #	NECROMATIC ########################################################################################################
 ########################################################################################################################
-necromantic_denominations = {
-	flags_with_emblem_percentage = 10
-	flag_emblem_index_range = {
-		83
-		96
-	}
-
-
-	crusade_name = DARK_CRUSADE
-	#harmonized_modifier = harmonized_necromantic
-}
-
+# necromantic_denominations = {
+# 	flags_with_emblem_percentage = 10
+# 	flag_emblem_index_range = {
+# 		83
+# 		96
+# 	}
+# 	crusade_name = DARK_CRUSADE
+# 	#harmonized_modifier = harmonized_necromantic
+# }
 ########################################################################################################################
 #	CHAOS ################################################################
 ########################################################################################################################		
@@ -1341,9 +673,7 @@ ruinous_powers_denominations = {
 	########################################################################################################################
 	#	KHORNE
 	########################################################################################################################	
-	
 	# BALANCE: Base is worth 3. Aspects are worth 0.5 each and one time bonuses are worth 0.5 each, but you get everything twice as much due to more church power.
-
 	khornate_religion = {
 		color = {
 			233
@@ -1359,70 +689,30 @@ ruinous_powers_denominations = {
 			shock_damage = 0.3
 			army_tradition_decay = -0.03
 		}
-		heretic = {
-			CHAOS_HERETIC
-		}
-##		uses_anglican_power = yes		# Uses church power/aspect mechanics
-##		aspects = {
-##			champion_of_khorne_aspect
-##			drawn_to_destruction_aspect
-##			skulls_for_the_skull_throne_aspect
-##			blade_of_khorne_aspect
-##		}
 		allowed_conversion = {
 			slaaneshi_religion
 			nurglite_religion
-			tzeentchian_religion
 			chaos_undivided_religion
+			tzeentchian_religion
+		}
+		heretic = {
+			CHAOS_HERETIC
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
+			alignment_change_chaos = yes
 			change_religion = khornate_religion
 			add_prestige = -100
 			add_stability = -1
 
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = order_nation
-			remove_country_modifier = destruction_nation
-			add_country_modifier = {
-				name = chaos_nation
-				duration = -1
-			}			
 		}
-
 		uses_hussite_power = yes
 		aspects = {
 			chaos_knights
 			spread_chaos
-
 			khornate_warriors
 			neverending_conquest
 			khorne_diplomacy
@@ -1433,14 +723,12 @@ ruinous_powers_denominations = {
 		}
 		harmonized_modifier = harmonized_khorne
 		aspects_name = CHAOS_ASPECTS
-		
-##		aspects_name = ANGLICAN_ASPECTS
+		##		aspects_name = ANGLICAN_ASPECTS
 	}
 	########################################################################################################################
 	#	NURGLE
 	########################################################################################################################		
-		# BALANCE: Base is worth 3. Aspects are worth 0.5 each and one time bonuses are worth 0.5 each, but you get everything twice as much due to more church power.
-
+	# BALANCE: Base is worth 3. Aspects are worth 0.5 each and one time bonuses are worth 0.5 each, but you get everything twice as much due to more church power.
 	nurglite_religion = {
 		color = {
 			181
@@ -1453,66 +741,32 @@ ruinous_powers_denominations = {
 			max_hostile_attrition = 1
 			land_attrition = -0.2
 		}
+		allowed_conversion = {
+			slaaneshi_religion
+			khornate_religion
+			chaos_undivided_religion
+			tzeentchian_religion
+		}
 		country_as_secondary = {
 			hostile_attrition = 2
 			max_hostile_attrition = 2
 			land_attrition = -0.4
 		}
-		allowed_conversion = {
-			slaaneshi_religion
-			khornate_religion
-			tzeentchian_religion
-			chaos_undivided_religion
-		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
+			alignment_change_chaos = yes
 			change_religion = nurglite_religion
 			add_prestige = -100
 			add_stability = -1
 
-
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = order_nation
-			remove_country_modifier = destruction_nation
-			add_country_modifier = {
-				name = chaos_nation
-				duration = -1
-			}				
-		}	
-
+		}
 		uses_hussite_power = yes
 		aspects = {
 			chaos_knights
 			spread_chaos
-
 			nurgle_pain
 			attract_specimens
 			nurgle_diplomacy
@@ -1530,12 +784,12 @@ ruinous_powers_denominations = {
 	########################################################################################################################
 	#	TZEENTCH
 	########################################################################################################################		
-	
 	# BALANCE: Base is worth 3. Aspects are worth 0.5 each and one time bonuses are worth 0.5 each, but you get everything twice as much due to more church power.
-
 	tzeentchian_religion = {
 		color = {
-			0 0 178
+			0
+			0
+			178
 		}
 		icon = 7
 		country = {
@@ -1548,58 +802,25 @@ ruinous_powers_denominations = {
 		}
 		allowed_conversion = {
 			slaaneshi_religion
-			nurglite_religion
 			khornate_religion
 			chaos_undivided_religion
+			nurglite_religion
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
+			alignment_change_chaos = yes
 			change_religion = tzeentchian_religion
 			add_prestige = -100
 			add_stability = -1
 
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = order_nation
-			remove_country_modifier = destruction_nation
-			add_country_modifier = {
-				name = chaos_nation
-				duration = -1
-			}				
 		}
-
 		uses_hussite_power = yes
 		aspects = {
 			chaos_knights
 			spread_chaos
-
 			tzeentch_magic
 			sow_discontent
 			tzeentch_diplomacy
@@ -1617,8 +838,7 @@ ruinous_powers_denominations = {
 	########################################################################################################################
 	#	SLAANESHI
 	########################################################################################################################		
-		# BALANCE: Base is worth 3. Aspects are worth 0.5 each and one time bonuses are worth 0.5 each, but you get everything twice as much due to more church power.
-
+	# BALANCE: Base is worth 3. Aspects are worth 0.5 each and one time bonuses are worth 0.5 each, but you get everything twice as much due to more church power.
 	slaaneshi_religion = {
 		color = {
 			221
@@ -1630,68 +850,32 @@ ruinous_powers_denominations = {
 			manpower_recovery_speed = 0.15
 			movement_speed = 0.15
 		}
-#		allowed_center_conversion = {
-#			cult_of_sigmar
-#		}
+		allowed_conversion = {
+			tzeentchian_religion
+			khornate_religion
+			chaos_undivided_religion
+			tzeentchian_religion
+			nurglite_religion
+		}
 		country_as_secondary = {
 			manpower_recovery_speed = 0.3
 			movement_speed = 0.3
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
+			alignment_change_chaos = yes
 			change_religion = slaaneshi_religion
 			add_prestige = -100
 			add_stability = -1
 
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = order_nation
-			remove_country_modifier = destruction_nation
-			add_country_modifier = {
-				name = chaos_nation
-				duration = -1
-			}	
 		}
-
-		allowed_conversion = {
-			nurglite_religion
-			khornate_religion
-			tzeentchian_religion
-			chaos_undivided_religion
-		}
-
 		uses_hussite_power = yes
 		aspects = {
 			chaos_knights
 			spread_chaos
-
 			slaaneshi_speed
 			indulge_the_population
 			slaanesh_diplomacy
@@ -1701,7 +885,7 @@ ruinous_powers_denominations = {
 			tempt_mortals
 		}
 		aspects_name = CHAOS_ASPECTS
-	harmonized_modifier = harmonized_slannesh
+		harmonized_modifier = harmonized_slannesh
 		heretic = {
 			CHAOS_HERETIC
 		}
@@ -1710,106 +894,31 @@ ruinous_powers_denominations = {
 	#	NORSCAN
 	########################################################################################################################			
 	# BALANCE: Base is worth 3. Dieties are worth 2 each.
-
 	norscan = {
 		color = {
-			75 54 33
+			75
+			54
+			33
 		}
 		icon = 21
 		country = {
 			land_forcelimit_modifier = 0.2
 			naval_forcelimit_modifier = 0.3
+			may_perform_slave_raid = yes
 		}
 		country_as_secondary = {
 			land_forcelimit_modifier = 0.4
-			naval_forcelimit_modifier = 0.4
+			naval_forcelimit_modifier = 0.6
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
+			alignment_change_chaos = yes
 			change_religion = norscan
 			add_prestige = -100
 			add_stability = -1
-
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = order_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = destruction_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
 		}
 		personal_deity = yes
 		allowed_conversion = {
@@ -1828,7 +937,6 @@ ruinous_powers_denominations = {
 	#	CHAOS UNDIVIDED
 	########################################################################################################################			
 	# BALANCE: Base is worth 2+ who knows due to the monthly church power. Aspects are worth 0.5 each and one time bonuses are worth 0.5 each, but you get everything twice as much due to more church power.
-
 	chaos_undivided_religion = {
 		color = {
 			2
@@ -1838,7 +946,7 @@ ruinous_powers_denominations = {
 		icon = 26
 		country = {
 			tolerance_heretic = 3
-			monthly_church_power = 2.0
+			monthly_church_power = 2
 		}
 		country_as_secondary = {
 			tolerance_heretic = 6
@@ -1849,57 +957,24 @@ ruinous_powers_denominations = {
 			MALAL
 			BELAKOR
 		}
-		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
-			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
-			change_religion = chaos_undivided_religion
-			add_prestige = -100
-			add_stability = -1
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = order_nation
-			remove_country_modifier = destruction_nation
-			add_country_modifier = {
-				name = chaos_nation
-				duration = -1
-			}
-		}
-
 		allowed_conversion = {
 			slaaneshi_religion
 			nurglite_religion
 			khornate_religion
 			tzeentchian_religion
 		}
+		on_convert = {
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
+			}
+			alignment_change_chaos = yes
+			change_religion = chaos_undivided_religion
+			add_prestige = -100
+			add_stability = -1
 
+		}
 		allowed_center_conversion = {
-			chaos_undivided_religion
 			lady_of_the_lake
 			myrmidia
 			ursun
@@ -1921,13 +996,11 @@ ruinous_powers_denominations = {
 			dragon_cult
 			the_one_faith
 			nehekharan_pantheon
-			horned_rat
 			old_ones
 			enlightened_path
 			yin_yang
 			the_thousand_gods
 		}
-
 		will_get_center = {
 			always = yes
 			any_owned_province = {
@@ -1936,39 +1009,36 @@ ruinous_powers_denominations = {
 				}
 			}
 		}
-	harmonized_modifier = harmonized_chaos_undivided
-	uses_hussite_power = yes
-	aspects = {
-		chaos_knights
-		unity_of_gods
-		spread_chaos
-		khornate_warriors
-		neverending_conquest
-		khorne_diplomacy
-		nurgle_pain
-		attract_specimens
-		nurgle_diplomacy
-		tzeentch_magic
-		sow_discontent
-		tzeentch_diplomacy
-		slaaneshi_speed
-		indulge_the_population
-		slaanesh_diplomacy
-	}
-	aspects_name = CHAOS_ASPECTS
-
-
-
+		harmonized_modifier = harmonized_chaos_undivided
+		uses_hussite_power = yes
+		aspects = {
+			chaos_knights
+			unity_of_gods
+			spread_chaos
+			khornate_warriors
+			neverending_conquest
+			khorne_diplomacy
+			nurgle_pain
+			attract_specimens
+			nurgle_diplomacy
+			tzeentch_magic
+			sow_discontent
+			tzeentch_diplomacy
+			slaaneshi_speed
+			indulge_the_population
+			slaanesh_diplomacy
+		}
+		aspects_name = CHAOS_ASPECTS
 	}
 	########################################################################################################################
 	#	hashut
 	########################################################################################################################			
-	
 	# BALANCE: 2 from Basic ideas, 3 ish from Harmony, 1+ from subjugation
-
 	hashut = {
 		color = {
-			226 88 34
+			226
+			88
+			34
 		}
 		icon = 23
 		country = {
@@ -1980,103 +1050,22 @@ ruinous_powers_denominations = {
 			discipline = 0.1
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
+			alignment_change_chaos = yes
 			change_religion = hashut
 			add_prestige = -100
 			add_stability = -1
-
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = order_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = destruction_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
 		}
 		heretic = {
 			CHAOS_HERETIC
 		}
-
 		uses_harmony = yes
-
 		allowed_conversion = {
-
 		}
 	}
-	
 	crusade_name = DARK_CRUSADE
 }
 
@@ -2092,12 +1081,12 @@ greenskin_denominations = {
 	########################################################################################################################
 	#	GORK AND MORK
 	########################################################################################################################	
-
 	# BALANCE: 2 from basic ideas, Gork and Mork are work 3-4
-
 	gork_n_mork_religion = {
 		color = {
-			0 149 48
+			0
+			149
+			48
 		}
 		icon = 6
 		country = {
@@ -2109,91 +1098,14 @@ greenskin_denominations = {
 			manpower_recovery_speed = 0.2
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
+			alignment_change_evil = yes
 			change_religion = gork_n_mork_religion
 			add_prestige = -100
 			add_stability = -1
-
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = order_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = destruction_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
 		}
 		heretic = {
 			MORK
@@ -2204,9 +1116,7 @@ greenskin_denominations = {
 	########################################################################################################################
 	#	SPIDER CULT
 	########################################################################################################################		
-	
 	## BALANCE: Not balanced, no instances
-
 	spider_cult_religion = {
 		color = {
 			73
@@ -2217,93 +1127,46 @@ greenskin_denominations = {
 		country = {
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
+			alignment_change_evil = yes
 			change_religion = spider_cult_religion
 			add_prestige = -100
 			add_stability = -1
-
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = order_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = destruction_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
 		}
 		country_as_secondary = {
+		}
+		heretic = {
+			GORK
+			MORK
+		}
+	}
+	hobgoblin_religion = {
+		color = {
+			76
+			25
+			217
+		}
+		icon = 1
+		country = {
+			cav_to_inf_ratio = 0.25
+			global_regiment_cost = -0.1
+		}
+		on_convert = {
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
+			}
+			alignment_change_evil = yes
+			change_religion = hobgoblin_religion
+			add_prestige = -100
+			add_stability = -1
+		}
+		country_as_secondary = {
+			movement_speed = 0.1
+			shock_damage = 0.05
 		}
 		heretic = {
 			GORK
@@ -2326,13 +1189,13 @@ ogre_denominations = {
 	########################################################################################################################
 	#	the_great_maw_religion
 	########################################################################################################################	
-	
 	# 2 from basic, 2 from secondary
-
 	the_great_maw_religion = {
 		icon = 3
 		color = {
-			120 127 89
+			120
+			127
+			89
 		}
 		country = {
 			land_morale = 0.2
@@ -2343,91 +1206,15 @@ ogre_denominations = {
 			global_unrest = -4
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
+			alignment_change_neutral = yes
 			change_religion = the_great_maw_religion
 			add_prestige = -100
 			add_stability = -1
 
-			remove_country_modifier = destruction_nation
-			remove_country_modifier = order_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = neutral_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
 		}
 		heretic = {
 			GREAT_MAW_HERETIC
@@ -2450,9 +1237,7 @@ elven_denominations = {
 	########################################################################################################################
 	#	wood elf
 	########################################################################################################################	
-	
 	## BALANCE: 5 ideas. Base bonuses are worth two ideas. 3 aspects each worth 0.5 ideas is worth 1.5 ideas. One time bonuses from selecting aspects is worth 1 idea ongoing.
-
 	asrai_cadai = {
 		color = {
 			0
@@ -2471,8 +1256,7 @@ elven_denominations = {
 		heretic = {
 			ASRAI_HERETICS
 		}
-
-		uses_church_power = yes				# Uses church power/aspect mechanics
+		uses_church_power = yes		# Uses church power/aspect mechanics
 		aspects = {
 			asuryan_aspect
 			hoeth_aspect
@@ -2501,95 +1285,15 @@ elven_denominations = {
 			kurnous_aspect
 		}
 		aspects_name = ELVEN_ASPECTS
-
-
-
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
 			change_religion = asrai_cadai
 			add_prestige = -100
 			add_stability = -1
-
-			remove_country_modifier = destruction_nation
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = order_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
+			alignment_change_good = yes
 		}
 		allowed_conversion = {
 			asrai_cadai
@@ -2600,13 +1304,12 @@ elven_denominations = {
 	########################################################################################################################
 	#	dark elf
 	########################################################################################################################	
-
 	## BALANCE: 5 ideas. Base bonuses are worth two ideas. 3 aspects each worth 0.5 ideas is worth 1.5 ideas. One time bonuses from selecting aspects is worth 1 idea ongoing.
-
-
 	cytharai = {
 		color = {
-			25 0 51
+			25
+			0
+			51
 		}
 		icon = 14
 		country = {
@@ -2620,7 +1323,7 @@ elven_denominations = {
 			morale_damage = 0.2
 			land_morale = 0.2
 		}
-		uses_church_power = yes				# Uses church power/aspect mechanics
+		uses_church_power = yes		# Uses church power/aspect mechanics
 		aspects = {
 			asuryan_aspect
 			hoeth_aspect
@@ -2650,91 +1353,14 @@ elven_denominations = {
 		}
 		aspects_name = ELVEN_ASPECTS
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
+			alignment_change_evil = yes
 			change_religion = cytharai
 			add_prestige = -100
 			add_stability = -1
-
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = order_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = destruction_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
 		}
 		allowed_conversion = {
 			asrai_cadai
@@ -2744,16 +1370,16 @@ elven_denominations = {
 		heretic = {
 			ASRAI_HERETICS
 		}
-	}	
+	}
 	########################################################################################################################
 	#	high elf
 	########################################################################################################################	
-
 	## BALANCE: 5 ideas. Base bonuses are worth two ideas. 3 aspects each worth 0.5 ideas is worth 1.5 ideas. One time bonuses from selecting aspects is worth 1 idea ongoing.
-
 	cadai = {
 		color = {
-			50 125 185
+			50
+			125
+			185
 		}
 		icon = 13
 		country = {
@@ -2764,7 +1390,7 @@ elven_denominations = {
 			trade_efficiency = 0.2
 			naval_morale = 0.2
 		}
-		uses_church_power = yes				# Uses church power/aspect mechanics
+		uses_church_power = yes		# Uses church power/aspect mechanics
 		aspects = {
 			asuryan_aspect
 			hoeth_aspect
@@ -2793,95 +1419,15 @@ elven_denominations = {
 			kurnous_aspect
 		}
 		aspects_name = ELVEN_ASPECTS
-
-
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
 			change_religion = cadai
 			add_prestige = -100
 			add_stability = -1
-
-
-			remove_country_modifier = destruction_nation
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = order_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
+			alignment_change_good = yes
 		}
 		allowed_conversion = {
 			asrai_cadai
@@ -2891,11 +1437,10 @@ elven_denominations = {
 		heretic = {
 			ASRAI_HERETICS
 		}
-	}		
+	}
 	crusade_name = CRUSADE
 	harmonized_modifier = harmonized_elven
 }
-
 
 ########################################################################################################################
 #	Dwarf
@@ -2911,9 +1456,7 @@ dawi_denominations = {
 	########################################################################################################################
 	#	ancestor gods
 	########################################################################################################################	
-	
 	## BALANCE: 5 ideas. Base bonuses are worth two ideas. 3 aspects each worth 0.5 ideas is worth 1.5 ideas. One time bonuses from selecting aspects is worth 1 idea ongoing.
-
 	ancestor_gods = {
 		color = {
 			75
@@ -2933,91 +1476,14 @@ dawi_denominations = {
 			ANCESTOR_GODS_HERETICS
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
 			change_religion = ancestor_gods
 			add_prestige = -100
 			add_stability = -1
-
-			remove_country_modifier = destruction_nation
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = order_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
+			alignment_change_good = yes
 		}
 		uses_church_power = yes
 		aspects = {
@@ -3047,13 +1513,12 @@ the_old_faith = {
 	########################################################################################################################
 	#	druidism
 	########################################################################################################################	
-	
 	## BALANCE: Overpowered Basic ideas worth 4, will need rebalancing.
-
-
 	druidism = {
 		color = {
-			56 150 56
+			56
+			150
+			56
 		}
 		icon = 16
 		country = {
@@ -3065,103 +1530,26 @@ the_old_faith = {
 			same_religion_advisor_cost = -0.25
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
+			alignment_change_good = yes
 			change_religion = druidism
 			add_prestige = -100
 			add_stability = -1
-
-			remove_country_modifier = destruction_nation
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = order_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
+			alignment_change_good = yes
 		}
 		heretic = {
-			HERETIC 
+			HERETIC
 		}
 	}
-
-
 	## BALANCE: Overpowered Basic ideas worth 4, will need rebalancing.
-
 	kislev_old_faith = {
 		color = {
-			127 76 76
+			127
+			76
+			76
 		}
 		icon = 31
 		country = {
@@ -3173,105 +1561,29 @@ the_old_faith = {
 			stability_cost_modifier = -0.3
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
+			alignment_change_neutral = yes
 			change_religion = kislev_old_faith
 			add_prestige = -100
 			add_stability = -1
 
-			remove_country_modifier = destruction_nation
-			remove_country_modifier = order_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = neutral_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
 		}
 		allowed_conversion = {
 			ursun
 		}
 		heretic = {
-			HERETIC 
+			HERETIC
 		}
 	}
-
 	## BALANCE: Overpowered Basic ideas worth 4, will need rebalancing.
-
 	dragon_cult = {
 		color = {
-			61  179  26 
+			61
+			179
+			26
 		}
 		icon = 1
 		country = {
@@ -3283,96 +1595,20 @@ the_old_faith = {
 			fire_damage = 0.2
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
+			alignment_change_neutral = yes
 			change_religion = dragon_cult
 			add_prestige = -100
 			add_stability = -1
 
-			remove_country_modifier = destruction_nation
-			remove_country_modifier = order_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = neutral_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
 		}
 		heretic = {
 			HERETIC
 		}
-	}	
+	}
 	crusade_name = CRUSADE
 	harmonized_modifier = harmonized_old_faith
 }
@@ -3391,109 +1627,32 @@ arabyn_denominations = {
 	########################################################################################################################
 	#	faith of the one
 	########################################################################################################################	
-
 	## BALANCE: Overpowered Basic ideas worth 4, will need rebalancing.
-
-
 	the_one_faith = {
 		color = {
-			255 138 12
+			255
+			138
+			12
 		}
 		icon = 30
 		country = {
-			innovativeness_gain = 1.0
+			innovativeness_gain = 1
 			global_trade_power = 0.2
 		}
 		country_as_secondary = {
-			innovativeness_gain = 1.0
+			innovativeness_gain = 1
 			global_trade_power = 0.2
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
+			alignment_change_good = yes
 			change_religion = the_one_faith
 			add_prestige = -100
 			add_stability = -1
-
-			remove_country_modifier = destruction_nation
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = order_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
+			alignment_change_good = yes
 		}
 		heretic = {
 			HERETIC
@@ -3502,14 +1661,14 @@ arabyn_denominations = {
 	########################################################################################################################
 	#	Nehekharan
 	########################################################################################################################	
-	
 	# BALANCE: Base ideas are worth two. Each diety is worth 2.
-
 	nehekharan_pantheon = {
 		color = {
-			204 119 34
+			204
+			119
+			34
 		}
-		icon = 25	
+		icon = 25
 		country = {
 			tolerance_own = 2
 			all_estate_loyalty_equilibrium = 0.075
@@ -3522,106 +1681,25 @@ arabyn_denominations = {
 			HERETIC
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
+			alignment_change_neutral  = yes
 			change_religion = nehekharan_pantheon
 			add_prestige = -100
 			add_stability = -1
 
-			remove_country_modifier = destruction_nation
-			remove_country_modifier = order_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = neutral_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
 		}
 		personal_deity = yes
 		allowed_conversion = {
 			nagash_worship
 		}
-
-
 	}
-
 	########################################################################################################################
 	#	NAGASH
 	########################################################################################################################		
-
 	## BALACE: Basic Ideas are Worth 2. Holy sites are worth between 66% - 75%, so with 4 holy sites you have 3 ideas, with all you have about 6.
-
 	nagash_worship = {
 		color = {
 			73
@@ -3643,142 +1721,50 @@ arabyn_denominations = {
 			NAGASH_HERETICS
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-## You become undead
-#			remove_country_modifier = human_administration
-#			remove_country_modifier = human_military
-#			remove_country_modifier = orcish_administration
-#			remove_country_modifier = orcish_military
-#			remove_country_modifier = dwarven_administration
-#			remove_country_modifier = dwarven_military
-#			remove_country_modifier = elven_administration
-#			remove_country_modifier = elven_military
-#			remove_country_modifier = lizardmen_administration
-#			remove_country_modifier = lizardmen_military
-#			remove_country_modifier = fimir_administration
-#			remove_country_modifier = fimir_military
-#			remove_country_modifier = ogre_administration
-#			remove_country_modifier = ogre_military
-#			remove_country_modifier = skaven_administration
-#			remove_country_modifier = skaven_military
-#			remove_country_modifier = beastfolk_administration
-#			remove_country_modifier = beastfolk_military
+			## You become undead
 
 			clear_scripted_personalities = yes
 			add_ruler_personality = immortal_personality
 			add_heir_personality = immortal_personality
-
-			add_country_modifier = { 
-			    name = undead_administration
-			    duration = -1
-		    }
-			add_country_modifier = { 
-			    name = undead_military
-			    duration = -1
-		    }
-
-		   	every_owned_province = {
-		    	remove_province_modifier = lizardfolk_mild_winter
-		    	remove_province_modifier = lizardfolk_normal_winter
-		    	remove_province_modifier = lizardfolk_severe_winter
-		    	remove_province_modifier = lizardfolk_arctic
-		    	remove_province_modifier = wood_elves_magical_forest
-		    	remove_province_modifier = wood_elves_non_forest
-		    	remove_province_modifier = fimir_marsh_modifier
-		    	remove_province_modifier = undergrounder_underground
-		    	remove_province_modifier = undergrounder_above_ground
-		    	remove_province_modifier = surface_dweller_underground
-		    }
-
-
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
+			add_country_modifier = {
+				name = undead_administration
+				duration = -1
 			}
-
+			add_country_modifier = {
+				name = undead_military
+				duration = -1
+			}
+			every_owned_province = {
+				remove_province_modifier = lizardfolk_mild_winter
+				remove_province_modifier = lizardfolk_normal_winter
+				remove_province_modifier = lizardfolk_severe_winter
+				remove_province_modifier = lizardfolk_arctic
+				remove_province_modifier = wood_elves_magical_forest
+				remove_province_modifier = wood_elves_non_forest
+				remove_province_modifier = fimir_marsh_modifier
+				remove_province_modifier = undergrounder_underground
+				remove_province_modifier = undergrounder_above_ground
+				remove_province_modifier = surface_dweller_underground
+			}
+			alignment_change_evil = yes
 			change_religion = nagash_worship
 			add_prestige = -100
 			add_stability = -1
-
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = order_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = destruction_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
 		}
-
-		holy_sites = { 871 862 951 920 1068 609 666 177 }
-
+		holy_sites = {
+			871
+			862
+			951
+			920
+			1068
+			609
+			666
+			177
+		}
 		blessings = {
 			nagash_manpower
 			nagash_glory
@@ -3790,19 +1776,13 @@ arabyn_denominations = {
 			nagash_conversion
 			nagash_followers
 		}
-
 		allowed_conversion = {
 			vampiric
 		}
-
 	}
-
-	
 	crusade_name = CRUSADE
 	harmonized_modifier = harmonized_arabyn
 }
-
-
 
 ########################################################################################################################
 #	Skaven
@@ -3813,16 +1793,16 @@ skaven_denominations = {
 		83
 		96
 	}
-	center_of_religion = 2344 # Rome
+	center_of_religion = 2344	# Rome
 	########################################################################################################################
 	#	Horned Rat
 	########################################################################################################################	
-	
 	## BALANCE: No idea
-
 	horned_rat = {
 		color = {
-			181 230 29
+			181
+			230
+			29
 		}
 		icon = 24
 		country = {
@@ -3836,98 +1816,19 @@ skaven_denominations = {
 			HERETIC
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
+			alignment_change_evil = yes
 			change_religion = horned_rat
 			add_prestige = -100
 			add_stability = -1
-
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = order_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = destruction_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
 		}
 		papacy = {
 			papal_tag = U25
 			election_cost = 8
-			seat_of_papacy = 2344 # SkavenBlight
-			
-			
+			seat_of_papacy = 2344			# SkavenBlight
 			#Council of Trent Positions
 			harsh = {
 				relation_with_heretics = -10
@@ -3944,14 +1845,13 @@ skaven_denominations = {
 				global_heretic_missionary_strength = -0.05
 				improve_relation_modifier = 0.25
 			}
-			
 			#Council of Trent Concessions
 			concessions = {
 				first_concession = {
 					harsh = {
 						relation_with_heretics = -10
-						global_heretic_missionary_strength  = 0.02
-					}	
+						global_heretic_missionary_strength = 0.02
+					}
 					concilatory = {
 						relation_with_heretics = 5
 						tolerance_heretic = 2
@@ -3960,18 +1860,18 @@ skaven_denominations = {
 				second_concession = {
 					harsh = {
 						relation_with_heretics = -10
-						institution_spread_from_true_faith = 0.30
-					}	
+						institution_spread_from_true_faith = 0.3
+					}
 					concilatory = {
 						relation_with_heretics = 5
-						global_institution_spread = 0.10
+						global_institution_spread = 0.1
 					}
 				}
 				third_concession = {
 					harsh = {
 						relation_with_heretics = -10
-						manpower_in_true_faith_provinces  = 0.1
-					}	
+						manpower_in_true_faith_provinces = 0.1
+					}
 					concilatory = {
 						relation_with_heretics = 5
 						global_manpower_modifier = 0.05
@@ -3980,31 +1880,29 @@ skaven_denominations = {
 				fourth_concession = {
 					harsh = {
 						relation_with_heretics = -10
-						warscore_cost_vs_other_religion  = -0.10
-					}	
+						warscore_cost_vs_other_religion = -0.1
+					}
 					concilatory = {
 						relation_with_heretics = 5
-						curia_powers_cost = -0.10
+						curia_powers_cost = -0.1
 					}
 				}
 			}
-			
-
-
-			
-			
-			
-			
 			# Papal Actions below!
-			
 			levy_church_tax = {
 				cost = 50
 				potential = {
-					NOT = { tag = PAP }
+					NOT = {
+						tag = PAP
+					}
 				}
 				allow = {
-					NOT = { war_with = PAP }
-					NOT = { has_country_modifier = papal_sanction_for_church_taxes }
+					NOT = {
+						war_with = PAP
+					}
+					NOT = {
+						has_country_modifier = papal_sanction_for_church_taxes
+					}
 				}
 				effect = {
 					add_country_modifier = {
@@ -4014,16 +1912,22 @@ skaven_denominations = {
 				}
 				ai_will_do = {
 					factor = 1
-				}				
-			}			
+				}
+			}
 			bless_monarch = {
 				cost = 50
 				potential = {
-					NOT = { tag = PAP }
+					NOT = {
+						tag = PAP
+					}
 				}
 				allow = {
-					NOT = { war_with = PAP }
-					NOT = { has_country_modifier = papal_blessing }
+					NOT = {
+						war_with = PAP
+					}
+					NOT = {
+						has_country_modifier = papal_blessing
+					}
 				}
 				effect = {
 					add_country_modifier = {
@@ -4038,11 +1942,17 @@ skaven_denominations = {
 			indulgence_for_sins = {
 				cost = 50
 				potential = {
-					NOT = { tag = PAP }
+					NOT = {
+						tag = PAP
+					}
 				}
 				allow = {
-					NOT = { war_with = PAP }
-					NOT = { has_country_modifier = papal_indulgence }
+					NOT = {
+						war_with = PAP
+					}
+					NOT = {
+						has_country_modifier = papal_indulgence
+					}
 				}
 				effect = {
 					add_country_modifier = {
@@ -4053,15 +1963,21 @@ skaven_denominations = {
 				ai_will_do = {
 					factor = 1
 				}
-			}	
+			}
 			local_saint = {
 				cost = 100
 				potential = {
-					NOT = { tag = PAP }
+					NOT = {
+						tag = PAP
+					}
 				}
 				allow = {
-					NOT = { war_with = PAP }
-					NOT = { stability = 3 }
+					NOT = {
+						war_with = PAP
+					}
+					NOT = {
+						stability = 3
+					}
 				}
 				effect = {
 					add_stability = 1
@@ -4070,18 +1986,26 @@ skaven_denominations = {
 					factor = 1
 					modifier = {
 						factor = 2
-						NOT = { stability = 0 }
+						NOT = {
+							stability = 0
+						}
 					}
 				}
 			}
 			forgiveness_for_usury = {
 				cost = 50
 				potential = {
-					NOT = { tag = PAP }
+					NOT = {
+						tag = PAP
+					}
 				}
 				allow = {
-					NOT = { war_with = PAP }
-					NOT = { has_country_modifier = usury_forgiven }
+					NOT = {
+						war_with = PAP
+					}
+					NOT = {
+						has_country_modifier = usury_forgiven
+					}
 				}
 				effect = {
 					add_country_modifier = {
@@ -4093,19 +2017,27 @@ skaven_denominations = {
 					factor = 1
 					modifier = {
 						factor = 0
-						NOT = { num_of_loans = 1 }
+						NOT = {
+							num_of_loans = 1
+						}
 					}
 				}
-			}			
+			}
 			proclaim_holy_war = {
 				cost = 50
 				potential = {
-					NOT = { tag = PAP }
+					NOT = {
+						tag = PAP
+					}
 				}
 				allow = {
 					is_at_war = yes
-					NOT = { war_with = PAP }
-					NOT = { has_country_modifier = papal_sanction_for_holy_war }
+					NOT = {
+						war_with = PAP
+					}
+					NOT = {
+						has_country_modifier = papal_sanction_for_holy_war
+					}
 				}
 				effect = {
 					add_country_modifier = {
@@ -4124,12 +2056,18 @@ skaven_denominations = {
 			send_papal_legate = {
 				cost = 50
 				potential = {
-					NOT = { tag = PAP }
+					NOT = {
+						tag = PAP
+					}
 					is_papal_controller = no
 				}
 				allow = {
-					NOT = { war_with = PAP }
-					NOT = { has_country_modifier = papal_legate }
+					NOT = {
+						war_with = PAP
+					}
+					NOT = {
+						has_country_modifier = papal_legate
+					}
 				}
 				effect = {
 					add_country_modifier = {
@@ -4140,15 +2078,21 @@ skaven_denominations = {
 				ai_will_do = {
 					factor = 1
 				}
-			}	
+			}
 			sanction_commercial_monopoly = {
 				cost = 50
 				potential = {
-					NOT = { tag = PAP }
+					NOT = {
+						tag = PAP
+					}
 				}
 				allow = {
-					NOT = { war_with = PAP }
-					NOT = { mercantilism = 100 }
+					NOT = {
+						war_with = PAP
+					}
+					NOT = {
+						mercantilism = 100
+					}
 				}
 				effect = {
 					add_mercantilism = 1
@@ -4157,7 +2101,9 @@ skaven_denominations = {
 					factor = 1
 					modifier = {
 						factor = 0
-						NOT = { has_idea_group = trade_ideas }
+						NOT = {
+							has_idea_group = trade_ideas
+						}
 					}
 				}
 			}
@@ -4181,14 +2127,10 @@ skaven_denominations = {
 				}
 			}
 		}
-
-
 	}
-	
 	crusade_name = VERMINTIDE
 	harmonized_modifier = harmonized_skaven
 }
-
 
 ########################################################################################################################
 #	Lizardmen
@@ -4203,13 +2145,13 @@ lizardmen_denominations = {
 	########################################################################################################################
 	#	Old Ones
 	########################################################################################################################	
-
 	## BALACE: Basic Ideas are Worth 2. Holy sites are worth between 66% - 75%, so with 4 holy sites you have 3 ideas, with all you have about 6.
-
 	old_ones = {
 		icon = 28
 		color = {
-			182 182 182
+			182
+			182
+			182
 		}
 		country = {
 			tolerance_own = 2
@@ -4221,100 +2163,30 @@ lizardmen_denominations = {
 		}
 		province = {
 			local_missionary_strength = -0.02
-		}	
+		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
 			change_religion = old_ones
 			add_prestige = -100
 			add_stability = -1
-
-			remove_country_modifier = destruction_nation
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = order_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
+			alignment_change_good = yes
 		}
 		heretic = {
 			OLD_ONES_HERETIC
 		}
-		
-		holy_sites = { 4261 2312 2466 2442 4296 4807 4265 4383  }
-		
+		holy_sites = {
+			4261
+			2312
+			2466
+			2442
+			4296
+			4807
+			4265
+			4383
+		}
 		blessings = {
 			sequence_civilization
 			sequence_stoicism
@@ -4327,10 +2199,13 @@ lizardmen_denominations = {
 			sequence_instinct
 		}
 	}
+	#dragon isles, called Koa'Tzlanism in game
 	enlightened_path = {
 		icon = 29
 		color = {
-			124 244 254 
+			124
+			244
+			254
 		}
 		country = {
 			global_trade_goods_size_modifier = 0.05
@@ -4342,37 +2217,13 @@ lizardmen_denominations = {
 		}
 		province = {
 			local_missionary_strength = -0.02
-		}	
+		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
+			alignment_change_good = yes
 			change_religion = enlightened_path
 			add_prestige = -100
 			#add_country_modifier = { name = conversion_zeal duration = 3650 }
@@ -4397,13 +2248,13 @@ eastern_denominations = {
 	########################################################################################################################
 	#	Yin and yang
 	########################################################################################################################	
-	
 	## BALACE: Basic Ideas are Worth 3. Karma just right is worth 3.5, while Karma wrong is worth about -2. So it evens out.
-
 	yin_yang = {
 		icon = 29
 		color = {
-			214 229 140
+			214
+			229
+			140
 		}
 		country = {
 			tolerance_own = 3
@@ -4415,102 +2266,22 @@ eastern_denominations = {
 		}
 		province = {
 			local_missionary_strength = -0.02
-		}	
+		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
 			change_religion = yin_yang
 			add_prestige = -100
 			add_stability = -1
-
-			remove_country_modifier = destruction_nation
-			remove_country_modifier = neutral_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = order_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
+			alignment_change_good = yes
 		}
 		heretic = {
 			YIN_YANG_HERETIC
 		}
-		
 		uses_karma = yes
 	}
-	
-	
 	crusade_name = CRUSADE
 	harmonized_modifier = harmonized_eastern
 }
@@ -4528,121 +2299,37 @@ indish_denominations = {
 	########################################################################################################################
 	#	The Thousand gods
 	########################################################################################################################	
-	
 	### Balance: Basic is 2, ancestors is maybe worth three.
-
-
 	the_thousand_gods = {
 		icon = 32
 		color = {
-			0 204 204
+			0
+			204
+			204
 		}
 		country = {
-			global_trade_power = 0.10
-			production_efficiency = 0.10
-
+			global_trade_power = 0.1
+			production_efficiency = 0.1
 		}
 		country_as_secondary = {
-			global_trade_power = 0.20
-			production_efficiency = 0.20
+			global_trade_power = 0.2
+			production_efficiency = 0.2
 		}
 		on_convert = {
-
-			add_country_modifier = { 
-			    name = war_religious_fervor
-	    		duration = 5475
+			add_country_modifier = {
+				name = war_religious_fervor
+				duration = 5475
 			}
-			hidden_effect = {
-				every_country = {
-					remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = root_destruction
-					}
-
-					remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-
-					reverse_remove_opinion = {
-					    who = PREV
-					    modifier = both_destruction
-					}
-				}
-			}
-
+			alignment_change_neutral = yes
 			change_religion = the_thousand_gods
 			add_prestige = -100
 			add_stability = -1
-
-			remove_country_modifier = destruction_nation
-			remove_country_modifier = order_nation
-			remove_country_modifier = chaos_nation
-			add_country_modifier = {
-				name = neutral_nation
-				duration = -1
-			}
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = destruction_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = order_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
-
-
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_country_modifier = order_nation
-						NOT = { tag = PREV }
-					}
-
-					if = {
-						limit = { ROOT = { has_country_modifier = destruction_nation } }
-
-						add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-						reverse_add_opinion = {
-							who = PREV
-							modifier = root_destruction
-						}
-					}
-				}
-			}
 		}
 		heretic = {
 			IND_HERETIC
 		}
-
 		ancestors = yes
-
 	}
 	crusade_name = CRUSADE
 	harmonized_modifier = harmonized_indish
 }
-
-
-

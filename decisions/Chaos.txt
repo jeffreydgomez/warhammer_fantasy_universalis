@@ -1,0 +1,111 @@
+country_decisions = {
+	chaos_teleport = {
+		potential = {
+			if = {
+				limit = {
+					ai = yes
+				}
+				is_year = 2504
+			}
+			has_reform = chaos_warband
+			is_at_war = no
+			NOT = {
+				num_of_cities = 2
+			}
+		}
+		allow = {
+			is_at_war = no
+			NOT = {
+				has_country_modifier = chaos_horde_upgrading_horde
+			}
+			has_reform = chaos_warband
+			NOT = {
+				num_of_cities = 2
+			}
+			NOT = {
+				has_country_modifier = chaos_teleport_cooldown
+			}
+			capital_scope = {
+				NOT = {
+					has_construction = building
+				}
+			}
+		}
+		effect = {
+			country_event = {
+				id = flavor_chaos.1
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	chaos_settle = {
+		potential = {
+			if = {
+				limit = {
+					ai = yes
+				}
+				capital_scope = {
+					or = {
+						has_terrain = urban_terrain
+						has_terrain = ruins
+					}
+				}
+				is_year = 2522
+			}
+			is_vassal = no
+			else = {
+				ai = no
+			}
+			has_reform = chaos_warband
+			NOT = {
+				num_of_cities = 2
+			}
+		}
+		allow = {
+			is_at_war = no
+			has_reform = chaos_warband
+			NOT = {
+				num_of_cities = 2
+			}
+			capital_scope = {
+				or = {
+					has_terrain = urban_terrain
+					has_terrain = ruins
+				}
+			}
+		}
+		effect = {
+			remove_government_reform = chaos_warband
+			add_government_reform = chaos_settled_horde
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		ai_importance = 0
+	}
+	chaos_upgrade = {
+		potential = {
+			has_reform = chaos_warband
+			ai = no
+			NOT = {
+				num_of_cities = 2
+			}
+		}
+		allow = {
+			or = {
+				chaos_can_upgrade_adm = yes
+				chaos_can_upgrade_dip = yes
+				chaos_can_upgrade_mil = yes
+			}
+		}
+		effect = {
+			country_event = { id = flavor_chaos.3 }
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		ai_importance = 0
+	}
+}

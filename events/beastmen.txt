@@ -1,38 +1,51 @@
 #Beastmen Warband
 namespace = beastmen
-
 country_event = {
 	id = beastmen.0100
 	title = beastmen.0100.t
 	desc = beastmen.0100.d
 	picture = IMPALED_SOLDIERS_eventPicture
-	
 	mean_time_to_happen = {
 		years = 15
 		modifier = {
 			factor = 1.5
 		}
 	}
-	
 	trigger = {
-		NOT = { is_year = 2700 }
-		capital_scope = { continent = europe }
+		NOT = {
+			is_year = 2700
+		}
+		capital_scope = {
+			continent = europe
+			continent = north_america
+			continent = asia
+		}
 		total_development = 100
 		any_owned_province = {
 			OR = {
 				continent = europe
+				continent = north_america
+				continent = asia
 			}
 			OR = {
 				has_terrain = forest
+				has_terrain = wood
 			}
 		}
 	}
-	
 	#Profit
 	option = {
-        name = beastmen.0100.a
-        ai_chance = { factor = 100 }
-		hidden_effect = { country_event = { id = beastmen.0101 days = 150 random = 100 } }
+		name = beastmen.0100.a
+		ai_chance = {
+			factor = 100
+		}
+		hidden_effect = {
+			country_event = {
+				id = beastmen.0101
+				days = 150
+				random = 100
+			}
+		}
 	}
 }
 
@@ -42,42 +55,50 @@ country_event = {
 	title = beastmen.0101.t
 	desc = beastmen.0101.d
 	picture = IMPALED_SOLDIERS_eventPicture
-
 	goto = event_target
-	
 	is_triggered_only = yes
-
 	immediate = {
 		random_owned_province = {
 			limit = {
 				OR = {
 					continent = europe
+					continent = north_america
+					continent = asia
 				}
 				OR = {
 					has_terrain = forest
+					has_terrain = wood
 				}
-				any_neighbor_province = { has_terrain = forest }
+				any_neighbor_province = {
+					has_terrain = forest
+					has_terrain = wood
+				}
 			}
 			save_event_target_as = event_target
 		}
-
 	}
-	
 	trigger = {
 		any_owned_province = {
 			OR = {
 				continent = europe
+				continent = north_america
+				continent = asia
 			}
 			OR = {
 				has_terrain = forest
+				has_terrain = wood
 			}
-			any_neighbor_province = { has_terrain = forest }
+			any_neighbor_province = {
+				has_terrain = forest
+				has_terrain = wood
+			}
 		}
 	}
-	
 	option = {
-        name = beastmen.0101.a
-        ai_chance = { factor = 100 }
+		name = beastmen.0101.a
+		ai_chance = {
+			factor = 100
+		}
 		event_target:event_target = {
 			spawn_rebels = {
 				type = beastmen_warband_rebels
