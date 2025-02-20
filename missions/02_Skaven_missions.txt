@@ -1,0 +1,1861 @@
+
+##################################
+##### Skaven
+##################################
+
+
+## Think of Crazy, off the wall stuff for the inventions
+
+
+skaven_missions_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = skaven_group
+		religion = horned_rat
+	}
+
+
+### Our high ranking and important clan members can be sent abroad under the pretext of diplomacy, when in reality they are doing spying.
+### Worth 1
+	skaven_spy_1 = {
+		icon = mission_skaven_culture
+		required_missions = { }
+		position = 2
+		trigger = {
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = skaven_spies_modifier_1
+				duration = -1
+			}
+		}
+	}
+
+
+### Betrayal is everywhere! We must keep an eye on people. That way we can betray first!
+## Half an idea
+	skaven_spy_2 = {
+		icon = mission_skaven_culture
+		required_missions = { skaven_spy_1 }
+		trigger = {
+			calc_true_if = {
+				all_country = {
+					has_spy_network_from = {
+						who = ROOT
+						value = 80
+					}
+				}
+				amount = 2
+			}
+
+		}
+
+		effect = {
+			remove_country_modifier = skaven_spies_modifier_1
+			add_country_modifier = {
+				name = skaven_spies_modifier_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+		}
+	}
+
+## Betrayal is core to what a skaven does. No one is less suspecting than an ally! But we can't let anybody know
+## Half an idea
+	skaven_spy_3 = {
+		icon = mission_skaven_culture
+		required_missions = { skaven_spy_2 }
+		trigger = {
+			any_ally = {
+				has_spy_network_from = {
+					who = ROOT
+					value = 100
+				}
+			}
+		}
+
+		effect = {
+			remove_country_modifier = skaven_spies_modifier_2
+			add_country_modifier = {
+				name = skaven_spies_modifier_3
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+		}
+	}
+
+
+## It's time to strike our ally when they least suspect it!
+## Half an idea 
+	skaven_spy_4 = {
+		icon = mission_skaven_culture
+		required_missions = { skaven_spy_3 }
+		trigger = {
+			any_ally = {
+				trust = {
+					who = ROOT
+					value = 100
+				}
+			}
+		}
+
+		effect = {
+
+			remove_country_modifier = skaven_spies_modifier_3
+			add_country_modifier = {
+				name = skaven_spies_modifier_4
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+
+			random_ally = {
+				limit = {
+					trust = {
+						who = ROOT
+						value = 100
+					}
+				}
+				ROOT = { declare_war = PREV }
+			}
+		}
+	}
+
+
+
+	skaven_raid_20 = {
+		icon = mission_skaven_religion
+		required_missions = { }
+		position = 8
+		provinces_to_highlight = {
+			development = 20
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			any_province = {
+				NOT = {
+					owned_by = ROOT
+				}
+				controlled_by = ROOT
+				NOT = {
+					owner = {
+						technology_group = ROOT
+					}
+				}
+				development = 20
+			}
+		}
+		effect = {
+			add_treasury = 250
+			add_adm_power = 25
+			add_dip_power = 25
+			add_mil_power = 25
+			random_province = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+					}
+					controlled_by = ROOT
+					NOT = {
+						owner = {
+							technology_group = ROOT
+						}
+					}
+					development = 20
+				}
+				set_province_flag = war_sacked_province
+				owner = { country_event = { 
+				    id = greenskin_events.100
+				} }
+				add_permanent_province_modifier = {
+					name = recently_raided
+					duration = 3650
+				}
+				## lower dev
+				if = {
+					limit = {
+						base_tax = 40
+					}
+					add_base_tax = -6
+				}
+				else_if = {
+					limit = {
+						base_tax = 30
+					}
+					add_base_tax = -5
+				}
+				else_if = {
+					limit = {
+						base_tax = 20
+					}
+					add_base_tax = -4
+				}
+				else_if = {
+					limit = {
+						base_tax = 10
+					}
+					add_base_tax = -3
+				}
+				else_if = {
+					limit = {
+						base_tax = 5
+					}
+					add_base_tax = -2
+				}
+				else_if = {
+					limit = {
+						base_tax = 2
+					}
+					add_base_tax = -1
+				}
+				if = {
+					limit = {
+						base_production = 40
+					}
+					add_base_production = -6
+				}
+				else_if = {
+					limit = {
+						base_production = 30
+					}
+					add_base_production = -5
+				}
+				else_if = {
+					limit = {
+						base_production = 20
+					}
+					add_base_production = -4
+				}
+				else_if = {
+					limit = {
+						base_production = 10
+					}
+					add_base_production = -3
+				}
+				else_if = {
+					limit = {
+						base_production = 5
+					}
+					add_base_production = -2
+				}
+				else_if = {
+					limit = {
+						base_production = 2
+					}
+					add_base_production = -1
+				}
+				if = {
+					limit = {
+						base_manpower = 40
+					}
+					add_base_manpower = -6
+				}
+				else_if = {
+					limit = {
+						base_manpower = 30
+					}
+					add_base_manpower = -5
+				}
+				else_if = {
+					limit = {
+						base_manpower = 20
+					}
+					add_base_manpower = -4
+				}
+				else_if = {
+					limit = {
+						base_manpower = 10
+					}
+					add_base_manpower = -3
+				}
+				else_if = {
+					limit = {
+						base_manpower = 5
+					}
+					add_base_manpower = -2
+				}
+				else_if = {
+					limit = {
+						base_manpower = 2
+					}
+					add_base_manpower = -1
+				}
+				### end lower dev
+			}
+		}
+	}
+
+	skaven_raid_30 = {
+		icon = mission_skaven_religion
+		required_missions = { skaven_raid_20 }
+		provinces_to_highlight = {
+			development = 30
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			any_province = {
+				NOT = {
+					owned_by = ROOT
+				}
+				controlled_by = ROOT
+				NOT = {
+					owner = {
+						technology_group = ROOT
+					}
+				}
+				development = 30
+			}
+		}
+		effect = {
+			add_treasury = 500
+			add_adm_power = 50
+			add_dip_power = 50
+			add_mil_power = 50
+			random_province = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+					}
+					controlled_by = ROOT
+					NOT = {
+						owner = {
+							technology_group = ROOT
+						}
+					}
+					development = 30
+				}
+				set_province_flag = war_sacked_province
+				owner = { country_event = { 
+				    id = greenskin_events.100
+				} }
+				add_permanent_province_modifier = {
+					name = recently_raided
+					duration = 3650
+				}
+				## lower dev
+				if = {
+					limit = {
+						base_tax = 40
+					}
+					add_base_tax = -6
+				}
+				else_if = {
+					limit = {
+						base_tax = 30
+					}
+					add_base_tax = -5
+				}
+				else_if = {
+					limit = {
+						base_tax = 20
+					}
+					add_base_tax = -4
+				}
+				else_if = {
+					limit = {
+						base_tax = 10
+					}
+					add_base_tax = -3
+				}
+				else_if = {
+					limit = {
+						base_tax = 5
+					}
+					add_base_tax = -2
+				}
+				else_if = {
+					limit = {
+						base_tax = 2
+					}
+					add_base_tax = -1
+				}
+				if = {
+					limit = {
+						base_production = 40
+					}
+					add_base_production = -6
+				}
+				else_if = {
+					limit = {
+						base_production = 30
+					}
+					add_base_production = -5
+				}
+				else_if = {
+					limit = {
+						base_production = 20
+					}
+					add_base_production = -4
+				}
+				else_if = {
+					limit = {
+						base_production = 10
+					}
+					add_base_production = -3
+				}
+				else_if = {
+					limit = {
+						base_production = 5
+					}
+					add_base_production = -2
+				}
+				else_if = {
+					limit = {
+						base_production = 2
+					}
+					add_base_production = -1
+				}
+				if = {
+					limit = {
+						base_manpower = 40
+					}
+					add_base_manpower = -6
+				}
+				else_if = {
+					limit = {
+						base_manpower = 30
+					}
+					add_base_manpower = -5
+				}
+				else_if = {
+					limit = {
+						base_manpower = 20
+					}
+					add_base_manpower = -4
+				}
+				else_if = {
+					limit = {
+						base_manpower = 10
+					}
+					add_base_manpower = -3
+				}
+				else_if = {
+					limit = {
+						base_manpower = 5
+					}
+					add_base_manpower = -2
+				}
+				else_if = {
+					limit = {
+						base_manpower = 2
+					}
+					add_base_manpower = -1
+				}
+				### end lower dev
+			}
+		}
+	}
+	
+	skaven_raid_40 = {
+		icon = mission_skaven_religion
+		required_missions = { skaven_raid_30 }
+		provinces_to_highlight = {
+			development = 40
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			any_province = {
+				NOT = {
+					owned_by = ROOT
+				}
+				controlled_by = ROOT
+				NOT = {
+					owner = {
+						technology_group = ROOT
+					}
+				}
+				development = 40
+			}
+		}
+		effect = {
+			add_treasury = 1000
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+			random_province = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+					}
+					controlled_by = ROOT
+					NOT = {
+						owner = {
+							technology_group = ROOT
+						}
+					}
+					development = 40
+				}
+				set_province_flag = war_sacked_province
+				owner = { country_event = { 
+				    id = greenskin_events.100
+				} }
+				add_permanent_province_modifier = {
+					name = recently_raided
+					duration = 3650
+				}
+				## lower dev
+				if = {
+					limit = {
+						base_tax = 40
+					}
+					add_base_tax = -6
+				}
+				else_if = {
+					limit = {
+						base_tax = 30
+					}
+					add_base_tax = -5
+				}
+				else_if = {
+					limit = {
+						base_tax = 20
+					}
+					add_base_tax = -4
+				}
+				else_if = {
+					limit = {
+						base_tax = 10
+					}
+					add_base_tax = -3
+				}
+				else_if = {
+					limit = {
+						base_tax = 5
+					}
+					add_base_tax = -2
+				}
+				else_if = {
+					limit = {
+						base_tax = 2
+					}
+					add_base_tax = -1
+				}
+				if = {
+					limit = {
+						base_production = 40
+					}
+					add_base_production = -6
+				}
+				else_if = {
+					limit = {
+						base_production = 30
+					}
+					add_base_production = -5
+				}
+				else_if = {
+					limit = {
+						base_production = 20
+					}
+					add_base_production = -4
+				}
+				else_if = {
+					limit = {
+						base_production = 10
+					}
+					add_base_production = -3
+				}
+				else_if = {
+					limit = {
+						base_production = 5
+					}
+					add_base_production = -2
+				}
+				else_if = {
+					limit = {
+						base_production = 2
+					}
+					add_base_production = -1
+				}
+				if = {
+					limit = {
+						base_manpower = 40
+					}
+					add_base_manpower = -6
+				}
+				else_if = {
+					limit = {
+						base_manpower = 30
+					}
+					add_base_manpower = -5
+				}
+				else_if = {
+					limit = {
+						base_manpower = 20
+					}
+					add_base_manpower = -4
+				}
+				else_if = {
+					limit = {
+						base_manpower = 10
+					}
+					add_base_manpower = -3
+				}
+				else_if = {
+					limit = {
+						base_manpower = 5
+					}
+					add_base_manpower = -2
+				}
+				else_if = {
+					limit = {
+						base_manpower = 2
+					}
+					add_base_manpower = -1
+				}
+				### end lower dev
+			}
+		}
+	}
+	skaven_raid_50 = {
+		icon = mission_skaven_religion
+		required_missions = { skaven_raid_40 }
+		provinces_to_highlight = {
+			development = 50
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			any_province = {
+				NOT = {
+					owned_by = ROOT
+				}
+				controlled_by = ROOT
+				NOT = {
+					owner = {
+						technology_group = ROOT
+					}
+				}
+				development = 50
+			}
+		}
+		effect = {
+			add_treasury = 2000
+			add_adm_power = 200
+			add_dip_power = 200
+			add_mil_power = 200
+			random_province = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+					}
+					controlled_by = ROOT
+					NOT = {
+						owner = {
+							technology_group = ROOT
+						}
+					}
+					development = 50
+				}
+				set_province_flag = war_sacked_province
+				owner = { country_event = { 
+				    id = greenskin_events.100
+				} }
+				add_permanent_province_modifier = {
+					name = recently_raided
+					duration = 3650
+				}
+				## lower dev
+				if = {
+					limit = {
+						base_tax = 40
+					}
+					add_base_tax = -6
+				}
+				else_if = {
+					limit = {
+						base_tax = 30
+					}
+					add_base_tax = -5
+				}
+				else_if = {
+					limit = {
+						base_tax = 20
+					}
+					add_base_tax = -4
+				}
+				else_if = {
+					limit = {
+						base_tax = 10
+					}
+					add_base_tax = -3
+				}
+				else_if = {
+					limit = {
+						base_tax = 5
+					}
+					add_base_tax = -2
+				}
+				else_if = {
+					limit = {
+						base_tax = 2
+					}
+					add_base_tax = -1
+				}
+				if = {
+					limit = {
+						base_production = 40
+					}
+					add_base_production = -6
+				}
+				else_if = {
+					limit = {
+						base_production = 30
+					}
+					add_base_production = -5
+				}
+				else_if = {
+					limit = {
+						base_production = 20
+					}
+					add_base_production = -4
+				}
+				else_if = {
+					limit = {
+						base_production = 10
+					}
+					add_base_production = -3
+				}
+				else_if = {
+					limit = {
+						base_production = 5
+					}
+					add_base_production = -2
+				}
+				else_if = {
+					limit = {
+						base_production = 2
+					}
+					add_base_production = -1
+				}
+				if = {
+					limit = {
+						base_manpower = 40
+					}
+					add_base_manpower = -6
+				}
+				else_if = {
+					limit = {
+						base_manpower = 30
+					}
+					add_base_manpower = -5
+				}
+				else_if = {
+					limit = {
+						base_manpower = 20
+					}
+					add_base_manpower = -4
+				}
+				else_if = {
+					limit = {
+						base_manpower = 10
+					}
+					add_base_manpower = -3
+				}
+				else_if = {
+					limit = {
+						base_manpower = 5
+					}
+					add_base_manpower = -2
+				}
+				else_if = {
+					limit = {
+						base_manpower = 2
+					}
+					add_base_manpower = -1
+				}
+				### end lower dev
+			}
+		}
+	}
+
+
+}
+
+
+skaven_missions_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = skaven_group
+		religion = horned_rat
+	}
+
+
+## Forge alliances, learn secret passages
+# Half an idea
+	skaven_conquer_skavenblight_1 = {
+		icon = mission_skaven_culture
+		required_missions = { }
+		provinces_to_highlight = {
+
+		}
+		trigger = {
+			calc_true_if = {
+				all_country = {
+					OR {
+						alliance_with = ROOT
+						is_subject_of = ROOT
+					}
+					trust = {
+						who = ROOT
+						value = 55
+					}
+				}
+				amount = 2
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = skaven_conquer_skavenblight_1
+				duration = -1
+			}
+		}
+	}
+
+## We are building momentum now, and our troops are less likely to flee.
+# Half an idea
+	skaven_conquer_skavenblight_2 = {
+		icon = mission_skaven_culture
+		required_missions = { skaven_conquer_skavenblight_1 }
+		provinces_to_highlight = {
+			continent =  underempire
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 50
+				continent = underempire
+			}
+		}
+
+		effect = {
+			remove_country_modifier = skaven_conquer_skavenblight_1
+			add_country_modifier = {
+				name = skaven_conquer_skavenblight_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+		}
+	}
+
+## With so much of skavenblight under our control, administration and taxation are becoming easier
+# Half an idea
+	skaven_conquer_skavenblight_3 = {
+		icon = mission_skaven_culture
+		required_missions = { skaven_conquer_skavenblight_2 }
+		provinces_to_highlight = {
+			continent =  underempire
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 80
+				continent = underempire
+			}
+		}
+
+		effect = {
+			remove_country_modifier = skaven_conquer_skavenblight_2
+			add_country_modifier = {
+				name = skaven_conquer_skavenblight_3
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+
+			every_province = {
+				limit = { continent = underempire }
+				add_claim = ROOT
+			}
+
+		}
+	}
+
+## We have almost conquered all of Skavenblight! Dig more tunnels. Finish the job!
+# Half an idea
+	skaven_conquer_skavenblight_4 = {
+		icon = mission_skaven_culture
+		required_missions = { skaven_conquer_skavenblight_3 }
+		provinces_to_highlight = {
+			continent =  underempire
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 100
+				continent = underempire
+			}
+		}
+
+		effect = {
+
+			remove_country_modifier = skaven_conquer_skavenblight_3
+			add_country_modifier = {
+				name = skaven_conquer_skavenblight_4
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+
+			every_province = {
+				limit = { continent = underempire }
+				add_permanent_claim = ROOT
+			}
+
+		}
+	}
+
+
+## With a unified skavenblight our troops are experiencing something they've never felt before. Pride!
+# A whole idea
+	skaven_conquer_skavenblight_5 = {
+		icon = mission_skaven_culture
+		required_missions = { skaven_conquer_skavenblight_4 }
+		provinces_to_highlight = {
+			continent =  underempire
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			NOT = {
+				any_province = {
+					continent =  underempire
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+			}
+		}
+
+		effect = {
+
+			remove_country_modifier = skaven_conquer_skavenblight_4
+			add_country_modifier = {
+				name = skaven_conquer_skavenblight_5
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+
+		}
+	}
+
+
+## Now that we have conquered enemy territory, let us flood in and replace them
+# Half an idea
+	skaven_expand_above_ground_1 = {
+		icon = mission_skaven_culture
+		required_missions = { }
+		position = 7
+		provinces_to_highlight = {
+			has_terrain = urban_terrain
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 3
+				OR = {
+					has_terrain = urban_terrain
+					has_terrain = dwarf_karak
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = skaven_surface_1
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+
+
+		}
+	}
+
+## We must move quickly, before anybody can stop us. WE must take cities and surface land without stopping.
+	skaven_expand_above_ground_2 = {
+		icon = mission_skaven_culture
+		required_missions = { skaven_expand_above_ground_1 }
+		provinces_to_highlight = {
+			continent =  underempire
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 15
+				NOT = { continent = underempire }
+			}
+		}
+
+		effect = {
+			remove_country_modifier = skaven_surface_1
+			add_country_modifier = {
+				name = skaven_surface_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+		}
+	}
+
+## WE are under every cellar and behind every sewer drain. We must steal from the surface dwellers
+	skaven_expand_above_ground_3 = {
+		icon = mission_skaven_culture
+		required_missions = { skaven_expand_above_ground_2 }
+		provinces_to_highlight = {
+			trade_share = {
+				country = ROOT
+				share = 1
+			}
+			NOT = {
+				trade_share = {
+					country = ROOT
+					share = 20
+				}
+			}
+		}
+
+		trigger = {
+			calc_true_if = {
+				all_province = { 
+					trade_share = {
+						country = ROOT
+						share = 20
+					}
+					NOT = { continent = underempire }
+				}
+				amount = 4
+			}
+		}
+
+		effect = {
+			remove_country_modifier = skaven_surface_2
+			add_country_modifier = {
+				name = skaven_surface_3
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+		}
+	}
+
+## Beef! Wheat! Fish! We can finally eat somethign besides black corn!
+	skaven_expand_above_ground_4 = {
+		icon = mission_skaven_culture
+		required_missions = { skaven_expand_above_ground_3 }
+		provinces_to_highlight = {
+			OR = {
+				trade_goods = grain
+				trade_goods = fish
+				trade_goods = livestock
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					trade_goods = grain
+					trade_goods = fish
+					trade_goods = livestock
+				}
+			}
+		}
+
+		effect = {
+			remove_country_modifier = skaven_surface_3
+			add_country_modifier = {
+				name = skaven_surface_4
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+		}
+	}
+
+
+
+## We are everywhere. We see everything. We will be the ending of the world.
+	skaven_expand_above_ground_5 = {
+		icon = mission_skaven_culture
+		required_missions = { skaven_expand_above_ground_4 }
+		trigger = {
+			num_of_continents = 5
+		}
+
+		effect = {
+			remove_country_modifier = skaven_surface_4
+			add_country_modifier = {
+				name = skaven_surface_5
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+		}
+	}
+
+
+
+
+}
+
+skaven_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = skaven_group
+		religion = horned_rat
+	}
+
+
+## Time for experiments! With corrupting forces and the means to study them, our scientific endevours can commence!
+	skaven_tech_monuments = { 
+		icon = mission_sw_torquoise_mining
+		required_missions = {  }
+		position = 2
+		provinces_to_highlight = {
+
+			OR = {
+				has_great_project = {
+					type = under_alchemy_laboratories
+					tier = 0
+				}
+
+				has_great_project = {
+					type = nest_of_corruption
+					tier = 0
+				}
+			}
+
+			AND = {
+				NOT = { owned_by = ROOT }
+				NOT = {
+					has_great_project = {
+						type = any
+						tier = 2
+					}
+				}
+			}
+		}
+		trigger = {
+
+			has_great_project = {
+				type = under_alchemy_laboratories
+				tier = 2
+			}
+
+			has_great_project = {
+				type = nest_of_corruption
+				tier = 2
+			}
+
+		}
+
+		effect = {
+			4607 = {
+				add_permanent_province_modifier = { 
+				    name = skaven_research_labs
+				    duration = -1  
+				}
+			}
+			4647 = {
+				add_permanent_province_modifier = { 
+				    name = skaven_research_labs
+				    duration = -1  
+				}
+			}
+
+
+
+		}
+	}
+
+
+## With so much warpstone, our research efforts are enhanced
+	skaven_warpstone_research = { 
+		icon = mission_sw_torquoise_mining
+		position = 4
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = warpstone 
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = warpstone
+				amount = 5
+			}
+		}
+
+		effect = {
+
+			change_innovativeness = 5
+
+		}
+	}
+
+
+### With our religion and nation unified, some of our internal squabbles can be more effectively quelled.
+# Worth an idea
+	skaven_unified_skaven = { 
+		icon = mission_sw_torquoise_mining
+		required_missions = { skaven_conquer_skavenblight_5 skaven_horned_rat_5 }
+		position = 6
+		provinces_to_highlight = {
+
+		}
+		trigger = {
+
+		}
+
+		effect = {
+
+			add_country_modifier = {
+				name = skaven_unified
+				duration = -1
+			}
+
+
+		}
+	}
+
+## The Empire's college of magic has all sorts of interesting treaties on magic. Let's eat them, and gain thier power!
+	skaven_own_college = { 
+		icon = mission_sw_torquoise_mining
+		position = 8
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 3
+		}
+		trigger = {
+			3 = {
+				owned_by = ROOT
+			}
+		}
+
+		effect = {
+
+			change_innovativeness = 10
+
+		}
+	}
+
+
+
+
+## Gromril has its own fascinating properties, well worthy of study
+	skaven_gromril_research = { 
+		icon = mission_sw_torquoise_mining
+		position = 10
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = warpstone 
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = gromril
+				amount = 5
+			}
+		}
+
+		effect = {
+
+			change_innovativeness = 5
+
+		}
+	}
+
+## Forges and Furnaces - open air manufacturies provide a whole new avenue for progress. Who knew that pumping poison into the atmosphere was better than pumping poison into our own warrens?
+	skaven_open_air_forges = { 
+		icon = mission_have_manufactories
+		position = 11
+		required_missions = { skaven_expand_above_ground_4 skaven_inventions_4 }
+		trigger = {
+			calc_true_if = {
+				desc = build_manufactories_mission_tooltip
+				all_owned_province = {
+					OR = {
+						has_building = mills
+						has_building = farm_estate
+						has_building = tradecompany
+						has_building = plantations
+						has_building = textile
+						has_building = weapons
+						has_building = wharf
+						has_building = furnace
+					}
+				}
+				amount = 20
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = skaven_forges
+				duration = -1
+			}
+		}
+	}
+
+## With so much warpstone in our economy, new ideas are coming fast and hard. Some people might say too fast and hard, but they are getting eaten as we speak.
+	skaven_warpstone_age = { 
+		icon = mission_sw_torquoise_mining
+		position = 12
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = warpstone 
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			NOT = {
+				any_province = {
+					NOT = { owned_by = ROOT }
+					NOT = { owned_by_subject_of = ROOT }
+					trade_goods = warpstone
+				}
+			}
+			trade_goods_produced_amount = {
+				trade_goods = warpstone
+				amount = 50
+			}
+		}
+
+		effect = {
+			add_adm_tech = 2
+			add_dip_tech = 2
+			add_mil_tech = 2
+			add_country_modifier = {
+				name = skaven_warpstone_age
+				duration = -1
+			}
+		}
+	}
+
+}
+
+skaven_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = skaven_group
+		religion = horned_rat
+	}
+
+
+
+
+### Get the backing of three grey seers.
+	skaven_horned_rat_1 = {
+		icon = mission_skaven_religion
+		required_missions = { }
+		trigger = {
+			num_of_cardinals = 3
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = skaven_seers_1
+				duration = -1
+			}
+		}
+	}
+
+### Get the backing of three grey seers.
+	skaven_horned_rat_2 = {
+		icon = mission_skaven_religion
+		required_missions = { skaven_horned_rat_1 }
+		trigger = {
+			num_of_cardinals = 7
+		}
+
+		effect = {
+			remove_country_modifier = skaven_seers_1
+			add_country_modifier = {
+				name = skaven_seers_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+		}
+	}
+
+
+#### Get control of the Council of 13
+	skaven_horned_rat_3 = {
+		icon = mission_skaven_religion
+		required_missions = { skaven_horned_rat_2 }
+		trigger = {
+			is_papal_controller = yes
+		}
+
+		effect = {
+			remove_country_modifier = skaven_seers_2
+			add_country_modifier = {
+				name = skaven_seers_3
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+		}
+	}
+
+
+#### Get control of the Council of 13
+	skaven_horned_rat_4 = {
+		icon = mission_skaven_religion
+		required_missions = { skaven_horned_rat_3 }
+		trigger = {
+			num_of_cardinals = 13
+			has_great_project = {
+				type = council_of_thirteen
+				tier = 3
+			}
+		}
+
+		effect = {
+			remove_country_modifier = skaven_seers_3
+			add_country_modifier = {
+				name = skaven_seers_4
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+		}
+	}
+
+
+
+### Avatar of the horned rat
+	skaven_horned_rat_5 = {
+		icon = mission_skaven_religion
+		required_missions = { skaven_horned_rat_4 }
+		trigger = {
+			adm = 6
+			dip = 6
+			mil = 6
+		}
+
+		effect = {
+			remove_country_modifier = skaven_seers_4
+			add_country_modifier = {
+				name = skaven_seers_5
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+		}
+	}
+
+
+## Rattling Gun - Infantry Fire
+	skaven_inventions_1 = {
+		icon = mission_skaven_religion
+		required_missions = {  }
+		position = 7
+		trigger = {
+
+			innovativeness = 10
+			trade_goods_produced_amount = {
+				trade_goods = iron
+				amount = 5
+			}
+
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = rattling_gun_1
+				duration = -1
+			}
+		}
+	}
+
+
+## Hellpit Abomination - Monster
+	skaven_inventions_2 = {
+		icon = mission_skaven_religion
+		required_missions = { skaven_inventions_1 }
+		trigger = {
+
+			innovativeness = 20
+			OR = {
+				trade_goods_produced_amount = {
+					trade_goods = warpstone
+					amount = 5
+				}
+				has_great_project = {
+					type = hellpit
+					tier = 3
+				}
+			}
+
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = hellpit_abomination_1
+				duration = -1
+			}
+		}
+	}
+
+## Doomwheel - Cavalry Power
+	skaven_inventions_3 = {
+		icon = mission_skaven_religion
+		required_missions = { skaven_inventions_2 }
+		trigger = {
+
+			innovativeness = 30
+			trade_goods_produced_amount = {
+				trade_goods = copper
+				amount = 10
+			}
+
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = doomwheel_1
+				duration = -1
+			}
+		}
+	}
+
+## Doomrocket
+	skaven_inventions_4 = {
+		icon = mission_skaven_religion
+		required_missions = { skaven_inventions_3 }
+		trigger = {
+
+			innovativeness = 40
+
+			OR = {
+				trade_goods_produced_amount = {
+					trade_goods = warpstone
+					amount = 10
+				}
+				AND = {
+					has_great_project = {
+						type = under_alchemy_laboratories
+						tier = 3
+					}
+					trade_goods_produced_amount = {
+						trade_goods = warpstone
+						amount = 5
+					}
+				}
+			}
+
+
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = doomrocket_1
+				duration = -1
+			}
+		}
+	}
+
+
+## Doomsphere
+	skaven_inventions_5 = {
+		icon = mission_skaven_religion
+		required_missions = { skaven_inventions_4 }
+		trigger = {
+
+			has_country_modifier = war_modern_science
+			trade_goods_produced_amount = {
+				trade_goods = warpstone
+				amount = 10
+			}
+
+		}
+
+		effect = {
+		}
+	}
+
+}
+
+skaven_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = skaven_group
+		religion = horned_rat
+	}
+
+
+### Please the Grey Seers
+	skaven_happy_church = {
+		icon = mission_skaven_religion
+		required_missions = {
+		}
+		trigger = {
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 1
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = skaven_happy_church_1
+				duration = -1
+			}
+		}
+	}
+
+### Kidnap two Grey Seers
+	skaven_kidnap_grey_seers = {
+		icon = mission_skaven_religion
+		required_missions = { skaven_happy_church }
+		provinces_to_highlight = {
+			development = 20
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			OR = {
+				check_variable = {
+				    which = greySeersStolen
+				    value = 2
+				}
+				AND = {
+					num_of_cardinals = 13
+					NOT= {
+						any_country = {
+							num_of_cardinals = 1
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			remove_country_modifier = skaven_happy_church_1
+			add_country_modifier = {
+				name = skaven_happy_church_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+		}
+	}
+
+
+### Please the Grey Seers
+	skaven_happy_church_2 = {
+		icon = mission_skaven_religion
+		required_missions = { skaven_kidnap_grey_seers }
+		trigger = {
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 80
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 5
+			}
+		}
+
+		effect = {
+			remove_country_modifier = skaven_happy_church_1
+			add_country_modifier = {
+				name = skaven_happy_church_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+		}
+	}
+
+### Horned Rat is all about survival of the fittest
+	skaven_rise_to_the_top = {
+		icon = mission_skaven_religion
+		required_missions = { skaven_happy_church_2 }
+		trigger = {
+			adm = 6
+			dip = 6
+			mil = 6
+		}
+
+		effect = {
+			remove_country_modifier = skaven_happy_church_2
+			add_country_modifier = {
+				name = skaven_happy_church_4
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+		}
+	}
+
+
+
+### Do these improvements also decrease morale by a tiny bit? Like 1% or 2.5%? Maybe each is a full idea minus 2.5% morale?
+
+## Rattling Gun - Infantry Fire
+	skaven_improvements_1 = {
+		icon = mission_skaven_religion
+		required_missions = { skaven_inventions_1 }
+		position = 8
+		trigger = {
+
+			innovativeness = 20
+			trade_goods_produced_amount = {
+				trade_goods = iron
+				amount = 10
+			}
+
+		}
+
+		effect = {
+			random_owned_province = {
+				add_devastation = 100
+			}
+
+			remove_country_modifier = rattling_gun_1
+			add_country_modifier = {
+				name = rattling_gun_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+
+		}
+	}
+
+
+## Hellpit Abomination - Monster
+	skaven_improvements_2 = {
+		icon = mission_skaven_religion
+		required_missions = { skaven_inventions_2 }
+		trigger = {
+
+			innovativeness = 40
+			OR = {
+				trade_goods_produced_amount = {
+					trade_goods = warpstone
+					amount = 10
+				}
+				AND = {
+					has_great_project = {
+						type = hellpit
+						tier = 3
+					}
+					trade_goods_produced_amount = {
+						trade_goods = warpstone
+						amount = 5
+					}
+				}
+			}
+		}
+
+		effect = {
+			random_owned_province = {
+				add_devastation = 100
+			}
+			random_owned_province = {
+				add_devastation = 100
+			}
+			remove_country_modifier = hellpit_abomination_1
+			add_country_modifier = {
+				name = hellpit_abomination_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+		}
+	}
+
+## Doomwheel - Cavalry Power
+	skaven_improvements_3 = {
+		icon = mission_skaven_religion
+		required_missions = { skaven_inventions_3 }
+		trigger = {
+
+			innovativeness = 60
+			trade_goods_produced_amount = {
+				trade_goods = copper
+				amount = 20
+			}
+
+		}
+
+		effect = {
+			random_owned_province = {
+				add_devastation = 100
+			}
+			random_owned_province = {
+				add_devastation = 100
+			}
+			random_owned_province = {
+				add_devastation = 100
+			}
+			remove_country_modifier = doomwheel_1
+			add_country_modifier = {
+				name = doomwheel_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+		}
+	}
+
+## Doomrocket
+	skaven_improvements_4 = {
+		icon = mission_skaven_religion
+		required_missions = { skaven_inventions_4 }
+		trigger = {
+
+			innovativeness = 80
+			OR = {
+				trade_goods_produced_amount = {
+					trade_goods = warpstone
+					amount = 20
+				}
+				AND = {
+					has_great_project = {
+						type = under_alchemy_laboratories
+						tier = 3
+					}
+					trade_goods_produced_amount = {
+						trade_goods = warpstone
+						amount = 10
+					}
+				}
+			}
+
+		}
+
+		effect = {
+			random_owned_province = {
+				add_devastation = 100
+			}
+			random_owned_province = {
+				add_devastation = 100
+			}
+			random_owned_province = {
+				add_devastation = 100
+			}
+			random_owned_province = {
+				add_devastation = 100
+			}
+			remove_country_modifier = doomrocket_1
+			add_country_modifier = {
+				name = doomrocket_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt	
+		}
+
+	}
+
+
+
+}
+
+
