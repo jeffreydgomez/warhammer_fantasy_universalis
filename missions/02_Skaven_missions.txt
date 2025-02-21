@@ -21,7 +21,7 @@ skaven_missions_1 = {
 ### Our high ranking and important clan members can be sent abroad under the pretext of diplomacy, when in reality they are doing spying.
 ### Worth 1
 	skaven_spy_1 = {
-		icon = mission_skaven_culture
+		icon = mission_skaven_noble
 		required_missions = { }
 		position = 2
 		trigger = {
@@ -47,7 +47,7 @@ skaven_missions_1 = {
 ### Betrayal is everywhere! We must keep an eye on people. That way we can betray first!
 ## Half an idea
 	skaven_spy_2 = {
-		icon = mission_skaven_culture
+		icon = mission_skaven_noble
 		required_missions = { skaven_spy_1 }
 		trigger = {
 			calc_true_if = {
@@ -75,7 +75,7 @@ skaven_missions_1 = {
 ## Betrayal is core to what a skaven does. No one is less suspecting than an ally! But we can't let anybody know
 ## Half an idea
 	skaven_spy_3 = {
-		icon = mission_skaven_culture
+		icon = mission_skaven_noble
 		required_missions = { skaven_spy_2 }
 		trigger = {
 			any_ally = {
@@ -100,7 +100,7 @@ skaven_missions_1 = {
 ## It's time to strike our ally when they least suspect it!
 ## Half an idea 
 	skaven_spy_4 = {
-		icon = mission_skaven_culture
+		icon = mission_skaven_noble
 		required_missions = { skaven_spy_3 }
 		trigger = {
 			any_ally = {
@@ -135,7 +135,7 @@ skaven_missions_1 = {
 
 
 	skaven_raid_20 = {
-		icon = mission_skaven_religion
+		icon = mission_steppe_warriors
 		required_missions = { }
 		position = 8
 		provinces_to_highlight = {
@@ -297,7 +297,7 @@ skaven_missions_1 = {
 	}
 
 	skaven_raid_30 = {
-		icon = mission_skaven_religion
+		icon = mission_steppe_warriors
 		required_missions = { skaven_raid_20 }
 		provinces_to_highlight = {
 			development = 30
@@ -458,7 +458,7 @@ skaven_missions_1 = {
 	}
 	
 	skaven_raid_40 = {
-		icon = mission_skaven_religion
+		icon = mission_steppe_warriors
 		required_missions = { skaven_raid_30 }
 		provinces_to_highlight = {
 			development = 40
@@ -618,7 +618,7 @@ skaven_missions_1 = {
 		}
 	}
 	skaven_raid_50 = {
-		icon = mission_skaven_religion
+		icon = mission_steppe_warriors
 		required_missions = { skaven_raid_40 }
 		provinces_to_highlight = {
 			development = 50
@@ -796,7 +796,7 @@ skaven_missions_2 = {
 ## Forge alliances, learn secret passages
 # Half an idea
 	skaven_conquer_skavenblight_1 = {
-		icon = mission_skaven_culture
+		icon = mission_skaven_conquest
 		required_missions = { }
 		provinces_to_highlight = {
 
@@ -828,16 +828,16 @@ skaven_missions_2 = {
 ## We are building momentum now, and our troops are less likely to flee.
 # Half an idea
 	skaven_conquer_skavenblight_2 = {
-		icon = mission_skaven_culture
+		icon = mission_skaven_conquest
 		required_missions = { skaven_conquer_skavenblight_1 }
 		provinces_to_highlight = {
-			continent =  underempire
+			superregion = skavenblight_superregion
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		trigger = {
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-				value = 50
-				continent = underempire
+				value = 30
+				superregion = skavenblight_superregion
 			}
 		}
 
@@ -854,16 +854,16 @@ skaven_missions_2 = {
 ## With so much of skavenblight under our control, administration and taxation are becoming easier
 # Half an idea
 	skaven_conquer_skavenblight_3 = {
-		icon = mission_skaven_culture
-		required_missions = { skaven_conquer_skavenblight_2 }
+		icon = mission_skaven_conquest
+		required_missions = { skaven_conquer_skavenblight_2 skaven_spy_1 }
 		provinces_to_highlight = {
-			continent =  underempire
+			superregion = skavenblight_superregion
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		trigger = {
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-				value = 80
-				continent = underempire
+				value = 60
+				superregion = skavenblight_superregion
 			}
 		}
 
@@ -873,11 +873,14 @@ skaven_missions_2 = {
 				name = skaven_conquer_skavenblight_3
 				duration = -1
 			}
-			custom_tooltip = upgrade_replace_tt	
+			custom_tooltip = upgrade_replace_tt
+			custom_tooltip = claims_on_underempire_tt
 
-			every_province = {
-				limit = { continent = underempire }
-				add_claim = ROOT
+			hidden_effect = {
+				every_province = {
+					limit = { continent = underempire }
+					add_claim = ROOT
+				}
 			}
 
 		}
@@ -886,16 +889,16 @@ skaven_missions_2 = {
 ## We have almost conquered all of Skavenblight! Dig more tunnels. Finish the job!
 # Half an idea
 	skaven_conquer_skavenblight_4 = {
-		icon = mission_skaven_culture
+		icon = mission_skaven_conquest
 		required_missions = { skaven_conquer_skavenblight_3 }
 		provinces_to_highlight = {
-			continent =  underempire
+			superregion = skavenblight_superregion
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		trigger = {
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-				value = 100
-				continent = underempire
+				value = 90
+				superregion = skavenblight_superregion
 			}
 		}
 
@@ -907,10 +910,12 @@ skaven_missions_2 = {
 				duration = -1
 			}
 			custom_tooltip = upgrade_replace_tt	
-
-			every_province = {
-				limit = { continent = underempire }
-				add_permanent_claim = ROOT
+			custom_tooltip = perm_claims_on_underempire_tt
+			hidden_effect = {
+				every_province = {
+					limit = { continent = underempire }
+					add_permanent_claim = ROOT
+				}
 			}
 
 		}
@@ -920,16 +925,16 @@ skaven_missions_2 = {
 ## With a unified skavenblight our troops are experiencing something they've never felt before. Pride!
 # A whole idea
 	skaven_conquer_skavenblight_5 = {
-		icon = mission_skaven_culture
-		required_missions = { skaven_conquer_skavenblight_4 }
+		icon = mission_skaven_conquest
+		required_missions = { skaven_conquer_skavenblight_4 skaven_horned_rat_4 }
 		provinces_to_highlight = {
-			continent =  underempire
+			superregion = skavenblight_superregion
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		trigger = {
 			NOT = {
 				any_province = {
-					continent =  underempire
+					superregion = skavenblight_superregion
 					NOT = { country_or_non_sovereign_subject_holds = ROOT }
 				}
 			}
@@ -951,7 +956,7 @@ skaven_missions_2 = {
 ## Now that we have conquered enemy territory, let us flood in and replace them
 # Half an idea
 	skaven_expand_above_ground_1 = {
-		icon = mission_skaven_culture
+		icon = mission_skaven_face
 		required_missions = { }
 		position = 7
 		provinces_to_highlight = {
@@ -980,7 +985,7 @@ skaven_missions_2 = {
 
 ## We must move quickly, before anybody can stop us. WE must take cities and surface land without stopping.
 	skaven_expand_above_ground_2 = {
-		icon = mission_skaven_culture
+		icon = mission_skaven_face
 		required_missions = { skaven_expand_above_ground_1 }
 		provinces_to_highlight = {
 			continent =  underempire
@@ -1005,7 +1010,7 @@ skaven_missions_2 = {
 
 ## WE are under every cellar and behind every sewer drain. We must steal from the surface dwellers
 	skaven_expand_above_ground_3 = {
-		icon = mission_skaven_culture
+		icon = mission_skaven_face
 		required_missions = { skaven_expand_above_ground_2 }
 		provinces_to_highlight = {
 			trade_share = {
@@ -1025,11 +1030,19 @@ skaven_missions_2 = {
 				all_province = { 
 					trade_share = {
 						country = ROOT
-						share = 20
+						share = 10
 					}
 					NOT = { continent = underempire }
 				}
-				amount = 4
+				amount = 75
+			}
+			estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_burghers
+				value = 1
 			}
 		}
 
@@ -1045,7 +1058,7 @@ skaven_missions_2 = {
 
 ## Beef! Wheat! Fish! We can finally eat somethign besides black corn!
 	skaven_expand_above_ground_4 = {
-		icon = mission_skaven_culture
+		icon = mission_skaven_face
 		required_missions = { skaven_expand_above_ground_3 }
 		provinces_to_highlight = {
 			OR = {
@@ -1057,7 +1070,7 @@ skaven_missions_2 = {
 		}
 		trigger = {
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-				value = 10
+				value = 30
 				OR = {
 					trade_goods = grain
 					trade_goods = fish
@@ -1080,8 +1093,8 @@ skaven_missions_2 = {
 
 ## We are everywhere. We see everything. We will be the ending of the world.
 	skaven_expand_above_ground_5 = {
-		icon = mission_skaven_culture
-		required_missions = { skaven_expand_above_ground_4 }
+		icon = mission_skaven_face
+		required_missions = { skaven_expand_above_ground_4  }
 		trigger = {
 			num_of_continents = 5
 		}
@@ -1114,7 +1127,7 @@ skaven_missions_3 = {
 
 ## Time for experiments! With corrupting forces and the means to study them, our scientific endevours can commence!
 	skaven_tech_monuments = { 
-		icon = mission_sw_torquoise_mining
+		icon = mission_skaven_lab
 		required_missions = {  }
 		position = 2
 		provinces_to_highlight = {
@@ -1142,15 +1155,19 @@ skaven_missions_3 = {
 			}
 		}
 		trigger = {
-
-			has_great_project = {
-				type = under_alchemy_laboratories
-				tier = 2
+			4607 = {
+				has_great_project = {
+					type = under_alchemy_laboratories
+					tier = 2
+				}
 			}
 
-			has_great_project = {
-				type = nest_of_corruption
-				tier = 2
+
+			4647 = {
+				has_great_project = {
+					type = nest_of_corruption
+					tier = 2
+				}
 			}
 
 		}
@@ -1177,7 +1194,7 @@ skaven_missions_3 = {
 
 ## With so much warpstone, our research efforts are enhanced
 	skaven_warpstone_research = { 
-		icon = mission_sw_torquoise_mining
+		icon = mission_skaven_warpstone
 		position = 4
 		required_missions = {  }
 		provinces_to_highlight = {
@@ -1202,7 +1219,7 @@ skaven_missions_3 = {
 ### With our religion and nation unified, some of our internal squabbles can be more effectively quelled.
 # Worth an idea
 	skaven_unified_skaven = { 
-		icon = mission_sw_torquoise_mining
+		icon = mission_skaven_conquest
 		required_missions = { skaven_conquer_skavenblight_5 skaven_horned_rat_5 }
 		position = 6
 		provinces_to_highlight = {
@@ -1225,9 +1242,9 @@ skaven_missions_3 = {
 
 ## The Empire's college of magic has all sorts of interesting treaties on magic. Let's eat them, and gain thier power!
 	skaven_own_college = { 
-		icon = mission_sw_torquoise_mining
+		icon = mission_skaven_doomsphere
 		position = 8
-		required_missions = {  }
+		required_missions = { skaven_expand_above_ground_1 }
 		provinces_to_highlight = {
 			province_id = 3
 		}
@@ -1253,7 +1270,7 @@ skaven_missions_3 = {
 		position = 10
 		required_missions = {  }
 		provinces_to_highlight = {
-			trade_goods = warpstone 
+			trade_goods = gromril 
 			NOT = { owned_by = ROOT }
 		}
 		trigger = {
@@ -1289,8 +1306,9 @@ skaven_missions_3 = {
 						has_building = wharf
 						has_building = furnace
 					}
+					NOT = { continent = underempire }
 				}
-				amount = 20
+				amount = 10
 			}
 		}
 		effect = {
@@ -1303,7 +1321,7 @@ skaven_missions_3 = {
 
 ## With so much warpstone in our economy, new ideas are coming fast and hard. Some people might say too fast and hard, but they are getting eaten as we speak.
 	skaven_warpstone_age = { 
-		icon = mission_sw_torquoise_mining
+		icon = mission_skaven_warpstone
 		position = 12
 		required_missions = {  }
 		provinces_to_highlight = {
@@ -1352,8 +1370,11 @@ skaven_missions_4 = {
 
 ### Get the backing of three grey seers.
 	skaven_horned_rat_1 = {
-		icon = mission_skaven_religion
+		icon = mission_horned_rat
 		required_missions = { }
+		provinces_to_highlight = {
+			has_cardinal = yes
+		}
 		trigger = {
 			num_of_cardinals = 3
 		}
@@ -1368,8 +1389,11 @@ skaven_missions_4 = {
 
 ### Get the backing of three grey seers.
 	skaven_horned_rat_2 = {
-		icon = mission_skaven_religion
+		icon = mission_horned_rat
 		required_missions = { skaven_horned_rat_1 }
+		provinces_to_highlight = {
+			has_cardinal = yes
+		}
 		trigger = {
 			num_of_cardinals = 7
 		}
@@ -1387,7 +1411,7 @@ skaven_missions_4 = {
 
 #### Get control of the Council of 13
 	skaven_horned_rat_3 = {
-		icon = mission_skaven_religion
+		icon = mission_horned_rat
 		required_missions = { skaven_horned_rat_2 }
 		trigger = {
 			is_papal_controller = yes
@@ -1406,13 +1430,17 @@ skaven_missions_4 = {
 
 #### Get control of the Council of 13
 	skaven_horned_rat_4 = {
-		icon = mission_skaven_religion
+		icon = mission_horned_rat
 		required_missions = { skaven_horned_rat_3 }
+		provinces_to_highlight = {
+			has_cardinal = yes
+		}
 		trigger = {
-			num_of_cardinals = 13
-			has_great_project = {
-				type = council_of_thirteen
-				tier = 3
+			169 = {
+				has_great_project = {
+					type = council_of_thirteen
+					tier = 3
+				}
 			}
 		}
 
@@ -1430,12 +1458,12 @@ skaven_missions_4 = {
 
 ### Avatar of the horned rat
 	skaven_horned_rat_5 = {
-		icon = mission_skaven_religion
+		icon = mission_horned_rat
 		required_missions = { skaven_horned_rat_4 }
 		trigger = {
-			adm = 6
-			dip = 6
-			mil = 6
+			prestige = 95
+			legitimacy_equivalent = 100
+			religious_unity = 1
 		}
 
 		effect = {
@@ -1451,9 +1479,12 @@ skaven_missions_4 = {
 
 ## Rattling Gun - Infantry Fire
 	skaven_inventions_1 = {
-		icon = mission_skaven_religion
+		icon = mission_skaven_lab
 		required_missions = {  }
 		position = 7
+		provinces_to_highlight = {
+			trade_goods = iron
+		}
 		trigger = {
 
 			innovativeness = 10
@@ -1475,19 +1506,23 @@ skaven_missions_4 = {
 
 ## Hellpit Abomination - Monster
 	skaven_inventions_2 = {
-		icon = mission_skaven_religion
-		required_missions = { skaven_inventions_1 }
+		icon = mission_skaven_lab
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = warpstone
+		}
 		trigger = {
-
 			innovativeness = 20
 			OR = {
 				trade_goods_produced_amount = {
 					trade_goods = warpstone
 					amount = 5
 				}
-				has_great_project = {
-					type = hellpit
-					tier = 3
+				1171 = {
+					has_great_project = {
+						type = hellpit
+						tier = 3
+					}
 				}
 			}
 
@@ -1503,8 +1538,11 @@ skaven_missions_4 = {
 
 ## Doomwheel - Cavalry Power
 	skaven_inventions_3 = {
-		icon = mission_skaven_religion
-		required_missions = { skaven_inventions_2 }
+		icon = mission_skaven_lab
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = copper
+		}
 		trigger = {
 
 			innovativeness = 30
@@ -1525,8 +1563,11 @@ skaven_missions_4 = {
 
 ## Doomrocket
 	skaven_inventions_4 = {
-		icon = mission_skaven_religion
-		required_missions = { skaven_inventions_3 }
+		icon = mission_skaven_lab
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = warpstone
+		}
 		trigger = {
 
 			innovativeness = 40
@@ -1537,10 +1578,13 @@ skaven_missions_4 = {
 					amount = 10
 				}
 				AND = {
-					has_great_project = {
-						type = under_alchemy_laboratories
-						tier = 3
+					4607 = {
+						has_great_project = {
+							type = under_alchemy_laboratories
+							tier = 3
+						}
 					}
+
 					trade_goods_produced_amount = {
 						trade_goods = warpstone
 						amount = 5
@@ -1562,8 +1606,11 @@ skaven_missions_4 = {
 
 ## Doomsphere
 	skaven_inventions_5 = {
-		icon = mission_skaven_religion
+		icon = mission_skaven_lab
 		required_missions = { skaven_inventions_4 }
+		provinces_to_highlight = {
+			trade_goods = warpstone
+		}
 		trigger = {
 
 			has_country_modifier = war_modern_science
@@ -1575,6 +1622,10 @@ skaven_missions_4 = {
 		}
 
 		effect = {
+
+			set_country_flag = can_use_doomsphere
+			custom_tooltip = can_use_doomsphere_tt
+
 		}
 	}
 
@@ -1593,7 +1644,8 @@ skaven_missions_5 = {
 
 ### Please the Grey Seers
 	skaven_happy_church = {
-		icon = mission_skaven_religion
+		icon = mission_skaven_grey_seer
+		position = 2
 		required_missions = {
 		}
 		trigger = {
@@ -1617,11 +1669,10 @@ skaven_missions_5 = {
 
 ### Kidnap two Grey Seers
 	skaven_kidnap_grey_seers = {
-		icon = mission_skaven_religion
+		icon = mission_skaven_grey_seer
 		required_missions = { skaven_happy_church }
 		provinces_to_highlight = {
-			development = 20
-			NOT = { owned_by = ROOT }
+			has_cardinal = yes
 		}
 		trigger = {
 			OR = {
@@ -1630,7 +1681,6 @@ skaven_missions_5 = {
 				    value = 2
 				}
 				AND = {
-					num_of_cardinals = 13
 					NOT= {
 						any_country = {
 							num_of_cardinals = 1
@@ -1653,7 +1703,7 @@ skaven_missions_5 = {
 
 ### Please the Grey Seers
 	skaven_happy_church_2 = {
-		icon = mission_skaven_religion
+		icon = mission_skaven_grey_seer
 		required_missions = { skaven_kidnap_grey_seers }
 		trigger = {
 			estate_loyalty = {
@@ -1667,9 +1717,9 @@ skaven_missions_5 = {
 		}
 
 		effect = {
-			remove_country_modifier = skaven_happy_church_1
+			remove_country_modifier = skaven_happy_church_2
 			add_country_modifier = {
-				name = skaven_happy_church_2
+				name = skaven_happy_church_3
 				duration = -1
 			}
 			custom_tooltip = upgrade_replace_tt	
@@ -1678,8 +1728,9 @@ skaven_missions_5 = {
 
 ### Horned Rat is all about survival of the fittest
 	skaven_rise_to_the_top = {
-		icon = mission_skaven_religion
+		icon = mission_skaven_grey_seer
 		required_missions = { skaven_happy_church_2 }
+
 		trigger = {
 			adm = 6
 			dip = 6
@@ -1687,7 +1738,7 @@ skaven_missions_5 = {
 		}
 
 		effect = {
-			remove_country_modifier = skaven_happy_church_2
+			remove_country_modifier = skaven_happy_church_3
 			add_country_modifier = {
 				name = skaven_happy_church_4
 				duration = -1
@@ -1702,9 +1753,12 @@ skaven_missions_5 = {
 
 ## Rattling Gun - Infantry Fire
 	skaven_improvements_1 = {
-		icon = mission_skaven_religion
+		icon = mission_skaven_doomsphere
 		required_missions = { skaven_inventions_1 }
 		position = 8
+		provinces_to_highlight = {
+			trade_goods = iron
+		}
 		trigger = {
 
 			innovativeness = 20
@@ -1733,8 +1787,11 @@ skaven_missions_5 = {
 
 ## Hellpit Abomination - Monster
 	skaven_improvements_2 = {
-		icon = mission_skaven_religion
+		icon = mission_skaven_doomsphere
 		required_missions = { skaven_inventions_2 }
+		provinces_to_highlight = {
+			trade_goods = warpstone
+		}
 		trigger = {
 
 			innovativeness = 40
@@ -1744,9 +1801,11 @@ skaven_missions_5 = {
 					amount = 10
 				}
 				AND = {
-					has_great_project = {
-						type = hellpit
-						tier = 3
+					1171 = {
+						has_great_project = {
+							type = hellpit
+							tier = 3
+						}
 					}
 					trade_goods_produced_amount = {
 						trade_goods = warpstone
@@ -1774,8 +1833,11 @@ skaven_missions_5 = {
 
 ## Doomwheel - Cavalry Power
 	skaven_improvements_3 = {
-		icon = mission_skaven_religion
+		icon = mission_skaven_doomsphere
 		required_missions = { skaven_inventions_3 }
+		provinces_to_highlight = {
+			trade_goods = copper
+		}
 		trigger = {
 
 			innovativeness = 60
@@ -1807,8 +1869,11 @@ skaven_missions_5 = {
 
 ## Doomrocket
 	skaven_improvements_4 = {
-		icon = mission_skaven_religion
+		icon = mission_skaven_doomsphere
 		required_missions = { skaven_inventions_4 }
+		provinces_to_highlight = {
+			trade_goods = warpstone
+		}
 		trigger = {
 
 			innovativeness = 80
@@ -1818,9 +1883,11 @@ skaven_missions_5 = {
 					amount = 20
 				}
 				AND = {
-					has_great_project = {
-						type = under_alchemy_laboratories
-						tier = 3
+					4607 = {
+						has_great_project = {
+							type = under_alchemy_laboratories
+							tier = 3
+						}
 					}
 					trade_goods_produced_amount = {
 						trade_goods = warpstone
