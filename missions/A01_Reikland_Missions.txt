@@ -3,141 +3,436 @@ reikland_1_missions = {
 	generic = no
 	ai = yes
 	has_country_shield = yes
-	potential = { tag = A01 } 
-
+	potential = {
+		tag = A01
+	}
 	reikland_reform_the_imperial_army = {
 		icon = mission_landsknecht_soldier
 		position = 2
-		required_missions = { reikland_marshal_the_men } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			reikland_marshal_the_men
+		}
+		trigger = {
+			has_global_modifier_value = {
+				which = discipline
+				value = 0.05
+			}
+			land_morale = 4
+		}
+		effect = {
+			if = {
+				limit = {
+					has_ruler_flag = karl_franz_rf
+				}
+				add_imperial_influence = 5
+			}
+			add_country_modifier = {
+				name = reikland_reform_imerial_army_mod
+				duration = -1
+			}
+		}
 	}
-
 	reikland_the_reiksguard = {
 		icon = mission_teutonic_knights
 		position = 3
-		required_missions = { reikland_reform_the_imperial_army } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			reikland_reform_the_imperial_army
+		}
+		trigger = {
+			num_of_cavalry = 20
+			has_global_modifier_value = {
+				which = cavalry_power
+				value = 0.1
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_ruler_flag = karl_franz_rf
+				}
+				add_prestige = 50
+				add_country_modifier = {
+					name = prestigous_reiksgaurd_2_mod
+					duration = -1
+				}
+			}
+			else = {
+				add_prestige = 25
+				add_country_modifier = {
+					name = prestigous_reiksgaurd_1_mod
+					duration = -1
+				}
+			}
+		}
 	}
-
+	reikland_imperial_gunnery = {
+		icon = mission_cannons_firing
+		position = 4
+		required_missions = {
+			reikland_the_reiksguard
+		}
+		trigger = {
+			num_of_artillery = 16
+			or = {
+				31 = {
+					owned_by = ROOT
+				}
+				31 = {
+					owner = {
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+					}
+				}
+			}
+		}
+		provinces_to_highlight = {
+			province_id = 31
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_ruler_flag = karl_franz_rf
+				}
+				add_imperial_influence = 5
+			}
+			add_country_modifier = {
+				name = reikland_gunnery_school_strengthened_mod
+				duration = -1
+			}
+		}
+	}
 	reikland_urbanization_of_westerland = {
 		icon = mission_early_game_buildings
 		position = 6
-		required_missions = { reikland_consolidation_of_westerland } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			reikland_consolidation_of_westerland
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
 	}
-
 	reikland_center_of_imperial_trade = {
 		icon = mission_hanseatic_city
 		position = 7
-		required_missions = { reikland_urbanization_of_westerland } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			reikland_urbanization_of_westerland
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
 	}
 }
+
 reikland_2_missions = {
 	slot = 2
 	generic = no
 	ai = yes
 	has_country_shield = yes
-	potential = { tag = A01 } 
-
+	potential = {
+		tag = A01
+	}
 	reikland_marshal_the_men = {
 		icon = mission_assemble_an_army
 		position = 1
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		trigger = {
+			army_size = 25
+		}
+		effect = {
+			add_country_modifier = {
+				name = reikland_marshaled_the_men_mod
+				duration = 5475
+			}
+			country_event = {
+				id = flavor_reikland.1
+			}
+		}
 	}
-
 	reikland_state_troops = {
 		icon = mission_italian_condottiere
 		position = 3
-		required_missions = { reikland_marshal_the_men } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			reikland_marshal_the_men
+		}
+		trigger = {
+			OR = {
+				army_tradition = 40
+				army_professionalism = 0.2
+			}
+			custom_trigger_tooltip = {
+				tooltip = is_has_two_state_regiments_hiredy_tt
+				calc_true_if = {
+					has_two_state_regiments_hired = yes
+					amount = 2
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				add_army_professionalism = 0.05
+			}
+			else = {
+				add_army_tradition_or_mil_power = {
+					amount = 10
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_global_flag = regulated_uniforms_happened
+					}
+				}
+				country_event = {
+					id = war_prices.14
+				}
+			}
+			else = {
+				add_army_tradition_or_mil_power = {
+					amount = 25
+				}
+			}
+		}
 	}
-
 	reikland_consolidation_of_westerland = {
 		icon = mission_have_manufactories
 		position = 5
-		required_missions = { reikland_treaty_of_marienburg } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			reikland_treaty_of_marienburg
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
 	}
-
 	reikland_overseas_ventures = {
 		icon = mission_establish_high_seas_navy
 		position = 6
-		required_missions = { reikland_consolidation_of_westerland } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			reikland_consolidation_of_westerland
+		}
+		trigger = {
+			num_of_heavy_ship = 5
+			num_of_transport = 15
+			OR = {
+				navy_size = 40
+				navy_size_percentage = 0.9
+			}
+			num_of_admirals = 1
+		}
+		effect = {
+			neuland_area = {
+				discover_country = ROOT
+				if = {
+					limit = {
+						NOT = {
+							is_core = ROOT
+						}
+						NOT = {
+							is_permanent_claim = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			define_explorer = {
+				fire = 2
+				shock = 2
+				manuever = 4
+				siege = 0
+				name = "Ravenbrandt"
+			}
+		}
 	}
-
 	reikland_albionise_landing = {
 		icon = mission_ne_great_lakes_conquest
 		position = 7
-		required_missions = { reikland_overseas_ventures } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			reikland_overseas_ventures
+		}
+		provinces_to_highlight = {
+			province_id = 1086
+			not = {
+				owned_by = ROOT
+			}
+		}
+		trigger = {
+			1086 = {
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			albion_region = {
+				limit = {
+					NOT = {
+						is_core = ROOT
+					}
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
 	}
-
 	reikland_imperial_albion = {
 		icon = mission_rb_angevin_kingdom
 		position = 10
-		required_missions = { reikland_albionise_landing } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			reikland_albionise_landing
+		}
+		provinces_to_highlight = {
+			region = albion_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = albion_region
+				value = 10
+			}
+		}
+		effect = {
+			country_event = {
+				id = flavor_reikland.3
+			}
+		}
 	}
 }
+
 reikland_3_missions = {
 	slot = 3
 	generic = no
 	ai = yes
 	has_country_shield = yes
-	potential = { tag = A01 } 
-
+	potential = {
+		tag = A01
+	}
 	reikland_western_border = {
 		icon = mission_monarch_in_throne_room
 		position = 1
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		provinces_to_highlight = {
+			owned_by = event_target:RoyarchOfBretonnia
+		}
+		trigger = {
+			event_target:RoyarchOfBretonnia = {
+				or = {
+					is_rival = root
+					has_opinion = {
+						who = ROOT
+						value = 60
+					}
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					event_target:RoyarchOfBretonnia = {
+						is_rival = ROOT
+					}
+				}
+				bitter_moors_area = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				marreinburg_area = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				tumble_downs_area = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				couronne_marches_area = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			else = {
+				bitter_moors_area = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				marreinburg_area = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				tumble_downs_area = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				event_target:RoyarchOfBretonnia = {
+					add_truce_with = A12
+					break_alliance = A12
+				}
+			}
+		}
 	}
-
 	reikland_march_on_marienburg = {
 		icon = mission_steppe_warriors
 		position = 2
@@ -146,57 +441,226 @@ reikland_3_missions = {
 			reikland_nordland
 			reikland_marshal_the_men
 		}
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		provinces_to_highlight = {
+			AND = {
+				owner = {
+					is_elector = yes
+					NOT = {
+						preferred_emperor = ROOT
+					}
+				}
+				NOT = {
+					ROOT = {
+						calc_true_if = {
+							all_elector = {
+								preferred_emperor = ROOT
+							}
+							amount = 4
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					hre_size = 1
+				}
+				calc_true_if = {
+					all_elector = {
+						preferred_emperor = ROOT
+					}
+					amount = 4
+				}
+			}
+			else = {
+				num_of_allies = 3
+			}
+			num_of_generals = 2
+		}
+		effect = {
+			add_country_modifier = {
+				name = "gen_hre_diplomacy_mod"
+				duration = 5475
+			}
+			add_casus_belli = {
+				type = cb_vassalize_mission
+				months = 360
+				target = A12
+			}
+		}
 	}
-
 	reikland_treaty_of_marienburg = {
 		icon = mission_dominate_home_trade_node
 		position = 4
-		required_missions = { reikland_march_on_marienburg } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			reikland_march_on_marienburg
+		}
+		trigger = {
+			if = {
+				limit = {
+					exists = A11
+				}
+				A11 = {
+					is_subject_of = A01
+				}
+			}
+			else = {
+				bitter_moors_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				marreinburg_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+		}
+		effect = {
+		}
 	}
-
 	reikland_the_count_of_ulric = {
 		icon = mission_crown_of_denmark
 		position = 5
-		required_missions = { reikland_treaty_of_marienburg } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			reikland_treaty_of_marienburg
+		}
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					exists = A04
+				}
+				is_capital_of = A04
+			}
+			else = {
+				always = no
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					exists = A04
+					A04 = {
+						is_subject = no
+					}
+				}
+				total_development = A04
+				has_won_war_against = {
+					who = A04
+					max_years_since = 20
+				}
+				else = {
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						value = 3
+						or = {
+							area = carroburg_area
+							area = howling_hills_area
+							area = middenheim_area
+							area = drakwald_area
+							area = schadensumpf_area
+							area = middenland_talabec_area
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			carroburg_area = {
+				limit = {
+					NOT = {
+						is_core = ROOT
+					}
+					NOT = {
+						owned_by = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			howling_hills_area = {
+				limit = {
+					NOT = {
+						is_core = ROOT
+					}
+					NOT = {
+						owned_by = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			middenheim_area = {
+				limit = {
+					NOT = {
+						is_core = ROOT
+					}
+					NOT = {
+						owned_by = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			drakwald_area = {
+				limit = {
+					NOT = {
+						is_core = ROOT
+					}
+					NOT = {
+						owned_by = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			schadensumpf_area = {
+				limit = {
+					NOT = {
+						is_core = ROOT
+					}
+					NOT = {
+						owned_by = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			middenland_talabec_area = {
+				limit = {
+					NOT = {
+						is_core = ROOT
+					}
+					NOT = {
+						owned_by = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			add_power_projection_mission = {
+				amount = 10
+			}
+		}
 	}
-
-	reikland_restore_our_honor = {
-		icon = mission_the_renaissance_king_Mathias_Corvinus
-		position = 6
-		required_missions = { reikland_the_count_of_ulric } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
-	}
-
 	reikland_the_fate_of_middenland = {
 		icon = mission_united_knight_order
 		position = 7
-		required_missions = { reikland_restore_our_honor } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			reikland_the_count_of_ulric
+		}
+		trigger = {
+			OR = {
+				A04 = {
+					is_subject_of = ROOT
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 20
+					region = northern_empire_region
+				}
+			}
+		}
+		effect = {
+			add_scaled_imperial_influence = 5
+			change_ruler_stat = {
+				type = mil
+				amount = 1
+			}
+		}
 	}
-
 	reikland_befriend_hochland = {
 		icon = mission_alliances
 		position = 8
@@ -204,13 +668,13 @@ reikland_3_missions = {
 			reikland_the_fate_of_middenland
 			reikland_house_holswig_gausser
 		}
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
 	}
-
 	reikland_hegemon_of_the_empire = {
 		icon = mission_conquer_maharashtra
 		position = 11
@@ -220,63 +684,259 @@ reikland_3_missions = {
 			reikland_purge_the_undead
 			reikland_imperial_albion
 		}
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
 	}
 }
+
 reikland_4_missions = {
 	slot = 4
 	generic = no
 	ai = yes
 	has_country_shield = yes
-	potential = { tag = A01 } 
-
+	potential = {
+		tag = A01
+	}
 	reikland_nordland = {
 		icon = mission_hanseatic_city
 		position = 1
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					exists = A10
+				}
+				is_capital_of = A10
+			}
+			else = {
+				always = no
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					exists = A10
+				}
+				A10 = {
+					has_opinion = {
+						who = ROOT
+						value = 75
+					}
+					alliance_with = A01
+				}
+			}
+			else = {
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					exists = A10
+				}
+				A10 = {
+					add_core = 89
+					add_core = 87
+					add_core = 4933
+					add_core = 80
+				}
+				add_favors = {
+					who = A10
+					amount = 40
+				}
+				add_trust = {
+					who = PREV
+					value = 25
+					mutual = yes
+				}
+			}
+			else = {
+				add_mil_power = 15
+			}
+		}
 	}
-
+	reikland_church_of_sigmar = {
+		icon = mission_hands_praying
+		position = 3
+		required_missions = {
+			reikland_develop_reikland
+		}
+		provinces_to_highlight = {
+			owned_by = ROOT
+			or = {
+				NOT = {
+					has_tax_building_trigger = yes
+				}
+				not = {
+					religion = cult_of_sigmar
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_tax_building_trigger = yes
+				value = 20
+			}
+			OR = {
+				inquisitor = 2
+				theologian = 2
+				has_adm_advisor_3 = yes
+			}
+			religious_unity = 1
+		}
+		effect = {
+			if = {
+				limit = {
+					has_ruler_flag = karl_franz_rf
+				}
+				add_imperial_influence = 5
+			}
+			add_country_modifier = {
+				name = reikland_blessing_of_sigmar_mod
+				duration = -1
+			}
+			set_country_flag = A01_development_of_temples_buff
+		}
+	}
 	reikland_the_house_of_gausser = {
 		icon = mission_camillo_cavour
 		position = 5
-		required_missions = { reikland_treaty_of_marienburg } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			reikland_treaty_of_marienburg
+		}
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					exists = A10
+				}
+				is_capital_of = A10
+			}
+			else = {
+				always = no
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					exists = A10
+				}
+				trust = {
+					who = A10
+					value = 80
+				}
+				has_opinion = {
+					who = A10
+					value = 120
+				}
+				has_opinion_modifier = {
+					who = A10
+					modifier = sent_gift
+				}
+			}
+			else = {
+				num_of_provinces_owned_or_owned_by_subjects_with = {
+					or = {
+						area = salzenmund_area
+						area = wilhemskoog_area
+					}
+					value = 3
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					exists = B71
+				}
+				#laurelorn
+				add_casus_belli = {
+					target = B71
+					type = cb_vassalize_mission
+					months = 300
+				}
+			}
+		}
 	}
-
 	reikland_the_count_and_the_elf = {
 		icon = mission_wood_elf_religion
 		position = 6
-		required_missions = { reikland_the_house_of_gausser } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			reikland_the_house_of_gausser
+		}
+		provinces_to_highlight = {
+			area = laurelorn_forest
+		}
+		trigger = {
+			or = {
+				B71 = {
+					is_subject_of = ROOT
+				}
+				laurelorn_forest = {
+					is_part_of_hre = yes
+				}
+			}
+		}
+		effect = {
+		}
 	}
-
 	reikland_house_holswig_gausser = {
 		icon = mission_refine_the_carolean
 		position = 7
-		required_missions = { reikland_the_count_and_the_elf } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			reikland_the_count_and_the_elf
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					exists = A10
+					valid_for_personal_unions_trigger = yes
+				}
+				trust = {
+					who = A10
+					value = 100
+				}
+				has_opinion = {
+					who = A10
+					value = 200
+				}
+			}
+			else = {
+				num_of_provinces_owned_or_owned_by_subjects_with = {
+					or = {
+						area = salzenmund_area
+						area = wilhemskoog_area
+					}
+					value = 7
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					exists = A10
+					valid_for_personal_unions_trigger = yes
+					A10 = {
+						valid_for_personal_unions_trigger = yes
+					}
+				}
+				create_subject = {
+					subject_type = personal_union
+					subject = A10
+				}
+			}
+			else = {
+				add_dip_power = 100
+				add_power_projection = {
+					type = mission_rewards_power_projection
+					amount = 25
+				}
+			}
+		}
 	}
-
 	reikland_turn_our_attention_south = {
 		icon = mission_hussite_empire
 		position = 9
@@ -284,115 +944,253 @@ reikland_4_missions = {
 			reikland_befriend_hochland
 			reikland_re_establish_solland
 		}
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
 	}
-
 	reikland_the_reiksline = {
 		icon = mission_conquer_50_development
 		position = 10
-		required_missions = { reikland_turn_our_attention_south } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
-	}
-
-	reikland_church_of_sigmar = {
-		icon = mission_hands_praying
-		position = 3
-		required_missions = { reikland_develop_reikland } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			reikland_turn_our_attention_south
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
 	}
 }
+
 reikland_5_missions = {
 	slot = 5
 	generic = no
 	ai = yes
 	has_country_shield = yes
-	potential = { tag = A01 } 
-
-	reikland_intrigue_at_court = {
-		icon = mission_autocratic_rule
-		position = 5
-		required_missions = { reikland_treaty_of_marienburg } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+	potential = {
+		tag = A01
 	}
-
-	reikland_re_establish_solland = {
-		icon = mission_unite_home_region
-		position = 8
-		required_missions = { reikland_intrigue_at_court } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
-	}
-
-	reikland_third_vampire_wars = {
-		icon = mission_impaled_soldies
-		position = 9
-		required_missions = { reikland_re_establish_solland } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
-	}
-
-	reikland_purge_the_undead = {
-		icon = mission_devastate_christianity
-		position = 10
-		required_missions = { reikland_third_vampire_wars } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
-	}
-
 	reikland_develop_reikland = {
 		icon = mission_early_game_buildings
 		position = 2
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		provinces_to_highlight = {
+			region = southern_empire_region
+			owned_by = ROOT
+			NOT = {
+				and = {
+					development = 10
+					has_production_building_trigger = yes
+				}
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = southern_empire_region
+				development = 10
+				has_production_building_trigger = yes
+				value = 10
+			}
+		}
+		effect = {
+			add_mercantilism_or_monarch_power = {
+				amount = 5
+			}
+			if = {
+				limit = {
+					has_country_flag = karl_franz_rf
+				}
+				add_imperial_influence = 5
+			}
+			southern_empire_region = {
+				limit = {
+					owned_by = ROOT
+				}
+			}
+		}
 	}
-
 	reikland_a_new_bureaucracy = {
 		icon = mission_asian_trader
 		position = 3
-		required_missions = { reikland_develop_reikland } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			reikland_develop_reikland
+		}
+		provinces_to_highlight = {
+			owned_by = ROOT
+			or = {
+				local_autonomy_above_min = 20
+				not = {
+					has_courthouse_building_trigger = yes
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 20
+				has_courthouse_building_trigger = yes
+				NOT = {
+					local_autonomy = 10
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = A01_efficeint_bureaucracy_mod
+				duration = -1
+			}
+			if = {
+				limit = {
+					ruler_has_max_personalities = no
+				}
+				add_ruler_personality = lawgiver_personality
+			}
+		}
 	}
-
 	reikland_altdorf_university = {
 		icon = mission_european_church
 		position = 4
-		required_missions = { reikland_a_new_bureaucracy } 
-		provinces_to_highlight = {  } 
-
-		trigger = {  } 
-
-		effect = {  } 
+		required_missions = {
+			reikland_a_new_bureaucracy
+		}
+		provinces_to_highlight = {
+			area = altdorf_area
+			owned_by = root
+			NOT = {
+				and = {
+					has_building = university
+					development = 30
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 1
+				area = altdorf_area
+				development = 30
+				has_building = university
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					1 = {
+						development = 30
+						has_building = university
+						owned_by = ROOT
+					}
+				}
+				if = {
+					limit = {
+						has_dlc = "Rule Britannia"
+					}
+					change_innovativeness = 10
+				}
+				else = {
+					add_adm_power = 25
+					add_dip_power = 25
+					add_mil_power = 25
+				}
+			}
+			if = {
+				limit = {
+					2 = {
+						development = 30
+						has_building = university
+						owned_by = ROOT
+					}
+				}
+				if = {
+					limit = {
+						has_dlc = "Rule Britannia"
+					}
+					change_innovativeness = 10
+				}
+				else = {
+					add_adm_power = 25
+					add_dip_power = 25
+					add_mil_power = 25
+				}
+			}
+			if = {
+				limit = {
+					3 = {
+						development = 30
+						has_building = university
+						owned_by = ROOT
+					}
+				}
+				if = {
+					limit = {
+						has_dlc = "Rule Britannia"
+					}
+					change_innovativeness = 10
+				}
+				else = {
+					add_adm_power = 25
+					add_dip_power = 25
+					add_mil_power = 25
+				}
+			}
+			add_imperial_influence = 5
+		}
+	}
+	reikland_intrigue_at_court = {
+		icon = mission_autocratic_rule
+		position = 5
+		required_missions = {
+			reikland_treaty_of_marienburg
+		}
+		trigger = {
+			legitimacy = 90
+			dip_power = 100
+		}
+		effect = {
+			add_dip_power = -100
+			country_event = {
+				id = flavor_reikland.2
+			}
+		}
+	}
+	reikland_re_establish_solland = {
+		icon = mission_unite_home_region
+		position = 8
+		required_missions = {
+			reikland_intrigue_at_court
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
+	}
+	reikland_third_vampire_wars = {
+		icon = mission_impaled_soldies
+		position = 9
+		required_missions = {
+			reikland_re_establish_solland
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
+	}
+	reikland_purge_the_undead = {
+		icon = mission_devastate_christianity
+		position = 10
+		required_missions = {
+			reikland_third_vampire_wars
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+		}
+		effect = {
+		}
 	}
 }
