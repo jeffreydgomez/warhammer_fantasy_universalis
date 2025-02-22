@@ -15,7 +15,7 @@ gen_dwarf_missions = {
 	ai = yes
 	potential = {
 		OR = {
-			culture_group = dwarf_group
+#			culture_group = dwarf_group
 			culture_group = chaos_dwarf_group
 		}
 	}
@@ -202,7 +202,7 @@ gen_dwarf_ultimate_missions = {
 	ai = yes
 	potential = {
 		OR = {
-			culture_group = dwarf_group
+#			culture_group = dwarf_group
 			culture_group = chaos_dwarf_group
 		}
 	}
@@ -259,6 +259,7 @@ gen_ancestor_missions = {
 	has_country_shield = no
 	ai = yes
 	potential = {
+		NOT = { culture_group = dwarf_group }
 		religion_group = dawi_denominations
 	}
 
@@ -523,6 +524,8 @@ gen_hashut_missions = {
 		}
 
 		effect = {
+
+			add_harmony = 10
 			
 			change_estate_land_share = {
  			 	estate = estate_burghers
@@ -548,6 +551,8 @@ gen_hashut_missions = {
 		effect = {
 			add_treasury = -500
 			add_manpower = -50
+
+			add_harmony = 10
 
 			add_country_modifier = { 
  				name = hashut_sacrificed
@@ -581,6 +586,9 @@ gen_hashut_missions = {
 
 
 		effect = {
+
+			add_harmony = 10
+
 			add_country_modifier = { 
  				name = hashut_expand_religion
 				duration = -1
@@ -608,6 +616,11 @@ gen_hashut_missions = {
 
 
 		effect = {
+
+			add_harmony = 10
+
+			remove_country_modifier = hashut_expand_religion
+
 			add_country_modifier = { 
  				name = hashut_expand_culture
 				duration = -1
@@ -636,6 +649,9 @@ gen_hashut_missions = {
 		}
 
 		effect = {
+
+			add_harmony = 10
+
 			every_owned_province = {
 				limit = { trade_goods = slaves }
 				add_base_manpower = 1
@@ -659,6 +675,11 @@ gen_hashut_missions = {
 		}
 
 		effect = {
+
+			remove_country_modifier = hashut_absolutism_1
+
+			add_harmony = 10
+
 			every_owned_province = {
 				limit = {trade_goods = slaves }
 				add_base_manpower = 1
@@ -675,7 +696,7 @@ gen_hashut_missions = {
 
 	gen_hashut_high_crownland = { 
 		icon = mission_hashut_religion
-		required_missions = {  }
+		required_missions = { gen_hashut_lead_slaves }
 		position = 8
 		trigger = {
 			crown_land_share = 75
@@ -683,6 +704,10 @@ gen_hashut_missions = {
 
 		effect = {
 
+			remove_country_modifier = hashut_absolutism_2
+
+			add_harmony = 10
+			
 			change_estate_land_share = {
  			 	estate = estate_church
     			share = -2.5

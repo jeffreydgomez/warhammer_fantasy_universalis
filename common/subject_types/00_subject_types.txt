@@ -52,6 +52,7 @@ cultural_sphere_of_influence_subject = {}
 #warhammer
 bretonnian_dukedom_subject = {}
 dominion = {}
+chaos_warband_vassal = {}
 
 default = {
 	# Graphics:
@@ -1661,4 +1662,57 @@ dominion = {
 dummy =
 {
 	copy_from = default
+}
+
+
+chaos_warband_vassal = {
+	copy_from = vassal
+	
+	# Triggers:
+	is_potential_overlord = {
+		government = chaos_gov
+		religion_group = ruinous_powers_denominations
+	}
+	
+	# Graphics:
+	sprite = GFX_icon_vassal
+	diplomacy_overlord_sprite = GFX_diplomacy_leadvassal
+	diplomacy_subject_sprite = GFX_diplomacy_amvassal
+
+	# Properties:
+	transfer_trade_if_merchant_republic = yes
+	can_be_annexed = no
+	has_power_projection = no
+	gets_help_with_rebels = yes
+	can_fight_independence_war = yes
+	takes_diplo_slot = no
+	counts_for_borders = yes
+	relative_power_class = 8 #unique
+
+	max_government_rank = 1
+
+	base_liberty_desire = -20.0
+	liberty_desire_development_ratio = 0.5
+	liberty_desire_same_dynasty = -5.0
+	pays_overlord = 1.0
+	#forcelimit_bonus = 1.0
+	forcelimit_to_overlord = 0.0
+	should_quit_wars_on_activation = yes
+	
+	restoration_cb = cb_disloyal_vassal
+
+	# Subject Interactions:
+	placate_rulers = yes
+
+	# Modifiers:
+	modifier_overlord = clear
+	modifier_subject = {
+		modifier = vassal_nation
+	}
+	modifier_subject = {
+		modifier = vassal_subject
+	}
+
+	overlord_opinion_modifier = is_vassal
+	subject_opinion_modifier = is_vassal
 }

@@ -423,33 +423,90 @@ gen_old_ones_missions = {
 		}
 		effect = {
 
-			change_innovativeness = -25
+			if = {
+				limit = { ruler_has_personality = immortal_personality }
 
-			add_country_modifier = {
-				name = lizard_6th_spawning
-				duration = -1
+				change_innovativeness = -25
+
+				add_country_modifier = {
+					name = lizard_6th_spawning
+					duration = -1
+				}
+
+				clear_ruler_personalities = yes
+
+				add_ruler_personality = slann_personality
+				add_ruler_personality = immortal_personality
+
+				if = {
+					limit = {
+						adm = 6
+					}
+					add_adm_power = 100
+				}
+				else = {
+					change_adm = 1
+				}
+
+				if = {
+					limit = {
+						dip = 6
+					}
+					add_dip_power = 100
+				}
+				else = {
+					change_dip = 1
+				}
+
+				if = {
+					limit = {
+						mil = 6
+					}
+					add_mil_power = 100
+				}
+				else = {
+					change_mil = 1
+				}
+
+				define_heir = {
+				    adm = 6
+				    dip = 5
+				    mil = 4
+				    age = 0
+				    claim = 100
+				}
+
+				add_heir_personality = slann_personality
+
+
+			} else = {
+				change_innovativeness = -25
+
+				add_country_modifier = {
+					name = lizard_6th_spawning
+					duration = -1
+				}
+
+				define_ruler = {
+				    adm = 5
+				    dip = 4
+				    mil = 6
+				    age = 16
+				    claim = 100
+				}
+
+				add_ruler_personality = slann_personality
+
+				define_heir = {
+				    adm = 6
+				    dip = 5
+				    mil = 4
+				    age = 0
+				    claim = 100
+				}
+
+				add_heir_personality = slann_personality
 			}
-
-			define_ruler = {
-			    adm = 5
-			    dip = 4
-			    mil = 6
-			    age = 16
-			    claim = 100
-			}
-
-			add_ruler_personality = slann_personality
-
-			define_heir = {
-			    adm = 6
-			    dip = 5
-			    mil = 4
-			    age = 0
-			    claim = 100
-			}
-
-			add_heir_personality = slann_personality
-
 		}
 	}
 

@@ -1,0 +1,97 @@
+country_decisions = {
+	summon_the_elector_counts = {
+		potential = { 
+			is_emperor = yes
+		 }
+
+		allow = {
+			NOT = { has_country_modifier = empire_summoned_the_counts }
+			NOT = { has_country_modifier = empire_failed_summoned_the_counts }
+		}
+
+		effect = {
+			add_country_modifier = { 
+			    name = empire_summoned_the_counts
+			    duration = 3650
+			}
+
+			country_event = { 
+			    id = old_world_events.100
+			}
+		}
+
+		ai_will_do = {
+			factor = 400
+		}
+	}
+
+
+	colonize_mordheim = {
+		potential = { 
+			any_owned_province = {
+				OR = {
+					province_id = 179
+					province_id = 188
+					province_id = 192
+					province_id = 191
+					province_id = 74
+				}
+			}
+			187 = {
+				is_city = no
+				is_colony = no
+			}
+		 }
+
+		provinces_to_highlight = {
+			province_id = 187
+		}
+
+		allow = {
+			treasury = 250
+			manpower = 5
+			adm_power = 50
+			mil_power = 50
+		}
+
+		effect = {
+			add_treasury = -250
+			add_manpower = -5
+			add_adm_power = -50
+			add_mil_power = -50
+			187 = { create_colony = 100 }
+		}
+
+		ai_will_do = {
+			factor = 400
+		}
+	}
+
+    brass_keep_colonisation = {
+		potential = {
+			capital_scope = {
+				superregion = the_empire_superregion
+			}
+			393 = {
+				is_empty = yes
+				any_neighbor_province = {
+					owned_by = ROOT
+				}
+			}
+		}
+		allow = {
+			total_development = 125
+			treasury = 150
+		}
+		effect = {
+			add_treasury = -150
+			393 = {
+				add_siberian_construction = 100
+			}
+		}
+        ai_will_do = {
+			factor = 1
+		}
+	}
+
+}

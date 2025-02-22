@@ -1081,8 +1081,8 @@ NCountry = {
 	TRIBE_MIGRATION_ADM_COST = 0,
 	TRIBE_MIGRATION_DIP_COST = 0,
 	TRIBE_MIGRATION_MIL_COST = 50,
-	SIBERIAN_TRIBE_MIGRATION_BONUS = 50,
-	SIBERIAN_TRIBE_MIGRATION_COOLDOWN_YEARS = 5,
+	SIBERIAN_TRIBE_MIGRATION_BONUS = 10,
+	SIBERIAN_TRIBE_MIGRATION_COOLDOWN_YEARS = 1,
 	TRIBE_MIGRATION_NON_TRIBAL_LAND_COOLDOWN_YEARS = 2,
 
 	TRIBE_SETTLE_ADM_COST = 50,
@@ -2600,7 +2600,7 @@ NReligion = {
 	MAX_CHURCH_POWER = 200,
 	ASPECT_REMOVE_COST = 0,										-- Stabhit for removing an Aspect of Faith.
 	MAX_UNLOCKED_ASPECTS = 3,									-- Maximum number of Aspects of Faith the player can have unlocked at once.
-	CHURCH_POWER_RATE_SCALE = 0.1,								-- Scaling value for rate at which church power is gained.
+	CHURCH_POWER_RATE_SCALE = 0.0,								-- Scaling value for rate at which church power is gained. # WAR CHANGED FROM 0.1
 
 	KARMA_FOR_OFFENSIVE_WAR = -10,
 	KARMA_FOR_HONORING_CTA = 25,

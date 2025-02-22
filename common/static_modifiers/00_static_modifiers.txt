@@ -417,7 +417,6 @@ non_accepted_culture = {
 	local_sailors_modifier = -0.2
 	local_unrest = 2					#1% revolt risk!
 
-
 }
 
 accepted_culture_demoted = {
@@ -610,6 +609,7 @@ base_values = {
 	has_marines = yes
 ###
 	monthly_season_time_power = 0.5
+	monthly_church_power = 2.0
 
 
 
@@ -759,8 +759,8 @@ bankruptcy = {
 war = {
 	monthly_militarized_society = 0.1
 	rr_girondists_influence = 0.15
-#WAR
-#	monthly_orc_fightiness_power = 20.0 Now gained from winning battles
+	#WAR
+	#	monthly_orc_fightiness_power = 20.0 Now gained from winning battles
 	monthly_everchosen_favor = 0.05
 }
 
@@ -774,8 +774,9 @@ peace = {
 	monthly_militarized_society = -0.1
 	monthly_ottoman_decadence = 0.1
 	monthly_asha_vahishta = 0.25
-# WAR
+	# WAR
 	monthly_orc_fightiness_power = -1.0
+	monthly_chaos_favor = -0.25
 }
 
 unconditional_surrender = {
@@ -874,17 +875,19 @@ navy_tradition = {
 }
 
 positive_piety = { 
-	global_manpower_modifier = 0.20
-	land_morale = 0.10
-	global_missionary_strength = 0.03
-	church_loyalty_modifier = 0.1
+	global_manpower_modifier = 0.15
+	global_missionary_strength = 0.02
+	movement_speed = 0.15
+	church_loyalty_modifier = 0.15
+	tolerance_heathen = -3
 }
 
-negative_piety = { #As of 1.23 Mysticism
-	church_loyalty_modifier = 0.1
-	global_missionary_strength = 0.03
-	land_morale = 0.10
-	global_manpower_modifier = 0.20
+negative_piety = { 
+	global_manpower_modifier = 0.15
+	global_missionary_strength = 0.02
+	movement_speed = 0.15
+	church_loyalty_modifier = 0.15
+	tolerance_heathen = -3
 }
 
 defender_of_faith = {
@@ -1708,17 +1711,17 @@ divert_trade = {
 
 karma_just_right = {
 	diplomatic_reputation = 3
-	discipline = 0.075
+	discipline = 0.1
+	global_prosperity_growth = 1
 }
 
 karma_too_high = {
-	liberty_desire = 10
+	reduced_liberty_desire = -15
 	discipline = -0.025
-
 }
 
 karma_too_low = {
-	liberty_desire = 10
+	reduced_liberty_desire = -15
 	diplomatic_reputation = -1
 }
 
@@ -1764,13 +1767,13 @@ native_policy_hostile = {
 ########################################
 
 high_harmony = {
-	tolerance_own = 3
-	development_cost = -0.1
-	meritocracy = 1
-	legitimacy = 0.5
-	devotion = 1
+	tolerance_own = 2
+	development_cost_in_primary_culture = -0.1
+	manpower_in_true_faith_provinces= 0.10
+	institution_spread_from_true_faith = 0.1
 	harmonization_speed = 0.5
-	yearly_corruption = -0.5
+	tolerance_heretic = -4
+	tolerance_heathen = -4
 }
 
 low_harmony = {
@@ -2135,8 +2138,9 @@ carolean_regiment = {
 }
 
 revolutionary_guard_regiment = {
-	fire_damage_received = -0.1
-	shock_damage_received = -0.1
+	land_maintenance_modifier = 0.25
+	reinforce_cost_modifier = 0.25
+	reinforce_speed = -0.1
 	drill_gain_modifier = 1.0
 	drill_decay_modifier = -0.5
 }

@@ -1,0 +1,718 @@
+chaos_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		always = no
+	}
+	woc_rivers_of_blood = {
+		icon = mission_khorne
+		position = 1
+		trigger = {
+			or = {
+				any_known_country = {
+					coalition_target = ROOT
+				}
+				is_in_war = {
+					defender_leader = ROOT
+					casus_belli = cb_super_badboy
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = chaos_tried_khorne
+				duration = -1
+			}
+		}
+	}
+	#the skaven
+	woc_1_3 = {
+		icon = mission_skaven_religion
+		position = 3
+		provinces_to_highlight = {
+			has_discovered = ROOT
+			owner = {
+				technology_group = tech_skaven
+			}
+		}
+		trigger = {
+			any_known_country = {
+				technology_group = tech_skaven
+				has_100_opinion_improved_relation = {
+					target = ROOT
+				}
+			}
+		}
+		effect = {
+			random_known_country = {
+				limit = {
+					technology_group = tech_skaven
+					has_100_opinion_improved_relation = {
+						target = ROOT
+					}
+				}
+				create_alliance = ROOT
+				add_historical_friend = ROOT
+				ROOT = {
+					add_historical_friend = PREV
+				}
+			}
+		}
+	}
+	woc_nurgle_2 = {
+		icon = mission_nurgle
+		position = 5
+		required_missions = {
+			woc_nurgle_1
+		}
+		provinces_to_highlight = {
+			owner = {
+				war_with = ROOT
+				num_of_cities = 27
+			}
+			NOT = {
+				OR = {
+					has_province_modifier = scorched_earth
+					devastation = 77
+				}
+			}
+		}
+		trigger = {
+			monthly_mil = 10
+			any_war_enemy_country = {
+				war_with = ROOT
+				num_of_owned_provinces_with = {
+					value = 27
+					OR = {
+						has_province_modifier = scorched_earth
+						devastation = 77
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = war_nurgle_blessing
+				duration = -1
+			}
+		}
+	}
+}
+
+chaos_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		always = no
+	}
+	woc_trial_of_khorne = {
+		icon = mission_khorne
+		position = 2
+		required_missions = {
+			woc_rivers_of_blood
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+			all_known_country = {
+				or = {
+					war_with = ROOT
+					is_subject_of = ROOT
+					truce_with = ROOT
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = war_khorne_blessing
+				duration = -1
+			}
+		}
+	}
+	# woc_2_3 = {
+	# 	icon = mission_chaos_culture
+	# 	position = 3
+	# 	provinces_to_highlight = {
+	# 	}
+	# 	trigger = {
+	# 	}
+	# 	effect = {
+	# 	}
+	# }
+	woc_nurgle_1 = {
+		icon = mission_nurgle
+		position = 4
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+		}
+		trigger = {
+			capital_scope = {
+				development = 27
+			}
+			has_tax_building_trigger = yes
+			has_fort_building_trigger = yes
+		}
+		effect = {
+			add_country_modifier = {
+				name = chaos_tried_nurgle
+				duration = -1
+			}
+		}
+	}
+	woc_place_of_power_ulthuan = {
+		icon = mission_ind_culture
+		position = 9
+		required_missions = {
+			woc_seventh_step
+		}
+		provinces_to_highlight = {
+			province_id = 1967
+		}
+		trigger = {
+			1967 = {
+				or = {
+					country_or_subject_holds = ROOT
+					has_province_modifier = chaos_decolonized_1
+				}
+			}
+		}
+		effect = {
+		}
+	}
+}
+
+chaos_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		always = no
+	}
+	woc_first_steps = {
+		icon = mission_chaos_culture
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			army_size_percentage = 1
+		}
+		effect = {
+		}
+	}
+	woc_second_step = {
+		icon = mission_steppe_warriors
+		position = 2
+		required_missions = {
+			woc_first_steps
+		}
+		trigger = {
+			or = {
+				check_variable = {
+					which = chaos_provs_destroyed
+					value = 25
+				}
+				num_of_owned_provinces_with = {
+					value = 25
+					religion_group = ruinous_powers_denominations
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_country_modifier = chaos_favor_of_the_gods
+				}
+				custom_tooltip = chaos_favor_of_the_gods_modifier_tt
+				hidden_effect = {
+					remove_country_modifier = chaos_favor_of_the_gods
+					add_country_modifier = {
+						name = chaos_favor_of_the_gods
+						duration = 3650
+					}
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = chaos_favor_of_the_gods
+					duration = 3650
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = chaos_favor_of_the_gods
+					duration = 3650
+				}
+			}
+		}
+	}
+	woc_third_step = {
+		icon = mission_chaos_culture
+		position = 3
+		required_missions = {
+			woc_second_step
+		}
+		trigger = {
+			or = {
+				check_variable = {
+					which = chaos_provs_destroyed
+					value = 50
+				}
+				num_of_owned_provinces_with = {
+					value = 50
+					religion_group = ruinous_powers_denominations
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_country_modifier = chaos_favor_of_the_gods
+				}
+				custom_tooltip = chaos_favor_of_the_gods_modifier_tt
+				hidden_effect = {
+					remove_country_modifier = chaos_favor_of_the_gods
+					add_country_modifier = {
+						name = chaos_favor_of_the_gods
+						duration = 3650
+					}
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = chaos_favor_of_the_gods
+					duration = 3650
+				}
+			}
+		}
+	}
+	woc_fourth_step = {
+		icon = mission_chaos_culture
+		position = 4
+		required_missions = {
+			woc_third_step
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+			or = {
+				check_variable = {
+					which = chaos_provs_destroyed
+					value = 100
+				}
+				num_of_owned_provinces_with = {
+					value = 100
+					religion_group = ruinous_powers_denominations
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_country_modifier = chaos_favor_of_the_gods
+				}
+				custom_tooltip = chaos_favor_of_the_gods_modifier_tt
+				hidden_effect = {
+					remove_country_modifier = chaos_favor_of_the_gods
+					add_country_modifier = {
+						name = chaos_favor_of_the_gods
+						duration = 3650
+					}
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = chaos_favor_of_the_gods
+					duration = 3650
+				}
+			}
+		}
+	}
+	woc_fifth_step = {
+		icon = mission_myrmidia
+		position = 5
+		required_missions = {
+			woc_fourth_step
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+			or = {
+				check_variable = {
+					which = chaos_provs_destroyed
+					value = 250
+				}
+				num_of_owned_provinces_with = {
+					value = 250
+					religion_group = ruinous_powers_denominations
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_country_modifier = chaos_favor_of_the_gods
+				}
+				custom_tooltip = chaos_favor_of_the_gods_modifier_tt
+				hidden_effect = {
+					remove_country_modifier = chaos_favor_of_the_gods
+					add_country_modifier = {
+						name = chaos_favor_of_the_gods
+						duration = 3650
+					}
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = chaos_favor_of_the_gods
+					duration = 3650
+				}
+			}
+		}
+	}
+	woc_sixth_step = {
+		icon = mission_chaos_religion
+		position = 6
+		required_missions = {
+			woc_fifth_step
+		}
+		trigger = {
+			or = {
+				check_variable = {
+					which = chaos_provs_destroyed
+					value = 500
+				}
+				num_of_owned_provinces_with = {
+					value = 500
+					religion_group = ruinous_powers_denominations
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_country_modifier = chaos_favor_of_the_gods
+				}
+				custom_tooltip = chaos_favor_of_the_gods_modifier_tt
+				hidden_effect = {
+					remove_country_modifier = chaos_favor_of_the_gods
+					add_country_modifier = {
+						name = chaos_favor_of_the_gods
+						duration = 3650
+					}
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = chaos_favor_of_the_gods
+					duration = 3650
+				}
+			}
+		}
+	}
+	woc_seventh_step = {
+		icon = mission_chaos_religion
+		position = 8
+		required_missions = {
+			woc_sixth_step
+		}
+		trigger = {
+			or = {
+				check_variable = {
+					which = chaos_provs_destroyed
+					value = 1000
+				}
+				num_of_owned_provinces_with = {
+					value = 1000
+					religion_group = ruinous_powers_denominations
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_country_modifier = chaos_favor_of_the_gods
+				}
+				custom_tooltip = chaos_favor_of_the_gods_modifier_tt
+				hidden_effect = {
+					remove_country_modifier = chaos_favor_of_the_gods
+					add_country_modifier = {
+						name = chaos_favor_of_the_gods
+						duration = 3650
+					}
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = chaos_favor_of_the_gods
+					duration = 3650
+				}
+			}
+		}
+	}
+	woc_place_of_power_middenhelm = {
+		icon = mission_ind_culture
+		position = 9
+		required_missions = {
+			woc_seventh_step
+		}
+		provinces_to_highlight = {
+			province_id = 116
+		}
+		trigger = {
+			116 = {
+				or = {
+					country_or_subject_holds = ROOT
+					has_province_modifier = chaos_decolonized_1
+				}
+			}
+		}
+		effect = {
+		}
+	}
+	woc_undo_the_material_realm = {
+		icon = mission_end_of_the_world
+		position = 10
+		required_missions = {
+			woc_place_of_power_ulthuan
+			woc_place_of_power_middenhelm
+			woc_place_of_power_cathay
+		}
+		trigger = {
+		}
+		effect = {
+		}
+	}
+}
+
+chaos_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		always = no
+	}
+	woc_trial_of_tzeentch = {
+		icon = mission_tzeentch
+		position = 2
+		required_missions = {
+			woc_web_of_lies
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+			all_known_country = {
+				NOT = {
+					tech_difference = 1
+				}
+			}
+			is_lacking_institutions = no
+		}
+		effect = {
+			add_country_modifier = {
+				name = war_tzeentch_blessing
+				duration = -1
+			}
+		}
+	}
+	# woc_4_3 = {
+	# 	icon = mission_chaos_culture
+	# 	position = 3
+	# 	provinces_to_highlight = {
+	# 	}
+	# 	trigger = {
+	# 	}
+	# 	effect = {
+	# 	}
+	# }
+	woc_slannesh_1 = {
+		icon = mission_slaanesh
+		position = 4
+		trigger = {
+			any_subject_country = {
+				has_liberty_desire_modifier = subject_of_rivals
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = chaos_tried_slaanesh
+				duration = -1
+			}
+		}
+	}
+	woc_place_of_power_cathay = {
+		icon = mission_cathayan_culture
+		position = 9
+		required_missions = {
+			woc_seventh_step
+		}
+		provinces_to_highlight = {
+			province_id = 2838
+		}
+		trigger = {
+			2838 = {
+				or = {
+					country_or_subject_holds = ROOT
+					has_province_modifier = chaos_decolonized_1
+				}
+			}
+		}
+		effect = {
+		}
+	}
+}
+
+chaos_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		always = no
+	}
+	woc_web_of_lies = {
+		icon = mission_tzeentch
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			or = {
+				is_ahead_of_time_in_technology = {
+					tech = adm
+				}
+				is_ahead_of_time_in_technology = {
+					tech = dip
+				}
+				is_ahead_of_time_in_technology = {
+					tech = mil
+				}
+			}
+			any_country = {
+				has_spy_network_from = {
+					who = ROOT
+					value = 50
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = chaos_tried_tzeentch
+				duration = -1
+			}
+		}
+	}
+	#chaos dwarves
+	woc_5_3 = {
+		icon = mission_hashut_religion
+		position = 3
+		provinces_to_highlight = {
+			has_discovered = root
+			owner = {
+				technology_group = tech_chaos_dwarfen
+			}
+		}
+		trigger = {
+			or = {
+				if = {
+					limit = {
+						exists = B17
+					}
+					B17 = {
+						has_100_opinion_improved_relation = {
+							target = ROOT
+						}
+					}
+				}
+				else = {
+					any_known_country = {
+						technology_group = tech_chaos_dwarfen
+						has_100_opinion_improved_relation = {
+							target = ROOT
+						}
+					}
+				}
+				811 = {
+					or = {
+						has_province_modifier = chaos_decolonized_1
+						country_or_subject_holds = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					exists = B17
+					B17 = {
+						has_100_opinion_improved_relation = {
+							target = ROOT
+						}
+					}
+				}
+				create_alliance = B17
+				add_historical_friend = B17
+				B17 = {
+					add_historical_friend = ROOT
+				}
+			}
+			else_if = {
+				limit = {
+					any_known_country = {
+						technology_group = tech_chaos_dwarfen
+						has_100_opinion_improved_relation = {
+							target = ROOT
+						}
+					}
+				}
+				random_known_country = {
+					limit = {
+						technology_group = tech_chaos_dwarfen
+					}
+					create_alliance = ROOT
+					add_historical_friend = ROOT
+					ROOT = {
+						add_historical_friend = PREV
+					}
+				}
+			}
+			else = {
+				add_power_projection = {
+					type = mission_rewards_power_projection
+					amount = 15
+				}
+			}
+		}
+	}
+	woc_slaanesh_2 = {
+		icon = mission_slaanesh
+		position = 5
+		required_missions = {
+			woc_slannesh_1
+		}
+		provinces_to_highlight = {
+		}
+		trigger = {
+			prestige = 80
+			check_variable = {
+				which = chaos_implant_cult_counter
+				value = 6
+			}
+		}
+		effect = {
+			add_government_power = {
+				mechanic_type = chaos_favor_mechanic
+				power_type = chaos_favor
+				value = 25
+			}
+			add_country_modifier = {
+				name = war_slaanesh_blessing
+				duration = -1
+			}
+		}
+	}
+}

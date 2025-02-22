@@ -1,0 +1,603 @@
+
+########################################
+# Events for Dark Elves
+########################################
+
+namespace = dark_elf_events
+normal_or_historical_nations = yes
+
+
+# Template
+
+country_event = { 
+	id = dark_elf_events.X
+	title = dark_elf_events.X.t 
+	desc = dark_elf_events.X.d 
+	picture = BYZ_COURT_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = druchii_group
+			religion = cytharai
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# FIRST OPTION
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.X.option_1 
+
+	}
+
+# SECOND OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.X.option_2
+
+
+	}
+
+# THIRD OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.X.option_3
+	}
+}
+
+
+
+
+# Our nobles clambor to reclaim Ulthuan and take the Phoenix throne! We must establish a beachhead.
+
+country_event = { 
+	id = dark_elf_events.1
+	title = dark_elf_events.1.t 
+	desc = dark_elf_events.1.d 
+	picture = BYZ_COURT_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = druchii_group
+		
+		is_great_power = yes
+		is_at_war = no
+
+		manpower_percentage = 0.50
+		navy_size_percentage = 0.50
+		army_size_percentage = 0.50
+
+		NOT = {
+			capital_scope = { superregion = ulthuan_superregion }
+		}
+
+		any_country = {
+			capital_scope = { superregion = ulthuan_superregion }
+			NOT = { truce_with = ROOT }
+			ROOT = {
+				NOT = {
+					has_opinion = {
+						who = PREV
+						value = 0
+					}
+				}
+				
+				military_strength = {
+					who = PREV
+					value = 1.5
+				}	
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_country = {
+			limit = {
+				capital_scope = { superregion = ulthuan_superregion }
+				NOT = { truce_with = ROOT }
+				ROOT = {
+					NOT = {
+						has_opinion = {
+							who = PREV
+							value = 0
+						}
+					}
+
+					military_strength = {
+						who = PREV
+						value = 1.5
+					}	
+
+				}
+			}
+			capital_scope = { save_event_target_as = event_target }
+		}
+	}
+
+	goto = event_target
+
+# It is time for war!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.1.option_1 
+
+
+		add_yearly_manpower = 0.5
+
+		add_country_modifier = { 
+		    name = war_better_morale
+		    duration = 3650
+		}
+
+		add_country_modifier = { 
+		    name = war_better_navy_morale
+		    duration = 3650
+		}
+
+		event_target:event_target = {
+			owner = {
+				ROOT = {
+					declare_war_with_cb = {
+					    who = PREV
+					    casus_belli = cb_annex
+					}
+				}
+			}
+		}
+	}
+
+# Now is not the time
+	option = { 
+		ai_chance = { factor = 0 }
+		name = dark_elf_events.1.option_2
+
+
+		add_prestige = -10
+
+		add_estate_loyalty = {
+		    estate = estate_nobles
+		    loyalty = -10
+		}	
+
+
+	}
+}
+
+
+
+### A Challenger wants the throne.
+
+country_event = { 
+	id = dark_elf_events.2
+	title = dark_elf_events.2.t 
+	desc = dark_elf_events.2.d 
+	picture = BYZ_COURT_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = druchii_group
+			religion = cytharai
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# I'm still the boss
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.2.a 
+
+		add_legitimacy = -10
+
+		}
+
+# The throne is theirs
+	option = { 
+		ai_chance = { factor = 0 }
+		name = dark_elf_events.2.b
+
+		kill_ruler = yes
+
+	}
+
+# Let's fight it out!
+	option = { 
+		ai_chance = { factor = 0 }
+		name = dark_elf_events.2.c
+
+		random_list = {
+			50 = {
+				if = {
+					limit = {
+						mil = 6
+					}
+					add_mil_power = 100
+				}
+				else = {
+					change_mil = 1
+				}
+			}
+
+			50 = {
+				kill_ruler = yes
+			}
+		}
+		
+		add_prestige = 10
+		add_legitimacy = 5
+
+	}
+}
+
+
+
+
+### "From the cold darkness of the Shadowlands, the Shades have returned. These masterful hunters and assassins offer their blades—for a price."
+
+country_event = { 
+	id = dark_elf_events.3
+	title = dark_elf_events.3.t 
+	desc = dark_elf_events.3.d 
+	picture = BYZ_COURT_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = druchii_group
+			religion = cytharai
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# What's the worst that could happen?
+
+	option = { 
+		ai_chance = { factor = 0 }
+		name = dark_elf_events.3.a
+
+		add_country_modifier = { 
+		    name = war_better_spies
+		    duration = 1825
+		}
+
+		random = { 
+		    chance = 20
+		    kill_ruler = yes
+		}
+
+
+	}
+
+# Better let my advisors handle this
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.3.b
+
+		add_country_modifier = { 
+		    name = war_better_spies
+		    duration = 730
+		}
+
+		random = { 
+		    chance = 20
+		    kill_advisor = random
+		}
+	}
+
+# No way!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.3.c
+
+
+	}
+}
+
+
+
+
+
+## A slaaneshi cult has popped up. Dark elves always struggle with slaanesshi cults
+
+country_event = { 
+	id = dark_elf_events.4
+	title = dark_elf_events.4.title
+	desc = dark_elf_events.4.desc
+	picture = BYZ_COURT_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion = cytharai
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Burn the cultists to the ground
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.4.a 
+
+		event_target:event_target = {
+			add_devastation = 25
+		}
+		add_manpower = -1
+
+	}
+
+# Activate the witch hunters
+	option = { 
+		ai_chance = { factor = 0 }
+		name = dark_elf_events.4.b
+
+		event_target:event_target = {
+			change_religion = slaaneshi_religion
+		}
+
+		add_country_modifier = { 
+		    name = war_witch_hunts
+		    duration = 1825
+		}
+	}
+
+# No need to panic. We will handle this through normal means.
+
+	option = { 
+		ai_chance = { factor = 0 }
+		name = dark_elf_events.4.c
+		
+		event_target:event_target = {
+			change_religion = slaaneshi_religion
+		}
+	}
+}
+
+
+
+
+### Birth of a Mage. A child has demonstrated strong magical power. Where should we send her?
+
+country_event = { 
+	id = dark_elf_events.5
+	title = dark_elf_events.5.title
+	desc = dark_elf_events.5.desc
+	picture = NOBLE_ESTATE_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = druchii_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# She shall train to be a Sorceress of Ghrond
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.5.a
+
+		add_country_modifier = { 
+		    name = war_all_power_cost
+		    duration = 1825
+		}
+
+	}
+
+# Bring her into the army
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.5.b
+		add_country_modifier = { 
+		    name = war_fire_damage
+		    duration = 3650
+		}
+
+
+	}
+
+# Let the child decide
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.5.c
+
+		add_prestige_or_monarch_power = { amount = 10 }
+
+		random_list = {
+		    40 = {
+				add_country_modifier = { 
+				    name = war_all_power_cost
+				    duration = 1825
+				}
+		    }
+		    40 = {
+				add_country_modifier = { 
+				    name = war_fire_damage
+				    duration = 3650
+				}
+		    }
+		    20 = {
+		    }
+		}
+	}
+}
+
+
+## Intrigue in the dark elf court. One of our diplomats finds himself with a piece of unusual knowledge. How should he use it?
+
+country_event = { 
+	id = dark_elf_events.6
+	title = dark_elf_events.6.title
+	desc = dark_elf_events.6.desc
+	picture = BYZ_COURT_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = druchii_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Blackmail, of course
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.6.a 
+
+		add_country_modifier = { 
+		    name = war_better_spies
+		    duration = 1825
+		}
+
+	}
+
+# We are above all this
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.6.b
+
+		add_country_modifier = { 
+		    name = war_better_dip_rep
+		    duration = 3650
+		}
+	}
+
+}
+
+
+
+## Slave Rebellion
+
+country_event = { 
+	id = dark_elf_events.7
+	title = dark_elf_events.7.t 
+	desc = dark_elf_events.7.d 
+	picture = BYZ_COURT_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = druchii_group
+			religion = cytharai
+		}
+		any_owned_province = {
+			trade_goods = slaves
+			base_production = 3
+		}
+
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				trade_goods = slaves
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Break them Utterly
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.7.option_1
+
+		event_target:event_target = {
+			add_base_production = -2
+		}
+
+	}
+
+# Let them rise - it will be sport
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.7.option_2
+
+		event_target:event_target = {
+			spawn_rebels = {
+			    size = 1
+			    type = particularist_rebels
+			}
+		}
+
+	}
+
+# Let the unrest build
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.7.option_3
+
+		add_stability = -1
+	}
+}
+
+

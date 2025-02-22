@@ -81,7 +81,6 @@ high_elven_republic = {
 		}
 		has_parliament = yes
 	}
-
 }
 
 
@@ -157,5 +156,143 @@ military_garrison_reform = {
 		generals_become_rulers = yes
 		locked_government_type = yes
 		cannot_become_dictatorship = yes
+	}
+}
+
+
+dread_fleet_reform = {
+	icon = "pirate_republic"
+	allow_normal_conversion = no
+	lock_level_when_selected = yes
+	modifiers = {
+		republican_tradition = -1
+		max_absolutism = 10
+		naval_forcelimit_modifier = 0.5
+		capture_ship_chance = 0.33
+		state_governing_cost = 0.75
+		may_perform_slave_raid_on_same_religion = yes
+		allowed_marine_fraction = 0.5
+	}
+	trigger = {
+		is_or_was_tag =  { tag = V19 }
+	}
+	valid_for_nation_designer = no
+	nation_designer_cost = 40
+	can_form_trade_league = no
+
+	removed_effect = {
+		clr_country_flag = pirate_mutineer_council
+	}
+
+	has_term_election = no
+	
+	potential = {
+		has_reform = dread_fleet_reform
+		OR = {
+			has_dlc = "Lions of the North"
+			has_dlc = "Golden Century"
+		}
+	}
+	
+	factions_frame = 9
+	factions = {
+		pr_buccaneers
+		pr_smugglers
+		pr_captains
+	}
+	
+	
+	custom_attributes = {
+		locked_government_type = yes
+		force_admiral_leader = yes
+		is_pirate_republic_reform = yes
+		elections_increase_factions_influence = yes
+		cannot_become_dictatorship = yes
+	}
+	
+}
+
+vampire_coast_reform = {
+	icon = "pirate_republic"
+	allow_normal_conversion = no
+	lock_level_when_selected = yes
+	modifiers = {
+		republican_tradition = -1
+		max_absolutism = 10
+		naval_forcelimit_modifier = 0.5
+		capture_ship_chance = 0.33
+		state_governing_cost = 0.75
+		may_perform_slave_raid_on_same_religion = yes
+		allowed_marine_fraction = 0.5
+	}
+	trigger = {
+		is_or_was_tag =  { tag = V01 }
+	}
+	valid_for_nation_designer = no
+	nation_designer_cost = 40
+	can_form_trade_league = no
+	
+	has_term_election = no
+
+	removed_effect = {
+		clr_country_flag = pirate_mutineer_council
+	}
+
+	potential = {
+		has_reform = vampire_coast_reform
+		OR = {
+			has_dlc = "Lions of the North"
+			has_dlc = "Golden Century"
+		}
+	}
+	
+	factions_frame = 9
+	factions = {
+		pr_buccaneers
+		pr_smugglers
+		pr_captains
+	}
+	
+	
+	custom_attributes = {
+		locked_government_type = yes
+		force_admiral_leader = yes
+		is_pirate_republic_reform = yes
+		elections_increase_factions_influence = yes
+		cannot_become_dictatorship = yes
+	}
+	
+}
+
+nehekharan_reformed_republic = {
+	icon = "nehekhara"
+	potential = {
+		has_country_flag = nehekhara_reformed_government
+		OR = {
+			culture_group = nehekharan_group
+			religion = nehekharan_pantheon
+		}
+	}
+	valid_for_nation_designer = yes
+	nation_designer_cost = 50
+	lock_level_when_selected = no
+	duration = 10
+
+	modifiers = {
+		trade_efficiency = 0.1
+		development_cost = -0.1
+		liberty_desire_from_subject_development = -0.2
+		burgher_loyalty_modifier = 0.1
+		burgher_influence_modifier = 0.1
+	}
+	custom_attributes = {
+		enables_plutocratic_idea_group = yes
+	}
+
+	conditional = {
+		allow = {
+			has_dlc = "Common Sense"
+		}
+		has_parliament = yes
 	}
 }
