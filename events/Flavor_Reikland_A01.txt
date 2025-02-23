@@ -1,29 +1,189 @@
 namespace = flavor_reikland
-
 #Intro Event
-country_event = { 
+country_event = {
 	id = flavor_reikland.0
-	title = flavor_reikland.0.t 
-	desc = flavor_reikland.0.d 
+	title = flavor_reikland.0.t
+	desc = flavor_reikland.0.d
 	picture = KARL_FRANZ_eventPicture
-	
 	fire_only_once = yes
-	is_triggered_only = yes 
-		
+	is_triggered_only = yes
 	trigger = {
 		NOT = {
 			is_year = 2503
 		}
 		tag = A01
 	}
-
-	option = { 
-		ai_chance = { factor = 100 }
-		name = flavor_reikland.0.a 
-		trigger = { }
-	
-		add_army_professionalism = 0.10
+	option = {
+		ai_chance = {
+			factor = 100
+		}
+		name = flavor_reikland.0.a
+		add_army_professionalism = 0.1
+		hidden_effect = {
+			set_ruler_flag = karl_franz_rf
+		}
 	}
-	
+}
 
+country_event = {
+	id = flavor_reikland.1
+	title = flavor_reikland.1.t
+	desc = flavor_reikland.1.d
+	picture = GENERALS_DISCUSSING_eventPicture
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = A01
+	}
+	#karl Franz takes to the field
+	option = {
+		ai_chance = {
+			factor = 0
+		}
+		name = flavor_reikland.1.a
+		trigger = {
+			has_ruler_flag = karl_franz_rf
+		}
+		define_ruler_to_general = {
+			fire = 5
+			shock = 6
+			manuever = 5
+			siege = 1
+		}
+		define_advisor = {
+			type = commandant
+			name = "Kurt Helborg"
+			skill = 3
+			culture = ROOT
+			religion = ROOT
+			cost_multiplier = 0.4
+		}
+	}
+	#kurt Helborg Shall Lead
+	option = {
+		ai_chance = {
+			factor = 100
+		}
+		name = flavor_reikland.1.b
+		define_general = {
+			name = "Kurt Helborg"
+			fire = 2
+			shock = 5
+			manuever = 3
+			siege = 3
+		}
+	}
+}
+
+country_event = {
+	id = flavor_reikland.2
+	title = flavor_reikland.2.t
+	desc = flavor_reikland.2.d
+	picture = GENERALS_DISCUSSING_eventPicture
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = A01
+	}
+	#karl Franz takes to the field
+	option = {
+		ai_chance = {
+			factor = 50
+		}
+		name = flavor_reikland.2.a
+		trigger = {
+			has_ruler_flag = karl_franz_rf
+		}
+
+	}
+	#kurt Helborg Shall Lead
+	option = {
+		ai_chance = {
+			factor = 50
+		}
+
+	}
+}
+
+# The Albion Crown
+country_event = {
+	id = flavor_reikland.3
+	title = flavor_reikland.3.t
+	desc = flavor_reikland.3.desc
+	picture = GOOD_WITH_MONARCH_eventPicture
+	is_triggered_only = yes
+	#Keep Albion under direct rule
+	option = {
+		name = flavor_reikland.3.a
+		add_adm_power = 50
+		add_mil_power = 50
+		albion_region = {
+			limit = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			add_province_modifier = {
+				name = eng_english_rule_over_ireland
+				duration = 9125
+			}
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	#Rule over Albion in a Personal Union
+	option = {
+		name = flavor_reikland.3.b
+		add_adm_power = 50
+		add_dip_power = 50
+		custom_tooltip = flavor_reikland.3.b.tt
+		trigger = {
+			valid_for_personal_unions_trigger = yes
+		}
+		hidden_effect = {
+			albion_region = {
+				limit = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				if = {
+					limit = {
+						NOT = {
+							owned_by = ROOT
+						}
+					}
+					cede_province = ROOT
+				}
+				add_core = B13
+				if = {
+					limit = {
+						is_core = ROOT
+					}
+					remove_core = ROOT
+				}
+			}
+			release = B13
+			B13 = {
+				change_religion = ROOT
+				change_government = monarchy
+				add_government_reform = feudalism_reform
+				add_adm_power = 112
+				add_dip_power = 112
+				add_mil_power = 112
+				add_treasury = 136
+				add_manpower = 8
+				add_sailors = 3000
+				add_army_tradition = 10
+			}
+			set_in_empire = yes
+			emperor = {
+				add_imperial_influence = 10
+			}
+			create_subject = {
+				subject_type = personal_union
+				who = ROOT
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
 }
