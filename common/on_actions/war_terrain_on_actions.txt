@@ -1,8 +1,5 @@
-
 #### Terrain & Race Bonus Transfer
-
 on_province_owner_change = {
-
 	remove_province_modifier = lizardfolk_mild_winter
 	remove_province_modifier = lizardfolk_normal_winter
 	remove_province_modifier = lizardfolk_severe_winter
@@ -13,190 +10,224 @@ on_province_owner_change = {
 	remove_province_modifier = undergrounder_above_ground
 	remove_province_modifier = surface_dweller_underground
 	remove_province_modifier = fimir_marsh_modifier
-
-
-## Lizardfolk
+	## Lizardfolk
 	if = {
 		limit = {
 			owner = {
 				has_country_modifier = lizardmen_administration
-				NOT = { has_country_modifier = undead_administration }
+				NOT = {
+					has_country_modifier = undead_administration
+				}
 			}
 			has_climate = mild_winter
-			}
-		add_permanent_province_modifier = { 
+		}
+		add_permanent_province_modifier = {
 			name = lizardfolk_mild_winter
-			duration = -1  	
+			duration = -1
 		}
 	}
-
 	if = {
 		limit = {
 			owner = {
 				has_country_modifier = lizardmen_administration
-				NOT = { has_country_modifier = undead_administration }
+				NOT = {
+					has_country_modifier = undead_administration
+				}
 			}
 			has_climate = normal_winter
 		}
-		add_permanent_province_modifier = { 
-		    name = lizardfolk_normal_winter
-		    duration = -1  
+		add_permanent_province_modifier = {
+			name = lizardfolk_normal_winter
+			duration = -1
 		}
 	}
-
 	if = {
 		limit = {
 			owner = {
 				has_country_modifier = lizardmen_administration
-				NOT = { has_country_modifier = undead_administration }
+				NOT = {
+					has_country_modifier = undead_administration
+				}
 			}
 			has_climate = severe_winter
 		}
-		add_permanent_province_modifier = { 
-		    name = lizardfolk_severe_winter
-		    duration = -1  
+		add_permanent_province_modifier = {
+			name = lizardfolk_severe_winter
+			duration = -1
 		}
 	}
-
 	if = {
 		limit = {
 			owner = {
 				has_country_modifier = lizardmen_administration
-				NOT = { has_country_modifier = undead_administration }
+				NOT = {
+					has_country_modifier = undead_administration
+				}
 			}
 			has_climate = arctic
 		}
-		add_permanent_province_modifier = { 
-		    name = lizardfolk_arctic
-		    duration = -1 
+		add_permanent_province_modifier = {
+			name = lizardfolk_arctic
+			duration = -1
 		}
 	}
-
-### Wood Elves
+	### Wood Elves
 	if = {
 		limit = {
 			owner = {
 				technology_group = tech_wood_elf
-				NOT = { has_country_modifier = undead_administration }
+				NOT = {
+					has_country_modifier = undead_administration
+				}
 			}
 			has_terrain = magical_forest_terrain
 		}
-		add_permanent_province_modifier = { 
-		    name = wood_elves_magical_forest
-		    duration = -1  
+		add_permanent_province_modifier = {
+			name = wood_elves_magical_forest
+			duration = -1
 		}
 	}
-
 	if = {
 		limit = {
 			owner = {
 				technology_group = tech_wood_elf
-				NOT = { has_country_modifier = undead_administration }
+				NOT = {
+					has_country_modifier = undead_administration
+				}
 			}
-			NOT = { has_terrain = magical_forest_terrain }
-			NOT = { has_terrain = forest }
-			NOT = { has_terrain = jungle }
-			NOT = { has_terrain = woods }
+			NOT = {
+				has_terrain = magical_forest_terrain
+			}
+			NOT = {
+				has_terrain = forest
+			}
+			NOT = {
+				has_terrain = jungle
+			}
+			NOT = {
+				has_terrain = woods
+			}
 		}
-		add_permanent_province_modifier = { 
-		    name = wood_elves_non_forest
-		    duration = -1  
+		add_permanent_province_modifier = {
+			name = wood_elves_non_forest
+			duration = -1
 		}
 	}
-
-### Fimir
+	### Fimir
 	if = {
 		limit = {
 			owner = {
 				has_country_modifier = fimir_military
-				NOT = { has_country_modifier = undead_administration }
+				NOT = {
+					has_country_modifier = undead_administration
+				}
 			}
 			has_terrain = marsh
 		}
-		add_permanent_province_modifier = { 
-		    name = fimir_marsh_modifier
-		    duration = -1  
+		add_permanent_province_modifier = {
+			name = fimir_marsh_modifier
+			duration = -1
 		}
 	}
-
-### Dwarves and Skaven
+	### Dwarves and Skaven
 	if = {
 		limit = {
 			OR = {
-				owner = { has_country_modifier = dwarven_administration }
-				owner = { has_country_modifier = skaven_administration }
+				owner = {
+					has_country_modifier = dwarven_administration
+				}
+				owner = {
+					has_country_modifier = skaven_administration
+				}
 			}
 			OR = {
-				has_terrain = subterranean_city_terrain
-				has_terrain = subterranean_terrain
+				#has_terrain = subterranean_city_terrain
+				#has_terrain = subterranean_terrain
 				has_terrain = dwarf_karak
 				has_terrain = underway
 				has_terrain = great_maze
 				has_terrain = cavern
 				has_terrain = warren_city
 			}
+			owner = { NOT = { has_country_modifier = vermintide } }
 			owner = { NOT = { has_country_modifier = undead_administration } }
 			owner = { NOT = { culture_group = chaos_dwarf_group } }
-			owner = { NOT = { tag = B14 } }
+			owner = { NOT = { has_reform = naval_dwarf_reform } }
 		}
-		add_permanent_province_modifier = { 
-		    name = undergrounder_underground
-		    duration = -1  
+		add_permanent_province_modifier = {
+			name = undergrounder_underground
+			duration = -1
 		}
 	}
-
 	if = {
 		limit = {
 			OR = {
-				owner = { has_country_modifier = dwarven_administration }
-				owner = { has_country_modifier = skaven_administration }
+				owner = {
+					has_country_modifier = dwarven_administration
+				}
+				owner = {
+					has_country_modifier = skaven_administration
+				}
 			}
 
-			NOT = { has_terrain = subterranean_city_terrain }
-			NOT = { has_terrain = subterranean_terrain }
+			#NOT = { has_terrain = subterranean_city_terrain }
+			#NOT = { has_terrain = subterranean_terrain }
 			NOT = { has_terrain = dwarf_karak }
 			NOT = { has_terrain = underway }
 			NOT = { has_terrain = great_maze }
 			NOT = { has_terrain = cavern }
 			NOT = { has_terrain = warren_city }
+			NOT = { has_terrain = urban_terrain }
 
+			owner = { NOT = { has_country_modifier = vermintide } }
 			owner = { NOT = { has_country_modifier = undead_administration } }
 			owner = { NOT = { culture_group = chaos_dwarf_group } }
-			owner = { NOT = { tag = B14 } }
+			owner = { NOT = { has_reform = naval_dwarf_reform } }
 		}	
 		add_permanent_province_modifier = { 
 		    name = undergrounder_above_ground
 		    duration = -1  
 		}
 	}
-
-
-### Surface Dweller
+	### Surface Dweller
 	if = {
 		limit = {
-			owner = { NOT = { has_country_modifier = skaven_administration } }
-			owner = { NOT = { has_country_modifier = orcish_administration } }
-			owner = { NOT = { has_country_modifier = undead_administration } }
-			owner = { NOT = { has_country_modifier = dwarven_administration } }
+			owner = {
+				NOT = {
+					has_country_modifier = skaven_administration
+				}
+			}
+			owner = {
+				NOT = {
+					has_country_modifier = orcish_administration
+				}
+			}
+			owner = {
+				NOT = {
+					has_country_modifier = undead_administration
+				}
+			}
+			owner = {
+				NOT = {
+					has_country_modifier = dwarven_administration
+				}
+			}
 			OR = {
-				has_terrain = subterranean_city_terrain
-				has_terrain = subterranean_terrain
+				#has_terrain = subterranean_city_terrain
+				#has_terrain = subterranean_terrain
 				has_terrain = dwarf_karak
 				has_terrain = underway
 				has_terrain = great_maze
 				has_terrain = cavern
 				has_terrain = warren_city
 			}
-		}	
-		add_permanent_province_modifier = { 
-		    name = surface_dweller_underground
-		    duration = -1  
+		}
+		add_permanent_province_modifier = {
+			name = surface_dweller_underground
+			duration = -1
 		}
 	}
 }
-
-
-
 
 # on_new_monarch = {
 # 	if = { 
@@ -214,4 +245,3 @@ on_province_owner_change = {
 # 		add_ruler_personality = immortal_personality
 # 	}
 # }
-

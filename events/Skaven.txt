@@ -145,7 +145,7 @@ country_event = {
 	id = skaven.3
 	title = skaven.3.t 
 	desc = skaven.3.d 
-	picture = COUNTRY_COLLAPSE_eventPicture
+	picture = BORDER_TENSION_eventPicture
 	
 	fire_only_once = no
 	is_triggered_only = yes
@@ -157,6 +157,18 @@ country_event = {
 	mean_time_to_happen = {
 		days = 1
 	}
+
+	immediate = {
+		random_province = {
+			limit = {
+				is_neighbor_of = ROOT
+				NOT = { owned_by = ROOT }
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
 
 # Better Not
 	option = { 
@@ -170,15 +182,11 @@ country_event = {
 		name = skaven.3.b
 		add_piety = 0.1
 
-		random_province = {
-			limit = {
-				is_neighbor_of = ROOT
-				NOT = { owned_by = ROOT }
-			}
+		event_target:event_target = {
 
 			spawn_rebels = {
 	  	 		size = 1
-	    		type = noble_rebels
+	    		type = raiding_party_rebels
 	    		culture = ROOT
 	    		religion = ROOT
 			}
@@ -290,18 +298,25 @@ country_event = {
 		days = 1
 	}
 
+	immediate = {
+		random_owned_province = {
+			limit = {
+				development = 9
+				NOT = { trade_goods = warpstone }
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
 # Start blasting!
 
 	option = { 
 		ai_chance = { factor = 50 }
 		name = skaven.5.a 
 
-		random_owned_province = {
-
-			limit = {
-				development = 9
-				NOT = { trade_goods = warpstone }
-			}
+		event_target:event_target = {
 
 			set_base_tax = 1
 			set_base_production = 3
@@ -316,12 +331,7 @@ country_event = {
 		ai_chance = { factor = 50 }
 		name = skaven.5.b
 
-		random_owned_province = {
-
-			limit = {
-				development = 9
-				NOT = { trade_goods = warpstone }
-			}
+		event_target:event_target = {
 
 			set_base_tax = 1
 			set_base_production = 1
@@ -420,16 +430,24 @@ country_event = {
 		days = 1
 	}
 
+	immediate = {
+		limit = {
+			trade_goods = warpstone
+			base_production = 2
+		}
+		random_owned_province = {
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
 # Grind it up and snort it!
 
 	option = { 
 		ai_chance = { factor = 50 }
 		name = skaven.7.a 
-		random_owned_province = {
-			limit = {
-				trade_goods = warpstone
-				base_production = 2
-			}
+		event_target:event_target = {
 			add_base_production = -1
 		}
 		change_innovativeness = 2
@@ -440,10 +458,7 @@ country_event = {
 		ai_chance = { factor = 50 }
 		name = skaven.7.b
 
-		random_owned_province = {
-			limit = {
-				trade_goods = warpstone
-			}
+		event_target:event_target = {
 			add_base_production = 3
 		}
 
@@ -455,5 +470,41 @@ country_event = {
 	option = { 
 		ai_chance = { factor = 50 }
 		name = skaven.7.c
+	}
+}
+
+
+### A Doomsphere was dropped on our capital
+country_event = { 
+	id = skaven.100
+	title = skaven.100.t 
+	desc = skaven.100.d 
+	picture = DOOMSPHERE_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		capital_scope = {
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# FIRST OPTION
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.100.a 
+
 	}
 }

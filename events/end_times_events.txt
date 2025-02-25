@@ -1,13 +1,9 @@
 ########################################
 # End Times Events
 ########################################
-
 namespace = end_times_events
-
 ###Mechanical Events
-
 #Spawning the Center
-
 province_event = {
 	id = end_times_events.1000
 	title = end_times_events.1000.name
@@ -15,147 +11,177 @@ province_event = {
 	picture = REVOLUTION_eventPicture
 	major = yes
 	goto = root
-
 	trigger = {
-
-#### Take out ages when testing
-
-
+		#### Take out ages when testing
 		OR = {
 			current_age = age_of_revolutions
 			current_age = age_of_absolutism
 		}
-
-###
-
+		###
 		religion_group = ruinous_powers_denominations
-
-		owner = { religion_group = ruinous_powers_denominations }
-
-		NOT = { has_province_modifier = religious_center }
-
-		NOT = { owner = { is_subject = yes } }
+		owner = {
+			religion_group = ruinous_powers_denominations
+		}
+		NOT = {
+			has_province_modifier = religious_center
+		}
+		NOT = {
+			owner = {
+				is_subject = yes
+			}
+		}
 	}
-
 	mean_time_to_happen = {
 		years = 100
-
-### Increases the chance if it's a player
+		### Increases the chance if it's a player
 		modifier = {
 			factor = 0.1
-			owner = { ai = no }
+			owner = {
+				ai = no
+			}
 		}
-
-
-### Always in the capital
+		### Always in the capital
 		modifier = {
 			factor = 1000
-			NOT = { is_capital = yes }
+			NOT = {
+				is_capital = yes
+			}
 		}
-
-### Hashut is less likely
+		### Hashut is less likely
 		modifier = {
 			factor = 100
 			religion = hashut
 		}
-
-### Unless Hashut is a player
+		### Unless Hashut is a player
 		modifier = {
 			factor = .04
 			religion = hashut
-			owner = { ai = no }
+			owner = {
+				ai = no
+			}
 		}
-
-
-### Albion is basically impossible
+		### Albion, Islands, or Southern Chaos Wastes are basically impossible
 		modifier = {
 			factor = 1000
 			OR = {
 				region = albion_region
+				region = southern_chaos_wastes_region
 				is_island = yes
 				island = yes
 				province_is_on_an_island = yes
 			}
-			owner = { ai = yes }
+			owner = {
+				ai = yes
+			}
 		}
-
-
-### Succeded at Chaos Tribe things
-
+		### Succeded at Chaos Tribe things
 		modifier = {
 			factor = 0.9
-			owner = { mission_completed = gen_chaos_defeated_nurgle }
-		}
-		modifier = {
-			factor = 0.9
-			owner = { mission_completed = gen_chaos_defeated_khorne }
+			owner = {
+				mission_completed = gen_chaos_defeated_nurgle
+			}
 		}
 		modifier = {
 			factor = 0.9
-			owner = { mission_completed = gen_chaos_defeated_tzeentch }
+			owner = {
+				mission_completed = gen_chaos_defeated_khorne
+			}
 		}
 		modifier = {
 			factor = 0.9
-			owner = { mission_completed = gen_chaos_defeated_slaanesh }
+			owner = {
+				mission_completed = gen_chaos_defeated_tzeentch
+			}
 		}
 		modifier = {
 			factor = 0.9
-			owner = { mission_completed = gen_chaos_defeated_undivided }
+			owner = {
+				mission_completed = gen_chaos_defeated_slaanesh
+			}
 		}
 		modifier = {
 			factor = 0.9
-			owner = { mission_completed = gen_chaos_defeated_norscan }
+			owner = {
+				mission_completed = gen_chaos_defeated_undivided
+			}
 		}
-
 		modifier = {
 			factor = 0.9
-			owner = { mission_completed = gen_chaos_gods_try_nurgle }
+			owner = {
+				mission_completed = gen_chaos_defeated_norscan
+			}
 		}
-
 		modifier = {
 			factor = 0.9
-			owner = { mission_completed = gen_chaos_gods_try_khorne }
+			owner = {
+				mission_completed = gen_chaos_gods_try_nurgle
+			}
 		}
-
 		modifier = {
 			factor = 0.9
-			owner = { mission_completed = gen_chaos_gods_try_tzeentch }
+			owner = {
+				mission_completed = gen_chaos_gods_try_khorne
+			}
 		}
-
 		modifier = {
 			factor = 0.9
-			owner = { mission_completed = gen_chaos_gods_try_slaanesh }
+			owner = {
+				mission_completed = gen_chaos_gods_try_tzeentch
+			}
 		}
-
 		modifier = {
 			factor = 0.9
-			owner = { mission_completed = gen_chaos_gods_try_undivided }
+			owner = {
+				mission_completed = gen_chaos_gods_try_slaanesh
+			}
 		}
-
+		modifier = {
+			factor = 0.9
+			owner = {
+				mission_completed = gen_chaos_gods_try_undivided
+			}
+		}
 		modifier = {
 			factor = 0.01
-			owner = { mission_completed = gen_chaos_defeated_nurgle }
-			owner = { mission_completed = gen_chaos_defeated_khorne }
-			owner = { mission_completed = gen_chaos_defeated_tzeentch }
-			owner = { mission_completed = gen_chaos_defeated_slaanesh }
-			owner = { mission_completed = gen_chaos_defeated_undivided }
-			owner = { mission_completed = gen_chaos_defeated_norscan }
-			owner = { mission_completed = gen_chaos_gods_try_nurgle }
-			owner = { mission_completed = gen_chaos_gods_try_khorne }
-			owner = { mission_completed = gen_chaos_gods_try_tzeentch }
-			owner = { mission_completed = gen_chaos_gods_try_slaanesh }
-			owner = { mission_completed = gen_chaos_gods_try_undivided }
+			owner = {
+				mission_completed = gen_chaos_defeated_nurgle
+			}
+			owner = {
+				mission_completed = gen_chaos_defeated_khorne
+			}
+			owner = {
+				mission_completed = gen_chaos_defeated_tzeentch
+			}
+			owner = {
+				mission_completed = gen_chaos_defeated_slaanesh
+			}
+			owner = {
+				mission_completed = gen_chaos_defeated_undivided
+			}
+			owner = {
+				mission_completed = gen_chaos_defeated_norscan
+			}
+			owner = {
+				mission_completed = gen_chaos_gods_try_nurgle
+			}
+			owner = {
+				mission_completed = gen_chaos_gods_try_khorne
+			}
+			owner = {
+				mission_completed = gen_chaos_gods_try_tzeentch
+			}
+			owner = {
+				mission_completed = gen_chaos_gods_try_slaanesh
+			}
+			owner = {
+				mission_completed = gen_chaos_gods_try_undivided
+			}
 		}
-
-
-
-### Bigger than all other ruininous powers that aren't hashut (So if you are the biggest non-hashut chaos country, or a hashut country bigger than all other chaos). Either all other countries aren't ruinous powers, or they don't have a greater development than you.
-## Is this borked?
-
-
+		### Bigger than all other ruininous powers that aren't hashut (So if you are the biggest non-hashut chaos country, or a hashut country bigger than all other chaos). Either all other countries aren't ruinous powers, or they don't have a greater development than you.
+		## Is this borked?
 		modifier = {
-			factor = 0.10
-			owner = { 
+			factor = 0.1
+			owner = {
 				all_country = {
 					OR = {
 						NOT = {
@@ -168,233 +194,278 @@ province_event = {
 								religion = norscan
 							}
 						}
-						
-						NOT = { total_development = PREV }
-
+						NOT = {
+							total_development = PREV
+						}
 					}
 				}
 			}
 		}
-
-
-
-### losing a war
-
+		### losing a war
 		modifier = {
 			factor = 1000000000
 			owner = {
 				is_at_war = yes
-				NOT = { war_score = -1 }
+				NOT = {
+					war_score = -1
+				}
 			}
 		}
-
 		modifier = {
 			factor = 1000000000
 			owner = {
-				capital_scope = { NOT = { controlled_by = PREV } }
+				capital_scope = {
+					NOT = {
+						controlled_by = PREV
+					}
+				}
 			}
 		}
-
-### Great Power
-
+		### Great Power
 		modifier = {
-			factor = 0.10
-			owner = { NOT = { great_power_rank = 9 } }
+			factor = 0.1
+			owner = {
+				NOT = {
+					great_power_rank = 9
+				}
+			}
 		}
-
 		modifier = {
-			factor = 0.10
-			owner = { NOT = { great_power_rank = 8 } }
+			factor = 0.1
+			owner = {
+				NOT = {
+					great_power_rank = 8
+				}
+			}
 		}
-
 		modifier = {
-			factor = 0.10
-			owner = { NOT = { great_power_rank = 7 } }
+			factor = 0.1
+			owner = {
+				NOT = {
+					great_power_rank = 7
+				}
+			}
 		}
-
 		modifier = {
-			factor = 0.10
-			owner = { NOT = { great_power_rank = 6 } }
+			factor = 0.1
+			owner = {
+				NOT = {
+					great_power_rank = 6
+				}
+			}
 		}
-
 		modifier = {
-			factor = 0.10
-			owner = { NOT = { great_power_rank = 5 } }
+			factor = 0.1
+			owner = {
+				NOT = {
+					great_power_rank = 5
+				}
+			}
 		}
-
 		modifier = {
-			factor = 0.10
-			owner = { NOT = { great_power_rank = 4 } }
+			factor = 0.1
+			owner = {
+				NOT = {
+					great_power_rank = 4
+				}
+			}
 		}
-
 		modifier = {
-			factor = 0.10
-			owner = { NOT = { great_power_rank = 3 } }
+			factor = 0.1
+			owner = {
+				NOT = {
+					great_power_rank = 3
+				}
+			}
 		}
-
 		modifier = {
-			factor = 0.10
-			owner = { NOT = { great_power_rank = 2 } }
+			factor = 0.1
+			owner = {
+				NOT = {
+					great_power_rank = 2
+				}
+			}
 		}
-
-
-### Development
-
-		modifier = {
-			factor = 0.25
-			owner = { total_development = 25 }
-		}
-
-		modifier = {
-			factor = 0.25
-			owner = { total_development = 50 }
-		}
-
-		modifier = {
-			factor = 0.25
-			owner = { total_development = 75 }
-		}
-
-		modifier = {
-			factor = 0.25
-			owner = { total_development = 100 }
-		}
-
-		modifier = {
-			factor = 0.25
-			owner = { total_development = 125 }
-		}
-
+		### Development
 		modifier = {
 			factor = 0.25
-			owner = { total_development = 150 }
+			owner = {
+				total_development = 25
+			}
 		}
-
 		modifier = {
 			factor = 0.25
-			owner = { total_development = 175 }
+			owner = {
+				total_development = 50
+			}
 		}
-
 		modifier = {
 			factor = 0.25
-			owner = { total_development = 200 }
+			owner = {
+				total_development = 75
+			}
 		}
-
 		modifier = {
 			factor = 0.25
-			owner = { total_development = 250 }
+			owner = {
+				total_development = 100
+			}
 		}
-
 		modifier = {
 			factor = 0.25
-			owner = { total_development = 300 }
+			owner = {
+				total_development = 125
+			}
 		}
-
 		modifier = {
 			factor = 0.25
-			owner = { total_development = 350 }
+			owner = {
+				total_development = 150
+			}
 		}
-
 		modifier = {
 			factor = 0.25
-			owner = { total_development = 400 }
+			owner = {
+				total_development = 175
+			}
 		}
-
 		modifier = {
 			factor = 0.25
-			owner = { total_development = 450 }
+			owner = {
+				total_development = 200
+			}
 		}
-
 		modifier = {
 			factor = 0.25
-			owner = { total_development = 500 }
+			owner = {
+				total_development = 250
+			}
 		}
-
 		modifier = {
 			factor = 0.25
-			owner = { total_development = 550 }
+			owner = {
+				total_development = 300
+			}
 		}
-
 		modifier = {
 			factor = 0.25
-			owner = { total_development = 600 }
+			owner = {
+				total_development = 350
+			}
 		}
-
 		modifier = {
 			factor = 0.25
-			owner = { total_development = 650 }
+			owner = {
+				total_development = 400
+			}
 		}
-
 		modifier = {
 			factor = 0.25
-			owner = { total_development = 700 }
+			owner = {
+				total_development = 450
+			}
 		}
-
 		modifier = {
 			factor = 0.25
-			owner = { total_development = 750 }
+			owner = {
+				total_development = 500
+			}
 		}
-
-
-
-## Prestige
 		modifier = {
-			factor = 0.90
-			owner = { prestige = 0 }
+			factor = 0.25
+			owner = {
+				total_development = 550
+			}
 		}
-
 		modifier = {
-			factor = 0.90
-			owner = { prestige = 25 }
+			factor = 0.25
+			owner = {
+				total_development = 600
+			}
 		}
-
 		modifier = {
-			factor = 0.90
-			owner = { prestige = 50 }
+			factor = 0.25
+			owner = {
+				total_development = 650
+			}
 		}
-
 		modifier = {
-			factor = 0.90
-			owner = { prestige = 75 }
+			factor = 0.25
+			owner = {
+				total_development = 700
+			}
 		}
-
+		modifier = {
+			factor = 0.25
+			owner = {
+				total_development = 750
+			}
+		}
+		## Prestige
+		modifier = {
+			factor = 0.9
+			owner = {
+				prestige = 0
+			}
+		}
+		modifier = {
+			factor = 0.9
+			owner = {
+				prestige = 25
+			}
+		}
+		modifier = {
+			factor = 0.9
+			owner = {
+				prestige = 50
+			}
+		}
+		modifier = {
+			factor = 0.9
+			owner = {
+				prestige = 75
+			}
+		}
+		#archaon is VERY favored
+		modifier = {
+			factor = 0.1
+			owner = {
+				tag = B99
+			}
+		}
 	}
-
 	fire_only_once = yes
-
 	immediate = {
-
 		hidden_effect = {
 			set_global_flag = end_times_started
-
 			owner = {
-				change_government = monarchy
+				change_government = chaos_gov
+				add_government_reform = chaos_chosen_of_the_dark_gods
 				add_government_reform = everchosen_reform
-
 				every_owned_province = {
 					change_religion = chaos_undivided_religion
 				}
-
 				change_religion = chaos_undivided_religion
-
 				add_prestige = 100
 				add_stability = 6
-
 				add_adm_power = 999
 				add_dip_power = 999
 				add_mil_power = 999
-
 				add_adm_tech = 4
 				add_dip_tech = 4
 				add_mil_tech = 4
-
 				change_adm = 6
 				change_dip = 6
 				change_mil = 6
 				clear_scripted_personalities = yes
 				add_ruler_personality = everchosen_personality
-				add_ruler_personality = immortal_personality
-
+				add_ruler_personality = legendary_conqueror_personality
+				add_ruler_personality = legendary_warrior_personality
+				capital_scope = {
+					every_empty_neighbor_province = {
+						add_siberian_construction = 1000
+					}
+				}
 				every_owned_province = {
 					limit = {
 						NOT = {
@@ -404,470 +475,217 @@ province_event = {
 							}
 						}
 					}
-					add_province_modifier = { 
-					    name = chaos_gate_defenses
-					    duration = -1  
+					add_province_modifier = {
+						name = chaos_gate_defenses
+						duration = -1
 					}
 				}
-
-### Player based Buffs
-
-
+				### Player based Buffs
 				if = {
 					limit = {
 						calc_true_if = {
 							all_country = {
 								ai = no
-								NOT = { religion_group = ruinous_powers_denominations }
+								NOT = {
+									religion_group = ruinous_powers_denominations
+								}
 							}
 							amount = 10
 						}
 					}
-					add_country_modifier = { 
-					    name = everchosen_buff_10
-					    duration = -1  
+					add_country_modifier = {
+						name = everchosen_buff_10
+						duration = -1
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						calc_true_if = {
 							all_country = {
 								ai = no
-								NOT = { religion_group = ruinous_powers_denominations }
+								NOT = {
+									religion_group = ruinous_powers_denominations
+								}
 							}
 							amount = 9
 						}
 					}
-					add_country_modifier = { 
-					    name = everchosen_buff_9
-					    duration = -1  
+					add_country_modifier = {
+						name = everchosen_buff_9
+						duration = -1
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						calc_true_if = {
 							all_country = {
 								ai = no
-								NOT = { religion_group = ruinous_powers_denominations }
+								NOT = {
+									religion_group = ruinous_powers_denominations
+								}
 							}
 							amount = 8
 						}
 					}
-					add_country_modifier = { 
-					    name = everchosen_buff_8
-					    duration = -1  
+					add_country_modifier = {
+						name = everchosen_buff_8
+						duration = -1
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						calc_true_if = {
 							all_country = {
 								ai = no
-								NOT = { religion_group = ruinous_powers_denominations }
+								NOT = {
+									religion_group = ruinous_powers_denominations
+								}
 							}
 							amount = 7
 						}
 					}
-					add_country_modifier = { 
-					    name = everchosen_buff_7
-					    duration = -1  
+					add_country_modifier = {
+						name = everchosen_buff_7
+						duration = -1
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						calc_true_if = {
 							all_country = {
 								ai = no
-								NOT = { religion_group = ruinous_powers_denominations }
+								NOT = {
+									religion_group = ruinous_powers_denominations
+								}
 							}
 							amount = 6
 						}
 					}
-					add_country_modifier = { 
-					    name = everchosen_buff_6
-					    duration = -1  
+					add_country_modifier = {
+						name = everchosen_buff_6
+						duration = -1
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						calc_true_if = {
 							all_country = {
 								ai = no
-								NOT = { religion_group = ruinous_powers_denominations }
+								NOT = {
+									religion_group = ruinous_powers_denominations
+								}
 							}
 							amount = 5
 						}
 					}
-					add_country_modifier = { 
-					    name = everchosen_buff_5
-					    duration = -1  
+					add_country_modifier = {
+						name = everchosen_buff_5
+						duration = -1
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						calc_true_if = {
 							all_country = {
 								ai = no
-								NOT = { religion_group = ruinous_powers_denominations }
+								NOT = {
+									religion_group = ruinous_powers_denominations
+								}
 							}
 							amount = 4
 						}
 					}
-					add_country_modifier = { 
-					    name = everchosen_buff_4
-					    duration = -1  
+					add_country_modifier = {
+						name = everchosen_buff_4
+						duration = -1
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						calc_true_if = {
 							all_country = {
 								ai = no
-								NOT = { religion_group = ruinous_powers_denominations }
+								NOT = {
+									religion_group = ruinous_powers_denominations
+								}
 							}
 							amount = 3
 						}
 					}
-					add_country_modifier = { 
-					    name = everchosen_buff_3
-					    duration = -1  
+					add_country_modifier = {
+						name = everchosen_buff_3
+						duration = -1
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						calc_true_if = {
 							all_country = {
 								ai = no
-								NOT = { religion_group = ruinous_powers_denominations }
+								NOT = {
+									religion_group = ruinous_powers_denominations
+								}
 							}
 							amount = 2
 						}
 					}
-					add_country_modifier = { 
-					    name = everchosen_buff_2
-					    duration = -1  
+					add_country_modifier = {
+						name = everchosen_buff_2
+						duration = -1
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						calc_true_if = {
 							all_country = {
 								ai = no
-								NOT = { religion_group = ruinous_powers_denominations }
+								NOT = {
+									religion_group = ruinous_powers_denominations
+								}
 							}
 							amount = 1
 						}
 					}
-					add_country_modifier = { 
-					    name = everchosen_buff_1
-					    duration = -1  
+					add_country_modifier = {
+						name = everchosen_buff_1
+						duration = -1
 					}
-				} 
-
-
-
-###
-
+				}
+				###
 			}
-
-
-
-
-
-
-
 			add_reform_center = chaos_undivided_religion
-
-			add_province_modifier = { 
-			    name = chaos_gate_defenses
-			    duration = -1  
+			add_province_modifier = {
+				name = chaos_gate_defenses
+				duration = -1
 			}
-
 			save_global_event_target_as = original_everchosen_country
-
 			add_building = fort_17th
-
-			owner = { add_manpower = 500 }
-			owner = { add_treasury = 5000 }
-
-### Let's get a 200 infantry army
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-			infantry = ROOT
-
+			owner = {
+				add_manpower = 500
+			}
+			owner = {
+				add_treasury = 5000
+			}
+			### Let's get a 200 infantry army
+			war_create_100_infantry = yes
+			war_create_100_infantry = yes
 		}
-
-
 	}
-
 	option = {
 		name = end_times_events.1000.A
-		owner = { save_global_event_target_as = original_everchosen_country }
+		owner = {
+			save_global_event_target_as = original_everchosen_country
+		}
 		every_country = {
-			country_event = { 
-		 	   id = end_times_events.1001
+			country_event = {
+				id = end_times_events.1001
 			}
 		}
-		
 		log = "The End Times Started in [Root.GetName] (owner: [Root.Owner.GetName]) in [GetYear]"
 	}
 }
 
-
 ### Start of Endtimes Explainer
-
 country_event = {
 	id = end_times_events.1001
 	title = end_times_events.1001.t
@@ -876,7 +694,6 @@ country_event = {
 	is_triggered_only = yes
 	hidden = no
 	major = no
-
 	immediate = {
 		hidden_effect = {
 			every_province = {
@@ -888,37 +705,37 @@ country_event = {
 			}
 		}
 	}
-
 	option = {
 		name = end_times_events.1001.option_1
 		add_stability = -1
+		trigger = {
+			not = {
+				has_reform = everchosen_reform
+			}
+		}
+		goto = chaos_gate_province
+	}
+	option = {
+		name = end_times_events.1001.option_1
+		trigger = {
+			has_reform = everchosen_reform
+		}
 		goto = chaos_gate_province
 	}
 }
 
-
-
-
-
 ##### END THE END TIMES
-
 ### The cause of the end gives the victor the saved_the_world modifier
-
 ### One hidden event to do basic things. This is triggered by the person who does the thing, and applies nothing to them. Triggers once
 ####	Destroy the Chaos Gate, wherever it is
 ###		Remove the Everchosen Reform
 ###		Kill the Everchosen ruler
 ### 	Triggers the two visible effects
-
-
 ### One for the Ruinous Powers. Triggers for each country
-	### They get bad things
-
+### They get bad things
 ### One for non-ruinous Powers. Triggers for each country
-	#### They get good things!
-
+#### They get good things!
 ### END TIMES CATCHER
-
 country_event = {
 	id = end_times_events.1999
 	title = end_times_events.1999.t
@@ -929,37 +746,27 @@ country_event = {
 	hidden = yes
 	major = no
 	trigger = {
-
 		has_global_flag = end_times_started
-
 		all_province = {
 			OR = {
 				is_reformation_center = no
-#				NOT = { religion_group = chaos_undivided_religion } # Is this broken
+				#				NOT = { religion_group = chaos_undivided_religion } # Is this broken
 			}
 		}
 	}
-
 	mean_time_to_happen = {
 		days = 1
 	}
-
-
 	option = {
 		name = end_times_events.1999.option_1
-		country_event = { 
-	   		id = end_times_events.2000
-    		tooltip = end_end_times_event_tt
+		country_event = {
+			id = end_times_events.2000
+			tooltip = end_end_times_event_tt
 		}
 	}
-
 }
 
-
-
-
 #### HIDDEN END TIMES ENDER
-
 country_event = {
 	id = end_times_events.2000
 	title = end_times_events.2000.t
@@ -970,19 +777,17 @@ country_event = {
 	major = no
 	hidden = yes
 	immediate = {
-
-## REMOVE CHAOS GATE		
+		## REMOVE CHAOS GATE		
 		every_province = {
-			limit = { is_reformation_center = yes }
+			limit = {
+				is_reformation_center = yes
+			}
 			remove_reform_center = chaos_undivided_religion
 		}
-
 		every_province = {
 			remove_province_modifier = chaos_gate_defenses
 		}
-
-
-## DISMANTLE EVERCHOSEN
+		## DISMANTLE EVERCHOSEN
 		every_country = {
 			limit = {
 				has_reform = everchosen_reform
@@ -991,33 +796,37 @@ country_event = {
 			kill_ruler = yes
 			release_all_subjects = yes
 			release_all_possible_countries = yes
-
 		}
-
-## Good Countries
+		## Good Countries
 		every_country = {
-			limit = { NOT = { religion_group = ruinous_powers_denominations } }
-			country_event = { id = end_times_events.2001 }
+			limit = {
+				NOT = {
+					religion_group = ruinous_powers_denominations
+				}
+			}
+			country_event = {
+				id = end_times_events.2001
+			}
 		}
-
-## Bad countries
+		## Bad countries
 		every_country = {
-			limit = { religion_group = ruinous_powers_denominations }
-			country_event = { id = end_times_events.2002 }
+			limit = {
+				religion_group = ruinous_powers_denominations
+			}
+			country_event = {
+				id = end_times_events.2002
+			}
 		}
-
-
 	}
-
 	option = {
 		name = end_times_events.2000.option_1
-		ai_chance = { factor = 1 }
+		ai_chance = {
+			factor = 1
+		}
 	}
 }
 
-
 ### FOR GOOD GUYS
-
 country_event = {
 	id = end_times_events.2001
 	title = end_times_events.2001.t
@@ -1025,24 +834,20 @@ country_event = {
 	picture = REFORM_eventPicture
 	is_triggered_only = yes
 	hidden = no
-
 	major = no
-
 	option = {
 		name = end_times_events.2001.option_1
 		add_stability = 2
 		add_war_exhaustion = -2
 		add_prestige = 25
-		add_country_modifier = { 
+		add_country_modifier = {
 			name = survived_the_end_times
-			duration = -1  
+			duration = -1
 		}
 	}
 }
 
-
 ### FOR BAD GUYS
-
 country_event = {
 	id = end_times_events.2002
 	title = end_times_events.2002.t
@@ -1050,27 +855,20 @@ country_event = {
 	picture = IMPALED_SOLDIERS_eventPicture
 	is_triggered_only = yes
 	hidden = no
-
 	major = no
-
 	option = {
 		name = end_times_events.2002.option_1
 		add_stability = -6
 	}
 }
 
-
-
 ### CHAOS COUNTRIES RUIN THEIR OWN DEV
-
 country_event = {
 	id = end_times_events.1
 	title = end_times_events.1.t
 	desc = end_times_events.1.d
 	picture = BORDER_TENSION_eventPicture
-	
 	is_triggered_only = no
-	
 	trigger = {
 		religion_group = ruinous_powers_denominations
 		any_province = {
@@ -1078,115 +876,73 @@ country_event = {
 			religion = chaos_undivided_religion
 		}
 	}
-
-	mean_time_to_happen = { months = 12 }
-	
-### Ruin
+	immediate = {
+		random_owned_province = {
+			save_event_target_as = event_target
+		}
+	}
+	mean_time_to_happen = {
+		months = 12
+	}
+	### Ruin
 	option = {
 		name = end_times_events.1.option_1
-		ai_chance = { factor = 10 }
-
+		ai_chance = {
+			factor = 10
+		}
 		custom_tooltip = "end_times_events.1.option_1.tt"
-
 		hidden_effect = {
-
 			every_owned_province = {
-
 				if = {
 					limit = {
 						base_tax = 2
 					}
 					add_base_tax = -1
-					controller = { add_treasury = 50 }
-							
+					controller = {
+						add_treasury = 50
+					}
 				}
-
 				if = {
 					limit = {
 						base_production = 2
 					}
 					add_base_production = -1
-					controller = { add_treasury = 50 }
-
-				} 
-
+					controller = {
+						add_treasury = 50
+					}
+				}
 				if = {
 					limit = {
 						base_manpower = 2
 					}
 					add_base_manpower = -1
-					controller = { add_manpower = 1.0 }
-
+					controller = {
+						add_manpower = 1
+					}
 				}
 			}
 		}
 	}
-
-### Better Not
+	### Better Not
 	option = {
 		name = end_times_events.1.option_2
-		ai_chance = { factor = 1 }
-		random_owned_province = {
+		ai_chance = {
+			factor = 1
+		}
+		goto = event_target
+		event_target:event_target = {
 			spawn_rebels = {
 				size = 1
 				type = chaos_undivided_religion_rebels
 			}
 		}
-
 		add_government_power = {
 			mechanic_type = everchosen_mechanic
 			power_type = everchosen_favor
 			value = -2
 		}
-
-
 	}
 }
-
-
-
-### REBELS IF THERE ARE ANY GATES ANYWHERE
-
-country_event = {
-	id = end_times_events.2
-	title = end_times_events.2.t
-	desc = end_times_events.2.d
-	picture = BORDER_TENSION_eventPicture
-	
-	
-	is_triggered_only = no
-	
-	trigger = {
-		any_province = {
-			is_reformation_center = yes
-			religion = chaos_undivided_religion
-		}
-	}
-
-	mean_time_to_happen = { months = 30 }
-	
-### Kill them
-	option = {
-		name = end_times_events.2.option_1
-		ai_chance = { factor = 5 }
-		random_owned_province = {
-			spawn_rebels = {
-				size = 2
-				type = chaos_undivided_religion_rebels
-			}
-		}
-
-	}
-
-### Better Not
-	option = {
-		name = end_times_events.2.option_2
-		ai_chance = { factor = 10 }
-		add_stability = -1
-	}
-}
-
-
 
 #### Declare war on nearby person - CHAOS, NOT EVERCHOSEN
 country_event = {
@@ -1194,25 +950,29 @@ country_event = {
 	title = end_times_events.3.t
 	desc = end_times_events.3.d
 	picture = HORDE_ON_HORSEBACK_eventPicture
-	
 	is_triggered_only = no
-	
 	trigger = {
-		NOT = { has_reform = everchosen_reform }
-		NOT = { is_at_war = yes }
+		NOT = {
+			has_reform = everchosen_reform
+		}
+		NOT = {
+			is_at_war = yes
+		}
 		religion_group = ruinous_powers_denominations
 		any_province = {
 			is_reformation_center = yes
 			religion = chaos_undivided_religion
 		}
-
 	}
-
-	mean_time_to_happen = { months = 24 }
-	
-
+	immediate = {
+		random_owned_province = {
+			save_event_target_as = event_target
+		}
+	}
+	mean_time_to_happen = {
+		months = 24
+	}
 	# Declare War on Somebody
-
 	option = {
 		name = end_times_events.3.option_1
 		ai_chance = {
@@ -1224,30 +984,48 @@ country_event = {
 		}
 		trigger = {
 			any_neighbor_country = {
-				NOT = { is_subject_of = root }
-				NOT = { overlord_of = root }
-				NOT = { alliance_with = root }
-				NOT = { ROOT = { truce_with = prev } }
+				NOT = {
+					is_subject_of = root
+				}
+				NOT = {
+					overlord_of = root
+				}
+				NOT = {
+					alliance_with = root
+				}
+				NOT = {
+					ROOT = {
+						truce_with = prev
+					}
+				}
 			}
 		}
 		add_yearly_manpower = 0.5
 		random_neighbor_country = {
 			LIMIT = {
-				NOT = { is_subject_of = root }
-				NOT = { overlord_of = root }
-				NOT = { alliance_with = root }
-				NOT = { ROOT = { truce_with = prev } }
+				NOT = {
+					is_subject_of = root
+				}
+				NOT = {
+					overlord_of = root
+				}
+				NOT = {
+					alliance_with = root
+				}
+				NOT = {
+					ROOT = {
+						truce_with = prev
+					}
+				}
 			}
-
 			ROOT = {
 				declare_war_with_cb = {
-		  			who = PREV
-		    		casus_belli = cb_crusade
+					who = PREV
+					casus_belli = cb_crusade
 				}
 			}
 		}
 	}
-
 	option = {
 		name = end_times_events.3.option_2
 		ai_chance = {
@@ -1256,15 +1034,23 @@ country_event = {
 				factor = 0
 				is_subject = yes
 			}
-
 		}
-
 		trigger = {
 			any_neighbor_country = {
-				NOT = { is_subject_of = root }
-				NOT = { overlord_of = root }
-				NOT = { alliance_with = root }
-				NOT = { ROOT = { truce_with = prev } }
+				NOT = {
+					is_subject_of = root
+				}
+				NOT = {
+					overlord_of = root
+				}
+				NOT = {
+					alliance_with = root
+				}
+				NOT = {
+					ROOT = {
+						truce_with = prev
+					}
+				}
 				ROOT = {
 					army_strength = {
 						who = prev
@@ -1276,10 +1062,20 @@ country_event = {
 		add_yearly_manpower = 0.5
 		random_neighbor_country = {
 			LIMIT = {
-				NOT = { is_subject_of = root }
-				NOT = { overlord_of = root }
-				NOT = { alliance_with = root }
-				NOT = { ROOT = { truce_with = prev } }
+				NOT = {
+					is_subject_of = root
+				}
+				NOT = {
+					overlord_of = root
+				}
+				NOT = {
+					alliance_with = root
+				}
+				NOT = {
+					ROOT = {
+						truce_with = prev
+					}
+				}
 				ROOT = {
 					army_strength = {
 						who = prev
@@ -1289,13 +1085,12 @@ country_event = {
 			}
 			ROOT = {
 				declare_war_with_cb = {
-		  			who = PREV
-		    		casus_belli = cb_crusade
+					who = PREV
+					casus_belli = cb_crusade
 				}
 			}
 		}
 	}
-
 	option = {
 		name = end_times_events.3.option_3
 		ai_chance = {
@@ -1305,17 +1100,26 @@ country_event = {
 				is_subject = yes
 			}
 		}
-
 		trigger = {
 			any_neighbor_country = {
-				NOT = { is_subject_of = root }
-				NOT = { overlord_of = root }
-				NOT = { alliance_with = root }
-				NOT = { ROOT = { truce_with = prev } }
+				NOT = {
+					is_subject_of = root
+				}
+				NOT = {
+					overlord_of = root
+				}
+				NOT = {
+					alliance_with = root
+				}
+				NOT = {
+					ROOT = {
+						truce_with = prev
+					}
+				}
 				ROOT = {
 					army_strength = {
 						who = prev
-						value = 2.00
+						value = 2
 					}
 				}
 			}
@@ -1323,28 +1127,35 @@ country_event = {
 		add_yearly_manpower = 0.5
 		random_neighbor_country = {
 			LIMIT = {
-				NOT = { is_subject_of = root }
-				NOT = { overlord_of = root }
-				NOT = { alliance_with = root }
-				NOT = { ROOT = { truce_with = prev } }
+				NOT = {
+					is_subject_of = root
+				}
+				NOT = {
+					overlord_of = root
+				}
+				NOT = {
+					alliance_with = root
+				}
+				NOT = {
+					ROOT = {
+						truce_with = prev
+					}
+				}
 				ROOT = {
 					army_strength = {
 						who = prev
-						value = 2.00
+						value = 2
 					}
 				}
 			}
-
 			ROOT = {
 				declare_war_with_cb = {
-		  			who = PREV
-		    		casus_belli = cb_crusade
+					who = PREV
+					casus_belli = cb_crusade
 				}
 			}
 		}
 	}
-
-
 	option = {
 		name = end_times_events.3.option_4
 		ai_chance = {
@@ -1356,49 +1167,68 @@ country_event = {
 		}
 		trigger = {
 			any_neighbor_country = {
-				NOT = { is_subject_of = root }
-				NOT = { overlord_of = root }
-				NOT = { alliance_with = root }
-				NOT = { ROOT = { truce_with = prev } }
+				NOT = {
+					is_subject_of = root
+				}
+				NOT = {
+					overlord_of = root
+				}
+				NOT = {
+					alliance_with = root
+				}
+				NOT = {
+					ROOT = {
+						truce_with = prev
+					}
+				}
 				ROOT = {
 					army_strength = {
 						who = prev
-						value = 4.00
+						value = 4
 					}
 				}
 			}
 		}
 		add_yearly_manpower = 0.5
-
 		random_neighbor_country = {
 			LIMIT = {
-				NOT = { is_subject_of = root }
-				NOT = { overlord_of = root }
-				NOT = { alliance_with = root }
-				NOT = { ROOT = { truce_with = prev } }
+				NOT = {
+					is_subject_of = root
+				}
+				NOT = {
+					overlord_of = root
+				}
+				NOT = {
+					alliance_with = root
+				}
+				NOT = {
+					ROOT = {
+						truce_with = prev
+					}
+				}
 				ROOT = {
 					army_strength = {
 						who = prev
-						value = 4.00
+						value = 4
 					}
 				}
 			}
-
 			ROOT = {
 				declare_war_with_cb = {
-		  			who = PREV
-		    		casus_belli = cb_crusade
+					who = PREV
+					casus_belli = cb_crusade
 				}
 			}
 		}
 	}
-
 	# Rebels instead
-
 	option = {
 		name = end_times_events.3.option_5
-		ai_chance = { factor = 1 }
-		random_owned_province = {
+		ai_chance = {
+			factor = 1
+		}
+		goto = event_target
+		event_target = {
 			spawn_rebels = {
 				size = 1
 				type = chaos_undivided_religion_rebels
@@ -1407,176 +1237,474 @@ country_event = {
 	}
 }
 
-
-namespace = submit_to_everchosen
-
+### REBELS IF THERE ARE ANY GATES ANYWHERE
 country_event = {
-	id = submit_to_everchosen.1
-	title = submit_to_everchosen.1.t
-	desc = submit_to_everchosen.1.d
-	picture = muslimgfx_ANGRY_MOB_eventPicture
-	
-	is_triggered_only = yes
-	
-	mean_time_to_happen = { months = 1 }
-	
-### Submit
-	option = {
-		name = submit_to_everchosen.1.option_1
-		ai_chance = { factor = 10 }
-
-		add_stability = 1
-
-		random_country = { 
-			limit = { has_reform = everchosen_reform }
-			create_subject = {
-			    subject_type = dominion
-			    subject = ROOT
-			}
+	id = end_times_events.2
+	title = end_times_events.2.t
+	desc = end_times_events.2.d
+	picture = BORDER_TENSION_eventPicture
+	is_triggered_only = no
+	immediate = {
+		random_owned_province = {
+			save_event_target_as = event_target
 		}
 	}
-
-### Better Not
-
-	option = {
-		name = submit_to_everchosen.1.option_2
-		ai_chance = { factor = 100 }
-		trigger = { stability = -2 }
-		add_stability = -1
+	goto = event_target
+	trigger = {
+		any_province = {
+			is_reformation_center = yes
+			religion = chaos_undivided_religion
+		}
+		NOT = {
+			religion_group = ruinous_powers_denominations
+		}
 	}
-
+	mean_time_to_happen = {
+		months = 30
+	}
+	### Kill them
 	option = {
-		name = submit_to_everchosen.1.option_3
-		ai_chance = { factor = 10 }
-
-		random_owned_province = {
+		name = end_times_events.2.option_1
+		ai_chance = {
+			factor = 10
+		}
+		event_target:event_target = {
 			spawn_rebels = {
 				size = 2
 				type = chaos_undivided_religion_rebels
 			}
 		}
 	}
-
-## Fully Get Eaten
+	### Better Not
 	option = {
-		name = submit_to_everchosen.1.option_4
-		ai_chance = { factor = 1000 }
+		name = end_times_events.2.option_2
 		trigger = {
-			NOT = { total_development = 300 }
-			ai = yes
+			stability = -2
 		}
-		random_country = { 
-			limit = { has_reform = everchosen_reform }
-			inherit = ROOT
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 10
+				is_subject = yes
+			}
+		}
+		add_stability = -1
+	}
+}
+
+### Bolt of Chaos Energy
+country_event = {
+	id = end_times_events.4
+	title = end_times_events.4.t
+	desc = end_times_events.4.d
+	picture = BORDER_TENSION_eventPicture
+	is_triggered_only = no
+	immediate = {
+		random_owned_province = {
+			save_event_target_as = event_target
+		}
+	}
+	goto = event_target
+	trigger = {
+		any_province = {
+			is_reformation_center = yes
+			religion = chaos_undivided_religion
+		}
+		NOT = {
+			religion_group = ruinous_powers_denominations
+		}
+	}
+	mean_time_to_happen = {
+		months = 35
+	}
+	### There's nothing we can do
+	option = {
+		name = end_times_events.4.option_1
+		ai_chance = {
+			factor = 5
+		}
+		event_target:event_target = {
+			add_devastation = 50
+			random = {
+				chance = 1
+				change_trade_goods = warpstone
+			}
+		}
+	}
+	### Try to mitigate the damage
+	option = {
+		name = end_times_events.4.option_2
+		ai_chance = {
+			factor = 10
+		}
+		event_target:event_target = {
+			add_devastation = 25
+			random = {
+				chance = 2
+				change_trade_goods = warpstone
+			}
 		}
 	}
 }
 
+### Since the gate is open, solders have been corrupted into unusable piles of goo
+country_event = {
+	id = end_times_events.5
+	title = end_times_events.5.t
+	desc = end_times_events.5.d
+	picture = BORDER_TENSION_eventPicture
+	is_triggered_only = no
+	trigger = {
+		any_province = {
+			is_reformation_center = yes
+			religion = chaos_undivided_religion
+		}
+		NOT = {
+			religion_group = ruinous_powers_denominations
+		}
+	}
+	mean_time_to_happen = {
+		months = 40
+	}
+	### End their misery
+	option = {
+		name = end_times_events.5.option_1
+		ai_chance = {
+			factor = 5
+		}
+		add_yearly_manpower = -0.25
+	}
+	### They can still fire a gun!
+	option = {
+		name = end_times_events.5.option_2
+		ai_chance = {
+			factor = 10
+		}
+		add_country_modifier = {
+			name = war_worse_morale
+			duration = 3650
+		}
+	}
+}
+
+### Since the chaos gate is open, our goods our rotting, and our stores of gold are turning to ash
+country_event = {
+	id = end_times_events.6
+	title = end_times_events.6.t
+	desc = end_times_events.6.d
+	picture = BORDER_TENSION_eventPicture
+	is_triggered_only = no
+	trigger = {
+		any_province = {
+			is_reformation_center = yes
+			religion = chaos_undivided_religion
+		}
+		NOT = {
+			religion_group = ruinous_powers_denominations
+		}
+	}
+	mean_time_to_happen = {
+		months = 50
+	}
+	### There's nothing we can do
+	option = {
+		name = end_times_events.6.option_1
+		ai_chance = {
+			factor = 5
+		}
+		add_years_of_income = -0.25
+	}
+	### Replace the currency with cheap copper!
+	option = {
+		name = end_times_events.6.option_2
+		ai_chance = {
+			factor = 10
+		}
+		add_inflation = 1
+	}
+}
+
+### Since the gate has opened, our infrastructure is literally warping away. We need to destroy it to stay safe
+country_event = {
+	id = end_times_events.7
+	title = end_times_events.7.t
+	desc = end_times_events.7.d
+	picture = BORDER_TENSION_eventPicture
+	is_triggered_only = no
+	immediate = {
+		random_owned_province = {
+			limit = {
+				base_manpower = 2
+				base_production = 2
+				base_tax = 2
+				NOT = {
+					religion = chaos_undivided_religion
+				}
+			}
+			save_event_target_as = event_target
+		}
+	}
+	goto = event_target
+	trigger = {
+		any_province = {
+			is_reformation_center = yes
+			religion = chaos_undivided_religion
+		}
+		any_owned_province = {
+			base_manpower = 2
+			base_production = 2
+			base_tax = 2
+			NOT = {
+				religion = chaos_undivided_religion
+			}
+		}
+		NOT = {
+			religion_group = ruinous_powers_denominations
+		}
+	}
+	mean_time_to_happen = {
+		months = 20
+	}
+	### There's nothing we can do
+	option = {
+		name = end_times_events.7.option_1
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 10
+				is_subject = yes
+			}
+		}
+		event_target:event_target = {
+			add_base_tax = -1
+			add_base_production = -1
+			add_base_manpower = -1
+		}
+	}
+	### Just scrape the corruption off, it's fine
+	option = {
+		name = end_times_events.7.option_2
+		ai_chance = {
+			factor = 10
+		}
+		event_target:event_target = {
+			change_religion = chaos_undivided_religion
+		}
+	}
+}
+
+namespace = submit_to_everchosen
+country_event = {
+	id = submit_to_everchosen.1
+	title = submit_to_everchosen.1.t
+	desc = submit_to_everchosen.1.d
+	picture = muslimgfx_ANGRY_MOB_eventPicture
+	is_triggered_only = yes
+	mean_time_to_happen = {
+		months = 1
+	}
+	immediate = {
+		random_owned_province = {
+			save_event_target_as = event_target
+		}
+	}
+	### Submit
+	option = {
+		name = submit_to_everchosen.1.option_1
+		ai_chance = {
+			factor = 10
+		}
+		add_stability = 1
+		random_country = {
+			limit = {
+				has_reform = everchosen_reform
+			}
+			create_subject = {
+				subject_type = dominion
+				subject = ROOT
+			}
+		}
+	}
+	### Better Not
+	option = {
+		name = submit_to_everchosen.1.option_2
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			stability = -2
+		}
+		add_stability = -1
+	}
+	option = {
+		name = submit_to_everchosen.1.option_3
+		ai_chance = {
+			factor = 10
+		}
+		goto = event_target
+		event_target:event_target = {
+			spawn_rebels = {
+				size = 2
+				type = chaos_undivided_religion_rebels
+			}
+		}
+	}
+	## Fully Get Eaten
+	option = {
+		name = submit_to_everchosen.1.option_4
+		ai_chance = {
+			factor = 1000
+		}
+		trigger = {
+			NOT = {
+				total_development = 300
+			}
+			ai = yes
+		}
+		random_country = {
+			limit = {
+				has_reform = everchosen_reform
+			}
+			inherit = ROOT
+			chaos_colonization = yes
+		}
+	}
+}
 
 ## AI only Get eaten by Everchosen
-
 country_event = {
 	id = submit_to_everchosen.2
 	title = submit_to_everchosen.2.t
 	desc = submit_to_everchosen.2.d
 	picture = muslimgfx_ANGRY_MOB_eventPicture
-
-	
 	is_triggered_only = no
-
 	trigger = {
 		religion_group = ruinous_powers_denominations
-		any_neighbor_country  = {
+		any_neighbor_country = {
 			has_reform = everchosen_reform
 			total_development = ROOT
 		}
-		NOT = { total_development = 300 }
+		NOT = {
+			total_development = 300
+		}
 		is_colonial_nation = no
 		ai = yes
 	}
-	
-	mean_time_to_happen = { months = 24 }
-	
-
-## Fully Get Eaten
+	mean_time_to_happen = {
+		months = 24
+	}
+	## Fully Get Eaten
 	option = {
 		name = submit_to_everchosen.2.option_1
-		ai_chance = { factor = 1000 }
-		random_country = { 
-			limit = { has_reform = everchosen_reform }
+		ai_chance = {
+			factor = 1000
+		}
+		random_country = {
+			limit = {
+				has_reform = everchosen_reform
+			}
 			inherit = ROOT
 		}
 	}
 }
 
-
-
 ### Everchosen Events
-
 namespace = everchosen_events
-
-
 #### Declare war on nearby person
 country_event = {
 	id = everchosen_events.1
 	title = everchosen_events.1.t
 	desc = everchosen_events.1.d
 	picture = HORDE_ON_HORSEBACK_eventPicture
-	
 	is_triggered_only = no
-	
 	trigger = {
 		has_reform = everchosen_reform
-		NOT = { is_at_war = yes }
+		NOT = {
+			is_at_war = yes
+		}
 		any_neighbor_country = {
 			total_development = 1
 		}
 	}
-
-	mean_time_to_happen = { months = 6 }
-	
-
+	immediate = {
+		random_owned_province = {
+			save_event_target_as = event_target
+		}
+	}
+	mean_time_to_happen = {
+		months = 6
+	}
 	# Declare War on Somebody
-
 	option = {
 		name = everchosen_events.1.option_1
-		ai_chance = { factor = 10 }
+		ai_chance = {
+			factor = 10
+		}
 		trigger = {
 			any_neighbor_country = {
-				NOT = { is_subject_of = root }
-				NOT = { overlord_of = root }
-				NOT = { alliance_with = root }
-				NOT = { ROOT = { truce_with = prev } }
+				NOT = {
+					is_subject_of = root
+				}
+				NOT = {
+					overlord_of = root
+				}
+				NOT = {
+					alliance_with = root
+				}
+				NOT = {
+					ROOT = {
+						truce_with = prev
+					}
+				}
 			}
 		}
 		add_yearly_manpower = 0.5
 		random_neighbor_country = {
 			LIMIT = {
-				NOT = { is_subject_of = root }
-				NOT = { overlord_of = root }
-				NOT = { alliance_with = root }
-				NOT = { ROOT = { truce_with = prev } }
+				NOT = {
+					is_subject_of = root
+				}
+				NOT = {
+					overlord_of = root
+				}
+				NOT = {
+					alliance_with = root
+				}
+				NOT = {
+					ROOT = {
+						truce_with = prev
+					}
+				}
 			}
-
 			ROOT = {
 				declare_war_with_cb = {
-		  			who = PREV
-		    		casus_belli = cb_crusade
+					who = PREV
+					casus_belli = cb_crusade
 				}
 			}
 		}
 	}
-
 	option = {
 		name = everchosen_events.1.option_2
-		ai_chance = { factor = 100 }
-
+		ai_chance = {
+			factor = 100
+		}
 		trigger = {
 			any_neighbor_country = {
-				NOT = { is_subject_of = root }
-				NOT = { overlord_of = root }
-				NOT = { alliance_with = root }
-				NOT = { ROOT = { truce_with = prev } }
+				NOT = {
+					is_subject_of = root
+				}
+				NOT = {
+					overlord_of = root
+				}
+				NOT = {
+					alliance_with = root
+				}
+				NOT = {
+					ROOT = {
+						truce_with = prev
+					}
+				}
 				ROOT = {
 					army_strength = {
 						who = prev
@@ -1588,10 +1716,20 @@ country_event = {
 		add_yearly_manpower = 0.5
 		random_neighbor_country = {
 			LIMIT = {
-				NOT = { is_subject_of = root }
-				NOT = { overlord_of = root }
-				NOT = { alliance_with = root }
-				NOT = { ROOT = { truce_with = prev } }
+				NOT = {
+					is_subject_of = root
+				}
+				NOT = {
+					overlord_of = root
+				}
+				NOT = {
+					alliance_with = root
+				}
+				NOT = {
+					ROOT = {
+						truce_with = prev
+					}
+				}
 				ROOT = {
 					army_strength = {
 						who = prev
@@ -1601,27 +1739,37 @@ country_event = {
 			}
 			ROOT = {
 				declare_war_with_cb = {
-		  			who = PREV
-		    		casus_belli = cb_crusade
+					who = PREV
+					casus_belli = cb_crusade
 				}
 			}
 		}
 	}
-
 	option = {
 		name = everchosen_events.1.option_3
-		ai_chance = { factor = 1000 }
-
+		ai_chance = {
+			factor = 1000
+		}
 		trigger = {
 			any_neighbor_country = {
-				NOT = { is_subject_of = root }
-				NOT = { overlord_of = root }
-				NOT = { alliance_with = root }
-				NOT = { ROOT = { truce_with = prev } }
+				NOT = {
+					is_subject_of = root
+				}
+				NOT = {
+					overlord_of = root
+				}
+				NOT = {
+					alliance_with = root
+				}
+				NOT = {
+					ROOT = {
+						truce_with = prev
+					}
+				}
 				ROOT = {
 					army_strength = {
 						who = prev
-						value = 2.00
+						value = 2
 					}
 				}
 			}
@@ -1629,55 +1777,63 @@ country_event = {
 		add_yearly_manpower = 0.5
 		random_neighbor_country = {
 			LIMIT = {
-				NOT = { is_subject_of = root }
-				NOT = { overlord_of = root }
-				NOT = { alliance_with = root }
-				NOT = { ROOT = { truce_with = prev } }
+				NOT = {
+					is_subject_of = root
+				}
+				NOT = {
+					overlord_of = root
+				}
+				NOT = {
+					alliance_with = root
+				}
+				NOT = {
+					ROOT = {
+						truce_with = prev
+					}
+				}
 				ROOT = {
 					army_strength = {
 						who = prev
-						value = 2.00
+						value = 2
 					}
 				}
 			}
-
 			ROOT = {
 				declare_war_with_cb = {
-		  			who = PREV
-		    		casus_belli = cb_crusade
+					who = PREV
+					casus_belli = cb_crusade
 				}
 			}
 		}
 	}
-
-
 	option = {
 		name = everchosen_events.1.option_4
-		ai_chance = { factor = 1 }
+		ai_chance = {
+			factor = 1
+		}
 		trigger = {
 			any_neighbor_country = {
 				total_development = 1
 			}
 		}
-		
 		add_yearly_manpower = 0.5
-
 		random_neighbor_country = {
 			ROOT = {
 				declare_war_with_cb = {
-		  			who = PREV
-		    		casus_belli = cb_crusade
+					who = PREV
+					casus_belli = cb_crusade
 				}
 			}
 		}
 	}
-
 	# Rebels instead
-
 	option = {
 		name = everchosen_events.1.option_5
-		ai_chance = { factor = 1 }
-		random_owned_province = {
+		ai_chance = {
+			factor = 1
+		}
+		goto = event_target
+		event_target:event_target = {
 			spawn_rebels = {
 				size = 1
 				type = chaos_undivided_religion_rebels
@@ -1691,17 +1847,13 @@ country_event = {
 	}
 }
 
-
 ## Give occupied provinces to Everchosen
-
 province_event = {
 	id = everchosen_events.2
 	title = everchosen_events.2.t
 	desc = everchosen_events.2.d
 	picture = TRADEGOODS_eventPicture
-	
 	hidden = yes
-
 	trigger = {
 		controller = {
 			has_reform = everchosen_reform
@@ -1716,147 +1868,152 @@ province_event = {
 				has_reform = everchosen_reform
 			}
 		}
-
 	}
-
 	mean_time_to_happen = {
-		months = 12
+		months = 6
 	}
-	
 	option = {
 		name = everchosen_events.2.a
-
-
 		controller = {
 			ROOT = {
-		 		add_core = PREV
+				add_core = PREV
 				cede_province = PREV
 			}
 		}
-
 		add_nationalism = -20
 		change_religion = chaos_undivided_religion
-
 	}
 }
 
-
-
 # Spread Chaos Gate Modifier
-
 country_event = {
 	id = everchosen_events.3
 	title = everchosen_events.3.t
 	desc = everchosen_events.3.d
 	picture = TRADEGOODS_eventPicture
-	
 	hidden = yes
-
 	fire_only_once = yes
-
 	trigger = {
 		has_reform = everchosen_reform
-
 	}
-
 	mean_time_to_happen = {
 		months = 24
 	}
-	
 	option = {
 		name = everchosen_events.3.a
-
 		capital_scope = {
 			every_neighbor_province = {
-				limit = { owned_by = ROOT }
-
-				add_province_modifier = { 
-			    	name = chaos_gate_defenses
-			    	duration = -1  
+				limit = {
+					owned_by = ROOT
+				}
+				add_province_modifier = {
+					name = chaos_gate_defenses
+					duration = -1
 				}
 			}
 		}
-
 	}
 }
 
-
 ## Everchosen gets everybody mad at him
-
 country_event = {
 	id = everchosen_events.4
 	title = everchosen_events.4.t
 	desc = everchosen_events.4.d
 	picture = TRADEGOODS_eventPicture
-	
 	hidden = yes
-
 	fire_only_once = no
-
 	trigger = {
 		has_reform = everchosen_reform
 	}
-
 	mean_time_to_happen = {
 		months = 12
 	}
-	
 	option = {
 		name = everchosen_events.3.a
-
 		every_country = {
-		    limit = {
-		        not = { religion_group = ruinous_powers_denominations }
-		        total_development = 200
-		    }
-
-		    add_aggressive_expansion = {
+			limit = {
+				not = {
+					religion_group = ruinous_powers_denominations
+				}
+				total_development = 200
+			}
+			add_aggressive_expansion = {
 				who = ROOT
 				value = 2
 				apply_calc = no
 			}
 		}
-
 		every_country = {
-		    limit = {
-		        not = { religion_group = ruinous_powers_denominations }
-		        is_great_power = yes
-		    }
-
-		    add_aggressive_expansion = {
+			limit = {
+				not = {
+					religion_group = ruinous_powers_denominations
+				}
+				is_great_power = yes
+			}
+			add_aggressive_expansion = {
 				who = ROOT
 				value = 2
 				apply_calc = no
 			}
 		}
-
 		every_country = {
-		    limit = {
-		        not = { religion_group = ruinous_powers_denominations }
-		        is_neighbor_of = ROOT
-		    }
-
-		    add_aggressive_expansion = {
+			limit = {
+				not = {
+					religion_group = ruinous_powers_denominations
+				}
+				is_neighbor_of = ROOT
+			}
+			add_aggressive_expansion = {
 				who = ROOT
 				value = 2
 				apply_calc = no
 			}
 		}
-
-
 		every_country = {
-		    limit = {
-		        religion_group = ruinous_powers_denominations
-		    }
-
-		    add_aggressive_expansion = {
+			limit = {
+				religion_group = ruinous_powers_denominations
+			}
+			add_aggressive_expansion = {
 				who = ROOT
 				value = -1000
 				apply_calc = no
 			}
-
 		}
-
 	}
 }
 
+## Give occupied cored Everchosen provinces back to owner
+province_event = {
+	id = everchosen_events.5
+	title = everchosen_events.5.t
+	desc = everchosen_events.5.d
+	picture = TRADEGOODS_eventPicture
+	hidden = yes
+	trigger = {
+		owner = {
+			has_reform = everchosen_reform
+		}
+		controller = {
+			NOT = {
+				has_reform = everchosen_reform
+			}
+			ROOT = {
+				is_core = PREV
+			}
+		}
+	}
+	mean_time_to_happen = {
+		months = 6
+	}
+	option = {
+		name = everchosen_events.5.a
+		controller = {
+			ROOT = {
+				add_core = PREV
+				cede_province = PREV
+			}
+		}
+		add_nationalism = -100
+	}
+}

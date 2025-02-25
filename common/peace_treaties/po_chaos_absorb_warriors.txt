@@ -1,0 +1,77 @@
+po_chaos_absorb_warriors = {
+	# Values default to 0 or "no" unless otherwise stated
+	category = 6	# Any number between 0 and 6. Represents the tab under which it will be listed. 6 corresponds to "treaties". This value currently defaults to 6.
+	power_projection = humiliated_rival	# "power_projection" will only be applied if giver is your rival.
+	power_cost_base = 1	# Base factor for diplomatic power cost when treaty is not allowed by casus belli. Scales with war score cost.
+	prestige_base = 0.1	# Base factor for prestige gain and loss. Scales with war score cost.
+	ae_base = 0.45	# Base factor for aggressive expansion. Scales with war score cost.
+	warscore_cost = {
+		# Which of the giver's provinces' war score costs are included and by how much. All entries default to 0. Any combination of entries can be used. Try negative values at your own risk.
+		all_provinces = 0.5		# All the giver's provinces
+		no_provinces = 50.0		# This is just a constant. Equivalent to a single province with with war score cost 1
+		owner_keeps = 0		# The provinces that are not of any of the types below
+		conquered = 0		# Provinces that are selected by a Demand Province treaty
+		returned_core = 0		# Provinces that are selected by a Return Core treaty
+		released_nation = 0		# Provinces that will become a part of a selected released-to-be nation
+		cancelled_subject = 0		# This one should not be relevant here since Giver can't be a cancelled subject. Including anyway for completeness
+		concede_colonial_region = 0		# Ditto
+	}
+	warscore_cap = -1	# Warscore cost will never go above this value. Only enabled if non-negative. This value defaults to -1.
+	requires_demand_independence = yes	# Whether this can be demanded by the former subject in an independence war without also demanding independence.
+	is_make_subject = yes	# This will make the treaty mutually exclusive with other treaties that makes the giver a subject, or that explicitly frees the giver from their current overlord.
+	requires_is_allowed = yes	# If set to "yes", treaty will only be visible when explicitly allowed by casus belli. If not, it will be available but cost diplomatic power.
+	is_visible = {
+		OR = {
+			government = chaos_gov
+			religion_group = ruinous_powers_denominations
+		}
+		is_subject = no
+		ai = no
+	}
+	is_allowed = {
+		always = yes
+	}
+	# THIS is the Taker and FROM the Giver in all scopes unless otherwise stated
+	effect = {
+		#To Remove intended amount
+		chaos_horde_development_remove_handler_2 = yes
+
+		#adds to variable
+		change_variable = {
+			which = chaos_country_horde_development_tax
+			value = 2
+		}
+		change_variable = {
+			which = chaos_country_horde_development_production
+			value = 2
+		}
+		change_variable = {
+			which = chaos_country_horde_development_manpower
+			value = 2
+		}
+
+		#Then adds to development
+		chaos_horde_development_set_handler = yes
+		#Deletes Loser
+		FROM = {
+			capital_scope = {
+				cede_province = ---
+			}
+		}
+	}
+	ai_weight = {
+		export_to_variable = {
+			variable_name = ai_value
+			value = 1000
+		}
+		limit = {
+			FROM = {
+				capital_scope = {
+					NOT = { controlled_by = FROM }
+				}
+			}
+		}
+
+		
+	}
+}

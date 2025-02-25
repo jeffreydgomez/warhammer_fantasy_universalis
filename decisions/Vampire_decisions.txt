@@ -2,10 +2,15 @@ country_decisions = {
 	
 	purge_undead_from_administration = {
 		potential = {
-			has_country_modifier =  undead_administration 
+			has_country_modifier = undead_administration
 			NOT = { religion = vampiric }
-			NOT = { religion = nagash_worship }
-			NOT = { religion = nehekharan_pantheon }
+			OR = {
+				AND = {
+					NOT = { religion = nagash_worship }
+					NOT = { religion = nehekharan_pantheon }
+				}
+				has_global_flag = nagash_ritual_undone
+			}
 		}
 
 		allow = {
@@ -58,8 +63,13 @@ country_decisions = {
 		potential = {
 			has_country_modifier =  undead_military 
 			NOT = { religion = vampiric }
-			NOT = { religion = nagash_worship }
-			NOT = { religion = nehekharan_pantheon }
+			OR = {
+				AND = {
+					NOT = { religion = nagash_worship }
+					NOT = { religion = nehekharan_pantheon }
+				}
+				has_global_flag = nagash_ritual_undone
+			}
 		}
 
 		allow = {

@@ -1,0 +1,109 @@
+namespace = flavor_archaon
+#Intro Event
+country_event = {
+	id = flavor_archaon.0
+	title = flavor_archaon.0.t
+	desc = flavor_archaon.0.d
+	picture = ARCHAON_eventPicture
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			is_year = 2503
+		}
+		tag = B99
+	}
+	option = {
+		ai_chance = {
+			factor = 100
+		}
+		name = flavor_archaon.0.a
+		trigger = {
+		}
+		add_army_professionalism = 0.1
+	}
+}
+
+#Teleporter to Southern Wastes
+country_event = {
+	id = flavor_archaon.1
+	title = flavor_archaon.1.t
+	desc = flavor_archaon.1.d
+	picture = ARCHAON_eventPicture
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = B99
+	}
+	immediate = {
+		hidden_effect = {
+			save_event_target_as = chaos_horde_development_handler
+			random_province = {
+				limit = {
+					region = southern_chaos_wastes_region
+					is_city = no
+				}
+				save_event_target_as = chaos_move_prov_et_1
+			}
+			capital_scope = {
+				save_event_target_as = chaos_former_capital
+			}
+		}
+	}
+	option = {
+		name = flavor_archaon.1.a
+		capital_scope = {
+			while = {
+				limit = {
+					infantry_in_province = B99
+				}
+				kill_units = {
+					who = owner
+					type = infantry
+					amount = 1
+				}
+				event_target:chaos_move_prov_et_1 = {
+					infantry = B99
+				}
+			}
+			while = {
+				limit = {
+					cavalry_in_province = B99
+				}
+				kill_units = {
+					who = owner
+					type = cavalry
+					amount = 1
+				}
+				event_target:chaos_move_prov_et_1 = {
+					cavalry  = B99
+				}
+			}
+			while = {
+				limit = {
+					artillery_in_province  = B99
+				}
+				kill_units = {
+					who = owner
+					type = artillery
+					amount = 1
+				}
+				event_target:chaos_move_prov_et_1 = {
+					artillery  = B99
+				}
+			}
+		}
+		event_target:chaos_move_prov_et_1 = {
+			chaos_migration_effect = yes
+		}
+		hidden_effect = {
+			event_target:chaos_former_capital = {
+				chaos_former_capital_effect = yes
+			}
+		}
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+

@@ -1,0 +1,2598 @@
+# INSTRUCTIONS:
+#
+# condition				A diplomatic action can have any number of condition blocks, each with its own
+#						tooltip, potential and allow section
+#
+# 	tooltip					Sets a custom text string similar to the hardcoded limits
+# 							If no tooltip is scripted, the tooltip for the actual trigger will be shown
+#							Note that the custom tooltip is only shown if the allow trigger is NOT met
+#
+# 	potential				Determines if the trigger is applicable or not
+# 	allow					Determines if the action is valid or not
+#
+# effect				A diplomatic action can only have one effect block
+
+# ROOT					actor
+# FROM					target
+
+########################################
+# DIPLOMATIC ACTIONS
+########################################
+# royal_marriage
+# declarewar
+# requestpeace
+# support_independence_action
+# allianceaction
+# embargoaction
+# annexationaction
+# integrationaction
+# vassalaction
+# guaranteeaction
+# warningaction
+# threaten_war
+# milaccess
+# fleet_access
+# offer_fleet_access
+# offermilaccess
+# insultaction
+# giftaction
+# claimaction
+# callaction
+# offerloan
+# warsubsidy
+# sellprov
+# imperial_relations_action
+# imperial_realm_war_action
+# religious_unity_action
+# grant_electorate
+# remove_electorate
+# grant_freecity
+# remove_freecity
+# demand_unlawful_territory_action
+# call_crusade_action
+# excommunicate_action
+# enforce_peace
+# improve_relation
+# fabricate_claim
+# justify_trade_conflict
+# transfer_trade_power
+# infiltrate_administration
+# sabotage_reputation
+# support_rebels
+# sow_discontent
+# agitate_for_liberty
+# form_coalition
+# request_to_join_federation
+# invite_to_federation
+# support_heir
+# break_marriage
+# designate_march
+# ask_for_march
+# sell_ships_action
+# abandon_union
+# takeondebt
+# influence_nation
+# claim_states
+# steer_trade
+# stealmap
+# spy_network
+# invite_to_trade_league
+# request_to_join_trade_league
+# sharemap
+# intervene_in_war
+# break_alliance
+# tributary_state_action
+# ask_for_tributary_state_action
+# knowledge_sharing
+
+
+
+
+### Phoenix Crown
+
+dip_request_phoenix_crown = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_phoenix_crown } }
+	}
+
+	is_allowed = {
+
+		OR = {
+			ai = no
+			AND = {
+				FROM = { trust = { who = ROOT value = 100 } }
+				FROM = { owes_favors = { who = ROOT value = 100 } }
+			}
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_phoenix_crown }
+			remove_province_modifier = location_of_the_phoenix_crown
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_phoenix_crown
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_phoenix_crown = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_phoenix_crown }
+	}
+
+	is_allowed = {
+		always = yes
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_phoenix_crown }
+			remove_province_modifier = location_of_the_phoenix_crown
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_phoenix_crown
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+
+### Ghal Maraz
+
+dip_request_ghal_maraz = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_ghal_maraz } }
+	}
+
+	is_allowed = {
+
+		OR = {
+			ai = no
+			AND = {
+				FROM = { trust = { who = ROOT value = 100 } }
+				FROM = { owes_favors = { who = ROOT value = 100 } }
+			}
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_ghal_maraz }
+			remove_province_modifier = location_of_the_ghal_maraz
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_ghal_maraz
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_ghal_maraz = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_ghal_maraz }
+	}
+
+	is_allowed = {
+		always = yes
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_ghal_maraz }
+			remove_province_modifier = location_of_the_ghal_maraz
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_ghal_maraz
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+
+### Book of Grudges
+
+dip_request_book_of_grudges = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_book_of_grudges } }
+	}
+
+	is_allowed = {
+
+		OR = {
+			ai = no
+			AND = {
+				FROM = { trust = { who = ROOT value = 100 } }
+				FROM = { owes_favors = { who = ROOT value = 100 } }
+			}
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_book_of_grudges }
+			remove_province_modifier = location_of_the_book_of_grudges
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_book_of_grudges
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_book_of_grudges = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_book_of_grudges }
+	}
+
+	is_allowed = {
+		always = yes
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_book_of_grudges }
+			remove_province_modifier = location_of_the_book_of_grudges
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_book_of_grudges
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+
+### Widowmaker
+
+dip_request_widowmaker = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_widowmaker } }
+	}
+
+	is_allowed = {
+
+		OR = {
+			ai = no
+			AND = {
+				FROM = { trust = { who = ROOT value = 100 } }
+				FROM = { owes_favors = { who = ROOT value = 100 } }
+			}
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_widowmaker }
+			remove_province_modifier = location_of_the_widowmaker
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_widowmaker
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_widowmaker = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_widowmaker }
+	}
+
+	is_allowed = {
+		always = yes
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_widowmaker }
+			remove_province_modifier = location_of_the_widowmaker
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_widowmaker
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+### Carstein Ring
+
+dip_request_carstein_ring = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_carstein_ring } }
+	}
+
+	is_allowed = {
+
+		OR = {
+			ai = no
+			AND = {
+				FROM = { trust = { who = ROOT value = 100 } }
+				FROM = { owes_favors = { who = ROOT value = 100 } }
+			}
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_carstein_ring }
+			remove_province_modifier = location_of_the_carstein_ring
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_carstein_ring
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_carstein_ring = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_carstein_ring }
+	}
+
+	is_allowed = {
+		always = yes
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_carstein_ring }
+			remove_province_modifier = location_of_the_carstein_ring
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_carstein_ring
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+
+### Staff of Nagash
+
+dip_request_staff_of_nagash = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_staff_of_nagash } }
+	}
+
+	is_allowed = {
+
+		OR = {
+			ai = no
+			AND = {
+				FROM = { trust = { who = ROOT value = 100 } }
+				FROM = { owes_favors = { who = ROOT value = 100 } }
+			}
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_staff_of_nagash }
+			remove_province_modifier = location_of_the_staff_of_nagash
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_staff_of_nagash
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_staff_of_nagash = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_staff_of_nagash }
+	}
+
+	is_allowed = {
+		always = yes
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_staff_of_nagash }
+			remove_province_modifier = location_of_the_staff_of_nagash
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_staff_of_nagash
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+### Fellblade
+
+dip_request_fellblade = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_fellblade } }
+	}
+
+	is_allowed = {
+
+		OR = {
+			ai = no
+			AND = {
+				FROM = { trust = { who = ROOT value = 100 } }
+				FROM = { owes_favors = { who = ROOT value = 100 } }
+			}
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_fellblade }
+			remove_province_modifier = location_of_the_fellblade
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_fellblade
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_fellblade = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_fellblade }
+	}
+
+	is_allowed = {
+		always = yes
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_fellblade }
+			remove_province_modifier = location_of_the_fellblade
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_fellblade
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+
+
+### Bow of Loren
+
+dip_request_bow_of_loren = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_bow_of_loren } }
+	}
+
+	is_allowed = {
+
+		OR = {
+			ai = no
+			AND = {
+				FROM = { trust = { who = ROOT value = 100 } }
+				FROM = { owes_favors = { who = ROOT value = 100 } }
+			}
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_bow_of_loren }
+			remove_province_modifier = location_of_the_bow_of_loren
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_bow_of_loren
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_bow_of_loren = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_bow_of_loren }
+	}
+
+	is_allowed = {
+		always = yes
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_bow_of_loren }
+			remove_province_modifier = location_of_the_bow_of_loren
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_bow_of_loren
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+
+### Celestial Compass
+
+dip_request_celestial_compass = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_celestial_compass } }
+	}
+
+	is_allowed = {
+
+		OR = {
+			ai = no
+			AND = {
+				FROM = { trust = { who = ROOT value = 100 } }
+				FROM = { owes_favors = { who = ROOT value = 100 } }
+			}
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_celestial_compass }
+			remove_province_modifier = location_of_the_celestial_compass
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_celestial_compass
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_celestial_compass = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_celestial_compass }
+	}
+
+	is_allowed = {
+		always = yes
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_celestial_compass }
+			remove_province_modifier = location_of_the_celestial_compass
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_celestial_compass
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+
+
+### Great Maw Cauldron
+
+dip_request_great_maw_cauldron = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_great_maw_cauldron } }
+	}
+
+	is_allowed = {
+
+		OR = {
+			ai = no
+			AND = {
+				FROM = { trust = { who = ROOT value = 100 } }
+				FROM = { owes_favors = { who = ROOT value = 100 } }
+			}
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_great_maw_cauldron }
+			remove_province_modifier = location_of_the_great_maw_cauldron
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_great_maw_cauldron
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_great_maw_cauldron = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_great_maw_cauldron }
+	}
+
+	is_allowed = {
+		always = yes
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_great_maw_cauldron }
+			remove_province_modifier = location_of_the_great_maw_cauldron
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_great_maw_cauldron
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+
+### Hashut's Black Hammer
+
+dip_request_hashut_black_hammer = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_hashuts_black_hammer } }
+	}
+
+	is_allowed = {
+
+		OR = {
+			ai = no
+			AND = {
+				FROM = { trust = { who = ROOT value = 100 } }
+				FROM = { owes_favors = { who = ROOT value = 100 } }
+			}
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_hashuts_black_hammer }
+			remove_province_modifier = location_of_the_hashuts_black_hammer
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_hashuts_black_hammer
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_hashut_black_hammer = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_hashuts_black_hammer }
+	}
+
+	is_allowed = {
+		always = yes
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_hashuts_black_hammer }
+			remove_province_modifier = location_of_the_hashuts_black_hammer
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_hashuts_black_hammer
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+
+### Crown of Troll King
+
+dip_request_crown_of_troll_king = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_crown_of_the_troll_king } }
+	}
+
+	is_allowed = {
+
+		OR = {
+			ai = no
+			AND = {
+				FROM = { trust = { who = ROOT value = 100 } }
+				FROM = { owes_favors = { who = ROOT value = 100 } }
+			}
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_crown_of_the_troll_king }
+			remove_province_modifier = location_of_the_crown_of_the_troll_king
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_crown_of_the_troll_king
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_crown_of_troll_king = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_crown_of_the_troll_king }
+	}
+
+	is_allowed = {
+		always = yes
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_crown_of_the_troll_king }
+			remove_province_modifier = location_of_the_crown_of_the_troll_king
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_crown_of_the_troll_king
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+
+
+### Jade Blooded Vial
+
+dip_request_jade_blooded_vial = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_jade_blooded_vial } }
+	}
+
+	is_allowed = {
+
+		OR = {
+			ai = no
+			AND = {
+				FROM = { trust = { who = ROOT value = 100 } }
+				FROM = { owes_favors = { who = ROOT value = 100 } }
+			}
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_jade_blooded_vial }
+			remove_province_modifier = location_of_the_jade_blooded_vial
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_jade_blooded_vial
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_jade_blooded_vial = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_jade_blooded_vial }
+	}
+
+	is_allowed = {
+		always = yes
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_jade_blooded_vial }
+			remove_province_modifier = location_of_the_jade_blooded_vial
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_jade_blooded_vial
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+
+### Nagashs Tome
+
+dip_request_nagashs_tome = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_nagashs_tome } }
+	}
+
+	is_allowed = {
+
+		OR = {
+			ai = no
+			AND = {
+				FROM = { trust = { who = ROOT value = 100 } }
+				FROM = { owes_favors = { who = ROOT value = 100 } }
+			}
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_nagashs_tome }
+			remove_province_modifier = location_of_nagashs_tome
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_nagashs_tome
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_nagashs_tome = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_nagashs_tome }
+	}
+
+	is_allowed = {
+		always = yes
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_nagashs_tome }
+			remove_province_modifier = location_of_nagashs_tome
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_nagashs_tome
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+
+
+### PLaque of Tepok
+
+dip_request_plaque_of_tepok = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_plaque_of_tepok } }
+	}
+
+	is_allowed = {
+
+		OR = {
+			ai = no
+			AND = {
+				FROM = { trust = { who = ROOT value = 100 } }
+				FROM = { owes_favors = { who = ROOT value = 100 } }
+			}
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_plaque_of_tepok }
+			remove_province_modifier = location_of_the_plaque_of_tepok
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_plaque_of_tepok
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_plaque_of_tepok = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_plaque_of_tepok }
+	}
+
+	is_allowed = {
+		always = yes
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_plaque_of_tepok }
+			remove_province_modifier = location_of_the_plaque_of_tepok
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_plaque_of_tepok
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+
+
+### Cloak of Twilight
+
+dip_request_cloak_of_twilight = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_cloak_of_twilight } }
+	}
+
+	is_allowed = {
+
+		OR = {
+			ai = no
+			AND = {
+				FROM = { trust = { who = ROOT value = 100 } }
+				FROM = { owes_favors = { who = ROOT value = 100 } }
+			}
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_cloak_of_twilight }
+			remove_province_modifier = location_of_the_cloak_of_twilight
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_cloak_of_twilight
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_cloak_of_twilight = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_cloak_of_twilight }
+	}
+
+	is_allowed = {
+		always = yes
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_cloak_of_twilight }
+			remove_province_modifier = location_of_the_cloak_of_twilight
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_cloak_of_twilight
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+
+### Dragon Armor of Aenarion
+
+dip_request_dragon_armor = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_dragon_armor_of_aenarion } }
+	}
+
+	is_allowed = {
+
+		OR = {
+			ai = no
+			AND = {
+				FROM = { trust = { who = ROOT value = 100 } }
+				FROM = { owes_favors = { who = ROOT value = 100 } }
+			}
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_dragon_armor_of_aenarion }
+			remove_province_modifier = location_of_the_dragon_armor_of_aenarion
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_dragon_armor_of_aenarion
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_dragon_armor = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_dragon_armor_of_aenarion }
+	}
+
+	is_allowed = {
+		always = yes
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_dragon_armor_of_aenarion }
+			remove_province_modifier = location_of_the_dragon_armor_of_aenarion
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_dragon_armor_of_aenarion
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+
+
+
+### The Grail
+
+dip_request_the_grail = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_grail } }
+	}
+
+	is_allowed = {
+
+		OR = {
+			ai = no
+			AND = {
+				FROM = { trust = { who = ROOT value = 100 } }
+				FROM = { owes_favors = { who = ROOT value = 100 } }
+			}
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_grail }
+			remove_province_modifier = location_of_the_grail
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_grail
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_the_grail = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_grail }
+	}
+
+	is_allowed = {
+		always = yes
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_grail }
+			remove_province_modifier = location_of_the_grail
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_grail
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
