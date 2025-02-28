@@ -105,7 +105,7 @@ on_new_term_election = {
 on_monarch_death = {
 	on_monarch_death_effect = yes
 	events = {
-		tomb_king.1
+#		tomb_king.1  # this is now replaced with resurrect_events.1
 	}
 	if = {
 		limit = {
@@ -115,6 +115,21 @@ on_monarch_death = {
 			id = flavor_bretonnia.3
 		}
 	}
+
+	if = {
+		limit = {
+			has_country_flag = has_saved_immortal_ruler
+			OR = {
+				has_country_modifier = undead_administration
+				has_country_modifier = nehekhara_true_immortality
+			}
+			NOT = { has_ruler = immortal_ruler_name }
+		}
+		country_event = {
+			id = resurrect_events.1
+		}
+	}
+
 }
 
 on_death_election = {
@@ -223,10 +238,13 @@ on_change_hre_religion = {
 	}
 }
 
+
+## use with with resurrect_events.1
+
 on_bi_yearly_pulse = {
 	if = {
 		limit = {
-			ruler_can_revive = yes
+			has_country_flag = has_saved_immortal_ruler
 		}
 		save_ruler_stats = yes
 		save_persistent_ruler_personalities = yes
