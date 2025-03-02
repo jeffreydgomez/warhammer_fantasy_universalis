@@ -362,11 +362,11 @@ war_empire_faction_2 = {
 			superregion = the_empire_superregion
 		}
 		trigger = {
+			num_of_artillery = 10
 			any_owned_province = {
 				trade_goods = iron
 				base_production = 10
 			}
-			num_of_artillery = 10
 			31 = {
 				OR = {
 					owned_by = ROOT
@@ -441,6 +441,16 @@ war_empire_faction_2 = {
 		}
 
 		trigger = {
+			# Performance
+			hidden_trigger = {
+				OR = {
+					ai = no
+					num_of_cities = 25
+				}
+			}
+
+
+
 			NOT = {
 				any_country = {
 					army_size = ROOT
@@ -1082,6 +1092,8 @@ war_empire_faction_3 = {
 		}
 		trigger = {
 			stability = 3
+			legitimacy_equivalent = 95
+
 			NOT = {
 				any_country = {
 					prestige = ROOT
@@ -1094,7 +1106,7 @@ war_empire_faction_3 = {
 					is_part_of_hre = yes
 				}
 			}
-			legitimacy_equivalent = 95
+			
 		}
 		effect = {
 
@@ -1591,19 +1603,19 @@ war_empire_faction_3 = {
 		}
 		
 		trigger = {
+			is_great_power = yes
+
 			NOT = {
-				any_province = {
-					owner = {
-						technology_group = ROOT
-						NOT = { tag = ROOT }
-						NOT = { is_subject_of = ROOT }
-						NOT = { alliance_with = ROOT }
-						NOT = {
-							ROOT = {
-								has_won_war_against = {
-									who = PREV
-									max_years_since = 100
-								}
+				any_country = {
+					technology_group = ROOT
+					NOT = { tag = ROOT }
+					NOT = { is_subject_of = ROOT }
+					NOT = { alliance_with = ROOT }
+					NOT = {
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 100
 							}
 						}
 					}
@@ -1648,11 +1660,12 @@ war_empire_faction_4 = {
 			superregion = the_empire_superregion
 		}
 		trigger = {
+			num_of_cavalry = 10
 			any_owned_province = {
 				trade_goods = livestock
 				base_production = 10
 			}
-			num_of_cavalry = 10
+			
 			18 = {
 				OR = {
 					owned_by = ROOT
@@ -1709,6 +1722,15 @@ war_empire_faction_4 = {
 		}
 
 		trigger = {
+
+			# Performance
+			hidden_trigger = {
+				OR = {
+					ai = no
+					num_of_cities = 25
+				}
+			}
+
 			NOT = {
 				any_country = {
 					monthly_income = ROOT
@@ -2192,6 +2214,7 @@ war_empire_faction_5 = {
 		position = 4
 		required_missions = {   }
 		trigger = {
+			religious_unity = 1
 			any_owned_province = {
 				OR = {
 					has_building = temple
@@ -2199,7 +2222,6 @@ war_empire_faction_5 = {
 				}
 				base_tax = 20
 			}
-			religious_unity = 1
 		}
 		# flood of investments leading to increased production
 		effect = {
@@ -2236,6 +2258,10 @@ war_empire_faction_5 = {
 			superregion = the_empire_superregion
 		}
 		trigger = {
+			NOT = { num_of_loans = 1 }
+			NOT = { inflation = 0.01 }
+			innovativeness = 15
+
 			any_owned_province = {
 				trade_goods = gold
 				base_production = 15
@@ -2253,9 +2279,7 @@ war_empire_faction_5 = {
 					has_building = counting_house
 				}
 			}
-			NOT = { num_of_loans = 1 }
-			NOT = { inflation = 0.01 }
-			innovativeness = 15
+			
 		}
 
 		effect = {
@@ -2315,9 +2339,12 @@ war_empire_faction_5 = {
 			}
 		}
 		trigger = {
+			prestige = 99
+			religious_unity = 1.0
 			OR = {
 				is_defender_of_faith = yes
 				AND = {
+					at_war_with_religious_enemy = yes
 					NOT = {
 						any_country = {
 							total_development = ROOT
@@ -2331,11 +2358,8 @@ war_empire_faction_5 = {
 							is_subject_of = ROOT
 						}
 					}
-					at_war_with_religious_enemy = yes
 				}
 			}
-			prestige = 99
-			religious_unity = 1.0
 		}
 
 		effect = {
