@@ -872,7 +872,12 @@ estate_church_inwards_perfection = {
  	loyalty = 0.05
  	influence = 0.1
  	is_valid = {
- 		always = yes
+ 		OR = {
+ 			culture_group = asrai_group
+ 			culture_group = asur_group
+ 			culture_group = cathayan_cg
+ 			has_country_modifier = order_nation
+ 		}
  	}
  	can_select = {
  		always = yes
@@ -880,6 +885,9 @@ estate_church_inwards_perfection = {
  	can_revoke = {
  		is_at_war = no
  	}
+ 	on_revoked = {
+		add_stability = -2
+	}
  	on_granted = {
  		if = { 
  			limit = { has_estate_privilege = estate_eunuchs_outwards_perfection_privilege }

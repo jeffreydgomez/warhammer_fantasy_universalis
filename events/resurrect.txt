@@ -1,0 +1,115 @@
+########################################
+# Events for 
+########################################
+
+namespace = resurrect_events
+normal_or_historical_nations = yes
+
+
+
+country_event = {
+	id = resurrect_events.1
+	title = resurrect_events.1.t 
+	desc = resurrect_events.1.d #Our pathetic enemies think our great leader is defeated - but we can not be so easily stopped.
+	picture = DEATH_OF_HEIR_eventPicture
+	
+	is_triggered_only = yes
+
+	trigger = {
+		always = not
+#		has_country_flag = has_saved_immortal_ruler
+	}
+
+
+	immediate = {
+
+	}
+
+	option = {
+		name = resurrect_events.1.a #Arise once more!
+		ai_chance = { factor = 100 }
+
+		define_ruler = {
+		    name = immortal_ruler_name
+		    dynasty = original_dynasty
+		    age = 30
+		    claim = 95
+		}
+
+#		apply_saved_persistent_ruler_personalities = yes
+#		if = {
+#			limit = {
+#				check_variable = {
+#				    which = ruler_adm
+#				    value = 6
+#				}
+#			}
+#
+#			change_adm = 5
+#
+#		} else_if = {
+#			limit = {
+#				check_variable = {
+#				    which = ruler_adm
+#				    value = 5
+#				}
+#			}
+#
+#			change_adm = 4
+#
+#		} else_if = {
+#			limit = {
+#				check_variable = {
+#				    which = ruler_adm
+#				    value = 4
+#				}
+#			}
+#
+#			change_adm = 3
+#
+#		} else_if = {
+#			limit = {
+#				check_variable = {
+#				    which = ruler_adm
+#				    value = 3
+#				}
+#			}
+#
+#			change_adm = 2
+#
+#		} else_if = {
+#			limit = {
+#				check_variable = {
+#				    which = ruler_adm
+#				    value = 2
+#				}
+#			}
+#
+#			change_adm = 1
+#
+#		} else_if = {
+#
+#			change_adm = 0
+#
+#		}
+#
+#			restore_ruler_stats = yes
+#			revival_stat_loss = yes
+	}
+
+
+	option = {
+		name = resurrect_events.1.b #It is time for new blood
+		ai_chance = { factor = 0 }
+
+		add_legitimacy = -50
+		add_devotion = -50
+
+		clr_country_flag = has_saved_immortal_ruler
+		clear_saved_name = immortal_ruler_name
+
+	}
+
+}
+
+

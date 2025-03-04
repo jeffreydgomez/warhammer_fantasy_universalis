@@ -76,6 +76,16 @@ gen_war_vampire_religion = {
 		icon = mission_vampire_religion
 		required_missions = { gen_vampire_spread_vampirism_1 }
 		trigger = {
+
+			#Performance
+
+			hidden_trigger = {
+				OR = {
+					num_of_allies = 3
+					num_of_subjects = 3
+				}
+			}
+
 			calc_true_if = {
 				all_country = {
 					religion = ROOT
@@ -182,22 +192,38 @@ gen_war_vampire_religion = {
 		}
 		trigger = {
 
+			is_great_power = yes
 
 			OR = {
 
 				NOT = {
 					any_country = {
-						is_part_of_hre = yes
+						capital_scope = {
+							superregion = the_empire_superregion
+						}
+						NOT = { religion = ROOT }
+					}
+				}
+
+
+				NOT = {
+					any_country = {
+						capital_scope = {
+							superregion = cathay_superregion
+						}
 						NOT = { religion = ROOT }
 					}
 				}
 
 				NOT = {
-					any_province = {
-						superregion = cathay_superregion
-						owner = { NOT = { religion = ROOT } }
+					any_country = {
+						capital_scope = {
+							region = bretonnia_region
+						}
+						NOT = { religion = ROOT }
 					}
 				}
+
 
 			}
 		}
