@@ -29,6 +29,24 @@ on_annexed = {
 	}
 }
 
+
+on_annexed = {
+
+	FROM = {
+		every_subject_country = {
+			limit = { is_subject_of_type = dominion }
+
+			ROOT = {
+				create_subject = {
+					subject = PREV
+					subject_type = dominion
+				}
+			}
+		}
+	}
+
+}
+
 on_heir_needed_theocracy = {
 	events = {
 		chaos_dwarfs.1
@@ -118,20 +136,20 @@ on_monarch_death = {
 
 
 # Getting rid of this for now
-#	if = {
-#		limit = {
-#			has_country_flag = has_saved_immortal_ruler
-#			OR = {
-#				has_country_modifier = undead_administration
-#				has_country_modifier = nehekhara_true_immortality
-#			}
-#			NOT = { has_ruler = immortal_ruler_name }
-#		}
-#		country_event = {
-#			id = resurrect_events.1
-#		}
-#	}
 
+	if = {
+		limit = {
+			has_country_flag = has_saved_immortal_ruler
+			OR = {
+				has_country_modifier = undead_administration
+				has_country_modifier = nehekhara_true_immortality
+			}
+#			NOT = { has_ruler = immortal_ruler_name }
+		}
+		country_event = {
+			id = resurrect_events.1
+		}
+	}
 }
 
 on_death_election = {
@@ -338,6 +356,40 @@ on_war_won = {
 		limit = { FROM = { culture_group = chaos_dwarf_group } }
 		set_country_flag = defeated_chaos_dwarf
 	}
+
+#
+
+	if = {
+		limit = { FROM = { religion = nurglite_religion } }
+		set_country_flag = defeated_nurgle
+	}
+
+	if = {
+		limit = { FROM = { religion = khornate_religion } }
+		set_country_flag = defeated_khorne
+	}
+
+	if = {
+		limit = { FROM = { religion = tzeentchian_religion } }
+		set_country_flag = defeated_tzeentch
+	}
+
+	if = {
+		limit = { FROM = { religion = slaaneshi_religion } }
+		set_country_flag = defeated_slaanesh
+	}
+
+	if = {
+		limit = { FROM = { religion = chaos_undivided_religion } }
+		set_country_flag = defeated_undivided
+	}
+
+	if = {
+		limit = { FROM = { religion = norscan } }
+		set_country_flag = defeated_norscan
+	}
+
+
 }
 
 
@@ -396,7 +448,40 @@ on_annexed = {
 		limit = { FROM = { culture_group = chaos_dwarf_group } }
 		set_country_flag = defeated_chaos_dwarf
 	}
-	
+
+#
+
+	if = {
+		limit = { FROM = { religion = nurglite_religion } }
+		set_country_flag = defeated_nurgle
+	}
+
+	if = {
+		limit = { FROM = { religion = khornate_religion } }
+		set_country_flag = defeated_khorne
+	}
+
+	if = {
+		limit = { FROM = { religion = tzeentchian_religion } }
+		set_country_flag = defeated_tzeentch
+	}
+
+	if = {
+		limit = { FROM = { religion = slaaneshi_religion } }
+		set_country_flag = defeated_slaanesh
+	}
+
+	if = {
+		limit = { FROM = { religion = chaos_undivided_religion } }
+		set_country_flag = defeated_undivided
+	}
+
+	if = {
+		limit = { FROM = { religion = norscan } }
+		set_country_flag = defeated_norscan
+	}
+
+
 }
 
 # For Bretonnia Grail Quest

@@ -16,18 +16,17 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		always = not
-#		has_country_flag = has_saved_immortal_ruler
+		has_country_flag = has_saved_immortal_ruler
 	}
 
 
 	immediate = {
-
+		clr_country_flag = has_saved_immortal_ruler
 	}
 
 	option = {
 		name = resurrect_events.1.a #Arise once more!
-		ai_chance = { factor = 100 }
+		ai_chance = { factor = 75 }
 
 		define_ruler = {
 		    name = immortal_ruler_name
@@ -36,77 +35,32 @@ country_event = {
 		    claim = 95
 		}
 
-#		apply_saved_persistent_ruler_personalities = yes
-#		if = {
-#			limit = {
-#				check_variable = {
-#				    which = ruler_adm
-#				    value = 6
-#				}
-#			}
-#
-#			change_adm = 5
-#
-#		} else_if = {
-#			limit = {
-#				check_variable = {
-#				    which = ruler_adm
-#				    value = 5
-#				}
-#			}
-#
-#			change_adm = 4
-#
-#		} else_if = {
-#			limit = {
-#				check_variable = {
-#				    which = ruler_adm
-#				    value = 4
-#				}
-#			}
-#
-#			change_adm = 3
-#
-#		} else_if = {
-#			limit = {
-#				check_variable = {
-#				    which = ruler_adm
-#				    value = 3
-#				}
-#			}
-#
-#			change_adm = 2
-#
-#		} else_if = {
-#			limit = {
-#				check_variable = {
-#				    which = ruler_adm
-#				    value = 2
-#				}
-#			}
-#
-#			change_adm = 1
-#
-#		} else_if = {
-#
-#			change_adm = 0
-#
-#		}
-#
-#			restore_ruler_stats = yes
-#			revival_stat_loss = yes
+		
+		add_ruler_personality = immortal_personality
+
+		hidden_effect= {
+			apply_saved_persistent_ruler_personalities = yes
+			set_country_flag = has_saved_immortal_ruler
+		}
+
 	}
 
 
 	option = {
 		name = resurrect_events.1.b #It is time for new blood
-		ai_chance = { factor = 0 }
+		ai_chance = { factor = 25 }
 
 		add_legitimacy = -50
 		add_devotion = -50
 
-		clr_country_flag = has_saved_immortal_ruler
-		clear_saved_name = immortal_ruler_name
+		
+
+		hidden_effect= {
+			clr_country_flag = has_saved_immortal_ruler
+			clear_saved_name = immortal_ruler_name
+			clear_saved_ruler_personalities = yes
+			clear_saved_persistent_ruler_personalities = yes
+		}
 
 	}
 

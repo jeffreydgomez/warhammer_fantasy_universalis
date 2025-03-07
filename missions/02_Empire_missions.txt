@@ -495,8 +495,14 @@ war_empire_faction_2 = {
 		}
 
 		trigger = {
-			NOT = { num_of_foreign_hre_provinces = 1 }
-			is_emperor = yes
+			if = {
+				limit =  { is_part_of_hre = yes }
+				NOT = { num_of_foreign_hre_provinces = 1 }
+				is_emperor = yes
+			} else = {
+				army_size = 80
+
+			}
 		}
 
 		effect = {
@@ -930,6 +936,8 @@ war_empire_faction_3 = {
 			if = {
 				limit = {
 					government = monarchy
+					num_of_electors = 6
+					is_part_of_hre = yes
 				}
 				calc_true_if = {
 					desc = gen_hre_electors.tooltip
@@ -974,6 +982,8 @@ war_empire_faction_3 = {
 			if = {
 				limit = {
 					government = monarchy
+					num_of_electors = 10
+					is_part_of_hre = yes
 				}
 				calc_true_if = {
 					desc = gen_hre_electors.tooltip
@@ -1015,6 +1025,7 @@ war_empire_faction_3 = {
 			if = {
 				limit = {
 					government = monarchy
+					is_part_of_hre = yes
 				}
 				imperial_influence = 100
 				is_emperor = yes
@@ -1731,22 +1742,26 @@ war_empire_faction_4 = {
 				}
 			}
 
+			monthly_income = 50
 			NOT = {
 				any_country = {
 					monthly_income = ROOT
 					is_part_of_hre = yes
 				}
 			}
-			calc_true_if = {
-				amount = 4
-				all_elector = {
-					has_opinion_modifier = {
-						who = ROOT
-						modifier = great_power_influence
+
+			if = {
+				limit =  { is_part_of_hre = yes }
+				calc_true_if = {
+					amount = 4
+					all_elector = {
+						has_opinion_modifier = {
+							who = ROOT
+							modifier = great_power_influence
+						}
 					}
 				}
 			}
-			monthly_income = 50
 		}
 
 		effect = {
@@ -2379,14 +2394,28 @@ war_empire_faction_5 = {
 		provinces_to_highlight = {
 			NOT = { religion = ROOT}
 			is_part_of_hre = yes
-		}		
+		}
+
+
+
 		trigger = {
-			calc_true_if = {
-				all_province = {
-					is_part_of_hre = yes
-					religion = ROOT
+			if = {
+				limit = { is_part_of_hre = yes }
+				calc_true_if = {
+					all_province = {
+						is_part_of_hre = yes
+						religion = ROOT
+					}
+					amount = 100
 				}
-				amount = 100
+			} else = {
+				calc_true_if = {
+					all_province = {
+						superregion = the_empire_superregion
+						religion = ROOT
+					}
+					amount = 100
+				}
 			}
 		}
 
@@ -2411,9 +2440,22 @@ war_empire_faction_5 = {
 			}
 		}
 		trigger = {
-			NOT = {
-				any_elector = {
-					NOT = { religion = ROOT }
+			if = {
+				limit = { is_part_of_hre = yes }
+				NOT = {
+					any_elector = {
+						NOT = { religion = ROOT }
+					}
+				}
+			} else = {
+				NOT = {
+					calc_true_if = {
+						all_province = {
+							superregion = the_empire_superregion
+							NOT = { religion = ROOT }
+						}
+						amount = 1
+					}
 				}
 			}
 		}
