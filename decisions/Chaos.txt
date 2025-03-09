@@ -1,10 +1,8 @@
 country_decisions = {
 	chaos_teleport = {
 		potential = {
-			if = {
-				limit = {
-					ai = yes
-				}
+			OR = {
+				ai = no
 				is_year = 2504
 			}
 			has_reform = chaos_warband
@@ -42,18 +40,20 @@ country_decisions = {
 	}
 	chaos_settle = {
 		potential = {
-			if = {
-				limit = {
-					ai = yes
-				}
-				capital_scope = {
-					or = {
-						has_terrain = urban_terrain
-						has_terrain = ruins
+
+			OR = {
+				ai = no
+				AND = {
+					is_year = 2504
+					capital_scope = {
+						OR = {
+							has_terrain = urban_terrain
+							has_terrain = ruins
+						}
 					}
 				}
-				is_year = 2522
 			}
+
 			is_vassal = no
 			else = {
 				ai = no

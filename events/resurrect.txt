@@ -1,0 +1,69 @@
+########################################
+# Events for 
+########################################
+
+namespace = resurrect_events
+normal_or_historical_nations = yes
+
+
+
+country_event = {
+	id = resurrect_events.1
+	title = resurrect_events.1.t 
+	desc = resurrect_events.1.d #Our pathetic enemies think our great leader is defeated - but we can not be so easily stopped.
+	picture = DEATH_OF_HEIR_eventPicture
+	
+	is_triggered_only = yes
+
+	trigger = {
+		has_country_flag = has_saved_immortal_ruler
+	}
+
+
+	immediate = {
+		clr_country_flag = has_saved_immortal_ruler
+	}
+
+	option = {
+		name = resurrect_events.1.a #Arise once more!
+		ai_chance = { factor = 75 }
+
+		define_ruler = {
+		    name = immortal_ruler_name
+		    dynasty = original_dynasty
+		    age = 30
+		    claim = 95
+		}
+
+		
+		add_ruler_personality = immortal_personality
+
+		hidden_effect= {
+			apply_saved_persistent_ruler_personalities = yes
+			set_country_flag = has_saved_immortal_ruler
+		}
+
+	}
+
+
+	option = {
+		name = resurrect_events.1.b #It is time for new blood
+		ai_chance = { factor = 25 }
+
+		add_legitimacy = -50
+		add_devotion = -50
+
+		
+
+		hidden_effect= {
+			clr_country_flag = has_saved_immortal_ruler
+			clear_saved_name = immortal_ruler_name
+			clear_saved_ruler_personalities = yes
+			clear_saved_persistent_ruler_personalities = yes
+		}
+
+	}
+
+}
+
+

@@ -144,7 +144,7 @@ war_dwarf_faction_1 = {
 		}	
 		trigger = {
 			trade_goods_produced_amount = {
-				trade_goods = iron
+				trade_goods = copper
 				amount = 5
 			}
 		}
@@ -174,7 +174,7 @@ war_dwarf_faction_1 = {
 		}	
 		trigger = {
 			trade_goods_produced_amount = {
-				trade_goods = iron
+				trade_goods = copper
 				amount = 20
 			}
 		}
@@ -871,9 +871,7 @@ war_dwarf_faction_3 = {
 			has_province_modifier = location_of_the_book_of_grudges
 		}
 		trigger = {
-			any_owned_province = {
-				has_province_modifier = location_of_the_book_of_grudges
-			}
+
 			OR = {
 				power_projection = 90
 				AND = {
@@ -881,6 +879,11 @@ war_dwarf_faction_3 = {
 					NOT = { great_power_rank = 2 }
 				}
 			}
+
+			any_owned_province = {
+				has_province_modifier = location_of_the_book_of_grudges
+			}
+			
 			calc_true_if = {
 				amount = 6
 				all_country = {
@@ -1090,6 +1093,16 @@ war_dwarf_faction_3 = {
 			}
 		}
 		trigger = {
+
+			# Performance
+			hidden_trigger = {
+				OR = {
+					ai = no
+					num_of_cities = 50
+				}
+			}
+
+
 			NOT = {
 				any_country = {
 					has_country_modifier = dwarven_administration
@@ -1168,6 +1181,12 @@ war_dwarf_faction_3 = {
 			NOT = { owned_by = ROOT }
 		}
 		trigger = {
+
+			trade_goods_produced_amount = {
+				trade_goods = gromril
+				amount = 50
+			}
+
 			NOT = {
 				any_province = {
 					NOT = { owned_by = ROOT }
@@ -1175,10 +1194,7 @@ war_dwarf_faction_3 = {
 					trade_goods = gromril
 				}
 			}
-			trade_goods_produced_amount = {
-				trade_goods = gromril
-				amount = 50
-			}
+			
 		}
 
 		effect = {
@@ -1250,6 +1266,16 @@ war_dwarf_faction_4 = {
 			controller = { has_country_modifier = orcish_administration }
 		}
 		trigger = {
+
+			# Performance
+			hidden_trigger = {
+				OR = {
+					ai = no
+					num_of_cities = 25
+				}
+			}
+
+
 			NOT = {
 				any_province = {
 					has_terrain = dwarf_karak
