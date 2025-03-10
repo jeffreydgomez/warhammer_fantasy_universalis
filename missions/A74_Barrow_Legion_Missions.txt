@@ -1,0 +1,2051 @@
+#Barorw Legion Mission Tree
+#Series 1, Krell
+krell = {
+    slot = 1
+    generic = no
+    ai = yes
+    potential = {
+        tag = A74
+		NOT = {
+			map_setup = map_setup_random
+		}
+    }
+    has_country_shield = yes
+
+#Summon Krell
+    summon_krell_mission = {
+        icon = mission_vampire_religion
+        required_missions = {}
+        trigger = {
+            treasury = 100
+        }
+        effect = {
+            add_treasury = -100
+            custom_tooltip = summon_krell_tt
+            hidden_effect = {
+                set_country_flag = krell_one
+            }
+        }
+    }
+#Improve Krell
+    improve_krell = {
+        icon = mission_vampire_religion
+        required_missions = {
+            summon_krell_mission
+        }
+        trigger = {
+            treasury = 250
+            custom_trigger_tooltip = {
+                tooltip = improve_krell_requirements_tt
+				has_country_flag = defeated_rival
+            }
+        }
+        effect = {
+            add_treasury = -250
+            custom_tooltip = improve_krell_tt
+            hidden_effect = {
+                set_country_flag = krell_two
+                clr_country_flag = krell_one
+            }
+        }
+    }
+#Enhance Krell
+    enhance_krell = {
+        icon = mission_vampire_religion
+        required_missions = {
+            improve_krell
+        }
+        trigger = {
+            num_of_cities = 50
+            treasury = 750
+        }
+        effect = {
+            add_treasury = -750
+            custom_tooltip = enhance_krell_tt
+            hidden_effect = {
+                set_country_flag = krell_three
+                clr_country_flag = krell_two
+            }
+        }
+    }
+#Perfect Krell
+    perfect_krell = {
+        icon = mission_vampire_religion
+        required_missions = {
+            enhance_krell
+        }
+        trigger = {
+            any_owned_province = { 
+                OR = {
+                    has_province_modifier = location_of_the_staff_of_nagash 
+                    has_province_modifier = location_of_nagashs_tome
+                }
+            }
+            full_idea_group = innovativeness_ideas
+            army_professionalism = 1
+            treasury = 2000
+        }
+        effect = {
+            add_treasury = -2000
+            country_event = {
+                id = A74.1
+            }
+        }
+    }
+}
+#Series 2, conquest of Bretonnia
+bretonnian_expansion_missions = {
+    slot = 2
+    generic = no
+    ai = yes 
+    potential = {
+        tag = A74
+		NOT = {
+			map_setup = map_setup_random
+		}
+    }
+	has_country_shield = yes
+#Prepare for Invasion
+    prepare_for_invasion = {
+        icon = mission_build_up_to_force_limit
+        required_missions = {}
+        provinces_to_highlight = {
+        }
+        trigger = {
+            army_size_percentage = 0.9
+        }
+        effect = {
+            add_country_modifier = {
+				name = "budding_invasion_force"
+				duration = 1825 #5 years
+			}
+            montfont_area = {
+                limit = {
+                    NOT = { is_permanent_claim = ROOT }
+                    NOT = { is_core = ROOT	}
+                }
+                add_permanent_claim = ROOT
+            }        
+            grismerie_area = {
+                limit = {
+                    NOT = { is_permanent_claim = ROOT }
+                    NOT = { is_core = ROOT	}
+                }
+                add_permanent_claim = ROOT
+            }
+            bitter_moors_area = {
+                limit = {
+                    NOT = { is_permanent_claim = ROOT }
+                    NOT = { is_core = ROOT	}
+                }
+                add_permanent_claim = ROOT
+            }
+        }
+    }
+#Conquer Montfort
+    conquer_montfort = {
+        icon = mission_conquer_50_development
+        required_missions = {
+            prepare_for_invasion
+        }
+        provinces_to_highlight = {
+            OR = {
+                area = montfont_area
+                area = grismerie_area
+            }
+            not = {
+                country_or_non_sovereign_subject_holds = ROOT
+            }
+        }
+        trigger = {
+            montfont_area = {
+                type = all 
+                country_or_non_sovereign_subject_holds = ROOT
+            }
+            grismerie_area = {
+                type = all 
+                country_or_non_sovereign_subject_holds = ROOT
+            }
+        }
+        effect = {
+            gisoreux_area = {
+                limit = {
+                    NOT = { is_permanent_claim = ROOT }
+                    NOT = { is_core = ROOT	}
+                }
+                add_permanent_claim = ROOT
+            }
+            gamay_area = {
+                limit = {
+                    NOT = { is_permanent_claim = ROOT }
+                    NOT = { is_core = ROOT	}
+                }
+                add_permanent_claim = ROOT
+            }
+            parravon_area = {
+                limit = {
+                    NOT = { is_permanent_claim = ROOT }
+                    NOT = { is_core = ROOT	}
+                }
+                add_permanent_claim = ROOT
+            }
+            custom_tooltip = claim_bretonnian_states_tt
+            hidden_effect = {
+                every_owned_province = {
+                    limit = {
+                        region = bretonnia_region
+                    }
+                    add_nationalism = -20
+                }        
+            }
+        }
+    }
+#Consolidate Bretonnia
+    consolidate_bretonnia = {
+        icon = mission_unite_home_region
+        required_missions = {
+            conquer_montfort
+        }
+        provinces_to_highlight = {
+            region = bretonnia_region
+            NOT = {
+                country_or_non_sovereign_subject_holds = ROOT
+            }
+        }
+        trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 20
+                region = bretonnia_region
+			}
+        }
+        effect = {
+            add_country_modifier = {
+				name = "consolidating_bretonnia"
+				duration = 5475 #15 years
+			}
+            bretonnia_region = {
+                add_permanent_claim = ROOT
+            }
+        }
+    }
+#Rule Bretonnia 
+    rule_bretonnia = {
+        icon = mission_monarch_in_throne_room
+        required_missions = {
+            consolidate_bretonnia
+        }
+        provinces_to_highlight = {
+            region = bretonnia_region
+            NOT = {
+                country_or_non_sovereign_subject_holds = ROOT
+            }
+        }
+        trigger = {
+            bretonnia_region = {
+                type = all
+                country_or_non_sovereign_subject_holds = ROOT
+            }
+        }
+        effect = {
+            add_mil_power = 100
+            add_dip_power = 100
+            add_adm_power = 100
+            add_country_modifier = {
+                name = "bretonnia_conquered"
+                duration = -1 #permanent
+            }
+        }
+    }
+}
+#Series 3, Conquest of the Empire
+empire_expansion_missions = {
+    slot = 3
+    generic = no
+    ai = yes
+    potential = {
+        tag = A74
+        NOT = {
+            map_setup = map_setup_random
+        }
+    }
+    has_country_shield = yes
+#Into Marienburg
+    into_marienburg = {
+        icon = mission_conquer_50_development
+        position = 2
+        required_missions = {
+            prepare_for_invasion
+        }
+        provinces_to_highlight = {
+            area = bitter_moors_area
+            NOT = {
+                country_or_non_sovereign_subject_holds = ROOT
+            }
+        }
+        trigger = {
+            bitter_moors_area = {
+                type = all
+                country_or_non_sovereign_subject_holds = ROOT
+            }
+        }
+        effect = {
+            add_country_modifier = {
+                name = "invaded_marienburg"
+                duration = 5475 #15 years
+            }
+            marreinburg_area = {
+                add_permanent_claim = ROOT
+            }
+            couronne_marches_area = {
+                add_permanent_claim = ROOT
+            }
+            west_reikwald_area = {
+                add_permanent_claim = ROOT
+            }
+            tumble_downs_area = {
+                add_permanent_claim = ROOT
+            }
+        }
+    }
+#Expand in the Empire
+    expand_in_the_empire = {
+        icon = mission_unite_home_region
+        required_missions = {
+            into_marienburg
+        }
+        provinces_to_highlight = {
+            region = northern_empire_region
+            NOT = {
+                country_or_non_sovereign_subject_holds = ROOT
+            }
+        }
+        trigger = {
+            num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+                value = 10
+                region = northern_empire_region
+            }
+        }
+        effect = {
+            add_mil_power = 100
+            custom_tooltip = claim_empire_states_tt
+            hidden_effect = {
+                altdorf_outskirts_area = {
+                    add_permanent_claim = ROOT
+                }
+                reikland_grey_mountains_area = {
+                    add_permanent_claim = ROOT
+                }
+                east_reikwald_area = {
+                    add_permanent_claim = ROOT
+                }
+                altdorf_area = {
+                    add_permanent_claim = ROOT
+                }
+                carroburg_area = {
+                    add_permanent_claim = ROOT
+                }
+                drakwald_area = {
+                    add_permanent_claim = ROOT
+                }
+                middenland_talabec_area = {
+                    add_permanent_claim = ROOT
+                }
+                howling_hills_area = {
+                    add_permanent_claim = ROOT
+                }
+                schadensumpf_area = {
+                    add_permanent_claim = ROOT
+                }
+                middenheim_area = {
+                    add_permanent_claim = ROOT
+                }
+                wilhemskoog_area = {
+                    add_permanent_claim = ROOT
+                }
+                salzenmund_area = {
+                    add_permanent_claim = ROOT
+                }
+            }
+        }    
+    }
+#Take Altdorf
+    take_altdorf = {
+        icon = mission_monarch_in_throne_room
+        required_missions = {
+            expand_in_the_empire
+        }
+        provinces_to_highlight = {
+            area = altdorf_area
+            NOT = {
+                country_or_non_sovereign_subject_holds = ROOT
+            }
+        }
+        trigger = {
+            altdorf_area = {
+                type = all
+                country_or_non_sovereign_subject_holds = ROOT
+            }
+        }
+        effect = {
+            add_country_modifier = {
+                name = "took_altdorf"
+                duration = -1 #Permanent
+            }
+            add_mil_power = 100
+            add_dip_power = 100
+            add_adm_power = 100
+            the_empire_superregion = {
+                add_permanent_claim = ROOT
+            }
+        }
+    }
+#Control the Empire
+    control_the_empire = {
+        icon = mission_crusade_for_varna
+        required_missions = {
+            take_altdorf
+        }
+        provinces_to_highlight = {
+            superregion = the_empire_superregion
+            NOT = {
+                country_or_non_sovereign_subject_holds = ROOT
+            }
+        }
+        trigger = {
+            the_empire_superregion = {
+                type = all
+                country_or_non_sovereign_subject_holds = ROOT
+            }
+        }
+        effect = {
+            add_mil_power = 200
+            add_dip_power = 200
+            add_adm_power = 200
+            add_country_modifier = {
+                name = "control_of_the_empire"
+                duration = -1 #Permanent
+            }
+        }
+    }
+}
+ #4th mission series, taken from base. I put this here mostly just to remove the extra stuff at the bottom cause it would be weird to have one line of that, might remove later.
+ administrative_missions = {
+	slot = 4
+
+	generic = no
+
+	potential = {
+        tag = A74
+        NOT = { map_setup = map_setup_random }
+    }
+	high_income_mission = {
+		icon = mission_high_income
+		required_missions = {  } #None
+		trigger = { share_of_starting_income = 1.5 }
+		effect = {
+			add_country_modifier = {
+				name = "growing_economy"
+				duration = 9125 #25 years
+			}
+		}
+	}
+	build_temples = {
+		icon = mission_early_game_buildings
+		required_missions = { high_income_mission }
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+				value = 5
+			}
+			num_of_owned_provinces_with = {
+				OR = {
+					has_building = workshop
+					has_building = counting_house
+				}
+				value = 5
+			}
+		}
+		effect = {
+			add_adm_power = 50
+			add_country_modifier = {
+				name = "building_spree"
+				duration = 9125
+			}
+		}
+	}
+	build_treasury = {
+		icon = mission_war_chest
+		required_missions = { build_temples }
+		trigger = { treasury = 2000 }
+		effect = {
+			add_country_modifier = {
+				name = "strong_treasury"
+				duration = 9125
+			}
+		}
+	}
+	build_manufactories = {
+		icon = mission_have_manufactories
+		required_missions = { build_treasury }
+		trigger = {
+			calc_true_if = {
+				desc = build_manufactories_mission_tooltip
+				all_owned_province = {
+					OR = {
+						has_building = mills
+						has_building = farm_estate
+						has_building = tradecompany
+						has_building = plantations
+						has_building = textile
+						has_building = weapons
+						has_building = wharf
+						has_building = furnace
+					}
+				}
+				amount = 20
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "proto_industrialization"
+				duration = 9125
+			}
+			add_years_of_income = 1.5
+		}
+	}
+	imperial_ambition_mission = {
+		icon = mission_empire
+		required_missions = { build_manufactories }
+		trigger = {
+			total_development = 1000
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 30 }
+			add_country_modifier = {
+				name = "imperial_ambition"
+				duration = 9125
+			}
+		}
+	}
+}
+#Series 8, Military Reform
+barrow_military_reform = {
+    slot = 5
+    generic = no
+    ai = yes
+    potential = {
+        tag = A74
+        NOT = {
+            map_setup = map_setup_random
+        }
+    }
+    has_country_shield = yes
+#Train the Skeletons
+    train_the_skeletons = {
+        icon = mission_fekete_sereg
+        position = 1
+        trigger = {
+            army_professionalism = 0.25
+        }
+        effect = {
+            add_country_modifier = {
+                name = "trained_skeletons"
+                duration = 9125 #25 years
+            }    
+            add_mil_power = 100
+            add_prestige = 10
+        }
+    }
+#Expand the army
+    expand_the_army = {
+        icon = mission_impaled_soldies
+        required_missions = {
+            train_the_skeletons
+        }
+        trigger = {
+            army_size = 100
+        }
+        effect = {
+            custom_tooltip = expand_the_army_tt
+            country_event = {
+                id = A74.11
+            }
+        }
+    }
+#Army Reform
+    barrow_army_reform = {
+        icon = gory_to_the_black_army
+        required_missions = {
+            expand_the_army
+        }
+        trigger = {
+            army_professionalism = 0.5
+            OR = {
+                full_idea_group = quality_ideas
+				full_idea_group = quantity_ideas
+				full_idea_group = offensive_ideas
+				full_idea_group = defensive_ideas
+				monthly_mil = 12
+            }
+        }
+        effect = {
+            custom_tooltip = barrow_army_reform_tt
+            country_event = {
+                id = A74.12
+            }
+        }
+    }
+}
+#5th Mission Tree, securing Nagash's artifacts
+nagash_artifacts = {
+    slot = 5
+    generic = no
+    ai = yes
+    potential = {
+        tag = A74
+		NOT = {
+			map_setup = map_setup_random
+		}
+    }
+    has_country_shield = yes
+#Find the Staff of Nagash
+    find_staff = {
+        icon = mission_war_chest
+        positon = 4
+        provinces_to_highlight = {
+        }
+        trigger = {
+            any_known_country = {
+                any_owned_province = {
+                    has_province_modifier = location_of_the_staff_of_nagash
+                }
+            }
+        }
+        effect = {
+            every_province = { 
+                limit = {
+                    has_province_modifier = location_of_the_staff_of_nagash 
+                }
+                add_permanent_claim = ROOT
+            }
+        }
+    }
+
+#Find the Tome of Nagash
+    find_tome = {
+        icon = mission_establish_high_seas_navy
+        required_missions = {
+            find_staff
+        }
+        provinces_to_highlight = {
+        }
+        trigger = {
+            any_known_country = {
+                any_owned_province = {
+                    has_province_modifier = location_of_nagashs_tome
+                }
+            }
+        }
+        effect = {
+            every_province = { 
+                limit = {
+                    has_province_modifier = location_of_nagashs_tome
+                }
+                add_permanent_claim = ROOT
+            }
+        }
+    }
+#Ritual_Of_Nagash
+    ritual_of_nagash = {
+        required_missions = {
+            find_tome
+        }
+        icon = mission_tomb_king_culture
+        trigger = {
+            treasury = 5000
+            any_owned_province = {
+                has_province_modifier = location_of_the_staff_of_nagash 
+            }
+            any_owned_province = {
+                has_province_modifier = location_of_nagashs_tome
+            }
+        }
+        effect = {
+            add_treasury = -5000
+            custom_tooltip = ritual_of_nagash_tt
+            country_event = {
+                id = A74.9
+            }
+        }
+    }
+#I had to shove these missions here because when they were in their own section reloading a save broke them. Probably not my fault (lie).
+    trade_is_dead = {
+        icon = mission_trade_with_cathay
+        position = 7
+        required_missions = {
+            secure_our_domain
+        }
+        provinces_to_highlight = {
+            country_or_non_sovereign_subject_holds = ROOT 
+            province_has_center_of_trade_of_level = 1
+            NOT = {
+                has_building = marketplace
+            }
+        }
+        trigger = {
+            num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+                has_building = marketplace
+                province_has_center_of_trade_of_level = 2
+                value = 3
+            }
+        }
+        effect = {
+            add_country_modifier = {
+                name = "skeleton_company"
+                duration = -1 #Permanent
+            }
+        }
+     }
+    undead_labor_camps = {
+        icon = mission_pol_develop_countryside
+        required_missions = {
+            trade_is_dead
+        }
+        provinces_to_highlight = {
+            country_or_non_sovereign_subject_holds = ROOT  
+            NOT = {
+                has_building = workshop
+            }
+        }
+        trigger = {
+            num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+                has_building = workshop
+                value = 10
+            }
+        }
+        effect = {
+            add_years_of_income = 0.5
+            add_country_modifier = {
+                name = "undead_laborers"
+                duration = -1 #Permanent
+            }
+        }
+    }
+    iron_workers = {
+        icon = mission_have_manufactories
+        required_missions = {
+            undead_labor_camps
+        }
+        provinces_to_highlight = {
+            country_or_non_sovereign_subject_holds = ROOT  
+            trade_goods = iron 
+        }
+        trigger = {
+            num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+                trade_goods = iron
+                has_manufactory_trigger = yes
+                value = 3
+            }
+        }
+        effect = {
+            add_country_modifier = {
+                name = "steel_arms"
+                duration = -1 #Permanent
+            }
+        }
+    }
+}
+
+#Series 6, Alliance with Mousillion 
+alliance_with_mousillion = {
+    slot = 3
+    generic = no
+    ai = yes
+    potential = {
+        tag = A74
+        NOT = {
+            map_setup = map_setup_random
+        }
+    }
+    has_country_shield = yes
+
+#Position of Strength
+    position_of_strength_mission = {
+        icon = mission_assemble_an_army
+        position = 6
+        required_missions = {}
+        provinces_to_highlight = {
+            is_capital = yes
+            owner = {
+                or = {
+                    tag = A20
+                    tag = A76        
+                }
+            }
+        }
+        trigger = {
+                army_size = A20
+                army_size = A76
+        }
+        effect = {
+            A20 = {
+                add_opinion = {
+                    who = ROOT
+                    modifier = show_of_strength
+                }
+                add_liberty_desire = 100
+            }
+            A76 = {
+                add_opinion = {
+                    who = ROOT
+                    modifier = show_of_strength
+                }
+            }
+            add_country_modifier = {
+                name = "position_of_strength"
+                duration = 3650 #10 years
+            }
+        }
+    }
+#Ally with mousillion
+    ally_with_mousillion = {
+        icon = mission_alliances
+        required_missions = {
+            position_of_strength_mission
+        }
+        provinces_to_highlight = {
+            is_capital = yes
+            owner = {
+                tag = A20
+            }
+        }
+        trigger = {
+            OR = {
+                A20 = {
+                    alliance_with = ROOT
+                }
+                is_supporting_independence_of = A20
+                NOT = {
+                    exists = A20
+                }
+                A20 = {
+                    is_rival = ROOT
+                }
+            }
+        }
+        effect = {
+            custom_tooltip = ally_with_mousillion_tt
+            A20 = {
+                if = {
+                    limit = {
+                        alliance_with = ROOT
+                    }
+                    add_trust = {
+                        who = ROOT
+                        value = 20
+                    }    
+                }
+                else_if = {
+                    limit = {
+                        is_supporting_independence_of = ROOT
+                    }
+                    A15 = {
+                        country_event = {
+                            id = A74.14
+                            days = 3
+                        }
+                    }
+                }
+                else_if = {
+                    limit = {
+                        OR = {
+                            NOT = { exists = A20 }
+                            A20 = { is_rival = ROOT }
+                        }
+                    }
+                    add_prestige = 20
+                }
+            }
+        }
+    }
+#Subjugate Mousilion 
+    subjugate_mousillion = {
+        icon = mission_plc_golden_liberty
+        required_missions = {
+            ally_with_mousillion
+        }
+        provinces_to_highlight = {
+            is_capital = yes
+            owner = {
+                tag = A20
+            }
+        }
+        trigger = {
+            OR = {
+                A20 = {
+                    trust = {
+                        who = ROOT
+                        value = 50
+                    }
+                    is_subject_of = ROOT
+                }
+                NOT = { exists = A20 }
+            }
+        }
+        effect = {
+            custom_tooltip = subjugate_mousillion_tt
+            if = {
+                limit = { A20 = { is_subject_of = ROOT } }
+                create_march = A20
+            }
+            add_country_modifier = {
+                name = "red_duke"
+                duration = -1 #Permanent
+            }
+        }
+    }
+}
+#Idk what number I'm doing this last, the black tower
+develop_missions = {
+    slot = 1
+    generic = no
+    ai = yes
+    potential = {
+        tag = A74
+		NOT = {
+			map_setup = map_setup_random
+		}
+    }
+    has_country_shield = yes
+
+#Develop our capital 
+    develop_our_capital = {
+        icon = mission_early_modern_university
+        required_missions = {}
+        provinces_to_highlight = {
+            capital_scope = {
+                NOT = {
+                    development = 15
+                }
+            }
+        }
+        trigger = {
+            capital_scope = {
+                development = 15
+            }
+        }
+        effect = {
+            capital_scope = {
+                add_province_modifier = {
+                    name = "first_improvement"
+                    duration = -1 #Permanent
+                }
+            }
+        }
+    }
+#Necromantic Center
+    center_of_necromancers = {
+        icon = mission_early_modern_university
+        required_missions = {
+            develop_our_capital
+        }
+        provinces_to_highlight = {
+            capital_scope = {
+                NOT = {
+                    development = 30
+                }
+            }
+        }
+        trigger = {
+            capital_scope = {
+                development = 30
+            }
+        }
+        effect = {
+            capital_scope = {
+                add_province_modifier = {
+                    name = "second_improvement"
+                    duration = -1 #Permanent
+                }
+                add_or_upgrade_tax_building = yes
+            }
+            add_years_of_income = 1
+        }
+    }
+    industrialize_our_capital = {
+        icon = mission_early_modern_university
+        required_missions = {
+            center_of_necromancers
+        }
+        provinces_to_highlight = {
+            capital_scope = {
+                NOT = {
+                    development = 45
+                }
+            }
+        }
+        trigger = {
+            capital_scope = {
+                development = 45
+            }
+        }
+        effect = {
+            capital_scope = {
+                add_province_modifier = {
+                    name = "third_improvement"
+                    duration = -1 #Permanent
+                }
+                add_or_upgrade_production_building = yes
+                change_trade_goods = iron
+            }
+        }
+    }
+#Build a Tower 
+    build_a_tower = {
+        icon = mission_early_modern_university
+        required_missions = {
+            industrialize_our_capital
+        }
+        provinces_to_highlight = {
+            capital_scope = {
+                NOT = {
+                    development = 60
+                }
+            }
+        }
+        trigger = {
+            capital_scope = {
+                development = 60
+            }
+        }
+        effect = {
+            capital_scope = {
+                add_province_modifier = {
+                    name = "fourth_improvement"
+                    duration = -1 #Permanent
+                }
+                remove_province_modifier = first_improvement
+                remove_province_modifier = second_improvement
+                remove_province_modifier = third_improvement
+                if = {
+                    limit = { has_building = fort_17th }
+                    remove_building = fort_17th
+                    add_building = fort_18th
+                }
+                else_if = {
+                    limit = { has_building = fort_16th }
+                    remove_building = fort_16th
+                    add_building = fort_17th
+                }
+                else_if = {
+                    limit = { has_building = fort_15th }
+                    remove_building = fort_15th
+                    add_building = fort_16th
+                }
+            }
+            add_manpower = 10
+            country_event = {
+                id = A74.10
+            }
+        }
+    }
+}
+#Series 7, Alliance with Ordo Draconis
+alliance_with_ordo_draconis = {
+    slot = 2
+    generic = no
+    ai = yes
+    potential = {
+        tag = A74
+        NOT = {
+            map_setup = map_setup_random
+        }
+    }
+    has_country_shield = yes
+#Ally with Draco Order
+    ally_with_order_draco = {
+        icon = byz_reinforce_constantinople
+        required_missions = {
+            position_of_strength_mission
+        }
+        position = 7
+        provinces_to_highlight = {
+            is_capital = yes
+            owner = {
+                tag = A76
+            }
+        }
+        trigger = {
+            OR = {
+                A76 = {
+                    alliance_with = ROOT
+                }
+                A76 = {
+                    is_rival = ROOT
+                }    
+                NOT = {
+                    exists = A76
+                }
+            }
+        }
+        effect = {
+            custom_tooltip = ally_with_order_draco_tt
+            A76 = {
+                if  = {
+                    limit = {
+                        alliance_with = ROOT
+                    }
+                    add_trust = {
+                        who = ROOT
+                        value = 20    
+                    }
+                }
+                else_if = {
+                    limit = {
+                        OR = {
+                            NOT = { exists = A76 }
+                            is_rival = ROOT
+                        }
+                    } 
+                    add_prestige = 10
+                }
+            }
+        }
+    }
+#Demand Surrender
+    demand_surrender = {
+        icon = mission_have_two_subjects
+        required_missions = {
+            ally_with_order_draco
+        }
+        trigger = {
+			if = {
+				limit = {
+					exists = A76
+				}
+				total_own_and_non_tributary_subject_development = A76
+				total_own_and_non_tributary_subject_development = 200
+			}
+			else = {
+				total_own_and_non_tributary_subject_development = 200
+			}
+
+        }
+        effect = {
+            custom_tooltip = demand_surrender_tt
+            if = {
+                limit = {
+                    exists = A76
+                }
+                country_event = {
+                    id = A74.2
+                }
+            }
+            add_country_modifier = {
+                name = "blood_knights"
+                duration =-1 #Permanent
+            }
+        }
+    }
+}
+#Building Series
+building_series = {
+    slot = 4
+    generic = no
+    ai = yes
+    potential = {
+        tag = A74
+		NOT = {
+			map_setup = map_setup_random
+		}
+    }
+    has_country_shield = yes
+#Secure our domain
+    secure_our_domain = {
+        icon = mission_red_fort
+        position = 6
+        provinces_to_highlight = {
+            country_or_non_sovereign_subject_holds = ROOT  
+            NOT = {
+                OR = {
+                    has_building = fort_15th
+                    has_building = fort_16th
+                    has_building = fort_17th
+                    has_building = fort_18th
+                }
+            }
+        }
+        trigger = {
+            num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+                OR = {
+                    has_building = fort_15th
+                    has_building = fort_16th
+                    has_building = fort_17th
+                    has_building = fort_18th    
+                }
+                value = 3
+            }
+        }
+        effect = {
+            add_country_modifier = {
+                name = "fortified_domain"
+                duration = -1 #Permanent
+            }
+        }
+    }
+    expand_tax_law = {
+        icon = mission_plc_governance_act
+        required_missions = {
+            secure_our_domain
+        }
+        provinces_to_highlight = {
+            country_or_non_sovereign_subject_holds = ROOT  
+            development = 25
+            NOT = {
+                has_building = temple
+                has_building = cathedral
+            }
+        }
+        trigger = {
+            num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+                OR = {
+                    has_building = temple
+                    has_building = cathedral
+                }
+                development = 25
+                value = 5
+            }
+        }
+        effect = {
+            add_country_modifier = {
+                name = "codified_tax_laws"
+                duration = -1 #Permanent
+            }
+        }
+    }
+    legislative_houses = {
+        icon = misison_uppsala_university
+        required_missions = {
+            expand_tax_law
+        }
+        provinces_to_highlight = {
+            country_or_non_sovereign_subject_holds = ROOT  
+            NOT = {
+                has_building = courthouse
+            }
+        }
+        trigger = {
+            num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+                has_building = courthouse
+                value = 10
+            }
+        }
+        effect = {
+            add_country_modifier = {
+                name = "municipal_laws"
+                duration = -1 #Permanent
+            }
+        }
+    }
+    necromantic_universities = {
+        icon = mission_taj_mahal
+        required_missions = {
+            legislative_houses
+        }
+        provinces_to_highlight = {
+            country_or_non_sovereign_subject_holds = ROOT
+            NOT = {
+                has_building = university
+            }
+        }
+        trigger = {
+            num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+                has_building = university
+                value = 20
+            }
+        }
+        effect = {
+            change_innovativeness = 10
+            add_country_modifier = {
+                name = "apprentice_necromancers"
+                duration = -1 #Permanent
+            }
+            custom_tooltip = necromantic_universities_tt
+            set_country_flag = necromantic_apprentices
+        }
+    }
+}
+#Right Side Building Series, Production
+#Steel Arms
+# building_series = {
+#     slot = 5
+#     generic = no
+#     ai = yes
+#     potential = {
+#         tag = A74
+# 		NOT = {
+# 			map_setup = map_setup_random
+# 		}
+#     }
+#     has_country_shield = yes
+#     trade_is_dead = {
+#         icon = mission_trade_with_cathay
+#         position = 7
+#         required_missions = {
+            
+#         }
+#         provinces_to_highlight = {
+#             country_or_non_sovereign_subject_holds = ROOT 
+#             province_has_center_of_trade_of_level = 1
+#             NOT = {
+#                 has_building = marketplace
+#             }
+#         }
+#         trigger = {
+#             num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+#                 any_owned_province = {
+#                     has_building = marketplace
+#                     province_has_center_of_trade_of_level = 2
+#                 }
+#                 value = 3
+#             }
+#         }
+#         effect = {
+#             add_country_modifier = {
+#                 name = "skeleton_company"
+#                 duration = -1 #Permanent
+#             }
+#         }
+#      }
+# }
+#     undead_labor_camps = {
+#         icon = mission_pol_develop_countryside
+#         required_missions = {
+#             trade_is_dead
+#         }
+#         provinces_to_highlight = {
+#             country_or_non_sovereign_subject_holds = ROOT  
+#             NOT = {
+#                 has_building = workshop
+#             }
+#         }
+#         trigger = {
+#             num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+#                 has_building = workshop
+#                 value = 10
+#             }
+#         }
+#         effect = {
+#             add_years_of_income = 0.5
+#             add_country_modifier = {
+#                 name = "undead_laborers"
+#                 duration = -1 #Permanent
+#             }
+#         }
+#     }
+#     iron_workers = {
+#         icon = mission_have_manufactories
+#         required_missions = {
+#             undead_labor_camps
+#         }
+#         provinces_to_highlight = {
+#             country_or_non_sovereign_subject_holds = ROOT  
+#             trade_goods = iron 
+#         }
+#         trigger = {
+#             num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+#                 trade_goods = iron
+#                 has_manufactory_trigger = yes
+#                 value = 3
+#             }
+#         }
+#         effect = {
+#             add_country_modifier = {
+#                 name = "steel_arms"
+#                 duration = -1 #Permanent
+#             }
+#         }
+#     }
+# }
+
+ultimate_mission = {
+    slot = 3
+	generic = no
+	ai = yes
+	potential = {
+        tag = A74
+        NOT = {
+            map_setup = map_setup_random
+        }
+	}
+
+    empire_ultimate_leader_of_mankind = {
+		icon = mission_empire_culture
+        provinces_to_highlight = {
+			owner = {
+				technology_group = ROOT
+				NOT = { tag = ROOT }
+				NOT = { is_subject_of = ROOT }
+				NOT = { alliance_with = ROOT }
+				NOT = {
+					ROOT = {
+						has_won_war_against = {
+							who = PREV
+							max_years_since = 100
+						}
+					}
+				}
+			}
+		}
+		
+		trigger = {
+			NOT = {
+				any_province = {
+					owner = {
+						technology_group = ROOT
+						NOT = { tag = ROOT }
+						NOT = { is_subject_of = ROOT }
+						NOT = { alliance_with = ROOT }
+						NOT = {
+							ROOT = {
+								has_won_war_against = {
+									who = PREV
+									max_years_since = 100
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		effect = {
+			add_prestige_or_monarch_power = { amount = 200 }
+			add_country_modifier = {
+				name = empire_ultimate
+				duration = -1
+			}
+		}
+	}
+}
+
+#Generic Race Relation Stuff
+race_relations_1_missions = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+        tag = A74
+        NOT = {
+            map_setup = map_setup_random
+        }
+	}
+	### Humans ###
+	challenge_humans = {
+		icon = mission_empire_culture
+		required_missions = {
+		}
+		position = 10
+		provinces_to_highlight = {
+			owner = { has_country_modifier = human_military }
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = defeated_humans_tt
+				has_country_flag = defeated_humans
+			}
+
+		}
+		effect = {
+			add_country_modifier = {
+				name = "challenged_humans"
+				duration = -1
+			}
+		}
+	}
+	trade_humans = {
+		icon = mission_sow_culture
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = human_administration }
+		}
+		trigger = {
+			any_country = {
+				has_country_modifier = human_administration
+				trust = {
+					who = ROOT
+					value = 60
+				}
+				has_opinion = {
+					who = ROOT
+					value = 150
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "traded_humans"
+				duration = -1
+			}
+		}
+	}
+	### Orcs ###
+	challenge_orcs = {
+		icon = mission_orc_culture
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = orcish_military }
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = defeated_orcs_tt
+				has_country_flag = defeated_orcs
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "challenged_orcs"
+				duration = -1
+			}
+		}
+	}
+	trade_orcs = {
+		icon = mission_orc_religion
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = orcish_administration }
+		}
+		trigger = {
+			any_country = {
+				has_country_modifier = orcish_administration
+				trust = {
+					who = ROOT
+					value = 60
+				}
+				has_opinion = {
+					who = ROOT
+					value = 150
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "traded_orcs"
+				duration = -1
+			}
+		}
+	}
+}
+
+race_relations_2_missions = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+        tag = A74
+        NOT = {
+            map_setup = map_setup_random
+        }
+	}
+	### Dwarves ###
+	challenge_dwarves = {
+		icon = mission_dwarf_culture
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = dwarven_military }
+		}
+		position = 10
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = defeated_dwarves_tt
+				has_country_flag = defeated_dwarves
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "challenged_dwarves"
+				duration = -1
+			}
+		}
+	}
+	trade_dwarves = {
+		icon = mission_dwarf_religion
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = dwarven_administration }
+		}
+		trigger = {
+			any_country = {
+				has_country_modifier = dwarven_administration
+				trust = {
+					who = ROOT
+					value = 60
+				}
+				has_opinion = {
+					who = ROOT
+					value = 150
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "traded_dwarves"
+				duration = -1
+			}
+		}
+	}
+	### Elves ###
+	challenge_elves = {
+		icon = mission_wood_elf_culture
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = elven_military }
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = defeated_elves_tt
+				has_country_flag = defeated_elves
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "challenged_elves"
+				duration = -1
+			}
+		}
+	}
+	trade_elves = {
+		icon = mission_high_elf_culture
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = elven_administration }
+		}
+		trigger = {
+			any_country = {
+				has_country_modifier = elven_administration
+				trust = {
+					who = ROOT
+					value = 60
+				}
+				has_opinion = {
+					who = ROOT
+					value = 150
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "traded_elves"
+				duration = -1
+			}
+		}
+	}
+
+	trade_world = {
+		icon = mission_pf_map_table
+		required_missions = {
+		}
+		trigger = {
+			has_country_modifier = traded_humans
+			has_country_modifier = traded_orcs
+			has_country_modifier = traded_dwarves
+			has_country_modifier = traded_elves
+			has_country_modifier = traded_undead
+			has_country_modifier = traded_fimir
+			has_country_modifier = traded_ogre
+			has_country_modifier = traded_skaven
+			has_country_modifier = traded_lizardmen
+			has_country_modifier = traded_beastfolk
+		}
+		effect = {
+			remove_country_modifier = traded_humans
+			remove_country_modifier = traded_orcs
+			remove_country_modifier = traded_dwarves
+			remove_country_modifier = traded_elves
+			remove_country_modifier = traded_undead
+			remove_country_modifier = traded_fimir
+			remove_country_modifier = traded_ogre
+			remove_country_modifier = traded_skaven
+			remove_country_modifier = traded_lizardmen
+			remove_country_modifier = traded_beastfolk
+			add_country_modifier = {
+				name = "traded_world"
+				duration = -1
+			}
+		}
+	}
+
+
+
+}
+
+race_relations_3_missions = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+        tag = A74
+        NOT = {
+            map_setup = map_setup_random
+        }
+	}
+	### Lizardmen ###
+	challenge_lizardmen = {
+		icon = mission_lizardmen_culture
+		required_missions = {
+		}
+		position = 10
+		provinces_to_highlight = {
+			owner = { has_country_modifier = lizardmen_military }
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = defeated_lizardmen_tt
+				has_country_flag = defeated_lizardmen
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "challenged_lizardmen"
+				duration = -1
+			}
+		}
+	}
+	trade_lizardmen = {
+		icon = mission_lizardmen_religion
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = lizardmen_administration }
+		}
+		trigger = {
+			any_country = {
+				has_country_modifier = lizardmen_administration
+				trust = {
+					who = ROOT
+					value = 60
+				}
+				has_opinion = {
+					who = ROOT
+					value = 150
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "traded_lizardmen"
+				duration = -1
+			}
+		}
+	}
+	### Fimir ###
+	challenge_fimir = {
+		icon = mission_norscan_culture
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = fimir_military }
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = defeated_fimir_tt
+				has_country_flag = defeated_fimir
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "challenged_fimir"
+				duration = -1
+			}
+		}
+	}
+	trade_fimir = {
+		icon = mission_chaos_religion
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = fimir_administration }
+		}
+		trigger = {
+			any_country = {
+				has_country_modifier = fimir_administration
+				trust = {
+					who = ROOT
+					value = 60
+				}
+				has_opinion = {
+					who = ROOT
+					value = 150
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "traded_fimir"
+				duration = -1
+			}
+		}
+	}
+}
+
+race_relations_4_missions = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+        tag = A74
+        NOT = {
+            map_setup = map_setup_random
+        }
+	}
+	### Ogre ###
+	challenge_ogres = {
+		icon = mission_ogre_culture
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = ogre_military }
+		}
+		position = 10
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = defeated_ogres_tt
+				has_country_flag = defeated_ogres
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "challenged_ogre"
+				duration = -1
+			}
+		}
+	}
+	trade_ogres = {
+		icon = mission_ogre_religion
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = ogre_administration }
+		}
+		trigger = {
+			any_country = {
+				has_country_modifier = ogre_administration
+				trust = {
+					who = ROOT
+					value = 60
+				}
+				has_opinion = {
+					who = ROOT
+					value = 150
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "traded_ogre"
+				duration = -1
+			}
+		}
+	}
+	### Skaven ###
+	challenge_skaven = {
+		icon = mission_skaven_culture
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = skaven_military }
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = defeated_skaven_tt
+				has_country_flag = defeated_skaven
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "challenged_skaven"
+				duration = -1
+			}
+		}
+	}
+	trade_skaven = {
+		icon = mission_skaven_religion
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = skaven_administration }
+		}
+		trigger = {
+			any_country = {
+				has_country_modifier = skaven_administration
+				trust = {
+					who = ROOT
+					value = 60
+				}
+				has_opinion = {
+					who = ROOT
+					value = 150
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "traded_skaven"
+				duration = -1
+			}
+		}
+	}
+
+	challenge_world = {
+		icon = mission_italian_condottiere
+		required_missions = {
+		}
+		trigger = {
+			has_country_modifier = challenged_humans
+			has_country_modifier = challenged_orcs
+			has_country_modifier = challenged_dwarves
+			has_country_modifier = challenged_elves
+			has_country_modifier = challenged_undead
+			has_country_modifier = challenged_fimir
+			has_country_modifier = challenged_ogre
+			has_country_modifier = challenged_skaven
+			has_country_modifier = challenged_lizardmen
+			has_country_modifier = challenged_beastfolk
+		}
+		effect = {
+			remove_country_modifier = challenged_humans
+			remove_country_modifier = challenged_orcs
+			remove_country_modifier = challenged_dwarves
+			remove_country_modifier = challenged_elves
+			remove_country_modifier = challenged_undead
+			remove_country_modifier = challenged_fimir
+			remove_country_modifier = challenged_ogre
+			remove_country_modifier = challenged_skaven
+			remove_country_modifier = challenged_lizardmen
+			remove_country_modifier = challenged_beastfolk
+			add_country_modifier = {
+				name = "challenged_world"
+				duration = -1
+			}
+		}
+	}
+}
+
+race_relations_5_missions = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+        tag = A74
+        NOT = {
+            map_setup = map_setup_random
+        }
+	}
+	### Beastfolk ###
+	challenge_beastfolk = {
+		icon = mission_chaos_culture
+		required_missions = {
+		}
+		position = 10
+		provinces_to_highlight = {
+			owner = { has_country_modifier = beastfolk_military }
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = defeated_beastfolk_tt
+				has_country_flag = defeated_beastfolk
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "challenged_beastfolk"
+				duration = -1
+			}
+		}
+	}
+	trade_beastfolk = {
+		icon = mission_wood_elf_religion
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = beastfolk_administration }
+		}
+		trigger = {
+			any_country = {
+				has_country_modifier = beastfolk_administration
+				trust = {
+					who = ROOT
+					value = 60
+				}
+				has_opinion = {
+					who = ROOT
+					value = 150
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "traded_beastfolk"
+				duration = -1
+			}
+		}
+	}
+	### Undead ###
+	challenge_undead = {
+		icon = mission_vampire_religion
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = undead_military }
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = defeated_undead_tt
+				has_country_flag = defeated_undead
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "challenged_undead"
+				duration = -1
+			}
+		}
+	}
+	trade_undead = {
+		icon = mission_tomb_king_religion
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = undead_administration }
+		}
+		trigger = {
+			any_country = {
+				has_country_modifier = undead_administration
+				trust = {
+					who = ROOT
+					value = 60
+				}
+				has_opinion = {
+					who = ROOT
+					value = 150
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "traded_undead"
+				duration = -1
+			}
+		}
+	}
+}
