@@ -2,15 +2,14 @@ namespace = event_no_waaagh
 
 # Orc Waaagh Events
 
-#No Waagh Disaster Start
+# If low fightiness, war or rebels
 country_event = {
 	id = event_no_waaagh.1
 	title = event_no_waaagh.1.t
 	desc = event_no_waaagh.1.d
-	picture = ARTWORK_eventPicture
+	picture = GREENSKIN_eventPicture
 	
-	
-	is_triggered_only = no
+	is_triggered_only = yes
 	
 	trigger = {
 		has_government_mechanic = orc_fightiness_mechanic
@@ -21,16 +20,24 @@ country_event = {
 				value = -50
 			}
 		}
+		any_neighbor_country = {
+			NOT = { is_subject_of = root }
+			NOT = { overlord_of = root }
+			NOT = { alliance_with = root }
+			NOT = { ROOT = { truce_with = prev } }
+		}
 		NOT = { is_at_war = yes }
 	}
 
-	mean_time_to_happen = { months = 24 }
+	mean_time_to_happen = {
+		days = 1
+	}
 	
 
 	# Rebels
 
 	option = {
-		name = event_no_waaagh.1.option_5
+		name = event_no_waaagh.1.option_1
 		ai_chance = { factor = 1 }
 		random_owned_province = {
 			spawn_rebels = {
@@ -41,10 +48,10 @@ country_event = {
 	}
 
 
-	# Declare War
+	# Declare War on a strong person
 
 	option = {
-		name = event_no_waaagh.1.option_1
+		name = event_no_waaagh.1.option_2
 		ai_chance = {
 			factor = 10
 			modifier = {
@@ -58,6 +65,14 @@ country_event = {
 				NOT = { overlord_of = root }
 				NOT = { alliance_with = root }
 				NOT = { ROOT = { truce_with = prev } }
+				ROOT = {
+					NOT = {
+						army_strength = {
+							who = prev
+							value = 1.0
+						}
+					}
+				}
 			}
 		}
 		add_yearly_manpower = 0.5
@@ -67,6 +82,14 @@ country_event = {
 				NOT = { overlord_of = root }
 				NOT = { alliance_with = root }
 				NOT = { ROOT = { truce_with = prev } }
+				ROOT = {
+					NOT = {
+						army_strength = {
+							who = prev
+							value = 1.0
+						}
+					}
+				}
 			}
 
 			ROOT = {
@@ -79,7 +102,7 @@ country_event = {
 	}
 
 	option = {
-		name = event_no_waaagh.1.option_2
+		name = event_no_waaagh.1.option_3
 		ai_chance = {
 			factor = 100
 			modifier = {
@@ -97,7 +120,13 @@ country_event = {
 				ROOT = {
 					army_strength = {
 						who = prev
-						value = 1.25
+						value = 1.0
+					}
+					NOT = {
+						army_strength = {
+							who = prev
+							value = 2.00
+						}
 					}
 				}
 			}
@@ -112,7 +141,13 @@ country_event = {
 				ROOT = {
 					army_strength = {
 						who = prev
-						value = 1.25
+						value = 1.0
+					}
+					NOT = {
+						army_strength = {
+							who = prev
+							value = 2.0
+						}
 					}
 				}
 			}
@@ -126,7 +161,7 @@ country_event = {
 	}
 
 	option = {
-		name = event_no_waaagh.1.option_3
+		name = event_no_waaagh.1.option_4
 		ai_chance = {
 			factor = 1000
 			modifier = {
@@ -146,8 +181,16 @@ country_event = {
 						who = prev
 						value = 2.00
 					}
+					NOT = {
+						army_strength = {
+							who = prev
+							value = 4.00
+						}
+					}
 				}
 			}
+
+
 		}
 		add_yearly_manpower = 0.5
 		random_neighbor_country = {
@@ -160,6 +203,12 @@ country_event = {
 					army_strength = {
 						who = prev
 						value = 2.00
+					}
+					NOT = {
+						army_strength = {
+							who = prev
+							value = 4.00
+						}
 					}
 				}
 			}
@@ -174,8 +223,9 @@ country_event = {
 	}
 
 
+## The really weak one
 	option = {
-		name = event_no_waaagh.1.option_4
+		name = event_no_waaagh.1.option_5
 		ai_chance = {
 			factor = 10000
 			modifier = {
@@ -221,115 +271,20 @@ country_event = {
 			}
 		}
 	}
-
-
-	# Rebels instead
-
 }
 
 
-#No Waagh Disaster ends
-#country_event = {
-#	id = event_no_waaagh.2
-#	title = event_no_waaagh.2.t
-#	desc = event_no_waaagh.2.d
-#	picture = ARTWORK_eventPicture
-#	
-#	
-#	is_triggered_only = no
-#	
-#	trigger = {
-#		has_government_mechanic = orc_fightiness_mechanic
-#		NOT = { orc_fightiness_power = -50 }
-#	}
-#	
-#	mean_time_to_happen = { months = 3 }
-#	
-#
-#	# Declare War on Somebody
-#
-#	option = {
-#		name = event_no_waaagh.2.option_1
-#		ai_chance = { factor = 100 }
-#	}
-#}
 
 
-#No Waagh Declare War Event
-country_event = {
-	id = event_no_waaagh.3
-	title = event_no_waaagh.3.t
-	desc = event_no_waaagh.3.d
-	picture = ARTWORK_eventPicture
-	
-	
-	is_triggered_only = no
-	
-	trigger = {
-		has_government_mechanic = orc_fightiness_mechanic
-		NOT = {
-			has_government_power = {
-				mechanic_type = orc_fightiness_mechanic
-				power_type = orc_fightiness_power
-				value = -50
-			}
-		}
-		NOT = { is_at_war = yes }
-	}
 
-	mean_time_to_happen = { months = 24 }
-	
-
-	# Rebels
-
-	option = {
-		name = event_no_waaagh.3.option_2
-		ai_chance = { factor = 10 }
-		random_owned_province = {
-			spawn_rebels = {
-				size = 1
-				type = pretender_rebels
-			}
-		}
-	}
-
-
-	option = {
-		name = event_no_waaagh.3.option_1
-		ai_chance = {
-			factor = 100
-			modifier = {
-				factor = 0
-				is_subject = yes
-			}
-		}
-		add_yearly_manpower = 0.5	
-		random_neighbor_country = {
-			LIMIT = {
-				NOT = { is_subject_of = root }
-				NOT = { overlord_of = root }
-				NOT = { alliance_with = root }
-				NOT = { ROOT = { truce_with = prev } }
-			}
-
-			ROOT = {
-				declare_war_with_cb = {
-		  			who = PREV
-		    		casus_belli = cb_annex
-				}
-			}
-		}
-	}
-
-}
-
-
-#No Waagh Overeager Troops
+# Low Fightiness, Troops or rebels
 country_event = {
 	id = event_no_waaagh.4
 	title = event_no_waaagh.4.t
 	desc = event_no_waaagh.4.d
-	picture = ARTWORK_eventPicture
+	picture = GREENSKIN_eventPicture
+
+	is_triggered_only = yes
 	
 	
 	trigger = {
@@ -341,10 +296,18 @@ country_event = {
 				value = -50
 			}
 		}
+		any_neighbor_country = {
+			NOT = { is_subject_of = root }
+			NOT = { overlord_of = root }
+			NOT = { alliance_with = root }
+			NOT = { ROOT = { truce_with = prev } }
+		}
 		NOT = { is_at_war = yes }
 	}
 
-	mean_time_to_happen = { months = 24 }
+	mean_time_to_happen = {
+		days = 1
+	}
 
 	immediate = {
 		random_owned_province = { save_event_target_as = event_target }
@@ -357,7 +320,7 @@ country_event = {
 	option = {
 		name = event_no_waaagh.4.option_1
 		ai_chance = { factor = 100 }
-		add_yearly_manpower = 1
+		add_yearly_manpower = 0.5
 		add_stability = -1
 	}
 
@@ -383,10 +346,10 @@ country_event = {
 	id = event_no_waaagh.5
 	title = event_no_waaagh.5.t
 	desc = event_no_waaagh.5.d
-	picture = ARTWORK_eventPicture
+	picture = GREENSKIN_eventPicture
 	
 	
-	is_triggered_only = no
+	is_triggered_only = yes
 	
 	trigger = {
 		has_government_mechanic = orc_fightiness_mechanic
@@ -406,8 +369,9 @@ country_event = {
 
 	goto = event_target
 
-	mean_time_to_happen = { months = 24 }
-	
+	mean_time_to_happen = {
+		days = 1
+	}	
 
 	# Kill Ruler
 
@@ -425,7 +389,7 @@ country_event = {
 		name = event_no_waaagh.5.option_2
 		ai_chance = { factor = 100 }
 		create_general = { tradition = 75 }
-		add_yearly_manpower = 2.0
+		add_yearly_manpower = 1.0
 		event_target:event_target = {
 			spawn_rebels = {
 				size = 1
@@ -440,68 +404,16 @@ country_event = {
 
 namespace = event_waaagh
 
-#Waagh Disaster Start
-#country_event = {
-#	id = event_waaagh.1
-#	title = event_waaagh.1.t
-#	desc = event_waaagh.1.d
-#	picture = ARTWORK_eventPicture
-#	
-#	
-#	is_triggered_only = no
-#	
-#	trigger = {
-#		has_government_mechanic = orc_fightiness_mechanic
-#		NOT = { orc_fightiness_power = 50 }
-#	}
-#	
-#	mean_time_to_happen = { months = 3 }
-#	
-#
-#	# The Waaagh Begins
-#
-#	option = {
-#		name = event_waaagh.1.option_1
-#		ai_chance = { factor = 100 }
-#		add_yearly_manpower = 0.5	
-#		add_army_tradition = 10
-#		create_general = { tradition = 75 }
-#	}
-#}
 
-
-
-#The WAAAGH Ends
-#country_event = {
-#	id = event_waaagh.2
-#	title = event_waaagh.2.t
-#	desc = event_waaagh.2.d
-#	picture = ARTWORK_eventPicture
-#	
-#	
-#	is_triggered_only = no
-#	
-#	trigger = {
-#	}
-#
-#	# The Waaagh Ends
-#
-#	option = {
-#		name = event_waaagh.2.option_1
-#		add_yearly_manpower = -1.0
-#
-#	}
-# }
-
-# Grow the WAAAGH
+#Some of our soldiers seem to have their bloodlust sated by bringing back loot, and they are willing to share. But are we really willing to encourage such behavior?
 country_event = {
-	id = event_waaagh.3
-	title = event_waaagh.3.t
-	desc = event_waaagh.3.d
-	picture = ARTWORK_eventPicture
+	id = event_waaagh.1
+	title = event_waaagh.1.t
+	desc = event_waaagh.1.d
+	picture = GREENSKIN_eventPicture
 	
 	
-	is_triggered_only = no
+	is_triggered_only = yes
 	
 	trigger = {
 		has_government_mechanic = orc_fightiness_mechanic
@@ -512,8 +424,107 @@ country_event = {
 		}
 	}
 	
-	mean_time_to_happen = { months = 24 }
+	mean_time_to_happen = {
+		days = 1
+	}
+
+## Take the gold, let them leave
+	option = {
+		name = event_waaagh.1.option_1
+		ai_chance = { factor = 10 }
+		add_years_of_income = 0.5
+		add_yearly_manpower = -0.5
+		add_piety = -0.05
+	}
+
+
+# Burn the loot and send them back!
+	option = {
+		name = event_waaagh.1.option_2
+		ai_chance = { factor = 100 }
+		add_piety = 0.05
+	}
+}
+
+
+# Our soldiers have brought back all sorts of strange items - alembics, pieces of artwork, trieties on philosophy. We should, of course, destroy such strange works, but maybe there's some value to be gained?
+country_event = {
+	id = event_waaagh.2
+	title = event_waaagh.2.t
+	desc = event_waaagh.2.d
+	picture = GREENSKIN_eventPicture
 	
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_government_mechanic = orc_fightiness_mechanic
+		has_government_power = {
+			mechanic_type = orc_fightiness_mechanic
+			power_type = orc_fightiness_power
+			value = 50
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+		
+## Smash it!
+	option = {
+		name = event_waaagh.2.option_1
+		ai_chance = { factor = 10 }
+		add_years_of_income = 0.25
+		add_government_power = {
+			mechanic_type = orc_fightiness_mechanic
+			power_type = orc_fightiness_power
+			value = 25
+		}
+		add_piety = -0.05
+	}
+
+
+# Let's see what these trinkets are...
+	option = {
+		name = event_waaagh.2.option_2
+		ai_chance = { factor = 100 }
+		add_government_power = {
+			mechanic_type = orc_fightiness_mechanic
+			power_type = orc_fightiness_power
+			value = -25
+		}
+		add_adm_power = 25
+		add_dip_power = 25
+		add_mil_power = 25
+		add_piety = 0.05
+	}
+}
+
+
+
+
+# Grow the WAAAGH
+country_event = {
+	id = event_waaagh.3
+	title = event_waaagh.3.t
+	desc = event_waaagh.3.d
+	picture = GREENSKIN_eventPicture
+	
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_government_mechanic = orc_fightiness_mechanic
+		has_government_power = {
+			mechanic_type = orc_fightiness_mechanic
+			power_type = orc_fightiness_power
+			value = 50
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}	
 	# Rebels
 
 	option = {
@@ -557,10 +568,6 @@ country_event = {
 		}
 		add_piety = -0.25
 	}
-
-
-	# Rebels instead
-
 }
 
 
@@ -569,10 +576,10 @@ country_event = {
 	id = event_waaagh.4
 	title = event_waaagh.4.t
 	desc = event_waaagh.4.d
-	picture = ARTWORK_eventPicture
+	picture = GREENSKIN_eventPicture
 	
 	
-	is_triggered_only = no
+	is_triggered_only = yes
 	
 	trigger = {
 		has_government_mechanic = orc_fightiness_mechanic
@@ -581,14 +588,11 @@ country_event = {
 			power_type = orc_fightiness_power
 			value = 50
 		}
+		NOT = { manpower_percentage = 1.0 }
 	}
 	
 	mean_time_to_happen = {
-		months = 36
-			modifier = {
-			factor = 200
-			manpower_percentage = 0.9
-		}
+		days = 1
 	}
 	
 
@@ -619,10 +623,10 @@ country_event = {
 	id = event_waaagh.5
 	title = event_waaagh.5.t
 	desc = event_waaagh.5.d
-	picture = ARTWORK_eventPicture
+	picture = GREENSKIN_eventPicture
 	
 	
-	is_triggered_only = no
+	is_triggered_only = yes
 	
 	trigger = {
 		has_government_mechanic = orc_fightiness_mechanic
@@ -633,8 +637,9 @@ country_event = {
 		}
 	}
 	
-	mean_time_to_happen = { months = 36 }
-	
+	mean_time_to_happen = {
+		days = 1
+	}	
 
 	option = {
 		name = event_waaagh.5.option_1
@@ -658,6 +663,5 @@ country_event = {
 		add_piety = 0.05
 	}
 }
-
 
 

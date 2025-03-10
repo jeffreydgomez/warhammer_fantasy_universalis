@@ -52,6 +52,9 @@ gen_indish_ultimate_missions = {
 		}
 		position = 9
 		trigger = {
+
+			is_great_power = yes
+
 			NOT = {
 				any_country = {
 					NOT = { great_power_rank = 9 }
@@ -152,6 +155,18 @@ gen_ind_missions = {
 		icon = mission_ind_culture
 		required_missions = { gen_indish_cavalry } 
 		trigger = {
+
+			# Performance
+			hidden_trigger = {
+				OR = {
+					ai = no
+					AND = {
+						num_of_cities = 25
+						at_war_with_religious_enemy = yes
+					}
+				}
+			}
+
 			any_country = {
 				NOT = { religion = ROOT }
 				ROOT = {
