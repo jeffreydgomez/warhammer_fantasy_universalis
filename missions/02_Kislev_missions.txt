@@ -1,0 +1,861 @@
+##################################
+##### KISLEV CULTURE GROUP
+##################################
+
+## This mission tree is technically for the Kislevite mission group, but it's really for Kislev
+
+
+kislev_missions_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = kislevite_group
+		not = {
+			tag = B38
+		}
+	}
+
+## We must push back the norscans
+	kislev_norsca_1 = {
+		icon = mission_kislev_religion
+		required_missions = { kislev_forts_1 }
+		position = 2
+		provinces_to_highlight = {
+          	NOT = { owned_by = ROOT }
+          	region = norsca_region
+        }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 15
+				region = norsca_region
+			}
+		}
+		effect = {
+		}
+	}
+
+## To prevent norsca raids, we need to build up our navy to protect our shores. A strong army is not enough.
+	kislev_norsca_2 = {
+		icon = mission_kislev_culture
+		required_missions = { kislev_norsca_1 }
+		trigger = {
+			navy_size = 30
+		}
+		effect = {
+			add_country_modifier = {
+				name = kislev_naval_enthusiasm
+				duration = -1
+			}
+			custom_tooltip = claim_norsca_tt
+			hidden_effect = {
+				every_province = {
+					limit = { region = norsca_region }
+					 add_claim = ROOT
+				}
+			}
+		}
+	}
+
+## We have convert the heathens of norsca, and claimed much of this cursed land. We shall never be harrassed from raids here again.
+	kislev_norsca_3 = {
+		icon = mission_kislev_religion
+		required_missions = { kislev_norsca_2 }
+		position = 5
+		provinces_to_highlight = {
+          	NOT = { owned_by = ROOT }
+          	region = norsca_region
+        }
+		trigger = {
+			
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 30
+				region = norsca_region
+			}
+
+			NOT = {
+				any_province = {
+					region = norsca_region
+					NOT = { religion_group = ROOT }
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+## The boyars are a critical part of our power structure. They must be appeased.
+	kislev_boyars_1 = {
+		icon = mission_kislev_culture
+		required_missions = { kislev_factional_strife }
+		position = 8
+		trigger = {
+			OR = {
+				AND = {
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_nobles
+						value = 2
+					}
+				}
+				NOT = {
+					estate_influence = {
+				    	estate = estate_nobles
+				    	influence = 25
+					}
+				}
+			}
+
+		}
+		effect = {
+		}
+	}
+
+### The boyars bring their bear cavalry, and crave the glory of battle. Let us give it to them.
+	kislev_boyars_2 = {
+		icon = mission_kislev_culture
+		required_missions = { kislev_boyars_1 }
+		trigger = {
+			cavalry_fraction = 0.3
+			prestige = 50
+		}
+		effect = {
+		}
+	}
+
+## We shall further integrate the boyars into our armies. Let them get out their aggression on the battlefield.
+	kislev_boyars_3 = {
+		icon = mission_kislev_culture
+		required_missions = { kislev_boyars_2 }
+		trigger = {
+			num_of_cavalry = 30
+			prestige = 75
+		}
+		effect = {
+		}
+	}
+
+## We must choose to either please the boyars, or to diminish thier influence significantly.
+	kislev_boyars_4 = {
+		icon = mission_kislev_culture
+		required_missions = { kislev_boyars_3 }
+		position = 8
+		trigger = {
+			OR = {
+				AND = {
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 75
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_nobles
+						value = 4
+					}
+					estate_influence = {
+					    estate = estate_nobles
+					    influence = 80
+					}
+				}
+				NOT = {
+					estate_influence = {
+				    	estate = estate_nobles
+				    	influence = 10
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+}
+
+
+kislev_missions_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = kislevite_group
+		not = {
+			tag = B38
+		}
+	}
+
+### Kisleve is a bastion against the forces of chaos. We need forts.
+	kislev_forts_1 = {
+		icon = mission_kislev_culture
+		required_missions = { }
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 6
+				fort_level = 2
+			}
+		}
+		effect = {
+		}
+	}
+
+## The Empire to the south can be a great ally. But we could also take advantage of its fractured nature to grow our own strength.
+	kislev_secure_the_south = {
+		icon = mission_kislev_culture
+		required_missions = { kislev_forts_1 }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+	            owner = {
+					OR = {
+						is_emperor = yes
+						AND = {
+							has_country_modifier = human_administration
+							army_size = ROOT
+						}
+						NOT = { tag = ROOT }
+					}
+	            }
+	            province_id = 178
+	            province_id = 147
+	        }
+        }
+		trigger = {
+			OR = {
+				any_ally = {
+					OR = {
+						is_emperor = yes
+						AND = {
+							has_country_modifier = human_administration
+							army_size = ROOT
+						}
+					}
+					trust = { who = ROOT value = 75 }
+				}
+				AND = {
+					178 = { owned_by = ROOT }
+					147 = { owned_by = ROOT }
+				}
+			}
+		}
+## Effect to make friends, claim, or join the HRE
+		effect = {
+		}
+	}
+
+## Even as we grow on land, these underpassages are a dagger to our heartlands. We must push the inhabitants back, or make peace with them.
+	kislev_secure_the_mountains = {
+		icon = mission_kislev_culture
+		required_missions = { kislev_secure_the_south }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4558
+				province_id = 1163
+			}
+        }
+		trigger = {
+			4558 = {
+				OR = {
+					owned_by = ROOT
+					owner = {
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+					}
+					ROOT = {
+						has_won_war_against = {
+							who = PREV
+							max_years_since = 25
+						}
+					}
+				}
+			}
+
+			1163 = {
+				OR = {
+					owned_by = ROOT
+					owner = {
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+					}
+					ROOT = {
+						has_won_war_against = {
+							who = PREV
+							max_years_since = 25
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+## The glory of our faded empire is restored! Let us declare a new government and a new constitution better able to handle our growing size.
+## This should give siberian frontiers and more gov cap - Could this be requires wheatlands *or* Norsca?
+	kislev_proclaim_new_empire = {
+		icon = mission_kislev_culture
+		required_missions = { kislev_secure_the_mountains kislev_wheatlands_4 }
+		position = 6
+		trigger = {
+			total_development = 400
+		}
+		effect = {
+		}
+	}
+
+## The boyars and ice witches agree - we need a strong forts to protect our borders.
+	kislev_forts_2 = {
+		icon = mission_kislev_culture
+		required_missions = { kislev_boyars_1 kislev_ice_witch_1 }
+		position = 9
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 10
+				fort_level = 2
+			}
+		}
+		effect = {
+		}
+	}
+
+## And we need a strong army to defend ourselves.
+	kislev_army_1 = {
+		icon = mission_kislev_culture
+		required_missions = { kislev_forts_2 }
+		position = 9
+		trigger = {
+			army_size = 100
+		}
+		effect = {
+		}
+	}
+
+}
+
+kislev_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = kislevite_group
+		not = {
+			tag = B38
+		}
+	}
+
+### We need to reclaim our lands to the east
+	kislev_wheatlands_1 = {
+		icon = mission_kislev_culture
+		required_missions = { kislev_forts_1 }
+		position = 2
+		provinces_to_highlight = {
+            region = wheatlands_region
+            NOT = { owned_by = ROOT }
+        }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				region = wheatlands_region
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = kislev_wheatlands_taken
+				duration = -1
+			}
+		}
+	}
+
+## As we expand into the wheatlands, we must build barracks to house our new troops
+	kislev_wheatlands_2 = {
+		icon = mission_kislev_culture
+		required_missions = { kislev_wheatlands_1 }
+		provinces_to_highlight = {
+            region = wheatlands_region
+            NOT = { owned_by = ROOT }
+        }
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+			 		has_building = barracks
+			 		has_building = training_fields
+				}
+				value = 5
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 15
+				region = wheatlands_region
+			}
+		}
+		effect = {
+		}
+	}
+
+## We shall retake our entire domain
+	kislev_wheatlands_3 = {
+		icon = mission_kislev_culture
+		required_missions = { kislev_wheatlands_2 }
+		provinces_to_highlight = {
+            region = wheatlands_region
+            NOT = { owned_by = ROOT }
+        }
+		trigger = {
+			NOT = {
+				any_province = {
+					region = wheatlands_region
+					NOT = {
+						OR = {
+							owned_by = ROOT
+							owned_by_subject_of = ROOT
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+## Now that the wheatlands are ours, let us tend to the fields and grow the crops.
+	kislev_wheatlands_4 = {
+		icon = mission_kislev_culture
+		required_missions = { kislev_wheatlands_3 }
+		provinces_to_highlight = {
+            region = wheatlands_region
+            NOT = { base_manpower = 2 }
+        }
+		trigger = {
+			NOT = {
+				any_province = {
+					region = wheatlands_region
+					base_manpower = 2
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+
+## Our new constitution is being put to the test immediately. Three factions are vying for power - the Boyars, the Ice Queens, and the Church. We must resolve their feuds, and placate or destroy them. Then we must choose one to place in charge.
+	kislev_factional_strife = {
+		icon = mission_kislev_culture
+		required_missions = { kislev_proclaim_new_empire kislev_modern_economic_institutions }
+		position = 7
+		provinces_to_highlight = {
+        }
+		trigger = {
+			crown_land_share = 50
+			capital_scope = { development = 30 }
+		}
+		effect = {
+		}
+	}
+
+## Talk about the ice witches, and why is is important to earn their loyalty
+	kislev_ice_witch_1 = {
+		icon = mission_kislev_culture
+		required_missions = { kislev_factional_strife }
+		provinces_to_highlight = {
+        }
+		trigger = {
+## This will be estate loyalty when the estate is made
+
+		}
+		effect = {
+		}
+	}
+
+## The ice witches are powerful, and demand payments for their great works.
+	kislev_ice_witch_2 = {
+		icon = mission_kislev_culture
+		required_missions = { kislev_ice_witch_1 }
+		provinces_to_highlight = {
+        }
+		trigger = {
+			treasury = 1000
+		}
+		effect = {
+		}
+	}
+
+## The ice witches need a place to train new recruits. 
+	kislev_ice_witch_3 = {
+		icon = mission_kislev_culture
+		required_missions = { kislev_ice_witch_2 }
+		provinces_to_highlight = {
+        }
+		trigger = {
+			any_owned_province = {
+				development = 35
+				has_building = university
+			}
+		}
+		effect = {
+		}
+	}
+
+
+## Choose a faction of Kislev - Who shall rule our nation? The Boyars, the Ice Witches, or the Church? Or should the crown rule without the assistance of any great faction.
+## Gives event which gives bonuses, and permanent influence/loyalty to one estate at the expense of the others
+	kislev_choose_a_faction = {
+		icon = mission_kislev_culture
+		required_missions = { kislev_boyars_3 kislev_ice_witch_3 kislev_defender_of_faith }
+		provinces_to_highlight = {
+        }
+		trigger = {
+			crown_land_share = 95
+			capital_scope = { development = 50 }
+			NOT = { num_of_powerful_estates = 2 }
+		}
+		effect = {
+		}
+	}
+
+## Our ultimate goal is to destroy chaos entirely
+	kislev_ultimate_mission = {
+		icon = mission_kislev_culture
+		required_missions = { }
+		provinces_to_highlight = {
+            owner = {
+            	NOT = { tag = ROOT }
+            	religion_group = ruinous_powers_denominations
+            }
+        }
+		trigger = {
+
+			is_great_power = yes
+
+			all_country = {
+				NOT = { religion_group = ruinous_powers_denominations }
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = kislev_ultimate_reward
+				duration = -1
+			}
+		}
+	}
+
+
+
+}
+
+
+kislev_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = kislevite_group
+		not = {
+			tag = B38
+		}
+	}
+
+## Our nation is fragmented, and we need to restablish religious unity to survive
+	kislev_religious_unity = {
+		icon = mission_kislev_religion
+		required_missions = { }
+		trigger = {
+			religious_unity = 1.0
+		}
+		provinces_to_highlight = {
+			owned_by = ROOT
+          	NOT = { religion = ROOT }
+        }
+		effect = {
+			add_patriarch_authority = 0.05
+		}
+	}
+
+# Temples will help our people find the right way to live.
+	kislev_build_temples = {
+		icon = mission_trade_company_region_abroad
+		required_missions = { kislev_establish_stability }
+		position = 3
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_building = temple }
+			NOT = { has_building = cathedral }
+		}
+		trigger = {
+			religious_unity = 0.95
+			OR = {
+				num_of_owned_provinces_with = {
+					OR = {
+						has_building = temple
+						has_building = cathedral
+					}
+					value = 5
+				}
+				all_owned_province = {
+					OR = {
+						has_building = temple
+						has_building = cathedral
+					}
+				}
+			}
+		}
+		effect = {
+
+		}
+	}
+
+## We need a strong central capital to unify our country.
+	kislev_build_up_capital = {
+		icon = mission_trade_company_region_abroad
+		required_missions = { kislev_build_temples }
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+		}
+		trigger = {
+			religious_unity = 0.95
+			capital_scope = {
+				development = 25
+				num_of_buildings_in_province = 3
+			}
+		}
+		effect = {
+
+		}
+	}
+
+## With Kislev stabilized, we can modernize some of our institutions. Our old economic and taxation and trade systems simply must go.
+	kislev_modern_economic_institutions = {
+		icon = mission_trade_company_region_abroad
+		required_missions = { kislev_build_up_capital kislev_build_markets }
+		position = 6
+		provinces_to_highlight = {
+		}
+		trigger = {
+			innovativeness = 5
+			OR = {
+				num_of_owned_provinces_with = {
+					OR = {
+						has_building = workshop
+						has_building = counting_house
+					}
+					value = 5
+				}
+				all_owned_province = {
+					OR = {
+						has_building = workshop
+						has_building = counting_house
+					}
+				}
+			}
+		}
+		effect = {
+
+		}
+	}
+
+### The ice witches and church agree - we must drive back the forces of chaos!
+	kislev_wars_against_chaos_1 = {
+		icon = mission_trade_company_region_abroad
+		required_missions = { kislev_ice_witch_1 kislev_happy_church_1 }
+		position = 9
+		provinces_to_highlight = {
+		}
+		trigger = {
+			## Convert number of provinces
+			## At war with chaos
+
+		}
+		effect = {
+
+		}
+	}
+
+## Even farther back!
+	kislev_wars_against_chaos_2 = {
+		icon = mission_trade_company_region_abroad
+		required_missions = { kislev_wars_against_chaos_1 }
+		provinces_to_highlight = {
+		}
+		trigger = {
+			### Force convert somebody?
+
+		}
+		effect = {
+
+		}
+	}
+
+
+}
+
+
+
+kislev_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = kislevite_group
+		not = {
+			tag = B38
+		}
+	}
+
+## Our country is in a precarious state. We need to prevent utter disaster by unifying our people before we can consider any other course.
+	kislev_end_initial_disaster = {
+		icon = mission_trade_company_region_abroad
+		required_missions = {  }
+		provinces_to_highlight = {
+		}
+		trigger = {
+
+		}
+		effect = {
+
+		}
+	}
+
+## With our people and religion stabilized, we can achieve a tradition and expectation of lasting stability.
+	kislev_establish_stability = {
+		icon = mission_trade_company_region_abroad
+		required_missions = { kislev_religious_unity kislev_end_initial_disaster }
+		provinces_to_highlight = {
+		}
+		trigger = {
+			stability = 3
+			legitimacy_equivalent = 99
+		}
+		effect = {
+
+		}
+	}
+
+## Our guilds are thrilled that we have reestablished stability. With stability comes trade, and we must make sure the government is getting its fair share.
+	kislev_happy_guilds = {
+		icon = mission_trade_company_region_abroad
+		required_missions = { kislev_establish_stability }
+		position = 4
+		trigger = {
+			estate_loyalty = {
+ 				estate = estate_burghers
+    			loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_burghers
+				value = 1
+			}
+		}
+		effect = {
+		}
+	}
+
+## Kislev was once a trading powerhouse, with furs, wheat, and precious stones funnelling from the east to the south. We can be so again.
+	kislev_build_markets = {
+		icon = mission_trade_company_region_abroad
+		required_missions = { kislev_happy_guilds }
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+				 	has_building = marketplace
+				 	has_building = trade_depot
+				 	has_building = stock_exchange
+				}
+				value = 5
+			}
+		}
+		effect = {
+		}
+	}
+
+## The church present a strong case for their ascention. They have the moral ground, after all.
+	kislev_happy_church_1 = {
+		icon = mission_kislev_religion
+		required_missions = { kislev_factional_strife }
+		position = 8
+		trigger = {
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 2
+			}
+		}
+		effect = {
+
+			add_patriarch_authority = 0.05
+		}
+	}
+
+
+## We shall defend our faith at all costs!
+	kislev_defender_of_faith = { 
+		icon = catholic_volunteers
+		required_missions = { kislev_happy_church_1 }
+		position = 10
+		provinces_to_highlight = {
+			owner = {
+				total_development = ROOT
+				religion = ROOT
+			}
+		}
+		trigger = {
+			prestige = 99
+			religious_unity = 1.0
+			OR = {
+				is_defender_of_faith = yes
+				AND = {
+					at_war_with_religious_enemy = yes
+					NOT = {
+						any_country = {
+							total_development = ROOT
+							religion = ROOT
+						}
+					}
+					any_country = {
+						religion = ROOT
+						OR = {
+							alliance_with = ROOT
+							is_subject_of = ROOT
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+		}
+	}
+
+## What can we achieve with the complete backing of the church?
+	kislev_happy_church_2 = {
+		icon = mission_kislev_religion
+		required_missions = { kislev_defender_of_faith }
+		trigger = {
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 75
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 4
+			}
+		}
+		effect = {
+
+			add_patriarch_authority = 0.05
+		}
+	}
+
+
+}
+
