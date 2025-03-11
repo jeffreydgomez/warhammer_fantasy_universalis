@@ -1,0 +1,384 @@
+#Barrow Legion Events
+
+#Perfect Krell
+country_event = {
+	id = A74.1
+	title = perfect_krell.1.t
+	desc = perfect_krell.1.d
+	picture = RELIGION_eventPicture
+	is_triggered_only = yes
+	trigger = {
+	}
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = krell_three
+		}
+	}
+	option = {
+		name = "krell_jack"
+		ai_chance = { 
+			factor = 100
+		}
+		set_country_flag = krell_perfection_jack
+		custom_tooltip = perfect_krell_jack_tt
+	}
+	option = {
+		name = "krell_fire"
+		set_country_flag = krell_perfection_fire
+		custom_tooltip = perfect_krell_fire_tt
+	}
+	option = {
+		name = "krell_shock"
+		set_country_flag = krell_perfection_shock
+		custom_tooltip = perfect_krell_shock_tt
+	}
+	option = {
+		name = "krell_maneuver"
+		set_country_flag = krell_perfection_maneuver
+		custom_tooltip = perfect_krell_maneuver_tt
+	}
+	option = {
+		name = "krell_siege"
+		set_country_flag = krell_perfection_siege
+		custom_tooltip = perfect_krell_siege_tt
+	}
+}
+
+#Subjugate Draco Order
+country_event = {
+	id = A74.2
+	title = subjugate_draco_order.1.t
+	desc = subjugate_draco_order.1.d
+	picture = MILITARY_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "status_quo"
+		ai_chance = { 
+			factor = 30
+		}
+		add_devotion = 10
+	}
+	option = {
+		name = "demand_vassalage"
+		ai_chance = {
+			factor = 40
+		}
+		A76 = {
+			country_event = {
+				id = A74.3
+				days = 3
+			}
+		}
+	}
+	option = {
+		name = "demand_annexation"
+		ai_chance = {
+			factor = 30
+		}
+		A76 = {
+			country_event = {
+				id = A74.4
+				days = 3
+			}
+		}
+	}
+}
+#Barrow Legion demands Vassalage 
+country_event = {
+	id = A74.3
+	title = subjugate_draco_order.2.t
+	desc = subjugate_draco_order.2.d
+	picture = MILITARY_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "accept_vassalization"
+		ai_chance = { 
+			factor = 100
+		}
+		A74 = {
+			country_event ={ 
+			id = A74.5 
+			days = 3
+			}
+		}
+	}
+	option = {
+		name = "refuse_vassalization"
+		ai_chance = { 
+			factor = 0
+		}
+		A74 = {
+			country_event ={ 
+			id = A74.6 
+			days = 3
+			}
+		}
+	}
+}
+#Draco Order accepts vassalage 
+country_event = {
+	id = A74.5
+	title = subjugate_draco_order.4.t
+	desc = subjugate_draco_order.4.d
+	picture = MILITARY_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "vassalization_accepted"
+		vassalize = FROM
+	}
+}
+#Draco Order rejects vassalge 
+country_event = {
+	id = A74.6
+	title = subjugate_draco_order.5.t
+	desc = subjugate_draco_order.5.d
+	picture = MILITARY_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "vassalization_rejected"
+		add_casus_belli = {
+			target = FROM
+			type = cb_vassalize_mission
+			months = 120
+		}    
+	}
+}
+
+#Barrow Legion demands Annexation
+country_event = {
+	id = A74.4
+	title = subjugate_draco_order.3.t
+	desc = subjugate_draco_order.3.d
+	picture = MILITARY_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "accept_annexation"
+		ai_chance = { 
+			factor = 50
+		}
+		A74 = {
+			country_event ={ 
+			id = A74.7 
+			days = 3
+			}
+		}
+	}
+	option = {
+		name = "refuse_annexation"
+		ai_chance = { 
+			factor = 50
+		}
+		A74 = {
+			country_event ={ 
+			id = A74.8 
+			days = 3
+			}
+		}
+	}
+}
+#Draco Order Accepts Annexation
+country_event = {
+	id = A74.7
+	title = subjugate_draco_order.6.t
+	desc = subjugate_draco_order.6.d
+	picture = MILITARY_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "annexation_accepted"
+		A74 = {
+			inherit = FROM
+		}
+	}
+}
+#Draco Order Denies Annexation
+country_event = {
+	id = A74.8
+	title = subjugate_draco_order.7.t
+	desc = subjugate_draco_order.7.d
+	picture = MILITARY_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "annexation_rejected"
+		A74 = {
+			add_casus_belli = {
+				target = FROM
+				type = cb_annex
+				months = 12
+			}
+		}
+	}
+}
+country_event = {
+	id = A74.9
+	title = ritual_of_nagash.1.t
+	desc = ritual_of_nagash.1.d
+	picture = DEATH_OF_HEIR_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "necromancer_ascends"
+		custom_tooltip = necromancer_ascends_tt
+		change_adm = 6
+		change_dip = 6
+		change_mil = 6
+		set_ruler_flag = immortal_ruler
+		clear_scripted_personalities = yes
+		add_ruler_personality = immortal_personality
+		add_ruler_modifier = {
+			name = necromancer_supreme
+			duration = -1
+			desc = necromancer_supreme_d
+		}
+	}
+	option = {
+		name = "krell_betrays"
+		custom_tooltip = krell_betrays_tt
+		define_ruler = {
+			name = "Mortarch"
+			dynasty = "of Despair"
+			adm = 5
+			dip = 5
+			mil = 6
+			fixed = yes
+			claim = 40
+			culture 
+		}
+		set_ruler_flag = immortal_ruler
+		clear_scripted_personalities = yes
+		add_ruler_personality = immortal_personality
+		add_ruler_modifier = {
+			name = mortarch_of_despair
+			duration = -1
+			desc = mortarch_of_despair_d
+		}
+		override_country_name = krells_legion
+		change_country_color = { 
+			color = { 256 256 256 }
+		}
+		set_country_flag = has_overriden_color_flag
+	}
+}
+
+#Constructed the Tower
+country_event = {
+	id = A74.10
+	title = constructed_tower.1.t
+	desc = constructed_tower.1.d
+	picture = GREAT_BUILDING_eventPicture 
+	is_triggered_only = yes
+	option = {
+		name = "black_tower_completed"
+		add_prestige = 25
+	}
+}
+#Expanded Army
+country_event = {
+	id = A74.11
+	title = expanded_army.1.t
+	desc = expanded_army.1.d
+	picture = LAND_MILITARY_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "create_more_monsters"
+		add_country_modifier = {
+			name = "many_monster_army"
+			duration = -1
+		}
+	}
+	option = {
+		name = "create_cheaper_monsters"
+		add_country_modifier = {
+			name = "cheaper_monster_army"
+			duration = -1
+		}
+	}
+}
+#Army Reform
+country_event = {
+	id = A74.12
+	title = barrow_army_reform.1.t
+	desc = barrow_army_reform.1.d
+	picture = MILITARY_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "improve_infantry"
+		add_country_modifier = {
+			name = "improved_infantry"
+			duration = -1
+		}
+	}
+	option = {
+		name = "improve_cavalry"
+		add_country_modifier = {
+			name = "improved_cavalry"
+			duration = -1
+		}
+	}
+	option = {
+		name = "improve_artillery"
+		add_country_modifier = {
+			name = "improved_artillery"
+			duration = -1
+		}
+	}
+}
+#Mousilion independence 
+country_event = {
+	id = A74.13
+	title = mousilion_independence.1.t
+	desc = mousilion_independence.1.d
+	picture = MILITARY_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "independence_day"
+		ai_chance = { 
+			factor = 100
+		}
+		declare_war_with_cb = {
+			who = FROM
+			casus_belli = cb_independence_war
+		}	
+	}
+	option = {
+		name = "that_would_kill_me"
+		add_prestige = -10
+	}
+}
+#Bretonnian Mousilion Independence
+country_event = {
+	id = A74.14
+	title = bretonnian_independence.1.t
+	desc = bretonnian_independence.1.d
+	picture = MILITARY_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "why_would_we_do_that"
+		ai_chance = { 
+			factor = 100
+		}
+		ai_chance = { 
+			factor = 100
+		}
+		A20 = {
+			country_event = {
+				id = A74.13
+				days = 3
+			}	
+		}
+	}
+	option = {
+		name = "let_them_go"
+		free_vassal = A20
+		add_prestige = -50
+		every_subject_country = {
+			add_liberty_desire = 25
+		}
+		A20 = {
+			every_known_country = {
+				limit = {
+					is_supporting_independence_of = ROOT
+				}
+				create_alliance = ROOT
+			}
+		}	
+	}
+}

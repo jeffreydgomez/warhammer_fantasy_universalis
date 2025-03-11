@@ -1377,25 +1377,59 @@ skaven_missions_3 = {
 		}
 		trigger = {
 
-			trade_goods_produced_amount = {
-				trade_goods = warpstone
-				amount = 50
-			}
-
-			NOT = {
-				any_province = {
-					NOT = { owned_by = ROOT }
-					NOT = { owned_by_subject_of = ROOT }
+			OR = {
+				trade_goods_produced_amount = {
 					trade_goods = warpstone
+					amount = 50
+				}
+
+				NOT = {
+					any_province = {
+						NOT = { owned_by = ROOT }
+						NOT = { owned_by_subject_of = ROOT }
+						trade_goods = warpstone
+					}
 				}
 			}
-			
 		}
 
 		effect = {
-			add_adm_tech = 2
-			add_dip_tech = 2
-			add_mil_tech = 2
+
+			if = {
+				limit = { adm_tech = 32 }
+				add_adm_power = 800
+			} else_if = {
+				limit = { adm_tech = 31 }
+				add_adm_tech = 1
+				add_adm_power = 400
+			} else = {
+				add_adm_tech = 2
+			}
+
+
+			if = {
+				limit = { dip_tech = 32 }
+				add_dip_power = 800
+			} else_if = {
+				limit = { dip_tech = 31 }
+				add_dip_tech = 1
+				add_adm_power = 400
+			} else = {
+				add_dip_tech = 2
+			}
+
+
+			if = {
+				limit = { mil_tech = 32 }
+				add_mil_power = 800
+			} else_if = {
+				limit = { mil_tech = 31 }
+				add_mil_tech = 1
+				add_mil_power = 400
+			} else = {
+				add_mil_tech = 2
+			}
+			
 			add_country_modifier = {
 				name = skaven_warpstone_age
 				duration = -1

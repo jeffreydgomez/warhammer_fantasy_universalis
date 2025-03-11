@@ -362,19 +362,19 @@ renaissance = {
 				continent = europe
 			}
 		}
-		modifier = {
-			factor = 0.1
-			scale = yes
-			potential = {
-				continent = europe
-			}
-			custom_trigger_tooltip = {
-				tooltip = tooltip_development_5_post_1500
-				continent = europe
-				is_year = 2555
-				development = 5
-			}
-		}
+#		modifier = {
+#			factor = 0.1
+#			scale = yes
+#			potential = {
+#				continent = europe
+#			}
+#			custom_trigger_tooltip = {
+#				tooltip = tooltip_development_5_post_1500
+#				continent = europe
+#				is_year = 2555
+#				development = 5
+#			}
+#		}
 		modifier = {
 			factor = 0.5
 			scale = yes
@@ -541,11 +541,11 @@ new_world_i = {
 	can_start = {
 		is_year = 2550
 		is_institution_enabled = renaissance
-		OR = {
-			continent = europe
-			continent = asia
-			continent = africa
-		}
+#		OR = {
+#			continent = europe
+#			continent = asia
+#			continent = africa
+#		}
 		has_port = yes
 		is_island = no
 		is_state = yes
@@ -555,9 +555,15 @@ new_world_i = {
 			is_capital = yes
 		}
 		is_in_capital_area = yes
-		owner = {
-			has_any_exploration_idea = yes
-			#at least one province colonised or colonising, or have a subject colony
+		OR = {
+			owner = {
+				OR = {
+					has_any_exploration_idea = yes
+					num_of_colonists = 1
+					num_of_explorers = 1
+				}
+			}
+			is_year = 2585
 		}
 	}
 	start_chance = 5	#in 100 for when a province can_start
@@ -746,11 +752,11 @@ printing_press = {
 			is_capital = yes
 			trade_goods = paper
 		}
-		OR = {
-			region = northern_empire_region
-			region = southern_empire_region
-			region = central_empire_region
-		}
+#		OR = {
+#			region = northern_empire_region
+#			region = southern_empire_region
+#			region = central_empire_region
+#		}
 	}
 	start_chance = 5	#in 100 for when a province can_start
 	on_start = institution_events.4
@@ -967,17 +973,17 @@ printing_press = {
 		modifier = {
 			factor = 0.02
 			custom_trigger_tooltip = {
-				tooltip = tooltip_has_paper_and_20
+				tooltip = tooltip_has_paper_and_10
 				trade_goods = paper
-				development = 20
+				development = 10
 			}
 		}
 		modifier = {
-			factor = 0.03
+			factor = 0.02
 			custom_trigger_tooltip = {
-				tooltip = tooltip_has_paper_and_30
+				tooltip = tooltip_has_paper_and_20
 				trade_goods = paper
-				development = 30
+				development = 20
 			}
 		}
 		modifier = {
@@ -985,7 +991,6 @@ printing_press = {
 			custom_trigger_tooltip = {
 				tooltip = tooltip_has_paper_and_20_good_owner
 				trade_goods = paper
-				development = 20
 				owner = {
 					ADM = 6
 				}
@@ -1782,13 +1787,10 @@ enlightenment = {
 				has_seat_in_parliament = yes
 			}
 			has_building = university
-			AND = {
-				continent = europe
-				owner = {
-					ADM = 5
-					MIL = 5
-					DIP = 5
-				}
+			owner = {
+				ADM = 5
+				MIL = 5
+				DIP = 5
 			}
 		}
 	}

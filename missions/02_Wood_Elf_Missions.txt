@@ -59,19 +59,25 @@ wood_elf_missions_1 = {
 		position = 5
 		trigger = {
 			treasury = 1000
-			has_government_power = {
-				mechanic_type = wood_elf_seasons_mechanic
-				power_type = season_time_power
-				value = 50
+			OR = {
+				AND = {
+					has_government_power = {
+						mechanic_type = wood_elf_seasons_mechanic
+						power_type = season_time_power
+						value = 50
+					}
+
+					NOT = {
+						has_government_power = {
+							mechanic_type = wood_elf_seasons_mechanic
+							power_type = season_time_power
+							value = 75
+						}
+					}
+				}
+				NOT = { has_government_mechanic = wood_elf_seasons_mechanic }
 			}
 
-			NOT = {
-				has_government_power = {
-					mechanic_type = wood_elf_seasons_mechanic
-					power_type = season_time_power
-					value = 75
-				}
-			}
 		}
 
 		effect = {
@@ -240,13 +246,17 @@ wood_elf_missions_2 = {
 			dip_power = 800
 			mil_power = 800
 
-			NOT = {
-				has_government_power = {
-					mechanic_type = wood_elf_seasons_mechanic
-					power_type = season_time_power
-					value = 25
+			OR = {
+				NOT = {
+					has_government_power = {
+						mechanic_type = wood_elf_seasons_mechanic
+						power_type = season_time_power
+						value = 25
+					}
 				}
+				NOT = { has_government_mechanic = wood_elf_seasons_mechanic }
 			}
+
 		}
 
 		effect = {
@@ -726,7 +736,7 @@ wood_elf_missions_4 = {
 	}
 
 	wood_elf_invest_in_monuments = {
-		icon = mission_treeleft
+		icon = mission_treeright
 		required_missions = {  }
 		position = 3
 		trigger = {
@@ -749,19 +759,25 @@ wood_elf_missions_4 = {
 		trigger = {
 			at_war_with_religious_enemy = yes
 
-			has_government_power = {
-				mechanic_type = wood_elf_seasons_mechanic
-				power_type = season_time_power
-				value = 25
+			OR = {
+				AND = {
+					has_government_power = {
+						mechanic_type = wood_elf_seasons_mechanic
+						power_type = season_time_power
+						value = 25
+					}
+
+					NOT = {
+						has_government_power = {
+							mechanic_type = wood_elf_seasons_mechanic
+							power_type = season_time_power
+							value = 50
+						}
+					}
+				}
+				NOT = { has_government_mechanic = wood_elf_seasons_mechanic }
 			}
 
-			NOT = {
-				has_government_power = {
-					mechanic_type = wood_elf_seasons_mechanic
-					power_type = season_time_power
-					value = 50
-				}
-			}
 		}
 
 		effect = {
@@ -906,11 +922,15 @@ wood_elf_missions_5 = {
 		trigger = {
 			at_war_with_religious_enemy = yes
 
-			has_government_power = {
-				mechanic_type = wood_elf_seasons_mechanic
-				power_type = season_time_power
-				value = 75
+			OR = {
+				has_government_power = {
+					mechanic_type = wood_elf_seasons_mechanic
+					power_type = season_time_power
+					value = 75
+				}
+				NOT = { has_government_mechanic = wood_elf_seasons_mechanic }
 			}
+
 		}
 
 		effect = {

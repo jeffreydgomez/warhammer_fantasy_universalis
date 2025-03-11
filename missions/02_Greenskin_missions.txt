@@ -1,0 +1,1141 @@
+
+##################################
+##### ORC CULTURE GROUP
+##################################
+greenskin_missions_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		OR = {
+			culture_group = greenskins_group
+			culture_group = hobgoblin_group
+		}
+	}
+
+# No warboss can be successful without the backing of the other great bosses.
+# Worth no ideas
+	greenskin_please_nobility = {
+		icon = mission_orc_culture
+		required_missions = { }
+		trigger = {
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+		effect = {
+			define_general = {
+				shock = 5
+				fire = 4
+				manuever = 5
+				siege = 0
+			}
+		}
+	}
+
+# Bosses respect those who earn respect. Let's have some people grovel at our feet.
+# Worth 1/2 idea
+	greenskin_few_subjects = {
+		icon = mission_orc_culture
+		required_missions = { greenskin_please_nobility }
+		trigger = {
+			num_of_subjects = 2
+		}
+		effect = {
+			add_country_modifier = { 
+			    name = greenskin_squeeze_vassals_1
+			    duration = -1  
+			}
+		}
+	}
+
+# This is fun! More people grovel at our feel. Let's squeeze more money out of them.
+# Worth 1/2 idea
+	greenskin_more_subjects = {
+		icon = mission_orc_culture
+		required_missions = { greenskin_few_subjects }
+		trigger = {
+			num_of_subjects = 4
+		}
+		effect = {
+			remove_country_modifier = greenskin_squeeze_vassals_1
+			add_country_modifier = { 
+			    name = greenskin_squeeze_vassals_2
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt		
+		}
+	}
+
+# In order to establish our rule, we must grow. Replace the ar
+	greenskin_grow_1 = {
+		icon = mission_orc_culture
+		required_missions = { }
+		position = 5
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 25
+			}
+		}
+		effect = {
+			add_yearly_manpower = 1
+		}
+	}
+
+# Greenskins respect power. Let us show them.
+	greenskin_grow_2 = {
+		icon = mission_orc_culture
+		required_missions = { greenskin_grow_1 }
+		trigger = {
+			manpower = 50
+		}
+		effect = {
+			add_yearly_manpower = 2
+		}
+	}
+
+# We must claim the Khanate. More orcs flock to our banner
+	greenskin_grow_3 = {
+		icon = mission_orc_culture
+		required_missions = { greenskin_grow_2 }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 50
+			}
+		}
+		effect = {
+			add_yearly_manpower = 3
+		}
+	}
+
+# With a big enough army, we can conquer all
+	greenskin_grow_4 = {
+		icon = mission_orc_culture
+		required_missions = { greenskin_grow_3 }
+		trigger = {
+			manpower = 100
+		}
+		effect = {
+			add_yearly_manpower = 4
+		}
+	}
+
+## It is nearly time to begin the great Waagh
+## This whole chain is worth 1.5 ideas
+	greenskin_grow_5 = {
+		icon = mission_orc_culture
+		required_missions = { greenskin_grow_4 }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 100
+			}
+		}
+		effect = {
+			add_yearly_manpower = 5
+		}
+	}
+
+
+
+	greenskin_raid_naggarond = {
+		icon = mission_orc_culture
+		required_missions = {  }
+		position = 10
+		provinces_to_highlight = {
+			province_id = 2009
+		}
+		trigger = {
+			2009 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			2009 = {
+				set_province_flag = war_sacked_province
+				war_sack_city = yes
+			}
+		}
+	}
+
+
+	greenskin_raid_lothern = {
+		icon = mission_orc_culture
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 451
+		}
+		trigger = {
+			451 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			451 = {
+				set_province_flag = war_sacked_province
+				war_sack_city = yes
+			}
+		}
+	}
+
+	greenskin_raid_hexotl = {
+		icon = mission_orc_culture
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 2312
+		}
+		trigger = {
+			2312 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			2312 = {
+				set_province_flag = war_sacked_province
+				war_sack_city = yes
+			}
+		}
+	}
+
+	greenskin_raid_itza = {
+		icon = mission_orc_culture
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 2466
+		}
+		trigger = {
+			2466 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			2466 = {
+				set_province_flag = war_sacked_province
+				war_sack_city = yes
+			}
+		}
+	}
+
+
+}
+
+greenskin_missions_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		OR = {
+			culture_group = greenskins_group
+			culture_group = hobgoblin_group
+		}
+	}
+
+## The bosses respect a good fight. Let us go to war with an enemy with a nation 25% more powerful that us.
+	greenskin_warfare_1 = {
+		icon = mission_orc_culture
+		required_missions = { greenskin_please_nobility }
+		position = 2
+		provinces_to_highlight = {
+			owner = {
+				army_strength = {
+					who = ROOT
+					value = 1.25
+				}
+			}
+		}
+		trigger = {
+			is_at_war = yes
+			OR = {
+				any_country = {
+					war_with = ROOT
+					army_strength = {
+						who = ROOT
+						value = 1.25
+					}
+				}
+				NOT = {
+					any_known_country = {
+						army_strength = {
+							who = ROOT
+							value = 1.25
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+			    name = greenskin_respect_of_the_nobles_1
+			    duration = -1  
+			}
+		}
+	}
+
+## The more we are feared, the more the bosses respect us. Let us strike fear in others.
+	greenskin_warfare_2 = {
+		icon = mission_orc_culture
+		required_missions = { greenskin_warfare_1 }
+		trigger = {
+			is_at_war = yes
+			any_country = {
+				coalition_target = ROOT
+			}
+		}
+		effect = {
+			remove_country_modifier = greenskin_respect_of_the_nobles_1
+			add_country_modifier = { 
+			    name = greenskin_respect_of_the_nobles_2
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt		
+		}
+	}
+
+# ## The bosses respect a good fight. Let us go to war with an enemy with a nation twice as more powerful that us.
+# Worth 1 idea
+	greenskin_warfare_3 = {
+		icon = mission_orc_culture
+		required_missions = { greenskin_warfare_2 }
+		provinces_to_highlight = {
+			owner = {
+				army_strength = {
+					who = ROOT
+					value = 1.25
+				}
+			}
+		}
+		trigger = {
+			is_at_war = yes
+			OR = {
+				any_country = {
+					war_with = ROOT
+					army_strength = {
+						who = ROOT
+						value = 2.0
+					}
+				}
+				NOT = {
+					any_known_country = {
+						army_strength = {
+							who = ROOT
+							value = 2.0
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = greenskin_respect_of_the_nobles_2
+			add_country_modifier = { 
+			    name = greenskin_respect_of_the_nobles_3
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt		
+		}
+	}
+
+# We must admit, growth as not been easy. We can no longer house our orcs in the mud. We must build them places to live and train.
+# Worth no ideas
+	greenskin_build_barracks = {
+		icon = mission_guns_of_urban
+		required_missions = { greenskin_grow_1 }
+		position = 6
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_building = barracks }
+			NOT = { has_building = training_fields }
+		}
+		trigger = {
+			OR = {
+				num_of_owned_provinces_with = {
+					OR = {
+				 		has_building = barracks
+				 		has_building = training_fields
+					}
+					value = 5
+				}
+				all_owned_province = {
+					OR = {
+				 		has_building = barracks
+				 		has_building = training_fields
+					}
+				}
+			}
+		}
+		effect = {
+			add_army_professionalism = 0.05
+		}
+	}
+
+## Waagh is good! It teaches us many things. We must make sure that the older greenskins teach the younger greenskins a thing or two befor they die.
+# Worth half an idea
+	greenskin_army_tradition = {
+		icon = mission_guns_of_urban
+		required_missions = { greenskin_build_barracks }
+		trigger = {
+			army_tradition = 75
+		}
+		effect = {
+			add_country_modifier = { 
+			    name = greenskin_army_tradition
+			    duration = -1  
+			}
+		}
+	}
+
+
+	greenskin_raid_couronne = {
+		icon = mission_orc_culture
+		required_missions = {  }
+		position = 10
+		provinces_to_highlight = {
+			province_id = 314
+		}
+		trigger = {
+			314 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			314 = {
+				set_province_flag = war_sacked_province
+				war_sack_city = yes
+			}
+		}
+	}
+
+
+	greenskin_raid_athel_loren = {
+		icon = mission_orc_culture
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 770
+		}
+		trigger = {
+			770 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			770 = {
+				set_province_flag = war_sacked_province
+				war_sack_city = yes
+			}
+		}
+	}
+
+	greenskin_raid_remas = {
+		icon = mission_orc_culture
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 590
+		}
+		trigger = {
+			590 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			590 = {
+				set_province_flag = war_sacked_province
+				war_sack_city = yes
+			}
+		}
+	}
+
+	greenskin_raid_palace_of_the_wizard_caliph = {
+		icon = mission_orc_culture
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 1007
+		}
+		trigger = {
+			1007 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			1007 = {
+				set_province_flag = war_sacked_province
+				war_sack_city = yes
+			}
+		}
+	}
+
+}
+
+greenskin_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		OR = {
+			culture_group = greenskins_group
+			culture_group = hobgoblin_group
+		}
+	}
+
+## Maybe Mork is the way to go?
+# Worth half an idea
+	greenskin_try_mork = {
+		icon = mission_orc_religion
+		required_missions = { }
+		trigger = {
+			OR = {
+				piety = 0.9
+				AND = {
+					NOT = { religion = gork_n_mork_religion }
+					at_war_with_religious_enemy = yes
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = greenskin_tried_mork
+				duration = -1
+			}
+		}
+	}
+
+## Our shamans and gods are pleased. We shall throw a great festival, and our swords shall glow with the flames of our gods!
+# Worth no ideas
+	greenskin_happy_priest = {
+		icon = mission_orc_religion
+		required_missions = { greenskin_try_mork greenskin_try_gork }
+		trigger = {
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = greenskin_rituals
+				duration = 3650
+			}
+		}
+	}
+
+
+## There's something strange happening in our nation. As the various factions solidify under our rule, people whisper of rules and laws. To us, it sounds like power. Is this an opportunity to consolidate our rule?
+# Worth no ideas
+	greenskin_estates = {
+		icon = mission_orc_religion
+		required_missions = { greenskin_warfare_2 greenskin_happy_priest greenskin_some_war_reps}
+		position = 4
+		trigger = {
+
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 2
+			}
+
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 2
+			}
+
+			num_of_estate_agendas_completed = {
+				estate = estate_burghers
+				value = 2
+			}
+
+		}
+		effect = {
+
+			change_estate_land_share = {
+ 			 	estate = estate_church
+    			share = -2.5
+			}
+			
+			change_estate_land_share = {
+ 			 	estate = estate_burghers
+    			share = -2.5
+			}
+
+			change_estate_land_share = {
+ 			 	estate = estate_nobles
+    			share = -2.5
+			}
+
+		}
+	}
+
+## With the estates on side, we have a strange opportunity. We could seize power, or distribute it to the masses. This is all feeling strange for a greenskin.
+# Worth 1 idea
+	greenskin_reform_personal_freedom = {
+		icon = mission_orc_religion
+		required_missions = { greenskin_estates }
+		trigger = {
+
+			crown_land_share = 50
+
+			estate_loyalty = {
+			    estate = estate_church
+			    loyalty = 50
+			}
+			estate_loyalty = {
+			    estate = estate_nobles
+			    loyalty = 50
+			}
+			estate_loyalty = {
+			    estate = estate_burghers
+			    loyalty = 50
+			}
+
+		}
+
+		effect = {
+
+			country_event = { 
+			    id = greenskin_events.101
+			}
+
+		}
+	}
+
+## Professionalism and discipline do not come naturally to a greenskin army. But there is much to be said for following orders into combat.
+## Worth half an idea
+	greenskin_professionalism = {
+		icon = mission_orc_religion
+		required_missions = { greenskin_build_barracks }
+		position = 7
+		trigger = {
+
+			army_professionalism = 0.25
+
+		}
+		effect = {
+
+			add_country_modifier = {
+				name = greenskin_professionalism
+				duration = -1
+			}
+
+		}
+	}
+
+## Which will it be? The traditions of the great warriors, or the discipline of the new ways?
+# Worth one idea
+	greenskin_reform_army = {
+		icon = mission_orc_religion
+		required_missions = { greenskin_army_tradition greenskin_professionalism }
+		trigger = {
+
+		}
+		effect = {
+			country_event = { 
+			    id = greenskin_events.102
+			}
+		}
+	}
+
+	greenskin_raid_kislev = {
+		icon = mission_orc_culture
+		required_missions = {  }
+		position = 10
+		provinces_to_highlight = {
+			province_id = 325
+		}
+		trigger = {
+			325 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			325 = {
+				set_province_flag = war_sacked_province
+				war_sack_city = yes
+			}
+		}
+	}
+
+
+	greenskin_raid_altdorf = {
+		icon = mission_orc_culture
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 1
+		}
+		trigger = {
+			1 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			1 = {
+				set_province_flag = war_sacked_province
+				war_sack_city = yes
+			}
+		}
+	}
+
+	greenskin_raid_barak_varr = {
+		icon = mission_orc_culture
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 754
+		}
+		trigger = {
+			754 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			754 = {
+				set_province_flag = war_sacked_province
+				war_sack_city = yes
+			}
+		}
+	}
+
+	greenskin_raid_khemri = {
+		icon = mission_orc_culture
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 862
+		}
+		trigger = {
+			862 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			862 = {
+				set_province_flag = war_sacked_province
+				war_sack_city = yes
+			}
+		}
+	}
+
+# We have raided every major city in the world! We are the ultimate warriors!
+# Worth 8 ideas
+	greenskin_ultimate = {
+		icon = mission_orc_religion
+		required_missions = { greenskin_raid_naggarond greenskin_raid_lothern greenskin_raid_hexotl greenskin_raid_itza greenskin_raid_couronne greenskin_raid_athel_loren greenskin_raid_remas greenskin_raid_palace_of_the_wizard_caliph greenskin_raid_kislev greenskin_raid_altdorf greenskin_raid_barak_varr greenskin_raid_khemri greenskin_raid_skavenhold greenskin_raid_zharr_naggrund greenskin_raid_karaz_a_karak greenskin_raid_pigbarter greenskin_raid_dragon_gate greenskin_raid_wei_jin greenskin_raid_goldtooth_mine greenskin_raid_rajapur }
+		trigger = {
+		}
+		effect = {
+
+			add_country_modifier = {
+				name = greenskin_ultimate
+				duration = -1
+			}
+
+		}
+	}
+
+}
+
+greenskin_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		OR = {
+			culture_group = greenskins_group
+			culture_group = hobgoblin_group
+		}
+	}
+
+## Maybe we should try gork
+# Worth half an idea
+	greenskin_try_gork = {
+		icon = mission_orc_religion
+		required_missions = {
+		}
+		trigger = {
+			OR = {
+				NOT = {
+					piety = -0.9
+				}
+				AND = {
+					NOT = { religion = gork_n_mork_religion }
+					at_war_with_religious_enemy = yes
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = greenskin_tried_gork
+				duration = -1
+			}
+		}
+	}
+
+## A greenskin nation is built on raiding and forced tribute. Let us extract as much as we can from our enemies
+# Worth half an idea
+	greenskin_some_war_reps = {
+		icon = mission_orc_religion
+		position = 3
+		required_missions = { greenskin_make_guilds_happy }
+		trigger = {
+			num_of_war_reparations = 3
+		}
+		effect = {
+			add_country_modifier = { 
+			    name = greenskin_reform_warscore_cost_1
+			    duration = -1  
+			}
+		}
+	}
+
+## WE are warriors, not farmers. Let another tend to the crops. We shall collect.
+## Worth half an idea
+	greenskin_more_war_reps = {
+		icon = mission_orc_religion
+		required_missions = { greenskin_some_war_reps }
+		trigger = {
+			num_of_war_reparations = 8
+		}
+		effect = {
+			remove_country_modifier = greenskin_reform_warscore_cost_1
+			add_country_modifier = { 
+			    name = greenskin_reform_warscore_cost_2
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt		
+		}
+	}
+
+## Some radical elements are clamboring for some sort of institutional stability. What should be done?
+	greenskin_reform_government = {
+		icon = mission_orc_religion
+		required_missions = { greenskin_reform_personal_freedom greenskin_reform_economy }
+		position = 6
+		trigger = {
+			stability = 3
+			legitimacy_equivalent = 99
+		}
+		effect = {
+			country_event = { 
+			    id = greenskin_events.103
+			}
+		}
+	}
+
+## We have a decision to make - do we embrace the waagh, or try to civilize?
+# Worth 1.5 ideas
+	greenskin_reform_fightiness = {
+		icon = mission_orc_religion
+		required_missions = { greenskin_reform_government greenskin_reform_army greenskin_reform_orcs_hobgoblin_or_goblin }
+		position = 9
+		trigger = {
+			stability = 3
+			legitimacy_equivalent = 99
+			prestige = 99
+		}
+		effect = {
+			country_event = { 
+			    id = greenskin_events.104
+			}
+		}
+	}
+
+	greenskin_raid_skavenhold = {
+		icon = mission_orc_culture
+		required_missions = {  }
+		position = 10
+		provinces_to_highlight = {
+			province_id = 169
+		}
+		trigger = {
+			169 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			169 = {
+				set_province_flag = war_sacked_province
+				war_sack_city = yes
+			}
+		}
+	}
+
+
+	greenskin_raid_zharr_naggrund = {
+		icon = mission_orc_culture
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 810
+		}
+		trigger = {
+			810 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			810 = {
+				set_province_flag = war_sacked_province
+				war_sack_city = yes
+			}
+		}
+	}
+
+	greenskin_raid_karaz_a_karak = {
+		icon = mission_orc_culture
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 700
+		}
+		trigger = {
+			700 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			700 = {
+				set_province_flag = war_sacked_province
+				war_sack_city = yes
+			}
+		}
+	}
+
+	greenskin_raid_pigbarter = {
+		icon = mission_orc_culture
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 2145
+		}
+		trigger = {
+			2145 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			2145 = {
+				set_province_flag = war_sacked_province
+				war_sack_city = yes
+			}
+		}
+	}
+
+}
+
+greenskin_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		OR = {
+			culture_group = greenskins_group
+			culture_group = hobgoblin_group
+		}
+	}
+
+## We have little respect for the peddlers and craven traders. However, they have enough power that we must at least acknowledge their presense.
+## No ideas
+	greenskin_make_guilds_happy = {
+		icon = mission_trade_company_region_abroad
+		required_missions = {  }
+		position = 2
+		trigger = {
+			estate_loyalty = {
+ 				estate = estate_burghers
+    			loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_burghers
+				value = 1
+			}
+		}
+
+		effect = {
+			add_stability_or_adm_power = yes
+		}
+	}
+
+## It is hard to argue that our great gods shoudl not be worshipped. Very well. WE'll listen to the guilds this one time.
+	greenskin_build_churches = {
+		icon = mission_trade_company_region_abroad
+		required_missions = { greenskin_make_guilds_happy }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_building = temple }
+			NOT = { has_building = cathedral }
+		}
+		trigger = {
+			religious_unity = 0.90
+			OR = {
+				num_of_owned_provinces_with = {
+					OR = {
+						has_building = temple
+						has_building = cathedral
+					}
+					value = 5
+				}
+				all_owned_province = {
+					OR = {
+						has_building = temple
+						has_building = cathedral
+					}
+				}
+			}
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+		}
+	}
+
+## The temples are somehow making money. We don't understand it, but the traders are suggesting marketplaces as well... I'm not sure about this.
+	greenskin_build_markets = {
+		icon = mission_trade_company_region_abroad
+		required_missions = { greenskin_build_churches }
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+				 	has_building = marketplace
+				 	has_building = trade_depot
+				 	has_building = stock_exchange
+				}
+				value = 5
+			}
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+		}
+	}
+
+## With money rolling in from both trade and raiding, we have a decision to make. Do we double down on the raiding? Or do we invest efforts in ... well, investments?
+	greenskin_reform_economy = {
+		icon = mission_trade_company_region_abroad
+		required_missions = { greenskin_more_war_reps greenskin_build_markets }
+		position = 5
+		trigger = {
+			num_of_times_used_pillage_capital = 10
+		}
+		effect = {
+			country_event = { 
+			    id = greenskin_events.105
+			}
+		}
+	}
+
+## Our Waagh stretches multiple continents.
+	greenskin_global_waagh = {
+		icon = mission_orc_culture
+		position = 7
+		required_missions = { }
+		trigger = {
+			num_of_continents = 4
+		}
+		effect = {
+			add_country_modifier = { 
+			    name = greenskin_culture_convert
+			    duration = -1  
+			}
+		}
+	}
+
+## As the dominant greenskin nation, greenskin are flocking to our banner. We must decide who will run our government. Orcs, Goblins, or Hobgoblins?
+	greenskin_reform_orcs_hobgoblin_or_goblin = {
+		icon = mission_orc_culture
+		required_missions = { greenskin_global_waagh }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 100
+				culture_group = greenskins_group
+			}
+		}
+		effect = {
+			country_event = { 
+			    id = greenskin_events.106
+			}
+		}
+	}
+
+
+	greenskin_raid_dragon_gate = {
+		icon = mission_orc_culture
+		required_missions = {  }
+		position = 10
+		provinces_to_highlight = {
+			province_id = 2826
+		}
+		trigger = {
+			2826 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			2826 = {
+				set_province_flag = war_sacked_province
+				war_sack_city = yes
+			}
+		}
+	}
+
+
+	greenskin_raid_wei_jin = {
+		icon = mission_orc_culture
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 2838
+		}
+		trigger = {
+			2838 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			2838 = {
+				set_province_flag = war_sacked_province
+				war_sack_city = yes
+			}
+		}
+	}
+
+	greenskin_raid_goldtooth_mine = {
+		icon = mission_orc_culture
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 2795
+		}
+		trigger = {
+			2795 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			2795 = {
+				set_province_flag = war_sacked_province
+				war_sack_city = yes
+			}
+		}
+	}
+
+	greenskin_raid_mrauk_u = {
+		icon = mission_orc_culture
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 4093
+		}
+		trigger = {
+			4093 = {
+				controlled_by = ROOT
+			}
+		}
+		effect = {
+			4093 = {
+				set_province_flag = war_sacked_province
+				war_sack_city = yes
+			}
+		}
+	}
+
+
+
+}
