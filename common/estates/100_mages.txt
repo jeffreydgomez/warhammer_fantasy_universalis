@@ -1,132 +1,200 @@
-# estate_mages = {
-	# icon = 16
+estate_mages = {
+	icon = 15
 
-	# # If true, country will get estate
-	# trigger = {	
-		# NOT = { government = native }
-		# #NOT = { has_reform = cossacks_reform }
-		# NOT = { has_reform = siberian_tribe }
-		# is_nomad = no
-		# always = no
-		
-		# #warhammer
-		# NOT = { has_country_flag = banned_magic }
-		# NOT = { has_country_flag = LF_mages_banned }
-		# NOT = { religion =  khornate_religion }
-	# }
+	# If true, country will get estate
+	trigger = {
+		OR = {
+			culture_group = imperial_group 
+			culture_group = estalian_group 
+#			culture_group = bretonnian_group 
+			culture_group = kislevite_group 
+			culture_group = tilean_group 
+#			culture_group = norse_group 
+			culture_group = albionise_group 
+			culture_group = arabyan_group 
+#			culture_group = hung_group 
+#			culture_group = kurgan_group 
+#			culture_group = darkland_human_group 
+#			culture_group = amazon_group 
+			culture_group = cathayan_cg 
+			culture_group = indish_cg 
+			culture_group = nipponese_cg
+			culture_group = halfling_group 
+			culture_group = gnome_group
+			culture_group = nehekharan_group
+			culture_group = strigany_group
+			culture_group = nagashi_group
+#			culture_group = vampire_coast_cg
+			culture_group = asrai_group
+			culture_group = asur_group
+			culture_group = druchii_group
+			culture_group = lizardmen_group
+		}
+	}
 
-	# # These scale with loyalty & power
-	# country_modifier_happy = {
-		# all_power_cost = -0.1
-		# technology_cost = 0.2
-		# monthly_support_heir_gain = 0.13
-	# }
-	# country_modifier_neutral = {
-		# #all_power_cost = 0.05
-	# }	
-	# country_modifier_angry = {
-		# all_power_cost = 0.1
-		# technology_cost = 0.2
-		# monthly_support_heir_gain = -0.13
-	# }
-	# land_ownership_modifier = {
-	# }
+	# These scale with loyalty & power
+	country_modifier_happy = {
+		all_power_cost = -0.05
+		yearly_innovativeness = 0.24
+	}
+	country_modifier_neutral = {
+		all_power_cost = -0.05
+	}	
+	country_modifier_angry = {
+		all_power_cost = 0.05
+		yearly_innovativeness = -0.24
+		global_unrest = 2
+	}
+	land_ownership_modifier = {
+		mages_loyalty_modifier = 0.2
+	}
 	
-	# province_independence_weight = {
-		# factor = 1
-		# modifier = {
-			# factor = 0.5
-			# NOT = { development = 10 }
-		# }
-		# modifier = {
-			# factor = 1.2
-			# development = 10
-		# }
-		# modifier = {
-			# factor = 1.5
-			# development = 20
-		# }
-		# modifier = {
-			# factor = 2
-			# has_building = university
-		# }
-	# }
+	province_independence_weight = {
+		factor = 1
+		modifier = {
+			factor = 0.5
+			NOT = { development = 10 }
+		}
+		modifier = {
+			factor = 1.2
+			development = 10
+		}
+		modifier = {
+			factor = 1.5
+			development = 20
+		}
+		modifier = {
+			factor = 2
+			has_building = university
+		}
+	}
 
 	
-	# # Influence modifiers
-	# base_influence = 0
+	# Influence modifiers
+	base_influence = 20
 	
-	# influence_modifier = {
-		# desc = EST_VAL_UNIVERSITY
-		# trigger = {
-			# any_owned_province = {
-				# has_building = university
-			# }
-		# }
-		# influence = 5
-	# }
+	influence_modifier = {
+		desc = EST_VAL_UNIVERSITY
+		trigger = {
+			any_owned_province = {
+				has_building = university
+			}
+		}
+		influence = 5
+	}
+
+	influence_modifier = {
+		desc = EST_VAL_25_INNOVATION
+		trigger = {
+			innovativeness = 25
+		}
+		influence = 5
+	}
+
+	influence_modifier = {
+		desc = EST_VAL_MODERN_SCIENCE
+		trigger = {
+			has_country_modifier = war_modern_science
+		}
+		influence = 10
+	}
+
+	influence_modifier = {
+		desc = EST_VAL_OTHER_ESTATE_IN_POWER
+		trigger = {
+			OR = {
+				has_disaster = estate_nobility_disaster
+				has_disaster = estate_church_disaster
+				has_disaster = estate_burghers_disaster
+				#has_disaster = estate_brahmins_disaster
+				#has_disaster = estate_jains_disaster
+			}
+		}	
+		influence = -40
+	}
 	
-	# influence_modifier = {
-		# desc = EST_VAL_OTHER_ESTATE_IN_POWER
-		# trigger = {
-			# OR = {
-				# has_disaster = estate_nobility_disaster
-				# has_disaster = estate_church_disaster
-				# has_disaster = estate_burghers_disaster
-				# #has_disaster = estate_brahmins_disaster
-				# #has_disaster = estate_jains_disaster
-			# }
-		# }	
-		# influence = -40
-	# }
+	#Loyalty
 	
-	# #Loyalty
+	loyalty_modifier = {
+		desc = EST_VAL_OTHER_ESTATE_IN_POWER_LOY
+		trigger = {
+			OR = {
+				has_disaster = estate_nobility_disaster
+				has_disaster = estate_church_disaster
+				has_disaster = estate_burghers_disaster
+				has_disaster = estate_brahmins_disaster
+				has_disaster = estate_jains_disaster
+			}
+		}
+		loyalty = -20
+	}	
 	
-	# loyalty_modifier = {
-		# desc = EST_VAL_OTHER_ESTATE_IN_POWER_LOY
-		# trigger = {
-			# OR = {
-				# has_disaster = estate_nobility_disaster
-				# has_disaster = estate_church_disaster
-				# has_disaster = estate_burghers_disaster
-				# #has_disaster = estate_brahmins_disaster
-				# #has_disaster = estate_jains_disaster
-			# }
-		# }
-		# loyalty = -20
-	# }	
-	
-	# # Custom Names
+	# Custom Names
 
-	# custom_name = {
-		# desc = estate_vitki
-		# trigger = {
-			# and = {
-				# religion = norscan
-				# culture_group = norse_group
-			# }
-		# }
-	# }
-	# custom_name = {
-		# desc = estate_colleges_of_magic
-		# trigger = {
-			# is_part_of_hre = yes
-		# }
-	# }
+	custom_name = {
+		desc = estate_vitki
+		trigger = {
+			and = {
+				religion = norscan
+				culture_group = norse_group
+			}
+		}
+	}
+	custom_name = {
+		desc = estate_colleges_of_magic
+		trigger = {
+			is_part_of_hre = yes
+		}
+	}
+
+	custom_name = {
+		desc = estate_ice_witches
+		trigger = {
+			culture_group = kislevite_group
+		}
+	}
+
+	custom_name = {
+		desc = estate_ice_witches
+		trigger = {
+			culture_group = kislevite_group
+		}
+	}
+
+	custom_name = {
+		desc = estate_sorcerers
+		trigger = {
+			religion_group = ruinous_powers_denominations
+		}
+	}
+
+	custom_name = {
+		desc = estate_slann
+		trigger = {
+			has_country_modifier = lizardmen_administration
+		}
+	}
 
 
+	color = { 153 217 234 }
 
-	# color = { 153 217 234 }
+	privileges = {
+		estate_mages_wizard_advisors
+		estate_mages_magical_research
+		estate_mages_magical_court
+		estate_mages_war_wizards
+		estate_mages_study_aqshy
+		estate_mages_study_azyr
+		estate_mages_study_chamon
+		estate_mages_study_ghur
+		estate_mages_study_ghyran
+		estate_mages_study_hysh
+		estate_mages_study_shyish
+		estate_mages_study_ulgu
+	}
 
-	# privileges = {
-		# estate_mages_land_rights
-		# estate_mages_adm_expertise
-		# estate_mages_dip_expertise
-		# estate_mages_mil_expertise
-	# }
+	agendas = {
 
-	# agendas = {
-
-	# }
-	# influence_from_dev_modifier = 0.5
-# }
+	}
+	influence_from_dev_modifier = 0.5
+}
