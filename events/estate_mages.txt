@@ -1,0 +1,893 @@
+###########################################################
+# Events for the Mages Estate
+#
+# written by Jeff Gomez
+###########################################################
+
+namespace = mages_estate_events
+
+#State making demands on the Church
+country_event = {
+	id = mages_estate_events.1
+	title = mages_estate_events.1.t
+	desc = mages_estate_events.1.d
+	picture = MAGES_ESTATE_eventPicture
+	
+	trigger = {
+		has_estate = estate_mages
+		estate_influence = {
+			estate = estate_mages
+			influence = 25
+		}
+		NOT = {
+			estate_influence = {
+				estate = estate_mages
+				influence = 75
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_mages
+				modifier = EST_VAL_MAGES_DECLINE
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_mages
+				modifier = EST_VAL_MAGES_ADVANCE
+			}
+		}
+		OR = {
+			AND = {
+				is_at_war = yes
+				NOT = { war_score = 25 }
+			}
+			is_in_deficit = yes
+			num_of_loans = 5
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = mages_estate_events.1.a #Make it clear that they need to contribute.
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.5
+				NOT = {
+					estate_loyalty = {
+						estate = estate_mages
+						loyalty = 45
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				estate_influence = {
+					estate = estate_mages
+					influence = 60
+				}
+			}
+		}
+		add_estate_loyalty = {
+			estate = estate_mages
+			loyalty = -15
+		}
+		add_years_of_income = 0.35
+		add_estate_influence_modifier = {
+			estate = estate_mages
+			desc = EST_VAL_MAGES_DECLINE
+			influence = -10
+			duration = 9125
+		}
+	}
+	option = {
+		name = mages_estate_events.1.b #We will find the money elsewhere.
+		add_prestige = 5
+		add_piety = 0.1
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 1.5
+				NOT = {
+					estate_loyalty = {
+						estate = estate_mages
+						loyalty = 40
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				estate_influence = {
+					estate = estate_mages
+					influence = 60
+				}
+			}
+		}
+		add_estate_loyalty = {
+			estate = estate_mages
+			loyalty = 10
+		}
+		add_estate_influence_modifier = {
+			estate = estate_mages
+			desc = EST_VAL_MAGES_ADVANCE
+			influence = 10
+			duration = 9125
+		}
+	}
+}
+
+
+#Growing Influence of the Mages
+country_event = {
+	id = mages_estate_events.2
+	title = mages_estate_events.2.t
+	desc = mages_estate_events.2.d
+	picture = MAGES_ESTATE_eventPicture
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_estate = estate_mages
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_mages
+				modifier = EST_VAL_MAGES_ADVANCE
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_mages
+				modifier = EST_VAL_MAGES_ADVANCE_20
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_mages
+				modifier = EST_VAL_MAGES_DECLINE
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = mages_estate_events.2.a #Ok
+		add_estate_influence_modifier = {
+			estate = estate_mages
+			desc = EST_VAL_MAGES_ADVANCE
+			influence = 10
+			duration = 5475
+		}
+	}
+}
+
+#Declining Influence of the Clergy
+country_event = {
+	id = mages_estate_events.3
+	title = mages_estate_events.3.t
+	desc = mages_estate_events.3.d
+	picture = MAGES_ESTATE_eventPicture
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_estate = estate_mages
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_mages
+				modifier = EST_VAL_MAGES_ADVANCE
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_mages
+				modifier = EST_VAL_MAGES_ADVANCE_20
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_mages
+				modifier = EST_VAL_MAGES_DECLINE
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = mages_estate_events.3.a #Ok
+		add_estate_influence_modifier = {
+			estate = estate_mages
+			desc = EST_VAL_MAGES_DECLINE
+			influence = -10
+			duration = 5475
+		}
+	}
+}
+
+#$ESTATE_MAGES$ Questioned - Are they doing their fair share?
+country_event = {
+	id = mages_estate_events.4
+	title = mages_estate_events.4.t
+	desc = {
+		trigger = {
+			has_estate = estate_burghers
+		}
+		desc = mages_estate_events.4.d
+	}
+	desc = {
+		trigger = {
+			has_estate = estate_vaisyas
+		}
+		desc = mages_estate_events.4.d.2
+	}
+	picture = MAGES_ESTATE_eventPicture
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_estate = estate_mages
+		OR = {
+			AND = {
+				has_estate = estate_burghers
+				estate_territory = {
+					estate = estate_burghers
+					territory = 1
+				}
+			}
+			AND = {
+				has_estate = estate_vaisyas
+				estate_territory = {
+					estate = estate_vaisyas
+					territory = 1
+				}
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_mages
+				modifier = EST_VAL_RESEARCH_DEFENDED
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_mages
+				modifier = EST_VAL_RESEARCH_UNDERMINED
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = mages_estate_events.4.a #Then we must force them to pay!
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 1.5
+				NOT = {
+					estate_loyalty = {
+						estate = estate_mages
+						loyalty = 40
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				estate_influence = {
+					estate = estate_mages
+					influence = 60
+				}
+			}
+			modifier = {
+				factor = 0.5
+				has_estate = estate_burghers
+				NOT = {
+					estate_loyalty = {
+						estate = estate_burghers
+						loyalty = 40
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				has_estate = estate_burghers
+				estate_influence = {
+					estate = estate_burghers
+					influence = 60
+				}
+			}
+			modifier = {
+				factor = 0.5
+				has_estate = estate_vaisyas
+				NOT = {
+					estate_loyalty = {
+						estate = estate_vaisyas
+						loyalty = 40
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				has_estate = estate_vaisyas
+				estate_influence = {
+					estate = estate_vaisyas
+					influence = 60
+				}
+			}
+		}
+		add_years_of_income = 0.2
+		if = {
+			limit = {
+				has_estate = estate_burghers
+				any_owned_province = {
+					local_autonomy = 25
+					OR = {	# previous conditions for assigning the burgher estate for a province
+						owner = { government = republic }
+						development = 10
+						province_trade_power = 5
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					local_autonomy = 25
+					OR = {
+						owner = { government = republic }
+						development = 10
+						province_trade_power = 5
+					}
+				}
+				add_local_autonomy = -25 #If a province with Burghers have more than 25 it will be reduced by this much or down to 25.
+			}
+		}
+		if = {
+			limit = {
+				has_estate = estate_vaisyas
+				any_owned_province = {
+					local_autonomy = 25
+					OR = {	# previous conditions for assigning the Visaiyas estate for a province
+						owner = { government = republic }
+						development = 7
+						province_trade_power = 5
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					local_autonomy = 25
+					OR = {
+						owner = { government = republic }
+						development = 7
+						province_trade_power = 5
+					}
+				}
+				add_local_autonomy = -25 #If a province with Burghers have more than 25 it will be reduced by this much or down to 25.
+			}
+		}
+		add_estate_loyalty = {
+			estate = estate_mages
+			loyalty = 15
+		}
+		if = {
+			limit = {
+				has_estate = estate_burghers
+			}
+			add_estate_loyalty = {
+				estate = estate_burghers
+				loyalty = -15
+			}
+		}
+		if = {
+			limit = {
+				has_estate = estate_vaisyas
+			}
+			add_estate_loyalty = {
+				estate = estate_vaisyas
+				loyalty = -15
+			}
+		}
+		add_estate_influence_modifier = {
+			estate = estate_mages
+			desc = EST_VAL_RESEARCH_DEFENDED
+			influence = 10
+			duration = 5475
+		}
+		if = {
+			limit = {
+				has_estate = estate_burghers
+			}
+			add_estate_influence_modifier = {
+				estate = estate_burghers
+				desc = EST_VAL_RESEARCH_DEFENDED
+				influence = -10
+				duration = 5475
+			}
+		}
+		if = {
+			limit = {
+				has_estate = estate_vaisyas
+			}
+			add_estate_influence_modifier = {
+				estate = estate_vaisyas
+				desc = EST_VAL_RESEARCH_DEFENDED
+				influence = -10
+				duration = 5475
+			}
+		}
+	}
+	option = {
+		name = mages_estate_events.4.b #A mild reprimand will be enough.
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.5
+				NOT = {
+					estate_loyalty = {
+						estate = estate_mages
+						loyalty = 40
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				estate_influence = {
+					estate = estate_mages
+					influence = 60
+				}
+			}
+		}
+		add_estate_loyalty = {
+			estate = estate_mages
+			loyalty = -15
+		}
+		add_estate_influence_modifier = {
+			estate = estate_mages
+			desc = EST_VAL_RESEARCH_UNDERMINED
+			influence = -10
+			duration = 5475
+		}
+	}
+}
+
+
+#Demands of influential MAges
+country_event = {
+	id = mages_estate_events.6
+	title = mages_estate_events.6.t
+	desc = mages_estate_events.6.d
+	picture = MAGES_ESTATE_eventPicture
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_estate = estate_mages
+		estate_influence = {
+			estate = estate_mages
+			influence = 70
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_mages
+				modifier = EST_VAL_RESEARCH_DEFENDED
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_mages
+				modifier = EST_VAL_RESEARCH_UNDERMINED
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = mages_estate_events.6.a #Agree
+		ai_chance = {
+			factor = 25
+		}
+		change_innovativeness = 3
+		add_estate_influence_modifier = {
+			estate = estate_mages
+			desc = EST_VAL_RESEARCH_DEFENDED
+			influence = 10
+			duration = 5475
+		}
+	}
+	option = {
+		name = mages_estate_events.6.b #Disagree
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 0.2
+				NOT = {
+					estate_loyalty = {
+						estate = estate_mages
+						loyalty = 45
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				estate_influence = {
+					estate = estate_mages
+					influence = 60
+				}
+			}
+		}
+		add_stability = -1
+		add_estate_loyalty = {
+			estate = estate_mages
+			loyalty = -20
+		}
+		add_estate_influence_modifier = {
+			estate = estate_mages
+			desc = EST_VAL_RESEARCH_UNDERMINED
+			influence = -10
+			duration = 5475
+		}
+	}
+}
+
+#Bonus for strong and loyal Mages
+country_event = {
+	id = mages_estate_events.7
+	title = mages_estate_events.7.t
+	desc = mages_estate_events.7.d
+	picture = MAGES_ESTATE_eventPicture
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_estate = estate_mages
+		estate_loyalty = {
+			estate = estate_mages
+			loyalty = 70
+		}
+		estate_influence = {
+			estate = estate_mages
+			influence = 70
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = { NOT = { stability = 3 } }
+				random_list = {
+					65 = { set_country_flag = loyalty_to_the_crown }
+					35 = { set_country_flag = efficient_administration }
+				}
+			}
+			if = {
+				limit = { stability = 3 }
+				set_country_flag = loyalty_to_the_crown
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = mages_estate_events.7.a #Agree
+		trigger_switch = {
+			on_trigger = has_country_flag
+			loyalty_to_the_crown = {
+				add_legitimacy = 15
+				add_horde_unity = 15
+				add_republican_tradition = 7
+				add_devotion = 7
+				add_authority = 15
+				add_piety = 0.15
+				add_papal_influence = 10
+				add_patriarch_authority = 0.1
+				clr_country_flag = loyalty_to_the_crown
+			}
+			efficient_administration = {
+				add_stability_or_adm_power = yes
+				clr_country_flag = efficient_administration
+			}
+		}
+	}
+}
+
+#Land Theft
+country_event = {
+	id = mages_estate_events.8
+	title = mages_estate_events.8.t
+	desc = mages_estate_events.8.d
+	picture = MAGES_ESTATE_eventPicture
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_estate = estate_mages
+		has_estate = estate_nobles
+		crown_land_share = 10
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_mages
+				modifier = EST_VAL_MAGES_PROPERTIES_DEFENDED
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_mages
+				modifier = EST_VAL_LAND_THEFT
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = mages_estate_events.8.a #Side with the $ESTATE_MAGES$.
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 1.5
+				NOT = {
+					estate_loyalty = {
+						estate = estate_mages
+						loyalty = 45
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				NOT = {
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 40
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				estate_influence = {
+					estate = estate_mages
+					influence = 60
+				}
+			}
+			modifier = {
+				factor = 1.5
+				estate_influence = {
+					estate = estate_nobles
+					influence = 60
+				}
+			}
+		}
+		scaled_estate_mages_land_share_effect = yes
+		add_estate_loyalty = {
+			estate = estate_mages
+			loyalty = 15
+		}
+		add_estate_loyalty = {
+			estate = estate_nobles
+			loyalty = -15
+		}
+		add_estate_influence_modifier = {
+			estate = estate_mages
+			desc = EST_VAL_MAGES_PROPERTIES_DEFENDED
+			influence = 10
+			duration = 5475
+		}
+		add_estate_influence_modifier = {
+			estate = estate_nobles
+			desc = EST_VAL_MAGES_PROPERTIES_DEFENDED
+			influence = -10
+			duration = 5475
+		}
+	}
+	option = {
+		name = mages_estate_events.8.b #Side with the $ESTATE_NOBLES$.
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.5
+				NOT = {
+					estate_loyalty = {
+						estate = estate_mages
+						loyalty = 45
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				NOT = {
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 40
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				estate_influence = {
+					estate = estate_mages
+					influence = 60
+				}
+			}
+			modifier = {
+				factor = 0.5
+				estate_influence = {
+					estate = estate_nobles
+					influence = 60
+				}
+			}
+		}
+		scaled_estate_nobles_land_share_effect = yes
+		add_estate_loyalty = {
+			estate = estate_mages
+			loyalty = -15
+		}
+		add_estate_loyalty = {
+			estate = estate_nobles
+			loyalty = 15
+		}
+		add_estate_influence_modifier = {
+			estate = estate_mages
+			desc = EST_VAL_LAND_THEFT
+			influence = -10
+			duration = 5475
+		}
+		add_estate_influence_modifier = {
+			estate = estate_nobles
+			desc = EST_VAL_LAND_THEFT
+			influence = 10
+			duration = 5475
+		}
+	}
+	option = {
+		name = mages_estate_events.8.c #Favor neither to retain control of province.
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.5
+				NOT = {
+					estate_loyalty = {
+						estate = estate_mages
+						loyalty = 45
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				NOT = {
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 40
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				estate_influence = {
+					estate = estate_mages
+					influence = 60
+				}
+			}
+			modifier = {
+				factor = 1.5
+				estate_influence = {
+					estate = estate_nobles
+					influence = 60
+				}
+			}
+		}
+		add_estate_loyalty = {
+			estate = estate_mages
+			loyalty = -15
+		}
+		add_estate_loyalty = {
+			estate = estate_nobles
+			loyalty = -15
+		}
+		add_estate_influence_modifier = {
+			estate = estate_mages
+			desc = EST_VAL_LAND_THEFT
+			influence = -10
+			duration = 5475
+		}
+		add_estate_influence_modifier = {
+			estate = estate_nobles
+			desc = EST_VAL_LAND_THEFT
+			influence = -10
+			duration = 5475
+		}
+	}
+}
+
+#How independent are the Mages?
+country_event = {
+	id = mages_estate_events.10
+	title = mages_estate_events.10.t
+	desc = mages_estate_events.10.d
+	picture = MAGES_ESTATE_eventPicture
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_estate = estate_mages
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_mages
+				modifier = EST_VAL_INDEPENDENT_MAGES
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_mages
+				modifier = EST_VAL_MEDDLING_IN_MAGES_MATTERS
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = mages_estate_events.10.a #Do not meddle in the affairs of the $ESTATE_MAGES$.
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.5
+				estate_influence = {
+					estate = estate_mages
+					influence = 65
+				}
+			}
+		}
+		add_estate_influence_modifier = {
+			estate = estate_mages
+			desc = EST_VAL_INDEPENDENT_MAGES
+			influence = 10
+			duration = 5475
+		}
+	}
+	option = {
+		name = mages_estate_events.10.b #Support the younger Candidate.
+		add_years_of_income = -0.25
+		add_prestige = -10
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 1.5
+				estate_influence = {
+					estate = estate_mages
+					influence = 65
+				}
+			}
+		}
+		add_estate_loyalty = {
+			estate = estate_mages
+			loyalty = 10
+		}
+		add_estate_influence_modifier = {
+			estate = estate_mages
+			desc = EST_VAL_MEDDLING_IN_MAGES_MATTERS
+			influence = -10
+			duration = 5475
+		}
+	}
+}
