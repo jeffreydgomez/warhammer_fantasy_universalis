@@ -711,6 +711,55 @@ country_event = {
 			duration = -1
 		}
 	}
+}
 
 
+## We are greenskins! We fight, we loot, and that is all! We must fight, or else our fightiness goes down, and then we really must fight! Our economy runs on war. If we aren't at war, then why are we even here?
+country_event = { 
+	id = greenskin_events.200
+	title = greenskin_events.200.t 
+	desc = greenskin_events.200.d 
+	picture = GREENSKIN_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			is_year = 2503
+		}
+		OR = {
+			culture_group = greenskins_group
+			culture_group = hobgoblin_group
+		}
+	}
+
+	goto = event_target
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Let's get to fighting!
+	option = { 
+		ai_chance = { factor = 100 }
+		name = greenskin_events.200.a
+
+		add_yearly_manpower = 1.0
+		add_army_tradition = 10
+
+		if = {
+			limit = {
+				owner = {
+					has_government_mechanic = orc_fightiness_mechanic
+				}
+			}
+			add_government_power = {
+				mechanic_type = orc_fightiness_mechanic
+				power_type = orc_fightiness_power
+				value = -25
+			}
+		}
+		
+	}
 }

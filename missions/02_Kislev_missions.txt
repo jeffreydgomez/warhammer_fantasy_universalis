@@ -2,7 +2,7 @@
 ##### KISLEV CULTURE GROUP
 ##################################
 
-## This mission tree is technically for the Kislevite mission group, but it's really for Kislev
+## This mission tree is technically for the Kislevite culture group, but it's really for Kislev
 
 
 kislev_missions_1 = {
@@ -18,36 +18,57 @@ kislev_missions_1 = {
 	}
 
 ## We must push back the norscans
+# Worth half an idea
 	kislev_norsca_1 = {
 		icon = mission_kislev_culture
 		required_missions = { kislev_forts_1 }
 		position = 2
 		provinces_to_highlight = {
-          	NOT = { owned_by = ROOT }
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
           	region = norsca_region
         }
 		trigger = {
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-				value = 15
+				value = 10
 				region = norsca_region
 			}
 		}
 		effect = {
+			add_country_modifier = {
+				name = kislev_norsca_mod_1
+				duration = -1
+			}
+
+			custom_tooltip = claim_norsca_tt
+			hidden_effect = {
+				every_province = {
+					limit = { region = norsca_region }
+					 add_claim = ROOT
+				}
+			}
 		}
 	}
 
 ## To prevent norsca raids, we need to build up our navy to protect our shores. A strong army is not enough.
+# Worth half an idea
 	kislev_norsca_2 = {
-		icon = mission_kislev_flags
+		icon = mission_establish_high_seas_navy
 		required_missions = { kislev_norsca_1 }
 		trigger = {
 			navy_size = 30
 		}
 		effect = {
-			add_country_modifier = {
-				name = kislev_naval_enthusiasm
-				duration = -1
+			remove_country_modifier = kislev_norsca_mod_1
+			add_country_modifier = { 
+    			name = kislev_norsca_mod_2
+    			duration = -1  
 			}
+			custom_tooltip = upgrade_replace_tt
 			custom_tooltip = claim_norsca_tt
 			hidden_effect = {
 				every_province = {
@@ -59,12 +80,19 @@ kislev_missions_1 = {
 	}
 
 ## We have convert the heathens of norsca, and claimed much of this cursed land. We shall never be harrassed from raids here again.
+# Worth half an idea
 	kislev_norsca_3 = {
 		icon = mission_kislev_religion
 		required_missions = { kislev_norsca_2 }
 		position = 5
 		provinces_to_highlight = {
-          	NOT = { owned_by = ROOT }
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+					NOT = { religion_group = ROOT }
+				}
+			}
           	region = norsca_region
         }
 		trigger = {
@@ -82,10 +110,125 @@ kislev_missions_1 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = kislev_norsca_mod_2
+			add_country_modifier = { 
+    			name = kislev_norsca_mod_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+			custom_tooltip = claim_norsca_tt
+			hidden_effect = {
+				every_province = {
+					limit = { region = norsca_region }
+					 add_claim = ROOT
+				}
+			}
 		}
 	}
 
+
+## Even as we grow on land, these underpassages are a dagger to our heartlands. We must push the inhabitants back, or make peace with them.
+	kislev_norscan_mountains = {
+		icon = mission_kislev_mountains
+		required_missions = { kislev_norsca_3 kislev_secure_the_mountains }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1140
+				province_id = 1134
+				province_id = 1147
+				province_id = 1119
+			}
+        }
+		trigger = {
+			1140 = {
+				OR = {
+					owned_by = ROOT
+					owner = {
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+					}
+					ROOT = {
+						has_won_war_against = {
+							who = PREV
+							max_years_since = 25
+						}
+					}
+				}
+			}
+
+			1134 = {
+				OR = {
+					owned_by = ROOT
+					owner = {
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+					}
+					ROOT = {
+						has_won_war_against = {
+							who = PREV
+							max_years_since = 25
+						}
+					}
+				}
+			}
+
+			1147 = {
+				OR = {
+					owned_by = ROOT
+					owner = {
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+					}
+					ROOT = {
+						has_won_war_against = {
+							who = PREV
+							max_years_since = 25
+						}
+					}
+				}
+			}
+
+			1119 = {
+				OR = {
+					owned_by = ROOT
+					owner = {
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+					}
+					ROOT = {
+						has_won_war_against = {
+							who = PREV
+							max_years_since = 25
+						}
+					}
+				}
+			}
+		}
+
+
+		effect = {
+			remove_country_modifier = kislev_norsca_mod_3
+			add_country_modifier = { 
+    			name = kislev_norsca_mod_4
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+
+
+
 ## The boyars are a critical part of our power structure. They must be appeased.
+## Worth half an idea
 	kislev_boyars_1 = {
 		icon = mission_kislev_boyar
 		required_missions = { kislev_factional_strife }
@@ -112,6 +255,20 @@ kislev_missions_1 = {
 
 		}
 		effect = {
+			if = {
+				limit = {
+					mil = 6
+				}
+				add_mil_power = 100
+			}
+			else = {
+				change_mil = 1
+			}
+			add_legitimacy = 25
+			add_republican_tradition = 10
+			add_devotion = 25
+			add_horde_unity = 25
+			add_meritocracy = 25
 		}
 	}
 
@@ -124,6 +281,10 @@ kislev_missions_1 = {
 			prestige = 50
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = kislev_boyars_mod_1
+    			duration = -1  
+			}
 		}
 	}
 
@@ -136,6 +297,12 @@ kislev_missions_1 = {
 			prestige = 75
 		}
 		effect = {
+			remove_country_modifier = kislev_boyars_mod_1
+			add_country_modifier = { 
+    			name = kislev_boyars_mod_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
@@ -169,6 +336,12 @@ kislev_missions_1 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = kislev_boyars_mod_2
+			add_country_modifier = { 
+    			name = kislev_boyars_mod_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
@@ -198,6 +371,10 @@ kislev_missions_2 = {
 			}
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = kislev_forts_1
+    			duration = -1  
+			}
 		}
 	}
 
@@ -214,12 +391,12 @@ kislev_missions_2 = {
 						AND = {
 							has_country_modifier = human_administration
 							army_size = ROOT
+							NOT = { tag = ROOT }
 						}
-						NOT = { tag = ROOT }
 					}
 	            }
-	            province_id = 178
-	            province_id = 147
+	            province_id = 149
+	            province_id = 180
 	        }
         }
 		trigger = {
@@ -235,13 +412,22 @@ kislev_missions_2 = {
 					trust = { who = ROOT value = 75 }
 				}
 				AND = {
-					178 = { owned_by = ROOT }
-					147 = { owned_by = ROOT }
+					149 = {
+						owned_by = ROOT
+						fort_level = 2
+					}
+					180 = {
+						owned_by = ROOT
+						fort_level = 2
+					}
 				}
 			}
 		}
-## Effect to make friends, claim, or join the HRE
 		effect = {
+			add_country_modifier = { 
+    			name = kislev_friends_with_heretics
+    			duration = -1  
+			}
 		}
 	}
 
@@ -249,6 +435,7 @@ kislev_missions_2 = {
 	kislev_secure_the_mountains = {
 		icon = mission_kislev_mountains
 		required_missions = { kislev_secure_the_south }
+		position = 5
 		provinces_to_highlight = {
 			OR = {
 				province_id = 4558
@@ -293,6 +480,12 @@ kislev_missions_2 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = kislev_forts_1
+			add_country_modifier = { 
+    			name = kislev_forts_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
@@ -306,6 +499,11 @@ kislev_missions_2 = {
 			total_development = 400
 		}
 		effect = {
+			override_country_name = GRAND_KISLEV
+			change_country_color = { 
+			    color = { 0 143 219 }
+			}
+			add_government_reform = kislev_grand_monarchy_reform
 		}
 	}
 
@@ -321,6 +519,12 @@ kislev_missions_2 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = kislev_forts_2
+			add_country_modifier = { 
+    			name = kislev_forts_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
@@ -333,6 +537,12 @@ kislev_missions_2 = {
 			army_size = 100
 		}
 		effect = {
+			remove_country_modifier = kislev_forts_3
+			add_country_modifier = {
+    			name = kislev_forts_4
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
@@ -357,7 +567,12 @@ kislev_missions_3 = {
 		position = 2
 		provinces_to_highlight = {
             region = wheatlands_region
-            NOT = { owned_by = ROOT }
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
         }
 		trigger = {
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
@@ -366,9 +581,17 @@ kislev_missions_3 = {
 			}
 		}
 		effect = {
-			add_country_modifier = {
-				name = kislev_wheatlands_taken
-				duration = -1
+			add_country_modifier = { 
+    			name = kislev_wheatlands_1
+    			duration = -1  
+			}
+
+			custom_tooltip = claim_wheatlands_tt
+			hidden_effect = {
+				every_province = {
+					limit = { region = wheatlands_region }
+					 add_claim = ROOT
+				}
 			}
 		}
 	}
@@ -377,10 +600,6 @@ kislev_missions_3 = {
 	kislev_wheatlands_2 = {
 		icon = mission_kislev_kossar
 		required_missions = { kislev_wheatlands_1 }
-		provinces_to_highlight = {
-            region = wheatlands_region
-            NOT = { owned_by = ROOT }
-        }
 		trigger = {
 			num_of_owned_provinces_with = {
 				OR = {
@@ -395,6 +614,19 @@ kislev_missions_3 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = kislev_wheatlands_1
+			add_country_modifier = { 
+    			name = kislev_wheatlands_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+			custom_tooltip = claim_wheatlands_tt
+			hidden_effect = {
+				every_province = {
+					limit = { region = wheatlands_region }
+					 add_claim = ROOT
+				}
+			}
 		}
 	}
 
@@ -404,7 +636,12 @@ kislev_missions_3 = {
 		required_missions = { kislev_wheatlands_2 }
 		provinces_to_highlight = {
             region = wheatlands_region
-            NOT = { owned_by = ROOT }
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
         }
 		trigger = {
 			NOT = {
@@ -420,6 +657,12 @@ kislev_missions_3 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = kislev_wheatlands_2
+			add_country_modifier = { 
+    			name = kislev_wheatlands_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
@@ -435,11 +678,17 @@ kislev_missions_3 = {
 			NOT = {
 				any_province = {
 					region = wheatlands_region
-					base_manpower = 2
+					NOT { base_manpower = 2 }
 				}
 			}
 		}
 		effect = {
+			remove_country_modifier = kislev_wheatlands_3
+			add_country_modifier = { 
+    			name = kislev_wheatlands_4
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
@@ -456,6 +705,9 @@ kislev_missions_3 = {
 			capital_scope = { development = 30 }
 		}
 		effect = {
+			add_adm_power = 50
+			add_dip_power = 50
+			add_mil_power = 50
 		}
 	}
 
@@ -466,10 +718,41 @@ kislev_missions_3 = {
 		provinces_to_highlight = {
         }
 		trigger = {
-## This will be estate loyalty when the estate is made
+			OR = {
+				AND = {
+					estate_loyalty = {
+						estate = estate_mages
+						loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_mages
+						value = 2
+					}
+				}
+				NOT = {
+					estate_influence = {
+				    	estate = estate_mages
+				    	influence = 25
+					}
+				}
+			}
 
 		}
 		effect = {
+			if = {
+				limit = {
+					dip = 6
+				}
+				add_dip_power = 100
+			}
+			else = {
+				change_dip = 1
+			}
+			add_legitimacy = 25
+			add_republican_tradition = 10
+			add_devotion = 25
+			add_horde_unity = 25
+			add_meritocracy = 25
 		}
 	}
 
@@ -483,12 +766,17 @@ kislev_missions_3 = {
 			treasury = 1000
 		}
 		effect = {
+			add_treasury = -1000
+			add_country_modifier = { 
+    			name = kislev_ice_witches_1
+    			duration = -1  
+			}
 		}
 	}
 
 ## The ice witches need a place to train new recruits. 
 	kislev_ice_witch_3 = {
-		icon = mission_kislev_frost_maiden
+		icon = bibliotheca_corviana
 		required_missions = { kislev_ice_witch_2 }
 		provinces_to_highlight = {
         }
@@ -499,6 +787,11 @@ kislev_missions_3 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = kislev_ice_witches_1
+			add_country_modifier = { 
+    			name = kislev_ice_witches_2
+    			duration = -1  
+			}
 		}
 	}
 
@@ -515,7 +808,12 @@ kislev_missions_3 = {
 			capital_scope = { development = 50 }
 			NOT = { num_of_powerful_estates = 2 }
 		}
+
+### Event here to choose
 		effect = {
+			country_event = { 
+			    id = kislev_events.100
+			}
 		}
 	}
 
@@ -574,6 +872,10 @@ kislev_missions_4 = {
           	NOT = { religion = ROOT }
         }
 		effect = {
+			add_country_modifier = {
+				name = kislev_stability_1
+				duration = -1
+			}
 			add_patriarch_authority = 0.05
 		}
 	}
@@ -607,6 +909,11 @@ kislev_missions_4 = {
 			}
 		}
 		effect = {
+			add_country_modifier = {
+				name = kislev_strong_faith_1
+				duration = -1
+			}
+			add_patriarch_authority = 0.05
 
 		}
 	}
@@ -626,6 +933,31 @@ kislev_missions_4 = {
 			}
 		}
 		effect = {
+
+			change_estate_land_share = {
+ 			 	estate = estate_burghers
+    			share = -2.5
+			}
+
+			change_estate_land_share = {
+ 			 	estate = estate_nobles
+    			share = -2.5
+			}
+
+			change_estate_land_share = {
+ 			 	estate = estate_cossacks
+    			share = -2.5
+			}
+
+			change_estate_land_share = {
+ 			 	estate = estate_church
+    			share = -2.5
+			}
+
+			change_estate_land_share = {
+ 			 	estate = estate_mages
+    			share = -2.5
+			}
 
 		}
 	}
@@ -657,6 +989,11 @@ kislev_missions_4 = {
 		}
 		effect = {
 
+			add_country_modifier = {
+				name = kislev_modern_economics
+				duration = -1
+			}
+
 		}
 	}
 
@@ -668,12 +1005,22 @@ kislev_missions_4 = {
 		provinces_to_highlight = {
 		}
 		trigger = {
-			## Convert number of provinces
-			## At war with chaos
+
+			calc_true_if = {
+				all_country = {
+					religion = ROOT
+					trust = { who = ROOT value = 60 }
+				}
+				amount = 5
+			}
+
 
 		}
 		effect = {
-
+			add_country_modifier = {
+				name = kislev_wars_against_chaos_1
+				duration = -1
+			}
 		}
 	}
 
@@ -684,10 +1031,38 @@ kislev_missions_4 = {
 		provinces_to_highlight = {
 		}
 		trigger = {
-			### Force convert somebody?
-
+			custom_trigger_tooltip = {
+				tooltip = defeated_nurgle_tt
+				has_country_flag = defeated_nurgle
+			}
+			custom_trigger_tooltip = {
+				tooltip = defeated_khorne_tt
+				has_country_flag = defeated_khorne
+			}
+			custom_trigger_tooltip = {
+				tooltip = defeated_tzeentch_tt
+				has_country_flag = defeated_tzeentch
+			}
+			custom_trigger_tooltip = {
+				tooltip = defeated_slaanesh_tt
+				has_country_flag = defeated_slaanesh
+			}
+			custom_trigger_tooltip = {
+				tooltip = defeated_undivided_tt
+				has_country_flag = defeated_undivided
+			}
+			custom_trigger_tooltip = {
+				tooltip = defeated_norscan_tt
+				has_country_flag = defeated_norscan
+			}
 		}
 		effect = {
+			remove_country_modifier = kislev_wars_against_chaos_1
+			add_country_modifier = {
+				name = kislev_wars_against_chaos_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
 
 		}
 	}
@@ -720,7 +1095,10 @@ kislev_missions_5 = {
 			manpower_percentage = 0.25
 		}
 		effect = {
-
+			add_country_modifier = {
+				name = kislev_stability_2
+				duration = -1
+			}
 		}
 	}
 
@@ -733,9 +1111,17 @@ kislev_missions_5 = {
 		trigger = {
 			stability = 3
 			legitimacy_equivalent = 99
+			has_any_disaster = no
 		}
 		effect = {
-
+			add_patriarch_authority = 0.05
+			remove_country_modifier = kislev_stability_1
+			remove_country_modifier = kislev_stability_2
+			add_country_modifier = { 
+    			name = kislev_stability_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
@@ -755,6 +1141,10 @@ kislev_missions_5 = {
 			}
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = kislev_trade_1
+    			duration = -1  
+			}
 		}
 	}
 
@@ -773,6 +1163,12 @@ kislev_missions_5 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = kislev_trade_1
+			add_country_modifier = { 
+    			name = kislev_trade_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
@@ -794,6 +1190,20 @@ kislev_missions_5 = {
 		effect = {
 
 			add_patriarch_authority = 0.05
+			if = {
+				limit = {
+					adm = 6
+				}
+				add_adm_power = 100
+			}
+			else = {
+				change_adm = 1
+			}
+			add_legitimacy = 25
+			add_republican_tradition = 10
+			add_devotion = 25
+			add_horde_unity = 25
+			add_meritocracy = 25
 		}
 	}
 
@@ -834,6 +1244,12 @@ kislev_missions_5 = {
 		}
 
 		effect = {
+			remove_country_modifier = kislev_strong_faith_1
+			add_country_modifier = { 
+    			name = kislev_strong_faith_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
@@ -852,7 +1268,12 @@ kislev_missions_5 = {
 			}
 		}
 		effect = {
-
+			remove_country_modifier = kislev_strong_faith_2
+			add_country_modifier = { 
+    			name = kislev_strong_faith_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 			add_patriarch_authority = 0.05
 		}
 	}

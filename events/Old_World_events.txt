@@ -958,3 +958,173 @@ country_event = {
 
 }
 
+
+namespace = kislev_events
+normal_or_historical_nations = yes
+
+
+### Flavor Events
+
+
+### TEMPLATE
+
+country_event = { 
+	id = kislev_events.X
+	title = kislev_events.X.title
+	desc = kislev_events.X.desc
+	picture = EMPIRE_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = kislevite_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# FIRST OPTION
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = kislev_events.X.option_1 
+
+	}
+
+# SECOND OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = kislev_events.X.option_2
+
+
+	}
+
+# THIRD OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = kislev_events.X.option_3
+	}
+}
+
+
+
+
+## Kislev starting event - Kislev is on the edge of disaster. Our once great nation has been pushed back again and again by the forces of chaos. Norscans ravage our cities, and the Wheatlands have been separated from our empire. Squabbling factions vie for control, while the othodoxy struggles to maintain order. If we can overcome these challenges, then we might be able to survive, and possibly even regain all the glory that Kislev stands for. The Kislev people are strong. We will endure.
+country_event = { 
+	id = kislev_events.100
+	title = kislev_events.100.title
+	desc = kislev_events.100.desc
+	picture = KISLEV_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			is_year = 2503
+		}
+		tag = A29
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		add_stability = -1
+	}
+
+
+## Kislev shall be great again!
+	option = {
+		ai_chance = { factor = 50 }
+		name = kislev_events.100.option_1
+		
+	}
+}
+
+
+
+## We have heard from the Boyars, Ice Witches, and Church. They all wish to rule our country. But who shall take their place beside the throne?
+country_event = { 
+	id = kislev_events.101
+	title = kislev_events.101.title
+	desc = kislev_events.101.desc
+	picture = KISLEV_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = kislevite_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# The fearsome Boyars
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = kislev_events.101.option_1 
+
+		add_country_modifier = { 
+    		name = kislev_favor_boyars
+    		duration = -1  
+		}
+
+	}
+
+# The powerful Ice Witches
+	option = { 
+		ai_chance = { factor = 50 }
+		name = kislev_events.101.option_2
+
+		add_country_modifier = { 
+    		name = kislev_favor_ice_witches
+    		duration = -1  
+		}
+
+
+	}
+
+# The Righteous Church
+	option = { 
+		ai_chance = { factor = 50 }
+		name = kislev_events.101.option_3
+
+		add_country_modifier = { 
+    		name = kislev_favor_church
+    		duration = -1  
+		}
+	}
+
+# The crown alone shall rule
+	option = { 
+		ai_chance = { factor = 50 }
+		name = kislev_events.101.option_4
+
+		add_country_modifier = { 
+    		name = kislev_diminish_the_estates
+    		duration = -1  
+		}
+	}
+
+# Everybody helps! I'm very well advised
+	option = { 
+		ai_chance = { factor = 50 }
+		name = kislev_events.101.option_4
+
+		add_country_modifier = { 
+    		name = kislev_raise_the_estates
+    		duration = -1  
+		}
+	}
+
+}

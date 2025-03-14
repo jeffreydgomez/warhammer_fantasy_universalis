@@ -3957,6 +3957,7 @@ country_event = {
 	option = {
 		# He shall once again be our heir
 		name = flavor_bretonnia.911.a
+		ai_chance = { factor = 1 }
 
 		hidden_effect = { remove_all_heir_personalities = yes }
 		add_heir_personality = grail_knight_personality
@@ -3975,6 +3976,7 @@ country_event = {
 	option = {
 		name = flavor_bretonnia.911.b
 		trigger = { NOT = { has_global_flag = grail_has_been_found } }
+		ai_chance = { factor = 1 }
 		add_heir_claim = -5
 		add_treasury = -100
 		country_event = { 
@@ -3998,6 +4000,7 @@ country_event = {
 	option = {
 		name = flavor_bretonnia.912.a
 		hidden_effect = { remove_all_heir_personalities = yes }
+		ai_chance = { factor = 1 }
 		add_heir_personality = grail_knight_personality
 		set_heir_flag = grail_knight
 
@@ -4016,6 +4019,33 @@ country_event = {
 				value = 0
 			}
 			clr_country_flag = heir_started_grail_quest
+		}
+	}
+}
+
+## We are Bretonnians - proud, and chivalrous. Some might say that we are backwards, and that we abuse our peasants, but, while they are technically correct, they couldn't be more wrong! We owe our allegiance to the Royarch, who leads the bretonnian dukedoms in times of strife.
+country_event = {
+	id = flavor_bretonnia.100
+	title = flavor_bretonnia.100.t
+	desc = flavor_bretonnia.100.d
+	picture = KNIGHTS_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			is_year = 2503
+		}
+		OR = {
+			has_reform = bretonnian_dukedom_reform
+			has_reform = bretonnian_royarch_reform
+		}
+	}
+## For the lady!
+	option = {
+		name = flavor_bretonnia.100.a
+		ai_chance = { factor = 1 }
+
+		add_army_tradition = 25
+
 		}
 	}
 }
