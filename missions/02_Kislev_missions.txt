@@ -116,13 +116,6 @@ kislev_missions_1 = {
     			duration = -1  
 			}
 			custom_tooltip = upgrade_replace_tt
-			custom_tooltip = claim_norsca_tt
-			hidden_effect = {
-				every_province = {
-					limit = { region = norsca_region }
-					 add_claim = ROOT
-				}
-			}
 		}
 	}
 
@@ -812,7 +805,7 @@ kislev_missions_3 = {
 ### Event here to choose
 		effect = {
 			country_event = { 
-			    id = kislev_events.100
+			    id = kislev_events.101
 			}
 		}
 	}
@@ -1258,13 +1251,27 @@ kislev_missions_5 = {
 		icon = mission_kislev_orthodoxy
 		required_missions = { kislev_defender_of_faith }
 		trigger = {
-			estate_loyalty = {
-				estate = estate_church
-				loyalty = 75
-			}
-			num_of_estate_agendas_completed = {
-				estate = estate_church
-				value = 4
+			OR = {
+				AND = {
+					estate_loyalty = {
+						estate = estate_church
+						loyalty = 75
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_church
+						value = 4
+					}
+					estate_influence = {
+					    estate = estate_church
+					    influence = 80
+					}
+				}
+				NOT = {
+					estate_influence = {
+				    	estate = estate_church
+				    	influence = 10
+					}
+				}
 			}
 		}
 		effect = {

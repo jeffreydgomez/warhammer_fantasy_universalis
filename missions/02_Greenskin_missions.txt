@@ -42,7 +42,7 @@ greenskin_missions_1 = {
 # Bosses respect those who earn respect. Let's have some people grovel at our feet.
 # Worth 1/2 idea
 	greenskin_few_subjects = {
-		icon = mission_orc_culture
+		icon = mission_greenskins_goblin_warboss
 		required_missions = { greenskin_please_nobility }
 		trigger = {
 			num_of_subjects = 2
@@ -58,7 +58,7 @@ greenskin_missions_1 = {
 # This is fun! More people grovel at our feel. Let's squeeze more money out of them.
 # Worth 1/2 idea
 	greenskin_more_subjects = {
-		icon = mission_orc_culture
+		icon = mission_greenskins_goblin_warboss
 		required_missions = { greenskin_few_subjects }
 		trigger = {
 			num_of_subjects = 4
@@ -75,7 +75,7 @@ greenskin_missions_1 = {
 
 # In order to establish our rule, we must grow. Replace the ar
 	greenskin_grow_1 = {
-		icon = mission_orc_culture
+		icon = mission_greenskins_fort
 		required_missions = { }
 		position = 5
 		trigger = {
@@ -85,30 +85,36 @@ greenskin_missions_1 = {
 		}
 		effect = {
 			add_yearly_manpower = 1
-			every_neighbor_province = {
-				add_claim = ROOT
+			custom_tooltip = ORC_CLAIM_ALL_NEIGHBOR_TT
+			hidden_effect = {
+				every_neighbor_province = {
+					add_claim = ROOT
+				}
 			}
 		}
 	}
 
 # Greenskins respect power. Let us show them.
 	greenskin_grow_2 = {
-		icon = mission_orc_culture
+		icon = mission_orc_religion
 		required_missions = { greenskin_grow_1 }
 		trigger = {
 			manpower = 50
 		}
 		effect = {
 			add_yearly_manpower = 2
-			every_neighbor_province = {
-				add_claim = ROOT
+			custom_tooltip = ORC_CLAIM_ALL_NEIGHBOR_TT
+			hidden_effect = {
+				every_neighbor_province = {
+					add_claim = ROOT
+				}
 			}
 		}
 	}
 
 # We must claim the Khanate. More orcs flock to our banner
 	greenskin_grow_3 = {
-		icon = mission_orc_culture
+		icon = mission_greenskins_fort
 		required_missions = { greenskin_grow_2 }
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
@@ -117,23 +123,29 @@ greenskin_missions_1 = {
 		}
 		effect = {
 			add_yearly_manpower = 3
-			every_neighbor_province = {
-				add_claim = ROOT
+			custom_tooltip = ORC_CLAIM_ALL_NEIGHBOR_TT
+			hidden_effect = {
+				every_neighbor_province = {
+					add_claim = ROOT
+				}
 			}
 		}
 	}
 
 # With a big enough army, we can conquer all
 	greenskin_grow_4 = {
-		icon = mission_orc_culture
+		icon = mission_orc_religion
 		required_missions = { greenskin_grow_3 }
 		trigger = {
 			manpower = 100
 		}
 		effect = {
 			add_yearly_manpower = 4
-			every_neighbor_province = {
-				add_claim = ROOT
+			custom_tooltip = ORC_CLAIM_ALL_NEIGHBOR_TT
+			hidden_effect = {
+				every_neighbor_province = {
+					add_claim = ROOT
+				}
 			}
 		}
 	}
@@ -141,7 +153,7 @@ greenskin_missions_1 = {
 ## It is nearly time to begin the great Waagh
 ## This whole chain is worth 1.5 ideas
 	greenskin_grow_5 = {
-		icon = mission_orc_culture
+		icon = mission_greenskins_fort
 		required_missions = { greenskin_grow_4 }
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
@@ -150,8 +162,11 @@ greenskin_missions_1 = {
 		}
 		effect = {
 			add_yearly_manpower = 5
-			every_neighbor_province = {
-				add_claim = ROOT
+			custom_tooltip = ORC_CLAIM_ALL_NEIGHBOR_TT
+			hidden_effect = {
+				every_neighbor_province = {
+					add_claim = ROOT
+				}
 			}
 		}
 	}
@@ -159,7 +174,7 @@ greenskin_missions_1 = {
 
 
 	greenskin_raid_naggarond = {
-		icon = mission_orc_culture
+		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		position = 10
 		provinces_to_highlight = {
@@ -180,7 +195,7 @@ greenskin_missions_1 = {
 
 
 	greenskin_raid_lothern = {
-		icon = mission_orc_culture
+		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
 			province_id = 451
@@ -199,7 +214,7 @@ greenskin_missions_1 = {
 	}
 
 	greenskin_raid_hexotl = {
-		icon = mission_orc_culture
+		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
 			province_id = 2312
@@ -218,7 +233,7 @@ greenskin_missions_1 = {
 	}
 
 	greenskin_raid_itza = {
-		icon = mission_orc_culture
+		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
 			province_id = 2466
@@ -253,7 +268,7 @@ greenskin_missions_2 = {
 
 ## The bosses respect a good fight. Let us go to war with an enemy with a nation 25% more powerful that us.
 	greenskin_warfare_1 = {
-		icon = mission_orc_culture
+		icon = mission_greenskins_savage_orc
 		required_missions = { greenskin_please_nobility }
 		position = 2
 		provinces_to_highlight = {
@@ -271,14 +286,17 @@ greenskin_missions_2 = {
 					war_with = ROOT
 					army_strength = {
 						who = ROOT
-						value = 1.25
+						value = 1.1
 					}
 				}
-				NOT = {
-					any_known_country = {
-						army_strength = {
-							who = ROOT
-							value = 1.25
+				custom_trigger_tooltip = {
+					tooltip = 10_BIGGER_ARMY_TT
+					NOT = {
+						any_known_country = {
+							army_strength = {
+								who = ROOT
+								value = 1.1
+							}
 						}
 					}
 				}
@@ -294,7 +312,7 @@ greenskin_missions_2 = {
 
 ## The more we are feared, the more the bosses respect us. Let us strike fear in others.
 	greenskin_warfare_2 = {
-		icon = mission_orc_culture
+		icon = mission_greenskins_savage_orc
 		required_missions = { greenskin_warfare_1 }
 		trigger = {
 			is_at_war = yes
@@ -315,7 +333,7 @@ greenskin_missions_2 = {
 # ## The bosses respect a good fight. Let us go to war with an enemy with a nation twice as more powerful that us.
 # Worth 1 idea
 	greenskin_warfare_3 = {
-		icon = mission_orc_culture
+		icon = mission_greenskins_savage_orc
 		required_missions = { greenskin_warfare_2 }
 		provinces_to_highlight = {
 			owner = {
@@ -332,14 +350,17 @@ greenskin_missions_2 = {
 					war_with = ROOT
 					army_strength = {
 						who = ROOT
-						value = 2.0
+						value = 1.25
 					}
 				}
-				NOT = {
-					any_known_country = {
-						army_strength = {
-							who = ROOT
-							value = 2.0
+				custom_trigger_tooltip = {
+					tooltip = 25_BIGGER_ARMY_TT
+					NOT = {
+						any_known_country = {
+							army_strength = {
+								who = ROOT
+								value = 1.25
+							}
 						}
 					}
 				}
@@ -358,7 +379,7 @@ greenskin_missions_2 = {
 # We must admit, growth as not been easy. We can no longer house our orcs in the mud. We must build them places to live and train.
 # Worth no ideas
 	greenskin_build_barracks = {
-		icon = mission_guns_of_urban
+		icon = mission_greenskins_fort
 		required_missions = { greenskin_grow_1 }
 		position = 6
 		provinces_to_highlight = {
@@ -391,7 +412,7 @@ greenskin_missions_2 = {
 ## Waagh is good! It teaches us many things. We must make sure that the older greenskins teach the younger greenskins a thing or two befor they die.
 # Worth half an idea
 	greenskin_army_tradition = {
-		icon = mission_guns_of_urban
+		icon = mission_greenskins_savage_orc
 		required_missions = { greenskin_build_barracks }
 		trigger = {
 			army_tradition = 75
@@ -406,7 +427,7 @@ greenskin_missions_2 = {
 
 
 	greenskin_raid_couronne = {
-		icon = mission_orc_culture
+		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		position = 10
 		provinces_to_highlight = {
@@ -427,7 +448,7 @@ greenskin_missions_2 = {
 
 
 	greenskin_raid_athel_loren = {
-		icon = mission_orc_culture
+		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
 			province_id = 770
@@ -446,7 +467,7 @@ greenskin_missions_2 = {
 	}
 
 	greenskin_raid_remas = {
-		icon = mission_orc_culture
+		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
 			province_id = 590
@@ -465,7 +486,7 @@ greenskin_missions_2 = {
 	}
 
 	greenskin_raid_palace_of_the_wizard_caliph = {
-		icon = mission_orc_culture
+		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
 			province_id = 1007
@@ -500,11 +521,11 @@ greenskin_missions_3 = {
 ## Maybe Mork is the way to go?
 # Worth half an idea
 	greenskin_try_mork = {
-		icon = mission_orc_religion
+		icon = mission_greenskins_mork
 		required_missions = { }
 		trigger = {
 			OR = {
-				piety = 0.9
+				piety = 0.7
 				AND = {
 					NOT = { religion = gork_n_mork_religion }
 					at_war_with_religious_enemy = yes
@@ -522,7 +543,7 @@ greenskin_missions_3 = {
 ## Our shamans and gods are pleased. We shall throw a great festival, and our swords shall glow with the flames of our gods!
 # Worth no ideas
 	greenskin_happy_priest = {
-		icon = mission_orc_religion
+		icon = mission_greenskins_idol
 		required_missions = { greenskin_try_mork greenskin_try_gork }
 		trigger = {
 			estate_loyalty = {
@@ -546,7 +567,7 @@ greenskin_missions_3 = {
 ## There's something strange happening in our nation. As the various factions solidify under our rule, people whisper of rules and laws. To us, it sounds like power. Is this an opportunity to consolidate our rule?
 # Worth no ideas
 	greenskin_estates = {
-		icon = mission_orc_religion
+		icon = mission_greenskins_flag
 		required_missions = { greenskin_warfare_2 greenskin_happy_priest greenskin_some_war_reps}
 		position = 4
 		trigger = {
@@ -590,7 +611,7 @@ greenskin_missions_3 = {
 ## With the estates on side, we have a strange opportunity. We could seize power, or distribute it to the masses. This is all feeling strange for a greenskin.
 # Worth 1 idea
 	greenskin_reform_personal_freedom = {
-		icon = mission_orc_religion
+		icon = mission_greenskins_flag
 		required_missions = { greenskin_estates }
 		trigger = {
 
@@ -623,12 +644,14 @@ greenskin_missions_3 = {
 ## Professionalism and discipline do not come naturally to a greenskin army. But there is much to be said for following orders into combat.
 ## Worth half an idea
 	greenskin_professionalism = {
-		icon = mission_orc_religion
+		icon = mission_greenskins_boar
 		required_missions = { greenskin_build_barracks }
 		position = 7
 		trigger = {
-
-			army_professionalism = 0.25
+			OR = {
+				army_professionalism = 0.25
+				has_country_modifier = war_modern_army
+			}
 
 		}
 		effect = {
@@ -644,9 +667,14 @@ greenskin_missions_3 = {
 ## Which will it be? The traditions of the great warriors, or the discipline of the new ways?
 # Worth one idea
 	greenskin_reform_army = {
-		icon = mission_orc_religion
+		icon = mission_greenskins_flag
 		required_missions = { greenskin_army_tradition greenskin_professionalism }
 		trigger = {
+			army_tradition = 75
+			OR = {
+				army_professionalism = 0.35
+				has_country_modifier = war_modern_army
+			}
 
 		}
 		effect = {
@@ -657,7 +685,7 @@ greenskin_missions_3 = {
 	}
 
 	greenskin_raid_kislev = {
-		icon = mission_orc_culture
+		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		position = 10
 		provinces_to_highlight = {
@@ -678,7 +706,7 @@ greenskin_missions_3 = {
 
 
 	greenskin_raid_altdorf = {
-		icon = mission_orc_culture
+		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
 			province_id = 1
@@ -697,7 +725,7 @@ greenskin_missions_3 = {
 	}
 
 	greenskin_raid_barak_varr = {
-		icon = mission_orc_culture
+		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
 			province_id = 754
@@ -716,7 +744,7 @@ greenskin_missions_3 = {
 	}
 
 	greenskin_raid_khemri = {
-		icon = mission_orc_culture
+		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
 			province_id = 862
@@ -768,13 +796,13 @@ greenskin_missions_4 = {
 ## Maybe we should try gork
 # Worth half an idea
 	greenskin_try_gork = {
-		icon = mission_orc_religion
+		icon = mission_greenskins_gork
 		required_missions = {
 		}
 		trigger = {
 			OR = {
 				NOT = {
-					piety = -0.9
+					piety = -0.70
 				}
 				AND = {
 					NOT = { religion = gork_n_mork_religion }
@@ -793,7 +821,7 @@ greenskin_missions_4 = {
 ## A greenskin nation is built on raiding and forced tribute. Let us extract as much as we can from our enemies
 # Worth half an idea
 	greenskin_some_war_reps = {
-		icon = mission_orc_religion
+		icon = mission_greenskins_goblin_warboss
 		position = 3
 		required_missions = { greenskin_make_guilds_happy }
 		trigger = {
@@ -810,7 +838,7 @@ greenskin_missions_4 = {
 ## WE are warriors, not farmers. Let another tend to the crops. We shall collect.
 ## Worth half an idea
 	greenskin_more_war_reps = {
-		icon = mission_orc_religion
+		icon = mission_greenskins_fort
 		required_missions = { greenskin_some_war_reps }
 		trigger = {
 			num_of_war_reparations = 8
@@ -827,7 +855,7 @@ greenskin_missions_4 = {
 
 ## Some radical elements are clamboring for some sort of institutional stability. What should be done?
 	greenskin_reform_government = {
-		icon = mission_orc_religion
+		icon = mission_greenskins_flag
 		required_missions = { greenskin_reform_personal_freedom greenskin_reform_economy }
 		position = 6
 		trigger = {
@@ -844,7 +872,7 @@ greenskin_missions_4 = {
 ## We have a decision to make - do we embrace the waagh, or try to civilize?
 # Worth 1.5 ideas
 	greenskin_reform_fightiness = {
-		icon = mission_orc_religion
+		icon = mission_greenskins_flag
 		required_missions = { greenskin_reform_government greenskin_reform_army greenskin_reform_orcs_hobgoblin_or_goblin }
 		position = 9
 		trigger = {
@@ -860,7 +888,7 @@ greenskin_missions_4 = {
 	}
 
 	greenskin_raid_skavenhold = {
-		icon = mission_orc_culture
+		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		position = 10
 		provinces_to_highlight = {
@@ -881,7 +909,7 @@ greenskin_missions_4 = {
 
 
 	greenskin_raid_zharr_naggrund = {
-		icon = mission_orc_culture
+		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
 			province_id = 810
@@ -900,7 +928,7 @@ greenskin_missions_4 = {
 	}
 
 	greenskin_raid_karaz_a_karak = {
-		icon = mission_orc_culture
+		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
 			province_id = 700
@@ -919,7 +947,7 @@ greenskin_missions_4 = {
 	}
 
 	greenskin_raid_pigbarter = {
-		icon = mission_orc_culture
+		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
 			province_id = 2145
@@ -954,7 +982,7 @@ greenskin_missions_5 = {
 ## We have little respect for the peddlers and craven traders. However, they have enough power that we must at least acknowledge their presense.
 ## No ideas
 	greenskin_make_guilds_happy = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_greenskins_goblin_warboss
 		required_missions = {  }
 		position = 2
 		trigger = {
@@ -975,7 +1003,7 @@ greenskin_missions_5 = {
 
 ## It is hard to argue that our great gods shoudl not be worshipped. Very well. WE'll listen to the guilds this one time.
 	greenskin_build_churches = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_greenskins_idol
 		required_missions = { greenskin_make_guilds_happy }
 		provinces_to_highlight = {
 			owned_by = ROOT
@@ -1007,7 +1035,7 @@ greenskin_missions_5 = {
 
 ## The temples are somehow making money. We don't understand it, but the traders are suggesting marketplaces as well... I'm not sure about this.
 	greenskin_build_markets = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_greenskins_fort
 		required_missions = { greenskin_build_churches }
 		trigger = {
 			num_of_owned_provinces_with = {
@@ -1026,7 +1054,7 @@ greenskin_missions_5 = {
 
 ## With money rolling in from both trade and raiding, we have a decision to make. Do we double down on the raiding? Or do we invest efforts in ... well, investments?
 	greenskin_reform_economy = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_greenskins_flag
 		required_missions = { greenskin_more_war_reps greenskin_build_markets }
 		position = 5
 		trigger = {
@@ -1041,7 +1069,7 @@ greenskin_missions_5 = {
 
 ## Our Waagh stretches multiple continents.
 	greenskin_global_waagh = {
-		icon = mission_orc_culture
+		icon = mission_greenskins_savage_orc
 		position = 7
 		required_missions = { }
 		trigger = {
@@ -1057,7 +1085,7 @@ greenskin_missions_5 = {
 
 ## As the dominant greenskin nation, greenskin are flocking to our banner. We must decide who will run our government. Orcs, Goblins, or Hobgoblins?
 	greenskin_reform_orcs_hobgoblin_or_goblin = {
-		icon = mission_orc_culture
+		icon = mission_greenskins_idol
 		required_missions = { greenskin_global_waagh }
 		trigger = {
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
@@ -1074,7 +1102,7 @@ greenskin_missions_5 = {
 
 
 	greenskin_raid_dragon_gate = {
-		icon = mission_orc_culture
+		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		position = 10
 		provinces_to_highlight = {
@@ -1095,7 +1123,7 @@ greenskin_missions_5 = {
 
 
 	greenskin_raid_wei_jin = {
-		icon = mission_orc_culture
+		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
 			province_id = 2838
@@ -1114,7 +1142,7 @@ greenskin_missions_5 = {
 	}
 
 	greenskin_raid_goldtooth_mine = {
-		icon = mission_orc_culture
+		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
 			province_id = 2795
@@ -1133,7 +1161,7 @@ greenskin_missions_5 = {
 	}
 
 	greenskin_raid_mrauk_u = {
-		icon = mission_orc_culture
+		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
 			province_id = 4093
