@@ -317,7 +317,25 @@ greenskin_missions_2 = {
 		trigger = {
 			is_at_war = yes
 			any_country = {
-				coalition_target = ROOT
+				OR = {
+					coalition_target = ROOT
+					custom_trigger_tooltip = {
+						tooltip = HAS_OVER_100_AGGRESSIVE_EXPANSION_TT
+						AND = {
+							has_opinion_modifier = {
+								who = root
+								modifier = aggressive_expansion
+							}
+							NOT = {
+								has_opinion_modifier = {
+									who = root
+									modifier = aggressive_expansion
+									value = -100
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 		effect = {
