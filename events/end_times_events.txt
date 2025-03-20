@@ -1857,29 +1857,40 @@ country_event = {
 			form_coalition_against = ROOT
 		}
 
-		every_country = {
-			limit = {
-				ai = yes
-				has_opinion_modifier = {
-					who = root
-					modifier = aggressive_expansion
-				}
-				NOT = {
+
+		random_war_enemy_country = {
+
+			every_country = {
+				limit = {
+					ai = yes
 					has_opinion_modifier = {
 						who = root
 						modifier = aggressive_expansion
-						value = -100
+					}
+					NOT = {
+						has_opinion_modifier = {
+							who = root
+							modifier = aggressive_expansion
+							value = -100
+						}
 					}
 				}
 
-			}
-			declare_war_with_cb = {
-			    who = ROOT
-			    casus_belli = cb_war_end_end_times
+## This is risky, because if other people are at war with each other, then it will get messy
+
+				join_all_defensive_wars_of = PREV
+				join_all_offensive_wars_of = PREV
+
+	#			declare_war_with_cb = {
+	#			    who = ROOT
+	#			    casus_belli = cb_war_end_end_times
+	#			}
+
 			}
 		}
-
 	}
+
+
 }
 
 ## Give occupied cored Everchosen provinces back to owner

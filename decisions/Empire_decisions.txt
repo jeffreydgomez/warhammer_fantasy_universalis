@@ -1,4 +1,61 @@
 country_decisions = {
+	war_petition_to_join_the_HRE = {
+		potential = {
+			ai = no
+			is_part_of_hre = no
+			hre_size = 1
+			religion_group = old_world_denominations
+			any_neighbor_country = {
+				is_part_of_hre = yes
+			}
+		 }
+
+		allow = {
+			emperor = {
+				owes_favors = { 
+			         who = ROOT 
+			         value = 50
+				}
+				has_opinion = {
+					who = ROOT
+					value = 100
+				}
+				NOT = { is_threat = ROOT }
+			}
+			NOT = {
+				any_elector = {
+					NOT = {
+						has_opinion = {
+							who = ROOT
+							value = 0
+						}
+					}
+				}
+			}
+		}
+
+		provinces_to_highlight = {
+			owner = {
+				is_elector = yes
+				NOT = {
+					has_opinion = {
+						who = ROOT
+						value = 25
+					}
+				}
+			}
+		}
+
+		effect = {
+			set_in_empire = yes
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+
 	summon_the_elector_counts = {
 		potential = { 
 			is_emperor = yes

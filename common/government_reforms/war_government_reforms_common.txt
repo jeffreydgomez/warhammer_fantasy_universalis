@@ -215,3 +215,51 @@ enlist_monsters = {
 		factor = 1
 	}
 }
+
+
+found_mages_college_reform = {
+	icon = "assembly_hall"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		OR = {
+			has_reform = found_mages_college_reform
+			NOT = { has_estate = estate_mages }
+		}
+		NOT = { has_reform = abolish_mages_college_reform }
+	}
+	modifiers = {
+		church_loyalty_modifier = -0.1
+		mages_loyalty_modifier = 0.1
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+abolish_mages_college_reform = {
+
+	icon = "assembly_hall"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		OR = {
+			AND = {
+				NOT = { has_reform = found_mages_college_reform }
+				has_estate = estate_mages
+			}
+			has_reform = abolish_mages_college_reform
+		}
+	}
+	modifiers = {
+		church_loyalty_modifier = 0.1
+		church_influence_modifier = 0.1
+		stability_cost_modifier = -0.1
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+

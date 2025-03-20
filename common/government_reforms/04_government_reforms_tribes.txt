@@ -108,6 +108,10 @@ tribal_federation = {
 		years_of_nationalism = -5
 	}
 
+	government_abilities = { 
+		orc_fightiness_mechanic
+	}
+
 	conditional = {
 		allow = { has_dlc = "Cradle of Civilization" }
 		government_abilities = {
@@ -127,6 +131,9 @@ tribal_despotism = {
 	modifiers = {
 		core_creation = -0.1
 	}
+	government_abilities = { 
+		orc_fightiness_mechanic
+	}
 	legacy_equivalent = tribal_despotism_legacy
 	ai = {
 		factor = 1
@@ -140,6 +147,9 @@ tribal_kingdom = {
 	legacy_equivalent = tribal_kingdom_legacy
 	modifiers = {
 		vassal_income = 0.2
+	}
+	government_abilities = { 
+		orc_fightiness_mechanic
 	}
 	ai = {
 		factor = 1
@@ -215,6 +225,9 @@ stateless_society = {
 	valid_for_nation_designer = yes
 	lock_level_when_selected = yes
 	nation_designer_cost = 0
+	government_abilities = { 
+		orc_fightiness_mechanic
+	}
 	modifiers = {
 		governing_capacity_modifier = -0.99
 		defensiveness = 0.75
@@ -335,6 +348,10 @@ tribal_confederacy = {
 		max_absolutism = -20
 	}
 
+	government_abilities = { 
+		orc_fightiness_mechanic
+	}
+
 	conditional = {
 		allow = {
 			has_dlc = "Origins"
@@ -453,7 +470,9 @@ feudal_tribe = {
 		vassal_income = 0.1
 		global_tax_modifier = 0.1
 	}
-
+	government_abilities = { 
+		orc_fightiness_mechanic
+	}
 	conditional = {
 		allow = { 
 			has_dlc = "Mandate of Heaven"
@@ -614,10 +633,7 @@ tribe_becomes_monarchy_reform = {
 	allow_normal_conversion = yes
 	potential = {
 		NOT = { 
-			or = { 
-				has_reform = stateless_society
-				has_reform = greenskin_tribe
-				}
+			has_reform = stateless_society
 		}
 	}
 	trigger = {
@@ -700,6 +716,18 @@ tribe_becomes_monarchy_reform = {
 #			change_unit_type = chinese
 		}
 		change_government = monarchy
+		if = {
+			limit = {
+				OR = {
+					culture_group = greenskins_group
+					religion = gork_n_mork_religion
+				}
+			}
+			add_government_reform = greenskin_monarchy
+		}
+
+
+
 		# if = {
 		# 	limit = {
 		# 		tag = AVE
@@ -852,14 +880,12 @@ tribe_becomes_theocracy_reform = {
 		NOT = { 
 			or = { 
 				has_reform = stateless_society
-				has_reform = greenskin_tribe
-				}
+			}
 		}
 	}
 	trigger = {
 		NOT = { is_lesser_in_union = yes }
 		NOT = { has_government_attribute_short_desc = locked_government_type }
-		NOT = { has_reform = greenskin_tribe }
 	}
 	effect = {
 		set_country_flag = populists_in_government
@@ -938,6 +964,16 @@ tribe_becomes_theocracy_reform = {
 #			change_unit_type = chinese
 		}
 		change_government = theocracy
+		if = {
+			limit = {
+				OR = {
+					culture_group = greenskins_group
+					religion = gork_n_mork_religion
+				}
+			}
+			add_government_reform = greenskin_theocracy
+		}
+
 		# if = {
 		# 	limit = {
 		# 		tag = AVE
