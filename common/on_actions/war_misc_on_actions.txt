@@ -550,3 +550,62 @@ on_war_lost = {
 # 	}
 # }
 
+on_province_culture_converted = {
+	if = {
+		limit = {
+			owner = { culture_group = PREV }
+			NOT = { trade_goods = slaves }
+			has_province_modifier = enslaved_lesser_races
+		}
+		remove_province_modifier = enslaved_lesser_races
+	}
+}
+
+
+#on_culture_promoted = {
+#	every_owned_province = {
+#		remove_province_modifier = enslaved_lesser_races
+#	}
+#
+#	every_owned_province = {
+#		limit = {
+#			OR = {
+#				AND  = {
+#					NOT = { culture_group = ROOT }
+#					NOT = { accepted_culture = ROOT }
+#				}
+#				trade_goods = slaves
+#			}
+#			owner = { has_estate_privilege = estate_guild_enslave_lesser_races }
+#		}
+#		add_province_modifier = {
+#			name = enslaved_lesser_races
+#			duration = -1
+#		}
+#	}
+#}
+
+#on_culture_demoted = {
+#	every_owned_province = {
+#		remove_province_modifier = enslaved_lesser_races
+#	}
+#
+#	every_owned_province = {
+#		limit = {
+#			OR = {
+#				AND  = {
+#					NOT = { culture_group = ROOT }
+#					NOT = { accepted_culture = ROOT }
+#				}
+#				trade_goods = slaves
+#			}
+#			owner = { has_estate_privilege = estate_guild_enslave_lesser_races }
+#		}
+#		add_province_modifier = {
+#			name = enslaved_lesser_races
+#			duration = -1
+#		}
+#	}
+#}
+
+

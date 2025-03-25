@@ -33,6 +33,13 @@ po_force_dominion = {
 			culture_group = FROM
 		}
 		NOT = { overlord_of = FROM }
+		NOT = { is_subject_of_type = dominion }
+		NOT = {
+			AND = {
+				is_subject_of_type = bretonnian_dukedom_subject
+				FROM = { is_subject_of_type = bretonnian_dukedom_subject }
+			}
+		}
 		NOT = { FROM = { is_subject_of_type = dominion } }
 		NOT = { FROM = { bretonnian_dukedom_subject = 1 } }
 		NOT = { FROM = { has_reform = chaos_warband }}
@@ -65,7 +72,10 @@ po_force_dominion = {
 			value = 100
 		}
 		limit = { # if limit evaluates false, ai_weight will evaluate to 0 regardless
-			always = yes
+			AND = {
+				is_elector = yes
+				FROM = { is_elector = yes }
+			}
 		}
 	}
 }
