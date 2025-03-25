@@ -320,141 +320,141 @@ estate_cossacks_cossack_self_governance = {
 	}
 }
 
-estate_cossacks_establish_the_cossack_regiments = {
-	icon = privilege_raise_host
-	land_share = 5
-	max_absolutism = -5
-	conditional_modifier = { trigger = { has_absolutism_reduction_for_estate_privileges = yes } modifier = { max_absolutism = 1 } }
-	influence = 0.05
-	can_select = {
-	}
-	on_granted = {
-	}
-	modifier_by_land_ownership = {
-		allowed_cossack_fraction = 0.5
-	}
-	penalties = {
-	}
-	benefits = {
-	}
-	mechanics = {
-		enables_cossack_regiments
-		exempt_from_seize_land
-	}
-	conditional_modifier = {
-		trigger = { has_government_mechanic = russian_modernization_mechanic }
-		modifier = { monthly_russian_modernization = -0.01 }
-	}
-	ai_will_do = {
-		factor = 1
-		modifier = {
-			factor = 10
-			any_owned_province = {
-				has_terrain = steppe
-			}
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				NOT = { crown_land_share = 25 }
-				estate_influence = {
-					estate = estate_cossacks
-					influence = 75
-				}
-			}
-			NOT = { has_estate_privilege = estate_cossacks_establish_the_cossack_regiments }
-		}
-	}
-	additional_description = {
-		cossacks_regiment
-	}
-}
+#estate_cossacks_establish_the_cossack_regiments = {
+#	icon = privilege_raise_host
+#	land_share = 5
+#	max_absolutism = -5
+#	conditional_modifier = { trigger = { has_absolutism_reduction_for_estate_privileges = yes } modifier = { max_absolutism = 1 } }
+#	influence = 0.05
+#	can_select = {
+#	}
+#	on_granted = {
+#	}
+#	modifier_by_land_ownership = {
+#		allowed_cossack_fraction = 0.5
+#	}
+#	penalties = {
+#	}
+#	benefits = {
+#	}
+#	mechanics = {
+#		enables_cossack_regiments
+#		exempt_from_seize_land
+#	}
+#	conditional_modifier = {
+#		trigger = { has_government_mechanic = russian_modernization_mechanic }
+#		modifier = { monthly_russian_modernization = -0.01 }
+#	}
+#	ai_will_do = {
+#		factor = 1
+#		modifier = {
+#			factor = 10
+#			any_owned_province = {
+#				has_terrain = steppe
+#			}
+#		}
+#		modifier = {
+#			factor = 0
+#			OR = {
+#				NOT = { crown_land_share = 25 }
+#				estate_influence = {
+#					estate = estate_cossacks
+#					influence = 75
+#				}
+#			}
+#			NOT = { has_estate_privilege = estate_cossacks_establish_the_cossack_regiments }
+#		}
+#	}
+#	additional_description = {
+#		cossacks_regiment
+#	}
+#}
 
-estate_cossacks_expand_the_cossack_regiments = {
-	icon = privilege_conscript_cossack_elite
-	land_share = 5
-	max_absolutism = -5
-	conditional_modifier = { trigger = { has_absolutism_reduction_for_estate_privileges = yes } modifier = { max_absolutism = 1 } }
-	influence = 0.05
-	is_valid = {
-		has_estate_privilege = estate_cossacks_establish_the_cossack_regiments
-	}
-	can_select = {
-	}
-	on_granted = {
-		if = {
-			limit = { has_dlc = "Domination" }
-			enable_estate_action = {
-				estate_action = RAISE_COSSACK_HOST_COSSACKS
-			}
-		}
-		else = {
-			custom_tooltip = has_no_effects_on_granted
-		}
-	}
-	on_invalid = {
-		if = {
-			limit = { has_dlc = "Domination" }
-			disable_estate_action = {
-				estate_action = RAISE_COSSACK_HOST_COSSACKS
-			}
-		}
-		else = {
-			hidden_effect = {
-				disable_estate_action = {
-					estate_action = RAISE_COSSACK_HOST_COSSACKS
-				}
-			}
-		}
-	}
-	on_revoked = {
-		if = {
-			limit = { has_dlc = "Domination" }
-			disable_estate_action = {
-				estate_action = RAISE_COSSACK_HOST_COSSACKS
-			}
-		}
-		else = {
-			hidden_effect = {
-				disable_estate_action = {
-					estate_action = RAISE_COSSACK_HOST_COSSACKS
-				}
-			}
-		}
-	}
-	modifier_by_land_ownership = {
-		allowed_cossack_fraction = 0.5
-	}
-	penalties = {
-	}
-	benefits = {
-	}
-	conditional_modifier = {
-		trigger = { has_government_mechanic = russian_modernization_mechanic }
-		modifier = { monthly_russian_modernization = -0.01 }
-	}
-	ai_will_do = {
-		factor = 1
-		modifier = {
-			factor = 10
-			any_owned_province = {
-				has_terrain = steppe
-			}
-			is_absolutism_active = no
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				NOT = { crown_land_share = 25 }
-				estate_influence = {
-					estate = estate_cossacks
-					influence = 75
-				}
-			}
-			NOT = { has_estate_privilege = estate_cossacks_establish_the_cossack_regiments }
-		}
-	}
-}
+#estate_cossacks_expand_the_cossack_regiments = {
+#	icon = privilege_conscript_cossack_elite
+#	land_share = 5
+#	max_absolutism = -5
+#	conditional_modifier = { trigger = { has_absolutism_reduction_for_estate_privileges = yes } modifier = { max_absolutism = 1 } }
+#	influence = 0.05
+#	is_valid = {
+#		has_estate_privilege = estate_cossacks_establish_the_cossack_regiments
+#	}
+#	can_select = {
+#	}
+#	on_granted = {
+#		if = {
+#			limit = { has_dlc = "Domination" }
+#			enable_estate_action = {
+#				estate_action = RAISE_COSSACK_HOST_COSSACKS
+#			}
+#		}
+#		else = {
+#			custom_tooltip = has_no_effects_on_granted
+#		}
+#	}
+#	on_invalid = {
+#		if = {
+#			limit = { has_dlc = "Domination" }
+#			disable_estate_action = {
+#				estate_action = RAISE_COSSACK_HOST_COSSACKS
+#			}
+#		}
+#		else = {
+#			hidden_effect = {
+#				disable_estate_action = {
+#					estate_action = RAISE_COSSACK_HOST_COSSACKS
+#				}
+#			}
+#		}
+#	}
+#	on_revoked = {
+#		if = {
+#			limit = { has_dlc = "Domination" }
+#			disable_estate_action = {
+#				estate_action = RAISE_COSSACK_HOST_COSSACKS
+#			}
+#		}
+#		else = {
+#			hidden_effect = {
+#				disable_estate_action = {
+#					estate_action = RAISE_COSSACK_HOST_COSSACKS
+#				}
+#			}
+#		}
+#	}
+#	modifier_by_land_ownership = {
+#		allowed_cossack_fraction = 0.5
+#	}
+#	penalties = {
+#	}
+#	benefits = {
+#	}
+#	conditional_modifier = {
+#		trigger = { has_government_mechanic = russian_modernization_mechanic }
+#		modifier = { monthly_russian_modernization = -0.01 }
+#	}
+#	ai_will_do = {
+#		factor = 1
+#		modifier = {
+#			factor = 10
+#			any_owned_province = {
+#				has_terrain = steppe
+#			}
+#			is_absolutism_active = no
+#		}
+#		modifier = {
+#			factor = 0
+#			OR = {
+#				NOT = { crown_land_share = 25 }
+#				estate_influence = {
+#					estate = estate_cossacks
+#					influence = 75
+#				}
+#			}
+#			NOT = { has_estate_privilege = estate_cossacks_establish_the_cossack_regiments }
+#		}
+#	}
+#}
 
 estate_cossacks_recruit_cossack_generals = {
 	icon = privilege_conscript_cossack_elite

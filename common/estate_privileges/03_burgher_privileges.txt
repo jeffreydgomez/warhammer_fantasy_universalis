@@ -3506,10 +3506,68 @@ estate_necrotect_construction = {
 	benefits = {
 		great_project_upgrade_cost = -0.25
 		great_project_upgrade_time = -0.25
-		allowed_cossack_fraction = 0.1
-		special_unit_cost_modifier = -0.1
+		allowed_cossack_fraction = 0.05
+		special_unit_cost_modifier = -0.05
 	}
 	ai_will_do = {
 		factor = 0
 	}
 }
+
+
+
+estate_guild_enslave_lesser_races = {
+	icon = privilege_decentralized
+	max_absolutism = 0
+	influence = 0.05
+	loyalty = 0.05
+	is_valid = {
+		always = yes
+	}
+	can_select = {
+		NOT = {  has_country_modifier = order_nation }
+	}
+
+	penalties = {
+		culture_conversion_time = 0.5
+		culture_conversion_cost = 0.5
+		global_unrest = 1
+	}
+	on_granted = {
+		custom_tooltip = estate_guild_enslave_lesser_races_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						NOT = { culture_group = ROOT }
+						trade_goods = slaves
+					}
+				}
+				add_province_modifier = {
+					name = enslaved_lesser_races
+					duration = -1
+				}
+			}			
+		}
+	}
+	on_revoked = {
+		custom_tooltip = estate_guild_enslave_lesser_races_remove_tt
+		hidden_effect = {
+			every_owned_province = {
+				remove_province_modifier = enslaved_lesser_races
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	ai_will_do = {
+		factor = 200
+		modifier = {
+			factor = 0.0
+			NOT = { religion = hashut }
+		}
+	}
+}
+

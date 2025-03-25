@@ -227,6 +227,14 @@ deploy_doomsphere = {
 			trade_goods = warpstone
 		}
 
+		FROM = {
+			OR = {
+				is_rival = ROOT
+				is_enemy = ROOT
+				is_neighbor_of = ROOT
+				war_with = ROOT
+			}
+		}
 	}
 
     on_accept = {
@@ -236,6 +244,11 @@ deploy_doomsphere = {
 				trade_goods = warpstone
 			}
 			add_base_production = -3
+		}
+
+		add_spy_network_in = {
+		    who = FROM
+		    value = -100
 		}
 
 		FROM = {
