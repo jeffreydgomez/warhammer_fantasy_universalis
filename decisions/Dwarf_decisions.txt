@@ -14,10 +14,12 @@ country_decisions = {
 			OR = {
 				ai = no
 				AND = {
-					treasury = 400
-					adm_power = 500
+					current_income_balance = 10
+					monthly_adm = 7
 				}
 			}
+
+			NOT = { has_country_modifier = dwarf_surveying_land }
 
 		 }
 
@@ -82,14 +84,41 @@ country_decisions = {
 		}
 
 		ai_will_do = {
-			factor = 1
+			factor = 10
 			modifier = {
 			 	factor = 0
-			 	NOT = { treasury = 400 }
+			 	NOT = { current_income_balance = 10 }
 			}
 			modifier = {
 			 	factor = 0
-			 	NOT = { adm_power = 500 }
+			 	NOT = { monthly_adm = 7 }
+			}
+		}
+	}
+
+
+	dwarf_stop_surveying_land = {
+		potential = { 
+			has_country_modifier = dwarf_surveying_land
+		 }
+
+		allow = {
+			always = yes
+		}
+
+		effect = {
+			remove_country_modifier = dwarf_surveying_land
+		}
+
+		ai_will_do = {
+			factor = 10
+			modifier = {
+			 	factor = 0
+			 	current_income_balance = 5
+			}
+			modifier = {
+			 	factor = 0
+			 	monthly_adm = 4
 			}
 		}
 	}
