@@ -847,6 +847,108 @@ country_event = {
 
 
 
+## Nagash AE growth
+country_event = {
+	id = tomb_king.102
+	title = tomb_king.102.t
+	desc = tomb_king.102.d
+	picture = ARCHAON_eventPicture
+	hidden = yes
+	fire_only_once = no
+	trigger = {
+		has_global_flag = nagash_resurrected
+		has_country_modifier = nagash_resurrected_modifier
+	}
+	mean_time_to_happen = {
+		months = 12
+	}
+	option = {
+		name = tomb_king.102.a
+		every_country = {
+			limit = {
+				total_development = 200
+				NOT = { has_country_modifier = nagash_resurrected_modifier }
+			}
+			add_aggressive_expansion = {
+				who = ROOT
+				value = 3
+				apply_calc = no
+			}
+		}
+		every_country = {
+			limit = {
+				is_great_power = yes
+				NOT = { has_country_modifier = nagash_resurrected_modifier }
+			}
+			add_aggressive_expansion = {
+				who = ROOT
+				value = 3
+				apply_calc = no
+			}
+		}
+		every_country = {
+			limit = {
+				is_neighbor_of = ROOT
+				NOT = { has_country_modifier = nagash_resurrected_modifier }
+			}
+			add_aggressive_expansion = {
+				who = ROOT
+				value = 3
+				apply_calc = no
+			}
+		}
+
+
+		every_country = {
+			limit = {
+				ai = yes
+				has_opinion_modifier = {
+					who = root
+					modifier = aggressive_expansion
+				}
+				NOT = {
+					has_opinion_modifier = {
+						who = root
+						modifier = aggressive_expansion
+						value = -50
+					}
+				}
+
+			}
+			form_coalition_against = ROOT
+		}
+
+
+		random_war_enemy_country = {
+
+			every_country = {
+				limit = {
+					ai = yes
+					has_opinion_modifier = {
+						who = root
+						modifier = aggressive_expansion
+					}
+					NOT = {
+						has_opinion_modifier = {
+							who = root
+							modifier = aggressive_expansion
+							value = -100
+						}
+					}
+				}
+
+## This is risky, because if other people are at war with each other, then it will get messy
+
+				join_all_defensive_wars_of = PREV
+				join_all_offensive_wars_of = PREV
+
+			}
+		}
+	}
+}
+
+
+
 ### Mission events
 
 

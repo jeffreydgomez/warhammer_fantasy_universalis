@@ -1,0 +1,568 @@
+########################################
+# Events for assassination
+########################################
+
+namespace = war_assassinate
+normal_or_historical_nations = yes
+
+
+### We have heard rumors that assassins are coming for our ruler. How should we proceed?
+
+country_event = { 
+	id = war_assassinate.1
+	title = war_assassinate.1.t 
+	desc = war_assassinate.1.d 
+	picture = ASSASSINATION_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = no
+
+	trigger = {
+		has_country_flag = target_of_assassin_flag
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+
+## This sets the global root of assassin to event, in case another assassination happens while the player is deciding on this one.
+	immediate = {
+		clr_country_flag = target_of_assassin_flag
+	}
+
+## We must take every possible precaution
+	option = { 
+		ai_chance = { factor = 0 }
+		name = war_assassinate.1.a
+		add_yearly_manpower = -0.5
+		add_years_of_income = -0.5
+		add_dip_power = -25
+
+		random_list = {
+
+		    25 = {
+		    	country_event = {
+					id = war_assassinate.2
+				}
+
+				hidden_effect = {
+					event_target:root_of_assassin_global = {
+						country_event = {
+							id = war_assassinate.12
+						}
+					}
+				}
+		    }
+		    25 = {
+		    	country_event = {
+					id = war_assassinate.3
+				}
+
+				hidden_effect = {
+					event_target:root_of_assassin_global = {
+						country_event = {
+							id = war_assassinate.13
+						}
+					}
+				}
+		        
+		    }
+
+		    500 = {
+
+		    	country_event = {
+					id = war_assassinate.4
+				}
+
+				hidden_effect = {
+					event_target:root_of_assassin_global = {
+						country_event = {
+							id = war_assassinate.14
+						}
+					}
+				}
+
+
+		    }
+
+		    450 = {
+		    	country_event = {
+					id = war_assassinate.5
+				}
+
+				hidden_effect = {
+					event_target:root_of_assassin_global = {
+						country_event = {
+							id = war_assassinate.15
+						}
+					}
+				}
+
+		    }
+		}
+	}
+
+## Devote some men to our protection
+	option = { 
+		ai_chance = { factor = 0 }
+		name = war_assassinate.1.b
+		add_yearly_manpower = -0.25
+		add_years_of_income = -0.25
+
+		random_list = {
+
+		    15 = {
+		    	country_event = {
+					id = war_assassinate.2
+				}
+
+				hidden_effect = {
+					event_target:root_of_assassin_global = {
+						country_event = {
+							id = war_assassinate.12
+						}
+					}
+				}
+		    }
+		    10 = {
+		    	country_event = {
+					id = war_assassinate.3
+				}
+
+				hidden_effect = {
+					event_target:root_of_assassin_global = {
+						country_event = {
+							id = war_assassinate.13
+						}
+					}
+				}
+		        
+		    }
+
+		    50 = {
+
+		    	country_event = {
+					id = war_assassinate.4
+				}
+
+				hidden_effect = {
+					event_target:root_of_assassin_global = {
+						country_event = {
+							id = war_assassinate.14
+						}
+					}
+				}
+
+
+		    }
+
+		    25 = {
+		    	country_event = {
+					id = war_assassinate.5
+				}
+
+				hidden_effect = {
+					event_target:root_of_assassin_global = {
+						country_event = {
+							id = war_assassinate.15
+						}
+					}
+				}
+
+		    }
+		}
+	}
+
+
+## Bah! Mere rumors
+	option = { 
+		ai_chance = { factor = 100 }
+		name = war_assassinate.1.c
+
+		random_list = {
+
+		    50 = {
+		    	country_event = {
+					id = war_assassinate.2
+				}
+
+				hidden_effect = {
+					event_target:root_of_assassin_global = {
+						country_event = {
+							id = war_assassinate.12
+						}
+					}
+				}
+		    }
+		    30 = {
+		    	country_event = {
+					id = war_assassinate.3
+				}
+
+				hidden_effect = {
+					event_target:root_of_assassin_global = {
+						country_event = {
+							id = war_assassinate.13
+						}
+					}
+				}
+		        
+		    }
+
+		    10 = {
+
+		    	country_event = {
+					id = war_assassinate.4
+				}
+
+				hidden_effect = {
+					event_target:root_of_assassin_global = {
+						country_event = {
+							id = war_assassinate.14
+						}
+					}
+				}
+		    }
+
+		    10 = {
+		    	country_event = {
+					id = war_assassinate.5
+				}
+
+				hidden_effect = {
+					event_target:root_of_assassin_global = {
+						country_event = {
+							id = war_assassinate.15
+						}
+					}
+				}
+
+		    }
+		}
+	}
+
+	after = {
+		clear_global_event_target = root_of_assassin_global
+		clear_global_event_target = target_of_assassin_global
+	}
+}
+
+## Our ruler was assassinated! And the assassins slipped away undetected.
+country_event = { 
+	id = war_assassinate.2
+	title = war_assassinate.2.t 
+	desc = war_assassinate.2.d 
+	picture = ASSASSINATION_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes 
+		
+	immediate = {
+		kill_ruler = yes
+	}
+
+## The assassin slipped off into the night!
+	option = { 
+		ai_chance = { factor = 100 }
+		name = war_assassinate.2.a 
+		trigger = { }
+		
+	}
+
+}
+
+
+
+## Our ruler was assassinated! But we caught the assassin, and know who perpetrated this crime.
+country_event = { 
+	id = war_assassinate.3
+	title = war_assassinate.3.t 
+	desc = war_assassinate.3.d 
+	picture = ASSASSINATION_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes 
+		
+## This sets the global root of assassin to event, in case another assassination happens while the player is deciding on this one.
+	immediate = {
+		event_target:root_of_assassin_global = {
+			save_event_target_as = root_of_assassin_event
+		}
+		event_target:target_of_assassin_global = {
+			save_event_target_as = target_of_assassin_event
+		}
+		kill_ruler = yes
+	}
+
+## We shall have our revenge!
+	option = { 
+		ai_chance = { factor = 100 }
+		name = war_assassinate.3.a 
+		trigger = { }
+
+		add_aggressive_expansion = {
+			who = event_target:root_of_assassin_event
+			value = 100
+			apply_calc = no
+		}
+
+		add_casus_belli = {
+		    target = event_target:root_of_assassin_event
+		    type = cb_insult
+		    months = 240
+		}
+		
+	}
+
+}
+
+
+## Our ruler was saved from assasination! But the Assassin slipped away. We don't know who was responsible.
+country_event = { 
+	id = war_assassinate.4
+	title = war_assassinate.4.t 
+	desc = war_assassinate.4.d 
+	picture = ASSASSINATION_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes 
+		
+## This sets the global root of assassin to event, in case another assassination happens while the player is deciding on this one.
+	immediate = {
+		event_target:root_of_assassin_global = {
+			save_event_target_as = root_of_assassin_event
+		}
+		event_target:target_of_assassin_global = {
+			save_event_target_as = target_of_assassin_event
+		}
+	}
+
+## Damn!
+	option = { 
+		ai_chance = { factor = 100 }
+		name = war_assassinate.4.a 
+		trigger = { }
+		
+	}
+
+}
+
+
+## Our ruler was saved from assassination! We caught the assassin, and we know who targeted us.
+country_event = { 
+	id = war_assassinate.5
+	title = war_assassinate.5.t 
+	desc = war_assassinate.5.d 
+	picture = ASSASSINATION_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes 
+		
+## This sets the global root of assassin to event, in case another assassination happens while the player is deciding on this one.
+	immediate = {
+		event_target:root_of_assassin_global = {
+			save_event_target_as = root_of_assassin_event
+		}
+		event_target:target_of_assassin_global = {
+			save_event_target_as = target_of_assassin_event
+		}
+	}
+
+## We shall have our revenge!
+	option = { 
+		ai_chance = { factor = 100 }
+		name = war_assassinate.5.a 
+		trigger = { }
+		
+		add_aggressive_expansion = {
+			who = event_target:root_of_assassin_event
+			value = 100
+			apply_calc = no
+		}
+
+		add_casus_belli = {
+		    target = event_target:root_of_assassin_event
+		    type = cb_insult
+		    months = 240
+		}
+
+	}
+
+}
+
+
+
+
+## For the country doing the assassinating:
+
+## Our target was assassinated! And the assassins slipped away undetected.
+country_event = { 
+	id = war_assassinate.12
+	title = war_assassinate.12.t 
+	desc = war_assassinate.12.d 
+	picture = ASSASSINATION_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes 
+		
+	immediate = {
+		event_target:root_of_assassin_global = {
+			save_event_target_as = root_of_assassin_event
+		}
+		event_target:target_of_assassin_global = {
+			save_event_target_as = target_of_assassin_event
+		}
+	}
+
+## Victory!
+	option = { 
+		ai_chance = { factor = 100 }
+		name = war_assassinate.12.a 
+		trigger = { }
+	
+	}
+
+}
+
+
+
+## Our target was assassinated! But they caught the assassin, and know we are responsible
+country_event = { 
+	id = war_assassinate.13
+	title = war_assassinate.13.t 
+	desc = war_assassinate.13.d 
+	picture = ASSASSINATION_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes 
+		
+	immediate = {
+		event_target:root_of_assassin_global = {
+			save_event_target_as = root_of_assassin_event
+		}
+		event_target:target_of_assassin_global = {
+			save_event_target_as = target_of_assassin_event
+		}
+	}
+
+## They'll be coming for us soon.
+	option = { 
+		ai_chance = { factor = 100 }
+		name = war_assassinate.13.a 
+		trigger = { }
+
+		add_prestige = -25
+
+		break_marriage = event_target:target_of_assassin_event
+		break_alliance = event_target:target_of_assassin_event
+
+		tooltip = {
+
+			event_target:target_of_assassin_event = {
+				add_aggressive_expansion = {
+					who = ROOT
+					value = 100
+					apply_calc = no
+				}
+
+				add_casus_belli = {
+				    target = ROOT
+				    type = cb_insult
+				    months = 240
+				}
+			}
+		}
+		
+	}
+
+}
+
+
+## Our target was saved from assasination! But the Assassin slipped away. They don't know we were responsible.
+
+country_event = { 
+	id = war_assassinate.14
+	title = war_assassinate.14.t 
+	desc = war_assassinate.14.d 
+	picture = ASSASSINATION_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes 
+		
+	immediate = {
+		event_target:root_of_assassin_global = {
+			save_event_target_as = root_of_assassin_event
+		}
+		event_target:target_of_assassin_global = {
+			save_event_target_as = target_of_assassin_event
+		}
+	}
+
+## Damn!
+	option = { 
+		ai_chance = { factor = 100 }
+		name = war_assassinate.14.a 
+		trigger = { }
+
+	}
+
+}
+
+
+
+## Our target was saved from assassination! They caught the assassin, and they know we targeted them.
+country_event = { 
+	id = war_assassinate.15
+	title = war_assassinate.15.t 
+	desc = war_assassinate.15.d 
+	picture = ASSASSINATION_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes 
+		
+	immediate = {
+		event_target:root_of_assassin_global = {
+			save_event_target_as = root_of_assassin_event
+		}
+		event_target:target_of_assassin_global = {
+			save_event_target_as = target_of_assassin_event
+		}
+	}
+
+## Uh-oh
+	option = { 
+		ai_chance = { factor = 100 }
+		name = war_assassinate.15.a 
+		trigger = { }
+
+		add_prestige = -25
+
+		break_marriage = event_target:target_of_assassin_event
+		break_alliance = event_target:target_of_assassin_event
+
+		tooltip = {
+
+			event_target:target_of_assassin_event = {
+
+				add_aggressive_expansion = {
+					who = ROOT
+					value = 100
+					apply_calc = no
+				}
+
+				add_casus_belli = {
+				    target = ROOT
+				    type = cb_insult
+				    months = 240
+				}
+			}
+		}
+		
+	}
+
+}
+
+
+
+

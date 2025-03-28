@@ -4,16 +4,22 @@
 country_decisions = {
 	dwarf_survey_land = {
 		potential = { 
-			has_country_modifier = dwarven_administration
+			OR = {
+				has_country_modifier = dwarven_administration
+				has_country_modifier = skaven_administration
+				full_idea_group = economic_ideas
+			}
 
 			## Performance
 			OR = {
 				ai = no
 				AND = {
-					treasury = 400
-					adm_power = 500
+					current_income_balance = 10
+					monthly_adm = 7
 				}
 			}
+
+			NOT = { has_country_modifier = dwarf_surveying_land }
 
 		 }
 
@@ -68,24 +74,51 @@ country_decisions = {
 		effect = {
 			add_country_modifier = { 
 			    name = dwarf_surveying_land
-			    duration = 365
+			    duration = -1
 			}
 
-			country_event = { 
-			    id = dwarf_events.11
-			    days = 365
-			}
+#			country_event = { 
+#			    id = dwarf_events.11
+#			    days = 365
+#			}
 		}
 
 		ai_will_do = {
-			factor = 1
+			factor = 10
 			modifier = {
 			 	factor = 0
-			 	NOT = { treasury = 400 }
+			 	NOT = { current_income_balance = 10 }
 			}
 			modifier = {
 			 	factor = 0
-			 	NOT = { adm_power = 500 }
+			 	NOT = { monthly_adm = 7 }
+			}
+		}
+	}
+
+
+	dwarf_stop_surveying_land = {
+		potential = { 
+			has_country_modifier = dwarf_surveying_land
+		 }
+
+		allow = {
+			always = yes
+		}
+
+		effect = {
+			remove_country_modifier = dwarf_surveying_land
+		}
+
+		ai_will_do = {
+			factor = 10
+			modifier = {
+			 	factor = 0
+			 	current_income_balance = 5
+			}
+			modifier = {
+			 	factor = 0
+			 	monthly_adm = 4
 			}
 		}
 	}
@@ -98,7 +131,7 @@ country_decisions = {
 		 }
 
 		allow = {
-			years_of_manpower = 1.0
+			years_of_manpower = 2.0
 			NOT = { has_country_modifier = hashut_slave_sacrifice }
 		}
 
@@ -106,9 +139,9 @@ country_decisions = {
 
 			add_country_modifier = { 
 			    name = hashut_slave_sacrifice
-			    duration = 365
+			    duration = 1825
 			}
-			add_yearly_manpower = -1.0
+			add_yearly_manpower = -2.0
 		}
 
 		ai_will_do = {
