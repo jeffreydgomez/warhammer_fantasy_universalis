@@ -522,7 +522,11 @@ country_event = {
 	is_triggered_only = yes
 		
 	trigger = {
-		has_country_modifier = dwarven_administration
+		OR = {
+			has_country_modifier = dwarven_administration
+			has_country_modifier = skaven_administration
+			full_idea_group = economic_ideas
+		}
 		any_owned_province = {
 			NOT = { has_province_modifier = dwarf_industrialized }
 			NOT = { has_province_modifier = dwarf_industrialized_wasteland }
@@ -637,7 +641,11 @@ country_event = {
 	is_triggered_only = yes
 		
 	trigger = {
-		has_country_modifier = dwarven_administration
+		OR = {
+			has_country_modifier = dwarven_administration
+			has_country_modifier = skaven_administration
+			full_idea_group = economic_ideas
+		}
 		any_owned_province = {
 			NOT = { has_province_modifier = dwarf_rail_system }
 		}
@@ -726,7 +734,11 @@ country_event = {
 	is_triggered_only = yes
 		
 	trigger = {
-		has_country_modifier = dwarven_administration
+		OR = {
+			has_country_modifier = dwarven_administration
+			has_country_modifier = skaven_administration
+			full_idea_group = economic_ideas
+		}
 		any_owned_province = {
 			OR = {
 				trade_goods = grain
@@ -993,16 +1005,16 @@ country_event = {
 	picture = INDUSTRY_eventPicture
 	
 	fire_only_once = no
-	is_triggered_only = yes
+	is_triggered_only = no
 
 	hidden = yes
 		
 	trigger = {
-		always = yes
+		has_country_modifier = dwarf_surveying_land
 	}
 
 	mean_time_to_happen = {
-		days = 1
+		days = 350
 	}
 
 # FIRST OPTION
@@ -1138,6 +1150,11 @@ country_event = {
 		    id = dwarf_events.12
 		}
 	}
+
+	after = {
+		remove_country_modifier = dwarf_surveying_land
+
+	}
 }
 
 
@@ -1153,7 +1170,7 @@ country_event = {
 	is_triggered_only = yes
 		
 	trigger = {
-		has_country_modifier = dwarven_administration
+		always = yes
 	}
 
 	mean_time_to_happen = {

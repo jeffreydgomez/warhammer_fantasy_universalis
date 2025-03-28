@@ -6,41 +6,63 @@ assassinate_ruler = {
 
 	is_visible = {
 		root = {
-			can_potentially_assassinate = yes
 			ai = no
 		}
 		from = {
-			ai = yes
 			has_regency = no
 		}
 	}
 
 	is_allowed = {
-		ROOT = {
-			can_assassinate = yes
-			treasury = 100
-			has_spy_network_in = {
-				who = FROM
-				value = 80
+		OR = {
+			full_idea_group = spy_ideas
+			tag = U28
+		}
+		treasury = 100
+		dip_power = 50
+		has_spy_network_in = {
+			who = FROM
+			value = 100
+		}
+		FROM = {
+			NOT = { full_idea_group = spy_ideas }
+		}
+		FROM = {
+			NOT = {
+				has_spy_network_in = {
+					who = ROOT
+					value = 10
+				}
 			}
 		}
+		FROM = { is_lesser_in_union = no }
 	}
 
     on_accept = {
 		hidden_effect = {
-			FROM = {
-				save_global_event_target_as  = target_of_assassination
+			ROOT = {
+				save_global_event_target_as = root_of_assassin_global
 			}
 		}
 		ROOT = {
-			country_event = {
-				id = flavor_eshin.1
-			}
 			add_treasury = -100
+			add_dip_power = -50
 			add_spy_network_in = {
    				who = FROM
-    			value = -80
+    			value = -100
 			}
+		}
+		FROM = {
+
+			set_country_flag = target_of_assassin_flag
+
+			FROM = { save_global_event_target_as = target_of_assassin_global }
+
+#			country_event = {
+#				id = war_assassinate.1
+#			}
+
+
 		}
     }
 
