@@ -1,0 +1,1613 @@
+
+##################################
+##### CHAOS DWARF
+##################################
+
+
+chaos_dwarf_missions_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = chaos_dwarf_group
+	}
+
+
+
+## Zharr-Naggrund is to be the heart from which we rule the world. We must defend it at all costs. Our forts will become unassailable
+	chaos_dwarf_defend_the_heartland_1 = {
+		icon = mission_chaos_dwarf_industry
+		required_missions = { chaos_dwarf_fires_of_hashut }
+		position = 2
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 4
+				fort_level = 2
+				region = plain_of_zharr_region
+			}
+		}
+		effect = {
+			every_owned_province = {
+				limit = {
+					value = 4
+					fort_level = 2
+					region = plain_of_zharr_region
+				}
+				add_building = ramparts
+			}
+		}
+	}
+
+## We cannot forget the River Ruin. We may not be a seafaring people, but we must own this river.
+	chaos_dwarf_defend_the_heartland_2 = {
+		icon = mission_advance_to_the_dnieper
+		required_missions = { chaos_dwarf_defend_the_heartland_1 }
+		trigger = {
+			navy_size = 30
+			has_flagship = yes
+		}
+		effect = {
+
+			add_country_modifier = { 
+    			name = chaos_dwarf_galleys
+    			duration = -1  
+			}
+
+		}
+	}
+
+
+### Iron makes railways, artillery, factories, and chains. We must have it all!
+## Worth nothing
+	chaos_dwarf_iron_1 = { 
+		icon = mission_dalaskogen
+		position = 5
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = iron
+		}	
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = iron
+				amount = 10
+			}
+		}
+
+		effect = {
+			custom_tooltip = claim_all_iron_everywhere_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						trade_goods = iron
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			## Survey Complete
+			country_event = { 
+			    id = dwarf_events.20
+			}			
+		}
+	}
+
+### With so much iron, we can build bigger and stronger artillery pieces. Cannons the size of building hurl explosive boulders into enemy lines.
+## Worth half an idea
+	chaos_dwarf_iron_2 = { 
+		icon = mission_chaos_dwarf_hell_cannon
+		required_missions = { chaos_dwarf_iron_1 }
+		provinces_to_highlight = {
+			trade_goods = iron
+		}	
+		trigger = {
+			OR = {
+				trade_goods_produced_amount = {
+					trade_goods = iron
+					amount = 20
+				}
+			}
+		}
+
+		effect = {
+
+			add_country_modifier = { 
+    			name = chaos_dwarf_better_artillery
+    			duration = -1  
+			}
+
+			## Survey Complete
+			country_event = { 
+			    id = dwarf_events.20
+			}
+			
+		}
+	}
+
+## Monopoly on Iron - we control the iron market, and can control iron output to better control the price
+## Worth half an idea
+	chaos_dwarf_iron_3 = { 
+		icon = mission_dalaskogen
+		required_missions = { chaos_dwarf_iron_2 }
+		provinces_to_highlight = {
+			trade_goods = iron
+		}	
+		trigger = {
+			trading_part = {
+				trade_goods = iron
+				value = 0.3
+			}
+		}
+
+		effect = {
+			change_price = {
+			    trade_goods = iron
+			    value = 0.25
+			    duration = -1
+			}
+			## Survey Complete
+			country_event = { 
+			    id = dwarf_events.20
+			}
+		}
+	}
+
+
+## Our quest for world domination takes us west into the so-called old world. Here, humans have festered in freedom for too long.
+
+	chaos_dwarf_claim_old_world_1 = {
+		icon = mission_empire_culture
+		required_missions = { chaos_dwarf_home_of_chaos_dwarves }
+		position = 10
+		provinces_to_highlight = {
+            continent = europe
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+        }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				continent = europe
+			}
+		}
+		effect = {
+
+			add_country_modifier = { 
+    			name = chaos_dwarf_old_world_1
+    			duration = -1  
+			}
+
+			add_harmony = 10
+		}
+	}
+
+
+## Humans have some skill with magic that rivals that of our Sorcerer-Prophets. We must force them to study for us, under severe supervision.
+	chaos_dwarf_claim_old_world_2 = {
+		icon = mission_empire_religion
+		required_missions = { chaos_dwarf_claim_old_world_1 }
+		provinces_to_highlight = {
+            OR = {
+				culture_group = imperial_group
+				culture_group = estalian_group
+				culture_group = bretonnian_group
+				culture_group = kislevite_group
+				culture_group = tilean_group
+				culture_group = norse_group
+				culture_group = albionise_group
+				culture_group = arabyan_group
+				culture_group = hung_group
+				culture_group = kurgan_group
+				culture_group = darkland_human_group
+				culture_group = amazon_group
+				culture_group = cathayan_cg
+				culture_group = indish_cg
+				culture_group = nipponese_cg
+			}
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+        }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 25
+				OR = {
+					culture_group = imperial_group
+					culture_group = estalian_group
+					culture_group = bretonnian_group
+					culture_group = kislevite_group
+					culture_group = tilean_group
+					culture_group = norse_group
+					culture_group = albionise_group
+					culture_group = arabyan_group
+					culture_group = hung_group
+					culture_group = kurgan_group
+					culture_group = darkland_human_group
+					culture_group = amazon_group
+					culture_group = cathayan_cg
+					culture_group = indish_cg
+					culture_group = nipponese_cg
+				}
+			}
+		}
+		effect = {
+
+			remove_country_modifier = chaos_dwarf_old_world_1
+			add_country_modifier = { 
+    			name = chaos_dwarf_old_world_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+
+			add_harmony = 10
+		}
+	}
+
+## With the capital of empire under our control, we can now lay claim the the entire old world
+	chaos_dwarf_claim_old_world_3 = {
+		icon = mission_empire_culture
+		required_missions = { chaos_dwarf_claim_old_world_2 }
+		provinces_to_highlight = {
+            province_id = 1
+        }
+		trigger = {
+			1 = {
+				OR = {
+					owned_by_subject_of = ROOT
+					owned_by = ROOT
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = claim_old_world_tt ## This needs localization
+			hidden_effect = {
+				every_province = {
+					limit = {
+						continent = europe
+						is_city = yes
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			add_harmony = 10
+		}
+	}
+
+
+
+}
+
+
+chaos_dwarf_missions_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = chaos_dwarf_group
+	}
+
+## Our empire shall be ruled from a central point. We must build up the court of Zharr-Naggrund to ensure its dominance over all else.
+	chaos_dwarf_fires_of_hashut = {
+		icon = mission_chaos_dwarf_anvil
+		required_missions = { }
+		provinces_to_highlight = {
+        }
+		trigger = {
+			capital_scope = { development = 35 }
+			employed_advisor = { category = ADM }
+			employed_advisor = { category = DIP }
+			employed_advisor = { category = MIL }
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = chaos_dwarf_prepare_our_capital_1
+    			duration = -1  
+			}
+			## Survey Complete
+			country_event = { 
+			    id = dwarf_events.20
+			}
+		}
+	}
+
+## With the city of Zharr-Naggrund build up, we can effectively administer our empire
+	chaos_dwarf_dev_capital_state = {
+		icon = mission_chaos_dwarf_anvil
+		required_missions = { chaos_dwarf_fires_of_hashut }
+		provinces_to_highlight = {
+        }
+		trigger = {
+			development_in_provinces = {
+				value = 90
+				area = zharr_naggrund_area
+			}
+		}
+		effect = {
+
+			remove_country_modifier = chaos_dwarf_prepare_our_capital_1
+			add_country_modifier = { 
+    			name = chaos_dwarf_prepare_our_capital_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+
+			## Survey Complete
+			country_event = { 
+			    id = dwarf_events.20
+			}
+		}
+	}
+
+## Light the forges! Zharr-Naggrund will glow like the fires of Hashut!
+	chaos_dwarf_dev_capital_region = {
+		icon = mission_chaos_dwarf_anvil
+		required_missions = { chaos_dwarf_dev_capital_state }
+		provinces_to_highlight = {
+        }
+		trigger = {
+			development_in_provinces = {
+				value = 175
+				region = plain_of_zharr_region
+			}
+		}
+		effect = {
+
+			remove_country_modifier = chaos_dwarf_prepare_our_capital_2
+			add_country_modifier = { 
+    			name = chaos_dwarf_prepare_our_capital_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+
+			custom_tooltip = faster_survey_tt
+		}
+	}
+
+## Foolish noble families believe they have some power over our rule. Let us use them to steal influence from the others.
+	chaos_dwarf_please_nobles = { 
+		icon = mission_chaos_dwarf_slavery
+		required_missions = { chaos_dwarf_blasted_wastes_2 }
+		position = 5
+		trigger = {
+			estate_loyalty = {
+			    estate = estate_nobles
+			    loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+
+		effect = {	
+			change_estate_land_share = {
+ 			 	estate = estate_nobles
+    			share = 2.5
+			}
+
+			change_estate_land_share = {
+ 			 	estate = estate_burghers
+    			share = -5.0
+			}
+
+			change_estate_land_share = {
+ 			 	estate = estate_church
+    			share = -5.0
+			}
+		}
+	}
+
+## Reclaim the northern Chaos Dwarves of Uzkulak. Uzkulak, also known as the "Place of the Skull," is a city of the Dawi-Zharr located in the northernmost region of the Dark Lands that served as the original seat of the Dwarfs of the East before the Great Catastrophe transformed their society into that of the Chaos Dwarfs.[2a] Around 1000 IC, in order to fuel the ever-increasing demand for slaves in the Chaos Dwarf empire, a great sea canal was constructed underground linking the Falls of Doom to the north of Zharr-Naggrund with the Sea of Chaos to the west of Uzkulak, giving the Chaos Dwarf fleet an exit to the north.
+	chaos_dwarf_wheatlands_1 = {
+		icon = mission_chaos_dwarf
+		required_missions = { chaos_dwarf_crownland }
+		position = 7
+		provinces_to_highlight = {
+            region = wheatlands_region
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+        }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				region = wheatlands_region
+			}
+		}
+		effect = {
+
+			custom_tooltip = claim_wheatlands_tt
+			hidden_effect = {
+				every_province = {
+					limit = { region = wheatlands_region }
+					 add_claim = ROOT
+				}
+			}
+			## Survey Complete
+			country_event = { 
+			    id = dwarf_events.20
+			}
+
+		}
+	}
+
+## The wheatlands, long a kislev stonghold, have falled into disunity. We must rectify such chaos and take these verdant fields for our own armies. We shall apply our industrial farming techniques to the land
+	chaos_dwarf_wheatlands_2 = {
+		icon = mission_kislev_wheatlands
+		required_missions = { chaos_dwarf_wheatlands_1 }
+		provinces_to_highlight = {
+            region = wheatlands_region
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+        }
+		trigger = {
+			wheatlands_region = {
+				type = all
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+			num_of_owned_provinces_with = {
+				value = 3
+				region = wheatlands_region
+				OR = {
+					has_building = mills
+					has_building = farm_estate
+					has_building = tradecompany
+					has_building = plantations
+					has_building = textile
+					has_building = weapons
+					has_building = wharf
+					has_building = furnace
+				}
+			}
+
+		}
+		effect = {
+
+			add_country_modifier = { 
+    			name = chaos_dwarf_industrial_farming
+    			duration = -1  
+			}
+
+			## Survey Complete
+			country_event = { 
+			    id = dwarf_events.20
+			}
+		}
+	}
+
+
+## It is time to return to our old grounds. Skaven and our backwards ancestors, the dwarves, must be hunted and enslaved
+	chaos_dwarf_claim_underempire_1 = {
+		icon = mission_dwarf_culture
+		required_missions = { chaos_dwarf_home_of_chaos_dwarves }
+		position = 10
+		provinces_to_highlight = {
+            continent = underempire
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+        }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				continent = underempire
+			}
+		}
+		effect = {
+
+			add_country_modifier = { 
+    			name = chaos_dwarf_underempire_1
+    			duration = -1  
+			}
+
+			## Survey Complete
+			country_event = { 
+			    id = dwarf_events.20
+			}
+			add_harmony = 10
+		}
+	}
+
+# Dwarves, though weaker and less advanced than Dawi Zharr, none-the-less do have some rudimentary skill at mining. We will use them as such
+	chaos_dwarf_claim_underempire_2 = {
+		icon = mission_dwarf_religion
+		required_missions = { chaos_dwarf_claim_underempire_1 }
+		provinces_to_highlight = {
+			culture_group = dwarf_group
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+        }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 25
+				culture_group = dwarf_group
+			}
+		}
+		effect = {
+
+			remove_country_modifier = chaos_dwarf_underempire_1
+			add_country_modifier = { 
+    			name = chaos_dwarf_underempire_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+
+			## Survey Complete
+			country_event = { 
+			    id = dwarf_events.20
+			}
+			add_harmony = 10
+		}
+	}
+
+## The entire underdark shall be ours.
+	chaos_dwarf_claim_underempire_3 = {
+		icon = mission_dwarf_culture
+		required_missions = { chaos_dwarf_claim_underempire_2 }
+		provinces_to_highlight = {
+            OR = {
+            	province_id = 700
+            	province_id = 169
+            }
+            NOT = {
+				OR = {
+					owned_by_subject_of = ROOT
+					owned_by = ROOT
+				}
+            }
+        }
+		trigger = {
+			700 = {
+				OR = {
+					owned_by_subject_of = ROOT
+					owned_by = ROOT
+				}
+			}
+			169 = {
+				OR = {
+					owned_by_subject_of = ROOT
+					owned_by = ROOT
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = claim_underempire_tt ## This needs localization
+			hidden_effect = {
+				every_province = {
+					limit = {
+						continent = underempire
+						is_city = yes
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			## Survey Complete
+			country_event = { 
+			    id = dwarf_events.20
+			}
+			add_harmony = 10
+		}
+	}
+
+
+
+}
+
+
+chaos_dwarf_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = chaos_dwarf_group
+	}
+
+
+### There's oil and metals in the blasted wastes that we can use for immense artillery
+	chaos_dwarf_blasted_wastes_1 = {
+		icon = mission_chaos_dwarf_factory
+		required_missions = { chaos_dwarf_fires_of_hashut chaos_dwarf_chains_of_hashut_1 }
+		position = 2
+		provinces_to_highlight = {
+            region = blasted_wastes_region
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+        }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				region = blasted_wastes_region
+			}
+		}
+		effect = {
+
+			custom_tooltip = claim_blasted_wastes_tt ## Need this
+			hidden_effect = {
+				every_province = {
+					limit = { region = blasted_wastes_region }
+					 add_claim = ROOT
+				}
+			}
+
+			## Survey Complete
+			country_event = { 
+			    id = dwarf_events.20
+			}
+
+			add_harmony = 10
+
+
+		}
+	}
+
+### There's oil and metals in the blasted wastes that we can use for immense weapons of war
+	chaos_dwarf_blasted_wastes_2 = {
+		icon = mission_chaos_dwarf_hell_cannon
+		required_missions = { chaos_dwarf_dev_capital_region chaos_dwarf_blasted_wastes_1 chaos_dwarf_chains_of_hashut_3}
+		position = 4
+		provinces_to_highlight = {
+            region = blasted_wastes_region
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+        }
+		trigger = {
+			blasted_wastes_region = {
+				type = all
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+		}
+		effect = {
+
+			add_country_modifier = { 
+    			name = chaos_dwarf_oil_powered_artillery
+    			duration = -1  
+			}
+
+			## Survey Complete
+			country_event = { 
+			    id = dwarf_events.20
+			}
+
+			add_harmony = 10
+
+		}
+	}
+
+
+
+## Foolish clergy believe they have some power over our rule. In reality, there are mere servants of Hashut. Let us use them to steal influence from the others.
+	chaos_dwarf_please_church = { 
+		icon = mission_hashut_religion
+		required_missions = { chaos_dwarf_blasted_wastes_2 }
+		trigger = {
+			estate_loyalty = {
+			    estate = estate_church
+			    loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 1
+			}
+		}
+
+		effect = {	
+			change_estate_land_share = {
+ 			 	estate = estate_nobles
+    			share = -5.0
+			}
+
+			change_estate_land_share = {
+ 			 	estate = estate_burghers
+    			share = -5.0
+			}
+
+			change_estate_land_share = {
+ 			 	estate = estate_church
+    			share = 2.5
+			}
+		}
+	}
+
+
+## Our energies are unified, and we have the strong base we need to explode outward in conquest. The time has come for war!
+	chaos_dwarf_crownland = { 
+		icon = mission_chaos_dwarf_slavery
+		required_missions = { chaos_dwarf_please_church chaos_dwarf_please_nobles chaos_dwarf_please_guilds }
+		position = 5
+		trigger = {
+			crown_land_share = 75
+
+			OR = {
+				AND = {
+					estate_loyalty = {
+			    		estate = estate_mages
+			    		loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_mages
+						value = 1
+					}
+				}
+
+				NOT = {
+					estate_influence = {
+				    	estate = estate_mages
+				    	influence = 25
+					}
+				}
+
+			}
+		}
+
+		effect = {
+
+			add_country_modifier = { 
+    			name = chaos_dwarf_explosive_conquest
+    			duration = -1  
+			}
+
+			add_harmony = 10
+
+			set_government_rank = 3
+
+		}
+	}
+
+
+### Our factories vomit forth weapons of war!
+	chaos_dwarf_industry_1 = { 
+		icon = mission_chaos_dwarf_factory
+		required_missions = { chaos_dwarf_crownland }
+		provinces_to_highlight = {
+            owned_by = ROOT
+            NOT = {
+				OR = {
+					has_province_modifier = dwarf_industrialized
+					has_province_modifier = dwarf_industrialized_wasteland
+					has_province_modifier = dwarf_rail_system
+				}
+            }
+        }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					has_province_modifier = dwarf_industrialized
+					has_province_modifier = dwarf_industrialized_wasteland
+					has_province_modifier = dwarf_rail_system
+				}
+			}
+			weapons = 5
+		}
+
+		effect = {	
+
+			add_country_modifier = { 
+    			name = chaos_dwarf_weapons_of_war
+    			duration = -1  
+			}
+
+			## Survey Complete
+			country_event = { 
+			    id = dwarf_events.20
+			}
+
+			add_harmony = 10
+		}
+	}
+
+### With pigbarter and the scalded delta secured, we can ensure naval supremacy over the region. We may not be a seafaring people, but we understand how important it is to defend our coasts.
+	chaos_dwarf_pigbarter = { 
+		icon = invest_in_the_rich_trades
+		required_missions = { chaos_dwarf_industry_1 }
+		provinces_to_highlight = {
+			OR = {
+            	area = pigbarter_area
+            	area = scalded_delta
+            }
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+        }
+		trigger = {
+			pigbarter_area = {
+				type = all
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+			scalded_delta = {
+				type = all
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+		}
+		effect = {
+
+			add_country_modifier = { 
+    			name = chaos_dwarf_defend_the_coasts
+    			duration = -1  
+			}
+
+			add_harmony = 10
+		}
+	}
+
+
+## With Zharr_naggrund completed, we are now the undisputed home of the Chaos dwarves. Let us spread out into the plains of Zharr. Our slaves can live elsewhere.
+	chaos_dwarf_home_of_chaos_dwarves = { 
+		icon = mission_chaos_dwarf_factory
+		required_missions = { chaos_dwarf_wheatlands_2 chaos_dwarf_pigbarter chaos_dwarf_southern_wastes_2 }
+		provinces_to_highlight = {
+            has_great_project = {
+				type = zharr_naggrund
+				tier = 0
+			}
+        }
+		trigger = {
+			810 = 
+			{
+				has_great_project = {
+					type = zharr_naggrund
+					tier = 3
+				}
+			}
+		}
+
+## Event that moves chaos dwarves into Zharr Naggrund
+		effect = {	
+
+			every_owned_province = {
+				limit = { region = plain_of_zharr_region }
+				change_culture = ROOT
+			}
+			add_stability_or_adm_power = yes
+
+			## Survey Complete
+			country_event = { 
+			    id = dwarf_events.20
+			}
+			add_harmony = 10
+
+		}
+	}
+
+## The stronger our central governing land, the more powerful our rule shall be.
+	chaos_dwarf_central_governance_1 = { 
+		icon = mission_chaos_dwarf_factory
+		required_missions = { chaos_dwarf_home_of_chaos_dwarves }
+		provinces_to_highlight = {
+            region = plain_of_zharr_region
+            NOT = { num_of_buildings_in_province = 3 }
+        }
+		trigger = {
+			plain_of_zharr_region = {
+				type = all
+				owned_by = ROOT
+				num_of_buildings_in_province = 3
+			}
+		}
+
+		effect = {	
+			add_country_modifier = { 
+    			name = chaos_dwarf_central_governance_1
+    			duration = -1  
+			}
+			## Survey Complete
+			country_event = { 
+			    id = dwarf_events.20
+			}
+			add_harmony = 10
+		}
+	}
+
+## The stronger our central governing land, the more powerful our rule shall be.
+
+	chaos_dwarf_central_governance_2 = { 
+		icon = mission_chaos_dwarf_factory
+		required_missions = { chaos_dwarf_central_governance_1 }
+		provinces_to_highlight = {
+            area = zharr_naggrund_area
+            NOT = { num_of_times_expanded_infrastructure = 2 }
+        }
+		trigger = {
+			zharr_naggrund_area = {
+				type = all
+				owned_by = ROOT
+				num_of_times_expanded_infrastructure = 2
+			}
+		}
+
+		effect = {	
+
+			remove_country_modifier = chaos_dwarf_central_governance_1
+			add_country_modifier = { 
+    			name = chaos_dwarf_central_governance_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+
+			## Survey Complete
+			country_event = { 
+			    id = dwarf_events.20
+			}
+			add_harmony = 10
+		}
+	}
+
+## The stronger our central governing land, the more powerful our rule shall be.
+
+	chaos_dwarf_central_governance_3 = { 
+		icon = mission_chaos_dwarf_factory
+		required_missions = { chaos_dwarf_central_governance_2 }
+		provinces_to_highlight = {
+            province_id = 810
+        }
+		trigger = {
+			810 = {
+				development = 60
+			}
+		}
+
+		effect = {	
+			remove_country_modifier = chaos_dwarf_central_governance_2
+			add_country_modifier = { 
+    			name = chaos_dwarf_central_governance_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+
+			## Survey Complete
+			country_event = { 
+			    id = dwarf_events.20
+			}
+			add_harmony = 10
+		}
+	}
+
+## Nothing can stop us now. We lay claim to the entire world!
+
+	chaos_dwarf_enslave_the_world = { 
+		icon = mission_chaos_dwarf_factory
+		required_missions = { chaos_dwarf_claim_dragon_isles_3 chaos_dwarf_central_governance_3 chaos_dwarf_claim_old_world_3 chaos_dwarf_claim_far_east_3 chaos_dwarf_claim_underempire_3 }
+		provinces_to_highlight = {
+        }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 750
+				NOT = { culture_group = ROOT }
+			}
+		}
+
+		effect = {
+
+			custom_tooltip = claim_whole_world_tt ## This needs localization
+			hidden_effect = {
+				every_province = {
+					limit = { is_city = yes }
+					add_permanent_claim = ROOT
+				}
+			}
+
+		}
+	}
+
+## The Dawi-Zharr are supreme, and are the rightful rules of all.
+	chaos_dwarf_total_tyranny = { 
+		icon = mission_hashut_religion
+		required_missions = { }
+		provinces_to_highlight = {
+
+        }
+		trigger = {
+			OR = {
+				num_of_harmonized = 12
+				AND = {
+					has_reform = everchosen_reform
+					1967 = { owned_by = ROOT }
+				}
+			}
+		}
+
+		effect = {	
+
+			add_country_modifier = { 
+    			name = chaos_dwarf_total_tyranny
+    			duration = -1  
+			}
+
+		}
+	}
+
+}
+
+
+chaos_dwarf_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = chaos_dwarf_group
+	}
+
+
+## Dawi-Zharr society is built off the backs of slaves. We need to organize our army to best suppress them
+	chaos_dwarf_chains_of_hashut_1 = { 
+		icon = mission_hashut_religion
+		required_missions = {  }
+		provinces_to_highlight = {
+            owned_by = ROOT
+            NOT = {
+				has_province_modifier = enslaved_lesser_races
+            }
+        }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				has_province_modifier = enslaved_lesser_races
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+    			name = chaos_dwarf_chains_of_hashut_1
+    			duration = -1  
+			}
+			add_harmony = 10
+
+		}
+	}
+
+	chaos_dwarf_chains_of_hashut_2 = { 
+		icon = mission_hashut_religion
+		required_missions = { chaos_dwarf_chains_of_hashut_1 }
+		provinces_to_highlight = {
+        }
+		trigger = {
+			army_size = 25
+			num_of_owned_provinces_with = {
+				OR = {
+			 		has_building = barracks
+			 		has_building = training_fields
+				}
+				value = 5
+			}
+		}
+
+		effect = {	
+			remove_country_modifier = chaos_dwarf_chains_of_hashut_1
+			add_country_modifier = { 
+    			name = chaos_dwarf_chains_of_hashut_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+			add_harmony = 10
+
+		}
+	}
+
+
+	chaos_dwarf_chains_of_hashut_3 = { 
+		icon = mission_hashut_religion
+		required_missions = { chaos_dwarf_chains_of_hashut_2 }
+		provinces_to_highlight = {
+        }
+		trigger = {
+			army_size = 35
+			army_professionalism = 0.15
+		}
+
+		effect = {	
+			remove_country_modifier = chaos_dwarf_chains_of_hashut_2
+			add_country_modifier = { 
+    			name = chaos_dwarf_chains_of_hashut_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+
+
+			remove_estate_privilege = estate_guild_enslave_lesser_races
+			set_estate_privilege = estate_guild_industrial_enslavement
+
+			add_harmony = 10
+
+		}
+	}
+
+## Foolish slave masters families believe they have some power over our rule. Let us use them to steal influence from the others.
+	chaos_dwarf_please_guilds = { 
+		icon = mission_chaos_dwarf
+		required_missions = { chaos_dwarf_blasted_wastes_2 }
+		position = 5
+		trigger = {
+			estate_loyalty = {
+			    estate = estate_burghers
+			    loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_burghers
+				value = 1
+			}
+		}
+
+		effect = {	
+			change_estate_land_share = {
+ 			 	estate = estate_nobles
+    			share = -5.0
+			}
+
+			change_estate_land_share = {
+ 			 	estate = estate_burghers
+    			share = 2.5
+			}
+
+			change_estate_land_share = {
+ 			 	estate = estate_church
+    			share = -5.0
+			}
+
+			add_harmony = 10
+		}
+	}
+
+	chaos_dwarf_southern_wastes_1 = {
+		icon = mission_chaos_dwarf_goblin_slave
+		required_missions = { chaos_dwarf_crownland }
+		position = 7
+		provinces_to_highlight = {
+            region = southern_wastes_region
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+        }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				region = southern_wastes_region
+			}
+		}
+		effect = {
+
+			custom_tooltip = claim_southern_wastes_tt
+			hidden_effect = {
+				every_province = {
+					limit = { region = southern_wastes_region }
+					 add_claim = ROOT
+				}
+			}
+
+			add_harmony = 10
+		}
+	}
+
+	chaos_dwarf_southern_wastes_2 = {
+		icon = mission_chaos_dwarf_goblin_slave
+		required_missions = { chaos_dwarf_southern_wastes_1 }
+		provinces_to_highlight = {
+            region = southern_wastes_region
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+        }
+		trigger = {
+			NOT = {
+				any_province = {
+					region = southern_wastes_region
+					NOT = {
+						OR = {
+							owned_by = ROOT
+							owned_by_subject_of = ROOT
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = chaos_dwarf_slaves_of_the_southern_wastes
+    			duration = -1  
+			}
+			add_harmony = 10
+		}
+	}
+
+## As long as the dragon isles are independent, they are a dagger at the heart of our empire. 
+	chaos_dwarf_claim_dragon_isles_1 = {
+		icon = mission_lizardmen_culture
+		required_missions = { chaos_dwarf_home_of_chaos_dwarves }
+		position = 10
+		provinces_to_highlight = {
+            region = dragon_isles_region
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+        }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				region = dragon_isles_region
+			}
+		}
+		effect = {
+
+			add_country_modifier = { 
+    			name = chaos_dwarf_dragon_isles_1
+    			duration = -1  
+			}
+
+			add_harmony = 10
+		}
+	}
+
+## Lizardmen are unruly, but they are powerful. With enough Lizardfolk integrated into our army, we can place them in the vanguard to absorb the worst shocks of the enemy.
+	chaos_dwarf_claim_dragon_isles_2 = {
+		icon = mission_lizardmen_religion
+		required_missions = { chaos_dwarf_claim_dragon_isles_1 }
+		provinces_to_highlight = {
+            culture_group = lizardmen_group
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+        }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 20
+				culture_group = lizardmen_group
+			}
+		}
+		effect = {
+
+			remove_country_modifier = chaos_dwarf_dragon_isles_2\1
+			add_country_modifier = { 
+    			name = chaos_dwarf_dragon_isles_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+
+			add_harmony = 10
+		}
+	}
+
+### The dragon isles are an excellent base of operations for a real navy. Let us claim the isles and build one!
+	chaos_dwarf_claim_dragon_isles_3 = {
+		icon = mission_lizardmen_culture
+		required_missions = { chaos_dwarf_claim_dragon_isles_2 }
+		provinces_to_highlight = {
+            region = dragon_isles_region
+            NOT = {
+            	OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+            	}
+            }
+        }
+		trigger = {
+			dragon_isles_region = {
+				type = all
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+			navy_size = 100
+		}
+		effect = {
+
+			remove_country_modifier = chaos_dwarf_dragon_isles_2
+			add_country_modifier = { 
+    			name = chaos_dwarf_dragon_isles_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+			add_harmony = 10
+		}
+	}
+
+}
+
+
+chaos_dwarf_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = chaos_dwarf_group
+	}
+
+### We have crafted our own breed of orc, the Black orc. These slaves have greater discipline than the other races.
+	chaos_dwarf_subjugate_orcs_1 = { 
+		icon = mission_orc_culture
+		required_missions = { chaos_dwarf_chains_of_hashut_1 }
+		position = 2
+		provinces_to_highlight = {
+            NOT = { owned_by = ROOT }
+            OR = {
+            	culture_group = greenskins_group
+            	culture_group = hobgoblin_group
+            }
+        }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 25
+				OR = {
+	            	culture_group = greenskins_group
+	            	culture_group = hobgoblin_group
+	            }
+			}
+		}
+
+		effect = {	
+			add_country_modifier = { 
+    			name = chaos_dwarf_subjugate_orcs_1
+    			duration = -1  
+			}
+
+			add_harmony = 10
+
+		}
+	}
+
+## WE have successfully incorporated Mork and Gork as lesser dieties in subservience to Hashut. This theological excercize taught us much about the proper methods for subjugating our slaves.
+	chaos_dwarf_subjugate_orcs_2 = { 
+		icon = mission_greenskins_idol
+		required_missions = { chaos_dwarf_subjugate_orcs_1  }
+		position = 2
+		provinces_to_highlight = {
+            religion_group = greenskin_denominations
+        }
+		trigger = {
+			has_harmonized_with = greenskin_denominations
+		}
+
+		effect = {	
+
+			remove_country_modifier = chaos_dwarf_subjugate_orcs_1
+			add_country_modifier = { 
+    			name = chaos_dwarf_subjugate_orcs_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+
+			add_harmony = 10
+		}
+	}
+
+
+### Our society is built off of slaves
+## Worth nothing
+	chaos_dwarf_slaves_1 = { 
+		icon = mission_chaos_dwarf_slavery
+		position = 5
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = slaves
+		}	
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = slaves
+				amount = 10
+			}
+		}
+
+		effect = {
+			custom_tooltip = claim_all_slaves_everywhere_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						trade_goods = slaves
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			add_harmony = 10			
+		}
+	}
+
+### With so many slaves, we must devise new ways of extracting value from them. Our guidmasters have some ideas...
+## Worth half an idea
+	chaos_dwarf_slaves_2 = { 
+		icon = mission_chaos_dwarf_slavery
+		required_missions = { chaos_dwarf_slaves_1 }
+		provinces_to_highlight = {
+			trade_goods = slaves
+		}	
+		trigger = {
+			OR = {
+				trade_goods_produced_amount = {
+					trade_goods = slaves
+					amount = 20
+				}
+			}
+		}
+
+		effect = {
+
+## Upgraded privilge
+
+			add_harmony = 10
+			
+		}
+	}
+
+## Monopoly on slaves - we control the slave market, and can control slave output to better control the price. Our slaves are bred and trained to be worth more than any others.
+## Worth half an idea
+	chaos_dwarf_slaves_3 = { 
+		icon = mission_chaos_dwarf_slavery
+		required_missions = { chaos_dwarf_slaves_2 }
+		provinces_to_highlight = {
+			trade_goods = slave
+		}	
+		trigger = {
+			trading_part = {
+				trade_goods = slaves
+				value = 0.3
+			}
+		}
+
+		effect = {
+			change_price = {
+			    trade_goods = slaves
+			    value = 0.5
+			    duration = -1
+			}
+
+			add_harmony = 10
+		}
+	}
+
+
+	chaos_dwarf_claim_far_east_1 = {
+		icon = mission_ogre_culture
+		required_missions = { chaos_dwarf_home_of_chaos_dwarves }
+		position = 10
+		provinces_to_highlight = {
+            region = mountains_of_mourn_region
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+        }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				region = mountains_of_mourn_region
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = chaos_dwarf_far_east_1
+    			duration = -1  
+			}
+			add_harmony = 10
+		}
+	}
+
+
+	chaos_dwarf_claim_far_east_2 = {
+		icon = mission_ogre_religion
+		required_missions = { chaos_dwarf_claim_far_east_1 }
+		provinces_to_highlight = {
+			culture_group = ogre_group
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+        }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 25
+				culture_group = ogre_group
+			}
+		}
+		effect = {
+			remove_country_modifier = chaos_dwarf_far_east_1
+			add_country_modifier = { 
+    			name = chaos_dwarf_far_east_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+			add_harmony = 10
+		}
+	}
+
+	chaos_dwarf_claim_far_east_3 = {
+		icon = mission_asian_city
+		required_missions = { chaos_dwarf_claim_far_east_2 }
+		provinces_to_highlight = {
+			OR = {
+            	province_id = 4093
+            	province_id = 2838
+            }
+        }
+		trigger = {
+			OR = {
+				2838 = {
+					OR = {
+						owned_by_subject_of = ROOT
+						owned_by = ROOT
+					}
+				}
+				4093 = {
+					OR = {
+						owned_by_subject_of = ROOT
+						owned_by = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = claim_far_east_tt ## This needs localization
+			hidden_effect = {
+				every_province = {
+					limit = {
+						continent = asia
+						is_city = yes
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			add_harmony = 10
+		}
+	}
+}
+

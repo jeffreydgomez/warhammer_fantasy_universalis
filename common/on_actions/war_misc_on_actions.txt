@@ -509,7 +509,8 @@ on_heir_death = {
 				which = heirGrailQuestLevel
 				value = 0
 			}
-		clr_country_flag = heir_started_grail_quest
+#		clr_country_flag = heir_started_grail_quest
+		remove_country_modifier = heir_on_grail_quest_modifier
 	}
 }
 
@@ -519,8 +520,25 @@ on_new_heir = {
 				which = heirGrailQuestLevel
 				value = 0
 			}
-		clr_country_flag = heir_started_grail_quest
+#		clr_country_flag = heir_started_grail_quest
+		remove_country_modifier = heir_on_grail_quest_modifier
 	}
+}
+
+
+on_new_monarch = {
+	if = {
+		limit = { has_heir = no }
+
+		hidden_effect = {
+			set_variable = {
+				which = heirGrailQuestLevel
+				value = 0
+			}
+		}
+#		clr_country_flag = heir_started_grail_quest
+		remove_country_modifier = heir_on_grail_quest_modifier
+	}	
 }
 
 # For threat to the world
@@ -559,6 +577,16 @@ on_province_culture_converted = {
 		}
 		remove_province_modifier = enslaved_lesser_races
 	}
+
+	if = {
+		limit = {
+			owner = { culture_group = PREV }
+			NOT = { trade_goods = slaves }
+			has_province_modifier = industrial_enslavement
+		}
+		remove_province_modifier = industrial_enslavement
+	}
+	
 }
 
 

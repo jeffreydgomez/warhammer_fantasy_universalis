@@ -525,7 +525,6 @@ country_event = {
 		OR = {
 			has_country_modifier = dwarven_administration
 			has_country_modifier = skaven_administration
-			full_idea_group = economic_ideas
 		}
 		any_owned_province = {
 			NOT = { has_province_modifier = dwarf_industrialized }
@@ -644,7 +643,6 @@ country_event = {
 		OR = {
 			has_country_modifier = dwarven_administration
 			has_country_modifier = skaven_administration
-			full_idea_group = economic_ideas
 		}
 		any_owned_province = {
 			NOT = { has_province_modifier = dwarf_rail_system }
@@ -737,7 +735,6 @@ country_event = {
 		OR = {
 			has_country_modifier = dwarven_administration
 			has_country_modifier = skaven_administration
-			full_idea_group = economic_ideas
 		}
 		any_owned_province = {
 			OR = {
@@ -1016,6 +1013,11 @@ country_event = {
 
 	mean_time_to_happen = {
 		days = 350
+
+		modifier = {
+			factor = 0.5
+			has_country_modifier = chaos_dwarf_prepare_our_capital_3
+		}
 	}
 
 # FIRST OPTION
@@ -1151,10 +1153,6 @@ country_event = {
 		    id = dwarf_events.12
 		}
 	}
-
-#	after = {
-#		remove_country_modifier = dwarf_surveying_land
-#	}
 }
 
 
@@ -1190,6 +1188,157 @@ country_event = {
 }
 
 
+
+
+### This is the triggered only version of Survey Complete
+
+country_event = { 
+	id = dwarf_events.20
+	title = dwarf_events.20.t 
+	desc = dwarf_events.20.d 
+	picture = INDUSTRY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	hidden = yes
+
+# FIRST OPTION
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dwarf_events.20.option_1
+		trigger = {
+			any_owned_province = {
+				NOT = { has_province_modifier = dwarf_industrialized }
+				NOT = { has_province_modifier = dwarf_industrialized_wasteland }
+			}
+		}
+
+		country_event = { 
+		    id = dwarf_events.7
+		}
+
+	}
+
+# SECOND OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dwarf_events.20.option_2
+
+		trigger = {
+			any_owned_province = {
+				NOT = { has_province_modifier = dwarf_rail_system }
+			}
+		}
+
+		country_event = { 
+		    id = dwarf_events.8
+		}
+
+
+	}
+
+# THIRD OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dwarf_events.20.option_3
+
+		trigger = {
+			any_owned_province = {
+				OR = {
+					trade_goods = grain
+					trade_goods = wine
+					trade_goods = wool
+					trade_goods = cloth
+					trade_goods = fish
+					trade_goods = fur
+					trade_goods = salt
+					trade_goods = naval_supplies
+					trade_goods = ivory
+					trade_goods = tea
+					trade_goods = chinaware
+					trade_goods = spices
+					trade_goods = coffee
+					trade_goods = cotton
+					trade_goods = sugar
+					trade_goods = tobacco
+					trade_goods = cocoa
+					trade_goods = silk
+					trade_goods = dyes
+					trade_goods = tropical_wood
+					trade_goods = livestock
+					trade_goods = incense
+					trade_goods = glass
+					trade_goods = paper
+					trade_goods = cloves
+					trade_goods = beer
+					trade_goods = lumber
+					trade_goods = fungi
+					trade_goods = subterranean_plants
+				}
+			}
+		}
+
+		country_event = { 
+		    id = dwarf_events.9
+		}
+	}
+
+# Nothing left to build
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dwarf_events.20.option_4
+		trigger = {
+			NOT = {
+				any_owned_province = {
+					OR = {
+						NOT = { has_province_modifier = dwarf_industrialized }
+						NOT = { has_province_modifier = dwarf_industrialized_wasteland }
+					}
+					NOT = { has_province_modifier = dwarf_rail_system }
+					OR = {
+						trade_goods = grain
+						trade_goods = wine
+						trade_goods = wool
+						trade_goods = cloth
+						trade_goods = fish
+						trade_goods = fur
+						trade_goods = salt
+						trade_goods = naval_supplies
+						trade_goods = ivory
+						trade_goods = tea
+						trade_goods = chinaware
+						trade_goods = spices
+						trade_goods = coffee
+						trade_goods = cotton
+						trade_goods = sugar
+						trade_goods = tobacco
+						trade_goods = cocoa
+						trade_goods = silk
+						trade_goods = dyes
+						trade_goods = tropical_wood
+						trade_goods = livestock
+						trade_goods = incense
+						trade_goods = glass
+						trade_goods = paper
+						trade_goods = cloves
+						trade_goods = beer
+						trade_goods = lumber
+						trade_goods = fungi
+						trade_goods = subterranean_plants
+					}	
+				}
+			}
+		}
+
+		country_event = { 
+		    id = dwarf_events.12
+		}
+	}
+}
+
+
 ### Intro Event
 
 country_event = { 
@@ -1210,7 +1359,40 @@ country_event = {
 
 	option = { 
 		ai_chance = { factor = 50 }
-		name = dwarf_events.1000.option_1 
+		name = dwarf_events.1000.option_1
+		add_army_tradition = 10
+		add_years_of_income = 1.0
 
+	}
+}
+
+
+### Chaos Dwarf Intro Event
+
+country_event = { 
+	id = dwarf_events.1001
+	title = dwarf_events.1001.t 
+	desc = dwarf_events.1001.d 
+	picture = CHAOS_DWARF_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = chaos_dwarf_group
+		NOT= { has_country_flag = did_chaos_dwarf_intro_event }
+	}
+
+	immediate = { set_country_flag = did_chaos_dwarf_intro_event }
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dwarf_events.1001.option_1 
+
+		add_army_professionalism = 0.05
+
+		country_event = { 
+		    id = dwarf_events.20
+		}
 	}
 }

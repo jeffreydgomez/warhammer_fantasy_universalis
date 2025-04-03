@@ -3369,33 +3369,33 @@ country_event = {
 	title = flavor_bretonnia.899.t
 	desc = flavor_bretonnia.899.d
 	picture = KNIGHTS_eventPicture
-	is_triggered_only = yes
+	is_triggered_only = no
 	hidden = yes
+
+	trigger = {
+		has_country_modifier = heir_on_grail_quest_modifier
+		NOT = { has_country_flag = heir_considering_quest }
+	}
+
+	mean_time_to_happen = {
+		days = 30
+	}
 
 	option = {
 		name = flavor_bretonnia.899.a
-		trigger = { has_country_flag = heir_started_grail_quest}
 		ai_chance = {
 			factor = 1
 		}
 
 		random_list = {
-		    20 = { country_event = { id = flavor_bretonnia.901 } }
-		    20 = { country_event = { id = flavor_bretonnia.902 } }
-		    20 = { country_event = { id = flavor_bretonnia.903 } }
-		    20 = { country_event = { id = flavor_bretonnia.904 } }
-		    20 = { country_event = { id = flavor_bretonnia.905 } }
-		    20 = { country_event = { id = flavor_bretonnia.906 } }
-		    20 = { country_event = { id = flavor_bretonnia.907 } }
-		    20 = { country_event = { id = flavor_bretonnia.910 } }
-		}
-	}
-
-	option = {
-		name = flavor_bretonnia.899.b
-		trigger = { NOT = { has_country_flag = heir_started_grail_quest } }
-		ai_chance = {
-			factor = 1
+		    10 = { country_event = { id = flavor_bretonnia.901 } }
+		    10 = { country_event = { id = flavor_bretonnia.902 } }
+		    10 = { country_event = { id = flavor_bretonnia.903 } }
+		    10 = { country_event = { id = flavor_bretonnia.904 } }
+		    10 = { country_event = { id = flavor_bretonnia.905 } }
+		    10 = { country_event = { id = flavor_bretonnia.906 } }
+		    10 = { country_event = { id = flavor_bretonnia.907 } }
+		    30 = { country_event = { id = flavor_bretonnia.910 } }
 		}
 	}
 }
@@ -3419,8 +3419,7 @@ country_event = {
 				which = heirGrailQuestLevel
 				value = 0
 			}
-
-			set_country_flag = heir_started_grail_quest
+			clr_country_flag = heir_considering_quest
 		}
 		set_saved_name = {
 			# intentionally not cleared here
@@ -3431,17 +3430,17 @@ country_event = {
 	}
 	option = {
 		name = flavor_bretonnia.900.a
-		set_country_flag = heir_started_grail_quest
 		set_heir_flag = heir_on_grail_quest
 		ai_chance = {
 			factor = 1
 		}
-
-		country_event = { 
-		    id = flavor_bretonnia.899
-		    days = 35
-		}
 	}
+
+	after = {
+		clr_country_flag = heir_considering_quest
+	}
+
+
 }
 
 
@@ -3453,8 +3452,10 @@ country_event = {
 	desc = flavor_bretonnia.901.d
 	picture = KNIGHTS_eventPicture
 	is_triggered_only = yes
-	trigger = {
-		has_country_flag = heir_started_grail_quest
+
+
+	immediate = { 
+		set_country_flag = heir_considering_quest
 	}
 
 # Fight the Monster!	
@@ -3506,17 +3507,16 @@ country_event = {
 		ai_chance = {
 			factor = 1
 		}
-		add_prestige = -10
+		add_prestige = -5
 		add_heir_claim = -5
 
 	}
 
+
 	after = {
-		country_event = { 
-		    id = flavor_bretonnia.899
-		    days = 35
-		}
+		clr_country_flag = heir_considering_quest
 	}
+
 }
 
 
@@ -3527,8 +3527,9 @@ country_event = {
 	desc = flavor_bretonnia.902.d
 	picture = KNIGHTS_eventPicture
 	is_triggered_only = yes
-	trigger = {
-		has_country_flag = heir_started_grail_quest
+
+	immediate = { 
+		set_country_flag = heir_considering_quest
 	}
 
 # Make a large donation	
@@ -3555,8 +3556,6 @@ country_event = {
 			factor = 1
 		}
 		add_treasury = -10
-
-		add_prestige = -5
 		random = { 
 		    chance = 50
 		    change_variable = {
@@ -3577,12 +3576,11 @@ country_event = {
 
 	}
 
+
 	after = {
-		country_event = { 
-		    id = flavor_bretonnia.899
-		    days = 35
-		}
+		clr_country_flag = heir_considering_quest
 	}
+
 }
 
 
@@ -3594,8 +3592,9 @@ country_event = {
 	desc = flavor_bretonnia.903.d
 	picture = KNIGHTS_eventPicture
 	is_triggered_only = yes
-	trigger = {
-		has_country_flag = heir_started_grail_quest
+
+	immediate = { 
+		set_country_flag = heir_considering_quest
 	}
 
 # Challenge to a duel!
@@ -3610,8 +3609,8 @@ country_event = {
 			value = 1
 		}
 
-		add_legitimacy = 10
-		add_heir_claim = 5
+		add_prestige = 10
+		add_heir_claim = 10
 
 		random = { 
 		    chance = 20 
@@ -3626,7 +3625,11 @@ country_event = {
 		ai_chance = {
 			factor = 1
 		}
-		add_prestige = -5
+		add_treasury = -1
+		random = { 
+		    chance = 1 
+		    kill_heir = {}
+		}
 
 	    change_variable = {
 			which = heirGrailQuestLevel
@@ -3646,11 +3649,9 @@ country_event = {
 	}
 
 	after = {
-		country_event = { 
-		    id = flavor_bretonnia.899
-		    days = 35
-		}
+		clr_country_flag = heir_considering_quest
 	}
+
 }
 
 
@@ -3663,9 +3664,11 @@ country_event = {
 	desc = flavor_bretonnia.904.d
 	picture = KNIGHTS_eventPicture
 	is_triggered_only = yes
-	trigger = {
-		has_country_flag = heir_started_grail_quest
+
+	immediate = { 
+		set_country_flag = heir_considering_quest
 	}
+
 
 # Let's join in
 	option = {
@@ -3711,12 +3714,11 @@ country_event = {
 		}
 	}
 
+
 	after = {
-		country_event = { 
-		    id = flavor_bretonnia.899
-		    days = 35
-		}
+		clr_country_flag = heir_considering_quest
 	}
+
 }
 
 
@@ -3728,8 +3730,9 @@ country_event = {
 	desc = flavor_bretonnia.905.d
 	picture = KNIGHTS_eventPicture
 	is_triggered_only = yes
-	trigger = {
-		has_country_flag = heir_started_grail_quest
+
+	immediate = { 
+		set_country_flag = heir_considering_quest
 	}
 
 # Send the cash
@@ -3746,11 +3749,6 @@ country_event = {
 
 		add_treasury = -100
 
-		country_event = { 
-		    id = flavor_bretonnia.899
-		    days = 35
-		}
-
 	}
 
 # Let's head home for now
@@ -3759,6 +3757,7 @@ country_event = {
 		ai_chance = {
 			factor = 1
 		}
+		remove_country_modifier = heir_on_grail_quest_modifier
 
 
 		hidden_effect = {
@@ -3766,10 +3765,15 @@ country_event = {
 				which = heirGrailQuestLevel
 				value = 0
 			}
-			clr_country_flag = heir_started_grail_quest
 		}
-
 	}
+
+
+	after = {
+		clr_country_flag = heir_considering_quest
+	}
+
+
 }
 
 
@@ -3781,9 +3785,11 @@ country_event = {
 	desc = flavor_bretonnia.906.d
 	picture = KNIGHTS_eventPicture
 	is_triggered_only = yes
-	trigger = {
-		has_country_flag = heir_started_grail_quest
+
+	immediate = { 
+		set_country_flag = heir_considering_quest
 	}
+
 
 # Yes, but
 	option = {
@@ -3822,11 +3828,10 @@ country_event = {
 	}
 
 	after = {
-		country_event = { 
-		    id = flavor_bretonnia.899
-		    days = 35
-		}
+		clr_country_flag = heir_considering_quest
 	}
+
+
 }
 
 
@@ -3838,8 +3843,9 @@ country_event = {
 	desc = flavor_bretonnia.907.d
 	picture = KNIGHTS_eventPicture
 	is_triggered_only = yes
-	trigger = {
-		has_country_flag = heir_started_grail_quest
+
+	immediate = { 
+		set_country_flag = heir_considering_quest
 	}
 
 # No! We must press forward, no matter what people may say
@@ -3854,11 +3860,8 @@ country_event = {
 			value = 1
 		}
 
-		add_prestige = -10
-		country_event = { 
-		    id = flavor_bretonnia.899
-		    days = 35
-		}
+		add_prestige = -5
+		add_heir_claim = -5
 
 	}
 
@@ -3869,15 +3872,22 @@ country_event = {
 			factor = 1
 		}
 
+		remove_country_modifier = heir_on_grail_quest_modifier
+
 		hidden_effect = {
 			set_variable = {
 				which = heirGrailQuestLevel
 				value = 0
 			}
-			clr_country_flag = heir_started_grail_quest
 		}
-
 	}
+
+
+	after = {
+		clr_country_flag = heir_considering_quest
+	}
+
+
 }
 
 
@@ -3890,9 +3900,7 @@ country_event = {
 	picture = KNIGHTS_eventPicture
 	is_triggered_only = yes
 	hidden = yes
-	trigger = {
-		has_country_flag = heir_started_grail_quest
-	}
+
 
 	option = {
 		name = flavor_bretonnia.910.a
@@ -3926,16 +3934,11 @@ country_event = {
 			country_event = { 
     			id = flavor_bretonnia.911
 			}
-
-
 		}
 
 		## Continuing on...
 		else = {
-			country_event = { 
-			    id = flavor_bretonnia.899
-			    days = 15
-			}
+
 		}
 	}
 
@@ -3949,8 +3952,9 @@ country_event = {
 	desc = flavor_bretonnia.911.d
 	picture = KNIGHTS_eventPicture
 	is_triggered_only = yes
-	trigger = {
-		has_country_flag = heir_started_grail_quest
+
+	immediate = { 
+		set_country_flag = heir_considering_quest
 	}
 
 # Come home, we've won enough glory!	
@@ -3962,13 +3966,14 @@ country_event = {
 		hidden_effect = { remove_all_heir_personalities = yes }
 		add_heir_personality = grail_knight_personality
 		set_heir_flag = grail_knight
+		remove_country_modifier = heir_on_grail_quest_modifier
 
 		hidden_effect = {
 				set_variable = {
 					which = heirGrailQuestLevel
 					value = 0
 				}
-			clr_country_flag = heir_started_grail_quest
+
 		}
 	}
 
@@ -3977,13 +3982,14 @@ country_event = {
 		name = flavor_bretonnia.911.b
 		trigger = { NOT = { has_global_flag = grail_has_been_found } }
 		ai_chance = { factor = 1 }
-		add_heir_claim = -5
 		add_treasury = -100
-		country_event = { 
-		    id = flavor_bretonnia.899
-		    days = 35
-		}
 	}
+
+	after = {
+		clr_country_flag = heir_considering_quest
+	}
+
+
 }
 
 # He found the grail! The Lady of the Lake has taken the unprecedented move of giving the grail to this paragon of virtue. Future knights will drink from the water pooled in the lady's hands.
@@ -3994,17 +4000,26 @@ country_event = {
 	desc = flavor_bretonnia.912.d
 	picture = KNIGHTS_eventPicture
 	is_triggered_only = yes
-	trigger = {
-		has_country_flag = heir_started_grail_quest
-	}
-	option = {
-		name = flavor_bretonnia.912.a
+
+	immediate = { 
 		hidden_effect = { remove_all_heir_personalities = yes }
 		ai_chance = { factor = 1 }
 		add_heir_personality = grail_knight_personality
 		set_heir_flag = grail_knight
+		remove_country_modifier = heir_on_grail_quest_modifier
+
+		hidden_effect = {
+			set_variable = {
+				which = heirGrailQuestLevel
+				value = 0
+			}
+		}
 
 		set_global_flag = grail_has_been_found
+	}
+
+	option = {
+		name = flavor_bretonnia.912.a
 
 		capital_scope = {
 			add_permanent_province_modifier = { 
@@ -4013,13 +4028,7 @@ country_event = {
 			}
 		}
 
-		hidden_effect = {
-			set_variable = {
-				which = heirGrailQuestLevel
-				value = 0
-			}
-			clr_country_flag = heir_started_grail_quest
-		}
+
 	}
 }
 
