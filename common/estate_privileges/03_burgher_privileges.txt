@@ -3523,6 +3523,7 @@ estate_guild_enslave_lesser_races = {
 	loyalty = 0.05
 	is_valid = {
 		always = yes
+		NOT = { has_country_modifier = chaos_dwarf_chains_of_hashut_3 }
 	}
 	can_select = {
 		NOT = {  has_country_modifier = order_nation }
@@ -3570,4 +3571,62 @@ estate_guild_enslave_lesser_races = {
 		}
 	}
 }
+
+
+
+estate_guild_industrial_enslavement = {
+	icon = privilege_decentralized
+	max_absolutism = 0
+	influence = 0.05
+	loyalty = 0.05
+	is_valid = {
+		has_country_modifier = chaos_dwarf_chains_of_hashut_3
+	}
+	can_select = {
+		has_country_modifier = chaos_dwarf_chains_of_hashut_3
+	}
+
+	penalties = {
+		culture_conversion_time = 0.5
+		culture_conversion_cost = 0.5
+		global_unrest = 1
+	}
+	on_granted = {
+		custom_tooltip = estate_guild_industrial_enslavement_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						NOT = { culture_group = ROOT }
+						trade_goods = slaves
+					}
+				}
+				add_province_modifier = {
+					name = industrial_enslavement
+					duration = -1
+				}
+			}			
+		}
+	}
+	on_revoked = {
+		custom_tooltip = estate_guild_industrial_enslavement_remove_tt
+		hidden_effect = {
+			every_owned_province = {
+				remove_province_modifier = industrial_enslavement
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	ai_will_do = {
+		factor = 200
+		modifier = {
+			factor = 0.0
+			NOT = { religion = hashut }
+		}
+	}
+}
+
 
