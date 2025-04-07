@@ -1,0 +1,1600 @@
+
+
+
+war_ogre_faction_1 = {
+
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		culture_group = ogre_group
+	}
+
+
+## As an ogre stepping out onto the world stage, it is important to forge business contracts with those around us. Other countries call this an alliance. Sure, why not.
+	ogre_trusted_allies = {
+		icon = mission_ogre_greasus
+		required_missions = { ogre_grow_1 }
+		position = 2
+		trigger = {
+			num_of_trusted_allies = 3
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_diplomatic_ties_1
+    			duration = -1  
+			}	
+		}
+	}
+
+
+## Sometimes, it's difficult to manage all of our own territories. Much more effective to have others pay us "protection money." If we play it right, we can even make them like us!
+	ogre_subjects = {
+		icon = mission_ogre_culture
+		required_missions = { ogre_trusted_allies }
+		trigger = {
+			num_of_subjects = 3
+		}
+		effect = {
+			remove_country_modifier = ogre_diplomatic_ties_1
+			add_country_modifier = { 
+    			name = ogre_diplomatic_ties_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+
+## We need to secure our territory in the western passes, right up to the river ruin. Ogres are no seafaring, but we have been known to engage in some light piracy from time to time. The river can become an extension of our racket.
+	ogre_secure_western_pass = {
+		icon = mission_control_the_desh
+		required_missions = { }
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2761
+				province_id = 2764
+				province_id = 2776
+				province_id = 2784
+				province_id = 2785
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = {
+					OR = {
+						has_influencing_fort = yes
+						fort_level = 2
+					}
+				}
+			}
+		}
+		trigger = {
+			2761 = {
+				owned_by = ROOT
+				OR = {
+					has_influencing_fort = yes
+					fort_level = 2
+				}
+			}
+			2764 = {
+				owned_by = ROOT
+				OR = {
+					has_influencing_fort = yes
+					fort_level = 2
+				}
+			}
+			2776 = {
+				owned_by = ROOT
+				OR = {
+					has_influencing_fort = yes
+					fort_level = 2
+				}
+			}
+			2784 = {
+				owned_by = ROOT
+				OR = {
+					has_influencing_fort = yes
+					fort_level = 2
+				}
+			}
+			2785 = {
+				owned_by = ROOT
+				OR = {
+					has_influencing_fort = yes
+					fort_level = 2
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_dominance_over_the_river_ruin
+    			duration = -1  
+			}
+		}
+	}
+
+
+## The slave road brings slaves and rare chaos materials from the northern steppes to Zharr-Naggrund
+	ogre_secure_the_slave_road = {
+		icon = mission_caravan
+		required_missions = { ogre_secure_western_pass ogre_secure_northern_pass }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2751
+				province_id = 2754
+				province_id = 2755
+				province_id = 2753
+				province_id = 4197
+			}
+		}
+		trigger = {
+			development_in_provinces = {
+				value = 60
+				OR = {
+					province_id = 2751
+					province_id = 2754
+					province_id = 2755
+					province_id = 2753
+					province_id = 4197
+				}
+			}
+		}
+		effect = {
+			every_province = {
+				limit = {
+					OR = {
+						province_id = 2751
+						province_id = 2754
+						province_id = 2755
+						province_id = 2753
+						province_id = 4197
+					}
+				}
+				add_permanent_province_modifier = { 
+					name = ogre_improved_trade_road
+					duration = -1 
+				}
+			}
+
+		}
+	}
+
+
+## Sentient creatures are a little gamey and honestly not that delicious, but boy does it scare our enemies to watch us each them
+	ogre_slaves = { 
+		icon = mission_ogre_pot
+		position = 10
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = slaves
+			has_discovered = ROOT
+		}	
+		trigger = {
+			trading_part = {
+				trade_goods = slaves
+				value = 0.05
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_eat_slaves
+    			duration = -1  
+			}	
+		}
+	}
+
+## Other races might not be able to eat things like incense and cloves raw - but we find them delicious!
+	ogre_incense_or_cloves = { 
+		icon = mission_ogre_pot
+		required_missions = {  }
+		provinces_to_highlight = {
+			OR = {
+				trade_goods = cloves
+				trade_goods = incense
+			}	
+			has_discovered = ROOT		
+		}	
+		trigger = {
+			OR = {
+				trading_part = {
+					trade_goods = cloves
+					value = 0.05
+				}
+				trading_part = {
+					trade_goods = incense
+					value = 0.05
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_eat_strong_spices
+    			duration = -1  
+			}			
+		}
+	}
+
+### Chocolate! A perfect desert to a wonderful meal
+	ogre_cocoa = { 
+		icon = mission_ogre_pot
+		position = 10
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = cocoa
+			has_discovered = ROOT
+		}	
+		trigger = {
+			trading_part = {
+				trade_goods = cocoa
+				value = 0.05
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_eat_chocolate
+    			duration = -1  
+			}			
+		}
+	}
+
+
+}
+
+
+
+war_ogre_faction_2 = {
+
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		culture_group = ogre_group
+	}
+
+## The ogre kingdoms have, for too long, been divided into squabbling tribes. Let's grow and make a name for ourselves.
+	ogre_grow_1 = {
+		icon = mission_ogre_religion
+		required_missions = { }
+		provinces_to_highlight = {
+			culture_group = ROOT
+			has_discovered = ROOT
+			NOT = { owned_by = ROOT }
+		}	
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 15
+				culture_group = ROOT
+			}
+		}
+		effect = {
+			add_yearly_manpower = 2
+			add_years_of_income = 2
+			hidden_effect = {
+				every_neighbor_province = {
+					limit = { culture_group = ROOT }
+					add_claim = ROOT
+				}
+			}
+		}
+	}
+
+
+## By becoming bigger than all other ogre tribes, we can easily lay claim to them. Let the ogres unite!
+	ogre_grow_2 = {
+		icon = mission_ogre_tyrant
+		required_missions = { ogre_grow_1 }
+		position = 3
+		provinces_to_highlight = {
+			culture_group = ROOT
+			has_discovered = ROOT
+			NOT = { owned_by = ROOT }
+		}	
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 25
+				culture_group = ROOT
+			}
+			NOT = {
+				any_country = {
+					has_country_modifier = ogre_administration
+					total_development = ROOT
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = claim_all_ogres_tt
+			hidden_effect = {
+				every_neighbor_province = {
+					limit = { culture_group = ROOT }
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+## Now that we have grown, we can represent the interest of the ogres as a whole to the world at large.
+	ogre_grow_3 = {
+		icon = mission_ogre_rider
+		required_missions = { ogre_grow_2 }
+		position = 4
+		provinces_to_highlight = {
+			culture_group = ROOT
+			has_discovered = ROOT
+			NOT = { owned_by = ROOT }
+		}	
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 40
+				culture_group = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_leader_of_the_ogres_1
+    			duration = -1  
+			}				
+		}
+	}
+
+## While we trade with the mutant humans of the chaos wastes, they are a constant threat. We'll open our doors to trade, while closing them against invasion.
+	ogre_secure_northern_pass = {
+		icon = mission_gwalior_and_rathambore
+		required_missions = { }
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2753
+				province_id = 2749
+				province_id = 2750
+				province_id = 2751
+				province_id = 2763
+				province_id = 599
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = {
+					OR = {
+						has_influencing_fort = yes
+						fort_level = 2
+					}
+				}
+			}
+		}		
+		trigger = {
+			2753 = {
+				owned_by = ROOT
+				OR = {
+					has_influencing_fort = yes
+					fort_level = 2
+				}
+			}
+			2749 = {
+				owned_by = ROOT
+				OR = {
+					has_influencing_fort = yes
+					fort_level = 2
+				}
+			}
+			2750 = {
+				owned_by = ROOT
+				OR = {
+					has_influencing_fort = yes
+					fort_level = 2
+				}
+			}
+			2751 = {
+				owned_by = ROOT
+				OR = {
+					has_influencing_fort = yes
+					fort_level = 2
+				}
+			}
+			2763 = {
+				owned_by = ROOT
+				OR = {
+					has_influencing_fort = yes
+					fort_level = 2
+				}
+			}
+			599 = {
+				owned_by = ROOT
+				OR = {
+					has_influencing_fort = yes
+					fort_level = 2
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_protect_against_chaos
+    			duration = -1  
+			}
+		}
+	}
+
+
+### In addition to the strange goods from the wastes, hobgoblins trade with us through the waste road. Sometimes, Cathayan loot makes its way through here.
+	ogre_secure_the_waste_road = {
+		icon = mission_caravan
+		required_missions = { ogre_secure_western_pass ogre_secure_northern_pass }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2763
+				province_id = 2762
+				province_id = 2759
+				province_id = 2761
+				province_id = 4244
+				province_id = 4197
+			}
+		}
+		trigger = {
+			development_in_provinces = {
+				value = 60
+				OR = {
+					province_id = 2763
+					province_id = 2762
+					province_id = 2759
+					province_id = 2761
+					province_id = 4244
+					province_id = 4197
+				}
+			}
+		}
+		effect = {
+			every_province = {
+				limit = {
+					OR = {
+						province_id = 2763
+						province_id = 2762
+						province_id = 2759
+						province_id = 2761
+						province_id = 4244
+						province_id = 4197
+					}
+				}
+				add_permanent_province_modifier = { 
+					name = ogre_improved_trade_road
+					duration = -1 
+				}
+			}
+		}
+	}
+
+
+## We have so fully secured the path to the east, that we can make it a bastion of trade unlike anything the world has ever seen. Ideas and people flow, and we take a cut.
+	ogre_dominate_path_to_the_east = {
+		icon = mission_dominate_home_trade_node
+		required_missions = { ogre_secure_the_slave_road ogre_secure_the_waste_road }
+		position = 8
+		provinces_to_highlight = {
+			province_id = 2762
+		}	
+		trigger = {
+			2762 = {
+				trade_share = {
+					country = ROOT
+					share = 90
+				}
+				owned_by = ROOT
+			}
+		}
+		effect = {
+
+			2762 = { add_permanent_province_modifier = {  name = ogre_trade_nexus duration = -1  } }
+
+		}
+	}
+
+
+## Grain may not be the most flavorful, but it is filling. And it helps soak things up. Like grease. And bullets.
+	ogre_grain = { 
+		icon = mission_ogre_pot
+		position = 10
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = grain
+			has_discovered = ROOT
+		}	
+		trigger = {
+			trading_part = {
+				trade_goods = grain
+				value = 0.05
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_eat_grain
+    			duration = -1  
+			}			
+		}
+	}
+
+## Hot hot hot! Fire! Even our cannons seem to shoot hotter when we have spices.
+	ogre_spices = { 
+		icon = mission_ogre_pot
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = spices
+			has_discovered = ROOT
+		}	
+		trigger = {
+			trading_part = {
+				trade_goods = spices
+				value = 0.05
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_eat_spices
+    			duration = -1  
+			}				
+		}
+	}
+
+## With a spoonful of sugar, even cataclysmic events don't seem so bad
+	ogre_sugar = { 
+		icon = mission_ogre_pot
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = sugar
+			has_discovered = ROOT
+		}	
+		trigger = {
+			trading_part = {
+				trade_goods = sugar
+				value = 0.05
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_eat_sugar
+    			duration = -1  
+			}				
+		}
+	}
+
+}
+
+
+
+war_ogre_faction_3 = {
+
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		culture_group = ogre_group
+	}
+
+
+# Our various marketplaces are really fronts to funnel in protecion money. But they are also center of learning - learning how to funnel in more proteciton money!
+	ogre_build_markets = {
+		icon = mission_early_game_buildings
+		required_missions = { ogre_please_guilds }
+		position = 2
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+				 	has_building = marketplace
+				 	has_building = trade_depot
+				 	has_building = stock_exchange
+				}
+				value = 5
+			}
+		}
+		effect = {
+			remove_country_modifier = ogre_study_of_trade_1
+			add_country_modifier = { 
+    			name = ogre_study_of_trade_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+# We know how to integrate into different trade centers and make our will known
+	ogre_centers_of_trade = {
+		icon = appease_the_estates
+		required_missions = { ogre_build_markets ogre_trade_power_1 }
+		position = 4
+		provinces_to_highlight = {
+			province_has_center_of_trade_of_level = 1
+			has_discovered = ROOT
+		}	
+		trigger = {
+			num_of_owned_provinces_with = {
+				province_has_center_of_trade_of_level = 3
+				value = 3
+			}
+		}
+		effect = {
+
+			remove_country_modifier = ogre_study_of_trade_3
+			add_country_modifier = { 
+    			name = ogre_study_of_trade_4
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+
+		}
+	}
+
+## Goldeater Mine has long been a source of great wealth for the ogres. But it is a rite of passage to consume your body's weigh in gold from it. Some do not survive. But those who do can claim themselves true rulers of the ogres, and become blessed with a golden touch
+
+	ogre_eat_the_gold = {
+		icon = mission_war_chest
+		required_missions = { ogre_grow_3 ogre_centers_of_trade ogre_trade_power_2 }
+		provinces_to_highlight = {
+			province_id = 2795
+		}
+		trigger = {
+			2795 = {
+				has_great_project = {
+					type = goldeater_mines
+					tier = 3
+				}
+				base_production = 5
+				owned_by = ROOT
+			}
+			has_regency = no
+		}
+		effect = {
+
+			2795 = {
+				add_base_production = -2
+			}
+
+			add_prestige = 15
+			add_legitimacy = 15
+			add_republican_tradition = 5
+			add_devotion = 15
+			add_horde_unity = 15
+			add_meritocracy = 15
+			random_list = {
+			    90 = {
+					if = {
+						limit = {
+							adm = 6
+						}
+						add_adm_power = 100
+					}
+					else = {
+						change_adm = 1
+					}
+					if = {
+						limit = {
+							adm = 6
+						}
+						add_adm_power = 100
+					}
+					else = {
+						change_adm = 1
+					}
+			    }
+			    10 = {
+			        kill_ruler = yes
+			    }
+			}
+
+		}
+	}
+
+### Next, we must proceed to firemouth volcano, and drink directly from the lava. If our gut is strong enough, we will emerge as the undisputed military leader of the ogres.
+	ogre_drink_the_lava = {
+		icon = mission_trade_company_region_abroad
+		required_missions = { ogre_eat_the_gold }
+		provinces_to_highlight = {
+			province_id = 2764
+		}
+		trigger = {
+			2764 = {
+				has_great_project = {
+					type = firemouth_volcano
+					tier = 3
+				}
+				owned_by = ROOT
+			}
+			has_regency = no
+		}
+		effect = {
+
+			add_prestige = 15
+			add_legitimacy = 15
+			add_republican_tradition = 5
+			add_devotion = 15
+			add_horde_unity = 15
+			add_meritocracy = 15
+			random_list = {
+			    90 = {
+					if = {
+						limit = {
+							mil = 6
+						}
+						add_mil_power = 100
+					}
+					else = {
+						change_mil = 1
+					}
+					if = {
+						limit = {
+							mil = 6
+						}
+						add_mil_power = 100
+					}
+					else = {
+						change_mil = 1
+					}
+			    }
+			    10 = {
+			        kill_ruler = yes
+			    }
+			}
+		}
+	}
+
+
+## Finally, we must host a great tournament at the arena of the mawbite tribes, and emerge victorious! Of course, the more of our friends we have there to tilt things in our favor, the more likely our success. With all three trials completed, we shall emerge as the undisputed master or the ogres!
+	ogre_enter_the_arena = {
+		icon = mission_ogre_greasus
+		required_missions = { ogre_drink_the_lava }
+		provinces_to_highlight = {
+			province_id = 2766
+		}
+		trigger = {
+			2766 = {
+				owned_by = ROOT
+				has_great_project = {
+					type = arena_of_the_mawbite_tribes
+					tier = 3
+				}
+				infantry_in_province = 50
+			}
+		}
+		effect = {
+
+			add_prestige = 15
+			add_legitimacy = 15
+			add_republican_tradition = 5
+			add_devotion = 15
+			add_horde_unity = 15
+			add_meritocracy = 15
+			add_country_modifier = { 
+    			name = ogre_passed_the_trials
+    			duration = -1  
+			}
+			random_list = {
+			    90 = {
+					if = {
+						limit = {
+							dip = 6
+						}
+						add_dip_power = 100
+					}
+					else = {
+						change_dip = 1
+					}
+					if = {
+						limit = {
+							dip = 6
+						}
+						add_dip_power = 100
+					}
+					else = {
+						change_dip = 1
+					}
+			    }
+			    10 = {
+			        kill_ruler = yes
+			    }
+			}
+		}
+	}
+
+
+### We must stretch beyond our borders and extract extortion money from those across the far east.
+	ogre_dominate_far_east_trade = {
+		icon = dominant_economy
+		required_missions = { ogre_dominate_path_to_the_east ogre_dominate_ivory_road }
+		position = 9
+		provinces_to_highlight = {
+			NOT = { is_strongest_trade_power = ROOT }
+			has_discovered = ROOT
+		}
+		trigger = {
+			calc_true_if = {
+				all_trade_node = {
+					is_strongest_trade_power = ROOT
+				}
+				amount = 5
+			}
+
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_dominate_trade
+    			duration = -1  
+			}
+		}
+	}
+
+### Beef! Let's get big off of beef!
+	ogre_beef = { 
+		icon = mission_ogre_pot
+		position = 10
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = livestock
+			has_discovered = ROOT
+		}	
+		trigger = {
+			trading_part = {
+				trade_goods = livestock
+				value = 0.05
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_eat_beef
+    			duration = -1  
+			}			
+		}
+	}
+
+## Our main course is prepared. Let's get fat! But we need seasonings before continuing.
+	ogre_main_dish = { 
+		icon = mission_dalaskogen
+		required_missions = { ogre_slaves ogre_grain ogre_beef ogre_fish ogre_exotic_meats }
+		provinces_to_highlight = {
+		}	
+		trigger = {
+		}
+
+		effect = {
+			remove_country_modifier = ogre_eat_slaves
+			remove_country_modifier = ogre_eat_grain
+			remove_country_modifier = ogre_eat_beef
+			remove_country_modifier = ogre_eat_fish
+			remove_country_modifier = ogre_eat_exotic_meats
+			add_country_modifier = { 
+    			name = ogre_main_dish_ready
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+	
+		}
+	}
+
+## Our main course is seasoned. Let's get fat! But we need dessert and drinks to complete the meal.
+	ogre_seasonings = { 
+		icon = mission_dalaskogen
+		required_missions = { ogre_incense_or_cloves ogre_spices ogre_main_dish ogre_salt ogre_dyes }
+		provinces_to_highlight = {
+
+		}	
+		trigger = {
+
+		}
+
+		effect = {
+
+			remove_country_modifier = ogre_eat_strong_spices
+			remove_country_modifier = ogre_eat_spices
+			remove_country_modifier = ogre_main_dish_ready
+			remove_country_modifier = ogre_eat_salt
+			remove_country_modifier = ogre_eat_dyes
+			add_country_modifier = { 
+    			name = ogre_main_dish_seasoned
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+		
+		}
+	}
+
+## A succulent Ogre Meal! Our dish is completed. LET'S GET FAT
+	ogre_the_great_meal = { 
+		icon = mission_dalaskogen
+		required_missions = { ogre_cocoa ogre_sugar ogre_seasonings ogre_tea_or_coffee ogre_wine_or_beer }
+		provinces_to_highlight = {
+			trade_goods = warpstone
+			has_discovered = ROOT
+		}	
+		trigger = {
+			trading_part = {
+				trade_goods = warpstone
+				value = 0.1
+			}
+			1215 = {
+				owned_by = ROOT
+				has_great_project = {
+					type = the_great_maw
+					tier = 3
+				}
+			}			
+		}
+
+		effect = {
+			remove_country_modifier = ogre_eat_chocolate
+			remove_country_modifier = ogre_eat_sugar
+			remove_country_modifier = ogre_main_dish_seasoned
+			remove_country_modifier = ogre_eat_caffeine
+			remove_country_modifier = ogre_eat_alcohol
+
+			add_country_modifier = { 
+    			name = ogre_a_succulent_ogre_meal
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+
+		}
+	}
+
+## We are the masters of trade! Our racketeers and caravans stretch across the horizon, and bring the goods back to us. Most importantly, we can keep our armies well fed and fat no matter where they are.
+	ogre_masters_of_trade = { 
+		icon = mission_caravan
+		required_missions = {  }
+		provinces_to_highlight = {
+			highest_value_trade_node = yes
+			has_discovered = ROOT
+		}	
+		trigger = {
+			calc_true_if = {
+				all_trade_node = {
+					is_strongest_trade_power = ROOT
+				}
+				amount = 25
+			}
+
+			home_trade_node = {
+				highest_value_trade_node = yes
+			}	
+		}
+
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_masters_of_trade
+    			duration = -1  
+			}
+		
+		}
+	}
+
+
+
+}
+
+
+war_ogre_faction_4 = {
+
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		culture_group = ogre_group
+	}
+
+
+## Our caravan robbers and caravan extortionists are hard at work figuring out more ways to make money change hands
+	ogre_please_guilds = {
+		icon = mission_ogre_maneater
+		required_missions = {  }
+		trigger = {
+			estate_loyalty = {
+ 				estate = estate_burghers
+    			loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_burghers
+				value = 1
+			}
+		}
+		effect = {
+
+			add_country_modifier = { 
+    			name = ogre_study_of_trade_1
+    			duration = -1  
+			}
+		}
+	}
+
+# With such a strong trade infrastructure, merchants flock to us
+	ogre_trade_power_1 = {
+		icon = dominant_economy
+		required_missions = { ogre_please_guilds ogre_build_markets }
+		position = 3
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 3
+				province_trade_power = 20
+			}
+		}
+		effect = {
+
+			remove_country_modifier = ogre_study_of_trade_2
+			add_country_modifier = { 
+    			name = ogre_study_of_trade_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## Our trade empire reaches ever wider.
+	ogre_trade_power_2 = {
+		icon = mission_trade_company_region_abroad
+		required_missions = { ogre_trade_power_1 }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				province_trade_power = 25
+			}
+		}
+		effect = {
+			add_mercantilism = 10
+		}
+	}
+
+
+### The southern passes open onto the Ocean of dread, the dragon isles, and Ind with all of it's wonderful eats. We must begin converting some of our caravans into trade ships to make the most of it.
+	ogre_secure_southern_pass = {
+		icon = alpine_defenses
+		required_missions = { }
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2790
+				province_id = 2809
+				province_id = 2780
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = {
+					OR = {
+						has_influencing_fort = yes
+						fort_level = 2
+					}
+				}
+			}
+		}
+		trigger = {
+			2790 = {
+				owned_by = ROOT
+				OR = {
+					has_influencing_fort = yes
+					fort_level = 2
+				}
+			}
+			2809 = {
+				owned_by = ROOT
+				OR = {
+					has_influencing_fort = yes
+					fort_level = 2
+				}
+			}
+			2780 = {
+				owned_by = ROOT
+				OR = {
+					has_influencing_fort = yes
+					fort_level = 2
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_improved_trade_ships
+    			duration = -1  
+			}
+		}
+	}
+
+## The ivory road is our main source of income. WE must make sure it is secured
+	ogre_secure_the_ivory_road = {
+		icon = mission_caravan
+		required_missions = { ogre_secure_southern_pass ogre_secure_eastern_pass }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4272
+				province_id = 2811
+				province_id = 2810
+				province_id = 2809
+				province_id = 2797
+				province_id = 2790
+				province_id = 2782
+				province_id = 2780
+				province_id = 2270
+			}
+		}
+		trigger = {
+			development_in_provinces = {
+				value = 100
+				OR = {
+					province_id = 4272
+					province_id = 2811
+					province_id = 2810
+					province_id = 2809
+					province_id = 2797
+					province_id = 2790
+					province_id = 2782
+					province_id = 2780
+					province_id = 2270
+				}
+			}
+		}
+		effect = {
+			every_province = {
+				limit = {
+					OR = {
+						province_id = 4272
+						province_id = 2811
+						province_id = 2810
+						province_id = 2809
+						province_id = 2797
+						province_id = 2790
+						province_id = 2782
+						province_id = 2780
+						province_id = 2270
+					}
+				}
+				add_permanent_province_modifier = { 
+					name = ogre_improved_trade_road
+					duration = -1 
+				}
+			}
+		}
+	}
+
+
+### As we expand to the sea, a new opportunity presents itself. We can tame these lands and open a road straight from Cathay to Pigbarter, through Gnoblar Country. The opportunities would be massive
+	ogre_open_the_pigfish_road = {
+		icon = adriatic_access
+		required_missions = { ogre_secure_the_ivory_road }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4272
+				province_id = 2811
+				province_id = 2810
+				province_id = 2809
+				province_id = 2283
+				province_id = 2284
+				province_id = 2279
+				province_id = 2274
+				province_id = 4808
+				province_id = 2155
+			}
+		}
+		trigger = {
+			development_in_provinces = {
+				value = 120
+				OR = {
+					province_id = 4272
+					province_id = 2811
+					province_id = 2810
+					province_id = 2809
+					province_id = 2283
+					province_id = 2284
+					province_id = 2279
+					province_id = 2274
+					province_id = 4808
+					province_id = 2155
+				}
+			}
+		}
+		effect = {
+			every_province = {
+				limit = {
+					OR = {
+						province_id = 4272
+						province_id = 2811
+						province_id = 2810
+						province_id = 2809
+						province_id = 2283
+						province_id = 2284
+						province_id = 2279
+						province_id = 2274
+						province_id = 4808
+						province_id = 2155
+					}
+				}
+				add_permanent_province_modifier = { 
+					name = ogre_improved_trade_road
+					duration = -1 
+				}
+			}
+		}
+	}
+
+## Fish is delish, and it makes quite a dish. Even better, it makes our breath smell terrible!
+	ogre_fish = { 
+		icon = mission_ogre_pot
+		position = 10
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = fish
+			has_discovered = ROOT
+		}	
+		trigger = {
+			trading_part = {
+				trade_goods = fish
+				value = 0.05
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_eat_fish
+    			duration = -1  
+			}			
+		}
+	}
+
+## Salt is delicious, and also acts as a preservative, allowing us to maintain our supplies for longer
+	ogre_salt = { 
+		icon = mission_ogre_pot
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = salt
+			has_discovered = ROOT
+		}	
+		trigger = {
+			trading_part = {
+				trade_goods = salt
+				value = 0.05
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_eat_salt
+    			duration = -1  
+			}				
+		}
+	}
+
+## Nothing beats caffeine! Let's run! I've got all the energy in the world!
+	ogre_tea_or_coffee = { 
+		icon = mission_ogre_pot
+		required_missions = {  }
+		provinces_to_highlight = {
+			OR = {
+				trade_goods = tea
+				trade_goods = coffee
+			}	
+			has_discovered = ROOT		
+		}	
+		trigger = {
+			OR = {
+				trading_part = {
+					trade_goods = tea
+					value = 0.05
+				}
+				trading_part = {
+					trade_goods = coffee
+					value = 0.05
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_eat_caffeine
+    			duration = -1  
+			}		
+		}
+	}
+
+
+}
+
+
+war_ogre_faction_5 = {
+
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		culture_group = ogre_group
+	}
+
+## Our society is run by extortionists! Great! Let's learn how to better extort.
+	ogre_please_nobles = {
+		icon = mission_ogre_leadbelchers
+		required_missions = {  }
+		trigger = {
+			estate_loyalty = {
+ 				estate = estate_nobles
+    			loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_extortionists_1
+    			duration = -1  
+			}	
+		}
+	}
+
+## Trade is free! Let's force others to give it to us.
+	ogre_transferring_trade = {
+		icon = mission_ogre_cannon
+		required_missions = { ogre_please_nobles }
+		trigger = {
+			calc_true_if = {
+				all_country = {
+					transfers_trade_power_to = ROOT
+				}
+				amount = 3
+			}
+			any_country = {
+				ROOT = { is_renting_condottieri_to = PREV }
+			}
+		}
+		effect = {
+			remove_country_modifier = ogre_extortionists_1
+			add_country_modifier = { 
+    			name = ogre_extortionists_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## With such high mercantilism, goods and development is flowing into our capital.
+	ogre_high_mercantilism = {
+		icon = dominant_economy
+		required_missions = { ogre_transferring_trade ogre_trade_power_1 }
+		position = 4
+		trigger = {
+			mercantilism = 25
+		}
+		effect = {
+			capital_scope = {
+				add_base_tax = 2
+				add_base_production = 6
+				add_base_manpower = 2
+			}
+		}
+	}
+
+
+## Cathay is a beast that we may not be able to swallow. But we can still integrate ourselves into the trade networks there.
+	ogre_secure_eastern_pass = {
+		icon = alpine_fortifications
+		required_missions = { }
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2818
+				province_id = 4272
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = {
+					OR = {
+						has_influencing_fort = yes
+						fort_level = 2
+					}
+				}
+			}
+		}
+		trigger = {
+			2818 = {
+				owned_by = ROOT
+				OR = {
+					has_influencing_fort = yes
+					fort_level = 2
+				}
+			}
+			4272 = {
+				owned_by = ROOT
+				OR = {
+					has_influencing_fort = yes
+					fort_level = 2
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_foreign_trade
+    			duration = -1  
+			}
+		}
+	}
+
+## The shattered road is underused due to rumors of cannabalistic ogres. Let's clean up the roads to open them up
+	ogre_secure_the_shattered_road = {
+		icon = mission_caravan
+		required_missions = { ogre_secure_southern_pass ogre_secure_eastern_pass }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2818
+				province_id = 2817
+				province_id = 2802
+				province_id = 2801
+				province_id = 2799
+				province_id = 2798
+				province_id = 2772
+				province_id = 2771
+				province_id = 2768
+				province_id = 2766
+				province_id = 2762
+			}
+		}
+		trigger = {
+			development_in_provinces = {
+				value = 100
+				OR = {
+					province_id = 2818
+					province_id = 2817
+					province_id = 2802
+					province_id = 2801
+					province_id = 2799
+					province_id = 2798
+					province_id = 2772
+					province_id = 2771
+					province_id = 2768
+					province_id = 2766
+					province_id = 2762
+				}
+			}
+		}
+		effect = {
+			every_province = {
+				limit = {
+					OR = {
+						province_id = 2818
+						province_id = 2817
+						province_id = 2802
+						province_id = 2801
+						province_id = 2799
+						province_id = 2798
+						province_id = 2772
+						province_id = 2771
+						province_id = 2768
+						province_id = 2766
+						province_id = 2762
+					}
+				}
+				add_permanent_province_modifier = { 
+					name = ogre_improved_trade_road
+					duration = -1 
+				}
+			}
+		}
+	}
+
+
+
+
+	ogre_dominate_ivory_road = {
+		icon = develop_the_po_valley
+		required_missions = { ogre_secure_the_ivory_road ogre_secure_the_shattered_road }
+		position = 8
+		trigger = {
+			2972 = {
+				trade_share = {
+					country = ROOT
+					share = 90
+				}
+			}
+			4272 = {
+				owned_by = ROOT
+			}
+		}
+		effect = {
+
+			4272 = { add_permanent_province_modifier = {  name = ogre_trade_nexus duration = -1  } }
+
+		}
+	}
+
+
+
+## Our plates are adorned with exotic meats of all kind, from bear to beaver.
+	ogre_exotic_meats = { 
+		icon = mission_ogre_pot
+		position = 10
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = fur
+			has_discovered = ROOT
+		}	
+		trigger = {
+			trading_part = {
+				trade_goods = fur
+				value = 0.05
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_eat_exotic_meats
+    			duration = -1  
+			}			
+		}
+	}
+
+
+## By eating dyes, we can change our skin to the most delightful colors. This is much better than tatoos!
+	ogre_dyes = { 
+		icon = mission_ogre_pot
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = dyes
+			has_discovered = ROOT
+		}	
+		trigger = {
+			trading_part = {
+				trade_goods = dyes
+				value = 0.05
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_eat_dyes
+    			duration = -1  
+			}				
+		}
+	}
+
+## Alcohol makes everybody happy!
+	ogre_wine_or_beer = { 
+		icon = mission_ogre_pot
+		required_missions = {  }
+		provinces_to_highlight = {
+			OR = {
+				trade_goods = wine
+				trade_goods = beer
+			}
+			has_discovered = ROOT			
+		}	
+		trigger = {
+			OR = {
+				trading_part = {
+					trade_goods = wine
+					value = 0.05
+				}
+				trading_part = {
+					trade_goods = beer
+					value = 0.05
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+    			name = ogre_eat_alcohol
+    			duration = -1  
+			}				
+		}
+	}
+
+
+
+
+}
+
