@@ -3630,3 +3630,60 @@ estate_guild_industrial_enslavement = {
 }
 
 
+
+
+estate_guild_industrial_infrastructure = {
+	icon = privilege_supply_arms
+	max_absolutism = 0
+	influence = 0.1
+	loyalty = 0.05
+	is_valid = {
+		OR = {
+			has_country_modifier = dwarven_administration
+			has_country_modifier = skaven_administration
+		}
+	}
+	can_select = {
+		OR = {
+			has_country_modifier = dwarven_administration
+			has_country_modifier = skaven_administration
+		}
+	}
+
+	penalties = {
+	}
+	on_granted = {
+		custom_tooltip = estate_guild_industrial_infrastructure_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					num_of_times_expanded_infrastructure = 1
+				}
+				add_province_modifier = {
+					name = industrial_infrastructure
+					duration = -1
+				}
+			}			
+		}
+	}
+	on_revoked = {
+		custom_tooltip = estate_guild_industrial_infrastructure_remove_tt
+		hidden_effect = {
+			every_owned_province = {
+				remove_province_modifier = industrial_infrastructure
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	ai_will_do = {
+		factor = 200
+		modifier = {
+			factor = 0.0
+			NOT = { religion = hashut }
+		}
+	}
+}
+

@@ -551,22 +551,6 @@ on_war_lost = {
 
 
 
-# on_new_monarch = {
-# 	if = { 
-# 		limit = {
-# 			NOT = { ruler_has_personality = immortal_personality }
-# 			OR = {
-# 				culture_group = asur_group
-# 				culture_group = druchii_group
-# 				culture_group = dwarf_group
-# 				culture_group = asrai_group
-# 				culture_group = lizardmen_group
-# 				culture_group = chaos_dwarf_group
-# 			}
-# 		}
-# 		add_ruler_personality = immortal_personality
-# 	}
-# }
 
 on_province_culture_converted = {
 	if = {
@@ -588,6 +572,39 @@ on_province_culture_converted = {
 	}
 	
 }
+
+
+on_expanded_infrastructure = {
+	if = {
+		limit = {
+			num_of_times_expanded_infrastructure = 1
+			owner = { has_estate_privilege = estate_guild_industrial_infrastructure }
+		}
+		add_province_modifier = {
+			name = industrial_infrastructure
+			duration = -1
+		}
+	}
+}
+
+
+# on_new_monarch = {
+# 	if = { 
+# 		limit = {
+# 			NOT = { ruler_has_personality = immortal_personality }
+# 			OR = {
+# 				culture_group = asur_group
+# 				culture_group = druchii_group
+# 				culture_group = dwarf_group
+# 				culture_group = asrai_group
+# 				culture_group = lizardmen_group
+# 				culture_group = chaos_dwarf_group
+# 			}
+# 		}
+# 		add_ruler_personality = immortal_personality
+# 	}
+# }
+
 
 
 #on_culture_promoted = {
