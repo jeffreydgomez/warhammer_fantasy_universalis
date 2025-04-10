@@ -1,0 +1,656 @@
+
+##################################
+##### CATHAY CULTURE GROUP
+##################################
+cathay_missions_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = cathayan_cg
+	}
+
+
+	cathay_please_guilds = {
+		icon = mission_african_gold
+		required_missions = {  }
+		trigger = {
+			estate_loyalty = {
+ 				estate = estate_burghers
+    			loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_burghers
+				value = 1
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	cathay_build_markets = {
+		icon = mission_african_gold
+		required_missions = { cathay_please_guilds }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				OR = {
+			 		has_building = marketplace
+			 		has_building = trade_depot
+			 		has_building = stock_exchange
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	cathay_centers_of_trade = {
+		icon = mission_african_gold
+		required_missions = { cathay_build_markets }
+		position = 4
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 5
+				province_has_center_of_trade_of_level = 3
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	cathay_west_own_all = {
+		icon = mission_african_gold
+		required_missions = {  }
+		position = 5
+		trigger = {
+			western_provinces_region = {
+				OR = {
+					owned_by = ROOT
+					AND = {
+						owned_by_subject_of = ROOT
+						owner = {
+							NOT = { liberty_desire = 50 }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	cathay_west_build_forts = {
+		icon = mission_african_gold
+		required_missions = { cathay_west_own_all }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 5
+				region = western_provinces_region
+				fort_level = 2
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	cathay_west_dominate_ivory_road = {
+		icon = mission_african_gold
+		required_missions = { cathay_west_build_forts }
+		trigger = {
+			2972 = {
+				has_most_province_trade_power = ROOT
+				has_great_project = {
+					type = silk_road_nexus
+					tier = 3
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+	cathay_west_deal_with_ogres = {
+		icon = mission_african_gold
+		required_missions = { cathay_west_build_forts }
+		trigger = {
+			4272 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+			2818 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+			2802 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+			2790 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+	cathay_build_barracks = {
+		icon = mission_african_gold
+		required_missions = { cathay_please_nobles }
+		position = 13
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				OR = {
+					has_building = barracks
+					has_building = training_fields
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	cathay_unify_culture = {
+		icon = mission_african_gold
+		required_missions = { cathay_build_barracks }
+		position = 15
+		trigger = {
+			cathay_superregion = {
+				culture_group = ROOT
+			}
+		}
+		effect = {
+		}
+	}
+
+}
+
+
+
+cathay_missions_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = cathayan_cg
+	}
+
+	cathay_north_chinaware_1 = {
+		icon = mission_african_gold
+		required_missions = { cathay_north_own_all }
+		position = 2
+		trigger = {
+			trading_bonus = {
+				trade_goods = chinaware
+				value = yes
+			}
+		}
+		effect = {
+		}
+	}
+
+	cathay_north_chinaware_2 = {
+		icon = mission_african_gold
+		required_missions = { cathay_north_chinaware_1 }
+		trigger = {
+			trading_part = {
+				trade_goods = chinaware
+				value = 0.3
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	cathay_west_culture_religion = {
+		icon = mission_african_gold
+		required_missions = { cathay_west_own_all }
+		position = 6
+		trigger = {
+			western_provinces_region = {
+				culture_group = ROOT
+				religion = ROOT
+			}
+		}
+		effect = {
+		}
+	}
+
+	cathay_center_own_all = {
+		icon = mission_african_gold
+		required_missions = {  }
+		trigger = {
+			celestial_riverlands_region = {
+				OR = {
+					owned_by = ROOT
+					AND = {
+						owned_by_subject_of = ROOT
+						owner = {
+							NOT = { liberty_desire = 50 }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+	cathay_center_tea_1 = {
+		icon = mission_african_gold
+		required_missions = { cathay_center_own_all }
+		position = 2
+		trigger = {
+			trading_bonus = {
+				trade_goods = tea
+				value = yes
+			}
+		}
+		effect = {
+		}
+	}
+
+	cathay_center_tea_2 = {
+		icon = mission_african_gold
+		required_missions = { cathay_center_tea_1 }
+		trigger = {
+			trading_part = {
+				trade_goods = tea
+				value = 0.3
+			}
+		}
+		effect = {
+		}
+	}
+
+	cathay_west_directly_own_all = {
+		icon = mission_african_gold
+		required_missions = { cathay_west_dominate_ivory_road }
+		trigger = {
+			western_provinces_region = {
+				owned_by = ROOT
+				is_prosperous = yes
+				development = 7
+			}
+		}
+		effect = {
+		}
+	}
+
+	cathay_please_nobles = {
+		icon = mission_african_gold
+		required_missions = {  }
+		trigger = {
+			estate_loyalty = {
+ 				estate = estate_nobles
+    			loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+		effect = {
+		}
+	}
+
+	cathay_south_own_all = {
+		icon = mission_african_gold
+		required_missions = {  }
+		trigger = {
+			southern_provinces_region = {
+				OR = {
+					owned_by = ROOT
+					AND = {
+						owned_by_subject_of = ROOT
+						owner = {
+							NOT = { liberty_desire = 50 }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+	cathay_south_build_forts = {
+		icon = mission_african_gold
+		required_missions = { cathay_south_own_all }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 5
+				region = southern_provinces_region
+				fort_level = 2
+			}
+		}
+		effect = {
+		}
+	}
+
+	cathay_south_deal_with_ind = {
+		icon = mission_african_gold
+		required_missions = { cathay_south_build_forts }
+		trigger = {
+			4065 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+			4093 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+		effect = {
+		}
+	}
+
+
+}
+
+
+cathay_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = cathayan_cg
+	}
+
+	cathay_north_own_all = {
+		icon = mission_african_gold
+		required_missions = {  }
+		trigger = {
+			northern_cathay_region = {
+				OR = {
+					owned_by = ROOT
+					AND = {
+						owned_by_subject_of = ROOT
+						owner = {
+							NOT = { liberty_desire = 50 }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+	cathay_north_great_bastion = {
+		icon = mission_african_gold
+		required_missions = { cathay_north_own_all }
+		trigger = {
+			great_bastion_area = {
+				fort_level = 5
+			}
+		effect = {
+		}
+	}
+
+	cathay_north_deal_with_hobgoblins = {
+		icon = mission_african_gold
+		required_missions = { cathay_north_own_all }
+		trigger = {
+			2708 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+			4047 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+		effect = {
+		}
+	}
+
+	cathay_crownland_50 = {
+		icon = mission_african_gold
+		required_missions = { cathay_centers_of_trade cathay_north_chinaware_2 cathay_north_deal_with_hobgoblins }
+		trigger = {
+			crown_land_share = 50
+		effect = {
+		}
+	}
+
+	cathay_please_mages = {
+		icon = mission_african_gold
+		required_missions = { cathay_crownland_50 }
+		position = 7
+		trigger = {
+			estate_loyalty = {
+ 				estate = estate_mages
+    			loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_mages
+				value = 1
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	cathay_innovation = {
+		icon = mission_african_gold
+		required_missions = { cathay_please_mages }
+		trigger = {
+			OR = {
+				innovativeness = 15
+				has_country_modifier = war_modern_science
+			}
+		}
+		effect = {
+		}
+	}
+
+	cathay_center_own_all = {
+		icon = mission_african_gold
+		required_missions = { cathay_center_tea_2 }
+		position = 10
+		trigger = {
+			celestial_riverlands_region = {
+				OR = {
+					owned_by = ROOT
+					AND = {
+						owned_by_subject_of = ROOT
+						owner = {
+							NOT = { liberty_desire = 50 }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+	cathay_crownland_50 = {
+		icon = mission_african_gold
+		required_missions = { cathay_center_own_all }
+		trigger = {
+			crown_land_share = 75
+		}
+		effect = {
+		}
+	}
+
+	cathay_south_culture_religion = {
+		icon = mission_african_gold
+		required_missions = {  }
+		position = 6
+		trigger = {
+			western_provinces_region = {
+				culture_group = ROOT
+				religion = ROOT
+			}
+		}
+		effect = {
+		}
+	}
+
+}
+
+
+
+cathay_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = cathayan_cg
+	}
+
+
+
+}
+
+
+
+cathay_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = cathayan_cg
+	}
+
+
+
+}
