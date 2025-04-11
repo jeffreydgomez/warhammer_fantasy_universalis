@@ -1,4 +1,133 @@
 
+#Warhammer
+
+#Tier 1
+verezzo_republic= {
+	icon = "trading_city"
+	allow_normal_conversion = no
+	
+	potential = {
+		OR = {
+			has_reform = verezzo_republic
+			have_had_reform = verezzo_republic
+		}
+	}
+	trigger = {
+		OR = {
+			has_reform = verezzo_republic
+			have_had_reform = verezzo_republic
+		}
+	}
+	
+	duration = 3
+	has_term_election = yes
+	lock_level_when_selected = yes
+	boost_income = yes
+	custom_attributes = {
+		enables_plutocratic_idea_group = no
+		enables_aristocratic_idea_group = yes
+		locked_government_type = yes
+		is_merchant_republic = yes
+	}
+
+	modifiers = {
+		max_absolutism = -30
+		merchants = 1
+	}
+	
+
+	conditional = {
+		allow = {
+			has_dlc = "Res Publica"
+			NOT = { has_dlc = "Mare Nostrum" }
+		}
+		can_use_trade_post = yes
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Mare Nostrum"
+			NOT = { has_dlc = "Res Publica" }
+		}
+		can_form_trade_league = yes
+		trade_city_reform = trading_city
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Res Publica"
+			has_dlc = "Mare Nostrum"
+		}
+		can_use_trade_post = yes
+		can_form_trade_league = yes
+		trade_city_reform = trading_city
+	}
+	custom_attributes = {
+		enables_plutocratic_idea_group = yes
+		enables_aristocratic_idea_group = no
+		is_merchant_republic = yes
+		elections_increase_factions_influence = yes
+	}
+
+}
+
+remas_merchants_reform = {
+	icon = "trading_city"
+	allow_normal_conversion = yes
+	modifiers = {
+		max_absolutism = -20
+		merchants = 1
+		yearly_corruption = -0.1
+	}
+
+	potential = {
+		OR = {
+			has_reform = remas_merchants_reform
+			have_had_reform = remas_merchants_reform
+		}
+	}
+	boost_income = yes
+	factions = {
+		mr_aristocrats
+		mr_traders
+		mr_guilds
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Res Publica"
+			NOT = { has_dlc = "Mare Nostrum" }
+		}
+		can_use_trade_post = yes
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Mare Nostrum"
+			NOT = { has_dlc = "Res Publica" }
+		}
+		can_form_trade_league = yes
+		trade_city_reform = trading_city
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Res Publica"
+			has_dlc = "Mare Nostrum"
+		}
+		can_use_trade_post = yes
+		can_form_trade_league = yes
+		trade_city_reform = trading_city
+	}
+	custom_attributes = {
+		enables_plutocratic_idea_group = yes
+		enables_aristocratic_idea_group = no
+		lottery_election = yes
+		election_on_death = yes
+		is_merchant_republic = yes
+		elections_increase_factions_influence = yes
+		bonus_stats_for_elected_ruler = yes
+	}
+	duration = 4 #The lore says 1 but balance
+	has_term_election = yes
+}
+
+
 marienburg_republic_reform = {
 	icon = "politician"
 	allow_convert = no
@@ -6,7 +135,7 @@ marienburg_republic_reform = {
 	modifiers = {
 		max_absolutism = 0 #Directorate slightly dicatotoral
 		merchants = 1
-		burghers_loyalty_modifier = 0.10 #They litterally rule
+		burghers_loyalty_modifier = 0.10 #They literally rule
 		burghers_influence_modifier = 0.10
 	}
 	valid_for_nation_designer = no
