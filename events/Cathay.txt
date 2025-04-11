@@ -9,10 +9,10 @@ normal_or_historical_nations = yes
 ### Celestial Empire Intro
 
 country_event = { 
-	id = cathay_events.0
-	title = cathay_events.0.t 
-	desc = cathay_events.0.d 
-	picture = SHOGUNATE_AUTHORITY_INCIDENT_eventPicture
+	id = cathay_events.100
+	title = cathay_events.100.t 
+	desc = cathay_events.100.d 
+	picture = GRAND_CATHAY_eventPicture
 	
 #	fire_only_once = yes
 	is_triggered_only = yes
@@ -21,42 +21,63 @@ country_event = {
 		OR = {
 			tag = I25
 			is_subject_of = I25
+			tag = I35
 		}
-		NOT= { has_country_flag = did_intro_event }
+		NOT= { has_country_flag = did_cathay_intro_event }
 	}
+
+	immediate = { set_country_flag = did_cathay_intro_event }
 
 	option = { 
 		ai_chance = { factor = 100 }
-		name = cathay_events.0.a 
+		name = cathay_events.100.a 
 		trigger = { }
-		set_country_flag = did_intro_event
-		change_estate_land_share = {
-	    	estate = estate_nobles
-	    	share = 10
+
+		custom_tooltip = claim_all_cathay_tt
+
+		hidden_effect = {
+			every_province = {
+				limit = { superregion = cathay_superregion }
+				add_permanent_claim = ROOT
+			}
 		}
-		change_estate_land_share = {
-	    	estate = estate_church
-	    	share = 10
-		}
-		change_estate_land_share = {
-	    	estate = estate_burghers
-	    	share = 10
-		}
-		change_estate_land_share = {
-	    	estate = estate_eunuchs
-	    	share = 10
+
+		if = {
+			limit = {
+				OR = {
+					tag = I25
+					is_subject_of = I25
+				}
+			}
+
+			set_estate_privilege = estate_nobles_cultural_exceptionalism
+
+			change_estate_land_share = {
+		    	estate = estate_nobles
+		    	share = 10
+			}
+			change_estate_land_share = {
+		    	estate = estate_church
+		    	share = 10
+			}
+			change_estate_land_share = {
+		    	estate = estate_burghers
+		    	share = 10
+			}
+			change_estate_land_share = {
+		    	estate = estate_eunuchs
+		    	share = 10
+			}
 		}
 	}
 }
 
-### Cathay Intro Event
-
-
+### Cathay Vampire Event
 country_event = { 
-	id = cathay_events.1
-	title = cathay_events.1.t 
-	desc = cathay_events.1.d 
-	picture = IMPALED_SOLDIERS_eventPicture
+	id = cathay_events.101
+	title = cathay_events.101.t 
+	desc = cathay_events.101.d 
+	picture = VAMPIRE_eventPicture
 	
 	fire_only_once = yes
 	is_triggered_only = yes 
@@ -66,11 +87,14 @@ country_event = {
 			is_year = 2503
 		}
 		tag = I30
+		NOT= { has_country_flag = did_intro_event }
 	}
+
+	immediate = { set_country_flag = did_intro_event }
 
 	option = { 
 		ai_chance = { factor = 100 }
-		name = cathay_events.1.a 
+		name = cathay_events.101.a 
 		trigger = { }
 		
 		every_country = {
@@ -91,6 +115,43 @@ country_event = {
 				}
 			}
 		}
+	}
+}
+
+
+### Monkey Court Intro Event
+country_event = { 
+	id = cathay_events.102
+	title = cathay_events.102.t 
+	desc = cathay_events.102.d 
+	picture = GRAND_CATHAY_eventPicture
+	
+	fire_only_once = yes
+	is_triggered_only = yes 
+		
+	trigger = {
+		NOT = {
+			is_year = 2503
+		}
+		tag = I35
+		NOT= { has_country_flag = did_intro_event }
+	}
+
+	immediate = {
+		set_country_flag = did_intro_event
+		hidden_effect = {
+			cathay_superregion = {
+				discover_country = ROOT
+			}
+		}
+	}
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = cathay_events.102.a 
+
+		add_prestige = 25
+
 	}
 }
 

@@ -420,7 +420,7 @@ country_event = {
 		has_government_power = {
 			mechanic_type = orc_fightiness_mechanic
 			power_type = orc_fightiness_power
-			value = 50
+			value = 80
 		}
 	}
 	
@@ -432,8 +432,8 @@ country_event = {
 	option = {
 		name = event_waaagh.1.option_1
 		ai_chance = { factor = 10 }
-		add_years_of_income = 0.5
-		add_yearly_manpower = -0.5
+		add_years_of_income = 0.25
+		add_yearly_manpower = -0.25
 		add_piety = -0.05
 	}
 
@@ -462,7 +462,7 @@ country_event = {
 		has_government_power = {
 			mechanic_type = orc_fightiness_mechanic
 			power_type = orc_fightiness_power
-			value = 50
+			value = 80
 		}
 	}
 	
@@ -474,7 +474,7 @@ country_event = {
 	option = {
 		name = event_waaagh.2.option_1
 		ai_chance = { factor = 10 }
-		add_years_of_income = 0.25
+		add_years_of_income = 0.10
 		add_government_power = {
 			mechanic_type = orc_fightiness_mechanic
 			power_type = orc_fightiness_power
@@ -493,9 +493,9 @@ country_event = {
 			power_type = orc_fightiness_power
 			value = -25
 		}
-		add_adm_power = 25
-		add_dip_power = 25
-		add_mil_power = 25
+		add_adm_power = 10
+		add_dip_power = 10
+		add_mil_power = 10
 		add_piety = 0.05
 	}
 }
@@ -518,7 +518,7 @@ country_event = {
 		has_government_power = {
 			mechanic_type = orc_fightiness_mechanic
 			power_type = orc_fightiness_power
-			value = 50
+			value = 80
 		}
 	}
 	
@@ -550,7 +550,7 @@ country_event = {
 				is_subject = yes
 			}
 		}
-		add_yearly_manpower = 0.5	
+		add_yearly_manpower = 1.0	
 		random_neighbor_country = {
 			LIMIT = {
 				NOT = { is_subject_of = root }
@@ -586,7 +586,7 @@ country_event = {
 		has_government_power = {
 			mechanic_type = orc_fightiness_mechanic
 			power_type = orc_fightiness_power
-			value = 50
+			value = 80
 		}
 		NOT = { manpower_percentage = 1.0 }
 	}
@@ -612,7 +612,6 @@ country_event = {
 	option = {
 		name = event_waaagh.4.option_2
 		ai_chance = { factor = 100 }
-		add_yearly_manpower = 0.5
 		add_piety = 0.05
 	}
 }
@@ -633,7 +632,7 @@ country_event = {
 		has_government_power = {
 			mechanic_type = orc_fightiness_mechanic
 			power_type = orc_fightiness_power
-			value = 50
+			value = 80
 		}
 	}
 	
@@ -644,7 +643,7 @@ country_event = {
 	option = {
 		name = event_waaagh.5.option_1
 		ai_chance = { factor = 10 }
-		create_general = { tradition = 60 }
+		create_general = { tradition = 50 }
 		add_piety = -0.05
 	}
 
@@ -654,14 +653,72 @@ country_event = {
 	option = {
 		name = event_waaagh.5.option_2
 		ai_chance = { factor = 100 }
-
-		if = {
-			limit = { mil = 6 }
-				add_mil_power = 100
-		} else = { change_mil = 1 }
-		
+		add_mil_power = 25
 		add_piety = 0.05
 	}
 }
 
+
+#We could learn so much by spreading the waagh
+country_event = {
+	id = event_waaagh.6
+	title = event_waaagh.6.t
+	desc = event_waaagh.6.d
+	picture = GREENSKIN_eventPicture
+	
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_government_mechanic = orc_fightiness_mechanic
+		has_government_power = {
+			mechanic_type = orc_fightiness_mechanic
+			power_type = orc_fightiness_power
+			value = 80
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}	
+
+## We have enough going on
+	option = {
+		name = event_waaagh.6.option_1
+		ai_chance = { factor = 10 }
+		add_piety = -0.05
+	}
+
+
+	# Declare War on Somebody
+
+	option = {
+		name = event_waaagh.6.option_2
+		ai_chance = { factor = 100 }
+
+		if = {
+			limit = { mil = 6 }
+				add_mil_power = 50
+		} else = { change_mil = 1 }
+		
+
+		random_neighbor_country = {
+			LIMIT = {
+				NOT = { is_subject_of = root }
+				NOT = { overlord_of = root }
+				NOT = { alliance_with = root }
+				NOT = { ROOT = { truce_with = prev } }
+			}
+
+			ROOT = {
+				declare_war_with_cb = {
+		  			who = PREV
+		    		casus_belli = cb_annex
+				}
+			}
+		}
+
+		add_piety = 0.05
+	}
+}
 
