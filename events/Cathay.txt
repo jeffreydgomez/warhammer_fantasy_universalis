@@ -6,13 +6,596 @@ namespace = cathay_events
 normal_or_historical_nations = yes
 
 
+## Template
+country_event = { 
+	id = cathay_events.X
+	title = cathay_events.X.t 
+	desc = cathay_events.X.d 
+	picture = GRAND_CATHAY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = cathayan_cg
+		religion = yin_yang
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# FIRST OPTION
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = cathay_events.X.option_1 
+
+		add_karma = 10 # Yang, Peaceful
+
+	}
+
+# SECOND OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = cathay_events.X.option_2
+
+		add_karma = -10 # yin, Aggressive
+
+
+	}
+
+# THIRD OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = cathay_events.X.option_3
+	}
+}
+
+
+
+## A peasant is saying he say the missing dragon emperor in the sky. The peasants are in a state of great excitement. How should we respond?
+country_event = { 
+	id = cathay_events.1
+	title = cathay_events.1.t 
+	desc = cathay_events.1.d 
+	picture = GRAND_CATHAY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = cathayan_cg
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Lead a ritual exhulting the emperor!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = cathay_events.1.option_1 
+
+		add_years_of_income = -0.25
+		add_legitimacy = 5
+		add_karma = 10 # Yang, Peaceful
+
+	}
+
+# Hang the Peasant for spreading false rumors
+	option = { 
+		ai_chance = { factor = 50 }
+		name = cathay_events.1.option_2
+
+		add_legitimacy = -5
+		add_karma = -10 # yin, Aggressive
+	}
+}
+
+
+## A Peasant outlaw is demanding more rights for the peasantry. Don't they know they live in the greatest country in the world?
+country_event = { 
+	id = cathay_events.2
+	title = cathay_events.2.t 
+	desc = cathay_events.2.d 
+	picture = GRAND_CATHAY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = cathayan_cg
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# We do not supress peasants. Make him governor of the province
+	option = { 
+		ai_chance = { factor = 50 }
+		name = cathay_events.2.option_1 
+
+		event_target:event_target = {
+			add_local_autonomy = 25
+		}
+
+		add_karma = 10 # Yang, Peaceful
+
+	}
+
+# Kill him!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = cathay_events.2.option_2
+
+		event_target:event_target = {
+			spawn_rebels = {
+			    type = leadered_peasant_rebels
+			    leader = rebel_preacher
+			    size = 1
+			}
+		}
+
+		add_karma = -10 # yin, Aggressive
+
+
+	}
+
+# Just bribe him
+	option = { 
+		ai_chance = { factor = 50 }
+		name = cathay_events.2.option_3
+		add_treasury = -100
+	}
+}
+
+
+
+
+## Our scholars and Sorcerers are at odds. Our Sorcerers belief we can further our knowledge of the winds of magic, while our Scholars beleive taht the sacred balance of yin and yang should not be trifled with.
+country_event = { 
+	id = cathay_events.3
+	title = cathay_events.3.t 
+	desc = cathay_events.3.d 
+	picture = GRAND_CATHAY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = cathayan_cg
+		religion = yin_yang
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Listen to the Scholars
+	option = { 
+		ai_chance = { factor = 50 }
+		name = cathay_events.3.option_1 
+
+		add_stability_or_adm_power = yes
+		add_estate_loyalty = {
+		    estate = estate_church
+		    loyalty = 10
+		}
+		add_estate_loyalty = {
+		    estate = estate_mages
+		    loyalty = -20
+		}
+		add_karma = 10 # Yang, Peaceful
+
+	}
+
+# Control the balance of Yin and Yang
+	option = { 
+		ai_chance = { factor = 50 }
+		name = cathay_events.3.option_2
+		change_innovativeness = 5
+		add_estate_loyalty = {
+		    estate = estate_church
+		    loyalty = -20
+		}
+		add_estate_loyalty = {
+		    estate = estate_mages
+		    loyalty = 10
+		}
+		add_karma = -10 # yin, Aggressive
+
+	}
+}
+
+
+
+## Meditating under a trea, beneath a stream, a burst of enlightenment strikes
+country_event = { 
+	id = cathay_events.4
+	title = cathay_events.4.t 
+	desc = cathay_events.4.d 
+	picture = GRAND_CATHAY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion = yin_yang
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Achieve Enlightenment
+	option = { 
+		ai_chance = { factor = 50 }
+		name = cathay_events.4.option_1 
+
+		set_karma = 0
+
+	}
+
+# Go on a speaking tour
+	option = { 
+		ai_chance = { factor = 50 }
+		name = cathay_events.4.option_2
+
+		add_karma = -10 # yin, Aggressive
+
+		add_adm_power = 25
+		add_dip_power = 25
+		add_mil_power = 25
+
+	}
+
+}
+
+
+
+
+## Ambitious Eunuchs. Eunuchs may be missing some things, but they still have ambition. A class of particularly ambitious Eunuchs want to make a name for themselves.
+country_event = { 
+	id = cathay_events.5
+	title = cathay_events.5.t 
+	desc = cathay_events.5.d 
+	picture = GRAND_CATHAY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		has_estate = estate_eunuchs
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Their focus should be beurocracy, not personal gain
+	option = { 
+		ai_chance = { factor = 50 }
+		name = cathay_events.5.option_1 
+
+		add_karma = 10 # Yang, Peaceful
+
+	}
+
+# We can use this ambition to run a tigher shift.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = cathay_events.5.option_2
+
+		add_country_modifier = { 
+		    name = war_increased_taxes
+		    duration = 1825
+		}
+
+		add_country_modifier = { 
+		    name = war_eunuch_increased_influence
+		    duration = 1825
+		}
+
+		add_karma = -10 # yin, Aggressive
+
+	}
+}
+
+
+
+## Balance of Yin and Yang. Do we work for inner harmony, or external conquest?
+country_event = { 
+	id = cathay_events.6
+	title = cathay_events.6.t 
+	desc = cathay_events.6.d 
+	picture = GRAND_CATHAY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion = yin_yang
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Yang - peace and prosperity
+	option = { 
+		ai_chance = { factor = 50 }
+		name = cathay_events.6.option_1 
+
+		add_karma = 25 # Yang, Peaceful
+
+		add_country_modifier = { 
+		    name = war_increased_taxes
+		    duration = 3650
+		}
+		add_country_modifier = { 
+		    name = war_worse_morale
+		    duration = 3650
+		}
+
+	}
+
+# Yin - Aggressive Expansion.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = cathay_events.6.option_2
+
+		add_karma = -25 # yin, Aggressive
+
+		add_country_modifier = { 
+		    name = war_better_morale
+		    duration = 3650
+		}
+
+		add_country_modifier = { 
+		    name = war_decreased_taxes
+		    duration = 3650
+		}
+
+	}
+}
+
+
+
+## A sense of disharmony pervades our land. Our people are agitated, and our armies anxious. What should we do.
+country_event = { 
+	id = cathay_events.7
+	title = cathay_events.7.t 
+	desc = cathay_events.7.d 
+	picture = GRAND_CATHAY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			religion = yin_yang
+			culture_group = cathayan_cg
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# What can we do?
+	option = { 
+		ai_chance = { factor = 50 }
+		name = cathay_events.7.option_1 
+
+		add_stability = -1
+
+	}
+
+# Spend money to alleviate the suffering of the poor.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = cathay_events.7.option_2
+
+		add_years_of_income = -1.0
+
+		add_karma = 10 # Yang, Peaceful
+
+	}
+
+# Mages! Control the winds and set them right!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = cathay_events.7.option_3
+
+		random_list = {
+			10 = { 
+				add_stability_or_adm_power = yes
+			}
+		    40 = {
+		    }
+		    40 = {
+		        add_stability = -2
+		    }
+		    10 = {
+		    	add_stability = -2
+		    	capital_scope = { add_devastation = 20 }
+		    }
+		}
+
+		add_karma = -10 # yin, Aggressive
+
+	}
+}
+
+
+
+## A Tigerfolk Beastman pilgrim from Ind arrives. He's strange and an outsider, but he wants to pray at our temples. How should we receive him?
+country_event = { 
+	id = cathay_events.8
+	title = cathay_events.8.t 
+	desc = cathay_events.8.d 
+	picture = GRAND_CATHAY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = cathayan_cg
+			religion = yin_yang
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# As an honored guest, of course, even if it means our court is sullied.
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = cathay_events.8.option_1 
+
+		add_legitimacy = -10
+
+		add_country_modifier = { 
+		    name = war_better_dip_rep
+		    duration = 3650
+		}
+		add_karma = 10 # Yang, Peaceful
+
+	}
+
+# We shall not entertain outsiders at our temples
+	option = { 
+		ai_chance = { factor = 50 }
+		name = cathay_events.8.option_2
+
+		add_legitimacy = 10
+
+		add_country_modifier = { 
+		    name = war_worse_dip_rep
+		    duration = 3650
+		}
+		add_karma = -10 # yin, Aggressive
+
+	}
+
+}
+
+
+
+
+#### INTRO EVENTS
+
 ### Celestial Empire Intro
 
 country_event = { 
-	id = cathay_events.0
-	title = cathay_events.0.t 
-	desc = cathay_events.0.d 
-	picture = SHOGUNATE_AUTHORITY_INCIDENT_eventPicture
+	id = cathay_events.100
+	title = cathay_events.100.t 
+	desc = cathay_events.100.d 
+	picture = GRAND_CATHAY_eventPicture
 	
 #	fire_only_once = yes
 	is_triggered_only = yes
@@ -21,42 +604,63 @@ country_event = {
 		OR = {
 			tag = I25
 			is_subject_of = I25
+			tag = I35
 		}
-		NOT= { has_country_flag = did_intro_event }
+		NOT= { has_country_flag = did_cathay_intro_event }
 	}
+
+	immediate = { set_country_flag = did_cathay_intro_event }
 
 	option = { 
 		ai_chance = { factor = 100 }
-		name = cathay_events.0.a 
+		name = cathay_events.100.a 
 		trigger = { }
-		set_country_flag = did_intro_event
-		change_estate_land_share = {
-	    	estate = estate_nobles
-	    	share = 10
+
+		custom_tooltip = claim_all_cathay_tt
+
+		hidden_effect = {
+			every_province = {
+				limit = { superregion = cathay_superregion }
+				add_permanent_claim = ROOT
+			}
 		}
-		change_estate_land_share = {
-	    	estate = estate_church
-	    	share = 10
-		}
-		change_estate_land_share = {
-	    	estate = estate_burghers
-	    	share = 10
-		}
-		change_estate_land_share = {
-	    	estate = estate_eunuchs
-	    	share = 10
+
+		if = {
+			limit = {
+				OR = {
+					tag = I25
+					is_subject_of = I25
+				}
+			}
+
+			set_estate_privilege = estate_nobles_cultural_exceptionalism
+
+			change_estate_land_share = {
+		    	estate = estate_nobles
+		    	share = 10
+			}
+			change_estate_land_share = {
+		    	estate = estate_church
+		    	share = 10
+			}
+			change_estate_land_share = {
+		    	estate = estate_burghers
+		    	share = 10
+			}
+			change_estate_land_share = {
+		    	estate = estate_eunuchs
+		    	share = 10
+			}
 		}
 	}
 }
 
-### Cathay Intro Event
-
-
+### Cathay Vampire Event
 country_event = { 
-	id = cathay_events.1
-	title = cathay_events.1.t 
-	desc = cathay_events.1.d 
-	picture = IMPALED_SOLDIERS_eventPicture
+	id = cathay_events.101
+	title = cathay_events.101.t 
+	desc = cathay_events.101.d 
+	picture = VAMPIRE_eventPicture
 	
 	fire_only_once = yes
 	is_triggered_only = yes 
@@ -66,11 +670,14 @@ country_event = {
 			is_year = 2503
 		}
 		tag = I30
+		NOT= { has_country_flag = did_intro_event }
 	}
+
+	immediate = { set_country_flag = did_intro_event }
 
 	option = { 
 		ai_chance = { factor = 100 }
-		name = cathay_events.1.a 
+		name = cathay_events.101.a 
 		trigger = { }
 		
 		every_country = {
@@ -91,6 +698,43 @@ country_event = {
 				}
 			}
 		}
+	}
+}
+
+
+### Monkey Court Intro Event
+country_event = { 
+	id = cathay_events.102
+	title = cathay_events.102.t 
+	desc = cathay_events.102.d 
+	picture = GRAND_CATHAY_eventPicture
+	
+	fire_only_once = yes
+	is_triggered_only = yes 
+		
+	trigger = {
+		NOT = {
+			is_year = 2503
+		}
+		tag = I35
+		NOT= { has_country_flag = did_intro_event }
+	}
+
+	immediate = {
+		set_country_flag = did_intro_event
+		hidden_effect = {
+			cathay_superregion = {
+				discover_country = ROOT
+			}
+		}
+	}
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = cathay_events.102.a 
+
+		add_prestige = 25
+
 	}
 }
 

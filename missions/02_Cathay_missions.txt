@@ -1,0 +1,1541 @@
+
+##################################
+##### CATHAY CULTURE GROUP
+##################################
+cathay_missions_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		always = no
+		OR = {
+			culture_group = cathayan_cg
+			tag = I35
+		}
+	}
+
+
+## Since Cathay is the center of the world, we need to carefully control how trade flows out.
+	cathay_build_markets = {
+		icon = mission_african_gold
+		required_missions = { cathay_please_guilds }
+		position = 2
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				OR = {
+			 		has_building = marketplace
+			 		has_building = trade_depot
+			 		has_building = stock_exchange
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+## Since Cathay is the center of the world, we need to carefully control how trade flows out.
+	cathay_centers_of_trade = {
+		icon = mission_african_gold
+		required_missions = { cathay_build_markets }
+		position = 4
+		provinces_to_highlight = {
+			province_has_center_of_trade_of_level = 1
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 5
+				province_has_center_of_trade_of_level = 3
+			}
+		}
+		effect = {
+		}
+	}
+
+## Cathay's west is more barren than the rest of the country, but it provides critical trade posts between us and the western world. We need to reign it in.
+	cathay_west_own_all = {
+		icon = mission_african_gold
+		required_missions = {  }
+		position = 5
+		provinces_to_highlight = {
+			region = western_provinces_region
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					AND = {
+						owned_by_subject_of = ROOT
+						owner = {
+							NOT = { liberty_desire = 50 }
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			western_provinces_region = {
+				type = all
+				OR = {
+					owned_by = ROOT
+					AND = {
+						owned_by_subject_of = ROOT
+						owner = {
+							NOT = { liberty_desire = 50 }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+## Cathay's west is vulnerable to incursions from Ogres form the Mountains of mourne, as well as humans, beastfolk, and even fimir from Western Ind.
+	cathay_west_build_forts = {
+		icon = mission_african_gold
+		required_missions = { cathay_west_own_all }
+		position = 7
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 5
+				region = western_provinces_region
+				fort_level = 2
+			}
+		}
+		effect = {
+		}
+	}
+
+# The ivory road is one of our main ways we trade with the outside world. WE must make sure we control the trade.
+	cathay_west_dominate_ivory_road = {
+		icon = mission_african_gold
+		required_missions = { cathay_west_build_forts }
+		position = 9
+		provinces_to_highlight = {
+			province_id = 2972
+		}
+		trigger = {
+			2972 = {
+				has_most_province_trade_power = ROOT
+				has_great_project = {
+					type = silk_road_nexus
+					tier = 3
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+
+## The ogres are a constant threat to our flank. We must deal with them one way or the other.
+	cathay_west_deal_with_ogres = {
+		icon = mission_african_gold
+		required_missions = { cathay_west_dominate_ivory_road }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4272
+				province_id = 2818
+				province_id = 2802
+				province_id = 2790
+			}
+		}
+		trigger = {
+			4272 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+			2818 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+			2802 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+			2790 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+## Cathay has many men. To transform this army from peasants to fighters, we need places to train them.
+	cathay_build_barracks = {
+		icon = mission_african_gold
+		required_missions = { cathay_please_nobles }
+		position = 13
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				OR = {
+					has_building = barracks
+					has_building = training_fields
+				}
+			}
+		}
+		effect = {
+			add_army_professionalism = 0.10
+		}
+	}
+
+# Cathayan culture is objectively better than all others on the planet. Not other culture can be allowed to taint ours.
+	cathay_unify_culture = {
+		icon = mission_african_gold
+		required_missions = { cathay_build_barracks }
+		position = 16
+		provinces_to_highlight = {
+			superregion = cathay_superregion
+			NOT = { culture_group = ROOT }
+		}
+		trigger = {
+			cathay_superregion = {
+				type = all
+				culture_group = ROOT
+			}
+		}
+		effect = {
+		}
+	}
+
+}
+
+
+
+cathay_missions_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		always = no
+		OR = {
+			culture_group = cathayan_cg
+			tag = I35
+		}
+	}
+
+## Smooth trade is critical to make sure our resources reach the right places across vast Cathay.
+	cathay_please_guilds = {
+		icon = mission_african_gold
+		required_missions = {  }
+		trigger = {
+			estate_loyalty = {
+ 				estate = estate_burghers
+    			loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_burghers
+				value = 1
+			}
+		}
+		effect = {
+			change_estate_land_share = {
+			    estate = estate_burghers
+			    share = -7.5
+			}
+		}
+	}
+
+
+# Chinaware is forged in the north. As a symbol of the dragon emperor, we must control the trade.
+	cathay_north_chinaware_1 = {
+		icon = mission_african_gold
+		required_missions = { cathay_north_own_all }
+		position = 2
+		provinces_to_highlight = {
+			trade_goods = chinaware
+			has_discovered = ROOT
+		}
+		trigger = {
+			trading_bonus = {
+				trade_goods = chinaware
+				value = yes
+			}
+		}
+		effect = {
+		}
+	}
+
+# Chinaware is forged in the north. As a symbol of the dragon emperor, we must control the trade.
+	cathay_north_chinaware_2 = {
+		icon = mission_african_gold
+		required_missions = { cathay_north_chinaware_1 }
+		provinces_to_highlight = {
+			trade_goods = chinaware
+			has_discovered = ROOT
+		}
+		trigger = {
+			trading_part = {
+				trade_goods = chinaware
+				value = 0.3
+			}
+		}
+		effect = {
+		}
+	}
+
+## All of Western Cathay must follow our religion and Cathayan culture.
+	cathay_west_culture_religion = {
+		icon = mission_african_gold
+		required_missions = { cathay_west_own_all }
+		position = 6
+		provinces_to_highlight = {
+			region = western_provinces_region
+			OR = {
+				NOT = { culture_group = ROOT }
+				NOT = { religion = ROOT }
+			}
+		}
+		trigger = {
+			western_provinces_region = {
+				type = all
+				culture_group = ROOT
+				religion = ROOT
+			}
+		}
+		effect = {
+		}
+	}
+
+## The Riverlands are the source of many of our great resources - much food, tea, and chinaware flows from here. We need to reign it in.
+	cathay_center_own_all = {
+		icon = mission_african_gold
+		required_missions = {  }
+		provinces_to_highlight = {
+			region = celestial_riverlands_region
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					AND = {
+						owned_by_subject_of = ROOT
+						owner = {
+							NOT = { liberty_desire = 50 }
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			celestial_riverlands_region = {
+				type = all
+				OR = {
+					owned_by = ROOT
+					AND = {
+						owned_by_subject_of = ROOT
+						owner = {
+							NOT = { liberty_desire = 50 }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+## Tea is central to our way of life. We must control the tea trade.
+	cathay_center_tea_1 = {
+		icon = mission_african_gold
+		required_missions = { cathay_center_own_all }
+		provinces_to_highlight = {
+			trade_goods = tea
+			has_discovered = ROOT
+		}
+		trigger = {
+			trading_bonus = {
+				trade_goods = tea
+				value = yes
+			}
+		}
+		effect = {
+		}
+	}
+
+## Tea is central to our way of life. We must control the tea trade.
+	cathay_center_tea_2 = {
+		icon = mission_african_gold
+		required_missions = { cathay_center_tea_1 }
+		provinces_to_highlight = {
+			trade_goods = tea
+			has_discovered = ROOT
+		}
+		trigger = {
+			trading_part = {
+				trade_goods = tea
+				value = 0.3
+			}
+		}
+		effect = {
+		}
+	}
+
+## It is no longer enough that the west be ruled by mere vassal states. We must control it directly, and build it up to the dragon emperor's standards.
+	cathay_west_directly_own_all = {
+		icon = mission_african_gold
+		required_missions = { cathay_west_dominate_ivory_road }
+		provinces_to_highlight = {
+			region = western_provinces_region
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_prosperous = yes }
+				NOT = { development = 7 }
+			}
+		}
+		trigger = {
+			western_provinces_region = {
+				type = all
+				owned_by = ROOT
+				is_prosperous = yes
+				development = 7
+			}
+		}
+		effect = {
+		}
+	}
+
+## Our noble families have helped run Cathay for generations. Though they may have been greedy recently, it is still important to keep them happy.
+	cathay_please_nobles = {
+		icon = mission_african_gold
+		position = 12
+		required_missions = {  }
+		trigger = {
+			estate_loyalty = {
+ 				estate = estate_nobles
+    			loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+		effect = {
+			change_estate_land_share = {
+			    estate = estate_nobles
+			    share = -7.5
+			}
+		}
+	}
+
+# The rugged mountains to our south are the spiritual heart of the empire, as well as providing an important defense against the orc and beastfolk of khuresh. We must reign the south in.
+	cathay_south_own_all = {
+		icon = mission_african_gold
+		required_missions = {  }
+		provinces_to_highlight = {
+			region = southern_provinces_region
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					AND = {
+						owned_by_subject_of = ROOT
+						owner = {
+							NOT = { liberty_desire = 50 }
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			southern_provinces_region = {
+				type = all
+				OR = {
+					owned_by = ROOT
+					AND = {
+						owned_by_subject_of = ROOT
+						owner = {
+							NOT = { liberty_desire = 50 }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+## Southern forts will be an important defense against the elephants of ind and serpent folk of khuresh. 
+	cathay_south_build_forts = {
+		icon = mission_african_gold
+		required_missions = { cathay_south_own_all }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 5
+				region = southern_provinces_region
+				fort_level = 2
+			}
+		}
+		effect = {
+		}
+	}
+
+## Ind is a backwards land of elephants, peasants, and unnecessary opulence lust and gluttony. They must be dealt with.
+	cathay_south_deal_with_ind = {
+		icon = mission_african_gold
+		required_missions = { cathay_south_build_forts }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4065
+				province_id = 4093
+			}
+		}
+		trigger = {
+			4065 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+			4093 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+
+}
+
+
+cathay_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		always = no
+		OR = {
+			culture_group = cathayan_cg
+			tag = I35
+		}
+	}
+
+## Our legitimacy flows from the imperial palaces and great bastion of the north. We must bring it to heel.
+	cathay_north_own_all = {
+		icon = mission_african_gold
+		required_missions = {  }
+		provinces_to_highlight = {
+			region = northern_cathay_region
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					AND = {
+						owned_by_subject_of = ROOT
+						owner = {
+							NOT = { liberty_desire = 50 }
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			northern_cathay_region = {
+				type = all
+				OR = {
+					owned_by = ROOT
+					AND = {
+						owned_by_subject_of = ROOT
+						owner = {
+							NOT = { liberty_desire = 50 }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+## The great bastion is our defense against the chaos and hobgoblin hordes. It must be fully reinfornced.
+	cathay_north_great_bastion = {
+		icon = mission_african_gold
+		required_missions = { cathay_north_own_all }
+		provinces_to_highlight = {
+			area = great_bastion_area
+			NOT = { fort_level = 5 }
+
+		}
+		trigger = {
+			great_bastion_area = {
+				type = all
+				fort_level = 5
+			}
+		}
+		effect = {
+		}
+	}
+
+## The hobgoblins to our north must be dealt with, either through diplomacy or warfare. We do share a common enemy of Chaos, after all.
+	cathay_north_deal_with_hobgoblins = {
+		icon = mission_african_gold
+		required_missions = { cathay_north_great_bastion }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2708
+				province_id = 4047
+			}
+		}
+		trigger = {
+			2708 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+			4047 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+## It is no longer enough that the North be ruled by mere vassal states. We must control it directly, and build it up to the dragon emperor's standards.
+
+	cathay_north_directly_own_all = {
+		icon = mission_african_gold
+		required_missions = { cathay_north_chinaware_2 cathay_north_deal_with_hobgoblins cathay_north_reclaim_koryu }
+		provinces_to_highlight = {
+			region = northern_cathay_region
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_prosperous = yes }
+			}
+		}
+		trigger = {
+			northern_cathay_region = {
+				type = all
+				owned_by = ROOT
+				is_prosperous = yes
+				development = 7
+			}
+		}
+		effect = {
+		}
+	}
+
+## We are retaking our country from the estates.
+	cathay_crownland_50 = {
+		icon = mission_african_gold
+		required_missions = { cathay_centers_of_trade cathay_north_directly_own_all  cathay_prestige_stability }
+		trigger = {
+			crown_land_share = 50 
+		}
+		effect = {
+		}
+	}
+
+## The mages are an important faction in cathay. We must make sure they stay happy, and may volunarily give up some of their land if they are pleased enough.
+	cathay_please_mages = {
+		icon = mission_african_gold
+		required_missions = {  }
+		position = 7
+		trigger = {
+			estate_loyalty = {
+ 				estate = estate_mages
+    			loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_mages
+				value = 3
+			}
+		}
+		effect = {
+		change_estate_land_share = {
+			    estate = estate_mages
+			    share = -7.5
+			}
+		}
+	}
+
+## Cathay is a center of learning and magical study. If we are to prevent stagnation, we must embrace innovation.
+	cathay_innovation = {
+		icon = mission_african_gold
+		required_missions = { cathay_please_mages }
+		trigger = {
+			OR = {
+				innovativeness = 15
+				has_country_modifier = war_modern_science
+			}
+		}
+		effect = {
+		}
+	}
+
+## It is no longer enough that the riverlands be ruled by mere vassal states. We must control it directly, and build it up to the dragon emperor's standards.
+	cathay_center_directly_own_all = {
+		icon = mission_african_gold
+		required_missions = { cathay_center_tea_2 cathay_innovation cathay_center_dev_12 }
+		position = 10
+		provinces_to_highlight = {
+			region = celestial_riverlands_region
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_prosperous = yes }
+			}
+		}
+		trigger = {
+			celestial_riverlands_region = {
+				type = all
+				owned_by = ROOT
+				is_prosperous = yes
+			}
+		}
+		effect = {
+		}
+	}
+
+## Our country is now firmly under our control. The estates have some power, but the land is mostly under the crown.
+	cathay_crownland_75 = {
+		icon = mission_african_gold
+		required_missions = { cathay_west_directly_own_all cathay_center_directly_own_all cathay_east_directly_own_all}
+		trigger = {
+			crown_land_share = 75
+		}
+		effect = {
+		}
+	}
+
+## All of Southern Cathay must follow our religion and Cathayan culture.
+
+	cathay_south_culture_religion = {
+		icon = mission_african_gold
+		required_missions = { cathay_south_own_all cathay_crownland_75 cathay_south_deal_with_monkey }
+		position = 14
+		provinces_to_highlight = {
+			region = southern_provinces_region
+			OR = {
+				NOT = { culture_group = ROOT }
+				NOT = { religion = ROOT }
+			}
+		}
+		trigger = {
+			southern_provinces_region = {
+				type = all
+				culture_group = ROOT
+				religion = ROOT
+			}
+		}
+		effect = {
+		}
+	}
+
+## It is no longer enough that the south be ruled by mere vassal states. We must control it directly, and build it up to the dragon emperor's standards.
+	cathay_south_directly_own_all = {
+		icon = mission_african_gold
+		required_missions = { cathay_south_deal_with_ind cathay_south_culture_religion cathay_south_deal_with_khuresh }
+		position = 16
+		provinces_to_highlight = {
+			region = southern_provinces_region
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_prosperous = yes }
+			}
+		}
+		trigger = {
+			southern_provinces_region = {
+				type = all
+				owned_by = ROOT
+				is_prosperous = yes
+			}
+		}
+		effect = {
+		}
+	}
+
+## Cathay is number one. We can suffer no rivals. Return of the Dragon Emperor
+	cathay_number_one = {
+		icon = mission_african_gold
+		required_missions = { cathay_unify_culture cathay_south_directly_own_all cathay_unify_religion }
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					superregion = cathay_superregion
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_prosperous = yes }
+						NOT = { owned_by = ROOT }
+						NOT = { culture_group = ROOT }
+						NOT = { religion = ROOT }
+					}
+				}
+				AND = {
+					owned_by = ROOT
+					OR = {
+						NOT = { culture_group = ROOT }
+						NOT = { religion = ROOT }
+					}
+				}
+			}
+		}
+		trigger = {
+			NOT = {
+				great_power_rank = 2
+			}
+			crown_land_share = 90
+			prestige = 99
+			legitimacy_equivalent = 99
+			total_development = 2500
+			cathay_superregion = {
+				type = all
+				owned_by = ROOT
+				is_prosperous = yes
+			}
+			all_owned_province = {
+				culture_group = ROOT
+				religion = ROOT
+			}
+		}
+		effect = {
+
+		}
+	}
+}
+
+
+
+cathay_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		always = no
+		OR = {
+			culture_group = cathayan_cg
+			tag = I35
+		}
+	}
+
+# The eunuchs help run our beurocracy. Since they will sire no heirs, we do not need to worry about giving them power. In fact, if we make them happy enough, they may even give some land back to the crown.
+	cathay_please_eunuchs = {
+		icon = mission_african_gold
+		required_missions = {  }
+		trigger = {
+			OR = {
+				AND = {
+					estate_loyalty = {
+		 				estate = estate_eunuchs
+		    			loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_eunuchs
+						value = 1
+					}
+				}
+				AND = {
+					NOT = { has_estate = estate_eunuchs }
+					stability = 3
+				}
+			}
+		}
+		effect = {
+			change_estate_land_share = {
+			    estate = estate_eunuchs
+			    share = -7.5
+			}
+		}
+	}
+
+## Koryu has off again, on again been part of Cathay. Let us make inroads.
+	cathay_north_deal_with_koryu = {
+		icon = mission_african_gold
+		required_missions = { cathay_north_own_all }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4804
+				province_id = 4798
+			}
+		}
+		trigger = {
+			4804 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+			4798 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+
+### Enough Subtlety. Koryu will be incorporated into Cathay, as it should be. They are our cousins.
+	cathay_north_reclaim_koryu = {
+		icon = mission_african_gold
+		required_missions = { cathay_north_deal_with_koryu }
+		provinces_to_highlight = {
+			region = ihan_region
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					AND = {
+						owned_by_subject_of = ROOT
+						owner = {
+							NOT = { liberty_desire = 50 }
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			ihan_region = {
+				type = all
+				OR = {
+					owned_by = ROOT
+					AND = {
+						owned_by_subject_of = ROOT
+						owner = {
+							NOT = { liberty_desire = 50 }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+## All of our eastern Coast must follow our religion and Cathayan culture. Too long has division between the undead Dead Flag fleet and the living Cathayans ravaged the countryside.
+	cathay_east_culture_religion = {
+		icon = mission_african_gold
+		required_missions = { cathay_east_own_all }
+		position = 6
+		provinces_to_highlight = {
+			region = eastern_provinces_region
+			OR = {
+				NOT = { culture_group = ROOT }
+				NOT = { religion = ROOT }
+			}
+		}
+		trigger = {
+			eastern_provinces_region = {
+				type = all
+				culture_group = ROOT
+				religion = ROOT
+			}
+		}
+		effect = {
+		}
+	}
+
+## All of the Celestial Riverlands must follow our religion and Cathayan culture. Too long have the Undead Jadeblooded vampires clashed with other factions.
+	cathay_center_culture_religion = {
+		icon = mission_african_gold
+		required_missions = {  }
+		provinces_to_highlight = {
+			region = celestial_riverlands_region
+			OR = {
+				NOT = { culture_group = ROOT }
+				NOT = { religion = ROOT }
+			}
+		}
+		trigger = {
+			celestial_riverlands_region = {
+				type = all
+				culture_group = ROOT
+				religion = ROOT
+			}
+		}
+		effect = {
+		}
+	}
+
+## The Celestial Riverlands are our breadbasket (as well as tea basket). Let us build it up.
+	cathay_center_dev_10 = {
+		icon = mission_african_gold
+		required_missions = { cathay_center_culture_religion }
+		provinces_to_highlight = {
+			region = celestial_riverlands_region
+			NOT = { development = 10 }
+		}
+		trigger = {
+			celestial_riverlands_region = {
+				type = all
+				development = 10
+			}
+		}
+		effect = {
+		}
+	}
+
+## The Celestial Riverlands are our breadbasket (as well as tea basket). Let us build it up.
+	cathay_center_dev_12 = {
+		icon = mission_african_gold
+		required_missions = { cathay_center_dev_10 }
+		provinces_to_highlight = {
+			region = celestial_riverlands_region
+			NOT = { development = 12 }
+		}
+		trigger = {
+			celestial_riverlands_region = {
+				type = all
+				development = 12
+			}
+		}
+		effect = {
+		}
+	}
+
+## It is no longer enough that our coast be ruled by mere vassal states. We must control it directly, and build it up to the dragon emperor's standards.
+	cathay_east_directly_own_all = {
+		icon = mission_african_gold
+		required_missions = { cathay_east_dominate_nippon_trade }
+		provinces_to_highlight = {
+			region = eastern_provinces_region
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_prosperous = yes }
+				NOT = { development = 7 }
+			}
+		}
+		trigger = {
+			eastern_provinces_region = {
+				type = all
+				owned_by = ROOT
+				is_prosperous = yes
+				development = 7
+			}
+		}
+		effect = {
+		}
+	}
+
+# Our scholars help guide our people and rulers alike. They have gained power, but might be willing to give it back with enough persuasion.
+	cathay_please_church = {
+		icon = mission_african_gold
+		position = 12
+		required_missions = {  }
+		trigger = {
+			estate_loyalty = {
+ 				estate = estate_church
+    			loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 1
+			}
+		}
+		effect = {
+			change_estate_land_share = {
+			    estate = estate_church
+			    share = -7.5
+			}
+		}
+	}
+
+## The Monkey King, formerly known as the Monkey Prince,[9] is the name of a being of unknown origin who usurped the throne of Grand Cathay for several centuries and who rose to prominence during a time of great internal strife within the Celestial Empire. The Monkey King managed to temporarily wrest control of the realm away from the immortal dynasty of Cathayan Dragons that had ruled Cathay since its foundation at some point after 1999 IC. His rule lasted until 2380 IC.[1]
+## The monkey King has long been an embarassment, a thorn in our side. WE hate him. Let us deal with him.
+	cathay_south_deal_with_monkey = {
+		icon = mission_african_gold
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 4825
+		}
+		trigger = {
+			4825 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+# The only way to keep the monkey king off of us is to deal with him permanently. We may not like it, but he must become a subject of Cathay.
+	cathay_south_reclaim_monkey = {
+		icon = mission_african_gold
+		required_missions = { cathay_south_deal_with_monkey }
+		provinces_to_highlight = {
+			region = kamalaya_area
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					AND = {
+						owned_by_subject_of = ROOT
+						owner = {
+							NOT = { liberty_desire = 50 }
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			kamalaya_area = {
+				type = all
+				OR = {
+					owned_by = ROOT
+					AND = {
+						owned_by_subject_of = ROOT
+						owner = {
+							NOT = { liberty_desire = 50 }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+## Khuresh is a land of orcs and serpentfolk. We must ensure they never threaten our borders.
+	cathay_south_deal_with_khuresh = {
+		icon = mission_african_gold
+		required_missions = { cathay_south_reclaim_monkey }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2943
+				province_id = 2913
+				province_id = 2856
+			}
+		}
+		trigger = {
+			2943 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+			2913 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+			2856 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+
+}
+
+
+
+cathay_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		always = no
+		OR = {
+			culture_group = cathayan_cg
+			tag = I35
+		}
+	}
+
+
+
+
+### Eunuchs thrive in beurocracy
+	cathay_build_courts = {
+		icon = mission_african_gold
+		required_missions = { cathay_please_eunuchs }
+		position = 2
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				OR = {
+			 		has_building = courthouse
+			 		has_building = town_hall
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+## The Eunuchs demand a prestigious, stable government to work in, or enlse they may take their services elsewhere.
+	cathay_prestige_stability = {
+		icon = mission_african_gold
+		required_missions = { cathay_build_courts }
+		position = 4
+		trigger = {
+			prestige = 95
+			stability = 3
+			legitimacy_equivalent = 95
+			power_projection = 25
+		}
+		effect = {
+		}
+	}
+
+
+## Our eastern coast is either an opportunity or a vulnerable front according to our scholars. Either way, we must own our coasts.
+	cathay_east_own_all = {
+		icon = mission_african_gold
+		required_missions = {  }
+		position = 5
+		provinces_to_highlight = {
+			region = eastern_provinces_region
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					AND = {
+						owned_by_subject_of = ROOT
+						owner = {
+							NOT = { liberty_desire = 50 }
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			eastern_provinces_region = {
+				type = all
+				OR = {
+					owned_by = ROOT
+					AND = {
+						owned_by_subject_of = ROOT
+						owner = {
+							NOT = { liberty_desire = 50 }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+## Ships can be used for defense, offense, or trade. We must build up a fleet to make the most of it.
+	cathay_east_build_ships = {
+		icon = mission_african_gold
+		required_missions = { cathay_east_own_all }
+		position = 7
+		trigger = {
+			has_flagship = yes
+			navy_size = 75
+		}
+		effect = {
+		}
+	}
+
+## Nippon, though backwards and obviously inferior to us, none-the-less causes problems for our trade. We must dominate the trade node to ensure goods flow correctly.
+	cathay_east_dominate_nippon_trade = {
+		icon = mission_african_gold
+		required_missions = { cathay_east_build_ships }
+		position = 9
+		provinces_to_highlight = {
+			province_id = 1584
+		}
+		trigger = {
+			1584 = {
+				has_most_province_trade_power = ROOT
+			}
+		}
+		effect = {
+		}
+	}
+
+# Nippon has been known to sink our ships and raid our coasts. Our diplomats have even heard tell of wishes for invasion. Let us put these barbarians in their place.
+	cathay_east_deal_with_nippon = {
+		icon = mission_african_gold
+		required_missions = { cathay_east_dominate_nippon_trade }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4780
+				province_id = 4775
+			}
+		}
+		trigger = {
+			4780 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+			4775 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						transfers_trade_power_to = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+
+		}
+	}
+
+## Our scholars need places to study.
+	cathay_build_temples = {
+		icon = mission_african_gold
+		required_missions = { cathay_please_church }
+		position = 13
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+## Our religion is the best religion!
+	cathay_unify_religion = {
+		icon = mission_african_gold
+		required_missions = { cathay_build_temples }
+		position = 16
+		provinces_to_highlight = {
+			superregion = cathay_superregion
+			NOT = { religion = ROOT }
+		}
+		trigger = {
+			cathay_superregion = {
+				type = all
+				religion = ROOT
+			}
+		}
+		effect = {
+		}
+	}
+
+
+
+}

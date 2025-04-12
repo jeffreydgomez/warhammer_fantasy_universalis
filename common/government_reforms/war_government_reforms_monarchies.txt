@@ -449,11 +449,42 @@ cathay_splinter_state = {
 	lock_level_when_selected = yes
 	modifiers = {
 		tolerance_own = 2
-		tolerance_heathen = -2
 		diplomats = 1
-		same_culture_advisor_cost = -0.2
 		liberty_desire = 10
 		warscore_cost_vs_other_religion = 0.50
+		ae_impact = 0.25
+		governing_capacity_modifier = 0.2
+	}
+	heir = yes
+	rulers_can_be_generals = yes
+	allow_normal_conversion = no
+	royal_marriage = yes
+	custom_attributes = {
+	}
+	ai = {
+		factor = 0
+	}
+}
+
+monkey_court = {
+	icon = "korean_monarchy"
+	allow_normal_conversion = no
+	potential = {
+		tag = I35
+	}
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	nation_designer_trigger = {
+		tag = I35
+	}
+	lock_level_when_selected = yes
+	modifiers = {
+		diplomats = 2
+		improve_relation_modifier = 0.25
+		diplomatic_upkeep = 2
+		monthly_favor_modifier = 0.25
+		spy_offence = 0.25
+		governing_capacity_modifier = -0.5
 	}
 	heir = yes
 	rulers_can_be_generals = yes
@@ -854,3 +885,58 @@ greenskin_monarchy = {
 		factor = 1000
 	}
 }
+
+## Now used for Koryo
+korean_monarchy = {
+ 	icon = "korean_monarchy"
+ 	allow_normal_conversion = yes
+ 	valid_for_nation_designer = yes
+ 	nation_designer_cost = 20
+ 	nation_designer_trigger = {
+		primary_culture = koryon
+ 	}
+ 	potential = {
+ 		primary_culture = koryon
+ 	}
+ 	modifiers = {
+ 		development_cost_in_primary_culture = -0.1
+ 		same_culture_advisor_cost = -0.1
+ 		global_institution_spread = 0.15
+ 	}
+# 	effect = {
+# 		hidden_effect = {
+# 			if = {
+# 				limit = { has_dlc = "Domination" }
+# 				add_country_modifier = {
+# 					name = no_perfectionism_focus
+# 					duration = -1
+# 					desc = has_no_perfectionism_focus
+# 				}
+# 			}
+# 		}
+# 	}
+# 	removed_effect = {
+# 		remove_country_modifier = hangeul_alphabet
+# 		remove_country_modifier = hangeul_alphabet_revoked
+# 		remove_country_modifier = no_perfectionism_focus
+# 		remove_country_modifier = inward_focus_modifier
+# 		remove_country_modifier = outward_focus_modifier
+# 		remove_country_modifier = expansion_focus_modifier
+# 	}
+# 	conditional = {
+# 		allow = { has_dlc = "Domination" }
+# 		custom_attributes = {
+# 			has_hangeul_alphabet_decisions = yes
+# 			has_weaker_harem_events = yes
+# 		}
+# 	}
+# 	conditional = {
+# 		allow = { has_dlc = "Domination" }
+# 		government_abilities = {
+# 			perfectionism_mechanic
+# 		}
+# 	}
+ 	ai = {
+ 		factor = 100
+ 	}
+ }
