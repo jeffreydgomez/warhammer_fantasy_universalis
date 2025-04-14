@@ -35,18 +35,18 @@ country_decisions = {
 		}
 		
 		provinces_to_highlight = {
-				AND = {
-					region = khuresh_region
-					root = {
-						NOT = {
-							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-								value = 20
-								region = khuresh_region
-								is_core = root
-							}
-						}
+			AND = {
+				OR = {
+					region = north_khuresh_region
+					region = south_khuresh_region
+				}
+				NOT = {
+					OR = { 
+						owned_by = ROOT
+						owned_by_subject_of = ROOT
 					}
 				}
+			}
 		}
 		
 		allow = {
@@ -54,7 +54,10 @@ country_decisions = {
 			is_at_war = no
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 				value = 20
-				region = khuresh_region
+				OR = {
+					region = north_khuresh_region
+					region = south_khuresh_region
+				}
 				is_core = root
 			}
 		}
