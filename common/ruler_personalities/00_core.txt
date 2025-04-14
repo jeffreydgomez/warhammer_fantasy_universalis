@@ -3323,12 +3323,12 @@ malevolent_personality = {
 immortal_personality = {
 	
 	allow = {
-		has_country_modifier = undead_administration #This normally isn't here
+		has_country_modifier = undead_administration #This normally isn't here WAR warhammer
 	}
 	
 	chance = {
 		modifier = {
-			factor = 1000000 ## This is normally -2
+			factor = 1000000 ## This is normally -2, this might help getting it in the right place
 		}
 	}
 
@@ -3862,6 +3862,7 @@ legendary_diplomat_personality = {
 legendary_warrior_personality = {
 	
 	allow = { MIL = 6 }
+
 	nation_designer_cost = 75
 
 	discipline = 0.05
@@ -3885,7 +3886,11 @@ legendary_warrior_personality = {
 
 dragon_personality = {
 	
-	allow = { dynasty = "Yang" }
+	allow = {
+		dynasty = "Yang"
+		NOT = { ruler_has_personality = dragon_blooded_personality }
+	}
+
 	nation_designer_cost = 75
 
 	diplomatic_reputation = 1
@@ -3903,7 +3908,10 @@ dragon_personality = {
 
 dragon_blooded_personality = {
 	
-	allow = { culture_group = cathayan_cg }
+	allow = {
+		culture_group = cathayan_cg
+		NOT = { ruler_has_personality = dragon_personality }
+	}
 	nation_designer_cost = 25
 
 	diplomatic_reputation = 1
@@ -3912,6 +3920,179 @@ dragon_blooded_personality = {
 	prestige_decay = -0.005
 	
 	chance = {
+		modifier = {
+			factor = 1000
+			ruler_has_personality = dragon_personality 
+		}
+		modifier = {
+			factor = 1000
+			ruler_has_personality = dragon_blooded_personality 
+		}
 	}
 }
+
+
+## Somebody who is good with magic
+mage_personality = {
+	ruler_allow = {
+		allow = {
+			NOT = { ruler_has_personality = skeptic_personality }
+		}
+	
+		chance = {
+			modifier = {
+				factor = 1
+				always = yes
+			}
+		}
+	}
+
+	heir_allow = {
+		allow = {
+			NOT = { heir_has_personality = skeptic_personality }
+		}
+	
+		chance = {
+			modifier = {
+				factor = 1
+				always = yes
+			}
+		}
+	}
+	
+	consort_allow = {
+		allow = {
+			NOT = { consort_has_personality = skeptic_personality }
+		}
+
+		chance = {
+			modifier = {
+				factor = 1
+				always = yes
+			}
+		}
+	}
+
+	chance = {
+		modifier = {
+			factor = 1
+			always = yes
+		}
+	}
+
+	easy_war_chance_multiplier = 0.5
+	fair_fights = yes
+	
+	global_unrest = 2
+	all_power_cost = -0.025
+	nation_designer_cost = 4
+} #1 less bad
+
+
+## Somebody who suppresses magic in the society.
+skeptic_personality = {
+	ruler_allow = {
+		allow = {
+			NOT = { ruler_has_personality = mage_personality }
+		}
+	
+		chance = {
+			modifier = {
+				factor = 1
+				always = yes
+			}
+		}
+	}
+
+	heir_allow = {
+		allow = {
+			NOT = { heir_has_personality = mage_personality }
+		}
+	
+		chance = {
+			modifier = {
+				factor = 1
+				always = yes
+			}
+		}
+	}
+	
+	consort_allow = {
+		allow = {
+			NOT = { consort_has_personality = mage_personality }
+		}
+
+		chance = {
+			modifier = {
+				factor = 1
+				always = yes
+			}
+		}
+	}
+
+	chance = {
+		modifier = {
+			factor = 1
+			always = yes
+		}
+	}
+
+	
+	global_unrest = -2
+	all_power_cost = 0.025
+	nation_designer_cost = 1
+}
+
+
+### A ruler who keeps the estates happy
+charmer_personality = {
+	ruler_allow = {
+		allow = {
+			always = yes
+		}
+	
+		chance = {
+			modifier = {
+				factor = 1
+				always = yes
+			}
+		}
+	}
+
+	heir_allow = {
+		allow = {
+			always = yes
+		}
+	
+		chance = {
+			modifier = {
+				factor = 1
+				always = yes
+			}
+		}
+	}
+	
+	consort_allow = {
+		allow = {
+			always = yes
+		}
+
+		chance = {
+			modifier = {
+				factor = 1
+				always = yes
+			}
+		}
+	}
+
+	chance = {
+		modifier = {
+			factor = 1
+			always = yes
+		}
+	}
+	
+	all_estate_loyalty_equilibrium = 0.1
+	nation_designer_cost = 3
+} 
 
