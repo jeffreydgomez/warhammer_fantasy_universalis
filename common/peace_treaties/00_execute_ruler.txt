@@ -35,6 +35,29 @@ po_execute_ruler = {
 	}
 	effect = { # Defaults to empty effect (which makes error log entry but is safe)
 
+
+		if = {
+			limit = {
+				NOT = {
+					check_variable = {
+						which = num_rulers_killed
+						value = 1
+					}
+				}
+			}
+
+			set_variable = {
+			    which = num_rulers_killed
+			    value = 1
+			}
+		} else = {
+		    change_variable = {
+		        which = num_rulers_killed
+		        value = 1
+		    }
+		}
+
+
 		FROM = {
 			kill_ruler = yes
 			add_prestige = -25
