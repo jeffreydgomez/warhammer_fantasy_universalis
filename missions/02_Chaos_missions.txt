@@ -1,0 +1,1536 @@
+
+##################################
+##### Chaos
+##################################
+
+
+
+chaos_missions_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		OR = {
+			religion = khornate_religion
+			religion = nurglite_religion
+			religion = chaos_undivided_religion
+			religion = tzeentchian_religion
+			religion = slaaneshi_religion
+		}
+
+## All the other mission trees
+		NOT = { culture_group = cathayan_cg }
+		NOT = { tag = I35 } # Monkey King
+		NOT = { culture_group = asrai_group }
+		NOT = { culture_group = dwarf_group }
+		NOT = { culture_group = chaos_dwarf_group }
+		NOT = { culture_group = ogre_group }
+		NOT = {
+			AND = {
+				culture_group = nehekharan_group
+				capital_scope = { continent = africa }
+			}
+		}
+		NOT = {
+			AND = {
+				culture_group = skaven_group
+				religion = horned_rat
+			}
+		}
+		NOT = {
+			OR = {
+				culture_group = greenskins_group
+				culture_group = hobgoblin_group
+			}
+		}
+		NOT = { culture_group = kislevite_group }
+	}
+
+
+## We must worship Khorne
+	chaos_khorne_1 = {
+		icon = mission_khorne
+		required_missions = { }
+		position = 2
+		trigger = {
+			OR = {
+				calc_true_if = {
+					has_church_aspect = khornate_warriors
+					has_church_aspect = neverending_conquest
+					has_church_aspect = khorne_diplomacy
+					has_church_aspect = skullcannons
+					has_church_aspect = burn_their_forts
+					has_church_aspect = keep_fighting
+					has_church_aspect = burn_the_land
+					amount = 2
+				}
+				manpower = 15
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+			    name = chaos_khorne_favor_1
+			    duration = -1  
+			}
+			if = {
+				limit = {
+					NOT = {
+						calc_true_if = {
+							has_church_aspect = khornate_warriors
+							has_church_aspect = neverending_conquest
+							has_church_aspect = khorne_diplomacy
+							has_church_aspect = skullcannons
+							has_church_aspect = burn_their_forts
+							has_church_aspect = keep_fighting
+							has_church_aspect = burn_the_land
+							amount = 2
+						}
+					}
+				}
+				add_manpower = -15
+			}
+
+		}
+	}
+
+## Our leaders call out for blood. Make them happy
+	chaos_khorne_2 = {
+		icon = mission_khorne
+		required_missions = { chaos_khorne_1 }
+		position = 4
+		trigger = {
+			estate_loyalty = {
+			    estate = estate_nobles
+			    loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+		effect = {
+
+			add_yearly_manpower = 5
+
+		}
+	}
+
+## It is not enough to kill our enemies. We must leave some alive, humiliated.
+	chaos_khorne_3 = {
+		icon = mission_khorne
+		required_missions = { chaos_khorne_2 }
+		position = 6
+		trigger = {
+			any_country = {
+				humiliated_by = ROOT
+			}
+		}
+		effect = {
+			remove_country_modifier = chaos_khorne_favor_1
+			add_country_modifier = {
+			    name = chaos_khorne_favor_2
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt		
+		}
+	}
+
+## To know Khorne, we must worship him.
+	chaos_khorne_4 = {
+		icon = mission_khorne
+		required_missions = { chaos_khorne_3 }
+		position = 8
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = tried_khorne_tt
+				has_country_flag = tried_khorne
+			}
+		}
+		effect = {
+
+			add_yearly_manpower = 5
+
+		}
+	}
+
+## We must reduce a nation's army to dust. No man of them shall remain standing.
+	chaos_khorne_5 = {
+		icon = mission_khorne
+		required_missions = { chaos_khorne_4 }
+		position = 10
+		trigger = {
+			any_war_enemy_country = {
+				OR = {
+					NOT = { manpower = 0.001 }
+					NOT = {	army_size = 1 }
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = chaos_khorne_favor_2
+			add_country_modifier = { 
+			    name = chaos_khorne_favor_3
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt		
+		}
+	}
+
+
+## To know khorne, we must defeat khorne
+	chaos_khorne_6 = {
+		icon = mission_khorne
+		required_missions = { chaos_khorne_5 }
+		position = 12
+		provinces_to_highlight = {
+			owner = { religion = khornate_religion }
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+		trigger = {
+			OR = {
+				NOT = {
+					any_country = {
+						capital_scope = { has_discovered = ROOT }
+						religion = khornate_religion
+						NOT = { tag = ROOT }
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = defeated_khorne_tt
+					has_country_flag = defeated_khorne
+				}
+			}
+		}
+		effect = {
+			add_yearly_manpower = 5
+		}
+	}
+
+
+## We must raid a major city, and reduce it to ruin!
+	chaos_khorne_7 = {
+		icon = mission_khorne
+		required_missions = { chaos_khorne_6 }
+		position = 14
+		provinces_to_highlight = {
+			development = 40
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			# Performance
+			hidden_trigger = {
+				OR = {
+					ai = no
+					is_at_war = yes
+				}
+			}
+
+
+			any_province = {
+				NOT = {
+					owned_by = ROOT
+				}
+				controlled_by = ROOT
+				development = 40
+			}
+
+		}
+		effect = {
+			remove_country_modifier = chaos_khorne_favor_3
+			add_country_modifier = { 
+			    name = chaos_khorne_favor_4
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt		
+		}
+	}
+
+
+### We can take more blood with organized ranks than we could with simple charges.
+	chaos_khorne_8 = {
+		icon = mission_khorne
+		required_missions = { chaos_khorne_7 }
+		position = 16
+		trigger = {
+			OR = {
+				army_professionalism = 0.5
+				has_country_modifier = war_modern_army
+			}
+
+		}
+		effect = {
+
+			add_yearly_manpower = 5
+
+			remove_country_modifier = chaos_khorne_favor_4
+			add_country_modifier = { 
+			    name = chaos_khorne_favor_5
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt		
+		}
+	}
+
+}
+
+
+chaos_missions_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		OR = {
+			religion = khornate_religion
+			religion = nurglite_religion
+			religion = chaos_undivided_religion
+			religion = tzeentchian_religion
+			religion = slaaneshi_religion
+		}
+
+## All the other mission trees
+		NOT = { culture_group = cathayan_cg }
+		NOT = { tag = I35 } # Monkey King
+		NOT = { culture_group = asrai_group }
+		NOT = { culture_group = dwarf_group }
+		NOT = { culture_group = chaos_dwarf_group }
+		NOT = { culture_group = ogre_group }
+		NOT = {
+			AND = {
+				culture_group = nehekharan_group
+				capital_scope = { continent = africa }
+			}
+		}
+		NOT = {
+			AND = {
+				culture_group = skaven_group
+				religion = horned_rat
+			}
+		}
+		NOT = {
+			OR = {
+				culture_group = greenskins_group
+				culture_group = hobgoblin_group
+			}
+		}
+		NOT = { culture_group = kislevite_group }
+	}
+
+
+## Let us worship nurgle, and accept his gifts.
+	chaos_nurgle_1 = {
+		icon = mission_nurgle
+		required_missions = { }
+		position = 1
+		trigger = {
+			OR = {
+				calc_true_if = {
+					has_church_aspect = nurgle_pain
+					has_church_aspect = attract_specimens
+					has_church_aspect = nurgle_diplomacy
+					has_church_aspect = nurgle_gardens
+					has_church_aspect = use_gifts
+					has_church_aspect = expand_gardens
+					has_church_aspect = find_beauty
+					amount = 2
+				}
+				treasury = 150
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+			    name = chaos_khorne_nurgle_1
+			    duration = -1  
+			}
+			if = {
+				limit = {
+					NOT = {
+						calc_true_if = {
+							has_church_aspect = nurgle_pain
+							has_church_aspect = attract_specimens
+							has_church_aspect = nurgle_diplomacy
+							has_church_aspect = nurgle_gardens
+							has_church_aspect = use_gifts
+							has_church_aspect = expand_gardens
+							has_church_aspect = find_beauty
+							amount = 2
+						}
+					}
+				}
+				add_treasury = -150
+			}
+		}
+	}
+
+## Our merchants spread plague. Let them be pleased.
+	chaos_nurgle_2 = {
+		icon = mission_nurgle
+		required_missions = { chaos_nurgle_1 }
+		position = 3
+		trigger = {
+			estate_loyalty = {
+ 				estate = estate_burghers
+    			loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_burghers
+				value = 1
+			}
+		}
+		effect = {
+
+			add_years_of_income = 2.5
+
+		}
+	}
+
+## Let us implant our plagues in market places. We don't need to own the provinces, just occupy them.
+	chaos_nurgle_3 = {
+		icon = mission_nurgle
+		required_missions = { chaos_nurgle_2 }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+		 		has_building = marketplace
+		 		has_building = trade_depot
+		 		has_building = stock_exchange
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			calc_true_if = {
+				all_province = {
+					controlled_by = ROOT
+					OR = {
+				 		has_building = marketplace
+				 		has_building = trade_depot
+				 		has_building = stock_exchange
+					}
+				}
+				amount = 5
+			}
+
+		}
+		effect = {
+			remove_country_modifier = chaos_nurgle_favor_1
+			add_country_modifier = { 
+			    name = chaos_nurgle_favor_2
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt		
+		}
+	}
+
+## We must try worshipping nurgle.
+	chaos_nurgle_4 = {
+		icon = mission_nurgle
+		required_missions = { chaos_nurgle_3 }
+		position = 7
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = tried_nurgle_tt
+				has_country_flag = tried_nurgle
+			}
+		}
+		effect = {
+
+			add_years_of_income = 2.5
+
+		}
+	}
+
+## We must dominate trade to spread our diseases. Let us set up shop on a center of trade.
+	chaos_nurgle_5 = {
+		icon = mission_nurgle
+		required_missions = { chaos_nurgle_4 }
+		position = 9
+		trigger = {
+			calc_true_if = {
+				all_trade_node = {
+					is_strongest_trade_power = ROOT
+				}
+				amount = 1
+			}
+			any_owned_province = {
+				province_has_center_of_trade_of_level = 3
+			}
+		}
+		effect = {
+			remove_country_modifier = chaos_nurgle_favor_2
+			add_country_modifier = { 
+			    name = chaos_nurgle_favor_3
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt		
+		}
+	}
+
+
+
+## To know Nurgle, we must defeat Nurgle
+	chaos_nurgle_6 = {
+		icon = mission_nurgle
+		required_missions = { chaos_nurgle_5 }
+		position = 11
+		provinces_to_highlight = {
+			owner = { religion = nurglite_religion }
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+		trigger = {
+			OR = {
+				NOT = {
+					any_country = {
+						capital_scope = { has_discovered = ROOT }
+						religion = nurglite_religion
+						NOT = { tag = ROOT }
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = defeated_nurgle_tt
+					has_country_flag = defeated_nurgle
+				}
+			}
+
+		}
+		effect = {
+
+			add_years_of_income = 2.5
+
+		}
+	}
+
+
+## Disease spreads in major cities. Let us give it a chance.
+	chaos_nurgle_7 = {
+		icon = mission_nurgle
+		required_missions = { chaos_nurgle_6 }
+		position = 13
+		trigger = {
+			any_owned_province = {
+				development = 50
+			}
+		}
+		effect = {
+			remove_country_modifier = chaos_nurgle_favor_3
+			add_country_modifier = { 
+			    name = chaos_nurgle_favor_4
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt		
+		}
+	}
+
+## We need to spread our corruptions far and wide.
+	chaos_nurgle_8 = {
+		icon = mission_nurgle
+		required_missions = { chaos_nurgle_7 }
+		position = 15
+		provinces_to_highlight = {
+			province_has_center_of_trade_of_level = 2
+			has_discovered = ROOT
+		}
+		trigger = {
+			calc_true_if = {
+				all_province = {
+					controlled_by = ROOT
+					province_has_center_of_trade_of_level = 2
+				}
+				amount = 5
+			}
+
+		}
+		effect = {
+
+			add_years_of_income = 2.5
+
+			remove_country_modifier = chaos_nurgle_favor_4
+			add_country_modifier = { 
+			    name = chaos_nurgle_favor_5
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt		
+		}
+	}
+
+## With the backing of Khorne and Nurgle, Blood and Ichor flow freely
+	chaos_blood_and_ichor = {
+		icon = mission_chaos_culture
+		required_missions = { chaos_khorne_8 chaos_nurgle_8 }
+		position = 17
+		trigger = {
+			army_tradition = 50
+			mercantilism = 25
+		}
+		effect = {
+			add_country_modifier = { 
+			    name = chaos_blood_and_ichor
+			    duration = -1  
+			}
+		}
+	}
+
+
+}
+
+
+chaos_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		OR = {
+			religion = khornate_religion
+			religion = nurglite_religion
+			religion = chaos_undivided_religion
+			religion = tzeentchian_religion
+			religion = slaaneshi_religion
+		}
+
+## All the other mission trees
+		NOT = { culture_group = cathayan_cg }
+		NOT = { tag = I35 } # Monkey King
+		NOT = { culture_group = asrai_group }
+		NOT = { culture_group = dwarf_group }
+		NOT = { culture_group = chaos_dwarf_group }
+		NOT = { culture_group = ogre_group }
+		NOT = {
+			AND = {
+				culture_group = nehekharan_group
+				capital_scope = { continent = africa }
+			}
+		}
+		NOT = {
+			AND = {
+				culture_group = skaven_group
+				religion = horned_rat
+			}
+		}
+		NOT = {
+			OR = {
+				culture_group = greenskins_group
+				culture_group = hobgoblin_group
+			}
+		}
+		NOT = { culture_group = kislevite_group }
+	}
+
+## There are some themes that unite all chaos gods. Let us embrace them.
+	chaos_undivided_1 = {
+		icon = mission_chaos_culture
+		required_missions = { }
+		position = 2
+		trigger = {
+			OR = {
+				calc_true_if = {
+					has_church_aspect = chaos_knights
+					has_church_aspect = unity_of_gods
+					has_church_aspect = spread_chaos
+					amount = 2
+				}
+				church_power = 200
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+			    name = chaos_undivided_favor_1
+			    duration = -1  
+			}
+			if = {
+				limit = {
+					NOT = {
+						calc_true_if = {
+							has_church_aspect = chaos_knights
+							has_church_aspect = unity_of_gods
+							has_church_aspect = spread_chaos
+							amount = 2
+						}
+					}
+				}
+				add_church_power = -200
+			}
+		}
+	}
+
+## It is time to profane temples - ours or those of others.
+	chaos_undivided_2 = {
+		icon = mission_chaos_culture
+		required_missions = { chaos_undivided_1 }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				has_building = temple
+				has_building = cathedral
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			calc_true_if = {
+				all_province = {
+					controlled_by = ROOT
+					OR = {
+						has_building = temple
+						has_building = cathedral
+					}
+				}
+				amount = 5
+			}
+
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+			add_legitimacy = 50
+			add_republican_tradition = 15
+			add_devotion = 50
+			add_horde_unity = 50
+			add_meritocracy = 50
+		}
+	}
+
+
+## We may be a disorganized horde, but power can still be consolidated behind our ruler.
+	chaos_undivided_3 = {
+		icon = mission_chaos_culture
+		required_missions = { chaos_undivided_2 }
+		position = 6
+		trigger = {
+
+			crown_land_share = 50
+
+		}
+		effect = {
+			remove_country_modifier = chaos_undivided_favor_1
+			add_country_modifier = { 
+			    name = chaos_undivided_favor_2
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt		
+		}
+	}
+
+## To know chaos undivided, we must try chaos undivided
+	chaos_undivided_4 = {
+		icon = mission_chaos_culture
+		required_missions = { chaos_undivided_3 }
+		position = 8
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = tried_undivided_tt
+				has_country_flag = tried_undivided
+			}
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+			add_legitimacy = 50
+			add_republican_tradition = 15
+			add_devotion = 50
+			add_horde_unity = 50
+			add_meritocracy = 50
+		}
+	}
+
+## We must put aside our differences and unite
+	chaos_undivided_5 = {
+		icon = mission_chaos_culture
+		required_missions = { chaos_undivided_4 }
+		position = 10
+		trigger = {
+			estate_loyalty = {
+    			estate = estate_burghers
+    			loyalty = 65
+			}
+			estate_loyalty = {
+    			estate = estate_church
+    			loyalty = 65
+			}
+			estate_loyalty = {
+    			estate = estate_nobles
+    			loyalty = 65
+			}
+			estate_loyalty = {
+    			estate = estate_mages
+    			loyalty = 65
+			}
+
+		}
+		effect = {
+			remove_country_modifier = chaos_undivided_favor_2
+			add_country_modifier = { 
+			    name = chaos_undivided_favor_3
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt		
+		}
+	}
+
+## To know chaos undivided, we must defeat chaos undivided
+	chaos_undivided_6 = {
+		icon = mission_chaos_culture
+		required_missions = { chaos_undivided_5 }
+		position = 12
+		provinces_to_highlight = {
+			owner = { religion = chaos_undivided_religion }
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+		trigger = {
+			OR = {
+				NOT = {
+					any_country = {
+						capital_scope = { has_discovered = ROOT }
+						religion = chaos_undivided_religion
+						NOT = { tag = ROOT }
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = defeated_undivided_tt
+					has_country_flag = defeated_undivided
+				}
+			}
+
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+			add_legitimacy = 50
+			add_republican_tradition = 15
+			add_devotion = 50
+			add_horde_unity = 50
+			add_meritocracy = 50
+		}
+	}
+
+
+
+## We must further consolidate our rule
+	chaos_undivided_7 = {
+		icon = mission_chaos_culture
+		required_missions = { chaos_undivided_6 }
+		position = 14
+		trigger = {
+			crown_land_share = 75
+
+		}
+		effect = {
+			remove_country_modifier = chaos_undivided_favor_3
+			add_country_modifier = { 
+			    name = chaos_undivided_favor_4
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt		
+		}
+	}
+
+## This is a golden age for chaos.
+	chaos_undivided_8 = {
+		icon = mission_chaos_culture
+		required_missions = { chaos_undivided_7 }
+		position = 16
+		trigger = {
+			OR ={
+				has_had_golden_age = yes
+				in_golden_age = yes
+			}
+		}
+		effect = {
+
+			add_stability_or_adm_power = yes
+			add_legitimacy = 50
+			add_republican_tradition = 15
+			add_devotion = 50
+			add_horde_unity = 50
+			add_meritocracy = 50
+
+			remove_country_modifier = chaos_undivided_favor_4
+			add_country_modifier = { 
+			    name = chaos_undivided_favor_5
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt		
+		}
+	}
+
+## All the chaos gods now support us. We have gained the mantle.
+	chaos_the_mantle = {
+		icon = mission_chaos_culture
+		required_missions = { chaos_blood_and_ichor chaos_undivided_8 chaos_change_and_pleasure }
+		position = 18
+		trigger = {
+
+		}
+		effect = {
+			add_country_modifier = { 
+			    name = chaos_the_mantle
+			    duration = -1  
+			}
+		}
+	}
+
+## The world shall end, and we shall bring it there. We are the foreverchosen
+	chaos_foreverchosen = {
+		icon = mission_chaos_culture
+		required_missions = { }
+		position = 19
+		trigger = {
+			has_reform = everchosen_reform
+
+			num_of_owned_provinces_with = {
+				value = 500
+				religion = ROOT
+			}
+
+		}
+		effect = {
+			add_country_modifier = { 
+			    name = chaos_forever_chosen
+			    duration = -1  
+			}
+		}
+	}
+
+}
+
+
+
+## This could give a random tech?
+
+chaos_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		OR = {
+			religion = khornate_religion
+			religion = nurglite_religion
+			religion = chaos_undivided_religion
+			religion = tzeentchian_religion
+			religion = slaaneshi_religion
+		}
+
+## All the other mission trees
+		NOT = { culture_group = cathayan_cg }
+		NOT = { tag = I35 } # Monkey King
+		NOT = { culture_group = asrai_group }
+		NOT = { culture_group = dwarf_group }
+		NOT = { culture_group = chaos_dwarf_group }
+		NOT = { culture_group = ogre_group }
+		NOT = {
+			AND = {
+				culture_group = nehekharan_group
+				capital_scope = { continent = africa }
+			}
+		}
+		NOT = {
+			AND = {
+				culture_group = skaven_group
+				religion = horned_rat
+			}
+		}
+		NOT = {
+			OR = {
+				culture_group = greenskins_group
+				culture_group = hobgoblin_group
+			}
+		}
+		NOT = { culture_group = kislevite_group }
+	}
+
+## Let us worship Tzeentch
+	chaos_tzeentch_1 = {
+		icon = mission_tzeentch
+		required_missions = { }
+		position = 1
+		trigger = {
+			OR = {
+				calc_true_if = {
+					has_church_aspect = tzeentch_magic
+					has_church_aspect = sow_discontent
+					has_church_aspect = tzeentch_diplomacy
+					has_church_aspect = adopt_new_ideas
+					has_church_aspect = adopt_new_technology
+					has_church_aspect = spread_change
+					has_church_aspect = create_new_ideas
+					amount = 2
+				}
+				stability = 3
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+			    name = chaos_tzeentch_favor_1
+			    duration = -1  
+			}
+			if = {
+				limit = {
+					NOT = {
+						calc_true_if = {
+							has_church_aspect = tzeentch_magic
+							has_church_aspect = sow_discontent
+							has_church_aspect = tzeentch_diplomacy
+							has_church_aspect = adopt_new_ideas
+							has_church_aspect = adopt_new_technology
+							has_church_aspect = spread_change
+							has_church_aspect = create_new_ideas
+							amount = 2
+						}
+					}
+				}
+				add_stability = -1
+			}
+		}
+	}
+
+## Magic is tzeentch's domain. Let us please his subjects.
+	chaos_tzeentch_2 = {
+		icon = mission_tzeentch
+		required_missions = { chaos_tzeentch_1 }
+		position = 3
+		trigger = {
+			estate_loyalty = {
+ 				estate = estate_mages
+    			loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_mages
+				value = 1
+			}
+		}
+		effect = {
+			random_list = {
+			    33 = {
+			        if = {
+						limit = { adm_tech = 32 }
+						add_adm_power = 400
+					} else = {
+						add_adm_tech = 1
+					}
+			    }
+			    33 = {
+			        if = {
+						limit = { dip_tech = 32 }
+						add_dip_power = 400
+					} else = {
+						add_dip_tech = 1
+					}
+			    }
+			    33 = {
+			        if = {
+						limit = { mil_tech = 32 }
+						add_mil_power = 400
+					} else = {
+						add_mil_tech = 1
+					}
+			    }
+			}
+		}
+	}
+
+### Our country is suffused in magic.
+	chaos_tzeentch_3 = {
+		icon = mission_tzeentch
+		required_missions = { chaos_tzeentch_2 }
+		position = 5
+		trigger = {
+			innovativeness = 10
+		}
+		effect = {
+			remove_country_modifier = chaos_tzeentch_favor_1
+			add_country_modifier = { 
+			    name = chaos_tzeentch_favor_2
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt		
+		}
+	}
+
+
+
+## Try Tzeentch
+	chaos_tzeentch_4 = {
+		icon = mission_tzeentch
+		required_missions = { chaos_tzeentch_3 }
+		position = 7
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = tried_tzeentch_tt
+				has_country_flag = tried_tzeentch
+			}
+		}
+		effect = {
+			random_list = {
+			    33 = {
+			        if = {
+						limit = { adm_tech = 32 }
+						add_adm_power = 400
+					} else = {
+						add_adm_tech = 1
+					}
+			    }
+			    33 = {
+			        if = {
+						limit = { dip_tech = 32 }
+						add_dip_power = 400
+					} else = {
+						add_dip_tech = 1
+					}
+			    }
+			    33 = {
+			        if = {
+						limit = { mil_tech = 32 }
+						add_mil_power = 400
+					} else = {
+						add_mil_tech = 1
+					}
+			    }
+			}
+		}
+	}
+
+## To spread chaos, our spies scour the land.
+	chaos_tzeentch_5 = {
+		icon = mission_tzeentch
+		required_missions = { chaos_tzeentch_4 }
+		position = 9
+		trigger = {
+			any_country = {
+				has_spy_network_from = {
+					who = ROOT
+					value = 100
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = chaos_tzeentch_favor_2
+			add_country_modifier = { 
+			    name = chaos_tzeentch_favor_3
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt		
+		}
+	}
+
+## To know Tzeentch, we must defeat Tzeentch.
+	chaos_tzeentch_6 = {
+		icon = mission_tzeentch
+		required_missions = { chaos_tzeentch_5 }
+		position = 11
+		provinces_to_highlight = {
+			owner = { religion = tzeentchian_religion }
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+		trigger = {
+			OR = {
+				NOT = {
+					any_country = {
+						capital_scope = { has_discovered = ROOT }
+						religion = tzeentchian_religion
+						NOT = { tag = ROOT }
+					}
+				}
+
+				custom_trigger_tooltip = {
+					tooltip = defeated_tzeentch_tt
+					has_country_flag = defeated_tzeentch
+				}
+			}
+		}
+		effect = {
+			random_list = {
+			    33 = {
+			        if = {
+						limit = { adm_tech = 32 }
+						add_adm_power = 400
+					} else = {
+						add_adm_tech = 1
+					}
+			    }
+			    33 = {
+			        if = {
+						limit = { dip_tech = 32 }
+						add_dip_power = 400
+					} else = {
+						add_dip_tech = 1
+					}
+			    }
+			    33 = {
+			        if = {
+						limit = { mil_tech = 32 }
+						add_mil_power = 400
+					} else = {
+						add_mil_tech = 1
+					}
+			    }
+			}
+		}
+	}
+
+
+### Tzeench loves change! Change the rulers of three countries. Killed three rulers, through assassinations or execute ruler peace treaty
+	chaos_tzeentch_7 = {
+		icon = mission_tzeentch
+		required_missions = { chaos_tzeentch_6 }
+		position = 13
+		trigger = {
+			check_variable = {
+				which = num_rulers_killed
+				value = 3
+			}
+		}
+		effect = {
+			remove_country_modifier = chaos_tzeentch_favor_3
+			add_country_modifier = { 
+			    name = chaos_tzeentch_favor_4
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt		
+		}
+	}
+
+## We cannot see the future, like Tzeentch. But we can get closer by being well advised.
+	chaos_tzeentch_8 = {
+		icon = mission_tzeentch
+		required_missions = { chaos_tzeentch_7 }
+		position = 15
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = level_5_advisors_tt
+				employed_advisor = {
+					category = ADM
+				    skill = 5
+				}
+				employed_advisor = {
+					category = DIP
+				    skill = 5
+				}
+				employed_advisor = {
+					category = MIL
+				    skill = 5
+				}
+			}
+		}
+		effect = {
+			random_list = {
+			    33 = {
+			        if = {
+						limit = { adm_tech = 32 }
+						add_adm_power = 400
+					} else = {
+						add_adm_tech = 1
+					}
+			    }
+			    33 = {
+			        if = {
+						limit = { dip_tech = 32 }
+						add_dip_power = 400
+					} else = {
+						add_dip_tech = 1
+					}
+			    }
+			    33 = {
+			        if = {
+						limit = { mil_tech = 32 }
+						add_mil_power = 400
+					} else = {
+						add_mil_tech = 1
+					}
+			    }
+			}
+			remove_country_modifier = chaos_tzeentch_favor_4
+			add_country_modifier = { 
+			    name = chaos_tzeentch_favor_5
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt		
+		}
+	}
+
+## With Tzeentch and Slaanesh backing us, we have embraced both change and pleasure.
+	chaos_change_and_pleasure = {
+		icon = mission_chaos_culture
+		required_missions = { chaos_tzeentch_8 chaos_slaanesh_8 }
+		position = 17
+		trigger = {
+			diplomatic_reputation = 4
+			innovativeness = 50
+		}
+		effect = {
+			add_country_modifier = { 
+			    name = chaos_change_and_pleasure
+			    duration = -1  
+			}
+		}
+	}
+
+
+
+}
+
+
+chaos_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		OR = {
+			religion = khornate_religion
+			religion = nurglite_religion
+			religion = chaos_undivided_religion
+			religion = tzeentchian_religion
+			religion = slaaneshi_religion
+		}
+
+## All the other mission trees
+		NOT = { culture_group = cathayan_cg }
+		NOT = { tag = I35 } # Monkey King
+		NOT = { culture_group = asrai_group }
+		NOT = { culture_group = dwarf_group }
+		NOT = { culture_group = chaos_dwarf_group }
+		NOT = { culture_group = ogre_group }
+		NOT = {
+			AND = {
+				culture_group = nehekharan_group
+				capital_scope = { continent = africa }
+			}
+		}
+		NOT = {
+			AND = {
+				culture_group = skaven_group
+				religion = horned_rat
+			}
+		}
+		NOT = {
+			OR = {
+				culture_group = greenskins_group
+				culture_group = hobgoblin_group
+			}
+		}
+		NOT = { culture_group = kislevite_group }
+	}
+
+
+
+## Let us worship slaanesh.
+	chaos_slaanesh_1 = {
+		icon = mission_slaanesh
+		required_missions = { }
+		position = 2
+		trigger = {
+			OR = {
+				calc_true_if = {
+					has_church_aspect = slaaneshi_speed
+					has_church_aspect = indulge_the_population
+					has_church_aspect = slaanesh_diplomacy
+					has_church_aspect = indulge_our_subjects
+					has_church_aspect = tribute_to_slaanesh
+					has_church_aspect = expert_seducers
+					has_church_aspect = tempt_mortals
+					amount = 2
+				}
+				dip_power = 150
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+			    name = chaos_slaanesh_favor_1
+			    duration = -1  
+			}
+			if = {
+				limit = {
+					NOT = {
+						calc_true_if = {
+							has_church_aspect = slaaneshi_speed
+							has_church_aspect = indulge_the_population
+							has_church_aspect = slaanesh_diplomacy
+							has_church_aspect = indulge_our_subjects
+							has_church_aspect = tribute_to_slaanesh
+							has_church_aspect = expert_seducers
+							has_church_aspect = tempt_mortals
+							amount = 2
+						}
+					}
+				}
+				add_dip_power = -150
+			}
+		}
+	}
+
+## The church of pleasure must be pleased with us.
+	chaos_slaanesh_2 = {
+		icon = mission_slaanesh
+		required_missions = { chaos_slaanesh_1 }
+		position = 4
+		trigger = {
+			estate_loyalty = {
+ 				estate = estate_church
+    			loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 1
+			}
+		}
+		effect = {
+
+			add_prestige_or_monarch_power = { amount = 100 }
+
+		}
+	}
+
+## Other nations must owe us, feel the need to please us.
+	chaos_slaanesh_3 = {
+		icon = mission_slaanesh
+		required_missions = { chaos_slaanesh_2 }
+		position = 6
+		trigger = {
+			calc_true_if = {
+				all_country = {
+					owes_favors = { 
+					    who = ROOT 
+					    value = 25
+					}
+				}
+				amount = 3
+			}
+		}
+		effect = {
+			remove_country_modifier = chaos_slaanesh_favor_1
+			add_country_modifier = { 
+			    name = chaos_slaanesh_favor_2
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt		
+		}
+	}
+## We've tried slaanesh - and we liked it.
+	chaos_slaanesh_4 = {
+		icon = mission_slaanesh
+		required_missions = { chaos_slaanesh_3 }
+		position = 8
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = tried_slaanesh_tt
+				has_country_flag = tried_slaanesh
+			}
+		}
+		effect = {
+
+			add_prestige_or_monarch_power = { amount = 100 }
+
+		}
+	}
+
+## We can seduce others to our will. Let us force another to convert.
+	chaos_slaanesh_5 = {
+		icon = mission_slaanesh
+		required_missions = { chaos_slaanesh_4 }
+		position = 10
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = obj_force_converted_tooltip
+				has_country_flag = force_converted
+			}
+
+		}
+		effect = {
+			remove_country_modifier = chaos_slaanesh_favor_2
+			add_country_modifier = { 
+			    name = chaos_slaanesh_favor_3
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt	
+		}
+	}
+
+## To know Slaanesh, we must defeat slaanesh
+	chaos_slaanesh_6 = {
+		icon = mission_slaanesh
+		required_missions = { chaos_slaanesh_5 }
+		position = 12
+		provinces_to_highlight = {
+			owner = { religion = slaaneshi_religion }
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+		trigger = {
+			OR = {
+				NOT = {
+					any_country = {
+						capital_scope = { has_discovered = ROOT }
+						religion = slaaneshi_religion
+						NOT = { tag = ROOT }
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = defeated_slaanesh_tt
+					has_country_flag = defeated_slaanesh
+				}
+			}
+
+		}
+		effect = {
+
+			add_prestige_or_monarch_power = { amount = 100 }
+
+		}
+	}
+
+
+
+## Many must feel the need to please us!
+	chaos_slaanesh_7 = {
+		icon = mission_slaanesh
+		required_missions = { chaos_slaanesh_6 }
+		position = 14
+		trigger = {
+			calc_true_if = {
+				all_country = {
+					owes_favors = { 
+					    who = ROOT 
+					    value = 50
+					}
+				}
+				amount = 5
+			}
+
+		}
+		effect = {
+			remove_country_modifier = chaos_slaanesh_favor_3
+			add_country_modifier = { 
+			    name = chaos_slaanesh_favor_4
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt	
+		}
+	}
+
+
+## Let others beg for our favor.
+	chaos_slaanesh_8 = {
+		icon = mission_slaanesh
+		required_missions = { chaos_slaanesh_7 }
+		position = 16
+		trigger = {
+			num_of_subjects = 4
+		}
+		effect = {
+
+			add_prestige_or_monarch_power = { amount = 100 }
+
+			remove_country_modifier = chaos_slaanesh_favor_4
+			add_country_modifier = { 
+			    name = chaos_slaanesh_favor_5
+			    duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt	
+		}
+	}
+
+
+}
+
+

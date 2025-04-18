@@ -259,7 +259,38 @@ country_event = {
 	is_triggered_only = yes 
 		
 	immediate = {
+		event_target:root_of_assassin_global = {
+			save_event_target_as = root_of_assassin_event
+		}
+		event_target:target_of_assassin_global = {
+			save_event_target_as = target_of_assassin_event
+		}
+
+		event_target:root_of_assassin_event = {
+			if = {
+				limit = {
+					NOT = {
+						check_variable = {
+							which = num_rulers_killed
+							value = 1
+						}
+					}
+				}
+
+				set_variable = {
+				    which = num_rulers_killed
+				    value = 1
+				}
+			} else = {
+			    change_variable = {
+			        which = num_rulers_killed
+			        value = 1
+			    }
+			}
+		}
+
 		kill_ruler = yes
+
 	}
 
 ## The assassin slipped off into the night!
@@ -292,7 +323,32 @@ country_event = {
 		event_target:target_of_assassin_global = {
 			save_event_target_as = target_of_assassin_event
 		}
+
+		event_target:root_of_assassin_event = {
+			if = {
+				limit = {
+					NOT = {
+						check_variable = {
+							which = num_rulers_killed
+							value = 1
+						}
+					}
+				}
+
+				set_variable = {
+				    which = num_rulers_killed
+				    value = 1
+				}
+			} else = {
+			    change_variable = {
+			        which = num_rulers_killed
+			        value = 1
+			    }
+			}
+		}
+
 		kill_ruler = yes
+
 	}
 
 ## We shall have our revenge!
