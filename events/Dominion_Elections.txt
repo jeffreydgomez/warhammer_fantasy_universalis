@@ -1,0 +1,439 @@
+########################################
+# Events for Dominion Elections
+########################################
+
+
+### THIS IS UNUSED FOR NOW, AS I CAN'T GET IT TO WORK
+
+
+namespace = dominion_election_events
+normal_or_historical_nations = yes
+
+
+
+## Hidden - 1 Year from Phoenix King Vote
+country_event = { 
+	id = dominion_election_events.1
+	title = dominion_election_events.1.t 
+	desc = dominion_election_events.1.d 
+	picture = HIGHELF_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = no
+	hidden = yes 
+		
+	trigger = {
+		has_reform = phoenix_king_reform
+		has_subject_of_type = dominion
+		NOT = { has_country_flag = vote_coming_soon }
+	}
+
+	mean_time_to_happen = {
+		months = 240
+	}
+
+	immediate = {
+		set_country_flag = vote_coming_soon
+		country_event = { 
+		    id = dominion_election_events.2
+		}
+
+		every_subject_country = {
+			limit = {
+				is_subject_of_type = dominion
+				culture_group = ROOT
+			}
+			country_event = { 
+			    id = dominion_election_events.2
+			}
+		}
+	}
+
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = dominion_election_events.1.a 
+
+
+	}
+}
+
+
+## Tell everyone one year for Phoenix vote
+country_event = { 
+	id = dominion_election_events.2
+	title = dominion_election_events.2.t 
+	desc = dominion_election_events.2.d 
+	picture = HIGHELF_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+	hidden = no 
+		
+	trigger = {
+		always = yes
+	}
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = dominion_election_events.2.a 
+
+	}
+}
+
+
+
+
+### Actual Vote
+country_event = { 
+	id = dominion_election_events.3
+	title = dominion_election_events.3.t 
+	desc = dominion_election_events.3.d 
+	picture = HIGHELF_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = no 
+	hidden = yes
+		
+	trigger = {
+		has_reform = phoenix_king_reform
+		has_subject_of_type = dominion
+		has_country_flag = vote_coming_soon
+	}
+
+	mean_time_to_happen = {
+		months = 12
+	}
+
+	immediate = {
+
+
+
+#### Find the voters
+		hidden_effect = {
+
+			clr_country_flag = vote_coming_soon
+
+			set_country_flag = currently_dominion_voting
+			save_event_target_as = vote_winner
+
+			every_subject_country = {
+				limit = {
+					is_subject_of_type = dominion
+					culture_group = ROOT
+				}
+				set_country_flag = currently_dominion_voting
+			}
+
+
+## Set our votes to 0, then tally votes
+			every_country = {
+				limit = {
+					has_country_flag = currently_dominion_voting
+				}
+
+				set_variable = {
+					which = dominion_vote
+					value = 0
+				}
+
+			# Prestige
+				export_to_variable = {
+				    which = prestige_votes
+				    value = prestige
+				}
+
+
+				round_variable = {
+				    which = prestige_votes
+				    value = -1
+				}
+
+				change_variable = {            
+				    which = dominion_vote
+				    which = prestige_votes
+				}
+
+
+			# Stability x 10
+				export_to_variable = {
+				    which = stability_votes
+				    value = stability
+				}
+
+				multiply_variable = {            
+				    which = stability_votes
+				    value = 10
+				}
+
+				change_variable = {            
+				    which = dominion_vote
+				    which = stability_votes
+				}
+
+			# Army Size
+				export_to_variable = {
+				    which = army_votes
+				    value = army_size
+				}
+
+				change_variable = {            
+				    which = dominion_vote
+				    which = army_votes
+				}
+
+			# Ruler Stats times 3
+				export_to_variable = {
+				    which = ruler_stats_votes
+				    value = ADM
+				}
+
+				export_to_variable = {
+				    which = ruler_stats_dip
+				    value = DIP
+				}
+
+				change_variable = {            
+				    which = ruler_stats_votes
+				    which = ruler_stats_dip
+				}
+
+				export_to_variable = {
+				    which = ruler_stats_mil
+				    value = MIL
+				}
+
+
+				change_variable = {            
+				    which = ruler_stats_votes
+				    which = ruler_stats_mil
+				}
+
+				multiply_variable = {            
+				    which = ruler_stats_votes
+				    value = 3
+				}
+
+				change_variable = {            
+				    which = dominion_vote
+				    which = ruler_stats_votes
+				}
+
+			### Add everybody's opinion of them/20
+
+				set_variable = {
+				    which = total_opinion_votes
+				    value = 0
+				}
+
+				every_country = {
+					limit = { has_country_flag = currently_dominion_voting }
+
+					PREV = {
+						export_to_variable = {
+							variable_name = opinion_votes
+							value = opinion
+							who = PREV
+						}	
+
+						multiply_variable = {
+							which = opinion_votes 
+							value = 0.05
+						}
+
+						change_variable = {            
+						    which = total_opinion_votes
+						    which = opinion_votes
+						}
+					}
+				}
+
+				round_variable = {
+				    which = total_opinion_votes
+				    value = -1
+				}
+
+				change_variable = {            
+				    which = dominion_vote
+				    which = total_opinion_votes
+				}
+
+
+			## Grail Knight
+				if = {
+					limit = { personality = grail_knight_personality }
+
+					change_variable = {            
+					    which = dominion_vote
+					    value = 25
+					}
+				}
+
+
+### Find the winner
+
+			    if = { 
+			        limit = {
+			            check_variable = {
+			            	which = dominion_vote
+			            	which = event_target:vote_winner
+			            }
+			        }
+			        save_event_target_as = vote_winner
+			    }
+
+			}
+
+#### Give the winner all of the loser's subjects.
+
+
+			event_target:vote_winner = {
+
+
+			    if = {
+			        limit = {
+			            tag = ROOT
+			        }
+			        country_event = { 
+			    		id = dominion_election_events.4
+					}
+			        #no change
+			        every_country = {
+			            clr_country_flag = currently_dominion_voting
+			        }
+			    }
+			    else = {
+			    	country_event = { 
+			    		id = dominion_election_events.5
+					}
+			        ROOT = {
+			            every_subject_country = {
+			                limit = { has_country_flag = currently_dominion_voting }
+			                grant_independence = yes
+			            }
+			            if = {
+			            	limit = {
+			            		tag = H08
+			            	}
+			            	add_government_reform = everqueen_court_reform	
+			            } else = {
+			            	add_government_reform = silver_court_reform	
+			            }
+			        }
+			        
+			        clr_country_flag = currently_dominion_voting
+			        change_government = monarchy
+			        add_government_reform = phoenix_king_reform
+
+			        every_country = {
+			            limit = {
+			                has_country_flag = currently_dominion_voting
+			            }
+			            clr_country_flag = currently_dominion_voting
+			            event_target:vote_winner = {
+			                create_subject = {
+			                    subject = PREV
+			                    subject_type = dominion
+			                }
+			            }
+
+			            country_event = { 
+			    			id = dominion_election_events.6
+						}
+
+			        }
+			    }
+			}
+		}
+	}
+
+## Loc should say the winner, our votes, and the winner's votes
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = dominion_election_events.3.a 
+		
+	}
+}
+
+
+### Event for staying the winner 
+
+country_event = { 
+	id = dominion_election_events.4
+	title = dominion_election_events.4.t 
+	desc = dominion_election_events.4.d 
+	picture = HIGHELF_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes 
+		
+	trigger = {
+		always = yes
+	}
+
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = dominion_election_events.4.a 
+
+	}
+}
+
+
+### Event for becomiing the winner
+
+country_event = { 
+	id = dominion_election_events.5
+	title = dominion_election_events.5.t 
+	desc = dominion_election_events.5.d 
+	picture = HIGHELF_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes 
+		
+	trigger = {
+		always = yes
+	}
+
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = dominion_election_events.5.a 
+
+	}
+}
+
+
+
+
+### Event for losers
+country_event = { 
+	id = dominion_election_events.6
+	title = dominion_election_events.6.t 
+	desc = dominion_election_events.6.d 
+	picture = HIGHELF_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes 
+		
+	trigger = {
+		always = yes
+	}
+
+	immediate = {
+		every_country = {
+			limit = {
+				has_reform = phoenix_king_reform
+			}
+			save_event_target_as = vote_winner
+		}
+	}
+
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = dominion_election_events.6.a 
+
+	}
+}

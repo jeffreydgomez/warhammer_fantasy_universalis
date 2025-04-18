@@ -54,15 +54,18 @@ chaos_missions_1 = {
 		required_missions = { }
 		position = 2
 		trigger = {
-			calc_true_if = {
-				has_church_aspect = khornate_warriors
-				has_church_aspect = neverending_conquest
-				has_church_aspect = khorne_diplomacy
-				has_church_aspect = skullcannons
-				has_church_aspect = burn_their_forts
-				has_church_aspect = keep_fighting
-				has_church_aspect = burn_the_land
-				amount = 2
+			OR = {
+				calc_true_if = {
+					has_church_aspect = khornate_warriors
+					has_church_aspect = neverending_conquest
+					has_church_aspect = khorne_diplomacy
+					has_church_aspect = skullcannons
+					has_church_aspect = burn_their_forts
+					has_church_aspect = keep_fighting
+					has_church_aspect = burn_the_land
+					amount = 2
+				}
+				manpower = 15
 			}
 		}
 		effect = {
@@ -70,6 +73,24 @@ chaos_missions_1 = {
 			    name = chaos_khorne_favor_1
 			    duration = -1  
 			}
+			if = {
+				limit = {
+					NOT = {
+						calc_true_if = {
+							has_church_aspect = khornate_warriors
+							has_church_aspect = neverending_conquest
+							has_church_aspect = khorne_diplomacy
+							has_church_aspect = skullcannons
+							has_church_aspect = burn_their_forts
+							has_church_aspect = keep_fighting
+							has_church_aspect = burn_the_land
+							amount = 2
+						}
+					}
+				}
+				add_manpower = -15
+			}
+
 		}
 	}
 
@@ -119,7 +140,7 @@ chaos_missions_1 = {
 	chaos_khorne_4 = {
 		icon = mission_khorne
 		required_missions = { chaos_khorne_3 }
-		position = 12
+		position = 8
 		trigger = {
 			custom_trigger_tooltip = {
 				tooltip = tried_khorne_tt
@@ -161,7 +182,7 @@ chaos_missions_1 = {
 	chaos_khorne_6 = {
 		icon = mission_khorne
 		required_missions = { chaos_khorne_5 }
-		position = 8
+		position = 12
 		provinces_to_highlight = {
 			owner = { religion = khornate_religion }
 			NOT = { owned_by = ROOT }
@@ -304,21 +325,41 @@ chaos_missions_2 = {
 		required_missions = { }
 		position = 1
 		trigger = {
-			calc_true_if = {
-				has_church_aspect = nurgle_pain
-				has_church_aspect = attract_specimens
-				has_church_aspect = nurgle_diplomacy
-				has_church_aspect = nurgle_gardens
-				has_church_aspect = use_gifts
-				has_church_aspect = expand_gardens
-				has_church_aspect = find_beauty
-				amount = 2
+			OR = {
+				calc_true_if = {
+					has_church_aspect = nurgle_pain
+					has_church_aspect = attract_specimens
+					has_church_aspect = nurgle_diplomacy
+					has_church_aspect = nurgle_gardens
+					has_church_aspect = use_gifts
+					has_church_aspect = expand_gardens
+					has_church_aspect = find_beauty
+					amount = 2
+				}
+				treasury = 150
 			}
 		}
 		effect = {
 			add_country_modifier = { 
 			    name = chaos_khorne_nurgle_1
 			    duration = -1  
+			}
+			if = {
+				limit = {
+					NOT = {
+						calc_true_if = {
+							has_church_aspect = nurgle_pain
+							has_church_aspect = attract_specimens
+							has_church_aspect = nurgle_diplomacy
+							has_church_aspect = nurgle_gardens
+							has_church_aspect = use_gifts
+							has_church_aspect = expand_gardens
+							has_church_aspect = find_beauty
+							amount = 2
+						}
+					}
+				}
+				add_treasury = -150
 			}
 		}
 	}
@@ -386,7 +427,7 @@ chaos_missions_2 = {
 	chaos_nurgle_4 = {
 		icon = mission_nurgle
 		required_missions = { chaos_nurgle_3 }
-		position = 11
+		position = 7
 		trigger = {
 			custom_trigger_tooltip = {
 				tooltip = tried_nurgle_tt
@@ -432,7 +473,7 @@ chaos_missions_2 = {
 	chaos_nurgle_6 = {
 		icon = mission_nurgle
 		required_missions = { chaos_nurgle_5 }
-		position = 7
+		position = 11
 		provinces_to_highlight = {
 			owner = { religion = nurglite_religion }
 			NOT = { owned_by = ROOT }
@@ -583,17 +624,33 @@ chaos_missions_3 = {
 		required_missions = { }
 		position = 2
 		trigger = {
-			calc_true_if = {
-				has_church_aspect = chaos_knights
-				has_church_aspect = unity_of_gods
-				has_church_aspect = spread_chaos
-				amount = 2
+			OR = {
+				calc_true_if = {
+					has_church_aspect = chaos_knights
+					has_church_aspect = unity_of_gods
+					has_church_aspect = spread_chaos
+					amount = 2
+				}
+				church_power = 200
 			}
 		}
 		effect = {
 			add_country_modifier = { 
 			    name = chaos_undivided_favor_1
 			    duration = -1  
+			}
+			if = {
+				limit = {
+					NOT = {
+						calc_true_if = {
+							has_church_aspect = chaos_knights
+							has_church_aspect = unity_of_gods
+							has_church_aspect = spread_chaos
+							amount = 2
+						}
+					}
+				}
+				add_church_power = -200
 			}
 		}
 	}
@@ -658,7 +715,7 @@ chaos_missions_3 = {
 	chaos_undivided_4 = {
 		icon = mission_chaos_culture
 		required_missions = { chaos_undivided_3 }
-		position = 12
+		position = 8
 		trigger = {
 			custom_trigger_tooltip = {
 				tooltip = tried_undivided_tt
@@ -713,7 +770,7 @@ chaos_missions_3 = {
 	chaos_undivided_6 = {
 		icon = mission_chaos_culture
 		required_missions = { chaos_undivided_5 }
-		position = 8
+		position = 12
 		provinces_to_highlight = {
 			owner = { religion = chaos_undivided_religion }
 			NOT = { owned_by = ROOT }
@@ -887,21 +944,41 @@ chaos_missions_4 = {
 		required_missions = { }
 		position = 1
 		trigger = {
-			calc_true_if = {
-				has_church_aspect = tzeentch_magic
-				has_church_aspect = sow_discontent
-				has_church_aspect = tzeentch_diplomacy
-				has_church_aspect = adopt_new_ideas
-				has_church_aspect = adopt_new_technology
-				has_church_aspect = spread_change
-				has_church_aspect = create_new_ideas
-				amount = 2
+			OR = {
+				calc_true_if = {
+					has_church_aspect = tzeentch_magic
+					has_church_aspect = sow_discontent
+					has_church_aspect = tzeentch_diplomacy
+					has_church_aspect = adopt_new_ideas
+					has_church_aspect = adopt_new_technology
+					has_church_aspect = spread_change
+					has_church_aspect = create_new_ideas
+					amount = 2
+				}
+				stability = 3
 			}
 		}
 		effect = {
 			add_country_modifier = { 
 			    name = chaos_tzeentch_favor_1
 			    duration = -1  
+			}
+			if = {
+				limit = {
+					NOT = {
+						calc_true_if = {
+							has_church_aspect = tzeentch_magic
+							has_church_aspect = sow_discontent
+							has_church_aspect = tzeentch_diplomacy
+							has_church_aspect = adopt_new_ideas
+							has_church_aspect = adopt_new_technology
+							has_church_aspect = spread_change
+							has_church_aspect = create_new_ideas
+							amount = 2
+						}
+					}
+				}
+				add_stability = -1
 			}
 		}
 	}
@@ -975,7 +1052,7 @@ chaos_missions_4 = {
 	chaos_tzeentch_4 = {
 		icon = mission_tzeentch
 		required_missions = { chaos_tzeentch_3 }
-		position = 11
+		position = 7
 		trigger = {
 			custom_trigger_tooltip = {
 				tooltip = tried_tzeentch_tt
@@ -1039,7 +1116,7 @@ chaos_missions_4 = {
 	chaos_tzeentch_6 = {
 		icon = mission_tzeentch
 		required_missions = { chaos_tzeentch_5 }
-		position = 7
+		position = 11
 		provinces_to_highlight = {
 			owner = { religion = tzeentchian_religion }
 			NOT = { owned_by = ROOT }
@@ -1177,7 +1254,7 @@ chaos_missions_4 = {
 		required_missions = { chaos_tzeentch_8 chaos_slaanesh_8 }
 		position = 17
 		trigger = {
-			diplomatic_reputation = 5
+			diplomatic_reputation = 4
 			innovativeness = 50
 		}
 		effect = {
@@ -1243,21 +1320,41 @@ chaos_missions_5 = {
 		required_missions = { }
 		position = 2
 		trigger = {
-			calc_true_if = {
-				has_church_aspect = slaaneshi_speed
-				has_church_aspect = indulge_the_population
-				has_church_aspect = slaanesh_diplomacy
-				has_church_aspect = indulge_our_subjects
-				has_church_aspect = tribute_to_slaanesh
-				has_church_aspect = expert_seducers
-				has_church_aspect = tempt_mortals
-				amount = 2
+			OR = {
+				calc_true_if = {
+					has_church_aspect = slaaneshi_speed
+					has_church_aspect = indulge_the_population
+					has_church_aspect = slaanesh_diplomacy
+					has_church_aspect = indulge_our_subjects
+					has_church_aspect = tribute_to_slaanesh
+					has_church_aspect = expert_seducers
+					has_church_aspect = tempt_mortals
+					amount = 2
+				}
+				dip_power = 150
 			}
 		}
 		effect = {
 			add_country_modifier = { 
 			    name = chaos_slaanesh_favor_1
 			    duration = -1  
+			}
+			if = {
+				limit = {
+					NOT = {
+						calc_true_if = {
+							has_church_aspect = slaaneshi_speed
+							has_church_aspect = indulge_the_population
+							has_church_aspect = slaanesh_diplomacy
+							has_church_aspect = indulge_our_subjects
+							has_church_aspect = tribute_to_slaanesh
+							has_church_aspect = expert_seducers
+							has_church_aspect = tempt_mortals
+							amount = 2
+						}
+					}
+				}
+				add_dip_power = -150
 			}
 		}
 	}
@@ -1313,7 +1410,7 @@ chaos_missions_5 = {
 	chaos_slaanesh_4 = {
 		icon = mission_slaanesh
 		required_missions = { chaos_slaanesh_3 }
-		position = 12
+		position = 8
 		trigger = {
 			custom_trigger_tooltip = {
 				tooltip = tried_slaanesh_tt
@@ -1353,7 +1450,7 @@ chaos_missions_5 = {
 	chaos_slaanesh_6 = {
 		icon = mission_slaanesh
 		required_missions = { chaos_slaanesh_5 }
-		position = 8
+		position = 12
 		provinces_to_highlight = {
 			owner = { religion = slaaneshi_religion }
 			NOT = { owned_by = ROOT }
