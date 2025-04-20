@@ -2,18 +2,6 @@
 ### If the phoenix king becomes a subject, take away the phoenix king reform as well as the vote. Give the phoenix crown to any asur or druchii
 on_dependency_gained = {
 
-	if = {
-		limit = {
-			OR = {
-				culture_group = asur_group
-				culture_group = druchii_group
-			}
-		}
-		add_government_reform = phoenix_king_reform
-		clr_country_flag = vote_coming_soon
-	}
-
-
 	FROM = {
 		if = {
 			limit = { has_reform = phoenix_king_reform }
@@ -25,6 +13,19 @@ on_dependency_gained = {
         		add_government_reform = everqueen_court_reform	
         	} else = {
         		add_government_reform = silver_court_reform	
+        	}
+
+        	ROOT = {
+				if = {
+					limit = {
+						OR = {
+							culture_group = asur_group
+							culture_group = druchii_group
+						}
+					}
+					add_government_reform = phoenix_king_reform
+					clr_country_flag = vote_coming_soon
+				}
         	}
 		}
 	}
