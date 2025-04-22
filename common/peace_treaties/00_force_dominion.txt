@@ -33,22 +33,14 @@ po_force_dominion = {
 			culture_group = FROM
 		}
 		NOT = { overlord_of = FROM }
-		NOT = { is_subject_of_type = dominion }
-		NOT = { FROM = { is_subject_of_type = dominion } }
+		NOT = { is_subject = yes }
 
-		NOT = {
-			AND = {
-				is_subject_of_type = bretonnian_dukedom_subject
-				FROM = { is_subject_of_type = bretonnian_dukedom_subject }
-			}
-		}
-		NOT = { FROM = { bretonnian_dukedom_subject = 1 } }
-		NOT = { FROM = { has_reform = chaos_warband }}
-		NOT = { ROOT = { has_reform = chaos_warband }}
+		NOT = { FROM = { has_reform = chaos_warband } }
+		NOT = { ROOT = { has_reform = chaos_warband } }
 	}
 	effect = { # Defaults to empty effect (which makes error log entry but is safe)
 		
-		grant_independence = yes
+#		grant_independence = yes    # Took this out Apr 22 - is this necessary?
 
 		FROM = {
 			every_subject_country = {

@@ -13,44 +13,6 @@
 # TRIGGERED - Triggered from within the code or by event effects
 # --------------------------------------------------------------
 
-# Reunification of Bretonnia
-cb_bretonnian_unification = {
-	valid_for_subject = no
-
-	prerequisites = {		
-		has_global_flag = bretonnian_kingdom_dismantled
-		is_neighbor_of = FROM
-		FROM = { 
-			any_owned_province = {
-				region = bretonnia_region
-			}
-		}
-	}
-
-	war_goal = superiority_bretonnian_unification
-}
-
-# Establish Dukedom
-cb_bretonnian_subjucgation  = {
-	valid_for_subject = no
-	
-	prerequisites_self = {
-		has_reform = bretonnian_royarch_reform
-		capital_scope = { region = bretonnia_region }
-	}
-	
-	prerequisites = {
-		FROM = {
-			capital_scope = { region = bretonnia_region }
-			culture_group = bretonnian_group
-			NOT = { 
-				is_subject_of = ROOT
-			}
-		}
-	}
-
-	war_goal = bretonnia_subjugation
-}
 
 cb_monster_vs_civ = { 
 	valid_for_subject = no 
@@ -101,38 +63,6 @@ cb_civ_vs_monster = {
 #	} 
 #
 #	war_goal = wgt_gs_tribal_confederation
-#}
-
-### Racial Unification
-
-#cb_war_racial_unification = {
-#	valid_for_subject = no
-#
-#	prerequisites_self = {
-#		NOT = { is_subject_of_type = dominion }
-#	}
-#
-#	prerequisites = {
-#		OR = {
-#			technology_group = FROM
-#			religion = FROM
-#			culture_group = FROM
-#		}
-#		NOT = { is_subject_of = FROM }		
-#		NOT = { bretonnian_dukedom_subject = 1 }
-#
-#	}
-#
-#	war_goal = force_dominion_wargoal
-#
-#	attacker_disabled_po = {
-#		po_demand_provinces
-#		po_revoke_cores
-#		po_release_vassals
-#		po_release_annexed
-#		po_return_cores
-#		po_transfer_vassals
-#	}
 #}
 
 
