@@ -1,34 +1,3 @@
-on_monthly_pulse = {
-	if = {
-		limit = {
-			has_subject_of_type = bretonnian_dukedom_subject
-			NOT = {
-				OR = {
-					has_reform = bretonnian_royarch_reform
-					has_reform = bretonnian_dukedom_reform
-				}
-			}
-		}
-		country_event = {
-			id = flavor_bretonnia.8
-		}
-	}
-}
-
-on_annexed = {
-	events = {
-		flavor_bretonnia.9		# Bretonnia dismantled
-	}
-	FROM = {
-		if = {
-			limit = {
-				has_reform = bretonnian_royarch_reform
-			}
-			set_global_flag = bretonnian_kingdom_dismantled
-		}
-	}
-}
-
 
 on_annexed = {
 
@@ -44,7 +13,6 @@ on_annexed = {
 			}
 		}
 	}
-
 }
 
 on_heir_needed_theocracy = {
@@ -122,17 +90,17 @@ on_new_term_election = {
 
 on_monarch_death = {
 	on_monarch_death_effect = yes
-	events = {
+#	events = {
 #		tomb_king.1  # this is now replaced with resurrect_events.1
-	}
-	if = {
-		limit = {
-			has_reform = bretonnian_royarch_reform
-		}
-		country_event = {
-			id = flavor_bretonnia.3
-		}
-	}
+#	}
+#	if = {
+#		limit = {
+#			has_reform = bretonnian_royarch_reform
+#		}
+#		country_event = {
+#			id = flavor_bretonnia.3
+#		}
+#	}
 
 
 # Getting rid of this for now
@@ -163,30 +131,105 @@ on_death_election = {
 
 on_war_won = {
 
-	# bretonnia wars won counter
+## Setup variables
 	if = {
 		limit = {
-			has_bretonnian_mission_tree = yes
-		}
-		change_variable = { bretonnia_Wars_Won = 1 }
-		if = {
-			limit = {
-				FROM = {
-					destruction_culture = yes
+			NOT = {
+				check_variable = {
+				    which = warhammer_Wars_Won
+				    value = 1
 				}
 			}
-			change_variable = { bretonnia_Evil_Wars_Won = 1 }
 		}
-		if = {
-			limit = {
-				FROM = {
-					is_force_converted = yes
-				}
-				religion = lady_of_the_lake
-			}
-			change_variable = { bretonnia_Religious_Wars_Won = 1 }
+		set_variable = {
+	    	which = warhammer_Wars_Won
+	    	value = 0
 		}
 	}
+
+
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+				    which = warhammer_Evil_Wars_Won
+				    value = 1
+				}
+			}
+		}
+		set_variable = {
+	    	which = warhammer_Evil_Wars_Won
+	    	value = 0
+		}
+	}
+
+
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+				    which = warhammer_Religious_Wars_Won
+				    value = 1
+				}
+			}
+		}
+		set_variable = {
+	    	which = warhammer_Religious_Wars_Won
+	    	value = 0
+		}
+	}
+
+	change_variable = {
+        which = warhammer_Wars_Won
+        value = 1
+    }
+
+	if = {
+		limit = {
+			FROM = { has_country_modifier = destruction_nation }
+		}
+		change_variable = {
+	        which = warhammer_Evil_Wars_Won
+	        value = 1
+	    }
+	}
+	if = {
+		limit = {
+			FROM = { NOT = { religion = ROOT } }
+		}
+		change_variable = {
+	        which = warhammer_Religious_Wars_Won
+	        value = 1
+	    }
+	}
+}
+
+on_annexed = {
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+				    which = warhammer_Evil_Wars_Won
+				    value = 1
+				}
+			}
+		}
+		set_variable = {
+	    	which = warhammer_Evil_Wars_Won
+	    	value = 0
+		}
+	}
+
+	if = {
+		limit = {
+			FROM = { has_country_modifier = destruction_nation }
+		}
+		change_variable = {
+	        which = warhammer_Evil_Wars_Won
+	        value = 1
+	    }
+	}
+
 }
 
 on_hre_dismantled = {

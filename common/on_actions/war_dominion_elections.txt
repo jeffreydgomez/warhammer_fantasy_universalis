@@ -1,5 +1,5 @@
 
-### If the phoenix king becomes a subject, take away the phoenix king reform as well as the vote. Give the phoenix crown to any asur or druchii
+### PHOENIX KING
 on_dependency_gained = {
 
 	FROM = {
@@ -41,6 +41,44 @@ on_monarch_death = {
 		set_country_flag = vote_coming_soon
 		country_event = { 
 		    id = dominion_election_events.3
+		}
+	}
+}
+
+
+
+### ROYARCH
+on_dependency_gained = {
+
+	FROM = {
+		if = {
+			limit = { has_reform = bretonnian_royarch_reform }
+			clr_country_flag = vote_coming_soon
+        	add_government_reform = bretonnian_dukedom_reform	
+
+        	ROOT = {
+				if = {
+					limit = {
+						culture_group = bretonnian_group
+					}
+					add_government_reform = bretonnian_royarch_reform
+					clr_country_flag = vote_coming_soon
+				}
+        	}
+		}
+	}
+}
+
+
+on_monarch_death = {
+	if = {
+		limit = {
+			has_reform = bretonnian_royarch_reform
+			has_subject_of_type = dominion
+		}
+		set_country_flag = vote_coming_soon
+		country_event = { 
+		    id = dominion_election_events.21
 		}
 	}
 }

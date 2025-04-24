@@ -1,4 +1,33 @@
 country_decisions = {
+
+	war_claim_the_phoenix_throne = {
+		major = yes
+		potential = {
+			ai = no
+			OR = {
+				culture_group = asur_group
+				culture_group = druchii_group
+			}
+			NOT = {
+				any_country = { has_reform = phoenix_king_reform }
+			}
+		}
+		allow = {
+			NOT = {
+				any_country = { has_reform = phoenix_king_reform }
+			}
+			451 = { owned_by = ROOT }
+		}
+		effect = {
+			add_government_reform = phoenix_king_reform
+		}
+
+		ai_will_do = { factor = 0 }
+		ai_importance = 0
+	}
+
+
+
 	asur_nation = {
 		major = yes
 		potential = {
@@ -8,7 +37,7 @@ country_decisions = {
 				culture_group = asur_group
 				AND = {
 					culture_group = druchii_group
-					num_of_cities = 30
+					num_of_cities = 45
 				}
 			}
 			NOT = {
@@ -80,6 +109,12 @@ country_decisions = {
 			is_at_war = no
 			is_free_or_tributary_trigger = yes
 			is_nomad = no
+
+			num_of_owned_provinces_with = {
+				value = 50
+				region = ulthuan_region
+			}
+
 			owns_or_non_sovereign_subject_of = 451			# Lothern
 			owns_or_non_sovereign_subject_of = 1819			# Hoeth
 			owns_or_non_sovereign_subject_of = 1948			#  Tor Yvresse

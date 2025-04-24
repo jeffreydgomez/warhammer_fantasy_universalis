@@ -3,13 +3,13 @@
 ########################################
 
 
-### THIS IS UNUSED FOR NOW, AS I CAN'T GET IT TO WORK
-
 
 namespace = dominion_election_events
 normal_or_historical_nations = yes
 
-
+######################
+#### PHOENIX KING ####
+######################
 
 ## Hidden - 1 Year from Phoenix King Vote
 country_event = { 
@@ -84,7 +84,7 @@ country_event = {
 
 
 
-### Actual Vote
+### Actual Vote - Phoenix King
 country_event = { 
 	id = dominion_election_events.3
 	title = dominion_election_events.3.t 
@@ -109,7 +109,7 @@ country_event = {
 
 
 
-#### Find the voters
+#### Find the voters - Phoenix King
 		hidden_effect = {
 
 			clr_country_flag = vote_coming_soon
@@ -126,7 +126,7 @@ country_event = {
 			}
 
 
-## Set our votes to 0, then tally votes
+## Set our votes to 0, then tally votes - Phoenix King
 			every_country = {
 				limit = {
 					has_country_flag = currently_dominion_voting
@@ -259,18 +259,7 @@ country_event = {
 				}
 
 
-			## Grail Knight
-				if = {
-					limit = { personality = grail_knight_personality }
-
-					change_variable = {            
-					    which = dominion_vote
-					    value = 25
-					}
-				}
-
-
-### Find the winner
+### Find the winner - Phoenix King
 
 			    if = { 
 			        limit = {
@@ -284,7 +273,7 @@ country_event = {
 
 			}
 
-#### Give the winner all of the loser's subjects.
+#### Give the winner all of the loser's subjects. - Phoenix King
 
 
 			event_target:vote_winner = {
@@ -347,7 +336,7 @@ country_event = {
 		}
 	}
 
-## Loc should say the winner, our votes, and the winner's votes
+## Loc should say the winner, our votes, and the winner's votes - Phoenix King
 
 	option = { 
 		ai_chance = { factor = 100 }
@@ -357,7 +346,7 @@ country_event = {
 }
 
 
-### Event for staying the winner 
+### Event for staying the winner - Phoenix King
 
 country_event = { 
 	id = dominion_election_events.4
@@ -381,7 +370,7 @@ country_event = {
 }
 
 
-### Event for becomiing the winner
+### Event for becomiing the winner - Phoenix King
 
 country_event = { 
 	id = dominion_election_events.5
@@ -407,7 +396,7 @@ country_event = {
 
 
 
-### Event for losers
+### Event for losers - Phoenix King 
 country_event = { 
 	id = dominion_election_events.6
 	title = dominion_election_events.6.t 
@@ -437,3 +426,435 @@ country_event = {
 
 	}
 }
+
+
+
+
+
+######################
+#### ROYARCH ####
+######################
+
+## Hidden - 1 Year from ROYARCH - NOT NEEDED FOR ROYARCH AS IT'S ON DEATH
+country_event = { 
+	id = dominion_election_events.21
+	title = dominion_election_events.21.t 
+	desc = dominion_election_events.21.d 
+	picture = BRETONNIA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+	hidden = yes 
+		
+	trigger = {
+		has_reform = bretonnian_royarch_reform
+		has_subject_of_type = dominion
+	}
+
+	immediate = {
+		country_event = { 
+		    id = dominion_election_events.22
+		}
+
+		every_subject_country = {
+			limit = {
+				is_subject_of_type = dominion
+				culture_group = ROOT
+			}
+			country_event = { 
+			    id = dominion_election_events.22
+			}
+		}
+	}
+
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = dominion_election_events.21.a 
+
+
+	}
+}
+
+
+# Tell everyone three months for ROYARCH vote
+country_event = { 
+	id = dominion_election_events.22
+	title = dominion_election_events.22.t 
+	desc = dominion_election_events.22.d 
+	picture = BRETONNIA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+	hidden = no 
+		
+	trigger = {
+		always = yes
+	}
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = dominion_election_events.22.a 
+
+	}
+}
+
+
+
+
+### Actual Vote - ROYARCH
+country_event = { 
+	id = dominion_election_events.23
+	title = dominion_election_events.23.t 
+	desc = dominion_election_events.23.d 
+	picture = BRETONNIA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = no 
+	hidden = yes
+		
+	trigger = {
+		has_reform = bretonnian_royarch_reform
+		has_subject_of_type = dominion
+		has_country_flag = vote_coming_soon
+	}
+
+	mean_time_to_happen = {
+		months = 3
+	}
+
+	immediate = {
+
+#### Find the voters - ROYARCH
+		hidden_effect = {
+
+			clr_country_flag = vote_coming_soon
+
+			set_country_flag = currently_dominion_voting
+			save_event_target_as = vote_winner
+
+			every_subject_country = {
+				limit = {
+					is_subject_of_type = dominion
+					culture_group = ROOT
+				}
+				set_country_flag = currently_dominion_voting
+			}
+
+
+## Set our votes to 0, then tally votes - ROYARCH
+			every_country = {
+				limit = {
+					has_country_flag = currently_dominion_voting
+				}
+
+				set_variable = {
+					which = dominion_vote
+					value = 0
+				}
+
+			# Prestige
+				export_to_variable = {
+				    which = prestige_votes
+				    value = prestige
+				}
+
+
+				round_variable = {
+				    which = prestige_votes
+				    value = -1
+				}
+
+				change_variable = {            
+				    which = dominion_vote
+				    which = prestige_votes
+				}
+
+
+			# Stability x 10
+				export_to_variable = {
+				    which = stability_votes
+				    value = stability
+				}
+
+				multiply_variable = {            
+				    which = stability_votes
+				    value = 10
+				}
+
+				change_variable = {            
+				    which = dominion_vote
+				    which = stability_votes
+				}
+
+			# Army Size
+				export_to_variable = {
+				    which = army_votes
+				    value = army_size
+				}
+
+				change_variable = {            
+				    which = dominion_vote
+				    which = army_votes
+				}
+
+			# Ruler Stats times 3
+				export_to_variable = {
+				    which = ruler_stats_votes
+				    value = ADM
+				}
+
+				export_to_variable = {
+				    which = ruler_stats_dip
+				    value = DIP
+				}
+
+				change_variable = {            
+				    which = ruler_stats_votes
+				    which = ruler_stats_dip
+				}
+
+				export_to_variable = {
+				    which = ruler_stats_mil
+				    value = MIL
+				}
+
+				change_variable = {            
+				    which = ruler_stats_votes
+				    which = ruler_stats_mil
+				}
+
+				multiply_variable = {            
+				    which = ruler_stats_votes
+				    value = 3
+				}
+
+				change_variable = {            
+				    which = dominion_vote
+				    which = ruler_stats_votes
+				}
+
+			### Add everybody's opinion of them/20
+
+				set_variable = {
+				    which = total_opinion_votes
+				    value = 0
+				}
+
+				every_country = {
+					limit = { has_country_flag = currently_dominion_voting }
+
+					PREV = {
+						export_to_variable = {
+							variable_name = opinion_votes
+							value = opinion
+							who = PREV
+						}	
+
+						multiply_variable = {
+							which = opinion_votes 
+							value = 0.05
+						}
+
+						change_variable = {            
+						    which = total_opinion_votes
+						    which = opinion_votes
+						}
+					}
+				}
+
+				round_variable = {
+				    which = total_opinion_votes
+				    value = -1
+				}
+
+				change_variable = {            
+				    which = dominion_vote
+				    which = total_opinion_votes
+				}
+
+
+			## Grail Knight
+				if = {
+					limit = { personality = grail_knight_personality }
+
+					set_variable = {
+					    which = grail_knight_votes
+					    value = 50
+					}
+
+					change_variable = {            
+					    which = dominion_vote
+					    value = 50
+					}
+				} else = {
+
+					set_variable = {
+					    which = grail_knight_votes
+					    value = 0
+					}
+
+				}
+
+
+### Find the winner - ROYARCH
+
+			    if = { 
+			        limit = {
+			            check_variable = {
+			            	which = dominion_vote
+			            	which = event_target:vote_winner
+			            }
+			        }
+			        save_event_target_as = vote_winner
+			    }
+
+			}
+
+#### Give the winner all of the loser's subjects. - ROYARCH
+
+
+			event_target:vote_winner = {
+
+
+			    if = {
+			        limit = {
+			            tag = ROOT
+			        }
+			        country_event = { 
+			    		id = dominion_election_events.24
+					}
+			        #no change
+			        every_country = {
+			            clr_country_flag = currently_dominion_voting
+			        }
+			    }
+			    else = {
+			    	country_event = { 
+			    		id = dominion_election_events.25
+					}
+			        ROOT = {
+			            every_subject_country = {
+			                limit = { has_country_flag = currently_dominion_voting }
+			                grant_independence = yes
+			            }
+		            	add_government_reform = bretonnian_dukedom_reform	
+			        }
+			        
+			        clr_country_flag = currently_dominion_voting
+			        change_government = monarchy
+			        add_government_reform = bretonnian_royarch_reform
+
+			        every_country = {
+			            limit = {
+			                has_country_flag = currently_dominion_voting
+			            }
+			            clr_country_flag = currently_dominion_voting
+			            event_target:vote_winner = {
+			                create_subject = {
+			                    subject = PREV
+			                    subject_type = dominion
+			                }
+			            }
+
+			            country_event = { 
+			    			id = dominion_election_events.26
+						}
+
+			        }
+			    }
+			}
+		}
+	}
+
+## Loc should say the winner, our votes, and the winner's votes - ROYARCH
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = dominion_election_events.23.a 
+		
+	}
+}
+
+
+### Event for staying the winner - ROYARCH
+
+country_event = { 
+	id = dominion_election_events.24
+	title = dominion_election_events.24.t 
+	desc = dominion_election_events.24.d 
+	picture = BRETONNIA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes 
+		
+	trigger = {
+		always = yes
+	}
+
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = dominion_election_events.24.a 
+
+	}
+}
+
+
+### Event for becomiing the winner - ROYARCH
+
+country_event = { 
+	id = dominion_election_events.25
+	title = dominion_election_events.25.t 
+	desc = dominion_election_events.25.d 
+	picture = BRETONNIA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes 
+		
+	trigger = {
+		always = yes
+	}
+
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = dominion_election_events.25.a 
+
+	}
+}
+
+
+
+
+### Event for losers - ROYARCH 
+country_event = { 
+	id = dominion_election_events.26
+	title = dominion_election_events.26.t 
+	desc = dominion_election_events.26.d 
+	picture = BRETONNIA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes 
+		
+	trigger = {
+		always = yes
+	}
+
+	immediate = {
+		every_country = {
+			limit = {
+				has_reform = bretonnian_royarch_reform
+			}
+			save_event_target_as = vote_winner
+		}
+	}
+
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = dominion_election_events.26.a 
+
+	}
+}
+

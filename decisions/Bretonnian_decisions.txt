@@ -1,5 +1,29 @@
 country_decisions = {
 
+		war_claim_the_royarch = {
+			major = yes
+			potential = {
+				ai = no
+				culture_group = bretonnian_group
+				NOT = { has_reform = bretonnian_royarch_reform }
+				NOT = { any_country = { has_reform = bretonnian_royarch_reform } }
+				NOT = { has_global_flag = formed_bretonnia }
+			}
+			allow = {
+				NOT = {
+					any_country = { has_reform = bretonnian_royarch_reform }
+				}
+				314 = { owned_by = ROOT }
+			}
+			effect = {
+				add_government_reform = bretonnian_royarch_reform
+			}
+
+			ai_will_do = { factor = 0 }
+			ai_importance = 0
+		}
+
+
 	militarily_bretonnian_nation = {
 		major = yes
 		
@@ -11,6 +35,7 @@ country_decisions = {
 			}
 			has_global_flag = bretonnian_kingdom_dismantled
 			NOT = { has_country_flag = formed_bretonnia }
+			NOT = { has_global_flag = formed_bretonnia }
 			OR = {
 				ai = no
 				is_playing_custom_nation = no

@@ -1,0 +1,52 @@
+
+namespace = dominion_events
+
+country_event = {
+	id = dominion_events.1
+	title = dominion_events.1.t
+	desc = dominion_events.1.d
+	picture = ARTWORK_eventPicture
+
+	trigger = {
+		is_subject_of_type = dominion
+		OR = {
+			liberty_desire = 100
+
+### A lot meaner, but this could happen too
+
+#			AND = {
+#				liberty_desire = 50
+#				overlord = { is_at_war = yes }
+#			}
+		}
+	}
+
+	is_triggered_only = no
+	
+	mean_time_to_happen = { months = 120 }
+	
+### Attack
+	option = {
+		name = dominion_events.1.option_1
+		ai_chance = { factor = 2 }
+
+		add_stability = 1
+
+		overlord = {
+			ROOT = {
+				declare_war_with_cb = {
+					who = PREV
+    				casus_belli = cb_independence_war
+				}
+			}
+		}
+	}
+
+### Better Not
+
+	option = {
+		name = dominion_events.1.option_2
+		ai_chance = { factor = 1 }
+		add_stability = -1
+	}
+}
