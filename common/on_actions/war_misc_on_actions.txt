@@ -131,30 +131,105 @@ on_death_election = {
 
 on_war_won = {
 
-	# bretonnia wars won counter
+## Setup variables
 	if = {
 		limit = {
-			has_bretonnian_mission_tree = yes
-		}
-		change_variable = { bretonnia_Wars_Won = 1 }
-		if = {
-			limit = {
-				FROM = {
-					destruction_culture = yes
+			NOT = {
+				check_variable = {
+				    which = warhammer_Wars_Won
+				    value = 1
 				}
 			}
-			change_variable = { bretonnia_Evil_Wars_Won = 1 }
 		}
-		if = {
-			limit = {
-				FROM = {
-					is_force_converted = yes
-				}
-				religion = lady_of_the_lake
-			}
-			change_variable = { bretonnia_Religious_Wars_Won = 1 }
+		set_variable = {
+	    	which = warhammer_Wars_Won
+	    	value = 0
 		}
 	}
+
+
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+				    which = warhammer_Evil_Wars_Won
+				    value = 1
+				}
+			}
+		}
+		set_variable = {
+	    	which = warhammer_Evil_Wars_Won
+	    	value = 0
+		}
+	}
+
+
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+				    which = warhammer_Religious_Wars_Won
+				    value = 1
+				}
+			}
+		}
+		set_variable = {
+	    	which = warhammer_Religious_Wars_Won
+	    	value = 0
+		}
+	}
+
+	change_variable = {
+        which = warhammer_Wars_Won
+        value = 1
+    }
+
+	if = {
+		limit = {
+			FROM = { has_country_modifier = destruction_nation }
+		}
+		change_variable = {
+	        which = warhammer_Evil_Wars_Won
+	        value = 1
+	    }
+	}
+	if = {
+		limit = {
+			FROM = { NOT = { religion = ROOT } }
+		}
+		change_variable = {
+	        which = warhammer_Religious_Wars_Won
+	        value = 1
+	    }
+	}
+}
+
+on_annexed = {
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+				    which = warhammer_Evil_Wars_Won
+				    value = 1
+				}
+			}
+		}
+		set_variable = {
+	    	which = warhammer_Evil_Wars_Won
+	    	value = 0
+		}
+	}
+
+	if = {
+		limit = {
+			FROM = { has_country_modifier = destruction_nation }
+		}
+		change_variable = {
+	        which = warhammer_Evil_Wars_Won
+	        value = 1
+	    }
+	}
+
 }
 
 on_hre_dismantled = {

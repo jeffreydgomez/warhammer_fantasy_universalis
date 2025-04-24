@@ -27,11 +27,10 @@ bretonnian_1_virtue_missions = {
 			bretonnia_Increment_Virtue_Mission_Completed = yes
 			add_country_modifier = {
 				name = bretonnia_virtue_duty
-				duration = -1
+				duration = 9125
 			}
 		}
 	}
-
 	bretonnia_purity = {
 		icon = geneva_conventions
 		position = 2
@@ -42,17 +41,15 @@ bretonnian_1_virtue_missions = {
 				value = 10
 				has_tax_building_trigger = yes
 			}
-			religious_unity = 1.0
 		}
 		effect = {
 			bretonnia_Increment_Virtue_Mission_Completed = yes
 			add_country_modifier = {
 				name = bretonnia_virtue_purity
-				duration = -1
+				duration = 9125
 			}
 		}
 	}
-
 	bretonnia_stocism = {
 		icon = geneva_conventions
 		position = 3
@@ -63,13 +60,12 @@ bretonnian_1_virtue_missions = {
 				value = 5
 				has_fort_building_trigger = yes
 			}
-			manpower_percentage = 0.75
 		}
 		effect = {
 			bretonnia_Increment_Virtue_Mission_Completed = yes
 			add_country_modifier = {
 				name = bretonnia_virtue_stoicism
-				duration = -1
+				duration = 9125
 			}
 		}
 	}
@@ -78,15 +74,31 @@ bretonnian_1_virtue_missions = {
 		position = 4
 		required_missions = {
 		}
-		trigger = {
-			army_tradition = 50
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = {
+				religion = lady_of_the_lake
+			}
 		}
-
+		trigger = {
+			religion = lady_of_the_lake
+			num_of_religion = {
+				religion = lady_of_the_lake
+				value = 0.8
+			}
+			num_of_religion = {
+				religion = lady_of_the_lake
+				value = 14
+			}
+		}
 		effect = {
+			add_mil_power = 75
+			add_dip_power = 75
+			add_adm_power = 75
 			bretonnia_Increment_Virtue_Mission_Completed = yes
 			add_country_modifier = {
 				name = bretonnia_virtue_knightly_temper
-				duration = -1
+				duration = 9125
 			}
 		}
 	}
@@ -119,13 +131,13 @@ bretonnian_2_virtue_missions = {
 			NOT = {
 				average_unrest = 1
 			}
-			stability = 3
+			stability = 2
 		}
 		effect = {
 			bretonnia_Increment_Virtue_Mission_Completed = yes
 			add_country_modifier = {
 				name = bretonnia_virtue_the_ideal
-				duration = -1
+				duration = 9125
 			}
 		}
 	}
@@ -162,10 +174,11 @@ bretonnian_2_virtue_missions = {
 		}
 		effect = {
 			bretonnia_Increment_Virtue_Mission_Completed = yes
-			add_country_modifier = { 
-				name = bretonnia_virtue_the_penitent
-				duration = -1
-			}
+			add_prestige_or_monarch_power = { amount = 20 }
+#			add_country_modifier = {  ## This isn't a thing?
+#				name = bretonnia_virtue_the_penitent
+#				duration = 9125
+#			}
 
 		}
 	}
@@ -192,10 +205,19 @@ bretonnian_2_virtue_missions = {
 			}
 		}
 		effect = {
+			if = {
+				limit = {
+					monthly_income = 50
+				}
+				add_years_of_income = 1
+			}
+			else = {
+				add_treasury = 500
+			}
 			bretonnia_Increment_Virtue_Mission_Completed = yes
 			add_country_modifier = {
 				name = bretonnia_virtue_empathy
-				duration = -1
+				duration = 9125
 			}
 		}
 	}
@@ -242,10 +264,6 @@ bretonnian_3_virtue_missions = {
 					name = bretonnia_squire_mod
 					duration = -1
 				}
-				add_country_modifier = {
-					name = bretonnia_more_knights_1
-					duration = -1
-				}
 			}
 			else = {
 				add_country_modifier = {
@@ -285,17 +303,12 @@ bretonnian_3_virtue_missions = {
 			hidden_effect = {
 				remove_country_modifier = bretonnia_squire_mod
 				remove_country_modifier = bretonnia_squire_mod_no_dlc
-				remove_country_modifier = bretonnia_more_knights_1
 			}
 			
 			if = {
 				limit = { has_dlc = "Lions of the North" }
 				add_country_modifier = {
 					name = bretonnia_knight_errant_mod
-					duration = -1
-				}
-				add_country_modifier = {
-					name = bretonnia_more_knights_2
 					duration = -1
 				}
 			}
@@ -305,7 +318,6 @@ bretonnian_3_virtue_missions = {
 					duration = -1
 				}
 			}
-			custom_tooltip = upgrade_replace_tt	
 
 		}
 	}
@@ -338,17 +350,12 @@ bretonnian_3_virtue_missions = {
 			hidden_effect = {
 				remove_country_modifier = bretonnia_knight_errant_mod
 				remove_country_modifier = bretonnia_knight_errant_mod_no_dlc
-				remove_country_modifier = bretonnia_more_knights_2
 			}
 			
 			if = {
 				limit = { has_dlc = "Lions of the North" }
 				add_country_modifier = {
 					name = bretonnia_kotr_mod
-					duration = -1
-				}
-				add_country_modifier = {
-					name = bretonnia_more_knights_3
 					duration = -1
 				}
 			}
@@ -358,7 +365,6 @@ bretonnian_3_virtue_missions = {
 					duration = -1
 				}
 			}
-			custom_tooltip = upgrade_replace_tt	
 			
 		}
 	}
@@ -369,7 +375,7 @@ bretonnian_3_virtue_missions = {
 			bertonnia_knight_of_the_realm_mission
 		}
 		trigger = {
-			prestige = 80
+			prestige = 75
 			custom_trigger_tooltip = {
 				tooltip = bretonnia_questing_trigger_tt
 				check_variable = {
@@ -391,16 +397,11 @@ bretonnian_3_virtue_missions = {
 			hidden_effect = {
 				remove_country_modifier = bretonnia_kotr_mod
 				remove_country_modifier = bretonnia_kotr_mod_no_dlc
-				remove_country_modifier = bretonnia_more_knights_3
 			}
 			if = {
 				limit = { has_dlc = "Lions of the North" }
 				add_country_modifier = {
 					name = bretonnia_questing_knight_mod
-					duration = -1
-				}
-				add_country_modifier = {
-					name = bretonnia_more_knights_4
 					duration = -1
 				}
 			}
@@ -410,7 +411,6 @@ bretonnian_3_virtue_missions = {
 					duration = -1
 				}
 			}
-			custom_tooltip = upgrade_replace_tt	
 		}
 	}
 	bertonnia_grail_knight_mission = {
@@ -420,7 +420,7 @@ bretonnian_3_virtue_missions = {
 			bertonnia_questing_knight_mission
 		}
 		trigger = {
-			prestige = 95
+			prestige = 80
 			custom_trigger_tooltip = {
 				tooltip = bretonnia_grail_knight_trigger_tt
 				check_variable = {
@@ -442,16 +442,11 @@ bretonnian_3_virtue_missions = {
 			hidden_effect = {
 				remove_country_modifier = bretonnia_questing_knight_mod
 				remove_country_modifier = bretonnia_questing_knight_mod_no_dlc
-				remove_country_modifier = bretonnia_more_knights_4
 			}
 			if = {
 				limit = { has_dlc = "Lions of the North" }
 				add_country_modifier = {
 					name = bretonnia_grail_knight_mod
-					duration = -1
-				}
-				add_country_modifier = {
-					name = bretonnia_more_knights_5
 					duration = -1
 				}
 			}
@@ -461,7 +456,6 @@ bretonnian_3_virtue_missions = {
 					duration = -1
 				}
 			}
-			custom_tooltip = upgrade_replace_tt	
 		}
 	}
 }
@@ -481,9 +475,12 @@ bretonnian_4_virtue_missions = {
 		required_missions = {
 		}
 		trigger = {
-			is_defender_of_faith = yes
+
+			war_score = 50
+
 			any_country = {
-				humiliated_by = ROOT
+				tech_difference = 2
+				war_with = ROOT
 			}
 			
 		}
@@ -491,7 +488,7 @@ bretonnian_4_virtue_missions = {
 			bretonnia_Increment_Virtue_Mission_Completed = yes
 			add_country_modifier = {
 				name = bretonnia_virtue_noble_disdain
-				duration = -1
+				duration = 9125
 			}
 		}
 	}
@@ -501,18 +498,19 @@ bretonnian_4_virtue_missions = {
 		required_missions = {
 		}
 		trigger = {
-			war_score = 50
-
-			any_country = {
-				is_enemy = ROOT
-				war_with = ROOT
+			if = {
+				limit = { has_dlc = "Cradle of Civilization" }
+				army_professionalism = 0.4
+			}
+			else = {
+				army_tradition = 30
 			}
 		}
 		effect = {
 			bretonnia_Increment_Virtue_Mission_Completed = yes
 			add_country_modifier = {
 				name = bretonnia_virtue_the_impetuous_knight
-				duration = -1
+				duration = 9125
 			}
 		}
 	}
@@ -522,14 +520,14 @@ bretonnian_4_virtue_missions = {
 		required_missions = {
 		}
 		trigger = {
-			num_of_cavalry = 15
-			army_tradition = 25
+			num_of_cavalry = 10
+			army_tradition = 50
 		}
 		effect = {
 			bretonnia_Increment_Virtue_Mission_Completed = yes
 			add_country_modifier = {
 				name = bretonnia_virtue_the_joust
-				duration = -1
+				duration = 9125
 			}
 		}
 	}
@@ -557,7 +555,7 @@ bretonnian_5_virtue_missions = {
 				}
 				estate_loyalty = {
 					estate = estate_nobles
-					loyalty = 65
+					loyalty = 60
 				}
 			}
 			if = {
@@ -566,7 +564,7 @@ bretonnian_5_virtue_missions = {
 				}
 				estate_loyalty = {
 					estate = estate_burghers
-					loyalty = 65
+					loyalty = 60
 				}
 			}
 			if = {
@@ -575,7 +573,7 @@ bretonnian_5_virtue_missions = {
 				}
 				estate_loyalty = {
 					estate = estate_church
-					loyalty = 65
+					loyalty = 60
 				}
 			}
 		}
@@ -594,7 +592,7 @@ bretonnian_5_virtue_missions = {
 			bretonnia_Increment_Virtue_Mission_Completed = yes
 			add_country_modifier = {
 				name = bretonnia_virtue_confidence
-				duration = -1
+				duration = 9125
 			}
 		}
 	}
@@ -604,21 +602,28 @@ bretonnian_5_virtue_missions = {
 		required_missions = {
 		}
 		trigger = {
+			capital_scope = {
+				country_or_non_sovereign_subject_holds = ROOT
+				development = 25
+				num_of_buildings_in_province = 3
+			}
 			if = {
-				limit = { has_dlc = "Cradle of Civilization" }
-				army_professionalism = 0.2
+				limit = {
+					has_dlc = "Rule Britannia"
+				}
+				innovativeness = 15
 			}
 			else = {
-				army_tradition = 30
+				has_adm_advisor = yes
+				has_dip_advisor = yes
+				has_mil_advisor = yes
 			}
-
-
 		}
 		effect = {
 			bretonnia_Increment_Virtue_Mission_Completed = yes
 			add_country_modifier = {
 				name = bretonnia_virtue_discipline
-				duration = -1
+				duration = 9125
 			}
 			capital_scope = {
 				add_or_upgrade_university_building = yes
@@ -631,9 +636,12 @@ bretonnian_5_virtue_missions = {
 		required_missions = {
 		}
 		trigger = {
-			check_variable = {
-				which = warhammer_Evil_Wars_Won
-				value = 10
+			custom_trigger_tooltip = {
+				tooltip = bretonnia_heroism_tt
+				check_variable = {
+					which = bretonnia_Evil_Wars_Won
+					value = 10
+				}
 			}
 			mil = 5
 		}
@@ -641,7 +649,7 @@ bretonnian_5_virtue_missions = {
 			bretonnia_Increment_Virtue_Mission_Completed = yes
 			add_country_modifier = {
 				name = bretonnia_virtue_heroism
-				duration = -1
+				duration = 9125
 			}
 		}
 	}
@@ -651,9 +659,16 @@ bretonnian_5_virtue_missions = {
 		required_missions = {
 		}
 		trigger = {
-			check_variable = {
-				which = warhammer_Religious_Wars_Won
-				value = 10
+			custom_trigger_tooltip = {
+				tooltip = obj_force_converted_tooltip
+				has_country_flag = force_converted
+			}
+			custom_trigger_tooltip = {
+				tooltip = bretonnia_faith_tt
+				check_variable = {
+					which = bretonnia_Religious_Wars_Won
+					value = 10
+				}
 			}
 			religion = lady_of_the_lake
 		}
@@ -661,7 +676,7 @@ bretonnian_5_virtue_missions = {
 			bretonnia_Increment_Virtue_Mission_Completed = yes
 			add_country_modifier = {
 				name = bretonnia_virtue_audacity
-				duration = -1
+				duration = 9125
 			}
 		}
 	}
@@ -735,7 +750,7 @@ bretonnian_1_missions = {
 			}
 		}
 		effect = {
-			add_mercantilism = 5
+			add_mercantilism = 3
 		}
 	}
 	bretonnia_world_of_winecraft_mission = {
@@ -759,9 +774,15 @@ bretonnian_1_missions = {
 			production_leader = {
 				trade_goods = wine
 			}
+			num_of_owned_provinces_with = {
+				trade_goods = wine
+				has_production_building_trigger = yes
+				has_manufactory_trigger = yes
+				value = 5
+			}
 			trading_part = {
 				trade_goods = wine
-				value = 0.33
+				value = 0.67
 			}
 		}
 		effect = {
@@ -790,7 +811,7 @@ bretonnian_2_missions = {
 		provinces_to_highlight = {
 			is_capital = yes
 			owner = {
-				culture_group = ROOT
+				is_subject_of_type = bretonnian_dukedom_subject
 				NOT = {
 					has_opinion = {
 						who = ROOT
@@ -800,24 +821,38 @@ bretonnian_2_missions = {
 			}
 		}
 		trigger = {
-			calc_true_if = {
-				all_country = {
-					culture_group = ROOT
-					has_opinion = {
-						who = ROOT
-						value = 150
+			custom_trigger_tooltip = {
+				tooltip = bretonnia_find_allies_mission_tt
+				calc_true_if = {
+					all_country = {
+						OR = {
+							is_subject_of = ROOT
+							alliance_with = ROOT
+						}
+						is_subject_of_type = bretonnian_dukedom_subject
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
 					}
+					amount = 2
 				}
-				amount = 2
+			}
+			else = {
+				is_free_or_tributary_trigger = yes
 			}
 		}
 		effect = {
+			add_country_modifier = {
+				name = "influential_diplomacy"
+				duration = 9125				#25 years
+			}
 			define_advisor = {
 				type = diplomat
-				skill = 3
+				skill = 1
 				culture = ROOT
 				religion = ROOT
-				cost_multiplier = 0.25
+				cost_multiplier = 0.5
 			}
 		}
 	}
@@ -831,14 +866,13 @@ bretonnian_2_missions = {
 				is_capital = yes
 				owner = {
 					is_subject_of = ROOT
-					NOT = {
-						OR = {
-							has_opinion = {
-								who = ROOT
-								value = 125
-							}
-							liberty_desire = 30
+					is_subject_of_type = bretonnian_dukedom_subject
+					OR = {
+						has_opinion = {
+							who = ROOT
+							value = 125
 						}
+						liberty_desire = 30
 					}
 				}
 			}
@@ -847,15 +881,14 @@ bretonnian_2_missions = {
 			has_reform = bretonnian_royarch_reform
 			NOT = {
 				any_subject_country = {
-					OR = {
-						NOT = {
-							has_opinion = {
-								who = ROOT
-								value = 125
-							}
+					is_subject_of_type = bretonnian_dukedom_subject
+					NOT = {
+						has_opinion = {
+							who = ROOT
+							value = 125
 						}
-						liberty_desire = 30
 					}
+					liberty_desire = 30
 				}
 			}
 			if = {
@@ -872,11 +905,22 @@ bretonnian_2_missions = {
 			add_dip_power = 50
 			add_stability_or_adm_power = yes
 			if = {
+				limit = {
+					has_subject_of_type = bretonnian_dukedom_subject
+				}
+				every_subject_country = {
+					limit = {
+						is_subject_of_type = bretonnian_dukedom_subject
+					}
+					add_liberty_desire = -10
+				}
+			}
+			if = {
 				limit = { has_government_mechanic = brt_authority_mechanic }
 				add_government_power = {
 					mechanic_type = brt_authority_mechanic
 					power_type = brt_authority
-					value = 50
+					value = 25
 				}
 			}
 		}
@@ -891,10 +935,23 @@ bretonnian_2_missions = {
 			has_country_flag = brt_first_reform_flag
 		}
 		effect = {
-			add_country_modifier = { 
-			    name = bretonnia_open_to_reform
-			    duration = -1
+			define_advisor = {
+				type = diplomat
+				skill = 3
+				discount = yes
 			}
+		}
+	}
+	bretonnia_continue_reforms_mission = {
+		icon = mission_gharbianss
+		required_missions = {
+			bretonnia_begin_the_reforms_mission
+		}
+		trigger = {
+			has_country_flag = brt_eighth_reform_flag
+		}
+		effect = {
+			add_stability_or_adm_power = yes
 		}
 	}
 }
@@ -929,7 +986,7 @@ bretonnian_3_missions = {
 					}
 					add_province_modifier = {
 						name = "growth_of_capital"
-						duration = -1
+						duration = 9125						#25 years
 					}
 				}
 			}
@@ -944,7 +1001,7 @@ bretonnian_3_missions = {
 							is_permanent_claim = ROOT
 						}
 						owner = {
-							has_country_modifier = destruction_nation
+							destruction_culture = yes
 						}
 					}
 					add_permanent_claim = ROOT
@@ -956,11 +1013,8 @@ bretonnian_3_missions = {
 		icon = mission_conquer_50_development
 		provinces_to_highlight = {
 			region = bretonnia_region
-			NOT = {
-				OR = {
-					owned_by_subject_of = ROOT
-					owned_by = ROOT
-				}
+			owner = {
+				destruction_culture = yes
 			}
 		}
 		required_missions = {
@@ -973,12 +1027,12 @@ bretonnian_3_missions = {
 			}
 		}
 		effect = {
-			add_prestige_or_monarch_power = { amount = 25 }
+			add_prestige = 25
 		}
 	}
 	bretonnia_prepare_new_errantry_wars_mission = {
 		icon = mission_establish_high_seas_navy
-		position = 9
+		position = 10
 		required_missions = {
 			bretonnia_safeguard_the_realm_mission
 		}
@@ -990,10 +1044,6 @@ bretonnian_3_missions = {
 		effect = {
 			add_sailors = 10000
 			create_admiral = { tradition = 80 }
-			add_country_modifier = { 
-			    name = bretonnia_transport_navy
-			    duration = -1
-			}
 			tashnar_area = {
 				limit = {
 					NOT = { owned_by = ROOT }
@@ -1035,14 +1085,10 @@ bretonnian_3_missions = {
 				add_permanent_claim = ROOT
 			}
 		}
-		add_country_modifier = { 
-		    name = bretonnia_knights_of_the_sea
-		    duration = -1
-		}
 	}
 
 	bretonnia_rid_world_of_evil = {
-		icon = bohemian_crystal
+		icon = mission_establish_high_seas_navy
 		required_missions = {		}
         provinces_to_highlight = {
 			owner = {
@@ -1081,12 +1127,9 @@ bretonnian_3_missions = {
 		}
 		
 		effect = {
-			add_country_modifier = { 
-			    name = bretonnia_ultimate_knights
-			    duration = -1
-			}
 		}
 	}
+
 }
 
 bretonnian_4_missions = {
@@ -1109,6 +1152,10 @@ bretonnian_4_missions = {
 		}
 		effect = {
 			add_mil_power = 50
+			add_country_modifier = {
+				name = thriving_arms_industry
+				duration = 9125				#25 years
+			}
 			custom_tooltip = bretonnia_claim_neighbor_province_tt
 			hidden_effect = {
 				every_owned_province = {
@@ -1122,6 +1169,9 @@ bretonnian_4_missions = {
 							}
 							NOT = {
 								is_core = ROOT
+							}
+							NOT = {
+								religion = lady_of_the_lake
 							}
 						}
 						add_claim = ROOT
@@ -1138,15 +1188,17 @@ bretonnian_4_missions = {
 		provinces_to_highlight = {
 			owned_by_subject_of = ROOT
 			is_capital = yes
-			OR = {
-				NOT = { base_manpower = 5 }
-				NOT = { base_tax = 5 }
-				NOT = { base_production = 5 }
+			NOT = {
+				num_of_buildings_in_province = 3
+				base_manpower = 5
+				base_tax = 5
+				base_production = 5
 			}
 		}
 		trigger = {
 			all_subject_country = {
 				capital_scope = {
+					num_of_buildings_in_province = 3
 					base_manpower = 5
 					base_tax = 5
 					base_production = 5
@@ -1155,13 +1207,6 @@ bretonnian_4_missions = {
 		}
 		effect = {
 			add_prestige_or_monarch_power = { amount = 10 }
-			every_subject_country = {
-				capital_scope = {
-					add_base_tax = 2
-					add_base_production = 2
-					add_base_manpower = 2
-				}
-			}
 		}
 	}
 
@@ -1172,28 +1217,35 @@ bretonnian_4_missions = {
 			owned_by_subject_of = ROOT
 			is_capital = yes
 			NOT = {
-				has_tax_building_trigger = yes
+				has_building = temple
 			}
 		}
 		trigger = {
 			all_subject_country = {
+				is_subject_of_type = bretonnian_dukedom_subject
 				capital_scope = {
-					has_tax_building_trigger = yes
+					has_building = temple
 				}
+			}
+			not = {
+				has_global_flag = bretonnian_subject_2_mission_completed
 			}
 		}
 		effect = {
 			every_subject_country = {
+				limit = {
+					is_subject_of_type = bretonnian_dukedom_subject
+				}
 				capital_scope = {
 					add_or_upgrade_tax_building = yes
-					add_base_tax = 2
 				}
 			}
+			set_global_flag = bretonnian_subject_2_mission_completed
 		}
 	}
 	bretonnia_badlands_foothold_mission = {
 		icon = mission_establish_high_seas_navy
-		position = 10
+		position = 11
 		required_missions = {
 			bretonnia_prepare_new_errantry_wars_mission
 		}
@@ -1215,10 +1267,6 @@ bretonnian_4_missions = {
 					NOT = { is_core = ROOT }
 				}
 				add_permanent_claim = ROOT
-			}
-			add_country_modifier = { 
-			    name = bretonnia_desert_rations
-			    duration = -1
 			}
 		}
 	}
@@ -1304,7 +1352,7 @@ bretonnian_5_missions = {
 				add_ruler_personality = patron_of_arts_personality
 			}
 			else = {
-				add_stability_or_adm_power = yes
+				add_adm_power = 50
 			}
 		}
 	}
