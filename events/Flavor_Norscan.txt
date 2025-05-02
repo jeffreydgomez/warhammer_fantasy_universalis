@@ -1,0 +1,843 @@
+namespace = flavor_norscan_events 
+
+# Crown of the mountains
+country_event = {
+	id = flavor_norscan_events.1
+	title = flavor_norscan_events.1.t
+	desc = flavor_norscan_events.1.d
+	picture = NORSCA_eventPicture
+	is_triggered_only = yes
+	
+	# Keep Mountains under direct rule
+	option = {
+		name = flavor_norscan_events.1.a
+		add_adm_power = 50
+		add_mil_power = 50
+		johtunheim_gianthome_province = {
+			limit = { country_or_non_sovereign_subject_holds = ROOT }
+			add_province_modifier = {
+				name = norsca_direct_rule
+				duration = 9125
+			}
+		}
+	}
+	
+	#Rule over Mountains as a vassal state
+	option = {
+		name = flavor_norscan_events.1.b
+		add_adm_power = 50
+		add_dip_power = 50
+		custom_tooltip = flavor_norscan_events.1.b.tt
+		hidden_effect = {
+			johtunheim_gianthome_province = { add_core = B02 }
+			release = B02
+			vassalize = B02
+			B02 = {
+				change_religion = ROOT
+				change_government = monarchy
+				add_government_reform = dwarf_kingdom_reform				
+				add_opinion  = { who = ROOT modifier = norsca_vassal_opinion }
+				reverse_add_opinion  = { who = ROOT modifier = norsca_vassal_opinion }
+				set_capital = 1141
+				define_ruler = {
+					name = "Dargoth Bonebreaker" #Random made up name, add better name if we find one
+					dynasty = "Cromson"
+					DIP = 3
+					ADM = 3
+					MIL = 4
+				}
+				add_country_modifier = {
+					name = norsca_loyal_subject
+					duration = -1
+				}
+				add_adm_power = 200
+				add_dip_power = 200
+				add_mil_power = 200
+				add_prestige = 50
+				add_treasury = 1000
+				add_manpower = 8
+				add_sailors = 0
+				add_army_tradition = 25
+			}
+		}
+		add_country_modifier = {
+			name = norsca_dwarven_vassal
+			duration = -1
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+# Crown of Albion
+country_event = {
+	id = flavor_norscan_events.2
+	title = flavor_norscan_events.2.t
+	desc = flavor_norscan_events.2.d
+	picture = NORSCA_eventPicture
+	is_triggered_only = yes
+	
+	# Keep Mountains under direct rule
+	option = {
+		name = flavor_norscan_events.2.a
+		add_adm_power = 50
+		add_mil_power = 50
+		albion_region = {
+			limit = { country_or_non_sovereign_subject_holds = ROOT }
+			add_province_modifier = {
+				name = norsca_direct_rule
+				duration = 9125
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	
+	#Rule over Albion as a personal union
+	option = {
+		name = flavor_norscan_events.2.b
+		add_adm_power = 50
+		add_dip_power = 50
+		custom_tooltip = flavor_norscan_events.2.b.tt
+		hidden_effect = {
+			albion_region = { add_core = B13 }
+			release = B13
+			B13 = {
+				change_religion = ROOT
+				change_government = tribal
+				add_government_reform = norsan_jarldom_reform				
+				add_opinion  = { who = ROOT modifier = norsca_vassal_opinion }
+				reverse_add_opinion  = { who = ROOT modifier = norsca_vassal_opinion }
+				set_capital = 4369
+				define_ruler = {
+					name = "Sven Fellhand" #Random made up name, add better name if we find one
+					dynasty = "Bjornsson"
+					DIP = 2
+					ADM = 2
+					MIL = 5
+				}
+				add_country_modifier = {
+					name = norsca_loyal_subject
+					duration = -1
+				}
+				add_adm_power = 200
+				add_dip_power = 200
+				add_mil_power = 200
+				add_prestige = 50
+				add_treasury = 1000
+				add_manpower = 8
+				add_sailors = 2000
+				add_army_tradition = 25
+			}
+			create_subject = {
+				subject_type = personal_union
+				who = B13
+			}
+		}
+		add_country_modifier = {
+			name = norsca_albion_vassal
+			duration = -1
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+# Norscan Gods Bless Country 
+country_event = { 
+	id = flavor_norscan_events.3
+	title = flavor_norscan_events.3.t 
+	desc = flavor_norscan_events.3.d
+	picture = NORSCA_eventPicture
+	is_triggered_only = yes 
+	option = {
+		name = flavor_norscan_events.3.a
+		ai_chance = { factor = 1 }
+		trigger = {
+			has_personal_deity = olric
+		}
+		add_country_modifier = {
+				name = norse_blessing_olric
+				duration = 3650
+		}
+	}
+	option = {
+		name = flavor_norscan_events.3.b
+		ai_chance = { factor = 1 }
+		trigger = {
+			has_personal_deity = the_bear
+		}
+		add_country_modifier = {
+				name = norse_blessing_bear
+				duration = 3650
+		}
+	}
+	option = {
+		name = flavor_norscan_events.3.c
+		ai_chance = { factor = 1 }
+		trigger = {
+			has_personal_deity = the_hound
+		}
+		add_country_modifier = {
+				name = norse_blessing_hound
+				duration = 3650
+		}
+	}
+	option = {
+		name = flavor_norscan_events.3.e
+		ai_chance = { factor = 1 }
+		trigger = {
+			has_personal_deity = the_crow
+		}
+		add_country_modifier = {
+				name = norse_blessing_crow
+				duration = 3650
+		}
+	}
+	option = {
+		name = flavor_norscan_events.3.f
+		ai_chance = { factor = 1 }
+		trigger = {
+			has_personal_deity = the_serpent
+		}
+		add_country_modifier = {
+				name = norse_blessing_serpent
+				duration = 3650
+		}
+	}
+	option = {
+		name = flavor_norscan_events.3.g
+		ai_chance = { factor = 1 }
+		trigger = {
+			has_personal_deity = the_raven
+		}
+		add_country_modifier = {
+				name = norse_blessing_raven
+				duration = 3650
+		}
+	}
+	option = {
+		name = flavor_norscan_events.3.h
+		ai_chance = { factor = 1 }
+		trigger = {
+			has_personal_deity = mermedus
+		}
+		add_country_modifier = {
+				name = norse_blessing_mermedus
+				duration = 3650
+		}
+	}
+	option = { #ELSE
+		name = flavor_norscan_events.3.i
+		ai_chance = { factor = 1 }
+		trigger = {
+			NOT = { has_personal_deity = olric }
+			NOT = { has_personal_deity = the_hound }
+			NOT = { has_personal_deity = the_bear }
+			NOT = { has_personal_deity = the_raven }
+			NOT = { has_personal_deity = the_serpent }
+			NOT = { has_personal_deity = the_crow }
+			NOT = { has_personal_deity = mermedus }
+		}
+		add_country_modifier = {
+				name = norse_blessing_unaligned
+				duration = 3650
+		}
+	}
+}
+
+#Norscan Religious Branching Mission Event
+country_event = { 
+	id = flavor_norscan_events.4
+	title = flavor_norscan_events.4.t 
+	desc = flavor_norscan_events.4.d
+	picture = NORSCA_eventPicture
+	
+	is_triggered_only = yes 
+	
+	option = { # If we have a flag, pick that tree
+		name = flavor_norscan_events.4.a
+		ai_chance = { factor = 0 }
+		trigger = {
+			OR = {
+				has_country_flag = WAR_NOR_branching_norse
+				has_country_flag = WAR_NOR_branching_chaos
+				has_country_flag = WAR_NOR_branching_old
+			}
+		}
+		select_current_missions = { key = WAR_NORSCA }
+	}
+	
+	option = { # Norse Tree
+		name = flavor_norscan_events.4.b
+		ai_chance = { factor = 0 }
+		trigger = {
+			NOT = { has_country_flag = WAR_NOR_branching_norse }
+		}
+		custom_tooltip = flavor_norscan_events.4.b.tt
+		clr_country_flag = WAR_NOR_branching_chaos
+		clr_country_flag = WAR_NOR_branching_old
+		set_country_flag = WAR_NOR_branching_norse
+		custom_tooltip = "   "
+		change_religion = norscan
+		swap_non_generic_missions = yes
+		add_manpower = -3
+		add_treasury = -100
+		add_country_modifier = {
+				name = norsca_sacrifice_norse
+				duration = 3650
+		}
+	}
+	
+	option = { # Chaos Tree
+		name = flavor_norscan_events.4.c
+		ai_chance = { factor = 0 }
+		trigger = {
+			NOT = { has_country_flag = WAR_NOR_branching_chaos }
+		}
+		custom_tooltip = flavor_norscan_events.4.c.tt
+		clr_country_flag = WAR_NOR_branching_norse
+		clr_country_flag = WAR_NOR_branching_old
+		set_country_flag = WAR_NOR_branching_chaos
+		custom_tooltip = "   "
+		change_religion = chaos_undivided_religion
+		swap_non_generic_missions = yes
+		kill_heir = {}
+		add_manpower = -8
+		add_treasury = -200
+		add_country_modifier = {
+				name = norsca_sacrifice_chaos
+				duration = 3650
+		}
+	}
+	option = { # Druidism
+		name = flavor_norscan_events.4.e
+		ai_chance = { factor = 0 }
+		trigger = {
+			NOT = { has_country_flag = WAR_NOR_branching_old }
+		}
+		custom_tooltip = flavor_norscan_events.4.e.tt
+		clr_country_flag = WAR_NOR_branching_chaos
+		clr_country_flag = WAR_NOR_branching_norse
+		set_country_flag = WAR_NOR_branching_old
+		custom_tooltip = "   "
+		change_religion = druidism
+		swap_non_generic_missions = yes
+		add_manpower = -5
+		add_country_modifier = {
+				name = norsca_sacrifice_druid
+				duration = 3650
+		}
+		country_event = { 
+    		id = flavor_norscan_events.9
+    		days = 30
+		}
+	}
+	
+	#option = { #Go back, not useful in current implementation
+	#	name = flavor_norscan_events.4.e
+	#	ai_chance = { factor = 0 }
+	#	trigger = {}
+	#	custom_tooltip = BYZ_nothing_will_occur
+	#}
+
+	#AI section
+	option = {
+		trigger = {
+			ai = yes
+		}
+		if = {
+			limit = {
+				OR = {
+					religion = chaos_undivided_religion
+					religion = khornate_religion
+				}
+			}
+			random_list = {
+				4 = { set_country_flag = WAR_NOR_branching_norse clr_country_flag = WAR_NOR_branching_chaos clr_country_flag = WAR_NOR_branching_old change_religion = norscan}
+				95 = { set_country_flag = WAR_NOR_branching_chaos clr_country_flag = WAR_NOR_branching_norse clr_country_flag = WAR_NOR_branching_old change_religion = chaos_undivided_religion}
+				1 = { set_country_flag = WAR_NOR_branching_old clr_country_flag = WAR_NOR_branching_norse clr_country_flag = WAR_NOR_branching_chaos change_religion = druidism}
+			}
+		}
+		else = {
+			random_list = {
+				98 = { set_country_flag = WAR_NOR_branching_norse clr_country_flag = WAR_NOR_branching_chaos clr_country_flag = WAR_NOR_branching_old change_religion = norscan}
+				1 = { set_country_flag = WAR_NOR_branching_chaos clr_country_flag = WAR_NOR_branching_norse clr_country_flag = WAR_NOR_branching_old change_religion = chaos_undivided_religion}
+				1 = { set_country_flag = WAR_NOR_branching_old clr_country_flag = WAR_NOR_branching_norse clr_country_flag = WAR_NOR_branching_chaos change_religion = druidism}
+			}
+		}
+		swap_non_generic_missions = yes
+		select_current_missions = { key = WAR_NORSCA }
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+
+country_event = { #Blessing of the sea
+	id = flavor_norscan_events.5
+	title = flavor_norscan_events.5.t 
+	desc = flavor_norscan_events.5.d
+	picture = NORSCA_eventPicture
+	is_triggered_only = yes 
+	option = {
+		name = flavor_norscan_events.5.a
+		ai_chance = { factor = 1 }
+		add_country_modifier = {
+				name = norsca_norse_mermedus_happy
+				duration = 7300
+		}
+	}
+}
+
+# Ruler Becomes Demon Event Chain
+# Event 1: Seer Tells Ruler of Vision - Enables Relevant Decision
+# Event 2: Ritual Event
+# Event 3: A The Neverborn is Born
+country_event = { # Seer Tells Ruler of Visions
+	id = flavor_norscan_events.6
+	title = flavor_norscan_events.6.t 
+	desc = flavor_norscan_events.6.d
+	picture = NORSCA_eventPicture
+	is_triggered_only = yes 
+	option = { #Khorne
+		name = flavor_norscan_events.6.a
+		ai_chance = { factor = 75 }
+		set_country_flag = WAR_NOR_daemon_khorne
+		clr_country_flag = WAR_NOR_daemon_slaanesh
+		clr_country_flag = WAR_NOR_daemon_tzeench
+		clr_country_flag = WAR_NOR_daemon_nurgle
+		# Enable Khorne Ritual Decision
+		custom_tooltip = flavor_norscan_events.6.tt
+	}
+	option = { #Tzeench
+		name = flavor_norscan_events.6.b
+		ai_chance = { factor = 15 }
+		set_country_flag = WAR_NOR_daemon_tzeench
+		clr_country_flag = WAR_NOR_daemon_khorne
+		clr_country_flag = WAR_NOR_daemon_slaanesh
+		clr_country_flag = WAR_NOR_daemon_nurgle
+		# Enable Tzeench Ritual Decision
+		custom_tooltip = flavor_norscan_events.6.tt
+	}
+	option = { #Nurgle
+		name = flavor_norscan_events.6.c
+		ai_chance = { factor = 5 }
+		set_country_flag = WAR_NOR_daemon_nurgle
+		clr_country_flag = WAR_NOR_daemon_khorne
+		clr_country_flag = WAR_NOR_daemon_tzeench
+		clr_country_flag = WAR_NOR_daemon_slaanesh
+		# Enable Nurgle Ritual Decision
+		custom_tooltip = flavor_norscan_events.6.tt
+	}
+	option = { #Slaanesh
+		name = flavor_norscan_events.6.e
+		ai_chance = { factor = 5 }
+		set_country_flag = WAR_NOR_daemon_slaanesh
+		clr_country_flag = WAR_NOR_daemon_khorne
+		clr_country_flag = WAR_NOR_daemon_tzeench
+		clr_country_flag = WAR_NOR_daemon_nurgle
+		# Enable Slaanesh Ritual Decision
+		custom_tooltip = flavor_norscan_events.6.tt
+	}
+}
+
+# The Ritual
+country_event = { # Ruler Ritual Event (Chaos Missions)
+	id = flavor_norscan_events.7
+	title = flavor_norscan_events.7.t
+	desc = { # Has Khorne Flag
+		trigger = { 
+			has_country_flag = WAR_NOR_daemon_khorne
+			NOT = { has_country_flag = WAR_NOR_daemon_tzeench }
+			NOT = { has_country_flag = WAR_NOR_daemon_nurgle }
+			NOT = { has_country_flag = WAR_NOR_daemon_slaanesh }
+		}
+		desc = "flavor_norscan_events.7.khorne"
+	}
+	desc = { # Has Tzeench Flag
+		trigger = { 
+			has_country_flag = WAR_NOR_daemon_tzeench
+			NOT = { has_country_flag = WAR_NOR_daemon_khorne }
+			NOT = { has_country_flag = WAR_NOR_daemon_nurgle }
+			NOT = { has_country_flag = WAR_NOR_daemon_slaanesh }
+		}
+		desc = "flavor_norscan_events.7.tzeench"
+	}
+	desc = { # Has Nurgle Flag
+		trigger = { 
+			has_country_flag = WAR_NOR_daemon_nurgle
+			NOT = { has_country_flag = WAR_NOR_daemon_tzeench }
+			NOT = { has_country_flag = WAR_NOR_daemon_khorne }
+			NOT = { has_country_flag = WAR_NOR_daemon_slaanesh }
+		}
+		desc = "flavor_norscan_events.7.nurgle"
+	}
+	desc = { # Has Slaanesh Flag
+		trigger = { 
+			has_country_flag = WAR_NOR_daemon_slaanesh
+			NOT = { has_country_flag = WAR_NOR_daemon_tzeench }
+			NOT = { has_country_flag = WAR_NOR_daemon_nurgle }
+			NOT = { has_country_flag = WAR_NOR_daemon_khorne }
+		}
+		desc = "flavor_norscan_events.7.slaanesh"
+	}
+	desc = { # Has No Demon Flags - Default is Khorne
+		trigger = { 
+			NOT = { has_country_flag = WAR_NOR_daemon_khorne }
+			NOT = { has_country_flag = WAR_NOR_daemon_tzeench }
+			NOT = { has_country_flag = WAR_NOR_daemon_nurgle }
+			NOT = { has_country_flag = WAR_NOR_daemon_slaanesh }
+		}
+		desc = "flavor_norscan_events.7.khorne"
+	}
+	picture = NORSCA_eventPicture
+	is_triggered_only = yes 
+	option = { # Khornate
+		name = flavor_norscan_events.7.a
+		ai_chance = { factor = 1 }
+		country_event = {
+			id = flavor_norscan_events.8
+		}
+	}
+}
+
+country_event = { # Ruler Becomes Daemon Lord
+	id = flavor_norscan_events.8
+	title = flavor_norscan_events.8.t 
+	desc = { # Has Khorne Flag
+		trigger = { 
+			has_country_flag = WAR_NOR_daemon_khorne
+			NOT = { has_country_flag = WAR_NOR_daemon_tzeench }
+			NOT = { has_country_flag = WAR_NOR_daemon_nurgle }
+			NOT = { has_country_flag = WAR_NOR_daemon_slaanesh }
+		}
+		desc = "flavor_norscan_events.8.khorne"
+	}
+	desc = { # Has Tzeench Flag
+		trigger = { 
+			has_country_flag = WAR_NOR_daemon_tzeench
+			NOT = { has_country_flag = WAR_NOR_daemon_khorne }
+			NOT = { has_country_flag = WAR_NOR_daemon_nurgle }
+			NOT = { has_country_flag = WAR_NOR_daemon_slaanesh }
+		}
+		desc = "flavor_norscan_events.8.tzeench"
+	}
+	desc = { # Has Nurgle Flag
+		trigger = { 
+			has_country_flag = WAR_NOR_daemon_nurgle
+			NOT = { has_country_flag = WAR_NOR_daemon_tzeench }
+			NOT = { has_country_flag = WAR_NOR_daemon_khorne }
+			NOT = { has_country_flag = WAR_NOR_daemon_slaanesh }
+		}
+		desc = "flavor_norscan_events.8.nurgle"
+	}
+	desc = { # Has Slaanesh Flag
+		trigger = { 
+			has_country_flag = WAR_NOR_daemon_slaanesh
+			NOT = { has_country_flag = WAR_NOR_daemon_tzeench }
+			NOT = { has_country_flag = WAR_NOR_daemon_nurgle }
+			NOT = { has_country_flag = WAR_NOR_daemon_khorne }
+		}
+		desc = "flavor_norscan_events.8.slaanesh"
+	}
+	desc = { # Has No Demon Flags - Default is Khorne
+		trigger = { 
+			NOT = { has_country_flag = WAR_NOR_daemon_khorne }
+			NOT = { has_country_flag = WAR_NOR_daemon_tzeench }
+			NOT = { has_country_flag = WAR_NOR_daemon_nurgle }
+			NOT = { has_country_flag = WAR_NOR_daemon_slaanesh }
+		}
+		desc = "flavor_norscan_events.8.khorne"
+	}
+	picture = NORSCA_eventPicture
+	is_triggered_only = yes 
+	option = { # Khornate
+		name = flavor_norscan_events.8.a
+		ai_chance = { factor = 100 }
+		OR = {
+				has_country_flag = WAR_NOR_daemon_khorne
+				AND = {
+					NOT = { has_country_flag = WAR_NOR_daemon_khorne }
+					NOT = { has_country_flag = WAR_NOR_daemon_tzeench }
+					NOT = { has_country_flag = WAR_NOR_daemon_nurgle }
+					NOT = { has_country_flag = WAR_NOR_daemon_slaanesh }
+				}
+			}
+		add_country_modifier = { 
+			name = norsca_ruler_khorne
+			duration = -1  
+		}
+		define_ruler = {
+			name = "Karavox of Insensiate Fury"
+			dynasty = ""
+			DIP = 3
+			ADM = 4
+			MIL = 6
+		}
+		add_ruler_personality = immortal_personality
+		add_ruler_personality = cruel_personality
+		add_ruler_personality = strict_personality
+	}
+	option = { # Tzeench
+		name = flavor_norscan_events.8.b
+		ai_chance = { factor = 100 }
+		trigger = { 
+			has_country_flag = WAR_NOR_daemon_tzeench
+		}
+		add_country_modifier = { 
+			name = norsca_ruler_tzeench
+			duration = -1
+		}
+		define_ruler = {
+			name = "Tchzen of the Sliver Claw"
+			dynasty = ""
+			DIP = 6
+			ADM = 6
+			MIL = 3
+		}
+		add_ruler_personality = immortal_personality
+		add_ruler_personality = cruel_personality
+		add_ruler_personality = intricate_web_weaver_personality
+	}
+	option = { # Nurgle
+		name = flavor_norscan_events.8.c
+		ai_chance = { factor = 100 }
+		trigger = { 
+			has_country_flag = WAR_NOR_daemon_nurgle
+		}
+		add_country_modifier = { 
+			name = norsca_ruler_nurgle
+			duration = -1
+		}
+		define_ruler = {
+			name = "Gurug'ath of the Endless Rot"
+			dynasty = ""
+			DIP = 5
+			ADM = 5
+			MIL = 4
+		}
+		add_ruler_personality = immortal_personality
+		add_ruler_personality = cruel_personality
+		add_ruler_personality = midas_touched_personality
+	}
+	option = { # Slaanesh
+		name = flavor_norscan_events.8.d
+		ai_chance = { factor = 100 }
+		trigger = { 
+			has_country_flag = WAR_NOR_daemon_slaanesh
+		}
+		add_country_modifier = { 
+			name = norsca_ruler_slaanesh
+			duration = -1
+		}
+		define_ruler = {
+			name = "Sslivox the Serpent"
+			dynasty = ""
+			DIP = 6
+			ADM = 5
+			MIL = 3
+		}
+		add_ruler_personality = immortal_personality
+		add_ruler_personality = cruel_personality
+		add_ruler_personality = industrious_personality
+	}
+}
+
+country_event = { # Anger the Four Event Chain - Dark Dreams
+	id = flavor_norscan_events.9
+	title = flavor_norscan_events.9.t 
+	desc = flavor_norscan_events.9.d
+	picture = NORSCA_eventPicture
+	is_triggered_only = yes 
+	option = {
+		name = flavor_norscan_events.9.a
+		ai_chance = { factor = 1 }
+		country_event = { 
+    		id = flavor_norscan_events.10
+    		days = 30
+		}
+	}
+}
+
+country_event = { # Anger the Four Event Chain - Visions of Doom
+	id = flavor_norscan_events.10
+	title = flavor_norscan_events.10.t 
+	desc = flavor_norscan_events.10.d
+	picture = NORSCA_eventPicture
+	is_triggered_only = yes 
+	option = {
+		name = flavor_norscan_events.10.a
+		ai_chance = { factor = 1 }
+		add_stability = -1
+		country_event = { 
+    		id = flavor_norscan_events.11
+    		days = 30
+		}
+	}
+}
+
+country_event = { # Anger the Four Event Chain - Disaster
+	id = flavor_norscan_events.11
+	title = flavor_norscan_events.11.t 
+	desc = flavor_norscan_events.11.d
+	picture = NORSCA_eventPicture
+	is_triggered_only = yes 
+	option = {
+		name = flavor_norscan_events.11.a
+		ai_chance = { factor = 1 }
+		add_disaster_progress = { disaster = chaos_corruption_disaster value = 100 }
+		capital_scope = { spawn_rebels = { type = pretender_rebels religion = chaos_undivided_religion size = 10 } }
+	}
+}
+
+country_event = { # Cleanse Corruption Event - If all monoliths are gone - can cleanse corruption
+	id = flavor_norscan_events.12
+	title = flavor_norscan_events.12.t 
+	desc = flavor_norscan_events.12.d
+	picture = NORSCA_eventPicture
+	is_triggered_only = yes 
+	option = { # Requires no unrest, religion converted, no monoliths - Enable on monolith destruction?
+		name = flavor_norscan_events.12.a # Cleanse Corruption
+		ai_chance = { factor = 1 }
+		add_adm_power = -200
+		add_dip_power = -200
+		add_mil_power = -200
+		add_manpower = -80
+		norsca_region = { # This works - could use a tooltip as the desc is a bit broken
+			remove_province_modifier = norsca_province_corrupt_1
+			remove_province_modifier = norsca_province_corrupt_2
+			remove_province_modifier = norsca_province_corrupt_3
+		}
+		set_global_flag = NORSCA_CLEANSED_CHAOS_EVENT
+		clr_global_flag = NORSCA_DESTROY_MONOLITH_1
+		clr_global_flag = NORSCA_DESTROY_MONOLITH_2
+		clr_global_flag = NORSCA_DESTROY_MONOLITH_3
+		clr_global_flag = NORSCA_DESTROY_MONOLITH_4
+		clr_global_flag = NORSCA_DESTROY_MONOLITH_5
+	}
+	option = {
+		name = flavor_norscan_events.12.z # Go Back
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = { # Destroy Chaos Monoliths
+	id = flavor_norscan_events.13
+	title = flavor_norscan_events.13.t 
+	desc = flavor_norscan_events.13.d
+	picture = NORSCA_eventPicture
+	is_triggered_only = yes 
+	option = { #411
+		name = flavor_norscan_events.13.a #s
+		ai_chance = { factor = 1 }
+		trigger = {
+			411 = {
+				OR = {
+					has_province_modifier = norsca_chaos_monolith
+					has_province_modifier = norsca_chaos_monolith_2
+					has_province_modifier = norsca_chaos_monolith_3
+				}
+				infantry_in_province = 20
+			}
+		}
+		411 = {
+			remove_province_modifier = norsca_chaos_monolith
+			remove_province_modifier = norsca_chaos_monolith_2
+			remove_province_modifier = norsca_chaos_monolith_3
+			spawn_rebels = { type = chaos_undivided_religion_rebels size = 5 }
+		}
+		set_global_flag = NORSCA_DESTROY_MONOLITH_1
+	}
+	option = { #412
+		name = flavor_norscan_events.13.b #s
+		ai_chance = { factor = 1 }
+		trigger = {
+			412 = {
+				OR = {
+					has_province_modifier = norsca_chaos_monolith
+					has_province_modifier = norsca_chaos_monolith_2
+					has_province_modifier = norsca_chaos_monolith_3
+				}
+				infantry_in_province = 20
+			}
+		}
+		412 = {
+			remove_province_modifier = norsca_chaos_monolith
+			remove_province_modifier = norsca_chaos_monolith_2
+			remove_province_modifier = norsca_chaos_monolith_3
+			spawn_rebels = { type = chaos_undivided_religion_rebels size = 5 }
+		}
+		set_global_flag = NORSCA_DESTROY_MONOLITH_2
+	}
+	option = { #423
+		name = flavor_norscan_events.13.c #s
+		ai_chance = { factor = 1 }
+		trigger = {
+			423 = {
+				OR = {
+					has_province_modifier = norsca_chaos_monolith
+					has_province_modifier = norsca_chaos_monolith_2
+					has_province_modifier = norsca_chaos_monolith_3
+				}
+				infantry_in_province = 20
+			}
+		}
+		423 = {
+			remove_province_modifier = norsca_chaos_monolith
+			remove_province_modifier = norsca_chaos_monolith_2
+			remove_province_modifier = norsca_chaos_monolith_3
+			spawn_rebels = { type = chaos_undivided_religion_rebels size = 5 }
+		}
+		set_global_flag = NORSCA_DESTROY_MONOLITH_3
+	}
+	option = { #395
+		name = flavor_norscan_events.13.e #s
+		ai_chance = { factor = 1 }
+		trigger = {
+			395 = {
+				OR = {
+					has_province_modifier = norsca_chaos_monolith
+					has_province_modifier = norsca_chaos_monolith_2
+					has_province_modifier = norsca_chaos_monolith_3
+				}
+				infantry_in_province = 20
+			}
+		}
+		395 = {
+			remove_province_modifier = norsca_chaos_monolith
+			remove_province_modifier = norsca_chaos_monolith_2
+			remove_province_modifier = norsca_chaos_monolith_3
+			spawn_rebels = { type = chaos_undivided_religion_rebels size = 5 }
+		}
+		set_global_flag = NORSCA_DESTROY_MONOLITH_4
+	}
+	option = { #419
+		name = flavor_norscan_events.13.f #s
+		ai_chance = { factor = 1 }
+		trigger = {
+			419 = {
+				OR = {
+					has_province_modifier = norsca_chaos_monolith
+					has_province_modifier = norsca_chaos_monolith_2
+					has_province_modifier = norsca_chaos_monolith_3
+				}
+				infantry_in_province = 20
+			}
+		}
+		419 = {
+			remove_province_modifier = norsca_chaos_monolith
+			remove_province_modifier = norsca_chaos_monolith_2
+			remove_province_modifier = norsca_chaos_monolith_3
+			spawn_rebels = { type = chaos_undivided_religion_rebels size = 5 }
+		}
+		set_global_flag = NORSCA_DESTROY_MONOLITH_5
+	}
+	option = {
+		name = flavor_norscan_events.13.z # Go Back
+		ai_chance = { factor = 1 }
+	}
+}
