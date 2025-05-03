@@ -1,0 +1,2714 @@
+##################################
+##### NORSCA CULTURE GROUP
+##################################
+
+##################################
+##### Slot 1 Own Norsca
+##################################
+war_norsca_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+	}
+
+	#Norscan Conquer Norscan Region Missions
+	war_norsca_conquest_1 = {
+		icon = mission_norse_faith
+		required_missions = { }
+		trigger = {
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+		effect = {
+			define_general = {
+				shock = 6
+				fire = 5
+				manuever = 5
+				siege = 2
+			}
+			add_army_tradition = 15
+
+		}
+	}
+
+	war_norsca_conquest_2 = {
+		icon = mission_unite_home_region
+		required_missions = { war_norsca_conquest_1 }
+		provinces_to_highlight = {
+			OR = {
+				region = norsca_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 20
+				region = norsca_region
+			}
+		}
+		effect = {
+			custom_tooltip = claim_norsca_tt
+
+			hidden_effect = {
+				every_province = {
+					limit = { region = norsca_region }
+					add_permanent_claim = ROOT
+				}
+			}
+			add_country_modifier = {
+				name = nosca_grow
+				duration = 7300
+			}
+		}
+	}
+
+	war_norsca_conquest_3 = {
+		icon = mission_norscan_horsemen
+		required_missions = { war_norsca_conquest_2 }
+		trigger = {
+			AND = {
+				OR = { tag = A30 has_won_war_against = { who = A30 } NOT = { exists = A30 } }
+				OR = { tag = A31 has_won_war_against = { who = A31 } NOT = { exists = A31 } }
+				OR = { tag = A32 has_won_war_against = { who = A32 } NOT = { exists = A32 } }
+				OR = { tag = A33 has_won_war_against = { who = A33 } NOT = { exists = A33 } }
+				OR = { tag = A34 has_won_war_against = { who = A34 } NOT = { exists = A34 } }
+				OR = { tag = A35 has_won_war_against = { who = A35 } NOT = { exists = A35 } }
+				OR = { tag = A78 has_won_war_against = { who = A78 } NOT = { exists = A78 } }
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 20 }
+			add_country_modifier = {
+				name = norsca_claimant
+				duration = -1
+			}
+		}
+	}
+
+	war_norsca_conquest_4 = {
+		icon = mission_crown_of_denmark
+		required_missions = { war_norsca_conquest_3 }
+		provinces_to_highlight = {
+			OR = {
+				region = norsca_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				region = norsca_region
+				value = 60
+			}
+			tag = A88
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 50 }
+			#Unlock Norscan high kingdom reform when available
+			add_government_reform = norsan_great_jarldom_reform
+			custom_tooltip = "   "
+			remove_country_modifier = norsca_claimant
+			add_country_modifier = {
+				name = crown_of_norsca
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+	war_norsca_conquest_5 = {
+		icon = mission_norscan_cavern
+		required_missions = { war_norsca_conquest_4 }
+		provinces_to_highlight = {
+			province_group = johtunheim_gianthome_province
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				province_group = johtunheim_gianthome_province
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = norsca_conquer_mountains
+				duration = 7300
+			}
+		}
+	}
+
+	war_norsca_conquest_6 = {
+		icon = mission_dwarf_religion
+		required_missions = { war_norsca_conquest_5 }
+		provinces_to_highlight = {
+			province_id = 1141
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			owns_or_non_sovereign_subject_of = 1141
+			1141 = {
+				development = 20
+			}
+		}
+		effect = {
+			1141 = {
+				add_province_modifier = {
+					name = norsca_dragon_hold
+					duration = -1
+				}
+			}
+		}
+	}
+
+	war_norsca_conquest_7 = {
+		icon = mission_crown_of_sweden
+		required_missions = { war_norsca_conquest_6 }
+		provinces_to_highlight = {
+			province_group = johtunheim_gianthome_province
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				province_group = johtunheim_gianthome_province
+				value = 30
+			}
+			owns_or_non_sovereign_subject_of = 1141
+			OR = {
+				B02 = { is_vassal = yes }
+				NOT = { exists = B02 }
+			}
+		}
+		effect = {
+			country_event = {
+				id = flavor_norscan_events.1
+			}
+		}
+		add_prestige_or_monarch_power = { amount = 30 }
+	}
+}
+
+##################################
+##### Slot 1 Slavery Missions
+##################################
+war_norsca_thralls_missions = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+	}
+
+	#Trader Missions
+	war_norsca_merchants_1 = {
+		icon = mission_high_income
+		position = 9
+		required_missions = {  }
+		trigger = {
+			estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_burghers
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = norsca_thrall_trade
+				duration = -1
+			}
+		}
+	}
+
+	war_norsca_merchants_2 = {
+		icon = mission_african_gold
+		required_missions = { war_norsca_merchants_1 }
+		trigger = {
+			num_of_owned_provinces_with = {
+				AND = {
+					OR = {
+						has_building = workshop
+						has_building = counting_house
+					}
+					OR = {
+				 		has_building = marketplace
+				 		has_building = trade_depot
+				 		has_building = stock_exchange
+					}
+				}
+				value = 10
+			}
+			
+		}
+		effect = {
+			custom_tooltip = gen_norsca_thrall_trade_tt
+			random_owned_province = {
+				limit = {
+					AND = {
+						OR = {
+							has_building = workshop
+							has_building = counting_house
+						}
+						OR = {
+							has_building = marketplace
+							has_building = trade_depot
+							has_building = stock_exchange
+						}
+						NOT { has_province_modifier = norsca_thrall_market_1 }
+					}
+				}
+
+				add_permanent_province_modifier = { 
+				    name = norsca_thrall_market_1
+				    duration = -1
+				}
+				change_trade_goods = slaves
+			}
+			random_owned_province = {
+				limit = {
+					AND = {
+						OR = {
+							has_building = workshop
+							has_building = counting_house
+						}
+						OR = {
+							has_building = marketplace
+							has_building = trade_depot
+							has_building = stock_exchange
+						}
+						NOT { has_province_modifier = norsca_thrall_market_1 }
+					}
+				}
+
+				add_permanent_province_modifier = { 
+				    name = norsca_thrall_market_1
+				    duration = -1
+				}
+				change_trade_goods = slaves
+			}
+			random_owned_province = {
+				limit = {
+					AND = {
+						OR = {
+							has_building = workshop
+							has_building = counting_house
+						}
+						OR = {
+							has_building = marketplace
+							has_building = trade_depot
+							has_building = stock_exchange
+						}
+						NOT { has_province_modifier = norsca_thrall_market_1 }
+					}
+				}
+
+				add_permanent_province_modifier = { 
+				    name = norsca_thrall_market_1
+				    duration = -1
+				}
+				change_trade_goods = slaves
+			}
+			random_owned_province = {
+				limit = {
+					AND = {
+						OR = {
+							has_building = workshop
+							has_building = counting_house
+						}
+						OR = {
+							has_building = marketplace
+							has_building = trade_depot
+							has_building = stock_exchange
+						}
+						NOT { has_province_modifier = norsca_thrall_market_1 }
+					}
+				}
+
+				add_permanent_province_modifier = { 
+				    name = norsca_thrall_market_1
+				    duration = -1
+				}
+				change_trade_goods = slaves
+			}
+			random_owned_province = {
+				limit = {
+					AND = {
+						OR = {
+							has_building = workshop
+							has_building = counting_house
+						}
+						OR = {
+							has_building = marketplace
+							has_building = trade_depot
+							has_building = stock_exchange
+						}
+						NOT { has_province_modifier = norsca_thrall_market_1 }
+					}
+				}
+
+				add_permanent_province_modifier = { 
+				    name = norsca_thrall_market_1
+				    duration = -1
+				}
+				change_trade_goods = slaves
+			}
+		}
+	}
+
+	war_norsca_merchants_3 = {
+		icon = mission_african_gold
+		required_missions = { war_norsca_merchants_2 }
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_province_modifier = norsca_thrall_market_1
+				value = 5
+			}
+			OR = {
+				trade_goods_produced_amount = {
+					trade_goods = slaves
+					amount = 20
+				}
+				trading_part = {
+					trade_goods = slaves
+					value = 0.30
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = gen_norsca_thrall_market_tt
+			every_owned_province = {
+				limit { has_province_modifier = norsca_thrall_market_1 }
+				remove_province_modifier = norsca_thrall_market_1
+
+					add_permanent_province_modifier = { 
+					    name = norsca_thrall_market_2
+					    duration = -1
+					}
+			} 
+			change_price = {
+			    trade_goods = slaves
+			    value = 0.4
+			    duration = -1
+			}
+		}
+	}
+}
+
+##################################
+##### Slot 2 Alliance
+##################################
+
+war_norsca_alliance_missions = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+	}
+
+	gen_norsca_alliance_1  = {
+		icon = mission_diplomatic_relation
+		required_missions = { war_norsca_conquest_1  }
+		position = 2
+		trigger = {
+			calc_true_if = {
+				all_ally = {
+					has_opinion = { who = ROOT value = 150 }
+					trust = { who = ROOT value = 60 }
+					total_development = 150
+				}
+				amount = 3
+			}
+		}	
+		effect = {
+			add_prestige = 25
+			custom_tooltip = dan_denmark_on_european_stage_at
+			hidden_effect = {
+				every_ally = {
+					limit = {
+						has_opinion = { who = ROOT value = 150 }
+						trust = { who = ROOT value = 60 }
+						total_development = 150
+					}
+					ROOT = {
+						add_trust = { who = PREV value = 10 mutual = yes }
+						add_favors = { who = PREV amount = 10 }
+					}
+				}
+			}
+
+		}
+	}
+
+	gen_norsca_alliance_2  = {
+		icon = spa_tercios_system
+		required_missions = { gen_norsca_alliance_1 }
+		trigger = {
+			calc_true_if = {
+				all_ally = {
+					has_opinion = { who = ROOT value = 200 }
+					trust = { who = ROOT value = 100 } 
+					total_development = 300
+				}
+				amount = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = norsca_strong_ally
+				duration = -1
+			}
+		}
+	}
+
+}
+
+##################################
+##### Slot 2 Albion
+##################################
+war_norsca_missions_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+	}
+
+	gen_norsca_explore  = {
+		icon = mission_exploration
+		required_missions = { war_norsca_conquest_4 }
+		position = 5
+		trigger = { num_of_explorers = 1 }
+		effect = {
+			hidden_effect = {
+				every_province = {
+					limit = { area = neuland_area }
+					add_permanent_claim = ROOT
+				}
+			}
+			add_country_modifier = {
+				name = norsca_explore
+				duration = 10950
+			}
+		}
+	}
+
+	gen_norsca_albion_landing  = {
+		icon = mission_rb_conquer_the_isles
+		required_missions = {gen_norsca_explore}
+		provinces_to_highlight = {
+			region = albion_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					region = albion_region
+				}
+				value = 5
+			}
+		}
+		effect = {
+			custom_tooltip = claim_albion_tt
+			hidden_effect = {
+				every_province = {
+					limit = { region = albion_region }
+					add_permanent_claim = ROOT
+				}
+			}
+			add_country_modifier = {
+				name = norsca_conquer_albion
+				duration = 7300
+			}
+		}
+	}
+
+	gen_norsca_albion_crown = {
+		icon = mission_crown_of_norway
+		required_missions = {
+			gen_norsca_albion_landing
+		}
+		provinces_to_highlight = {
+			region = albion_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				region = albion_region
+				value = 25
+			}
+			owns_or_non_sovereign_subject_of = 4369
+			NOT = { exists = B13 }
+
+		}
+		effect = {
+			country_event = {
+				id = flavor_norscan_events.2
+			}
+		}
+		add_prestige_or_monarch_power = { amount = 30 }
+	}
+}
+
+##################################
+##### Branching Religious Missions
+##################################
+
+### Slot 2 Churches Branching
+war_norsca_religous_branching_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+		NOT = { map_setup = map_setup_random }
+		NOT = {
+			OR = {
+				has_country_flag = WAR_NOR_branching_norse
+				has_country_flag = WAR_NOR_branching_chaos
+				has_country_flag = WAR_NOR_branching_old
+			}
+		}
+	}
+	has_country_shield = no
+	
+	norsca_branching_s2_p6 = {
+		icon = mission_unknown_mission
+		required_missions = { gen_norsca_religion_1 }
+		position = 9
+		provinces_to_highlight = {  }
+		trigger = { always = no }
+		effect = { BYZ_branch_effect = yes }
+	}
+	
+	norsca_branching_s2_p7 = {
+		icon = mission_unknown_mission
+		required_missions = { norsca_branching_s2_p6 }
+		position = 10
+		provinces_to_highlight = {  }
+		trigger = { always = no }
+		effect = { BYZ_branch_effect = yes }
+	}
+}
+
+# Norse Religion Path - Slot 2
+war_norsca_religous_norse_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = WAR_NOR_branching_norse
+	}
+
+	norsca_norse_church_1 = {
+		icon = mission_norscan_monolith
+		required_missions = { gen_norsca_religion_1 }
+		position = 9
+		provinces_to_highlight = {  }
+		trigger = {
+			not_in_mission_preview_mode = { key = WAR_NORSCA }
+			manpower = 10
+			treasury = 500 
+			num_of_owned_provinces_with = {
+				AND = {
+					OR = {
+						has_building = temple
+						has_building = cathedral
+					}
+				}
+				value = 10
+			}
+		}
+		effect = {
+			add_manpower = -10
+			add_treasury = -500
+			add_country_modifier = {
+				name = norsca_religion_norscan_shrines
+				duration = -1
+			}
+			country_event = {
+				id = flavor_norscan_events.3 # gods favor event
+			}
+		}
+	}
+	
+	norsca_norse_church_2 = {
+		icon = mission_norscan_mermedus
+		required_missions = { norsca_norse_church_1 }
+		position = 10
+		provinces_to_highlight = {
+			province_id = 431
+		}
+		trigger = {
+			not_in_mission_preview_mode = { key = WAR_NORSCA }
+			if = {
+				limit = {
+					has_dlc = "Leviathan"
+				}
+				has_great_project = {
+					type = church_mermedus
+					tier = 2
+				}
+			}
+			else = {
+				has_personal_deity = mermedus
+				431 = {
+					OR = {
+						has_building = temple
+						has_building = cathedral
+					}
+					OR = {
+						has_building = shipyard
+						has_building = grand_shipyard
+					}
+				}
+			}
+		}
+		effect = {
+		remove_country_modifier = norsca_religion_norscan_shrines
+			add_country_modifier = {
+				name = norsca_religion_norscan_gods
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+			country_event = {
+				id = flavor_norscan_events.5 # blessing of the sea event
+			}
+		}
+	}
+}
+
+# Chaos Religion Path - Slot 2
+war_norsca_religous_chaos_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = WAR_NOR_branching_chaos
+	}
+
+	norsca_chaos_church_1 = {
+		icon = mission_norscan_obelisk
+		required_missions = { gen_norsca_religion_1 }
+		position = 9
+		provinces_to_highlight = {
+			OR = {
+				has_province_modifier = norsca_chaos_monolith 
+				has_province_modifier = norsca_chaos_monolith_2
+				has_province_modifier = norsca_chaos_monolith_3
+			}
+			NOT = {
+				AND = {
+					OR = {
+						has_building = temple
+						has_building = cathedral
+					}
+					OR = {
+						has_building = fort_15th
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+					base_manpower = 5
+				}
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				OR = {
+					has_province_modifier = norsca_chaos_monolith 
+					has_province_modifier = norsca_chaos_monolith_2
+					has_province_modifier = norsca_chaos_monolith_3
+				}
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+				OR = {
+					has_building = fort_15th
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+				base_manpower = 5
+				value = 5
+			}
+		}
+		effect = {
+			every_owned_province = {
+				limit = {
+					has_province_modifier = norsca_chaos_monolith 
+					OR = {
+				 		has_building = temple
+				 		has_building = cathedral
+					}
+					OR = {
+				 		has_building = fort_15th
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+					base_manpower = 5
+				}
+				remove_province_modifier = norsca_chaos_monolith
+				remove_province_modifier = norsca_chaos_monolith_2
+				remove_province_modifier = norsca_chaos_monolith_3
+				remove_province_modifier = norsca_province_corrupt_1
+				remove_province_modifier = norsca_province_corrupt_2
+				remove_province_modifier = norsca_province_corrupt_3
+				add_permanent_province_modifier = { 
+				    name = norsca_chaos_monolith_2
+				    duration = -1
+				}
+				add_permanent_province_modifier = { 
+				    name = norsca_province_corrupt_2
+				    duration = -1
+				}
+			}
+			add_country_modifier = {
+				name = norsca_monstrous_army_1
+				duration = -1
+			}
+		}
+	}
+	
+	norsca_chaos_church_2 = {
+		icon = mission_norscan_river_blood
+		required_missions = { norsca_chaos_church_1 }
+		provinces_to_highlight = {
+			OR = {
+				has_province_modifier = norsca_chaos_monolith 
+				has_province_modifier = norsca_chaos_monolith_2
+				has_province_modifier = norsca_chaos_monolith_3
+			}
+			NOT = {
+				AND = {
+					OR = {
+						has_building = barracks
+						has_building = training_fields
+					}
+					OR = {
+						has_building = regimental_camp
+						has_building = conscription_center
+					}
+					base_manpower = 10
+				}
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				OR = {
+					has_province_modifier = norsca_chaos_monolith 
+					has_province_modifier = norsca_chaos_monolith_2
+					has_province_modifier = norsca_chaos_monolith_3
+				}
+				OR = {
+					has_building = barracks
+					has_building = training_fields
+				}
+				OR = {
+					has_building = regimental_camp
+					has_building = conscription_center
+				}
+				base_manpower = 10
+				value = 5
+			}
+		}
+		effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+							has_province_modifier = norsca_chaos_monolith
+							has_province_modifier = norsca_chaos_monolith_2
+						}
+					OR = {
+						has_building = barracks
+						has_building = training_fields
+					}
+					OR = {
+							has_building = regimental_camp
+							has_building = conscription_center
+					}
+					base_manpower = 10
+				}
+				remove_province_modifier = norsca_chaos_monolith
+				remove_province_modifier = norsca_chaos_monolith_2
+				remove_province_modifier = norsca_chaos_monolith_3
+				remove_province_modifier = norsca_province_corrupt_1
+				remove_province_modifier = norsca_province_corrupt_2
+				remove_province_modifier = norsca_province_corrupt_3
+				add_permanent_province_modifier = { 
+				    name = norsca_chaos_monolith_3
+				    duration = -1
+				}
+				add_permanent_province_modifier = { 
+				    name = norsca_province_corrupt_3
+				    duration = -1
+				}
+			}
+			remove_country_modifier = norsca_monstrous_army_1
+			add_country_modifier = {
+				name = norsca_monstrous_army_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+}
+
+# Old Gods Religion Path - Slot 2
+war_norsca_religous_old_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = WAR_NOR_branching_old
+	}
+
+	norsca_old_church_1 = {
+		icon = mission_treetop_left
+		required_missions = { gen_norsca_religion_1 }
+		position = 9
+		provinces_to_highlight = {
+			province_group = norsca_monolith_province
+			OR = {
+				has_province_modifier = norsca_chaos_monolith
+				has_province_modifier = norsca_chaos_monolith_2
+				has_province_modifier = norsca_chaos_monolith_3
+			}
+		}
+		trigger = {
+			norsca_monolith_province = {
+				type = all
+				NOT = {
+					OR = {
+						has_province_modifier = norsca_chaos_monolith
+						has_province_modifier = norsca_chaos_monolith_2
+						has_province_modifier = norsca_chaos_monolith_3
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = norsca_druid_break_monoliths
+				duration = -1
+			}
+			norsca_monolith_province = {
+				type = all
+				add_permanent_province_modifier = {
+					name = norsca_broken_monolith
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	norsca_old_church_2 = {
+		icon = mission_treeleft
+		required_missions = { norsca_old_church_1 }
+		provinces_to_highlight = {
+			region = norsca_region
+			OR = {
+				has_province_modifier = norsca_province_corrupt_1
+				has_province_modifier = norsca_province_corrupt_2
+				has_province_modifier = norsca_province_corrupt_3
+			}
+		}
+		trigger = {
+			norsca_region = {
+				type = all
+				NOT = {
+					OR = {
+						has_province_modifier = norsca_province_corrupt_1
+						has_province_modifier = norsca_province_corrupt_2
+						has_province_modifier = norsca_province_corrupt_3
+					}
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = norsca_druid_break_monoliths
+			add_country_modifier = {
+				name = norsca_druid_heal_land
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+}
+
+##################################
+##### Slot 3 Marines
+##################################
+
+war_norsca_marines_missions = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+	}
+
+	gen_norsca_marines_1 = {
+		icon = mission_native_build_army_mission
+		required_missions = { }
+		position = 1
+		trigger = {
+			army_size_percentage = 1
+		}
+		effect = {
+			add_country_modifier = {
+				name = "thriving_arms_industry"
+				duration = 9125 #25 years
+			}
+			add_mil_power = 100
+		}
+	}
+
+	gen_norsca_marines_2  = { # Raid Northern Provinces
+		icon = mission_norscan_marauder
+		required_missions = { gen_norsca_marines_1 gen_norsca_fjords_1 }
+		provinces_to_highlight = {
+			province_group = north_empire_coast_province
+			NOT = {
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					controlled_by = ROOT
+				}
+			}
+		}
+		trigger = {
+			north_empire_coast_province = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					controlled_by = ROOT
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = norsca_wars_1
+				duration = -1
+			}
+		}
+	}
+
+	gen_norsca_marines_3  = { # Raid Along the Reik
+		icon = mission_norscan_marienburg
+		required_missions = { gen_norsca_marines_2 }
+		provinces_to_highlight = {
+			province_group = mouth_reik_river_province
+			NOT = {
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					controlled_by = ROOT
+				}
+			}
+		}
+		trigger = {
+			mouth_reik_river_province = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					controlled_by = ROOT
+				}
+			}
+		}
+		effect = {
+			79 = { add_base_tax = -4 add_base_production = -4 add_base_manpower = -4 }
+			remove_country_modifier = norsca_wars_1
+			add_country_modifier = {
+				name = norsca_wars_2
+				duration = -1
+			}
+		}
+		custom_tooltip = upgrade_replace_tt
+	}
+
+	gen_norsca_marines_4  = { # Raid Altdorf
+		icon = mission_norscan_altdorf
+		required_missions = { gen_norsca_marines_3 }
+		provinces_to_highlight = {
+			area = altdorf_area
+			NOT = {
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					controlled_by = ROOT
+				}
+			}
+		}
+		trigger = {
+			altdorf_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					controlled_by = ROOT
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = norsca_raze_altdorf_tt
+			hidden_effect = {
+				1 = { add_base_tax = -6 add_base_production = -6 add_base_manpower = -6 
+					add_permanent_province_modifier = {
+						name = recently_raided
+						duration = 3650
+					}
+				}
+				2 = { add_base_tax = -6 add_base_production = -6 add_base_manpower = -6 
+					add_permanent_province_modifier = {
+						name = recently_raided
+						duration = 3650
+					}	
+				}
+				3 = { add_base_tax = -6 add_base_production = -6 add_base_manpower = -6 
+					add_permanent_province_modifier = {
+						name = recently_raided
+						duration = 3650
+					}
+				}
+			}
+			remove_country_modifier = norsca_wars_2
+			add_country_modifier = {
+				name = norsca_wars_3
+				duration = -1
+			}
+			hidden_effect = { # No Idea if this actually works - might also spam the person 3 times lol
+				if = {
+					limit = { 1 = { NOT = { owned_by = ROOT }} }
+					1 = {
+						owner = { country_event = { id = greenskin_events.100 } }
+					}
+				}
+				if = {
+					limit = { 2 = { NOT = { owned_by = ROOT }} }
+					2 = {
+						owner = { country_event = { id = greenskin_events.100 } }
+					}
+				}
+				if = {
+					limit = { 3 = { NOT = { owned_by = ROOT }} }
+					3 = {
+						owner = { country_event = { id = greenskin_events.100 } }
+					}
+				}
+			}
+			add_treasury = 2000
+			add_prestige_or_monarch_power = { amount = 50 }
+		}
+		custom_tooltip = upgrade_replace_tt
+	}
+
+}
+
+##################################
+##### Slot 3 Colonial
+##################################
+war_norsca_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+	}
+
+	gen_norsca_landfall  = {
+		icon = mission_advance_to_the_dnieper
+		required_missions = { gen_norsca_explore }
+		position = 6
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				OR = {
+					continent = south_america
+					continent = north_america
+					continent = oceania
+				}
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = norsca_explore_2
+				duration = -1
+			}
+		}
+	}
+
+	gen_norsca_global_presence = {
+		icon = mission_invade_island
+		required_missions = { gen_norsca_landfall }
+		trigger = {
+			num_of_colonies = 3
+		}
+		effect = {
+			remove_country_modifier = norsca_explore_2
+			add_country_modifier = {
+				name = norsca_explore_3
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+	gen_norsca_religion_1  = {
+		icon = mission_norscan_pray
+		required_missions = {  }
+		position = 8
+		trigger = {
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 1
+			}
+			stability = 1
+			manpower = 10 
+			treasury = 300
+		}
+		effect = {
+			custom_tooltip = " "
+			enable_branching_mission_review = {
+				key = WAR_NORSCA
+				ai_event_id = flavor_norscan_events.4
+			}
+			country_event = {
+				id = flavor_norscan_events.4
+			}
+		}
+	}
+}
+
+##################################
+##### Branching Religious Missions
+##################################
+
+### Slot 3 Religious Branching
+war_norsca_religous_branching_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+		NOT = { map_setup = map_setup_random }
+		NOT = {
+			OR = {
+				has_country_flag = WAR_NOR_branching_norse
+				has_country_flag = WAR_NOR_branching_chaos
+				has_country_flag = WAR_NOR_branching_old
+			}
+		}
+	}
+	has_country_shield = no
+	
+	norsca_branching_s3_p6 = {
+		icon = mission_unknown_mission
+		required_missions = { gen_norsca_religion_1 }
+		position = 9
+		provinces_to_highlight = {  }
+		trigger = { always = no }
+		effect = { BYZ_branch_effect = yes }
+	}
+	
+	norsca_branching_s3_p7 = {
+		icon = mission_unknown_mission
+		required_missions = { norsca_branching_s3_p6 }
+		provinces_to_highlight = {  }
+		trigger = { always = no }
+		effect = { BYZ_branch_effect = yes }
+	}
+
+	norsca_branching_s3_p8 = {
+		icon = mission_unknown_mission
+		required_missions = { norsca_branching_s3_p7 norsca_branching_s2_p7 norsca_branching_s4_p7 }
+		provinces_to_highlight = {  }
+		trigger = { always = no }
+		effect = { BYZ_branch_effect = yes }
+	}
+}
+
+# Norse Religion Path - Slot 3
+war_norsca_religous_norse_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = WAR_NOR_branching_norse
+	}
+
+	norsca_norse_religious_2 = {
+		icon = mission_norscan_raider
+		required_missions = { gen_norsca_religion_1 }
+		position = 9
+		provinces_to_highlight = {  }
+		trigger = {
+			not_in_mission_preview_mode = { key = WAR_NORSCA }
+			at_war_with_religious_enemy = yes
+			war_score = 100
+		}
+		effect = {
+			add_manpower = 8
+			add_country_modifier = {
+				name = norsca_religion_norscan_raids
+				duration = -1
+			}
+		}
+	}
+	
+	norsca_norse_religious_3 = {
+		icon = mission_norscan_burn_stake
+		required_missions = { norsca_norse_religious_2 }
+		provinces_to_highlight = {
+			region = norsca_region
+			NOT = {
+				religion = ROOT
+			}
+		}
+		not_in_mission_preview_mode = { key = WAR_NORSCA }
+		trigger = {
+			norsca_region = {
+				type = all
+				religion = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = norsca_religion_norscan_convert
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+			country_event = {
+				id = flavor_norscan_events.3 # gods favor event
+			}
+		}
+		
+	}
+
+	norsca_norse_religious_4 = {
+		icon = mission_norscan_culture
+		required_missions = { norsca_norse_religious_3 norsca_norse_church_2 norsca_norse_seers_2 }
+		provinces_to_highlight = {  }
+		trigger = {
+			not_in_mission_preview_mode = { key = WAR_NORSCA }
+			religious_unity = 0.9
+			calc_true_if = {
+				all_country = {
+					religion = norscan
+				}
+				amount = 20
+			}
+		}
+		effect = {
+			add_manpower = -20
+			remove_country_modifier = norsca_religion_norscan_convert
+			remove_country_modifier = norsca_religion_norscan_gods
+			remove_country_modifier = norsca_religion_norscan_raids
+			add_country_modifier = {
+				name = norsca_religion_norscan_ult
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+			country_event = {
+				id = flavor_norscan_events.3 # gods favor event
+			}
+		}
+	}
+}
+
+# Chaos Religion Path - Slot 3
+war_norsca_religous_chaos_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = WAR_NOR_branching_chaos
+	}
+
+	norsca_chaos_religious_2 = {
+		icon = mission_impaled_soldies
+		required_missions = { gen_norsca_religion_1 }
+		position = 9
+		provinces_to_highlight = {  }
+		trigger = {
+			not_in_mission_preview_mode = { key = WAR_NORSCA }
+			army_size = 30
+			has_estate_privilege = estate_church_for_the_faith 
+			at_war_with_religious_enemy = yes
+		}
+		effect = {
+			add_country_modifier = {
+				name = norsca_chaos_holy_war
+				duration = -1
+			}
+		}
+	}
+	
+	norsca_chaos_religious_3 = { # destroy kislev
+		icon = mission_norscan_burn_kislev
+		required_missions = { norsca_chaos_religious_2}
+		provinces_to_highlight = {
+			OR = {
+				region = troll_country_region
+				region = kislev_heartlands_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			not_in_mission_preview_mode = { key = WAR_NORSCA }
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				OR = {
+					region = troll_country_region
+					region = kislev_heartlands_region
+				}
+				value = 30
+			}
+			owns_or_non_sovereign_subject_of = 339
+			owns_or_non_sovereign_subject_of = 325
+			NOT = { exists = A29 }
+		}
+		effect = {
+			remove_country_modifier = norsca_chaos_holy_war
+			add_country_modifier = {
+				name = norsca_chaos_burn_kislev
+				duration = -1
+			}
+			custom_tooltip = norsca_sack_kislev_tt
+			every_owned_province = {
+				limit = {
+					OR = {
+						area = kislev_city_area
+						province_id = 339
+					}
+				}
+				set_province_flag = war_sacked_province
+				owner = { country_event = { 
+				    id = greenskin_events.100
+				} }
+				add_permanent_province_modifier = {
+					name = recently_raided
+					duration = 3650
+				}
+				## lower dev
+				if = {
+					limit = {
+						base_tax = 40
+					}
+					add_base_tax = -6
+				}
+				else_if = {
+					limit = {
+						base_tax = 30
+					}
+					add_base_tax = -5
+				}
+				else_if = {
+					limit = {
+						base_tax = 20
+					}
+					add_base_tax = -4
+				}
+				else_if = {
+					limit = {
+						base_tax = 10
+					}
+					add_base_tax = -3
+				}
+				else_if = {
+					limit = {
+						base_tax = 5
+					}
+					add_base_tax = -2
+				}
+				else_if = {
+					limit = {
+						base_tax = 2
+					}
+					add_base_tax = -1
+				}
+				if = {
+					limit = {
+						base_production = 40
+					}
+					add_base_production = -6
+				}
+				else_if = {
+					limit = {
+						base_production = 30
+					}
+					add_base_production = -5
+				}
+				else_if = {
+					limit = {
+						base_production = 20
+					}
+					add_base_production = -4
+				}
+				else_if = {
+					limit = {
+						base_production = 10
+					}
+					add_base_production = -3
+				}
+				else_if = {
+					limit = {
+						base_production = 5
+					}
+					add_base_production = -2
+				}
+				else_if = {
+					limit = {
+						base_production = 2
+					}
+					add_base_production = -1
+				}
+				if = {
+					limit = {
+						base_manpower = 40
+					}
+					add_base_manpower = -6
+				}
+				else_if = {
+					limit = {
+						base_manpower = 30
+					}
+					add_base_manpower = -5
+				}
+				else_if = {
+					limit = {
+						base_manpower = 20
+					}
+					add_base_manpower = -4
+				}
+				else_if = {
+					limit = {
+						base_manpower = 10
+					}
+					add_base_manpower = -3
+				}
+				else_if = {
+					limit = {
+						base_manpower = 5
+					}
+					add_base_manpower = -2
+				}
+				else_if = {
+					limit = {
+						base_manpower = 2
+					}
+					add_base_manpower = -1
+				}
+				### end lower dev
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+	norsca_chaos_religious_4 = {
+		icon = mission_norscan_demon
+		required_missions = { norsca_chaos_religious_3 norsca_chaos_church_2 norsca_chaos_wytches_2 }
+		provinces_to_highlight = {
+			country_or_non_sovereign_subject_holds = ROOT 
+			NOT = { religion = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					religion = ROOT
+				}
+				value = 300
+			}
+		}
+		effect = {
+			remove_country_modifier = norsca_chaos_burn_kislev
+			remove_country_modifier = norsca_monstrous_army_2
+			add_country_modifier = {
+				name = norsca_chaos_ult
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+
+			add_country_modifier = {
+				name = norsca_chaos_crown
+				duration = -1
+			}
+
+			country_event = { id = flavor_norscan_events.6 }
+		}
+	}
+}
+
+# Old Religion Path - Slot 3
+war_norsca_religous_old_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = WAR_NOR_branching_old
+	}
+
+	norsca_old_religious_2 = { # Enforce Loyalty
+		icon = mission_treetop
+		required_missions = { gen_norsca_religion_1 }
+		position = 9
+		trigger = {
+			not_in_mission_preview_mode = { key = WAR_NORSCA }
+			OR = {
+				estate_loyalty = { estate = estate_church loyalty = 70 }
+				AND = {
+					NOT = { estate_influence = { estate = estate_church influence = 40 } }
+					stability = 50
+				}
+			}
+			OR = {
+				estate_loyalty = { estate = estate_burghers loyalty = 70 }
+				AND = {
+					NOT = { estate_influence = { estate = estate_burghers influence = 40 } }
+					navy_size = 50
+				}
+			}
+			OR = {
+				estate_loyalty = { estate = estate_nobles loyalty = 70 }
+				AND = {
+					NOT = { estate_influence = { estate = estate_nobles influence = 40 } }
+					army_size = 80
+				}
+			}
+		}
+		effect = {
+			if {
+				limit = { NOT = { estate_loyalty = { estate = estate_church loyalty = 70 } } }
+				spawn_rebels = { type = chaos_undivided_religion_rebels size = 2}
+			}
+			if {
+				limit = { NOT = { estate_loyalty = { estate = estate_burghers loyalty = 70 } } }
+				spawn_rebels = { type = particularist_rebels size = 2}
+			}
+			if {
+				limit = { NOT = { estate_loyalty = { estate = estate_nobles loyalty = 70 } } }
+				spawn_rebels = { type = noble_rebels size = 2}
+			}
+			add_country_modifier = {
+				name = norsca_druidism_purge_estates
+				duration = -1
+			}
+		}
+	}
+	
+	norsca_old_religious_3 = {
+		icon = mission_treecenter
+		required_missions = { norsca_old_religious_2 }
+		provinces_to_highlight = {
+			region = norsca_region
+			religion_group = ruinous_powers_denominations
+		}
+		trigger = {
+			not_in_mission_preview_mode = { key = WAR_NORSCA }
+			norsca_region = {
+				type = all
+				NOT = { religion_group = ruinous_powers_denominations }
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = norsca_druid_banish_chaos
+				duration = -1
+			}
+		}
+	}
+
+	norsca_old_religious_4 = {
+		icon = mission_treebase
+		required_missions = { norsca_old_church_2 norsca_old_religious_3 norsca_old_seers_2 }
+		provinces_to_highlight = {  }
+		provinces_to_highlight = {
+			region = norsca_region
+			OR = {
+				NOT = { religion = ROOT }
+				NOT = { is_prosperous = yes }
+			}
+		}
+		trigger = {
+			norsca_region = {
+				type = all
+				religion = ROOT
+				is_prosperous = yes
+			}
+		}
+		effect = {
+			remove_country_modifier = norsca_druid_banish_chaos
+			remove_country_modifier = norsca_druid_heal_land
+			add_country_modifier = {
+				name = norsca_druid_ult
+				duration = -1
+			}
+		}
+	}
+}
+
+##################################
+##### Slot 3 Temp Ult
+##################################
+
+war_norsca_temp_ult_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+	}
+
+	gen_norsca_temp_ult_mission = {
+		icon = mission_chaos_culture
+		required_missions = {   }
+		position = 12
+		trigger = {
+			AND = {
+				num_of_continents = 5 # I counted 7 non-colonial continents, 4 are trivial to get and the fifth is not that hard either
+				num_of_colonies = 5 # There are 8 colonial regions that I counted
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = norsca_temp_ult
+				duration = -1
+			}
+		}
+	}
+}
+
+##################################
+##### Slot 4 Fjords
+##################################
+war_norsca_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+	}
+
+	gen_norsca_fjords_1 = {
+		icon = imperial_navy
+		required_missions = {   }
+		trigger = { navy_size = 20 }
+		effect = {
+			add_country_modifier = {
+				name = norsca_fleet_temp
+				duration = 9125 #25 years
+			}
+			add_mil_power = 100
+		}
+	}
+
+	gen_norsca_fjords_2 = {
+		icon = mission_hanseatic_city
+		required_missions = { gen_norsca_fjords_1 }
+		trigger = {
+			num_of_owned_provinces_with = {
+				AND = {
+					OR = {
+						has_building = shipyard
+						has_building = grand_shipyard
+					}
+					OR = {
+				 		has_building = dock
+				 		has_building = drydock
+					}
+				}
+				value = 10
+			}
+		}
+		effect = {
+			if = { 
+				limit = { has_dlc = "Domination" }
+				add_country_modifier = {
+					name = norsca_allow_longships
+					duration = -1
+				}
+				add_country_modifier = {
+					name = norsca_shipyards
+					duration = -1
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = norsca_shipyards
+					duration = -1
+				}
+				add_dip_power = 200
+			}
+		}
+	}
+
+	gen_norsca_fjords_3 = {
+		icon = mission_norscan_culture
+		required_missions = { gen_norsca_fjords_2 }
+		trigger = {
+			num_of_galleass = 30
+			navy_tradition = 60
+			if = { 
+				limit = { has_dlc = "Rule Britannia" } 
+				has_naval_doctrine = any 
+			}
+			else = {
+				OR = {
+					naval_reformer = 2
+					has_dip_advisor_3 = yes
+				}
+			}
+		}
+		effect = {
+			if = { 
+				limit = { has_dlc = "Domination" }
+				add_country_modifier = {
+					name = norsca_buff_longships_1
+					duration = -1
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = norsca_ship_no_dlc_1
+					duration = -1
+				}
+			}
+		}
+	}
+	gen_norsca_fjords_4 = {
+		icon = mission_skaven_warpstone
+		required_missions = { gen_norsca_fjords_3 }
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = warpstone
+				amount = 5
+			}
+			naval_reformer = 3
+			OR = {
+				dip_power = 400
+				innovativeness = 20
+			}
+		}
+		effect = {
+			if = {
+				trigger = { NOT = { innovativeness = 20} }
+				add_dip_power = -400
+			}
+			if = { 
+				limit = { has_dlc = "Domination" }
+				remove_country_modifier = norsca_buff_longships_1
+				add_country_modifier = {
+					name = norsca_buff_longships_2
+					duration = -1
+				}
+				custom_tooltip = upgrade_replace_tt
+			}
+			else = {
+				remove_country_modifier = norsca_ship_no_dlc_1
+				add_country_modifier = {
+					name = norsca_ship_no_dlc_2
+					duration = -1
+				}
+				custom_tooltip = upgrade_replace_tt
+			}
+		}
+	}
+
+	gen_norsca_fjords_5 = { # Norscan Fleet Ultimate
+		icon = mission_naval_kingdom
+		required_missions = { gen_norsca_ships_3 gen_norsca_marines_4 gen_norsca_fjords_4 }
+		trigger = {
+			is_hegemon_of_type = naval_hegemon
+			navy_tradition = 90
+		}
+		effect = {
+			if = {
+				limit = { has_dlc = "Domination" }
+				remove_country_modifier = norsca_ships_3
+				remove_country_modifier = norsca_shipyards
+				remove_country_modifier = norsca_buff_longships_2
+				add_country_modifier = {
+					name = norsca_ships_ult
+					duration = -1
+				}
+				add_country_modifier = {
+					name = norsca_buff_longships_3
+					duration = -1
+				}
+				custom_tooltip = upgrade_replace_tt
+			}
+			else = {
+				remove_country_modifier = norsca_shipyards
+				remove_country_modifier = norsca_ship_no_dlc_2
+				remove_country_modifier = norsca_ships_3
+				add_country_modifier = {
+					name = norsca_ships_ult
+					duration = -1
+				}
+				custom_tooltip = upgrade_replace_tt
+			}
+		}
+	}
+}
+
+##################################
+##### Branching Religious Missions
+##################################
+
+### Slot 4 Estate Branching
+war_norsca_religous_branching_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+		NOT = { map_setup = map_setup_random }
+		NOT = {
+			OR = {
+				has_country_flag = WAR_NOR_branching_norse
+				has_country_flag = WAR_NOR_branching_chaos
+				has_country_flag = WAR_NOR_branching_old
+			}
+		}
+	}
+	has_country_shield = no
+	
+	norsca_branching_s4_p6 = {
+		icon = mission_unknown_mission
+		required_missions = { gen_norsca_religion_1 }
+		position = 9
+		provinces_to_highlight = {  }
+		trigger = { always = no }
+		effect = { BYZ_branch_effect = yes }
+	}
+	
+	norsca_branching_s4_p7 = {
+		icon = mission_unknown_mission
+		required_missions = { norsca_branching_s4_p6 }
+		provinces_to_highlight = {  }
+		trigger = { always = no }
+		effect = { BYZ_branch_effect = yes }
+	}
+}
+
+# Norse Religion Path - Slot 4
+war_norsca_religous_norse_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = WAR_NOR_branching_norse
+	}
+
+	norsca_norse_seers_1 = {
+		icon = mission_protestant_heddal_church
+		required_missions = { gen_norsca_religion_1 }
+		position = 9
+		provinces_to_highlight = {  }
+		trigger = {
+			not_in_mission_preview_mode = { key = WAR_NORSCA }
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 70
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 3
+			}
+			has_estate_privilege = estate_church_one_faith_one_culture
+		}
+		effect = {
+			custom_tooltip = norsca_norse_buff_church_1_tt
+			set_country_flag = NOR_NORSCAN_RELIGIOUS_CULTURE_BUFF
+		}
+	}
+	
+	norsca_norse_seers_2 = {
+		icon = mission_norscan_seer
+		required_missions = { norsca_norse_seers_1 }
+		provinces_to_highlight = {  }
+		trigger = {
+			not_in_mission_preview_mode = { key = WAR_NORSCA }
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 70
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 5
+			}
+			has_estate_privilege = estate_church_independent_inquisition
+		}
+		effect = {
+			custom_tooltip = norsca_norse_buff_church_2_tt
+			set_country_flag = NOR_NORSCAN_SEERS_BUFF
+		}
+	}
+}
+
+# Chaos Religion Path - Slot 4
+war_norsca_religous_chaos_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = WAR_NOR_branching_chaos
+	}
+
+	norsca_chaos_wytches_1 = {
+		icon = mission_norscan_burn_stake
+		required_missions = { gen_norsca_religion_1 }
+		position = 9
+		provinces_to_highlight = {  }
+		trigger = {
+			not_in_mission_preview_mode = { key = WAR_NORSCA }
+			OR = {
+				religious_unity = 0.90
+				num_of_provinces_owned_or_owned_by_subjects_with = {
+					religion = ROOT
+					value = 60
+				}
+			}
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 70
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 3
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = norsca_chaos_burn_unfaithful
+				duation = -1
+			}
+		}
+	}
+	
+	norsca_chaos_wytches_2 = {
+		icon = mission_norscan_priestess
+		required_missions = { norsca_chaos_wytches_1 }
+		provinces_to_highlight = {  }
+		trigger = {
+			not_in_mission_preview_mode = { key = WAR_NORSCA }
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 70
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 5
+			}
+			has_estate_privilege = estate_church_independent_inquisition
+		}
+		effect = {
+			custom_tooltip = norsca_chaos_buff_church_tt
+			set_country_flag = NOR_CHAOS_CHURCH_BUFF
+		}
+	}
+}
+
+# Old Religion Path - Slot 4
+war_norsca_religous_old_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = WAR_NOR_branching_old
+	}
+
+	norsca_old_seers_1 = {
+		icon = mission_treetop_right
+		required_missions = { gen_norsca_religion_1 }
+		position = 9
+		provinces_to_highlight = {  }
+		trigger = {
+			not_in_mission_preview_mode = { key = WAR_NORSCA }
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 70
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 3
+			}
+			has_estate_privilege = estate_church_independent_inquisition
+		}
+		effect = {
+			custom_tooltip = norsca_druid_buff_church_1_tt
+		}
+	}
+	
+	norsca_old_seers_2 = {
+		icon = mission_treeright
+		required_missions = { norsca_old_seers_1 }
+		provinces_to_highlight = {  }
+		trigger = {
+			not_in_mission_preview_mode = { key = WAR_NORSCA }
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 70
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 5
+			}
+			has_estate_privilege = estate_church_clerical_education
+		}
+		effect = {
+			custom_tooltip = norsca_druid_buff_church_2_tt
+		}
+	}
+}
+
+##################################
+##### Slot 5 Pirate
+##################################
+war_norsca_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+	}
+	
+	gen_norsca_ships_1  = {
+		icon = mission_pirate_flag
+		required_missions = { gen_norsca_fjords_1 }
+		position = 2
+		trigger = { num_ships_privateering = 20 }
+		effect = {
+			add_country_modifier = {
+				name = norsca_ships_1
+				duration = -1
+			}
+		}
+	}
+
+	gen_norsca_ships_2  = {
+		icon = mission_pirate_fleet
+		required_missions = { gen_norsca_ships_1 }
+		trigger = { num_of_captured_ships_with_boarding_doctrine = 30 }
+		effect = {
+			remove_country_modifier = norsca_ships_1
+			add_country_modifier = {
+				name = norsca_ships_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+	gen_norsca_ships_3 = { # All navies in same continent are smaller
+		icon = Burn_Wooden_Wall
+		required_missions = {gen_norsca_ships_2}
+		trigger = {
+			at_war_with_religious_enemy = yes
+			NOT = { 
+				any_other_great_power = { 
+					same_continent = ROOT
+					navy_size = ROOT
+				} 
+			}
+		}
+		effect = {
+			remove_country_modifier = norsca_ships_2
+			add_country_modifier = {
+				name = norsca_ships_3
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+			if = {
+				limit = { has_dlc = "Domination" }
+				set_country_flag = jap_halve_naval_hegemony_requirements # Halve the Naval Hegemon Requirements
+				custom_tooltip = jap_gain_access_to_naval_hegemon_tt
+			}
+		}
+	}
+}
+
+##################################
+##### Slot 5 Tribute
+##################################
+
+war_norsca_tribute_missions = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+	}
+	
+	gen_norsca_tribute_1  = {
+		icon = mission_horde_trade
+		required_missions = {  }
+		position = 6
+		trigger = {
+			num_of_war_reparations = 10
+		}
+		effect = {
+			add_country_modifier = {
+				name = norsca_tribute_1
+				duration = -1
+			}
+		}
+	}
+
+	gen_norsca_tribute_2  = {
+		icon = mission_horde_trade
+		required_missions = { gen_norsca_tribute_1 }
+		trigger = { num_of_war_reparations = 25 }
+		effect = {
+			remove_country_modifier = norsca_tribute_1
+			add_country_modifier = {
+				name = norsca_tribute_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+}
+
+##################################
+##### Slot 5 Razing Missions
+##################################
+war_norsca_razing_missions = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = norse_group
+		capital_scope = { region = norsca_region }
+	}
+
+	#Razing Missions
+	gen_norsca_raze_1 = {
+		icon = mission_end_the_sound_toll
+		position = 9
+		required_missions = {  }
+		provinces_to_highlight = {
+			development = 20
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			hidden_trigger = { is_at_war = yes }
+			any_province = {
+				NOT = {
+					owned_by = ROOT
+				}
+				controlled_by = ROOT
+				development = 20
+			}
+		}
+		effect = {
+			add_treasury = 500
+			add_adm_power = 50
+			add_dip_power = 50
+			add_mil_power = 50
+			random_province = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+					}
+					controlled_by = ROOT
+					development = 50
+				}
+				set_province_flag = war_sacked_province
+				owner = { country_event = { 
+				    id = greenskin_events.100
+				} }
+				add_permanent_province_modifier = {
+					name = recently_raided
+					duration = 3650
+				}
+				## lower dev
+				if = {
+					limit = {
+						base_tax = 40
+					}
+					add_base_tax = -6
+				}
+				else_if = {
+					limit = {
+						base_tax = 30
+					}
+					add_base_tax = -5
+				}
+				else_if = {
+					limit = {
+						base_tax = 20
+					}
+					add_base_tax = -4
+				}
+				else_if = {
+					limit = {
+						base_tax = 10
+					}
+					add_base_tax = -3
+				}
+				else_if = {
+					limit = {
+						base_tax = 5
+					}
+					add_base_tax = -2
+				}
+				else_if = {
+					limit = {
+						base_tax = 2
+					}
+					add_base_tax = -1
+				}
+				if = {
+					limit = {
+						base_production = 40
+					}
+					add_base_production = -6
+				}
+				else_if = {
+					limit = {
+						base_production = 30
+					}
+					add_base_production = -5
+				}
+				else_if = {
+					limit = {
+						base_production = 20
+					}
+					add_base_production = -4
+				}
+				else_if = {
+					limit = {
+						base_production = 10
+					}
+					add_base_production = -3
+				}
+				else_if = {
+					limit = {
+						base_production = 5
+					}
+					add_base_production = -2
+				}
+				else_if = {
+					limit = {
+						base_production = 2
+					}
+					add_base_production = -1
+				}
+				if = {
+					limit = {
+						base_manpower = 40
+					}
+					add_base_manpower = -6
+				}
+				else_if = {
+					limit = {
+						base_manpower = 30
+					}
+					add_base_manpower = -5
+				}
+				else_if = {
+					limit = {
+						base_manpower = 20
+					}
+					add_base_manpower = -4
+				}
+				else_if = {
+					limit = {
+						base_manpower = 10
+					}
+					add_base_manpower = -3
+				}
+				else_if = {
+					limit = {
+						base_manpower = 5
+					}
+					add_base_manpower = -2
+				}
+				else_if = {
+					limit = {
+						base_manpower = 2
+					}
+					add_base_manpower = -1
+				}
+				### end lower dev
+			}
+		}
+	}
+
+	gen_norsca_raze_2 = {
+		icon = mission_humiliate_lubeck
+		required_missions = { gen_norsca_raze_1 }
+		provinces_to_highlight = {
+			development = 30
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			hidden_trigger = { is_at_war = yes }
+			any_province = {
+				NOT = {
+					owned_by = ROOT
+				}
+				controlled_by = ROOT
+				development = 30
+			}
+		}
+		effect = {
+			add_treasury = 1000
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+			random_province = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+					}
+					controlled_by = ROOT
+					development = 50
+				}
+				set_province_flag = war_sacked_province
+				owner = { country_event = { 
+				    id = greenskin_events.100
+				} }
+				add_permanent_province_modifier = {
+					name = recently_raided
+					duration = 3650
+				}
+				## lower dev
+				if = {
+					limit = {
+						base_tax = 40
+					}
+					add_base_tax = -6
+				}
+				else_if = {
+					limit = {
+						base_tax = 30
+					}
+					add_base_tax = -5
+				}
+				else_if = {
+					limit = {
+						base_tax = 20
+					}
+					add_base_tax = -4
+				}
+				else_if = {
+					limit = {
+						base_tax = 10
+					}
+					add_base_tax = -3
+				}
+				else_if = {
+					limit = {
+						base_tax = 5
+					}
+					add_base_tax = -2
+				}
+				else_if = {
+					limit = {
+						base_tax = 2
+					}
+					add_base_tax = -1
+				}
+				if = {
+					limit = {
+						base_production = 40
+					}
+					add_base_production = -6
+				}
+				else_if = {
+					limit = {
+						base_production = 30
+					}
+					add_base_production = -5
+				}
+				else_if = {
+					limit = {
+						base_production = 20
+					}
+					add_base_production = -4
+				}
+				else_if = {
+					limit = {
+						base_production = 10
+					}
+					add_base_production = -3
+				}
+				else_if = {
+					limit = {
+						base_production = 5
+					}
+					add_base_production = -2
+				}
+				else_if = {
+					limit = {
+						base_production = 2
+					}
+					add_base_production = -1
+				}
+				if = {
+					limit = {
+						base_manpower = 40
+					}
+					add_base_manpower = -6
+				}
+				else_if = {
+					limit = {
+						base_manpower = 30
+					}
+					add_base_manpower = -5
+				}
+				else_if = {
+					limit = {
+						base_manpower = 20
+					}
+					add_base_manpower = -4
+				}
+				else_if = {
+					limit = {
+						base_manpower = 10
+					}
+					add_base_manpower = -3
+				}
+				else_if = {
+					limit = {
+						base_manpower = 5
+					}
+					add_base_manpower = -2
+				}
+				else_if = {
+					limit = {
+						base_manpower = 2
+					}
+					add_base_manpower = -1
+				}
+				### end lower dev
+			}
+		}
+	}
+
+	gen_norsca_raze_3 = {
+		icon = mission_fire_of_london
+		required_missions = { gen_norsca_raze_2 }
+		provinces_to_highlight = {
+			development = 50
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			hidden_trigger = { is_at_war = yes }
+			any_province = {
+				NOT = {
+					owned_by = ROOT
+				}
+				controlled_by = ROOT
+				development = 50
+			}
+		}
+		effect = {
+			add_treasury = 2500
+			add_adm_power = 200
+			add_dip_power = 200
+			add_mil_power = 200
+			random_province = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+					}
+					controlled_by = ROOT
+					development = 50
+				}
+				set_province_flag = war_sacked_province
+				owner = { country_event = { 
+				    id = greenskin_events.100
+				} }
+				add_permanent_province_modifier = {
+					name = recently_raided
+					duration = 3650
+				}
+				## lower dev
+				if = {
+					limit = {
+						base_tax = 40
+					}
+					add_base_tax = -6
+				}
+				else_if = {
+					limit = {
+						base_tax = 30
+					}
+					add_base_tax = -5
+				}
+				else_if = {
+					limit = {
+						base_tax = 20
+					}
+					add_base_tax = -4
+				}
+				else_if = {
+					limit = {
+						base_tax = 10
+					}
+					add_base_tax = -3
+				}
+				else_if = {
+					limit = {
+						base_tax = 5
+					}
+					add_base_tax = -2
+				}
+				else_if = {
+					limit = {
+						base_tax = 2
+					}
+					add_base_tax = -1
+				}
+				if = {
+					limit = {
+						base_production = 40
+					}
+					add_base_production = -6
+				}
+				else_if = {
+					limit = {
+						base_production = 30
+					}
+					add_base_production = -5
+				}
+				else_if = {
+					limit = {
+						base_production = 20
+					}
+					add_base_production = -4
+				}
+				else_if = {
+					limit = {
+						base_production = 10
+					}
+					add_base_production = -3
+				}
+				else_if = {
+					limit = {
+						base_production = 5
+					}
+					add_base_production = -2
+				}
+				else_if = {
+					limit = {
+						base_production = 2
+					}
+					add_base_production = -1
+				}
+				if = {
+					limit = {
+						base_manpower = 40
+					}
+					add_base_manpower = -6
+				}
+				else_if = {
+					limit = {
+						base_manpower = 30
+					}
+					add_base_manpower = -5
+				}
+				else_if = {
+					limit = {
+						base_manpower = 20
+					}
+					add_base_manpower = -4
+				}
+				else_if = {
+					limit = {
+						base_manpower = 10
+					}
+					add_base_manpower = -3
+				}
+				else_if = {
+					limit = {
+						base_manpower = 5
+					}
+					add_base_manpower = -2
+				}
+				else_if = {
+					limit = {
+						base_manpower = 2
+					}
+					add_base_manpower = -1
+				}
+				### end lower dev
+			}
+		}
+	}
+}

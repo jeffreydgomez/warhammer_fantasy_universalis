@@ -1,42 +1,556 @@
-# Norscan Province Modifiers
-norsca_caves_of_decay = {
+#Dev Tools
+dev_cheats = { # To help me debug the mt - remove this if I leave it in and you notice
+	global_allowed_num_of_buildings = 5
+	build_cost = -0.99
+	build_time = -0.99
+	great_project_upgrade_cost = -0.99
+	great_project_upgrade_time = -0.99
+	global_prosperity_growth = 1
+	global_ship_cost = -0.99
+	global_ship_recruit_speed = -0.99
+	regiment_recruit_speed = -0.99
+}
+
+#################
+# Norsca Province Modifiers
+################
+norsca_caves_of_decay = { # Caves of Decay
 	local_defensiveness = 0.10
 	attrition = 1
 	local_unrest = 2
-	local_production_efficiency = -0.5 
+	local_production_efficiency = -0.5
+	trade_goods_size_modifier = 0.01
 }
 
-norsca_gorge_of_damned = {
+norsca_gorge_of_damned = { # Forest of Death
 	attrition = 2
 	local_development_cost = 0.3
 	local_governing_cost_increase = 10
+	trade_goods_size_modifier = 0.01
 }
 
-norsca_chaos_monolith = {
-	local_missionary_strength = -0.02
-	local_governing_cost = -0.25
-	local_development_cost = -0.1
+norsca_gorge_of_damned_D = { # Forest of Death, Druidic version "The Silent Forest"
+	attrition = 2
+	local_development_cost = 0.3
+	local_governing_cost_increase = 10
+	trade_goods_size_modifier = 0.01
 }
 
-norsca_foul_fortress = {
+norsca_foul_fortress = { # Foul Fortress
 	local_defensiveness = 0.20
 	local_governing_cost_increase = 10
+	trade_goods_size_modifier = 0.01
+	picture = "defense_fort"
 }
 
+#The Forest of Knives - This has options for chaos and good, starts uncorrupted with corrupted on temple province, 
 norsca_forest_knives = {
 	local_defensiveness = 0.15
+	attrition = 1
+	max_attrition = 1
 	local_development_cost = 0.1
-	local_hostile_movement_speed = 0.2
 }
 
 norsca_elf_temple_ruined = {
-	prestige = 0.05
+	prestige = 0.01
 	local_production_efficiency = -0.3
 	local_tax_modifier = -0.3
 	local_development_cost = -0.1
+	trade_goods_size_modifier = 0.01
 }
 
-# Other Modifiers
+# Chaos Monolith - By corrupting the land we can get more monsters - more shock troops for our Army
+norsca_chaos_monolith = { 
+	local_missionary_strength = -0.02
+	local_culture_conversion_cost = 0.5
+	allowed_num_of_buildings = 1
+	trade_goods_size_modifier = 0.01
+}
+
+norsca_chaos_monolith_2 = {
+	local_missionary_strength = -0.03
+	land_forcelimit = 5
+	local_manpower_modifier = 0.5
+	local_defensiveness = 0.10
+	allowed_num_of_buildings = 1
+	trade_goods_size_modifier = 0.01
+}
+
+norsca_chaos_monolith_3 = {
+	local_missionary_strength = -0.05
+	land_forcelimit = 5
+	local_manpower_modifier = 1 #100% local manpower modifier
+	local_defensiveness = 0.25
+	fort_level = 1
+	allowed_num_of_buildings = 1
+	trade_goods_size_modifier = 0.01
+}
+
+norsca_broken_monolith = {
+	local_unrest = 2
+	local_development_cost = -0.1
+}
+
+#Corruption Levels
+norsca_province_corrupt_1 = { # Lowest Level - Can be found Adjacent to level 3 provinces and in minor corruption areas
+	local_development_cost = 0.10
+	local_tax_modifier = -0.1
+	local_production_efficiency = -0.1
+	picture = "attrition"
+}
+norsca_province_corrupt_2 = { # Medium Corruption - Not fun, but not terrible either
+	local_development_cost = 0.15
+	local_tax_modifier = -0.25
+	local_production_efficiency = -0.25
+	picture = "attrition"
+}
+norsca_province_corrupt_3 = { # Highest Level - Only on really badly corrupted provinces, possibly never use
+	local_development_cost = 0.20
+	local_tax_modifier = -0.5
+	local_production_efficiency = -0.5
+	picture = "attrition"
+}
+
+## Mission Modifiers
+
+# Temp Growth Modifiers
+nosca_grow = {
+	manpower_recovery_speed = 0.15
+	core_creation = -0.1
+}
+
+norsca_conquer_albion = {
+	naval_morale = 0.1
+	naval_attrition = -0.25
+}
+
+norsca_conquer_mountains = {
+	land_morale = 0.10
+	siege_ability = 0.15
+}
+
+# Conquer Modifiers
+
+norsca_claimant = {
+	prestige_decay = -0.005
+	legitimacy = 0.5
+	republican_tradition = 0.5
+	devotion = 0.5
+	horde_unity = 0.5
+}
+
+crown_of_norsca = {
+	prestige_decay = -0.01
+	legitimacy = 1
+	republican_tradition = 1
+	devotion = 1
+	horde_unity = 1
+	nobles_loyalty_modifier = 0.1
+	may_explore = yes
+}
+
+# Mountain Modifiers
+
+norsca_dragon_hold = {
+	statewide_governing_cost = -0.25
+	local_production_efficiency = 0.5
+	local_tax_modifier = 0.5
+	local_development_cost = -0.3
+}
+
+# Vassal event modifiers for mountains (vassal) and albion (PU)
+norsca_direct_rule = {
+	min_local_autonomy = -10
+	local_autonomy = -0.1
+	local_unrest = -2
+	local_production_efficiency = 0.1
+}
+
+norsca_loyal_subject = {
+	liberty_desire = -100
+}
+
+norsca_dwarven_vassal = {
+	prestige = 0.1
+	diplomatic_upkeep = 1
+	fire_damage = 0.05
+}
+
+norsca_albion_vassal = {
+	prestige = 0.1
+	diplomatic_upkeep = 1
+	naval_morale = 0.1
+}
+
+# Burgher Modifiers
+norsca_thrall_trade = {
+	burghers_loyalty_modifier = 0.1
+	trade_efficiency = 0.1
+}
+
+norsca_thrall_market_1 = {
+	province_trade_power_modifier = 0.1
+	local_production_efficiency = 0.1
+}
+
+norsca_thrall_market_2 = {
+	province_trade_power_modifier = 0.2
+	local_production_efficiency = 0.25
+	local_development_cost_modifier = -0.1
+}
+
+# Explore Modifiers
+norsca_explore = {
+	range = 0.5
+	global_colonial_growth = 20
+	colonists = 1
+}
+
+norsca_explore_2 = {
+	trade_efficiency = 0.1
+	global_colonial_growth = 20
+}
+
+norsca_explore_3 = {
+	trade_efficiency = 0.2
+	global_colonial_growth = 30
+	merchants = 1
+}
+
+#Albion Modifiers
+
+# Hunt Modifiers
+
+# Fleet Modifiers
+norsca_ships_1 = { # Pirating
+	privateer_efficiency = 0.1
+	navy_tradition = 1
+}
+
+norsca_ships_2 = { # Capturing Ships
+	privateer_efficiency = 0.25
+	capture_ship_chance = 0.10
+	navy_tradition = 1
+}
+
+norsca_ships_3 = { # Killing other Ships
+	privateer_efficiency = 0.25
+	capture_ship_chance = 0.20
+	naval_morale = 0.1
+	navy_tradition = 2
+}
+
+norsca_fleet_temp = { # Build to Force Limit - Temp Buff
+	naval_morale = 0.05
+	global_ship_cost = -0.05
+}
+norsca_allow_longships = { # Build Shipyard - Unlock Galleass
+	has_galleass = yes
+}
+
+norsca_shipyards = {
+	global_ship_cost = -0.1
+	global_ship_recruit_speed = -0.20
+}
+
+norsca_buff_longships_1 = { # Get lots of Galleass - Buff Galleass?
+	galley_power = 0.1
+	is_galleass_modifier = yes
+}
+
+norsca_buff_longships_2  = { # Warpstone Engines
+	galley_power = 0.1
+	movement_speed_in_fleet_modifier = 1
+	is_galleass_modifier = yes
+}
+
+norsca_ships_ult = { # Ultimate
+	global_ship_cost = -0.1 # -5%
+	global_ship_recruit_speed = -0.20
+	privateer_efficiency = 0.25
+	capture_ship_chance = 0.20
+	naval_morale = 0.2 # +10%
+	navy_tradition = 2
+}
+
+norsca_buff_longships_3  = { # Ultimate Longship Modifier
+	galley_power = 0.2
+	movement_speed_in_fleet_modifier = 1
+	is_galleass_modifier = yes
+}
+
+# No Domination Modifiers
+norsca_ship_no_dlc_1 = {
+	galley_power = 0.2
+}
+
+norsca_ship_no_dlc_2 = { # Warpstone Engines - Cannot actually do that in 
+	galley_power = 0.2
+	disengagement_chance = 0.1
+}
+
+norsca_ship_no_dlc_ult = { # Warpstone Engines - Cannot actually do that in 
+	galley_power = 0.2
+	disengagement_chance = 0.1
+	global_ship_cost = -0.1
+	global_ship_recruit_speed = -0.25
+	privateer_efficiency = 0.25
+	capture_ship_chance = 0.20
+	naval_morale = 0.2
+	navy_tradition = 2
+}
+
+# Raiding Modifiers
+norsca_wars_1 = {
+	movement_speed = 0.075
+	regiment_disembark_speed = 0.5
+	loot_amount = 0.10
+}
+
+norsca_wars_2 = {
+	movement_speed = 0.15
+	regiment_disembark_speed = 1.0
+	loot_amount = 0.25
+}
+
+norsca_wars_3 = {
+	movement_speed = 0.20
+	regiment_disembark_speed = 1.0
+	movement_speed_in_fleet_modifier = 1
+	loot_amount = 0.5
+}
+
+# Tribute
+norsca_tribute_1 = {
+	diplomats = 1
+	global_trade_power = 0.05
+}
+
+norsca_tribute_2 = {
+	diplomats = 1
+	global_trade_power = 0.1
+	envoy_travel_time = -0.3
+}
+
+# Good Allies
+norsca_strong_ally = {
+	diplomatic_upkeep = 1
+	diplomatic_reputation = 2
+}
+
+# Sacrifice to the Gods Temp Modifiers
+norsca_sacrifice_norse = {
+	global_missionary_strength = 0.01
+	naval_morale = 0.15
+	loot_amount = 0.5
+}
+
+norsca_sacrifice_chaos = {
+	global_missionary_strength = 0.01
+	global_regiment_recruit_speed = -0.20
+	land_maintenance_modifier = -0.10 
+}
+
+norsca_sacrifice_druid = {
+	global_missionary_strength = 0.02
+	missionaries = 1
+	development_cost = -0.05
+}
+
+# Religious Missions - Norscan
+norsca_religion_norscan_shrines = {
+	church_loyalty_modifier = 0.05 
+	global_missionary_strength = 0.01
+}
+
+norsca_religion_norscan_gods = {
+	church_loyalty_modifier = 0.10
+	global_missionary_strength = 0.01
+	naval_morale = 0.1
+}
+
+norsca_religion_norscan_raids = {
+	global_missionary_strength = 0.01
+	land_morale = 0.10
+}
+
+norsca_religion_norscan_convert = {
+	global_missionary_strength = 0.01
+	land_morale = 0.1
+	manpower_in_true_faith_provinces = 0.10
+}
+
+norsca_religion_norscan_cults = { #Redundant - Not currently in use
+	church_loyalty_modifier = 0.05 
+	tolerance_own = 1
+	missionaries = 1
+}
+
+norsca_religion_norscan_ult = {
+	church_loyalty_modifier = 0.20
+	global_missionary_strength = 0.02
+	naval_morale = 0.20
+	land_morale = 0.20
+	manpower_in_true_faith_provinces = 0.15
+}
+
+# Norscan Gods Happy
+norse_blessing_olric = {
+	stability_cost_modifier = -0.30
+	tolerance_own = 2
+}
+norse_blessing_bear = {
+	defensiveness = 0.10
+	production_efficiency = 0.10
+}
+norse_blessing_hound = {
+	land_morale = 0.10
+	leader_land_shock = 1
+}
+norse_blessing_crow = {
+	global_autonomy = -0.05
+	max_attrition = 2
+	attrition = 2
+}
+norse_blessing_serpent = {
+	manpower_recovery_speed = 0.10
+	trade_goods_size_modifier = 0.05
+}
+norse_blessing_raven = {
+	diplomats = 1
+	envoy_travel_time = -0.2
+}
+norse_blessing_mermedus = {
+	naval_morale = 0.1
+	movement_speed_in_fleet_modifier = 1
+}
+norse_blessing_unaligned = {
+	global_tax_modifier = 0.15
+	tolerance_own = 2
+}
+
+norsca_norse_mermedus_happy = {
+	naval_morale = 0.2
+	ship_durability = 0.05
+	naval_maintenance_modifier = -0.1 
+	naval_attrition = -0.15
+}
+
+# Religious Missions - Chaos (skin changers is gov reform, wytches is estate)
+norsca_monstrous_army_1 = { 
+	allowed_cossack_fraction = 0.025
+	special_unit_cost_modifier = -0.025
+}
+
+norsca_monstrous_army_2 = { 
+	allowed_cossack_fraction = 0.05
+	special_unit_cost_modifier = -0.05
+}
+
+norsca_chaos_holy_war = { # Launch the Eternal War
+	stability_cost_to_declare_war = -1
+	siege_ability = 0.15
+	war_exhaustion = -0.05
+}
+
+norsca_chaos_burn_kislev = { # Absorb previous modifier
+	stability_cost_to_declare_war = -1
+	siege_ability = 0.25 # +10%
+	morale_damage = 0.05
+	war_exhaustion = -0.1
+}
+
+norsca_chaos_burn_unfaithful = { 
+	missionaries = 1
+	global_missionary_strength = 0.03
+	tolerance_heretic = -2
+	tolerance_heathen = -2
+}
+
+norsca_chaos_ult = { # Absorb previous modifiers
+	stability_cost_to_declare_war = -2 # -1
+	siege_ability = 0.30
+	morale_damage = 0.10
+	war_exhaustion = -0.1
+	allowed_cossack_fraction = 0.075
+	special_unit_cost_modifier = -0.075
+}
+
+norsca_chaos_crown = { # Everchosen chance?
+	legitimacy = 1
+	republican_tradition = 1
+	devotion = 1
+	horde_unity = 1
+	tolerance_own = 2
+	max_absolutism = 0.20
+}
+
+# Religious Missions - Druidism
+norsca_druid_break_monoliths = {
+	global_trade_goods_size_modifier = 0.075
+	global_monthly_devastation = -0.25
+}
+
+norsca_druid_heal_land = {
+	global_trade_goods_size_modifier = 0.15
+	development_cost = -0.05
+	global_prosperity_growth = 0.25
+}
+
+
+norsca_druidism_purge_estates = {
+	all_estate_loyalty_equilibrium = 0.1
+	all_estate_influence_modifier = -0.1
+}
+
+norsca_druid_banish_chaos = {
+	tolerance_own = 2
+	production_efficiency = 0.1
+	global_prosperity_growth = 0.25
+}
+
+norsca_druid_ult = {
+	tolerance_own = 2
+	production_efficiency = 0.1
+	global_trade_goods_size_modifier = 0.25 # +0.1
+	development_cost = -0.1 # +0.05
+	global_prosperity_growth = 1
+}
+
+# Daemon Ruler Modifiers 
+norsca_ruler_khorne = { #PLACEHOLDER
+	shock_damage = 0.1
+	fire_damage = 0.1
+}
+norsca_ruler_tzeench = { #PLACEHOLDER
+	spy_offence = 0.30
+	province_warscore_cost = -0.1
+}
+norsca_ruler_nurgle = { #PLACEHOLDER
+	siege_ability = 0.20
+	hostile_attrition = 1 
+	max_hostile_attrition = 1
+}
+norsca_ruler_slaanesh = { #PLACEHOLDER
+	manpower_recovery_speed = 0.10
+	global_trade_goods_size_modifier = 0.05
+}
+
+# Misc
+norsca_temp_ult = {
+	# Gained by being A truly global empire - present in 20 regions
+	naval_morale = 1
+	regiment_disembark_speed = 1.0
+	global_trade_power = 0.25
+	#Old
+	#naval_morale = 1.0
+	#privateer_efficiency = 1.0
+	#regiment_disembark_speed = 1.0
+	#movement_speed_in_fleet_modifier = 1
+	#movement_speed = 0.10
+}
+
+# Unsorted / Old Modifiers
 
 norsca_lootbringer = {
 	prestige_from_land = 0.25
@@ -44,13 +558,6 @@ norsca_lootbringer = {
 	republican_tradition = 0.25
 	devotion = 0.25
 	horde_unity = 0.25
-}
-
-
-norsca_claimant = {
-	diplomatic_reputation = 1
-	prestige_decay = -0.005
-	global_manpower_modifier = 0.10
 }
 
 norsca_better_transports = {
@@ -66,13 +573,6 @@ norsca_lightning_raids = {
 	movement_speed = 0.10
 }
 
-
-norsca_fleet_modifier_1 = {
-	navy_tradition = 1
-	naval_forcelimit_modifier = 0.2
-	capture_ship_chance = 0.25
-}
-
 norsca_fleet_modifier_2 = {
 	naval_morale = 0.1
 	capture_ship_chance = 0.25
@@ -80,17 +580,6 @@ norsca_fleet_modifier_2 = {
 
 norsca_berserkers = {
 	morale_damage_received = -0.05
-}
-
-
-norsca_privateers_1 = {
-	privateer_efficiency = 0.2
-	coast_raid_range = 1
-}
-
-norsca_privateers_2 = {
-	privateer_efficiency = 0.2
-	navy_tradition = 2
 }
 
 norsca_ultimate = {
