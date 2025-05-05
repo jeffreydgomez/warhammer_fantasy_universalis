@@ -59,7 +59,9 @@ province_event = {
         is_owned_by_player = yes
         development = 15
 		not = {
-            tech = tech_dwarf
+            owner = {
+                tech = tech_dwarf
+            }
         }
 	}
 
@@ -74,20 +76,23 @@ province_event = {
         name = jam_rnd.1.b
 
          # Store total development
-         set_variable = {
+        export_to_variable = {
             name = dev_cost
-            value = this
-            which = total_development
+            value = total_development
         }
 
-        change_variable = {
+        multiply_variable = {
             which = dev_cost
             value = 3
-            multiply = yes
         }
 
+        custom_tooltip = show_dev_cost_tooltip
+        
         owner = {
-            add_treasury = dev_cost
+            subtract_variable = {
+                which = treasury
+                value = dev_cost
+            }
         }
 
         clr_variable = dev_cost
@@ -555,7 +560,10 @@ province_event = {
             value = 0.33
         }
 
-        add_manpower = variable:temp_manpower
+        change_variable = {
+            which = manpower
+            value = temp_manpower
+        }
     }
 
     # relocating slaves
