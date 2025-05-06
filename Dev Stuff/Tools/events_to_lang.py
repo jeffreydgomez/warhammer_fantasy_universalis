@@ -63,7 +63,7 @@ for title_comment, block in events:
     else:
         loc_lines.append(f"  {title_key}: \"EXAMPLE_TITLE\"")
     # description placeholder
-    loc_lines.append(f"  {desc_key}: \"EXAMPLE_DESC\"")
+    loc_lines.append(f"  {desc_key}:0 \"EXAMPLE_DESC\"")
     # find options within this block
     i = 0
     while i < len(block):

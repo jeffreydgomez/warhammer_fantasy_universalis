@@ -11,6 +11,6 @@ import re
 input_text = pyperclip.paste()
 pattern = re.compile(r'(\w+)\s*=\s*{')
 keys = pattern.findall(input_text) 
-output = "\n".join([f" {key}: \"EXAMPLE_TEXT\"" for key in keys])
+output = "\n".join([f" {key}:0 \"EXAMPLE_TEXT\"" for key in keys])
 
 pyperclip.copy(output)

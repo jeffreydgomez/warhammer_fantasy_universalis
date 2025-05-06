@@ -1,10 +1,12 @@
-namespace = war_random_events
+namespace = jam_rnd
 
 ## Recruits go mad
 country_event = {
 	id = jam_rnd.0
 	title = jam_rnd.0.t
 	desc = jam_rnd.0.d
+
+    picture = CHAOS_eventPicture
 
 	mean_time_to_happen = {
 		months = 360
@@ -19,7 +21,7 @@ country_event = {
 	# Execute 
 	option = {
 		name = jam_rnd.0.a
-		add_yearly_manpower = -0.1
+		add_yearly_manpower = -0.5
 	}
 
     # Men required
@@ -27,7 +29,7 @@ country_event = {
         name = jam_rnd.0.b
         add_country_modifier = {
             name = minus_5P_morale
-            days = 1825
+            duration = 1825
         }
     }
 
@@ -40,7 +42,7 @@ country_event = {
         }
         add_country_modifier = {
             name = plus_5P_morale
-            days = 3650
+            duration = 3650
         }
     }
 }
@@ -51,12 +53,13 @@ province_event = {
 	title = jam_rnd.1.t
 	desc = jam_rnd.1.d
 
+    picture = MAGES_eventPicture
+
 	mean_time_to_happen = {
 		months = 500
 	}
 
 	trigger = {
-        is_owned_by_player = yes
         development = 15
 		not = {
             owner = {
@@ -64,6 +67,19 @@ province_event = {
             }
         }
 	}
+
+    immediate = {
+        export_to_variable = {
+            name = dev_cost
+            value = total_development
+        }
+
+        multiply_variable = {
+            which = dev_cost
+            value = 3
+        }
+
+    }
 
 	# Ignore
 	option = {
@@ -76,16 +92,7 @@ province_event = {
         name = jam_rnd.1.b
 
          # Store total development
-        export_to_variable = {
-            name = dev_cost
-            value = total_development
-        }
-
-        multiply_variable = {
-            which = dev_cost
-            value = 3
-        }
-
+        
         custom_tooltip = show_dev_cost_tooltip
         
         owner = {
@@ -115,6 +122,8 @@ country_event = {
 	title = jam_rnd.2.t
 	desc = jam_rnd.2.d
 
+    picture = COUNCIL_eventPicture
+
 	mean_time_to_happen = {
 		months = 360
 	}
@@ -126,7 +135,7 @@ country_event = {
 	# Ban the reform 
 	option = {
 		name = jam_rnd.2.a
-		hange_government_reform_progress = -30
+		change_government_reform_progress = -30
 	}
 
     # Let it slide
@@ -134,7 +143,7 @@ country_event = {
         name = jam_rnd.2.b
         add_country_modifier = {
             name = event_rnd_2
-            days = 7300
+            duration = 7300
         }
     }
 }
@@ -144,6 +153,8 @@ country_event = {
 	id = jam_rnd.3
 	title = jam_rnd.3.t
 	desc = jam_rnd.3.d
+
+    picture = NURGLE_eventPicture
 
 	mean_time_to_happen = {
 		months = 700
@@ -162,15 +173,15 @@ country_event = {
 		name = jam_rnd.3.a
 		add_country_modifier = {
             name = event_rnd_3
-            days = 7300
+            duration = 7300
         }
 	}
 
     # Intervene
     option = {
         name = jam_rnd.3.b
-        add_adm_power = -75
-        add_years_of_income = -1
+        add_adm_power = -50
+        add_years_of_income = -0.5
     }
 
     # Nurgle would be happy
@@ -190,6 +201,9 @@ country_event = {
 	title = jam_rnd.4.t
 	desc = jam_rnd.4.d
 
+    ### Change with something else that is a spy
+    picture = SPY_eventPicture
+
 	mean_time_to_happen = {
 		months = 500
 	}
@@ -199,9 +213,11 @@ country_event = {
             stability = 3
         }
 
-		any_country = {
-            has_spy_network_from = ROOT
-        }
+		#any_country = {
+        #    limit = {
+        #        has_spy_network_from = ROOT
+        #    }
+        #}
 	}
 
 	# its nothing
@@ -215,7 +231,7 @@ country_event = {
         name = jam_rnd.4.b
         add_country_modifier = {
             name = event_rnd_4
-            days = 3650
+            duration = 3650
         }
     }
 
@@ -228,7 +244,7 @@ country_event = {
         }
         add_country_modifier = {
             name = event_rnd_4_tzeentch
-            days = 3650
+            duration = 3650
         }
     }
 }
@@ -238,6 +254,9 @@ country_event = {
 	id = jam_rnd.5
 	title = jam_rnd.5.t
 	desc = jam_rnd.5.d
+
+    ### Change with some old lady lol
+    picture = wihgfx_FEMALE_RULER_eventPicture
 
 	mean_time_to_happen = {
 		months = 1200
@@ -259,12 +278,12 @@ country_event = {
         change_dip = 1
         change_mil = 1
 
-        add_treasury = -0.2
+        add_years_of_income = -0.3
 		add_stability = -2
 
         add_country_modifier = {
             name = event_rnd_5_1
-            days = 7300
+            duration = 7300
         }
 
         hidden_effect = {
@@ -283,9 +302,12 @@ country_event = {
 
 ## potion death (after hag)
 country_event = {
-	id = jam_rnd.5.1
-	title = jam_rnd.5.1.t
-	desc = jam_rnd.5.1.d
+	id = jam_rnd.51
+	title = jam_rnd.51.t
+	desc = jam_rnd.51.d
+
+    ### Change with death
+    picture = muslimgfx_DEATH_OF_HEIR_eventPicture
 
 	mean_time_to_happen = {
 		months = 180
@@ -297,14 +319,14 @@ country_event = {
 
 	# they were a fool to begin with
 	option = {
-		name = jam_rnd.5.1.a
+		name = jam_rnd.51.a
 
         kill_ruler = yes
 		add_stability = -1
 
         add_country_modifier = {
             name = event_rnd_5_2
-            days = 7300
+            duration = 7300
         }
         
         hidden_effect = {
@@ -323,6 +345,9 @@ country_event = {
 	title = jam_rnd.6.t
 	desc = jam_rnd.6.d
 
+    ### change with a dragon
+    picture = TEMPORAL_RIFT_eventPicture
+
 	mean_time_to_happen = {
 		months = 800
 	}
@@ -339,7 +364,7 @@ country_event = {
 
         add_country_modifier = {
             name = plus_2_unrest
-            days = 3650
+            duration = 3650
         }
 
 	}
@@ -348,7 +373,7 @@ country_event = {
     option = {
         name = jam_rnd.6.b
 
-        add_treasury = -0.05
+        add_years_of_income = -0.1
     }
 
     # Ask for professionals
@@ -364,6 +389,8 @@ province_event = {
 	id = jam_rnd.7
 	title = jam_rnd.7.t
 	desc = jam_rnd.7.d
+
+    picture = WINDSOFMAGIC_eventPicture
 
 	mean_time_to_happen = {
 		months = 800
@@ -394,7 +421,7 @@ province_event = {
 
         add_devastation = 25
         owner = {
-            add_treasury = -0.2
+            add_years_of_income = -0.2
         }
     }
 
@@ -423,6 +450,8 @@ country_event = {
 	title = jam_rnd.8.t
 	desc = jam_rnd.8.d
 
+    picture = GRAND_CATHAY_eventPicture
+
 	mean_time_to_happen = {
 		months = 500
 	}
@@ -435,14 +464,8 @@ country_event = {
 	option = {
 		name = jam_rnd.8.a
 
-        if = {
-            limit = {
-
-            }
-        }
-
-        add_treasury = 1
-
+        add_years_of_income = 1
+        add_prestige = -15
 	}
 
     # escort them
@@ -450,7 +473,7 @@ country_event = {
         name = jam_rnd.8.b
 
         add_prestige = 15
-        add_treasury = 0.1
+        add_years_of_income = 0.2
     }
 
     # Arrange some agreements
@@ -467,7 +490,7 @@ country_event = {
 
         add_country_modifier = {
             name = plus_1_merchant
-            days = 7300
+            duration = 7300
         }
     }
 }
@@ -478,15 +501,15 @@ country_event = {
 	title = jam_rnd.9.t
 	desc = jam_rnd.9.d
 
+    picture = GREENSKIN_eventPicture
+
 	mean_time_to_happen = {
 		months = 500
 	}
 
 	trigger = {
         any_country = {
-            limit = {
-                has_country_modifier = orcish_military
-            }
+            has_country_modifier = orcish_military
             is_neighbor_of = ROOT
         }
 	}
@@ -499,7 +522,7 @@ country_event = {
           NOT = { has_country_modifier = orcish_military }
         }
 
-        add_yearly_manpower = -0.1
+        add_yearly_manpower = -0.5
 
 	}
 
@@ -512,7 +535,7 @@ country_event = {
         }
         add_country_modifier = {
             name = plus_5P_morale 
-            days = 3650
+            duration = 3650
         }
     }
 }
@@ -522,6 +545,8 @@ province_event = {
 	id = jam_rnd.10
 	title = jam_rnd.10.t
 	desc = jam_rnd.10.d
+
+    picture = DARKELF_eventPicture
 
 	mean_time_to_happen = {
 		months = 500
@@ -574,7 +599,7 @@ province_event = {
         trigger = {
             owner = {
                 OR = {
-                    culture_group = chaos_dwarfen_group
+                    culture_group = chaos_dwarf_group
                     culture_group = druchii_group
                 }
             }
@@ -597,15 +622,15 @@ country_event = {
 	title = jam_rnd.11.t
 	desc = jam_rnd.11.d
 
+    picture = SKAVEN_eventPicture
+
 	mean_time_to_happen = {
 		months = 400
 	}
 
 	trigger = {
         any_country = {
-            limit = {
-                has_country_modifier = skaven_military
-            }
+            has_country_modifier = skaven_military
             is_neighbor_of = ROOT
         }
 	}
@@ -617,7 +642,7 @@ country_event = {
         
         add_country_modifier = {
             name = minus_5P_discipline
-            days = 3650
+            duration = 3650
         }
 
 	}
@@ -627,7 +652,7 @@ country_event = {
         name = jam_rnd.11.b
         add_country_modifier = {
             name = event_rnd_11
-            days = 3650
+            duration = 3650
         }
     }
 }
@@ -637,6 +662,8 @@ country_event = {
 	id = jam_rnd.12
 	title = jam_rnd.12.t
 	desc = jam_rnd.12.d
+
+    picture = MAGES_eventPicture
 
 	mean_time_to_happen = {
 		months = 500
@@ -660,14 +687,14 @@ country_event = {
         add_estate_influence_modifier = {
             estate = estate_burghers
             desc = event_rnd_12_burgher_i_modif
-            loyalty = -10
+            influence = -10
             duration = 3650
         }
 
         add_estate_influence_modifier = {
             estate = estate_mages
             desc = event_rnd_12_mage_i_modif
-            loyalty = 10
+            influence = 10
             duration = 3650
         }
 	}
@@ -684,7 +711,7 @@ country_event = {
         add_estate_influence_modifier = {
             estate = estate_mages
             desc = event_rnd_12_mage_i_modif
-            loyalty = -10
+            influence = -10
             duration = 3650
         }
     }
@@ -718,6 +745,8 @@ province_event = {
 	title = jam_rnd.13.t
 	desc = jam_rnd.13.d
 
+    picture = SKAVENTECH_eventPicture
+
 	mean_time_to_happen = {
 		months = 1500
 	}
@@ -741,7 +770,7 @@ province_event = {
             owner = {
                 add_country_modifier = {
                     name = minus_25P_power_cost
-                    days = 3650
+                    duration = 3650
                 }
     
             }
