@@ -7,21 +7,8 @@
 	fixed_rank = 1
 	lock_level_when_selected = yes
 	potential = {
-		NOT = {
-			has_country_flag = formed_bretonnia_flag
-		}
-		AND = {
-			OR = {
-				capital_scope = {
-					region = bretonnia_region
-				}
-				has_reform = bretonnian_dukedom_reform
-			}
-			OR = {
-				religion = lady_of_the_lake
-				religion = vampiric
-			}
-		}
+		has_reform = bretonnian_royarch_reform
+		NOT = { has_global_flag = formed_bretonnia }
 	}
 	modifiers = {
 		nobles_influence_modifier = 0.05
@@ -83,17 +70,22 @@ bretonnian_royarch_reform = {
 	fixed_rank = 2
 	lock_level_when_selected = yes
 	potential = {
-		religion = lady_of_the_lake
-		capital_scope = {
-			region = bretonnia_region
-		}
+		has_reform = bretonnian_royarch_reform
+		NOT = { has_global_flag = formed_bretonnia }
 	}
 	trigger = {
-		religion = lady_of_the_lake
+		OR = {
+			religion = lady_of_the_lake
+			religion = vampiric
+		}
 	}
 	modifiers = {
 		nobles_influence_modifier = 0.05
 		cavalry_power = 0.10
+		accept_vassalization_reasons = 20
+		reduced_liberty_desire = 20
+		vassal_income = -0.1
+		vassal_manpower_bonus = -0.1
 	}
 	
 	conditional = {
@@ -886,12 +878,14 @@ greenskin_monarchy = {
 	potential = {
 		OR = {
 			culture_group = greenskins_group
+			culture_group = hobgoblin_group
 			religion = gork_n_mork_religion
 		}
 	}
 	trigger = {
 		OR = {
 			culture_group = greenskins_group
+			culture_group = hobgoblin_group
 			religion = gork_n_mork_religion
 		}
 	}
@@ -902,6 +896,7 @@ greenskin_monarchy = {
 	nation_designer_trigger = {
 		OR = {
 			culture_group = greenskins_group
+			culture_group = hobgoblin_group
 			religion = gork_n_mork_religion
 		}
 	}
@@ -988,3 +983,66 @@ korean_monarchy = {
  		factor = 100
  	}
  }
+
+ phoenix_king_reform = {
+	icon = "crown"
+	allow_normal_conversion = no
+	legacy_equivalent = despotic_monarchy
+	valid_for_nation_designer = no
+	nation_designer_cost = 0
+	fixed_rank = 3
+	lock_level_when_selected = yes
+	locked_government_type = yes
+	potential = {
+		OR = {
+			culture_group = asur_group
+			culture_group = druchii_group
+		}
+	}
+
+#	trigger = {
+#		is_subject = no
+#		OR = {
+#			has_reform = phoenix_king_reform
+#			AND = {
+#				all_country = { NOT = { has_reform = phoenix_king_reform } }
+#				owns_or_subject_of = 451
+#			}
+#		}
+#	}
+
+	modifiers = {
+		diplomatic_reputation = 1
+		prestige_decay = -0.01
+		navy_tradition_decay = -0.01
+		land_morale = 0.05
+		reduced_liberty_desire = 20
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+everqueen_court_reform = {
+	icon = "crown"
+	allow_normal_conversion = no
+	legacy_equivalent = despotic_monarchy
+	valid_for_nation_designer = no
+	nation_designer_cost = 0
+
+	lock_level_when_selected = yes
+	locked_government_type = yes
+	potential = {
+		tag = H08
+	}
+
+	modifiers = {
+		prestige_decay = -0.01
+		all_power_cost = -0.05
+		may_recruit_female_generals = yes
+		female_advisor_chance = 1.0
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
