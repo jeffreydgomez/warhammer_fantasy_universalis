@@ -1,0 +1,111 @@
+on_monthly_pulse = {
+    if = {
+        limit = {
+            has_government_mechanic = lizardmen_great_plan_mechanic
+        }
+            set_variable = {
+                which = chaos_gp_count
+                value = 0
+            }
+            set_variable = {
+                which = chaos_rival_count
+                value = 0
+            }
+            set_variable = {
+                which = total_power_gain
+                value = 1
+            }
+        
+
+        every_country = {
+            limit = {
+                AND = {
+                    is_great_power = yes
+                    OR = {
+                        has_country_modifier = chaos_nation  
+                        has_country_modifier = destruction_nation
+                    }
+                    
+                }
+            }
+			log = "Evil GP detected: [This.GetName]"
+            ROOT = {
+                change_variable = {
+                    which = chaos_gp_count
+                    value = 1
+                }
+            }
+        }
+        log = "[Root.GetName] > Total evil GP: [Root.chaos_gp_count.GetValue]"
+
+        every_rival_country = {
+            limit = {
+                OR = {
+                    has_country_modifier = chaos_nation  
+                    has_country_modifier = destruction_nation
+                }
+            }
+			log = "[Root.GetName] > Evil Rival detected: [This.GetName]"
+            ROOT = {
+                change_variable = {
+                    which = chaos_rival_count
+                    value = 1
+                }
+            }
+        }
+        log = "Total rival count: [Root.chaos_rival_count.GetValue]"
+        # Total: 0.5 * (1 + gp_count + rival_count)
+        change_variable = {
+            which = total_power_gain
+            which = chaos_gp_count
+        }
+        change_variable = {
+            which = total_power_gain
+            which = chaos_rival_count
+        }
+
+        multiply_variable = {
+            which = total_power_gain
+            value = 0.1
+        }
+        log = "[Root.GetName] > power gain before 3x: [Root.total_power_gain.GetValue]"
+        if = {
+            limit = {
+                any_war_enemy_country = {
+                    OR = {
+                        has_country_modifier = chaos_nation  
+                        has_country_modifier = destruction_nation
+                    }
+                }
+            }
+            ROOT = {
+                multiply_variable = {
+                    which = total_power_gain
+                    value = 3
+                }
+            }
+        }
+
+        log = "[Root.GetName] > Total power gain: [Root.total_power_gain.GetValue]"
+
+        while = {
+            limit = {
+                check_variable = {
+                    which = total_power_gain
+                    value = 0.1
+                }
+            }
+            add_government_power = {
+                mechanic_type = lizardmen_great_plan_mechanic
+                power_type = great_plan_command_power
+                value = 0.1 # a variable
+            }
+            subtract_variable = {
+                which = total_power_gain
+                value = 0.1
+            }
+            log = "[Root.GetName] > Total power current iteration: [Root.total_power_gain.GetValue]"
+        }
+        
+    }
+}
