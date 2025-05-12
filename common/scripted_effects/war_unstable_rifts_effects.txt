@@ -1,0 +1,126 @@
+# spawn_rift_tag = { tag = X01 province = 1234 }
+spawn_rift_tag = {
+    random_province = {
+        limit = {
+            continent = south_america
+            is_empty = yes
+            any_neighbor_province = {
+                owner = {
+                    technology_group = tech_lizardmen
+                }
+            }
+        }
+        cede_province = $tag$
+        add_core = $tag$
+        add_province_modifier = {
+            name = rift_nation_province_modif
+            duration = 10950
+        }
+        add_building = fort_15th
+
+        change_culture = tahmaks
+        change_religion = $tag$
+
+
+    }
+    $tag$ = {
+        add_country_modifier = {
+            name = rift_nation_country_modif
+            duration = 14500
+        }
+        add_country_modifier = {
+            name = chaos_nation
+            duration = -1
+        }
+        set_country_flag = is_rift_nation
+        create_unit_forcelimit_percentage = {
+            type = infantry 
+            force_limit_percentage = 0.3
+        }
+        create_unit_forcelimit_percentage = {
+            type = cavalry 
+            force_limit_percentage = 0.1
+        }
+        create_general = { tradition = 50 }
+        capital_scope = {
+            if = {
+                limit = {
+                    has_port = yes
+                }
+                galley = $tag$
+                galley = $tag$
+                galley = $tag$
+                galley = $tag$
+                galley = $tag$
+                galley = $tag$
+                galley = $tag$
+            }
+        }
+
+        add_manpower = 30
+
+        # relations
+        every_country = {
+            limit = {
+                technology_group = tech_lizardmen
+            }
+            add_opinion = {
+                who = $tag$
+                modifier = root_destruction
+            }
+            reverse_add_opinion = {
+                who = $tag$
+                modifier = root_destruction
+            }
+            set_ai_attitude = {
+                attitude = attitude_hostile
+                who = $tag$
+                locked = no
+            }
+        }
+        south_america = {
+            discover_country = $tag$
+        }
+        add_government_reform = feudal_monarchy
+
+        every_neighbor_province = {
+            limit = {
+                is_empty = no
+            }
+            add_claim = $tag$
+        }
+
+        random_country = {
+            limit = {
+                is_neighbor_of = $tag$
+            }
+            $tag$ = {
+                declare_war = Prev
+            }
+        }
+        send_province_event_to_players = { tag = $tag$ id = unstable_rifts.2 }
+
+        set_ai_personality = {
+            personality = ai_militarist
+            locked = yes
+        }
+    }
+}
+
+# send a new opened rift event to all lizardmen players
+# send_province_event_to_players = { tag = R01 id = event_id.0 }
+send_rift_event_to_players = {
+    every_country = {
+        limit = {
+            ai = no
+            technology_group = tech_lizardmen
+        }
+        $tag$ = {
+            capital_scope = {
+                province_event = {
+                    id = $id$
+                }
+            }
+        }
+    }
+}

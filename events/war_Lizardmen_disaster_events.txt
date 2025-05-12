@@ -1,0 +1,115 @@
+namespace = unstable_rifts
+
+## Slann Speak of a disaster!
+country_event = {
+    id = unstable_rifts.0
+    title = unstable_rifts.0.t
+    desc = unstable_rifts.0.d
+
+    picture = CHAOS_eventPicture
+
+    is_triggered_only = yes
+
+    immediate = {
+        hidden_effect = {
+            set_country_flag = U_R_startflag
+        }
+    }
+
+    #We must protect the great plan!
+    option = {
+        name = unstable_rifts.0.a
+
+        custom_tooltip = unstable_rifts_start_tt
+        
+    }
+}
+ 
+## Geomantic Web restored!
+country_event = {
+    id = unstable_rifts.1
+    title = unstable_rifts.1.t
+    desc = unstable_rifts.1.d
+
+    picture = LIZARDMEN_eventPicture
+
+    is_triggered_only = yes
+
+    immediate = {
+        hidden_effect = {
+            set_global_flag = unstable_rifts_ended
+            add_prestige = 1
+        }
+    }
+
+    #The old one's blessed us
+    option = {
+        name = unstable_rifts.1.a
+        add_stability = 1
+    }
+}
+
+## A rift appears
+province_event = {
+    id = unstable_rifts.2
+    title = unstable_rifts.2.t
+    desc = unstable_rifts.2.d
+
+    picture = CHAOS_eventPicture
+
+    is_triggered_only = yes
+
+
+    #The old one's blessed us
+    option = {
+        name = unstable_rifts.2.a
+        if = {
+            limit = {
+                owner = {
+                    has_government_mechanic = lizardmen_great_plan_mechanic
+                }
+            }
+            owner = {
+                add_government_power = {
+                    mechanic_type = lizardmen_great_plan_mechanic
+                    power_type = great_plan_command_power
+                    value = 10
+                }
+            }
+        }
+    }
+}
+
+## The first storm
+country_event = {
+    id = unstable_rifts.3
+    title = unstable_rifts.3.t
+    desc = unstable_rifts.3.d
+
+    picture = CHAOS_eventPicture
+
+    is_triggered_only = yes
+
+
+    # Gather everyone!
+    option = {
+        name = unstable_rifts.3.a
+
+        add_army_tradition = 20
+        add_army_professionalism = 0.1
+
+        if = {
+            limit = {
+                has_government_mechanic = lizardmen_great_plan_mechanic
+            }
+            add_government_power = {
+                mechanic_type = lizardmen_great_plan_mechanic
+                power_type = great_plan_command_power
+                value = 25
+            }
+            
+        }
+
+    }
+}
+

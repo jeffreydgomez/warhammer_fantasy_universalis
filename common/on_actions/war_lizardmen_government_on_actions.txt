@@ -66,7 +66,7 @@ on_monthly_pulse = {
 
         multiply_variable = {
             which = total_power_gain
-            value = 0.1
+            value = 0.15
         }
         log = "[Root.GetName] > power gain before 3x: [Root.total_power_gain.GetValue]"
         if = {
@@ -88,6 +88,41 @@ on_monthly_pulse = {
 
         log = "[Root.GetName] > Total power gain: [Root.total_power_gain.GetValue]"
 
+        # for optimization
+        while = {
+            limit = {
+                check_variable = {
+                    which = total_power_gain
+                    value = 1
+                }
+            }
+            add_government_power = {
+                mechanic_type = lizardmen_great_plan_mechanic
+                power_type = great_plan_command_power
+                value = 1 # a variable
+            }
+            subtract_variable = {
+                which = total_power_gain
+                value = 1
+            }
+        }
+        while = {
+            limit = {
+                check_variable = {
+                    which = total_power_gain
+                    value = 0.5
+                }
+            }
+            add_government_power = {
+                mechanic_type = lizardmen_great_plan_mechanic
+                power_type = great_plan_command_power
+                value = 0.5 # a variable
+            }
+            subtract_variable = {
+                which = total_power_gain
+                value = 0.5
+            }
+        }
         while = {
             limit = {
                 check_variable = {
@@ -104,7 +139,6 @@ on_monthly_pulse = {
                 which = total_power_gain
                 value = 0.1
             }
-            log = "[Root.GetName] > Total power current iteration: [Root.total_power_gain.GetValue]"
         }
         
     }
