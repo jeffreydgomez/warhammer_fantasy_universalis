@@ -75,15 +75,38 @@ war_norsca_1 = {
 	war_norsca_conquest_3 = {
 		icon = mission_norscan_horsemen
 		required_missions = { war_norsca_conquest_2 }
+
+		provinces_to_highlight = {
+			OR = {
+				owned_by = A30
+				owned_by = A31
+				owned_by = A32
+				owned_by = A33
+				owned_by = A34
+				owned_by = A35
+				owned_by = A78
+			}
+			owner = {
+				NOT = { tag = ROOT }
+				NOT = {
+					ROOT = {
+						has_won_war_against = { who = PREV }
+					}
+				}
+				NOT = { is_subject_of = ROOT }
+			}
+		}
+
+
 		trigger = {
 			AND = {
-				OR = { tag = A30 has_won_war_against = { who = A30 } NOT = { exists = A30 } }
-				OR = { tag = A31 has_won_war_against = { who = A31 } NOT = { exists = A31 } }
-				OR = { tag = A32 has_won_war_against = { who = A32 } NOT = { exists = A32 } }
-				OR = { tag = A33 has_won_war_against = { who = A33 } NOT = { exists = A33 } }
-				OR = { tag = A34 has_won_war_against = { who = A34 } NOT = { exists = A34 } }
-				OR = { tag = A35 has_won_war_against = { who = A35 } NOT = { exists = A35 } }
-				OR = { tag = A78 has_won_war_against = { who = A78 } NOT = { exists = A78 } }
+				OR = { tag = A30 has_won_war_against = { who = A30 } NOT = { exists = A30 } A30 = { is_subject_of = ROOT } }
+				OR = { tag = A31 has_won_war_against = { who = A31 } NOT = { exists = A31 } A31 = { is_subject_of = ROOT } }
+				OR = { tag = A32 has_won_war_against = { who = A32 } NOT = { exists = A32 } A32 = { is_subject_of = ROOT } }
+				OR = { tag = A33 has_won_war_against = { who = A33 } NOT = { exists = A33 } A33 = { is_subject_of = ROOT } }
+				OR = { tag = A34 has_won_war_against = { who = A34 } NOT = { exists = A34 } A34 = { is_subject_of = ROOT } }
+				OR = { tag = A35 has_won_war_against = { who = A35 } NOT = { exists = A35 } A35 = { is_subject_of = ROOT } }
+				OR = { tag = A78 has_won_war_against = { who = A78 } NOT = { exists = A78 } A78 = { is_subject_of = ROOT } }
 			}
 		}
 		effect = {
@@ -1716,7 +1739,7 @@ war_norsca_temp_ult_missions_3 = {
 		position = 12
 		trigger = {
 			AND = {
-				num_of_continents = 5 # I counted 7 non-colonial continents, 4 are trivial to get and the fifth is not that hard either
+				num_of_continents = 6 # I counted 7 non-colonial continents, 4 are trivial to get and the fifth is not that hard either
 				colony = 5 # There are 8 colonial regions that I counted
 			}
 		}
