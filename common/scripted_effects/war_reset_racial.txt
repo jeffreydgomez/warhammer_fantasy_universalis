@@ -43,7 +43,7 @@ war_reset_racial_modifiers = {
 	remove_country_modifier = beastfolk_military
 
 
-# Don't remove udnead these, because once you go undead, you can't go back
+# Don't remove undead these, because once you go undead, you can't go back
 
 #	remove_country_modifier = undead_administration
 #	remove_country_modifier = undead_military
@@ -55,8 +55,12 @@ war_reset_racial_modifiers = {
 			or = {
 				religion = vampiric
 				religion = nagash_worship
-				religion = nehekharan_pantheon
+				AND = {
+					religion = nehekharan_pantheon
+					NOT = { has_global_flag = nagash_ritual_undone }
+				}
 			}
+			NOT = { has_country_modifier = nehekhara_true_immortality }
 		}
 		add_country_modifier = {
 			name = undead_administration
@@ -89,8 +93,8 @@ war_reset_racial_modifiers = {
 				culture_group = indish_cg
 				culture_group = nipponese_cg
 
-				culture_group = halfling_group
-				culture_group = gnome_group
+				#culture_group = halfling_group
+				#culture_group = gnome_group
 				culture_group = nehekharan_group
 				culture_group = strigany_group
 				culture_group = nagashi_group
@@ -242,7 +246,133 @@ war_reset_racial_modifiers = {
 		}
 	}
 
-### Get claims if you are an AI
+
+### Alignment
+
+		if = {
+			limit = {
+				OR = {
+					religion = vampiric
+					religion = norscan
+					religion = hashut
+					religion = gork_n_mork_religion
+					religion = spider_cult_religion
+					religion = cytharai
+					religion = nagash_worship
+					religion = horned_rat
+				}
+			}
+			add_country_modifier = {
+				name = destruction_nation
+				duration = -1
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					religion = khornate_religion
+					religion = nurglite_religion
+					religion = tzeentchian_religion
+					religion = slaaneshi_religion
+					religion = chaos_undivided_religion
+				}
+			}
+			add_country_modifier = {
+				name = chaos_nation
+				duration = -1
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					religion = lady_of_the_lake
+					religion = myrmidia
+					religion = ursun
+					religion = cult_of_sigmar
+					religion = cult_of_ulric_religion
+					religion = cult_of_taal_religion
+					religion = old_world_cults_religion
+					religion = asrai_cadai
+					religion = cadai
+					religion = ancestor_gods
+					religion = druidism
+					religion = the_one_faith
+					religion = old_ones
+					religion = yin_yang
+					religion = enlightened_path
+				}
+			}
+			add_country_modifier = {
+				name = order_nation
+				duration = -1
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					religion = the_great_maw_religion
+					religion = kislev_old_faith
+					religion = dragon_cult
+					religion = nehekharan_pantheon
+					religion = the_thousand_gods
+					religion = animism
+				}
+			}
+			add_country_modifier = {
+				name = neutral_nation
+				duration = -1
+			}
+		}
+		if = {
+			limit = {
+				has_country_modifier = destruction_nation
+			}
+			set_country_flag = setup_destruction_opinion
+			every_country = {
+				limit = {
+					NOT = {
+						tag = PREV
+					}
+				}
+				# not the same nation
+				limit = {
+					NOT = {
+						has_country_modifier = destruction_nation
+						neutral_culture = yes
+					}
+				}
+				add_opinion = {
+					who = PREV
+					modifier = root_destruction
+				}
+				reverse_add_opinion = {
+					who = PREV
+					modifier = root_destruction
+				}
+			}
+		}
+
+		## Set up chaos gods tried
+		if = {
+			limit = { religion = khornate_religion }
+			set_country_flag = tried_khorne
+		}
+		if = {
+			limit = { religion = nurglite_religion }
+			set_country_flag = tried_nurgle
+		}
+		if = {
+			limit = { religion = chaos_undivided_religion }
+			set_country_flag = tried_undivided
+		}
+		if = {
+			limit = { religion = tzeentchian_religion }
+			set_country_flag = tried_tzeentch
+		}
+		if = {
+			limit = { religion = slaaneshi_religion }
+			set_country_flag = tried_slaanesh
+		}
 
 
 #### Climate modifiers

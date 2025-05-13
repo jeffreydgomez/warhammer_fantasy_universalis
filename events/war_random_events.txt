@@ -1,0 +1,770 @@
+namespace = jam_rnd
+
+## Ritual goes wrong
+country_event = {
+	id = jam_rnd.1
+	title = jam_rnd.1.t
+	desc = jam_rnd.1.d
+
+    picture = MAGES_eventPicture
+
+    is_triggered_only = yes
+    mean_time_to_happen = {
+        days = 1
+    }
+
+
+    immediate = {
+        random_owned_province = {
+            save_event_target_as = event_target
+        }
+    }
+
+
+    goto = event_target
+
+	trigger = {
+        always = yes
+	}
+
+    
+
+	# Ignore
+	option = {
+		name = jam_rnd.1.a
+        event_target:event_target = {
+		  add_devastation = 25
+        }
+	}
+
+    # Help them
+    option = {
+        name = jam_rnd.1.b
+        add_years_of_income = -0.1
+    }
+
+    # the ritual went as it should (tzeentch)
+    option = {
+        name = jam_rnd.1.c
+        highlight = yes
+        trigger = {
+            region = tzeentchian_religion
+        }
+        add_yearly_manpower = 0.10
+    }
+}
+
+## reform has side effects
+# UNUSUED - UNRELATED TO WARHAMMER
+
+country_event = {
+	id = jam_rnd.2
+	title = jam_rnd.2.t
+	desc = jam_rnd.2.d
+
+    picture = COUNCIL_eventPicture
+
+    is_triggered_only = yes
+    mean_time_to_happen = {
+        days = 1
+    }
+
+	trigger = {
+		reform_level = 3
+	}
+
+	# Ban the reform 
+	option = {
+		name = jam_rnd.2.a
+		change_government_reform_progress = -30
+	}
+
+    # Let it slide
+    option = {
+        name = jam_rnd.2.b
+        add_country_modifier = {
+            name = event_rnd_2
+            duration = 7300
+        }
+    }
+}
+
+## mass food poisoning
+country_event = {
+	id = jam_rnd.3
+	title = jam_rnd.3.t
+	desc = jam_rnd.3.d
+
+    picture = NURGLE_eventPicture
+
+    is_triggered_only = yes
+    mean_time_to_happen = {
+        days = 1
+    }
+
+	# hoard for the rich 
+	option = {
+		name = jam_rnd.3.a
+		add_country_modifier = {
+            name = event_rnd_3
+            duration = 365
+        }
+	}
+
+    # Intervene
+    option = {
+        name = jam_rnd.3.b
+        add_adm_power = -15
+        add_years_of_income = -0.15
+    }
+
+    # Nurgle would be happy
+    option = {
+        name = jam_rnd.3.c
+        highlight = yes
+        trigger = {
+            religion = nurglite_religion
+        }
+        add_prestige = 25
+    }
+}
+
+## intel syhponed
+## Not used - not Warhammer related
+country_event = {
+	id = jam_rnd.4
+	title = jam_rnd.4.t
+	desc = jam_rnd.4.d
+
+    ### Change with something else that is a spy
+    picture = SPY_eventPicture
+
+    is_triggered_only = yes
+    mean_time_to_happen = {
+        days = 1
+    }
+
+	trigger = {
+        NOT = {
+            stability = 3
+        }
+	}
+
+	# its nothing
+	option = {
+		name = jam_rnd.4.a
+		add_stability = -1
+	}
+
+    # Intervene
+    option = {
+        name = jam_rnd.4.b
+        add_country_modifier = {
+            name = event_rnd_4
+            duration = 3650
+        }
+    }
+
+    # Yet another scheme
+    option = {
+        name = jam_rnd.4.c
+        highlight = yes
+        trigger = {
+            religion = tzeentchian_religion
+        }
+        add_country_modifier = {
+            name = event_rnd_4_tzeentch
+            duration = 3650
+        }
+    }
+}
+
+## a greedy hag
+country_event = {
+	id = jam_rnd.5
+	title = jam_rnd.5.t
+	desc = jam_rnd.5.d
+
+    ### Change with some old lady lol
+    picture = wihgfx_FEMALE_RULER_eventPicture
+
+    is_triggered_only = yes
+    mean_time_to_happen = {
+        days = 1
+    }
+
+	trigger = {
+        NOT = {
+            OR = {
+                adm = 5
+                dip = 5
+                mil = 5
+                ruler_has_personality = immortal_personality
+            }
+        }
+	}
+
+	# Yes please
+	option = {
+		name = jam_rnd.5.a
+
+        change_adm = 1
+        change_dip = 1
+        change_mil = 1
+
+        add_years_of_income = -1.0
+		add_legitimacy = -25
+        add_republican_tradition = -10
+        add_devotion = -25
+        add_horde_unity = -25
+        add_meritocracy = -25
+
+        add_country_modifier = {
+            name = event_rnd_5_1
+            duration = 7300
+        }
+
+        hidden_effect = {
+            set_ruler_flag = accepted_hag
+        }
+
+	}
+
+    # i dont need such nonsense
+    option = {
+        name = jam_rnd.5.b
+
+        add_legitimacy = 10
+        add_republican_tradition = 5
+        add_devotion = 10
+        add_horde_unity = 10
+        add_meritocracy = 10
+    }
+}
+
+## potion death (after hag)
+country_event = {
+	id = jam_rnd.51
+	title = jam_rnd.51.t
+	desc = jam_rnd.51.d
+
+    ### Change with death
+    picture = muslimgfx_DEATH_OF_HEIR_eventPicture
+
+    is_triggered_only = no
+    mean_time_to_happen = {
+        days = 3650
+    }
+
+	trigger = {
+        has_ruler_flag = accepted_hag
+	}
+
+	# they were a fool to begin with
+	option = {
+		name = jam_rnd.51.a
+
+        kill_ruler = yes
+        
+        hidden_effect = {
+            clr_ruler_flag = accepted_hag
+        }
+	}
+
+    option = {
+        name = jam_rnd.51.b
+
+        add_years_of_income = -2.0
+
+        add_prestige = -10
+
+    }
+}
+
+## dragon sighted
+country_event = {
+	id = jam_rnd.6
+	title = jam_rnd.6.t
+	desc = jam_rnd.6.d
+
+    ### change with a dragon
+    picture = SIEGE_eventPicture
+
+    is_triggered_only = yes
+    mean_time_to_happen = {
+        days = 1
+    }
+
+	trigger = {
+	}
+
+	# its probably fake
+	option = {
+		name = jam_rnd.6.a
+
+        add_country_modifier = {
+            name = plus_2_unrest
+            duration = 3650
+        }
+
+	}
+
+    # pay someone to take care of it
+    option = {
+        name = jam_rnd.6.b
+
+        add_years_of_income = -0.25
+    }
+
+    # Send the Army
+    option = {
+        name = jam_rnd.6.c
+
+        add_yearly_manpower = -0.25
+    }
+}
+
+## local tempest wreaks havoc
+country_event = {
+	id = jam_rnd.7
+	title = jam_rnd.7.t
+	desc = jam_rnd.7.d
+
+    picture = WINDSOFMAGIC_eventPicture
+
+    is_triggered_only = yes
+    mean_time_to_happen = {
+        days = 1
+    }
+
+    trigger = { always = yes }
+
+    immediate = {
+        random_owned_province = {
+            save_event_target_as = event_target
+        }
+    }
+
+    goto = event_target
+
+	# there's nothing we can do
+	option = {
+		name = jam_rnd.7.a
+
+        event_target:event_target = {
+            add_devastation = 25
+        }
+
+	}
+
+    # open the treasury
+    option = {
+        name = jam_rnd.7.b
+
+        add_years_of_income = -0.2
+
+    }
+
+    # Demand the mages to redirect the storm
+    option = {
+        name = jam_rnd.7.c
+        highlight = yes
+        trigger = {
+            owner = {
+                estate_loyalty = {
+                    estate = estate_mages
+                    loyalty = 60
+                }
+            }
+        }
+
+        owner = {
+            add_adm_power = 15
+            add_dip_power = 15
+            add_mil_power = 15
+        }
+    }
+}
+
+
+## unregistered caravan
+country_event = {
+	id = jam_rnd.8
+	title = jam_rnd.8.t
+	desc = jam_rnd.8.d
+
+    picture = GRAND_CATHAY_eventPicture 
+
+    is_triggered_only = yes
+    mean_time_to_happen = {
+        days = 1
+    }
+
+	trigger = {
+        trade_income_percentage = 0.5
+	}
+
+	# Raid it
+	option = {
+		name = jam_rnd.8.a
+
+        add_years_of_income = 1
+        add_prestige = -15
+	}
+
+    # escort them
+    option = {
+        name = jam_rnd.8.b
+
+        add_prestige = 15
+        add_years_of_income = 0.2
+    }
+
+    # Arrange some agreements
+    option = {
+        name = jam_rnd.8.c
+        highlight = yes
+        trigger = {
+            OR = {
+                full_idea_group = trade_ideas
+                full_idea_group = maritime_ideas
+            }
+
+        }
+
+        add_country_modifier = {
+            name = plus_1_merchant
+            duration = 7300
+        }
+    }
+}
+
+## orc beat-up party 
+country_event = {
+	id = jam_rnd.9
+	title = jam_rnd.9.t
+	desc = jam_rnd.9.d
+
+    picture = GREENSKIN_eventPicture
+
+    is_triggered_only = yes
+    mean_time_to_happen = {
+        days = 1
+    }
+
+	trigger = {
+        any_neighbor_country = {
+            has_country_modifier = orcish_military
+        }
+	}
+
+	# Send forces to deal with it
+	option = {
+		name = jam_rnd.9.a
+
+        add_yearly_manpower = -0.5
+
+	}
+
+    option = {
+        name = jam_rnd.9.b
+
+        add_years_of_income = -0.5
+
+    }
+
+    # Join our boyz!
+    option = {
+        name = jam_rnd.9.c
+        highlight = yes
+        trigger = {
+            has_country_modifier = orcish_military
+        }
+        add_country_modifier = {
+            name = plus_5P_morale 
+            duration = 3650
+        }
+    }
+}
+
+## Whole village enslaved
+# Unused
+country_event = {
+	id = jam_rnd.10
+	title = jam_rnd.10.t
+	desc = jam_rnd.10.d
+
+    picture = DARKELF_eventPicture
+
+    is_triggered_only = yes
+    mean_time_to_happen = {
+        days = 1
+    }
+
+	trigger = {
+        always = yes
+	}
+
+	# dear god
+	option = {
+		name = jam_rnd.10.a
+
+        add_base_tax = -2
+        add_base_production = -2
+        add_base_manpower = -2
+
+	}
+
+    # escort them
+    option = {
+        name = jam_rnd.10.b
+
+        add_stability = -1
+        add_years_of_income = -2
+    }
+
+    # relocating slaves
+    option = {
+        name = jam_rnd.10.c
+        highlight = yes
+
+        trigger = {
+            owner = {
+                OR = {
+                    culture_group = chaos_dwarf_group
+                    culture_group = druchii_group
+                }
+            }
+        }
+
+        owner = {
+            capital_scope = {
+                add_base_tax = 1
+                add_base_production = 1
+                add_base_manpower = 1
+            }
+        }
+
+    }
+}
+
+## steel eating vermin
+# Unused - why would this result in a 
+country_event = {
+	id = jam_rnd.11
+	title = jam_rnd.11.t
+	desc = jam_rnd.11.d
+
+    picture = SKAVEN_eventPicture
+
+    is_triggered_only = yes
+    mean_time_to_happen = {
+        days = 1
+    }
+
+	trigger = {
+        any_neighbor_country = {
+            has_country_modifier = skaven_military
+        }
+	}
+
+	# Hope it doesnt escalate
+	option = {
+		name = jam_rnd.11.a
+
+        
+        add_country_modifier = {
+            name = weapons_eaten
+            duration = 3650
+        }
+
+	}
+
+    # Produce more weapons
+    option = {
+        name = jam_rnd.11.b
+        add_country_modifier = {
+            name = event_rnd_11
+            duration = 3650
+        }
+    }
+}
+
+## mage corrupts market
+#Unused - NOne of the modifiers are localized
+country_event = {
+	id = jam_rnd.12
+	title = jam_rnd.12.t
+	desc = jam_rnd.12.d
+
+    picture = MAGES_eventPicture
+
+    is_triggered_only = yes
+    mean_time_to_happen = {
+        days = 1
+    }
+
+	trigger = {
+        has_estate = estate_mages
+        has_estate = estate_burghers
+	}
+
+	# not my problem
+	option = {
+		name = jam_rnd.12.a
+
+        
+        add_estate_loyalty_modifier = {
+            estate = estate_burghers
+            desc = event_rnd_12_burgher_l_modif
+            loyalty = -10
+            duration = 3650
+        }
+        add_estate_influence_modifier = {
+            estate = estate_burghers
+            desc = event_rnd_12_burgher_i_modif
+            influence = -10
+            duration = 3650
+        }
+
+        add_estate_influence_modifier = {
+            estate = estate_mages
+            desc = event_rnd_12_mage_i_modif
+            influence = 10
+            duration = 3650
+        }
+	}
+
+    # Produce more weapons
+    option = {
+        name = jam_rnd.12.b
+        add_estate_loyalty_modifier = {
+            estate = estate_mages
+            desc = event_rnd_12_mage_l_modif
+            loyalty = -10
+            duration = 3650
+        }
+        add_estate_influence_modifier = {
+            estate = estate_mages
+            desc = event_rnd_12_mage_i_modif
+            influence = -10
+            duration = 3650
+        }
+    }
+
+    # settle this professionally
+    option = {
+        name = jam_rnd.12.c
+        highlight = yes 
+
+        trigger = {
+            full_idea_group = court_ideas
+        }
+        add_estate_loyalty_modifier = {
+            estate = estate_mages
+            desc = event_rnd_12_mage_l_modif
+            loyalty = 10
+            duration = 3650
+        }
+        add_estate_loyalty_modifier = {
+            estate = estate_burghers
+            desc = event_rnd_12_burgher_l_modif
+            loyalty = 10
+            duration = 3650
+        }
+    }
+}
+
+## Warpstone comet crashland
+country_event = {
+	id = jam_rnd.13
+	title = jam_rnd.13.t
+	desc = jam_rnd.13.d
+
+    picture = COMET_SIGHTED_eventPicture
+
+    is_triggered_only = yes
+    mean_time_to_happen = {
+        days = 1
+    }
+
+    immediate = {
+        random_owned_province = {
+            save_event_target_as = event_target
+        }
+    }
+
+    goto = event_target
+
+
+	# What is this glowing rock??
+	option = {
+		name = jam_rnd.13.a
+
+        event_target:event_target = {
+            change_trade_goods = warpstone
+            add_devastation = 100
+        }
+	}
+
+    # Get it out of here
+    option = {
+        name = jam_rnd.13.b
+
+        event_target:event_target = {
+            add_devastation = 10
+        }
+
+        add_stability_or_adm_power = yes
+    }
+
+}
+
+## Recruits go mad
+country_event = {
+    id = jam_rnd.14
+    title = jam_rnd.14.t
+    desc = jam_rnd.14.d
+
+    picture = CHAOS_eventPicture
+
+    is_triggered_only = yes
+    mean_time_to_happen = {
+        days = 1
+    }
+
+    trigger = {
+        not = {
+            army_size_percentage = 1
+        }
+    }
+
+    # Execute 
+    option = {
+        name = jam_rnd.14.a
+        add_yearly_manpower = -0.5
+    }
+
+    # Men required
+    option = {
+        name = jam_rnd.14.b
+        add_country_modifier = {
+            name = minus_5P_morale
+            duration = 1825
+        }
+    }
+
+    # Cleanse them (full religion)
+    option = {
+        name = jam_rnd.14.c
+        highlight = yes
+        trigger = {
+            full_idea_group = religious_ideas
+        }
+        add_country_modifier = {
+            name = plus_5P_morale
+            duration = 3650
+        }
+    }
+}
+
