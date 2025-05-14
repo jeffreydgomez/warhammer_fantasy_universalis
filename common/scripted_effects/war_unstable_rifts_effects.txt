@@ -35,11 +35,11 @@ spawn_rift_tag = {
         set_country_flag = is_rift_nation
         create_unit_forcelimit_percentage = {
             type = infantry 
-            force_limit_percentage = 0.3
+            force_limit_percentage = 0.4
         }
         create_unit_forcelimit_percentage = {
             type = cavalry 
-            force_limit_percentage = 0.1
+            force_limit_percentage = 0.2
         }
         create_general = { tradition = 50 }
         capital_scope = {
@@ -107,20 +107,26 @@ spawn_rift_tag = {
     }
 }
 
-# send a new opened rift event to all lizardmen players
 # send_province_event_to_players = { tag = R01 id = event_id.0 }
-send_rift_event_to_players = {
-    every_country = {
-        limit = {
-            ai = no
-            technology_group = tech_lizardmen
+new_wave_event = {
+    $tag$ = {
+        create_unit_forcelimit_percentage = {
+            type = infantry 
+            force_limit_percentage = 0.3
         }
-        $tag$ = {
-            capital_scope = {
-                province_event = {
-                    id = $id$
+        create_unit_forcelimit_percentage = {
+            type = cavalry 
+            force_limit_percentage = 0.1
+        }
+        add_yearly_manpower = 10
+
+            random_country = {
+                limit = {
+                    is_neighbor_of = Prev
+                }
+                PREV = {
+                    declare_war = prev
                 }
             }
-        }
     }
 }
