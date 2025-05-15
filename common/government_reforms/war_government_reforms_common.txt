@@ -218,6 +218,9 @@ enlist_monsters = {
 }
 
 
+
+### Mages Reforms
+
 found_mages_college_reform = {
 	icon = "assembly_hall"
 	allow_normal_conversion = yes
@@ -238,6 +241,7 @@ found_mages_college_reform = {
 		factor = 1.0 #generic
 	}
 }
+
 
 abolish_mages_college_reform = {
 
@@ -263,4 +267,364 @@ abolish_mages_college_reform = {
 		factor = 1.0 #generic
 	}
 }
+
+# Court wizards - Give the nobles some power over the mages of our realm
+
+court_wizards_reform = {
+	icon = "assembly_hall"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_estate = estate_mages
+		has_estate = estate_nobles
+	}
+	modifiers = {
+		nobles_influence_modifier = 0.1
+		mages_influence_modifier = -0.1
+		prestige = 1
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+
+## Magical Bureaucrats - Use magic in the organization and administration of our empire
+magical_bureaucrats_reform = {
+	icon = "assembly_hall"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_estate = estate_mages
+	}
+	modifiers = {
+		mages_influence_modifier = 0.1
+		administrative_efficiency = 0.05
+		governing_capacity_modifier = 0.1
+		global_unrest = 2
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+
+## War Mages - Generals and high ranking officers are drawn from the magical aristocracy
+war_mages_reform = {
+	icon = "assembly_hall"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_estate = estate_mages
+	}
+	modifiers = {
+		mages_influence_modifier = 0.1
+		leader_cost = 0.50
+		land_morale = -0.1
+		leader_land_fire = 2
+		leader_land_shock = 2
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+## Ban Magic in Warfare - Magic is too unpredicable to be used in war. Let us stick to what we know
+ban_magic_in_warfare_reform = {
+	icon = "assembly_hall"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_estate = estate_mages
+	}
+	modifiers = {
+		mages_influence_modifier = -0.1
+		army_tradition_decay = -0.01
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+## Elevate the Mages - Put the mages above the other estates
+elevate_the_mages_reform = {
+	icon = "assembly_hall"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_estate = estate_mages
+	}
+	modifiers = {
+		mages_influence_modifier = 0.1
+		mages_loyalty_modifier = 0.1
+		innovativeness_gain = 0.25
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+## Reduce Mage's Status - Put the other estates above the mages
+reduce_the_mages_reform = {
+	icon = "assembly_hall"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_estate = estate_mages
+	}
+	modifiers = {
+		mages_influence_modifier = -0.1
+		mages_loyalty_modifier = -0.1
+		nobles_loyalty_modifier = 0.1
+		church_loyalty_modifier = 0.15
+		burghers_loyalty_modifier = 0.1
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+embrace_transmutation_reform = {
+	icon = "assembly_hall"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_estate = estate_mages
+	}
+	modifiers = {
+		mages_influence_modifier = 0.1
+		burghers_influence_modifier = -0.1
+		gold_depletion_chance_modifier = -0.1
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+tariff_magical_goods_reform = {
+	icon = "assembly_hall"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_estate = estate_mages
+	}
+	modifiers = {
+		mages_influence_modifier = -0.1
+		burghers_influence_modifier = 0.1
+		global_trade_power = 0.1
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+
+
+peasant_magical_training_reform = {
+	icon = "assembly_hall"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_estate = estate_mages
+	}
+	modifiers = {
+		mages_influence_modifier = 0.1
+		institution_spread_from_true_faith = 0.33
+		hostile_attrition = 1
+		max_hostile_attrition = 1
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+
+church_control_of_magic_reform = {
+	icon = "assembly_hall"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_estate = estate_mages
+	}
+	modifiers = {
+		mages_influence_modifier = -0.2
+		church_influence_modifier = 0.2
+		devotion = 2
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+
+## Undead Reforms
+
+state_sacrifices_reform = {
+	icon = "assembly_hall"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		church_power = 0
+		NOT = { has_country_modifier = order_nation }
+	}
+	modifiers = {
+		church_loyalty_modifier = 0.1
+		church_power_modifier = 0.25
+		manpower_recovery_speed = -0.1
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+## We control our undead through black magic directly, with or without their consent
+necromantic_control_reform = {
+	icon = "assembly_hall"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_country_modifier = undead_administration
+	}
+	modifiers = {
+		tolerance_own = 3
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+
+## Necrohierarchy - Our leaders are pledged through dark ritual into service to their masters
+necrohierarchy_reform = {
+	icon = "assembly_hall"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_country_modifier = undead_administration
+	}
+	modifiers = {
+		all_estate_loyalty_equilibrium = 0.05
+		same_religion_advisor_cost = -0.15
+		leader_cost = -0.1
+		admiral_cost = -0.1
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+# Our rulers exert the greatest control over our lives. There are no greater powers.
+no_gods_above_us_reform = {
+	icon = "assembly_hall"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		OR = {
+			religion = vampiric
+			religion = nagash_worship
+			religion = yin_yang
+		}
+	}
+	modifiers = {
+		max_absolutism = 15
+		max_absolutism_effect = 0.15
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+
+## Dwarf Reforms
+
+
+## We do not need trade. Close the doors to outsiders, and expand the factories.
+close_the_mines_to_outsiders_reform = {
+	icon = "assembly_hall"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		OR = {
+			has_country_modifier = dwarven_administration
+			has_country_modifier = skaven_administration
+		}
+	}
+	modifiers = {
+		trade_efficiency = -0.25
+		global_trade_goods_size_modifier = 0.25
+		burghers_influence_modifier = -0.2
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+## Let us return to the old ways, and allow the dwarven clans increased autonomy over their own holds
+clan_holds_reform = {
+	icon = "assembly_hall"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_country_modifier = dwarven_administration
+	}
+	modifiers = {
+		nobles_influence_modifier = 0.2
+		fort_maintenance_modifier = -0.25
+		state_maintenance_modifier = -0.25
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+# KHAZUKAN KAZAKIT-HA! The Dwarves go to battle to reclaim their homelands!
+khazukan_kazakit_ha_reform = {
+	icon = "assembly_hall"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_country_modifier = dwarven_administration
+	}
+	modifiers = {
+		land_morale = 0.1
+		liberty_desire_from_subject_development = -0.1
+		diplomatic_reputation = 1
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+
+### Elf Reforms
+
+
+
+## Orc Reforms
+
+
+## Lizard Reforms
+
+
+## Ogre Reforms
+
+
+## Skaven Reforms
 

@@ -1,4 +1,96 @@
 country_decisions = {
+
+
+
+	form_dreadwater_nation = {
+		major = yes
+		
+		potential = {
+			or = {
+				has_reform = vampire_coast_reform
+				tag = V01
+				tag = V19
+			}
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_dreadwater_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
+			NOT = { exists = V99 }
+			OR = {
+				ai = no
+				num_of_cities = 25
+			}
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+		}
+		
+		allow = {
+			is_free_or_tributary_trigger = yes
+			is_at_war = no
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 30
+				has_port = yes
+				culture_group = ROOT
+				religion = ROOT
+				is_core = ROOT
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					is_part_of_hre = yes
+					is_elector = no
+					is_emperor = no
+				}
+				emperor = {
+					add_opinion = {
+						who = root
+						modifier = opinion_left_empire
+					}
+				}
+				set_in_empire = no
+				emperor = {
+					country_event = { id = hre_event.5 }
+				}
+			}
+			if = {
+				limit = {
+					NOT = { government_rank = 2 }
+				}
+				hidden_effect = {
+					set_in_empire = no
+				}
+				set_government_rank = 2
+			}
+			change_tag = V99
+			on_change_tag_effect = yes
+			add_prestige = 25
+			if = {
+				limit = { has_custom_ideas = no }
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			swap_non_generic_missions = yes
+			set_country_flag = formed_dreadwater_flag
+		}
+		
+		ai_will_do = {
+			factor = 400
+		}
+	}
 	
 	purge_undead_from_administration = {
 		potential = {
