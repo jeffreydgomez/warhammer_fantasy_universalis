@@ -50,7 +50,7 @@ country_event = {
 }
 
 ## A rift appears
-province_event = {
+country_event = {
     id = unstable_rifts.2
     title = unstable_rifts.2.t
     desc = unstable_rifts.2.d
@@ -63,17 +63,75 @@ province_event = {
     #The old one's blessed us
     option = {
         name = unstable_rifts.2.a
+        
+        # one
         if = {
             limit = {
-                owner = {
-                    has_government_mechanic = lizardmen_great_plan_mechanic
+                has_global_flag = spawned_rift_1
+                NOT = { has_global_flag = spawned_rift_2 }
+            }
+            R01 = {
+                capital_scope = {
+                    goto = THIS
                 }
             }
-            owner = {
-                add_government_power = {
-                    mechanic_type = lizardmen_great_plan_mechanic
-                    power_type = great_plan_command_power
-                    value = 10
+        }
+        # two
+        if = {
+            limit = {
+                has_global_flag = spawned_rift_2
+                NOT = { has_global_flag = spawned_rift_3 }
+            }
+            R02 = {
+                capital_scope = {
+                    goto = THIS
+                }
+            }
+        }
+        # three
+        if = {
+            limit = {
+                has_global_flag = spawned_rift_3
+                NOT = { has_global_flag = spawned_rift_4 }
+            }
+            R03 = {
+                capital_scope = {
+                    goto = THIS
+                }
+            }
+        }
+        # four
+        if = {
+            limit = {
+                has_global_flag = spawned_rift_4
+                NOT = { has_global_flag = spawned_rift_5 }
+            }
+            R04 = {
+                capital_scope = {
+                    goto = THIS
+                }
+            }
+        }
+        # five
+        if = {
+            limit = {
+                has_global_flag = spawned_rift_5
+                NOT = { has_global_flag = spawned_rift_6 }
+            }
+            R05 = {
+                capital_scope = {
+                    goto = THIS
+                }
+            }
+        }
+        # six
+        if = {
+            limit = {
+                has_global_flag = spawned_rift_6
+            }
+            R06 = {
+                capital_scope = {
+                    goto = THIS
                 }
             }
         }
@@ -113,3 +171,244 @@ country_event = {
     }
 }
 
+## Chaos infects spawning pool
+country_event = {
+    id = unstable_rifts.5
+    title = unstable_rifts.5.t
+    desc = unstable_rifts.5.d
+
+    picture = CHAOS_eventPicture
+
+    is_triggered_only = yes
+
+
+    # Send a missionary 
+    option = {
+        name = unstable_rifts.5.a
+
+        add_country_modifier = {
+           name = unstable_5b
+           days = 7300
+        }
+        
+        random_province = {
+            limit = {
+                owned_by = ROOT
+            }
+            change_religion = nurglite_religion
+        }
+    }
+
+    # Root it out. now!
+    option = {
+        name = unstable_rifts.5.b
+        
+        add_yearly_manpower = -0.5
+        add_years_of_income = -0.3
+    }
+}
+
+## Tzeenchtian cult uncovered
+country_event = {
+    id = unstable_rifts.6
+    title = unstable_rifts.6.t
+    desc = unstable_rifts.6.d
+
+    picture = CHAOS_eventPicture
+
+    is_triggered_only = yes
+
+
+    # Burn them all in the name of the Great Plan 
+    option = {
+        name = unstable_rifts.6.a
+        
+        add_stability_or_adm = yes
+    }
+
+    # Stalk them for more intel
+    option = {
+        name = unstable_rifts.6.b
+        
+        random_list = {
+            50 = {
+                add_army_professionalism = 0.05
+            }
+            50 = {
+                add_army_professionalism = -0.05
+                add_prestige = -10
+            }
+        }
+    }
+}
+## Rift closed by temple guards
+country_event = {
+    id = unstable_rifts.7
+    title = unstable_rifts.7.t
+    desc = unstable_rifts.7.d
+
+    picture = CHAOS_eventPicture
+
+    is_triggered_only = yes
+
+
+    # Claim this victory to boost morale
+    option = {
+        name = unstable_rifts.7.a
+        
+        add_stability_or_adm = yes
+    }
+
+    # Let the SLann absorb the magical energy that got released
+    option = {
+        name = unstable_rifts.7.b
+        
+        random_list = {
+            50 = {
+                add_army_professionalism = 0.05
+            }
+            50 = {
+                add_army_professionalism = -0.05
+                add_prestige = -10
+            }
+        }
+    }
+
+    # They can just spawn here? Everyone on high alert!
+    option = {
+        name = unstable_rifts.7.c
+        
+        if = {
+            limit = {
+                has_government_mechanic = lizardmen_great_plan_mechanic
+            }
+            add_government_power = {
+                mechanic_type = lizardmen_great_plan_mechanic
+                power_type = great_plan_command_power
+                value = 5
+            }
+        }
+
+    }
+}
+
+## Blood rainstorm
+country_event = {
+    id = unstable_rifts.8
+    title = unstable_rifts.8.t
+    desc = unstable_rifts.8.d
+
+    picture = CHAOS_eventPicture
+
+    is_triggered_only = yes
+
+
+    # This is a bad omen
+    option = {
+        name = unstable_rifts.8.a
+        
+        add_stability = -1
+    }
+
+    # Try to clean the vitals of the spawning pools 
+    option = {
+        name = unstable_rifts.8.b
+        
+        add_years_of_income = -5
+    }
+}
+## Lizardmen gore feast
+country_event = {
+    id = unstable_rifts.9
+    title = unstable_rifts.9.t
+    desc = unstable_rifts.9.d
+
+    picture = CHAOS_eventPicture
+
+    is_triggered_only = yes
+
+
+    # Sacrifice them for the Great Plan
+    option = {
+        name = unstable_rifts.9.a
+        
+        add_yearly_manpower = -3
+    }
+
+    # Try to cleanse our mighty warrios
+    option = {
+        name = unstable_rifts.9.b
+
+        random_province = {
+            limit = {
+                owned_by = ROOT
+            }
+            change_religion = slaaneshi_religion
+        }
+        
+        random_list = {
+            80 = {
+                add_country_modifier = {
+                    name = unstable_8b_1
+                    days = 3650
+                }
+            }
+            20 = {
+                add_country_modifier = {
+                    name = unstable_8b_2
+                    days = 3650
+                }
+            }
+        }
+    }
+}
+
+## Geomantic Restoration Advance
+country_event = {
+    id = unstable_rifts.10
+    title = unstable_rifts.10.t
+    desc = unstable_rifts.10.d
+
+    picture = CHAOS_eventPicture
+
+    is_triggered_only = yes
+
+
+    # Let them take their time, we need resources eslewhere
+    option = {
+        name = unstable_rifts.10.a
+        
+        add_years_of_income = 1
+    }
+
+    # Re-allocate some resources to speed up the process
+    option = {
+        name = unstable_rifts.10.b
+
+        add_country_modifier = {
+            name = unstable_10b
+            days = 3650
+        }
+
+        add_prestige = 15
+
+        add_years_of_income = -1
+    }
+
+    # Direct as much resources as possible
+    option = {
+        name = unstable_rifts.10.b
+
+        add_country_modifier = {
+            name = unstable_10c
+            days = 3650
+        }
+
+        add_stability_or_adm = yes
+
+        add_years_of_income = -5
+        add_yearly_manpower = -5
+    }
+
+    
+}
