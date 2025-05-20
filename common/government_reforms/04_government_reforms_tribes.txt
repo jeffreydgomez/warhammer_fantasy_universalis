@@ -311,13 +311,13 @@ matrilineal_system = {
 	legacy_equivalent = matrilineal_system_legacy
 	potential = {
 		OR = {
-			primary_culture = nubian
+			NOT = { culture_group = greenskins_group }
 			have_had_reform = matrilineal_system
 		}
 	}
 	trigger = {
 		OR = {
-			primary_culture = nubian
+			NOT = { culture_group = greenskins_group }
 			have_had_reform = matrilineal_system
 		}
 	}
@@ -385,26 +385,8 @@ great_man = {
 	nation_designer_cost = 30
 	legacy_equivalent = great_man_legacy
 	potential = {
-		OR = {
-			AND = {
-				religion = shamanism
-				capital_scope = {
-					has_terrain = jungle
-				}
-			}
-			have_had_reform = great_man
-		}
 	}
 	trigger = {
-		OR = {
-			AND = {
-				religion = shamanism
-				capital_scope = {
-					has_terrain = jungle
-				}
-			}
-			have_had_reform = great_man
-		}
 	}
 	modifiers = {
 		leader_cost = -0.1
@@ -632,12 +614,14 @@ tribe_becomes_monarchy_reform = {
 	icon = "king_highlighted"
 	allow_normal_conversion = yes
 	potential = {
-		NOT = { 
-			has_reform = stateless_society
-		}
+#		NOT = { 
+#			has_reform = stateless_society
+#		}
+		always = yes
 	}
 	trigger = {
-		NOT = { has_government_attribute_short_desc = locked_government_type }
+#		NOT = { has_government_attribute_short_desc = locked_government_type }
+		always = yes
 	}
 	effect = {
 		set_country_flag = populists_in_government
@@ -750,14 +734,14 @@ tribe_becomes_republic_reform = {
 	potential = {
 		NOT = { 
 			or = { 
-				has_reform = stateless_society
+#				has_reform = stateless_society
 				has_reform = greenskin_tribe
-				}
+			}
 		}
 	}
 	trigger = {
 		NOT = { is_lesser_in_union = yes }
-		NOT = { has_government_attribute_short_desc = locked_government_type }
+#		NOT = { has_government_attribute_short_desc = locked_government_type }
 	}
 	effect = {
 		set_country_flag = populists_in_government
@@ -877,15 +861,16 @@ tribe_becomes_theocracy_reform = {
 	icon = "pope_highlighted"
 	allow_normal_conversion = yes
 	potential = {
-		NOT = { 
-			or = { 
-				has_reform = stateless_society
-			}
-		}
+		always = yes
+#		NOT = { 
+#			or = { 
+#				has_reform = stateless_society
+#			}
+#		}
 	}
 	trigger = {
 		NOT = { is_lesser_in_union = yes }
-		NOT = { has_government_attribute_short_desc = locked_government_type }
+#		NOT = { has_government_attribute_short_desc = locked_government_type }
 	}
 	effect = {
 		set_country_flag = populists_in_government
@@ -1004,8 +989,8 @@ tribe_becomes_horde_reform = {
 	potential = {
 		NOT = { 
 			or = { 
-			has_reform = stateless_society
-			has_reform = greenskin_tribe
+#				has_reform = stateless_society
+				has_reform = greenskin_tribe
 			}
 		}
 	}
@@ -1022,7 +1007,7 @@ tribe_becomes_horde_reform = {
 			has_reform = tribe_becomes_horde_reform
 		}
 		NOT = { has_reform = greenskin_tribe }
-		NOT = { has_government_attribute_short_desc = locked_government_type }
+#		NOT = { has_government_attribute_short_desc = locked_government_type }
 	}
 	ai = {
 		factor = 0
@@ -1056,16 +1041,9 @@ tribe_tribal_unity = {
 	}
 	modifiers = {
 		yearly_government_power = 1
-		church_loyalty_modifier = 0.05
-		nobles_loyalty_modifier = 0.05
-		dhimmi_loyalty_modifier = 0.05
-		burghers_loyalty_modifier = 0.05
+		all_estate_loyalty_equilibrium = 0.1
 	}
 	ai = {
 		factor = 2
 	}
 }
-
-############
-#WARHAMMER
-############
