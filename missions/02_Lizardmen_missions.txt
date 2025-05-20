@@ -111,9 +111,7 @@ war_lizardmen_faction_1 = {
 		required_missions = { lizardmen_saurus_4 }
 		position = 9
 		trigger = {
-			num_of_owned_provinces_with = {
-				num_of_trading_bonuses = 3
-			}
+			num_of_trading_bonuses = 3
 		}
 
 		effect = {
@@ -289,14 +287,10 @@ war_lizardmen_faction_2 = {
 			mil_power = 100
 		}
 
-## Make this an event to choose
 		effect = {
-			remove_country_modifier = lizardmen_saurus_modifier_4
-			add_country_modifier = { 
-			    name = lizardmen_saurus_modifier_5
-			    duration = -1  
+			country_event = { 
+			    id = lizardmen_events.100
 			}
-			custom_tooltip = upgrade_replace_tt	
 		}
 	}
 
@@ -312,12 +306,57 @@ war_lizardmen_faction_2 = {
 		}
 
 		effect = {
-			remove_country_modifier = lizardmen_saurus_modifier_5
-			add_country_modifier = { 
-			    name = lizardmen_saurus_modifier_6
-			    duration = -1  
+
+			custom_tooltip = your_reward_depends_on_previous_missions_tt
+
+			if = {
+				limit = {
+					OR = {
+						has_country_modifier = lizardmen_saurus_modifier_monster_5
+					}
+				}
+
+				remove_country_modifier = lizardmen_saurus_modifier_monster_5
+				add_country_modifier = { 
+				    name = lizardmen_saurus_modifier_monster_6
+				    duration = -1  
+				}
+				custom_tooltip = upgrade_replace_tt	
+
 			}
-			custom_tooltip = upgrade_replace_tt	
+
+			if = {
+				limit = {
+					OR = {
+						has_country_modifier = lizardmen_saurus_modifier_inf_5
+					}
+				}
+
+				remove_country_modifier = lizardmen_saurus_modifier_inf_5
+				add_country_modifier = { 
+				    name = lizardmen_saurus_modifier_inf_6
+				    duration = -1  
+				}
+				custom_tooltip = upgrade_replace_tt	
+
+			}
+
+			if = {
+				limit = {
+					OR = {
+						has_country_modifier = lizardmen_saurus_modifier_reduce_dinos_5
+					}
+				}
+
+				remove_country_modifier = lizardmen_saurus_modifier_reduce_dinos_5
+				add_country_modifier = { 
+				    name = lizardmen_saurus_modifier_reduce_dinos_6
+				    duration = -1  
+				}
+				custom_tooltip = upgrade_replace_tt	
+
+			}
+
 		}
 	}
 
@@ -337,12 +376,60 @@ war_lizardmen_faction_2 = {
 		}
 
 		effect = {
-			remove_country_modifier = lizardmen_saurus_modifier_6
-			add_country_modifier = { 
-			    name = lizardmen_saurus_modifier_7
-			    duration = -1  
+
+			custom_tooltip = your_reward_depends_on_previous_missions_tt
+
+			if = {
+				limit = {
+					OR = {
+						has_country_modifier = lizardmen_saurus_modifier_monster_5
+						has_country_modifier = lizardmen_saurus_modifier_monster_6
+					}
+				}
+
+				remove_country_modifier = lizardmen_saurus_modifier_monster_6
+				add_country_modifier = { 
+				    name = lizardmen_saurus_modifier_monster_7
+				    duration = -1  
+				}
+				custom_tooltip = upgrade_replace_tt	
+
 			}
-			custom_tooltip = upgrade_replace_tt	
+
+			if = {
+				limit = {
+					OR = {
+						has_country_modifier = lizardmen_saurus_modifier_inf_5
+						has_country_modifier = lizardmen_saurus_modifier_inf_6
+					}
+				}
+
+				remove_country_modifier = lizardmen_saurus_modifier_inf_6
+				add_country_modifier = { 
+				    name = lizardmen_saurus_modifier_inf_7
+				    duration = -1  
+				}
+				custom_tooltip = upgrade_replace_tt	
+
+			}
+
+			if = {
+				limit = {
+					OR = {
+						has_country_modifier = lizardmen_saurus_modifier_reduce_dinos_5
+						has_country_modifier = lizardmen_saurus_modifier_reduce_dinos_6
+					}
+				}
+
+				remove_country_modifier = lizardmen_saurus_modifier_reduce_dinos_6
+				add_country_modifier = { 
+				    name = lizardmen_saurus_modifier_reduce_dinos_7
+				    duration = -1  
+				}
+				custom_tooltip = upgrade_replace_tt	
+
+			}
+
 
 		}
 	}
@@ -366,6 +453,8 @@ war_lizardmen_faction_3 = {
 		culture_group = lizardmen_group
 	}
 
+
+### Base for the Geomantic Web
 	lizardmen_temples_1 = {
 		icon = mission_trade_company_region_abroad
 		required_missions = {  }
@@ -417,13 +506,27 @@ war_lizardmen_faction_3 = {
 				}
 				add_permanent_claim = ROOT
 			}
+			custom_tooltip = lizardmen_improve_temples_tt
+
+			hidden_effect = {
+				set_country_flag = geo_web_flag_1
+				every_owned_province = {
+					limit = {
+						has_terrain = temple_city_terrain
+					}
+					add_base_tax = 1
+					add_base_production = 1
+					add_base_manpower = 1
+				}
+				war_reset_racial_modifiers = yes
+			}
 		}
 	}
 
-
+## This, and all future temple missions, are about expanding the geomantic web
 	lizardmen_temples_2 = {
 		icon = mission_trade_company_region_abroad
-		required_missions = { lizardmen_saurus_1 lizardmen_slaan_1 }
+		required_missions = { lizardmen_saurus_1 lizardmen_slann_1 }
 		position = 3
 
 		provinces_to_highlight = {
@@ -460,6 +563,7 @@ war_lizardmen_faction_3 = {
 			custom_tooltip = lizardmen_improve_temples_tt
 
 			hidden_effect = {
+				set_country_flag = geo_web_flag_2
 				every_owned_province = {
 					limit = {
 						has_terrain = temple_city_terrain
@@ -468,13 +572,14 @@ war_lizardmen_faction_3 = {
 					add_base_production = 1
 					add_base_manpower = 1
 				}
+				war_reset_racial_modifiers = yes
 			}
 		}
 	}
 
 	lizardmen_temples_3 = {
 		icon = mission_trade_company_region_abroad
-		required_missions = { lizardmen_saurus_2 lizardmen_slaan_2 }
+		required_missions = { lizardmen_saurus_2 lizardmen_slann_2 }
 		position = 5
 
 		provinces_to_highlight = {
@@ -511,6 +616,7 @@ war_lizardmen_faction_3 = {
 			custom_tooltip = lizardmen_improve_temples_tt
 
 			hidden_effect = {
+				set_country_flag = geo_web_flag_3
 				every_owned_province = {
 					limit = {
 						has_terrain = temple_city_terrain
@@ -519,6 +625,7 @@ war_lizardmen_faction_3 = {
 					add_base_production = 1
 					add_base_manpower = 1
 				}
+				war_reset_racial_modifiers = yes
 			}
 		}
 	}
@@ -526,7 +633,7 @@ war_lizardmen_faction_3 = {
 
 	lizardmen_temples_4 = {
 		icon = mission_trade_company_region_abroad
-		required_missions = { lizardmen_saurus_3 lizardmen_slaan_3 }
+		required_missions = { lizardmen_saurus_3 lizardmen_slann_3 }
 		position = 7
 
 		provinces_to_highlight = {
@@ -562,6 +669,7 @@ war_lizardmen_faction_3 = {
 			custom_tooltip = lizardmen_improve_temples_tt
 
 			hidden_effect = {
+				set_country_flag = geo_web_flag_4
 				every_owned_province = {
 					limit = {
 						has_terrain = temple_city_terrain
@@ -570,13 +678,14 @@ war_lizardmen_faction_3 = {
 					add_base_production = 1
 					add_base_manpower = 1
 				}
+				war_reset_racial_modifiers = yes
 			}
 		}
 	}
 
 	lizardmen_temples_5 = {
 		icon = mission_trade_company_region_abroad
-		required_missions = { lizardmen_saurus_4 lizardmen_slaan_4 }
+		required_missions = { lizardmen_saurus_4 lizardmen_slann_4 }
 		position = 9
 
 		provinces_to_highlight = {
@@ -612,6 +721,7 @@ war_lizardmen_faction_3 = {
 			custom_tooltip = lizardmen_improve_temples_tt
 
 			hidden_effect = {
+				set_country_flag = geo_web_flag_5
 				every_owned_province = {
 					limit = {
 						has_terrain = temple_city_terrain
@@ -620,6 +730,7 @@ war_lizardmen_faction_3 = {
 					add_base_production = 1
 					add_base_manpower = 1
 				}
+				war_reset_racial_modifiers = yes
 			}
 		}
 	}
@@ -627,7 +738,7 @@ war_lizardmen_faction_3 = {
 
 	lizardmen_temples_6 = {
 		icon = mission_trade_company_region_abroad
-		required_missions = { lizardmen_saurus_5 lizardmen_slaan_5 }
+		required_missions = { lizardmen_saurus_5 lizardmen_slann_5 }
 		position = 11
 
 		provinces_to_highlight = {
@@ -663,6 +774,7 @@ war_lizardmen_faction_3 = {
 			custom_tooltip = lizardmen_improve_temples_tt
 
 			hidden_effect = {
+				set_country_flag = geo_web_flag_6
 				every_owned_province = {
 					limit = {
 						has_terrain = temple_city_terrain
@@ -671,13 +783,14 @@ war_lizardmen_faction_3 = {
 					add_base_production = 1
 					add_base_manpower = 1
 				}
+				war_reset_racial_modifiers = yes
 			}
 		}
 	}
 
 	lizardmen_temples_7 = {
 		icon = mission_trade_company_region_abroad
-		required_missions = { lizardmen_saurus_6 lizardmen_slaan_6 }
+		required_missions = { lizardmen_saurus_6 lizardmen_slann_6 }
 		position = 13
 
 		provinces_to_highlight = {
@@ -713,6 +826,7 @@ war_lizardmen_faction_3 = {
 			custom_tooltip = lizardmen_improve_temples_tt
 
 			hidden_effect = {
+				set_country_flag = geo_web_flag_7
 				every_owned_province = {
 					limit = {
 						has_terrain = temple_city_terrain
@@ -721,6 +835,7 @@ war_lizardmen_faction_3 = {
 					add_base_production = 1
 					add_base_manpower = 1
 				}
+				war_reset_racial_modifiers = yes
 			}
 		}
 	}
@@ -793,8 +908,8 @@ war_lizardmen_faction_4 = {
 		culture_group = lizardmen_group
 	}
 
-## Our slaan have discovered a way to create a 6th Slaan spawning. However, this idea places doubt in some Slaan's mind. We must convince them otherwise.
-	lizardmen_slaan_1 = {
+## Our slann have discovered a way to create a 6th Slann spawning. However, this idea places doubt in some Slann's mind. We must convince them otherwise.
+	lizardmen_slann_1 = {
 		icon = mission_trade_company_region_abroad
 		required_missions = { lizardmen_temples_1 lizardmen_skinks_1 }
 		position = 2
@@ -811,14 +926,14 @@ war_lizardmen_faction_4 = {
 
 		effect = {
 			add_country_modifier = { 
-			    name = lizardmen_slaan_modifier_1
+			    name = lizardmen_slann_modifier_1
 			    duration = -1  
 			}
 		}
 	}
 
-## The old ones left clues as to how to complete the next Slaan spawning. We just need enough of their rituals to see.
-	lizardmen_slaan_2 = {
+## The old ones left clues as to how to complete the next Slann spawning. We just need enough of their rituals to see.
+	lizardmen_slann_2 = {
 		icon = mission_trade_company_region_abroad
 		required_missions = { lizardmen_temples_2 lizardmen_skinks_2 }
 		position = 4
@@ -830,9 +945,9 @@ war_lizardmen_faction_4 = {
 		}
 
 		effect = {
-			remove_country_modifier = lizardmen_slaan_modifier_1
+			remove_country_modifier = lizardmen_slann_modifier_1
 			add_country_modifier = { 
-			    name = lizardmen_slaan_modifier_2
+			    name = lizardmen_slann_modifier_2
 			    duration = -1  
 			}
 			custom_tooltip = upgrade_replace_tt	
@@ -840,7 +955,7 @@ war_lizardmen_faction_4 = {
 	}
 
 ## We have aquired the tablets. Now we must send out an expedition to discover a ritual site.
-	lizardmen_slaan_3 = {
+	lizardmen_slann_3 = {
 		icon = mission_trade_company_region_abroad
 		required_missions = { lizardmen_temples_3 lizardmen_skinks_3 }
 		position = 6
@@ -861,9 +976,9 @@ war_lizardmen_faction_4 = {
 				    duration = -1 
 				}
 			}
-			remove_country_modifier = lizardmen_slaan_modifier_2
+			remove_country_modifier = lizardmen_slann_modifier_2
 			add_country_modifier = { 
-			    name = lizardmen_slaan_modifier_3
+			    name = lizardmen_slann_modifier_3
 			    duration = -1  
 			}
 			custom_tooltip = upgrade_replace_tt	
@@ -871,15 +986,19 @@ war_lizardmen_faction_4 = {
 	}
 
 
-## 
-	lizardmen_slaan_4 = {
+## We must prepare the ritual site
+	lizardmen_slann_4 = {
 		icon = mission_trade_company_region_abroad
 		required_missions = { lizardmen_temples_4 lizardmen_skinks_4 }
 		position = 8
+		provinces_to_highlight = {
+			has_discovered = ROOT
+			has_province_modifier = lizard_6th_spawning_site
+		}
 		trigger = {
 			num_of_owned_provinces_with = {
 				has_province_modifier = lizard_6th_spawning_site
-				development = 30
+				num_of_times_expanded_infrastructure = 2
 				OR = {
 					has_building = temple
 					has_building = cathedral
@@ -889,9 +1008,9 @@ war_lizardmen_faction_4 = {
 		}
 
 		effect = {
-			remove_country_modifier = lizardmen_slaan_modifier_3
+			remove_country_modifier = lizardmen_slann_modifier_3
 			add_country_modifier = { 
-			    name = lizardmen_slaan_modifier_4
+			    name = lizardmen_slann_modifier_4
 			    duration = -1  
 			}
 			custom_tooltip = upgrade_replace_tt	
@@ -899,30 +1018,33 @@ war_lizardmen_faction_4 = {
 	}
 
 ## AS the ritual draws closer, our populace grows skeptical. Now is not the time for fear. We must seize control of the government to push the effort forward.
-	lizardmen_slaan_5 = {
+	lizardmen_slann_5 = {
 		icon = mission_trade_company_region_abroad
 		required_missions = { lizardmen_temples_5 lizardmen_skinks_5 }
 		position = 10
 		trigger = {
 			crown_land_share = 50
-
 		}
 
 		effect = {
-			remove_country_modifier = lizardmen_slaan_modifier_4
+			remove_country_modifier = lizardmen_slann_modifier_4
 			add_country_modifier = { 
-			    name = lizardmen_slaan_modifier_5
+			    name = lizardmen_slann_modifier_5
 			    duration = -1  
 			}
 			custom_tooltip = upgrade_replace_tt	
 		}
 	}
 
-## The ritual requires immense resources. We must build up the ritual site to makeit happen.
-	lizardmen_slaan_6 = {
+## The ritual requires immense resources. We must build up the ritual site to make it happen.
+	lizardmen_slann_6 = {
 		icon = mission_trade_company_region_abroad
 		required_missions = { lizardmen_temples_6 lizardmen_skinks_6 }
 		position = 12
+		provinces_to_highlight = {
+			has_discovered = ROOT
+			has_province_modifier = lizard_6th_spawning_site
+		}
 		trigger = {
 			num_of_owned_provinces_with = {
 				has_province_modifier = lizard_6th_spawning_site
@@ -936,18 +1058,17 @@ war_lizardmen_faction_4 = {
 		}
 
 		effect = {
-			remove_country_modifier = lizardmen_slaan_modifier_5
+			remove_country_modifier = lizardmen_slann_modifier_5
 			add_country_modifier = { 
-			    name = lizardmen_slaan_modifier_6
+			    name = lizardmen_slann_modifier_6
 			    duration = -1  
 			}
 			custom_tooltip = upgrade_replace_tt	
 		}
 	}
 
-## It is time to complete the ritual!
-## Event to get a new 6/6/6 ruler, or to keep your own at 6/6/6.
-	lizardmen_slaan_7 = {
+## It is time to complete the ritual! The sixth slann spawning is complete!
+	lizardmen_slann_7 = {
 		icon = mission_trade_company_region_abroad
 		required_missions = { lizardmen_temples_7 lizardmen_skinks_7 }
 		position = 14
@@ -955,24 +1076,98 @@ war_lizardmen_faction_4 = {
 			adm_power = 250
 			dip_power = 250
 			mil_power = 250
+			innovativeness = 25
+			num_of_owned_provinces_with = {
+				has_province_modifier = lizard_6th_spawning_site
+				num_of_times_expanded_infrastructure = 3
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+				value = 1
+			}
 		}
 
 		effect = {
-			add_adm_power = -200
-			add_dip_power = -200
-			add_mil_power = -200
-			remove_country_modifier = lizardmen_slaan_modifier_6
+
+			add_adm_power = -250
+			add_dip_power = -250
+			add_mil_power = -250
+			change_innovativeness = -25
+
+			remove_country_modifier = lizardmen_slann_modifier_6
 			add_country_modifier = { 
-			    name = lizardmen_slaan_modifier_7
+			    name = lizardmen_slann_modifier_7
 			    duration = -1  
 			}
-			custom_tooltip = upgrade_replace_tt	
+			custom_tooltip = upgrade_replace_tt
+
+			if = {
+				limit = { ruler_has_personality = immortal_personality }
+
+				clear_ruler_personalities = yes
+
+				add_ruler_personality = slann_personality
+				add_ruler_personality = immortal_personality
+
+				if = {
+					limit = {
+						NOT = { adm = 6 }
+					}
+					change_adm = 1
+				}
+
+				if = {
+					limit = {
+						NOT = { dip = 6 }
+					}
+					change_dip = 1
+				}
+
+				if = {
+					limit = {
+						NOT = { mil = 6 }
+					}
+					change_mil = 1
+				}
+
+			} else = {
+				change_innovativeness = -25
+
+				add_country_modifier = {
+					name = lizard_6th_spawning
+					duration = -1
+				}
+
+				define_ruler = {
+				    adm = 6
+				    dip = 4
+				    mil = 6
+				    age = 16
+				    claim = 100
+				}
+
+				add_ruler_personality = slann_personality
+				add_ruler_personality = immortal_personality
+
+			}
+
+			define_heir = {
+			    adm = 6
+			    dip = 5
+			    mil = 4
+			    age = 0
+			    claim = 100
+			}
+
+			add_heir_personality = slann_personality
+			add_heir_personality = immortal_personality
+
+
 		}
 	}
 
 }
-
-
 
 
 war_lizardmen_faction_5 = {
@@ -1007,7 +1202,7 @@ war_lizardmen_faction_5 = {
 
 	lizardmen_skinks_2 = {
 		icon = mission_trade_company_region_abroad
-		required_missions = { lizardmen_slaan_1 }
+		required_missions = { lizardmen_slann_1 }
 		position = 3
 		trigger = {
 			estate_loyalty = {
@@ -1023,7 +1218,7 @@ war_lizardmen_faction_5 = {
 		effect = {
 			remove_country_modifier = lizardmen_skinks_modifier_1
 			add_country_modifier = { 
-			    name = lizardmen_slaan_modifier_2
+			    name = lizardmen_skinks_modifier_2
 			    duration = -1  
 			}
 			custom_tooltip = upgrade_replace_tt	
@@ -1032,7 +1227,7 @@ war_lizardmen_faction_5 = {
 
 	lizardmen_skinks_3 = {
 		icon = mission_trade_company_region_abroad
-		required_missions = { lizardmen_slaan_2 }
+		required_missions = { lizardmen_slann_2 }
 		position = 5
 		provinces_to_highlight = {
 			owned_by = ROOT
@@ -1052,7 +1247,7 @@ war_lizardmen_faction_5 = {
 		effect = {
 			remove_country_modifier = lizardmen_skinks_modifier_2
 			add_country_modifier = { 
-			    name = lizardmen_slaan_modifier_3
+			    name = lizardmen_skinks_modifier_3
 			    duration = -1  
 			}
 			custom_tooltip = upgrade_replace_tt	
@@ -1061,17 +1256,21 @@ war_lizardmen_faction_5 = {
 
 	lizardmen_skinks_4 = {
 		icon = mission_trade_company_region_abroad
-		required_missions = { lizardmen_slaan_3 }
+		required_missions = { lizardmen_slann_3 }
 		position = 7
 		trigger = {
-			## Change this to number of countries with 100 trust (to include subjects)
-			num_of_trusted_allies = 2
+			calc_true_if = {
+				all_country = {
+					trust = { who = ROOT value = 100 }
+				}
+				amount = 2
+			}
 		}
 
 		effect = {
 			remove_country_modifier = lizardmen_skinks_modifier_3
 			add_country_modifier = { 
-			    name = lizardmen_slaan_modifier_4
+			    name = lizardmen_skinks_modifier_4
 			    duration = -1  
 			}
 			custom_tooltip = upgrade_replace_tt	
@@ -1080,7 +1279,7 @@ war_lizardmen_faction_5 = {
 
 	lizardmen_skinks_5 = {
 		icon = mission_trade_company_region_abroad
-		required_missions = { lizardmen_slaan_4 }
+		required_missions = { lizardmen_slann_4 }
 		position = 9
 		trigger = {
 			custom_trigger_tooltip = {
@@ -1092,7 +1291,7 @@ war_lizardmen_faction_5 = {
 		effect = {
 			remove_country_modifier = lizardmen_skinks_modifier_4
 			add_country_modifier = { 
-			    name = lizardmen_slaan_modifier_5
+			    name = lizardmen_skinks_modifier_5
 			    duration = -1  
 			}
 			custom_tooltip = upgrade_replace_tt	
@@ -1102,7 +1301,7 @@ war_lizardmen_faction_5 = {
 ## We must unify our religion!
 	lizardmen_skinks_6 = {
 		icon = mission_trade_company_region_abroad
-		required_missions = { lizardmen_slaan_5 }
+		required_missions = { lizardmen_slann_5 }
 		position = 11
 		provinces_to_highlight = {
 			OR = {
@@ -1154,7 +1353,7 @@ war_lizardmen_faction_5 = {
 		effect = {
 			remove_country_modifier = lizardmen_skinks_modifier_5
 			add_country_modifier = { 
-			    name = lizardmen_slaan_modifier_6
+			    name = lizardmen_skinks_modifier_6
 			    duration = -1  
 			}
 			custom_tooltip = upgrade_replace_tt	
@@ -1163,7 +1362,7 @@ war_lizardmen_faction_5 = {
 
 	lizardmen_skinks_7 = {
 		icon = mission_trade_company_region_abroad
-		required_missions = { lizardmen_slaan_6 }
+		required_missions = { lizardmen_slann_6 }
 		position = 13
 		trigger = {
 			all_province = {
@@ -1175,7 +1374,7 @@ war_lizardmen_faction_5 = {
 		effect = {
 			remove_country_modifier = lizardmen_skinks_modifier_6
 			add_country_modifier = { 
-			    name = lizardmen_slaan_modifier_7
+			    name = lizardmen_skinks_modifier_7
 			    duration = -1  
 			}
 			custom_tooltip = upgrade_replace_tt	

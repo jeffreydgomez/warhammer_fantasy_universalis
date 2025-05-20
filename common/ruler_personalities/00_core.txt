@@ -3324,8 +3324,13 @@ immortal_personality = {
 	
 	allow = {
 		OR = {
-			has_country_modifier = undead_administration #This normally isn't here WAR warhammer
+			has_country_modifier = undead_administration
 			has_country_modifier = elven_administration
+			ruler_has_personality = slann_personality
+			AND = {
+				has_country_modifier = dwarven_administration
+				NOT = { ruler_age = 350 }
+			}
 		}
 	}
 	
@@ -3756,7 +3761,6 @@ grail_knight_personality = {
 		modifier = {
 			factor = 0
 		}
-		
 	}
 
 	static = yes # Makes nation_designer_cost not scale with age etc. 
@@ -3780,18 +3784,18 @@ slann_personality = {
 	
 	allow = {	
 		culture_group = lizardmen_group
-		has_country_modifier = lizard_6th_spawning
+		has_country_modifier = lizardmen_slaan_modifier_7
 	}
 
 	chance = {
 		modifier = {
 			factor = 1000
-			has_country_modifier = lizard_6th_spawning
 		}
-
 	}
 
 	global_prosperity_growth = 0.1
+	max_absolutism = 15
+	yearly_innovativeness = 0.06
 	fire_damage = 0.05
 	all_power_cost = -0.025
 
