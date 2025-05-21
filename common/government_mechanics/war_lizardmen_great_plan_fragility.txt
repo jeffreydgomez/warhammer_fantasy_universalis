@@ -7,13 +7,15 @@ lizardmen_great_plan_mechanic = {
     }
 
     powers = {
-        great_plan_command_power = {
+        great_plan_insight_power = {
             max = 100
             scaled_modifier = {
                 modifier = {
                     #custom_tooltip = great_plan_power_tt
                     all_estate_loyalty_equilibrium = 0.1
                     global_autonomy = -0.05
+                    global_monthly_devastation = -0.5
+                    global_prosperity_growth = 0.5
                 }
             }
         }
@@ -24,47 +26,13 @@ lizardmen_great_plan_mechanic = {
     # An Temporary modifiers (manpower recovery for 10 years)
     # An instant effect for all other users of this mechanic (all gain 10 gold)
 
-    # One interactions can be clicked if the command power is 100
+    # One interactions can be clicked if the insight power is 100
     interactions = {
 
         # Enact spawning pool expansion
-        interaction_1 = {
+        great_plan_interaction_1 = {
             icon = GFX_great_plan_interaction_1
-            cost_type = great_plan_command_power
-            cost = 100
-
-            effect = {
-                # instant self
-                add_inflation = -1
-                # temp buff self
-                add_country_modifier = {
-                    name = interaction_1_modif
-                    duration = 3650
-                }
-                # instant others
-                    custom_tooltip = great_plan_interaction_1_effect_tt
-
-                    hidden_effect = {
-                        every_country = {
-                            limit = {
-                                has_government_mechanic = lizardmen_great_plan_mechanic
-                            }
-                            add_yearly_manpower = 0.1
-    
-                            #add_message = {
-                            #    message = manpower_received_msg
-                            #    desc = manpower_received_desc
-                            #}
-                        }
-
-                    }
-            }
-        }
-
-        # Demand Geomantic fortifications
-        interaction_2 = {
-            icon = GFX_great_plan_interaction_2
-            cost_type = great_plan_command_power
+            cost_type = great_plan_insight_power
             cost = 100
 
             effect = {
@@ -72,37 +40,56 @@ lizardmen_great_plan_mechanic = {
                 add_yearly_manpower = 1
                 # temp buff self
                 add_country_modifier = {
+                    name = interaction_1_modif
+                    duration = 3650
+                }
+                # instant others
+                custom_tooltip = great_plan_interaction_1_effect_tt
+
+                hidden_effect = {
+                    every_country = {
+                        limit = {
+                            religion = old_ones
+                        }
+                        add_yearly_manpower = 0.5
+                    }
+                }
+            }
+        }
+
+        # Demand Geomantic fortifications
+        great_plan_interaction_2 = {
+            icon = GFX_great_plan_interaction_2
+            cost_type = great_plan_insight_power
+            cost = 100
+
+            effect = {
+                # instant self
+                add_army_tradition = 10
+                # temp buff self
+                add_country_modifier = {
                     name = interaction_2_modif
                     duration = 3650
                 }
                 # instant others
-                    custom_tooltip = great_plan_interaction_2_effect_tt
+                custom_tooltip = great_plan_interaction_2_effect_tt
 
-                    hidden_effect = {
-                        every_country = {
-                            limit = {
-                                has_government_mechanic = lizardmen_great_plan_mechanic
-                            }
-                            add_army_tradition = 5
-    
-                            #add_message = {
-                            #    message = tradition_received_msg
-                            #    desc = tradition_received_desc
-    
-                            #    show_in_log = yes
-                            #    is_good = yes
-                            #}
+                hidden_effect = {
+                    every_country = {
+                        limit = {
+                            religion = old_ones
                         }
-
+                        add_army_tradition = 5
                     }
-                    clear_previous_tooltip = yes
+                }
+                clear_previous_tooltip = yes
             }
         }
 
         # Cleanse Ancient artifacts
-        interaction_3 = {
+        great_plan_interaction_3 = {
             icon = GFX_great_plan_interaction_3
-            cost_type = great_plan_command_power
+            cost_type = great_plan_insight_power
             cost = 100
 
             effect = {
@@ -114,23 +101,16 @@ lizardmen_great_plan_mechanic = {
                     duration = 3650
                 }
                 # instant others
-                    custom_tooltip = great_plan_interaction_3_effect_tt
-                    hidden_effect = {
-                        every_country = {
-                            limit = {
-                                has_government_mechanic = lizardmen_great_plan_mechanic
-                            }
-                            add_war_exhaustion = -0.5
-    
-                            #add_message = {
-                            #    message = exhaustion_received_msg
-                            #    desc = axhaustion_received_desc
-                            #    show_in_log = yes
-                            #    is_good = yes
-                            #}
+                custom_tooltip = great_plan_interaction_3_effect_tt
+                hidden_effect = {
+                    every_country = {
+                        limit = {
+                            religion = old_ones
                         }
+                        add_years_of_income = 5
                     }
-                    clear_previous_tooltip = yes
+                }
+                clear_previous_tooltip = yes
                 
             }
         }
