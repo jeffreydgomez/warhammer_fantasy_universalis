@@ -20,7 +20,7 @@ mammoth_riders_reform = {
 		cav_to_inf_ratio = -0.1
 	}
 	ai = {
-		factor = 1
+		factor = 10
 	}
 }
 
@@ -44,7 +44,7 @@ warhammer_T5_skaven_clan_moulder = {
 	}
 	
 	ai = {
-		factor = 1
+		factor = 10
 	}
 }
 
@@ -65,7 +65,7 @@ warhammer_T5_skaven_clan_skyre = {
 	}
 	
 	ai = {
-		factor = 1
+		factor = 10
 	}
 }
 
@@ -85,7 +85,7 @@ warhammer_T5_skaven_clan_verminus = {
 	}
 	
 	ai = {
-		factor = 1
+		factor = 10
 	}
 
 }
@@ -109,7 +109,7 @@ warhammer_T5_skaven_clan_eshin = {
 	}
 	
 	ai = {
-		factor = 1
+		factor = 10
 	}
 }
 
@@ -130,7 +130,7 @@ warhammer_T5_skaven_clan_pestilins = {
 	}
 	
 	ai = {
-		factor = 1
+		factor = 10
 	}
 }
 
@@ -157,42 +157,45 @@ reformed_chaos_horde = {
 	}
 
 	ai = {
-		factor = 1
+		factor = 10
 	}
 }
 
 #inf
 recruit_chosen = {
-	icon = "chaos_warriors"
+	icon = "chosen"
 	allow_normal_conversion = yes
 	potential = {
-		technology_group = tech_chaos_warrior
+		has_country_modifier = chaos_nation
 	}
 	modifiers = {
-		fire_damage_received = -0.1
-		shock_damage_received = -0.1
-		drill_gain_modifier = 1
-		drill_decay_modifier = -0.25
-		infantry_power = 0.25
-		infantry_cost = 0.25
+		fire_damage_received = -0.05
+		shock_damage_received = -0.05
+#		drill_gain_modifier = 1
+#		drill_decay_modifier = -0.25
+		infantry_power = 0.1
+		infantry_cost = 0.1
 	}
 
 	ai = {
-		factor = 1
+		factor = 10
 	}
 }
 
 #artillery
 hellcannons = {
-	icon = "chaos_warriors"
+	icon = "hellcannon"
 	allow_normal_conversion = yes
 	potential = {
-		technology_group = tech_chaos_warrior
+		OR = {
+			has_country_modifier = chaos_nation
+			religion = hashut
+		}
 	}
 	modifiers = {
-		artillery_power = 0.30
-		artillery_cost = 0.20
-		siege_ability = 0.20
+		artillery_power = 0.1
+		artillery_cost = 0.2
+		siege_ability = 0.1
 		artillery_levels_available_vs_fort = 1
 		artillery_level_modifier = 1
 	}
@@ -200,26 +203,29 @@ hellcannons = {
 
 #monsters
 enlist_monsters = {
-	icon = "chaos_warriors"
+	icon = "mutant"
 	allow_normal_conversion = yes
 	potential = {
-		technology_group = tech_chaos_warrior
+		has_country_modifier = chaos_nation
 	}
 	modifiers = {
 		can_recruit_cossacks = yes
 		allowed_cossack_fraction = 0.05
-		special_unit_forcelimit = 1
+#		special_unit_forcelimit = 1
 		special_unit_cost_modifier = -0.1
 	}
 
 	ai = {
-		factor = 1
+		factor = 10
 	}
 }
 
 
+
+### Mages Reforms
+
 found_mages_college_reform = {
-	icon = "assembly_hall"
+	icon = "found_mages_college"
 	allow_normal_conversion = yes
 	valid_for_nation_designer = yes
 	nation_designer_cost = 0
@@ -239,9 +245,10 @@ found_mages_college_reform = {
 	}
 }
 
+
 abolish_mages_college_reform = {
 
-	icon = "assembly_hall"
+	icon = "abolish_mages_college"
 	allow_normal_conversion = yes
 	valid_for_nation_designer = yes
 	nation_designer_cost = 0
@@ -264,3 +271,714 @@ abolish_mages_college_reform = {
 	}
 }
 
+# Court wizards - Give the nobles some power over the mages of our realm
+
+court_wizards_reform = {
+	icon = "abolish_mages_college"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_estate = estate_mages
+		has_estate = estate_nobles
+	}
+	modifiers = {
+		nobles_influence_modifier = 0.1
+		mages_influence_modifier = -0.1
+		prestige = 1
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+
+## Magical Bureaucrats - Use magic in the organization and administration of our empire
+magical_bureaucrats_reform = {
+	icon = "found_mages_college"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_estate = estate_mages
+	}
+	modifiers = {
+		mages_influence_modifier = 0.1
+		administrative_efficiency = 0.05
+		governing_capacity_modifier = 0.1
+		global_unrest = 2
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+
+## War Mages - Generals and high ranking officers are drawn from the magical aristocracy
+war_mages_reform = {
+	icon = "war_mage"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_estate = estate_mages
+	}
+	modifiers = {
+		mages_influence_modifier = 0.1
+		leader_cost = 0.50
+		land_morale = -0.1
+		leader_land_fire = 2
+		leader_land_shock = 2
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+## Ban Magic in Warfare - Magic is too unpredicable to be used in war. Let us stick to what we know
+ban_magic_in_warfare_reform = {
+	icon = "abolish_mages_college"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_estate = estate_mages
+	}
+	modifiers = {
+		mages_influence_modifier = -0.1
+		army_tradition_decay = -0.01
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+## Elevate the Mages - Put the mages above the other estates
+elevate_the_mages_reform = {
+	icon = "wizard"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_estate = estate_mages
+	}
+	modifiers = {
+		mages_influence_modifier = 0.1
+		mages_loyalty_modifier = 0.1
+		innovativeness_gain = 0.25
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+## Reduce Mage's Status - Put the other estates above the mages
+reduce_the_mages_reform = {
+	icon = "abolish_mages_college"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_estate = estate_mages
+	}
+	modifiers = {
+		mages_influence_modifier = -0.1
+		mages_loyalty_modifier = -0.1
+		nobles_loyalty_modifier = 0.1
+		church_loyalty_modifier = 0.15
+		burghers_loyalty_modifier = 0.1
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+embrace_transmutation_reform = {
+	icon = "gold"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_estate = estate_mages
+	}
+	modifiers = {
+		mages_influence_modifier = 0.1
+		burghers_influence_modifier = -0.1
+		gold_depletion_chance_modifier = -0.1
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+tariff_magical_goods_reform = {
+	icon = "abolish_mages_college"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_estate = estate_mages
+	}
+	modifiers = {
+		mages_influence_modifier = -0.1
+		burghers_influence_modifier = 0.1
+		global_trade_power = 0.1
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+
+
+peasant_magical_training_reform = {
+	icon = "spellbook"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_estate = estate_mages
+	}
+	modifiers = {
+		mages_influence_modifier = 0.1
+		institution_spread_from_true_faith = 0.33
+		hostile_attrition = 1
+		max_hostile_attrition = 1
+	}
+	ai = {
+		factor = 1.0 #generic
+	}
+}
+
+
+church_control_of_magic_reform = {
+	icon = "assembly_hall"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_estate = estate_mages
+	}
+	modifiers = {
+		mages_influence_modifier = -0.2
+		church_influence_modifier = 0.2
+		devotion = 2
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+
+## Undead Reforms
+
+state_sacrifices_reform = {
+	icon = "human_sacrifice"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		church_power = 0
+		NOT = { has_country_modifier = order_nation }
+	}
+	modifiers = {
+		church_loyalty_modifier = 0.1
+		church_power_modifier = 0.25
+		manpower_recovery_speed = -0.1
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+## We control our undead through black magic directly, with or without their consent
+necromantic_control_reform = {
+	icon = "necromancer"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_country_modifier = undead_administration
+	}
+	modifiers = {
+		tolerance_own = 3
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+
+## Necrohierarchy - Our leaders are pledged through dark ritual into service to their masters
+necrohierarchy_reform = {
+	icon = "nehekhara"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_country_modifier = undead_administration
+	}
+	modifiers = {
+		all_estate_loyalty_equilibrium = 0.05
+		same_religion_advisor_cost = -0.15
+		leader_cost = -0.1
+		admiral_cost = -0.1
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+# Our rulers exert the greatest control over our lives. There are no greater powers.
+no_gods_above_us_reform = {
+	icon = "war_empty_throne"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		OR = {
+			religion = vampiric
+			religion = nagash_worship
+			religion = yin_yang
+		}
+	}
+	modifiers = {
+		max_absolutism = 15
+		max_absolutism_effect = 0.15
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+
+## Dwarf Reforms
+
+
+## We do not need trade. Close the doors to outsiders, and expand the factories.
+close_the_mines_to_outsiders_reform = {
+	icon = "war_furnace"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		OR = {
+			has_country_modifier = dwarven_administration
+			has_country_modifier = skaven_administration
+		}
+	}
+	modifiers = {
+		trade_efficiency = -0.25
+		global_trade_goods_size_modifier = 0.25
+		burghers_influence_modifier = -0.2
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+## Let us return to the old ways, and allow the dwarven clans increased autonomy over their own holds
+clan_holds_reform = {
+	icon = "dwarf"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_country_modifier = dwarven_administration
+	}
+	modifiers = {
+		nobles_influence_modifier = 0.2
+		fort_maintenance_modifier = -0.25
+		state_maintenance_modifier = -0.25
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+# KHAZUKAN KAZAKIT-HA! The Dwarves go to battle to reclaim their homelands!
+khazukan_kazakit_ha_reform = {
+	icon = "dwarf"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_country_modifier = dwarven_administration
+	}
+	modifiers = {
+		land_morale = 0.1
+		liberty_desire_from_subject_development = -0.1
+		diplomatic_reputation = 1
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+
+### Alignment Reforms
+
+## We must bring peace, order, and prosperity to the worldd
+ordertide_reform = {
+	icon = "divine_guidance_reform"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_country_modifier = order_nation
+	}
+	modifiers = {
+		diplomatic_reputation = 1
+		ae_impact = -0.20
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+## Power is the only thing that is needed to legitimize our rule
+power_is_legitimacy_reform = {
+	icon = "fist_in_air"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_country_modifier = destruction_nation
+	}
+	modifiers = {
+		province_warscore_cost = -0.15
+		prestige_from_land = 0.5
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+## Our divine purpose is to bring chaos to the world
+chaos_bringer_reform = {
+	icon = "everchosen"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_country_modifier = chaos_nation
+	}
+	modifiers = {
+		province_warscore_cost = -0.10
+		church_power_modifier = 0.15
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+
+### Elf Reforms
+
+## Integrate the pantheon more deeply into our governance.
+## This works for either Elves or Dwarves
+integrate_the_pantheon_reform = {
+	icon = "war_prayer"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		OR = {
+			religion_group = elven_denominations
+			religion = ancestor_gods
+		}
+	}
+	modifiers = {
+		legitimacy = 0.5
+		devotion = 0.5
+		horde_unity = 0.5
+		meritocracy = 0.5
+		republican_tradition = 0.2
+		church_power_modifier = 0.15
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+## Orc Reforms
+
+## Greenskins care little for bureacracy. It's more of a question of who can take what without being killed
+greenskin_bureaucracy_reform = {
+	icon = "greenskin"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_country_modifier = orcish_administration
+	}
+	modifiers = {
+		global_unrest = -2
+		global_tax_modifier = -0.1
+		land_morale = 0.1
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+
+waaagh_is_our_culture_reform = {
+	icon = "greenskin"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_country_modifier = orcish_administration
+	}
+	modifiers = {
+		land_morale = 0.1
+		war_exhaustion = -0.02
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+## We have no need of a constitution! Power collects where it naturally collects, without rule.
+nothing_is_written_reform = {
+	icon = "orc_rider"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		OR = {
+			has_country_modifier = orcish_administration
+			has_country_modifier = ogre_administration
+			has_country_modifier = skaven_administration
+			has_country_modifier = beastfolk_administration
+		}
+	}
+	modifiers = {
+		all_estate_influence_modifier = 0.15
+		max_absolutism = 25
+		max_absolutism_effect = 0.25
+		legitimacy = -0.5
+		devotion = -0.5
+		horde_unity = -0.5
+		meritocracy = -0.5
+		republican_tradition = -0.2
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+
+
+## Lizard Reforms
+
+
+old_ones_mission_reform = {
+	icon = "lizardmen"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		religion = old_ones
+	}
+	modifiers = {
+		technology_cost = -0.05
+		warscore_cost_vs_other_religion = -0.1
+		tolerance_own = 1
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+
+skink_bureaucrats_reform = {
+	icon = "skink"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		has_country_modifier = lizardmen_administration
+	}
+	modifiers = {
+		church_influence_modifier = 0.1
+		all_estate_possible_privileges = 1
+		global_autonomy = -0.1
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+
+world_belongs_to_the_old_ones_reform = {
+	icon = "lizardmen"
+	allow_normal_conversion = yes
+	force_conversion_gives_global_holy_war_released_modifier = yes
+	potential = {
+		religion = old_ones
+	}
+	effect = {
+		custom_tooltip = world_crusade_tt
+	}
+	modifiers = {
+		global_missionary_strength = 0.02
+		missionaries = 1
+		culture_conversion_time = -0.3
+		culture_conversion_cost = -0.15
+	}
+	custom_attributes = {
+		has_upgraded_holy_wars = yes
+	}
+	ai = {
+		factor = 10
+	}
+}
+
+
+## Ogre Reforms
+
+## The tyrants are easy to please. Just stuff food down their gullets and they will stay happy.
+feed_the_tyrants_reform = {
+	icon = "ogre"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		OR = {
+			has_country_modifier = ogre_administration
+			religion = the_great_maw_religion
+		}
+	}
+	modifiers = {
+		nobles_loyalty_modifier = 0.25
+		production_efficiency = -0.1
+		global_unrest = -1
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+## The clergy are easy to please. Just stuff food down their gullets and they will stay happy.
+feed_the_clergy_reform = {
+	icon = "ogre"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		OR = {
+			has_country_modifier = ogre_administration
+			religion = the_great_maw_religion
+		}
+	}
+	modifiers = {
+		church_loyalty_modifier = 0.25
+		production_efficiency = -0.1
+		global_unrest = -1
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+
+## If we can keep the people fed, we can keep them happy.
+feed_the_masses_reform = {
+	icon = "ogre"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		OR = {
+			has_country_modifier = ogre_administration
+			religion = the_great_maw_religion
+		}
+	}
+	modifiers = {
+		global_monthly_devastation = -0.25
+		global_prosperity_growth = 0.75
+		production_efficiency = -0.1
+		global_unrest = -1
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+
+## Skaven Reforms
+
+## Our mission is to spread ourselves like a plague across the world!
+eat_eat_the_world_reform = {
+	icon = "vermintide"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		OR = {
+			has_country_modifier = skaven_administration
+			religion_group = skaven_denominations
+		}
+	}
+	modifiers = {
+		culture_conversion_cost = -0.3
+		culture_conversion_time = -0.3
+		years_of_nationalism = -5
+		global_unrest = 1
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+## While we would never abandon the horned rat, we can focus on other aspects of him, such as his love of industry. Let us move our slaves into the factories.
+factories_of_the_horned_rat_reform = {
+	icon = "vermintide"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		religion = horned_rat
+	}
+	modifiers = {
+		global_trade_goods_size_modifier = 0.15
+		global_allowed_num_of_manufactories = 1
+		global_manpower_modifier = -0.1
+	}
+	ai = {
+		factor = 10.0 #generic
+	}
+}
+
+
+
+hashut_governing_reform = {
+	icon = "hashut"
+	allow_normal_conversion = yes
+	potential = {
+		NOT = { has_government_attribute = is_pirate_republic_reform }
+		OR = {
+			is_revolutionary = no
+			NOT = { has_dlc = "Emperor" }
+		}
+		religion = hashut
+	}
+	modifiers = {
+		church_influence_modifier = 0.1
+		church_loyalty_modifier = 0.1
+		harmonization_speed = 0.1
+		governing_capacity_modifier = 0.05
+	}
+	conditional = {
+		allow = { has_dlc = "Mandate of Heaven" }
+		custom_attributes = {
+			full_loyalty_on_harmonization = yes	#Add +100 Loyalty when harmonizing something
+		}
+	}
+	
+	ai = {
+		factor = 10
+	}
+}

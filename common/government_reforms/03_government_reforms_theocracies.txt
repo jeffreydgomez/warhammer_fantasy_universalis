@@ -268,12 +268,6 @@ holy_horde_reform = {
 			have_had_reform = holy_horde_reform
 		}
 	}
-	trigger = {
-		OR = {
-			religion = catholic
-			is_playing_custom_nation = yes
-		}
-	}
 	modifiers = {
 		cb_on_religious_enemies = yes
 		cavalry_cost = -0.1
@@ -398,13 +392,6 @@ reformer_state_reform = {
 		}
 	}
 	trigger = {
-		OR = {
-			is_playing_custom_nation = yes
-			religion = hussite
-			religion = protestant
-			religion = reformed
-			religion = anglican
-		}
 	}
 	allow_normal_conversion = yes
 	icon = "reformer"
@@ -888,11 +875,11 @@ bureaucratic_rule_reform = {
 	allow_normal_conversion = yes
 	potential = {
 		NOT = { tag = PAP }
-		religion = confucianism
+		religion_group = eastern_denominations
 	}
 	valid_for_nation_designer = yes
 	nation_designer_trigger = {
-		religion = confucianism
+		religion_group = eastern_denominations
 	}
 	nation_designer_cost = 0
 	modifiers = {
@@ -1176,18 +1163,8 @@ loyal_nobility_reform = {
 
 monastic_breweries_reform = {
 	potential = {
-		OR = {
-			religion = catholic
-			culture_group = gaelic
-			primary_culture = scottish
-		}
 	}
 	trigger = {
-		OR = {
-			religion = catholic
-			culture_group = gaelic
-			primary_culture = scottish
-		}
 		any_owned_province = {
 			OR = {
 				trade_goods = wine
@@ -1246,16 +1223,7 @@ monastic_breweries_reform = {
 warrior_monks_reform = {
 	potential = {
 		OR = {
-			religion_group = eastern
-			AND = {
-				OR = {
-					culture_group = japanese_g
-					primary_culture = ainu
-				}
-				capital_scope = {
-					region = japan_region
-				}
-			}
+			religion_group = eastern_denominations
 			have_had_reform = warrior_monks_reform
 		}
 	}
@@ -1793,15 +1761,15 @@ religious_harmony_reform = {
 	icon = "religious_harmony_reform"
 	allow_normal_conversion = yes
 	potential = {
-		religion = confucianism
+		religion_group = eastern_denominations
 	}
 	trigger = {
-		religion = confucianism
+		religion_group = eastern_denominations
 	}
 	modifiers = {
-		tolerance_heathen = 1
-		tolerance_heretic = 1
-		harmonization_speed = 0.2
+		tolerance_heathen = 2
+		tolerance_heretic = 2
+#		harmonization_speed = 0.2
 	}
 	ai = {
 		factor = 0
@@ -1944,16 +1912,8 @@ religious_permanent_revolution_reform = {
 	allow_normal_conversion = yes
 	force_conversion_gives_global_holy_war_released_modifier = yes
 	potential = {
-		NOT = {
-			religion = confucianism
-			religion_group = pagan
-		}
 	}
 	trigger = {
-		NOT = {
-			religion = confucianism
-			religion_group = pagan
-		}
 	}
 	effect = {
 		custom_tooltip = world_crusade_tt

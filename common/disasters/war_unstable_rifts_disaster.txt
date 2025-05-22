@@ -1,0 +1,87 @@
+unstable_rifts_disaster = {
+    potential = {
+        NOT = {
+            has_global_flag = unstable_rifts_ended
+        }
+        religion = old_ones
+        current_age = age_of_discovery
+        NOT = { religious_unity = 1.25 }
+        NOT = { mission_completed = lizardmen_temples_3 }
+    }
+
+    can_start = {
+        religion = old_ones
+        current_age = age_of_discovery
+        NOT = { religious_unity = 1.25 }
+        NOT = { mission_completed = lizardmen_temples_3 }
+    }
+    can_stop = {
+        NOT = { religion = old_ones }
+        NOT = { current_age = age_of_discovery }               
+        religious_unity = 1.25
+        mission_completed = lizardmen_temples_3
+    }
+
+    progress = {
+        modifier = {
+            factor = 1
+            NOT = { stability = 3 }
+        }
+        modifier = {
+            factor = 1
+            NOT = { religious_unity = 1 }
+        }
+    }
+
+    can_end = {
+        OR = {
+            NOT = { current_age = age_of_discovery }
+            NOT = { religion = old_ones }
+            religious_unity = 1.25
+            mission_completed = lizardmen_temples_3
+
+            custom_trigger_tooltip = {
+                tooltip = target_of_chaos_for_50_years_tt
+                had_country_flag = {
+                    flag = U_R_startflag
+                    days = 18250         # 50 years
+                }
+            }
+
+        }
+
+    }
+
+
+    ended_by_country_breaking_to_rebels = no
+
+    modifier = {
+        global_unrest = 2
+    }
+
+    on_start = unstable_rifts.0
+    on_end = unstable_rifts.1
+
+    on_monthly = {
+		events = { }
+        random_events = {
+            1500 = 0
+            
+            10 = unstable_rifts.5
+            10 = unstable_rifts.6
+            10 = unstable_rifts.7
+            10 = unstable_rifts.8
+            10 = unstable_rifts.9
+            10 = unstable_rifts.10
+
+            2 = unstable_rifts.101
+            2 = unstable_rifts.102
+            2 = unstable_rifts.103
+            2 = unstable_rifts.104
+            2 = unstable_rifts.105
+            2 = unstable_rifts.106
+
+            ## These numbers mean a rift should form for each nation about once every 10 years.
+        }
+	}
+}
