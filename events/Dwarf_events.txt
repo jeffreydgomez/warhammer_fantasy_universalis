@@ -12,7 +12,7 @@ country_event = {
 	id = dwarf_events.X
 	title = dwarf_events.X.t 
 	desc = dwarf_events.X.d 
-	picture = INVENTION_eventPicture
+	picture = DWARF_eventPicture
 	
 	fire_only_once = no
 	is_triggered_only = yes
@@ -140,6 +140,9 @@ country_event = {
 			NOT = { has_been_eclipsed_by = ROOT }
 			NOT = { has_eclipsed = ROOT }
 			NOT = { is_enemy = ROOT }
+			NOT = { alliance_with = ROOT }
+			NOT = { is_subject_of = ROOT }
+			NOT = { overlord_of = ROOT }
 			capital_scope = { has_discovered = ROOT }
 			military_strength = {
 				who = ROOT
@@ -160,6 +163,9 @@ country_event = {
 				NOT = { has_been_eclipsed_by = ROOT }
 				NOT = { has_eclipsed = ROOT }
 				NOT = { is_enemy = ROOT }
+				NOT = { alliance_with = ROOT }
+				NOT = { is_subject_of = ROOT }
+				NOT = { overlord_of = ROOT }
 				capital_scope = { has_discovered = ROOT }
 				military_strength = {
 					who = ROOT
@@ -204,6 +210,9 @@ country_event = {
 			NOT = { has_been_eclipsed_by = ROOT }
 			NOT = { has_eclipsed = ROOT }
 			NOT = { is_enemy = ROOT }
+			NOT = { alliance_with = ROOT }
+			NOT = { is_subject_of = ROOT }
+			NOT = { overlord_of = ROOT }
 			capital_scope = { has_discovered = ROOT }
 			military_strength = {
 				who = ROOT
@@ -225,6 +234,9 @@ country_event = {
 				capital_scope = { has_discovered = ROOT }
 				NOT = { has_been_eclipsed_by = ROOT }
 				NOT = { has_eclipsed = ROOT }
+				NOT = { alliance_with = ROOT }
+				NOT = { is_subject_of = ROOT }
+				NOT = { overlord_of = ROOT }
 				military_strength = {
 					who = ROOT
 					value = 1.0
@@ -268,6 +280,9 @@ country_event = {
 			NOT = { has_been_eclipsed_by = ROOT }
 			NOT = { has_eclipsed = ROOT }
 			NOT = { is_enemy = ROOT }
+			NOT = { alliance_with = ROOT }
+			NOT = { is_subject_of = ROOT }
+			NOT = { overlord_of = ROOT }
 			capital_scope = { has_discovered = ROOT }
 			military_strength = {
 				who = ROOT
@@ -289,6 +304,9 @@ country_event = {
 				capital_scope = { has_discovered = ROOT }
 				NOT = { has_been_eclipsed_by = ROOT }
 				NOT = { has_eclipsed = ROOT }
+				NOT = { alliance_with = ROOT }
+				NOT = { is_subject_of = ROOT }
+				NOT = { overlord_of = ROOT }
 				military_strength = {
 					who = ROOT
 					value = 1.0
@@ -332,6 +350,9 @@ country_event = {
 			NOT = { has_been_eclipsed_by = ROOT }
 			NOT = { has_eclipsed = ROOT }
 			NOT = { is_enemy = ROOT }
+			NOT = { alliance_with = ROOT }
+			NOT = { is_subject_of = ROOT }
+			NOT = { overlord_of = ROOT }
 			capital_scope = { has_discovered = ROOT }
 			military_strength = {
 				who = ROOT
@@ -353,6 +374,9 @@ country_event = {
 				capital_scope = { has_discovered = ROOT }
 				NOT = { has_been_eclipsed_by = ROOT }
 				NOT = { has_eclipsed = ROOT }
+				NOT = { alliance_with = ROOT }
+				NOT = { is_subject_of = ROOT }
+				NOT = { overlord_of = ROOT }
 				military_strength = {
 					who = ROOT
 					value = 1.0
@@ -397,6 +421,9 @@ country_event = {
 			NOT = { has_been_eclipsed_by = ROOT }
 			NOT = { has_eclipsed = ROOT }
 			NOT = { is_enemy = ROOT }
+			NOT = { alliance_with = ROOT }
+			NOT = { is_subject_of = ROOT }
+			NOT = { overlord_of = ROOT }
 			capital_scope = { has_discovered = ROOT }
 			military_strength = {
 				who = ROOT
@@ -418,6 +445,9 @@ country_event = {
 				capital_scope = { has_discovered = ROOT }
 				NOT = { has_been_eclipsed_by = ROOT }
 				NOT = { has_eclipsed = ROOT }
+				NOT = { alliance_with = ROOT }
+				NOT = { is_subject_of = ROOT }
+				NOT = { overlord_of = ROOT }
 				military_strength = {
 					who = ROOT
 					value = 1.0
@@ -460,6 +490,9 @@ country_event = {
 		NOT = { has_been_eclipsed_by = ROOT }
 			NOT = { has_eclipsed = ROOT }
 			NOT = { is_enemy = ROOT }
+			NOT = { alliance_with = ROOT }
+			NOT = { is_subject_of = ROOT }
+			NOT = { overlord_of = ROOT }
 			capital_scope = { has_discovered = ROOT }
 			military_strength = {
 				who = ROOT
@@ -481,6 +514,9 @@ country_event = {
 				capital_scope = { has_discovered = ROOT }
 				NOT = { has_been_eclipsed_by = ROOT }
 				NOT = { has_eclipsed = ROOT }
+				NOT = { alliance_with = ROOT }
+				NOT = { is_subject_of = ROOT }
+				NOT = { overlord_of = ROOT }
 				military_strength = {
 					who = ROOT
 					value = 1.0
@@ -1211,6 +1247,178 @@ country_event = {
 
 }
 
+
+## A new vein is discovered, but the only way to get to it is by blasting!
+country_event = { 
+	id = dwarf_events.13
+	title = dwarf_events.13.t 
+	desc = dwarf_events.13.d 
+	picture = INDUSTRY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		has_country_modifier = dwarven_administration
+		any_owned_province = {
+			OR = {
+				trade_goods = copper
+				trade_goods = iron
+				trade_goods = gems
+				trade_goods = gold
+				trade_goods = gromril
+				trade_goods = warpstone
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				OR = {
+					trade_goods = copper
+					trade_goods = iron
+					trade_goods = gems
+					trade_goods = gold
+					trade_goods = gromril
+					trade_goods = warpstone
+				}
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Get at it slowly
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dwarf_events.13.option_1 
+		event_target:event_target = {
+			add_base_production = 1
+		}
+	}
+
+# Blast away!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dwarf_events.13.option_2
+		event_target:event_target = {
+			add_devastation = 10
+			add_base_production = 3
+		}
+	}
+
+# Blow up the whole mine! Expose everything!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dwarf_events.13.option_3
+		event_target:event_target = {
+			add_devastation = 50
+			add_base_production = 5
+		}
+
+	}
+
+# Stand back ...
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dwarf_events.13.option_4
+		event_target:event_target = {
+			add_devastation = 100
+			add_base_production = 7
+		}
+	}
+}
+
+
+### A Minor Breakthrough in Rune magic
+country_event = { 
+	id = dwarf_events.14
+	title = dwarf_events.14.t 
+	desc = dwarf_events.14.d 
+	picture = INDUSTRY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		has_country_modifier = dwarven_administration
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Who said dwarves can't use magic?
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dwarf_events.14.option_1 
+
+		change_innovativeness = 3
+
+	}
+
+# Get those runes on our weapons!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dwarf_events.14.option_2
+		add_country_modifier = { 
+		    name = war_fire_damage
+		    duration = 3650
+		}
+
+	}
+
+}
+
+
+### An inspired engineer - One of our engineers is a prodigee! Where to focus his efforts?
+country_event = { 
+	id = dwarf_events.15
+	title = dwarf_events.15.t 
+	desc = dwarf_events.15.d 
+	picture = INDUSTRY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		has_country_modifier = dwarven_administration
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Dig!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dwarf_events.15.option_1 
+
+		add_country_modifier = { 
+		    name = war_cheaper_dev
+		    duration = 3650
+		}
+
+	}
+
+# Build!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dwarf_events.15.option_2
+		add_country_modifier = { 
+		    name = war_cheaper_buildings
+		    duration = 3650
+		}
+
+	}
+
+}
 
 
 
