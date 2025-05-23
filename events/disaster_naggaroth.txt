@@ -1,0 +1,1455 @@
+namespace = naggaroth_power_struggle_events
+
+#Disaster Start
+country_event = {
+	id = naggaroth_power_struggle_events.1
+	title = naggaroth_power_struggle_events.1.t
+	desc = naggaroth_power_struggle_events.1.desc
+	picture = BAD_WITH_MONARCH_eventPicture
+	is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		hidden_effect = {
+			set_variable = {
+				which = tur_power_struggle_intesity
+				value = 0
+			}
+		}
+	}
+	option = {
+		name = naggaroth_power_struggle_events.1.a
+		add_legitimacy = -25
+		add_prestige = -25
+		add_stability = -1
+		add_country_modifier = {
+			name = estates_power_struggle
+			duration = -1 
+		}
+		add_estate_loyalty = {
+			estate = estate_nobles
+			loyalty = -50
+		}
+		add_estate_loyalty = {
+			estate = estate_church
+			loyalty = -50
+		}
+		add_estate_loyalty = {
+			estate = estate_janissaries
+			loyalty = -50
+		}
+		add_estate_loyalty = {
+			estate = estate_burghers
+			loyalty = -50
+		}
+		custom_tooltip = naggaroth_power_struggle_events.1.a.tt
+		custom_tooltip = naggaroth_power_struggle_events.1.a.bt
+		hidden_effect = {
+			set_country_flag = naggaroth_unlocked_disaster_missions
+			set_country_flag = naggaroth_has_power_struggle
+		}
+		custom_tooltip = naggaroth_power_struggle_events.1.a.ct
+
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+#Disaster end
+country_event = {
+	id = naggaroth_power_struggle_events.2
+	title = naggaroth_power_struggle_events.2.t
+	desc = naggaroth_power_struggle_events.2.desc
+	picture = PAX_OTTOMANA_eventPicture
+	is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		on_non_estate_disaster_end = yes
+		hidden_effect = {
+			set_country_flag = naggaroth_power_struggle_has_happened
+			clr_country_flag = naggaroth_has_power_struggle
+		}
+	}
+
+	option = {
+		name = naggaroth_power_struggle_events.2.a
+		change_ruler_stat = {
+			type = adm
+			amount = 2
+		}
+		change_ruler_stat = {
+			type = dip
+			amount = 2
+		}
+		change_ruler_stat = {
+			type = mil
+			amount = 2
+		}
+		unlock_government_reform = {
+			government_reform = reorganized_witch_kingdom
+		}
+		add_government_reform = reorganized_witch_kingdom
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+#Legitimacy Questioned
+country_event = {
+	id = naggaroth_power_struggle_events.3
+	title = naggaroth_power_struggle_events.3.t
+	desc = naggaroth_power_struggle_events.3.desc
+	picture = BAD_WITH_MONARCH_eventPicture
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = naggaroth_power_struggle_events.3.a
+		if = {
+			limit = { government = republic }
+			ottoman_power_struggle_effect = {
+				republican_tradition_effect = yes
+			}
+		}
+		else = {
+			ottoman_power_struggle_effect = {
+				legitimacy_effect = yes
+			}
+		}
+
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+#Loss of Prestige
+country_event = {
+	id = naggaroth_power_struggle_events.4
+	title = naggaroth_power_struggle_events.4.t
+	desc = naggaroth_power_struggle_events.4.desc
+	picture = BAD_WITH_MONARCH_eventPicture
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = naggaroth_power_struggle_events.4.a
+		ottoman_power_struggle_effect = {
+			prestige_effect = yes
+		}
+
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+#Financial Problems
+country_event = {
+	id = naggaroth_power_struggle_events.5
+	title = naggaroth_power_struggle_events.5.t
+	desc = naggaroth_power_struggle_events.5.desc
+	picture = BANKRUPTCY_eventPicture
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = naggaroth_power_struggle_events.5.a
+		ottoman_power_struggle_effect = {
+			treasury_effect = yes
+		}
+
+		ai_chance = {
+			factor = 1
+		}
+	}
+
+	option = {
+		name = naggaroth_power_struggle_events.5.b
+		ottoman_power_struggle_effect = {
+			inflation_effect = yes
+		}
+
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+#slave revolts
+country_event = {
+	id = naggaroth_power_struggle_events.6
+	title = naggaroth_power_struggle_events.6.t
+	desc = naggaroth_power_struggle_events.6.desc
+	picture = REVOLT_eventPicture
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		days = 1
+	}
+	goto = revolt_province_1
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_in_capital_area = yes
+					is_overseas = no
+				}
+				save_event_target_as = revolt_province_1
+				set_likely_rebels_flag = yes
+			}
+			random_owned_province = {
+				limit = {
+					is_in_capital_area = yes
+					is_overseas = no
+				}
+				save_event_target_as = revolt_province_2
+				set_likely_rebels_flag = yes
+			}
+			random_owned_province = {
+				limit = {
+					is_in_capital_area = yes
+					is_overseas = no
+				}
+				save_event_target_as = revolt_province_3
+				set_likely_rebels_flag = yes
+			}
+			random_owned_province = {
+				limit = {
+					is_in_capital_area = yes
+					is_overseas = no
+				}
+				save_event_target_as = revolt_province_4
+				set_likely_rebels_flag = yes
+			}
+		}
+	}
+
+	option = {
+		name = naggaroth_power_struggle_events.6.a
+		ottoman_power_struggle_rebel_effect = {
+			province_1 = event_target:revolt_province_1
+			province_2 = event_target:revolt_province_2
+			province_3 = event_target:revolt_province_3
+			province_4 = event_target:revolt_province_4
+		}
+
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+#Corruption in the court
+country_event = {
+	id = naggaroth_power_struggle_events.7
+	title = naggaroth_power_struggle_events.7.t
+	desc = naggaroth_power_struggle_events.7.desc
+	picture = CORRUPTION_eventPicture
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = naggaroth_power_struggle_events.7.a
+		ottoman_power_struggle_effect = {
+			corruption_effect = yes
+		}
+
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+#Inefficient Bureaucracy
+country_event = {
+	id = naggaroth_power_struggle_events.8
+	title = naggaroth_power_struggle_events.8.t
+	desc = naggaroth_power_struggle_events.8.desc
+	picture = ECONOMY_eventPicture
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = naggaroth_power_struggle_events.8.a
+		ottoman_power_struggle_effect = {
+			monarch_power_effect = yes
+		}
+
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+namespace = dreadlords_secede_events
+#Dreadlord Secession
+#Dreadlord's Secede
+country_event = {
+	id = dreadlords_secede_events.1
+	title = dreadlords_secede_events.1.t
+	desc = dreadlords_secede_events.1.desc
+	picture = JANISSARY_REVOLT_eventPicture
+	is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = naggaroth_has_dreadlord_secession
+			if = {
+				limit = { has_estate = estate_nobles }
+				add_estate_loyalty = {
+					estate = estate_nobles
+					loyalty = -100
+				}
+				set_estate_privilege = estate_nobles_ghrond_dreadlords
+				set_estate_privilege = estate_nobles_har_ganeth_dreadlords
+				set_estate_privilege = estate_nobles_hag_graef_dreadlords
+				set_estate_privilege = estate_nobles_clar_karond_dreadlords
+				set_estate_privilege = estate_nobles_karond_kar_dreadlords
+			}
+		}
+	}
+	option = {
+		name = dreadlords_secede_events.1.a
+		custom_tooltip = dreadlords_secede_events.1.a.tt
+		if = {
+			limit = { exists = H17 }	
+			H17 = {
+				country_event = {
+					id = dreadlords_secede_events.3
+					days = 5
+				}	
+			}
+		}
+		if = {
+			limit = { NOT = { exists = H17 }}
+			2591 = {
+				limit = {
+					owned_by = ROOT
+				}
+				spawn_rebels = {
+					type = nationalist_rebels
+					size = 5
+					win = yes
+					separatists_target = H17
+					friend = H16
+					friend = H13
+					friend = H15
+					friend = H14
+				}
+			}	
+		}
+		if = {
+			limit = { exists = H16 }
+			H16 = {
+				country_event = {
+					id = dreadlords_secede_events.3
+					days = 5
+				}	
+			}
+		}
+		if = {
+			limit = { NOT = { exists = H16 }}
+			2593 = {
+				limit = {
+					owned_by = ROOT
+				}
+				spawn_rebels = {
+					type = nationalist_rebels
+					size = 5
+					win = yes
+					separatists_target = H16
+					friend = H17
+					friend = H13
+					friend = H15
+					friend = H14
+
+				}
+			}
+		}	
+		if = {
+			limit = { exists = H13 }
+			H13 = {
+				country_event = {
+					id = dreadlords_secede_events.3
+					days = 5
+				}	
+			}
+		}
+		if = {
+			limit = { NOT = { exists = H13 }}
+			1982 = {
+				limit = {
+					owned_by = ROOT
+				}
+				spawn_rebels = {
+					type = nationalist_rebels
+					size = 5
+					win = yes
+					separatists_target = H13
+					friend = H16
+					friend = H17
+					friend = H15
+					friend = H14
+				}	
+			}	
+		}
+		if = {
+			limit = { exists = H15 }
+			H15 = {
+				country_event = {
+					id = dreadlords_secede_events.3
+					days = 5
+				}	
+			}
+		}
+		if = {
+			limit = { NOT = { exists = H15 }}
+			2586 = {
+				limit = {
+					owned_by = ROOT
+				}
+				spawn_rebels = {
+					type = nationalist_rebels
+					size = 5
+					win = yes
+					separatists_target = H15
+					friend = H16
+					friend = H13
+					friend = H17
+					friend = H14
+				}	
+			}	
+		}
+		if = {
+			limit = { exists = H14 }
+			H14 = {
+				country_event = {
+					id = dreadlords_secede_events.3
+					days = 5
+				}	
+			}
+		}
+		if = {
+			limit = { NOT = { exists = H14 }}
+			2566 = {
+				limit = {
+					owned_by = ROOT
+				}
+				spawn_rebels = {
+					type = nationalist_rebels
+					size = 5
+					win = yes
+					separatists_target = H14
+					friend = H16
+					friend = H13
+					friend = H15
+					friend = H17
+				}	
+			}	
+		}
+	}
+}
+#End Of Disaster
+country_event = {
+	id = dreadlords_secede_events.2
+	title = dreadlords_secede_events.2.t
+	desc = {
+		desc = dreadlords_secede_events.2.desc.a
+		trigger = {
+			has_country_flag = defeated_hag_graef
+			has_country_flag = defeated_ghrond
+			has_country_flag = defeated_har_ganeth
+			has_country_flag = defeated_clar_karond
+			has_country_flag = defeated_karond_kar
+		}
+		desc = dreadlords_secede_events.2.desc.b
+		trigger = {
+			has_country_flag = hag_graef_secedes
+			has_country_flag = ghrond_secedes
+			has_country_flag = har_ganeth_secedes
+			has_country_flag = clar_karond_secedes
+			has_country_flag = karond_kar_secedes
+		}
+		dreadlords_secede_events.2.desc.c
+		trigger = {
+			OR = {
+				has_country_flag = defeated_hag_graef
+				has_country_flag = defeated_ghrond
+				has_country_flag = defeated_har_ganeth
+				has_country_flag = defeated_clar_karond
+				has_country_flag = defeated_karond_kar	
+			}
+			OR = {
+				has_country_flag = hag_graef_secedes
+				has_country_flag = ghrond_secedes
+				has_country_flag = har_ganeth_secedes
+				has_country_flag = clar_karond_secedes
+				has_country_flag = karond_kar_secedes	
+			}
+		}
+	}
+	picture = JANISSARIES_IN_FORMATION_eventPicture
+	is_triggered_only = yes
+	major = yes
+	immediate = {
+		on_non_estate_disaster_end = yes
+		hidden_effect = {
+			clr_country_flag = naggaroth_has_dreadlord_secession
+			set_country_flag = naggaroth_had_dreadlord_secession
+		}
+	}
+	option = {
+		name = dreadlords_secede_events.2.a
+		trigger = {
+			has_country_flag = defeated_hag_graef
+			has_country_flag = defeated_ghrond
+			has_country_flag = defeated_har_ganeth
+			has_country_flag = defeated_clar_karond
+			has_country_flag = defeated_karond_kar
+		}
+		add_country_modifier = {
+			name = naggaroth_shattered_dreadlords
+			duration = -1
+		}
+		add_mil_power = 200
+		add_stability_or_adm_power = yes
+	}
+	option = {
+		name = dreadlords_secede_events.2.b
+		trigger = {
+			OR = {
+				has_country_flag = defeated_hag_graef
+				has_country_flag = defeated_ghrond
+				has_country_flag = defeated_har_ganeth
+				has_country_flag = defeated_clar_karond
+				has_country_flag = defeated_karond_kar	
+			}
+			OR = {
+				has_country_flag = hag_graef_secedes
+				has_country_flag = ghrond_secedes
+				has_country_flag = har_ganeth_secedes
+				has_country_flag = clar_karond_secedes
+				has_country_flag = karond_kar_secedes	
+			}
+		}
+		add_country_modifier = {
+			name = naggaroth_dreadlord_draw
+			duration = -1
+		}
+		add_mil_power = 100
+	}	
+	option = {
+		name = dreadlords_secede_events.2.c
+		trigger = {
+			has_country_flag = hag_graef_secedes
+			has_country_flag = ghrond_secedes
+			has_country_flag = har_ganeth_secedes
+			has_country_flag = clar_karond_secedes
+			has_country_flag = karond_kar_secedes
+		}
+		add_country_modifier = {
+			name = naggaroth_dreadlords_victorious
+			duration = -1
+		}
+		add_stability = -1
+	}
+	option = {
+		trigger = {
+			NOT = {
+				OR = {
+					has_country_flag = hag_graef_secedes
+					has_country_flag = ghrond_secedes
+					has_country_flag = har_ganeth_secedes
+					has_country_flag = clar_karond_secedes
+					has_country_flag = karond_kar_secedes
+				}
+				OR = {
+					has_country_flag = defeated_hag_graef
+					has_country_flag = defeated_ghrond
+					has_country_flag = defeated_har_ganeth
+					has_country_flag = defeated_clar_karond
+					has_country_flag = defeated_karond_kar		
+				}
+			}
+		}
+		name = dreadlords_secede_events.2.d
+		custom_tooltip = { dreadlords_secede_events.2.d.tt }
+	}
+}
+#Initial uprising choice for existant states
+country_event = {
+	id = dreadlords_secede_events.3
+	title = dreadlords_secede_events.3.t
+	desc = dreadlords_secede_events.3.desc
+	picture = NEGOTIATIONS_LUBLIN_eventPicture
+	is_triggered_only = yes
+
+	option = {
+		name = dreadlords_secede_events.3.a
+		trigger = {
+			is_subject_of = H12
+		}
+		declare_war_with_cb = {
+			who = H12
+			casus_belli = cb_independence_war
+		}
+		add_treasury = 1000
+		add_manpower = 15	
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = dreadlords_secede_events.3.b
+		trigger = {
+			is_subject = no
+			NOT = { alliance_with = H12 }
+		}
+		dark_elven_naggaroth_superregion = {
+			add_claim = ROOT
+		}
+		declare_war_with_cb = {
+			who = H12
+			casus_belli = cb_conquest
+		}
+		add_treasury = 1000
+		add_manpower = 15	
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = dreadlords_secede_events.3.c
+		add_prestige = -10
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+#Monthly events
+#Clar Karond Rebels
+country_event = {
+	id = dreadlords_secede_events.4
+	title = dreadlords_secede_events.4.t
+	desc = {
+		desc = dreadlords_secede_events.4.desc.a
+		trigger = {
+			NOT = {
+				OR = {
+					has_country_flag = defeated_karond_kar
+					has_country_flag = karond_kar_secedes
+				}
+			}
+		}
+		desc = dreadlords_secede_events.4.desc.b
+		trigger = {
+			has_country_flag = defeated_karond_kar
+		}
+		desc = dreadlords_secede_events.4.desc.c
+		trigger = {
+			has_country_flag = karond_kar_secedes
+		}
+	}
+	picture = CIVIL_WAR_eventPicture
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						OR = {
+							has_country_flag = defeated_karond_kar
+							has_country_flag = karond_kar_secedes
+						}
+					}	
+				}
+				random_owned_province = {
+					limit = {
+						OR = {
+							area = naggaroth_4_area
+							area = naggaroth_5_area
+							area = naggaroth_6_area
+							area = black_forest_1_area
+						}
+					}
+					spawn_rebels = {
+						type = nationalist_rebels
+						size = 2
+						win = yes
+						separatists_target = H17
+						friend = H16
+						friend = H13
+						friend = H15
+						friend = H14
+					}
+				}
+				random_owned_province = {
+					limit = {
+						OR = {
+							area = naggaroth_3_area
+							area = naggaroth_4_area
+							area = naggaroth_5_area
+							area = naggaroth_6_area
+							area = black_forest_1_area
+						}
+					}
+					spawn_rebels = {
+						type = nationalist_rebels
+						size = 2
+						win = yes
+						separatists_target = H17
+						friend = H16
+						friend = H13
+						friend = H15
+						friend = H14
+					}
+				}	
+			}
+		}
+	}
+	option = {
+		trigger = {
+			NOT = {
+				OR = {
+					has_country_flag = defeated_karond_kar
+					has_country_flag = karond_kar_secedes
+				}
+			}
+		}
+		name = dreadlords_secede_events.4.a
+	}
+	option = {
+		trigger = {
+			has_country_flag = defeated_karond_kar
+		}
+		name = dreadlords_secede_events.4.b
+		add_manpower = 10
+
+	}
+	option = {
+		trigger = {
+			has_country_flag = karond_kar_secedes
+		}
+		name = dreadlords_secede_events.4.c
+		add_legitimacy = -10
+	}
+}
+#Hag Graef
+country_event = {
+	id = dreadlords_secede_events.5
+	title = dreadlords_secede_events.5.t
+	desc = {
+		desc = dreadlords_secede_events.5.desc.a
+		trigger = {
+			NOT = {
+				OR = {
+					has_country_flag = defeated_hag_graef
+					has_country_flag = hag_graef_secedes
+				}
+			}
+		}
+		desc = dreadlords_secede_events.5.desc.b
+		trigger = {
+			has_country_flag = defeated_hag_graef
+		}
+		desc = dreadlords_secede_events.5.desc.c
+		trigger = {
+			has_country_flag = hag_graef_secedes
+		}
+	}
+	picture = CIVIL_WAR_eventPicture
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						OR = {
+							has_country_flag = defeated_hag_graef
+							has_country_flag = hag_graef_secedes
+							}
+					}	
+				}
+				random_owned_province = {
+					limit = {
+						OR = {
+							area = naggaroth_3_area
+							area = naggaroth_2_area
+							area = naggaroth_24_area
+						}
+					}
+					spawn_rebels = {
+						type = nationalist_rebels
+						size = 2
+						win = yes
+						separatists_target = H16
+						friend = H17
+						friend = H13
+						friend = H15
+						friend = H14
+					}
+				}
+				random_owned_province = {
+					limit = {
+						OR = {
+							area = naggaroth_3_area
+							area = naggaroth_2_area
+							area = naggaroth_24_area
+						}
+					}
+					spawn_rebels = {
+						type = nationalist_rebels
+						size = 2
+						win = yes
+						separatists_target = H16
+						friend = H17
+						friend = H13
+						friend = H15
+						friend = H14
+					}
+				}	
+			}
+		}
+	}
+	option = {
+		trigger = {
+			NOT = {
+				OR = {
+					has_country_flag = defeated_hag_graef
+					has_country_flag = hag_graef_secedes
+				}
+			}
+		}
+		name = dreadlords_secede_events.5.a
+	}
+	option = {
+		trigger = {
+			has_country_flag = defeated_hag_graef
+		}
+		name = dreadlords_secede_events.5.b
+		add_manpower = 10
+
+	}
+	option = {
+		trigger = {
+			has_country_flag = hag_graef_secedes
+		}
+		name = dreadlords_secede_events.5.c
+		add_legitimacy = -10
+	}
+}
+#Ghrond
+country_event = {
+	id = dreadlords_secede_events.6
+	title = dreadlords_secede_events.6.t
+	desc = {
+		desc = dreadlords_secede_events.6.desc.a
+		trigger = {
+			NOT = {
+				OR = {
+					has_country_flag = defeated_ghrond
+					has_country_flag = ghrond_secedes
+				}
+			}
+		}
+		desc = dreadlords_secede_events.6.desc.b
+		trigger = {
+			has_country_flag = defeated_ghrond
+		}
+		desc = dreadlords_secede_events.6.desc.c
+		trigger = {
+			has_country_flag = ghrond_secedes
+		}
+	}
+	picture = CIVIL_WAR_eventPicture
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						OR = {
+							has_country_flag = defeated_ghrond
+							has_country_flag = ghrond_secedes
+						}
+					}	
+				}
+				random_owned_province = {
+					limit = {
+						OR = {
+							area = naggaroth_21_area
+							area = naggaroth_23_area
+							area = land_of_chill_6_area
+							area = land_of_chill_1_area
+							area = land_of_chill_7_area
+						}
+					}
+					spawn_rebels = {
+						type = nationalist_rebels
+						size = 2
+						win = yes
+						separatists_target = H13
+						friend = H17
+						friend = H16
+						friend = H15
+						friend = H14
+					}
+				}
+				random_owned_province = {
+					limit = {
+						OR = {
+							area = naggaroth_21_area
+							area = naggaroth_23_area
+							area = land_of_chill_6_area
+							area = land_of_chill_1_area
+							area = land_of_chill_7_area
+						}
+					}
+					spawn_rebels = {
+						type = nationalist_rebels
+						size = 2
+						win = yes
+						separatists_target = H13
+						friend = H17
+						friend = H16
+						friend = H15
+						friend = H14
+					}
+				}	
+			}
+		}
+	}
+	option = {
+		trigger = {
+			NOT = {
+				OR = {
+					has_country_flag = defeated_ghrond
+					has_country_flag = ghrond_secedes
+				}
+			}
+		}
+		name = dreadlords_secede_events.6.a
+	}
+	option = {
+		trigger = {
+			has_country_flag = defeated_ghrond
+		}
+		name = dreadlords_secede_events.6.b
+		add_manpower = 10
+
+	}
+	option = {
+		trigger = {
+			has_country_flag = ghrond_secedes
+		}
+		name = dreadlords_secede_events.6.c
+		add_legitimacy = -10
+	}
+}
+#Har Ganeth
+country_event = {
+	id = dreadlords_secede_events.7
+	title = dreadlords_secede_events.7.t
+	desc = {
+		desc = dreadlords_secede_events.7.desc.a
+		trigger = {
+			NOT = {
+				OR = {
+					has_country_flag = defeated_har_ganeth
+					has_country_flag = har_ganeth_secedes
+				}
+			}
+		}
+		desc = dreadlords_secede_events.7.desc.b
+		trigger = {
+			has_country_flag = defeated_har_ganeth
+		}
+		desc = dreadlords_secede_events.7.desc.c
+		trigger = {
+			has_country_flag = har_ganeth_secedes
+		}
+	}
+	picture = CIVIL_WAR_eventPicture
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						OR = {
+							has_country_flag = defeated_har_ganeth
+							has_country_flag = har_ganeth_secedes
+						}
+					}	
+				}
+				random_owned_province = {
+					limit = {
+						OR = {
+							area = land_of_chill_3_area
+							area = land_of_chill_4_area
+							area = land_of_chill_7_area
+							area = land_of_chill_5_area
+						}
+					}
+					spawn_rebels = {
+						type = nationalist_rebels
+						size = 2
+						win = yes
+						separatists_target = H15
+						friend = H17
+						friend = H16
+						friend = H13
+						friend = H14
+					}
+				}
+				random_owned_province = {
+					limit = {
+						OR = {
+							area = land_of_chill_3_area
+							area = land_of_chill_4_area
+							area = land_of_chill_7_area
+							area = land_of_chill_5_area
+						}
+					}
+					spawn_rebels = {
+						type = nationalist_rebels
+						size = 2
+						win = yes
+						separatists_target = H15
+						friend = H17
+						friend = H16
+						friend = H13
+						friend = H14
+					}
+				}
+			}
+		}
+	}
+	option = {
+		trigger = {
+			NOT = {
+				OR = {
+					has_country_flag = defeated_har_ganeth
+					has_country_flag = har_ganeth_secedes
+				}
+			}
+		}
+		name = dreadlords_secede_events.7.a
+	}
+	option = {
+		trigger = {
+			has_country_flag = defeated_har_ganeth
+		}
+		name = dreadlords_secede_events.7.b
+		add_manpower = 10
+	}
+	option = {
+		trigger = {
+			has_country_flag = har_ganeth_secedes
+		}
+		name = dreadlords_secede_events.7.c
+		add_legitimacy = -10
+	}
+}
+#Karond Kar
+country_event = {
+	id = dreadlords_secede_events.8
+	title = dreadlords_secede_events.8.t
+	desc = {
+		desc = dreadlords_secede_events.8.desc.a
+		trigger = {
+			NOT = {
+				OR = {
+					has_country_flag = defeated_karond_kar
+					has_country_flag = karond_kar_secedes
+				}
+			}
+		}
+		desc = dreadlords_secede_events.8.desc.b
+		trigger = {
+			has_country_flag = defeated_karond_kar
+		}
+		desc = dreadlords_secede_events.8.desc.c
+		trigger = {
+			has_country_flag = karond_kar_secedes
+		}
+	}
+	picture = CIVIL_WAR_eventPicture
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						OR = {
+							has_country_flag = defeated_karond_kar
+							has_country_flag = karond_kar_secedes
+								}
+					}	
+				}
+				random_owned_province = {
+					limit = {
+						OR = {
+							area = naggaroth_13_area
+							area = naggaroth_14_area
+							area = naggaroth_15_area
+							area = naggaroth_11_area
+						}
+					}
+					spawn_rebels = {
+						type = nationalist_rebels
+						size = 2
+						win = yes
+						separatists_target = H14
+						friend = H17
+						friend = H16
+						friend = H13
+						friend = H15
+					}
+				}
+				random_owned_province = {
+					limit = {
+						OR = {
+							area = naggaroth_13_area
+							area = naggaroth_14_area
+							area = naggaroth_15_area
+							area = naggaroth_11_area
+						}
+					}
+					spawn_rebels = {
+						type = nationalist_rebels
+						size = 2
+						win = yes
+						separatists_target = H14
+						friend = H17
+						friend = H16
+						friend = H13
+						friend = H15
+					}
+				}
+			}
+		}
+	}
+	option = {
+		trigger = {
+			NOT = {
+				OR = {
+					has_country_flag = defeated_karond_kar
+					has_country_flag = karond_kar_secedes
+				}
+			}
+		}
+		name = dreadlords_secede_events.8.a
+	}
+	option = {
+		trigger = {
+			has_country_flag = defeated_karond_kar
+		}
+		name = dreadlords_secede_events.8.b
+		add_manpower = 10
+	}
+	option = {
+		trigger = {
+			has_country_flag = karond_kar_secedes
+		}
+		name = dreadlords_secede_events.8.c
+		add_legitimacy = -10
+	}
+}
+#Everywhere
+country_event = {
+	id = dreadlords_secede_events.9
+	title = dreadlords_secede_events.9.t
+	desc = dreadlords_secede_events.9.desc
+	picture = CIVIL_WAR_eventPicture
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = dreadlords_secede_events.4
+				days = 5
+			}
+			country_event = {
+				id = dreadlords_secede_events.5
+				days = 10
+			}
+			country_event = {
+				id = dreadlords_secede_events.6
+				days = 15
+			}
+			country_event = {
+				id = dreadlords_secede_events.7
+				days = 20
+			}
+			country_event = {
+				id = dreadlords_secede_events.8
+				days = 25
+			}
+		}
+	}
+	option = {
+		name = dreadlords_secede_events.9.a
+	}
+}
+#Naggaroth Nobles
+country_event = {
+	id = dreadlords_secede_events.10
+	title = dreadlords_secede_events.10.t
+	desc = dreadlords_secede_events.10.desc
+	picture = CIVIL_WAR_eventPicture
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					OR = {
+						area = naggaroth_1_area
+						area = naggaroth_20_area
+					}
+				}
+				spawn_rebels = {
+					type = noble_rebels
+					size = 3
+					win = yes
+				}
+			}
+			random_owned_province = {
+				limit = {
+					OR = {
+						area = naggaroth_1_area
+						area = naggaroth_20_area
+					}
+				}
+				spawn_rebels = {
+					type = noble_rebels
+					size = 3
+					win = yes
+				}
+			}
+		}
+	}
+	option = {
+		name = dreadlords_secede_events.10.a
+	}
+}
+#Fate of Clar Karond
+country_event = {
+	id = dreadlords_secede_events.11
+	title = dreadlords_secede_events.11.t
+	desc = dreadlords_secede_events.11.desc
+	picture = STREET_SPEECH_eventPicture
+	is_triggered_only = yes
+
+	option = {
+		name = dreadlords_secede_events.11.a
+		custom_tooltip = dreadlords_secede_events.11.a.tt
+		set_country_flag = h12_fight_clar_karond
+		ai_chance = {
+			factor = 75
+		}
+	}
+	option = {
+		name = dreadlords_secede_events.11.b
+		custom_tooltip = dreadlords_secede_events.11.b.tt
+		set_country_flag = h12_surrender_clar_karond
+		ai_chance = {
+			factor = 25
+		}
+	}
+}
+#Fate of Hag Graef
+country_event = {
+	id = dreadlords_secede_events.12
+	title = dreadlords_secede_events.12.t
+	desc = dreadlords_secede_events.12.desc
+	picture = STREET_SPEECH_eventPicture
+	is_triggered_only = yes
+
+	option = {
+		name = dreadlords_secede_events.12.a
+		custom_tooltip = dreadlords_secede_events.12.a.tt
+		set_country_flag = h12_fight_hag_graef
+		ai_chance = {
+			factor = 75
+		}
+	}
+	option = {
+		name = dreadlords_secede_events.12.b
+		custom_tooltip = dreadlords_secede_events.12.b.tt
+		set_country_flag = h12_surrender_hag_graef
+		ai_chance = {
+			factor = 25
+		}
+	}
+}
+country_event = {
+	id = dreadlords_secede_events.13
+	title = dreadlords_secede_events.13.t
+	desc = dreadlords_secede_events.13.desc
+	picture = STREET_SPEECH_eventPicture
+	is_triggered_only = yes
+
+	option = {
+		name = dreadlords_secede_events.13.a
+		custom_tooltip = dreadlords_secede_events.13.a.tt
+		set_country_flag = h12_fight_ghrond
+		ai_chance = {
+			factor = 75
+		}
+	}
+	option = {
+		name = dreadlords_secede_events.13.b
+		custom_tooltip = dreadlords_secede_events.13.b.tt
+		set_country_flag = h12_surrender_ghrond
+		ai_chance = {
+			factor = 25
+		}
+	}
+}
+country_event = {
+	id = dreadlords_secede_events.14
+	title = dreadlords_secede_events.14.t
+	desc = dreadlords_secede_events.14.desc
+	picture = STREET_SPEECH_eventPicture
+	is_triggered_only = yes
+
+	option = {
+		name = dreadlords_secede_events.14.a
+		custom_tooltip = dreadlords_secede_events.14.a.tt
+		set_country_flag = h12_fight_har_ganeth
+		ai_chance = {
+			factor = 75
+		}
+	}
+	option = {
+		name = dreadlords_secede_events.14.b
+		custom_tooltip = dreadlords_secede_events.14.b.tt
+		set_country_flag = h12_surrender_har_ganeth
+		ai_chance = {
+			factor = 25
+		}
+	}
+}
+country_event = {
+	id = dreadlords_secede_events.15
+	title = dreadlords_secede_events.15.t
+	desc = dreadlords_secede_events.15.desc
+	picture = STREET_SPEECH_eventPicture
+	is_triggered_only = yes
+
+	option = {
+		name = dreadlords_secede_events.15.a
+		custom_tooltip = dreadlords_secede_events.14.a.tt
+		set_country_flag = h12_fight_karond_kar
+		ai_chance = {
+			factor = 75
+		}
+	}
+	option = {
+		name = dreadlords_secede_events.15.b
+		custom_tooltip = dreadlords_secede_events.14.b.tt
+		set_country_flag = h12_surrender_karond_kar
+		ai_chance = {
+			factor = 25
+		}
+	}
+}
+
+namespace = church_catastrophe_events
+#Church Disaster
+country_event = {
+	id = church_catastrophe_events.1
+	title = church_catastrophe_events.1.t
+	desc = church_catastrophe_events.1.desc
+	picture = PLAGUE_eventPicture
+	is_triggered_only = yes
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+			}
+			spawn_rebels = {
+				type = cytharai_rebels
+				size = 2
+				win = yes
+			}
+		}
+		random_owned_province = {
+			limit = {
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+			}
+			spawn_rebels = {
+				type = cytharai_rebels
+				size = 2
+				win = yes
+			}
+		}
+		random_owned_province = {
+			limit = {
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+			}
+			spawn_rebels = {
+				type = cytharai_rebels
+				size = 2
+				win = yes
+			}
+		}
+		random_owned_province = {
+			limit = {
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+			}
+			spawn_rebels = {
+				type = cytharai_rebels
+				size = 2
+				win = yes
+			}
+		}
+		random_owned_province = {
+			limit = {
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+			}
+			spawn_rebels = {
+				type = cytharai_rebels
+				size = 2
+				win = yes
+			}
+		}
+	}
+}
