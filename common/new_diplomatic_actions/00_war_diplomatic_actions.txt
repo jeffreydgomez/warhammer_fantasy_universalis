@@ -811,10 +811,21 @@ implant_cult = {
 	}
 
 	is_allowed = {
-		has_spy_network_in = {
-			who = FROM
-			value = 75
+		if = {
+			limit = { full_idea_group = spy_ideas }
+			has_spy_network_in = {
+				who = FROM
+				value = 60
+			}
+		} else = {
+			has_spy_network_in = {
+				who = FROM
+				value = 75
+			}
 		}
+
+
+
 		OR = {
 			religion = vampiric
 			religion = nagash_worship
@@ -839,10 +850,19 @@ implant_cult = {
 	    	}
     	}
 
-		add_spy_network_in = {
-		    who = FROM
-		    value = -75
+		if = {
+			limit = { full_idea_group = spy_ideas }
+			add_spy_network_in = {
+			    who = FROM
+			    value = -60
+			}
+		} else = {
+			add_spy_network_in = {
+			    who = FROM
+			    value = -75
+			}
 		}
+
 		if = {
 			limit = { 
 				has_warriors_of_chaos_mt_st = yes
