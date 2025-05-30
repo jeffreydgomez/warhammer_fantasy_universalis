@@ -20,9 +20,17 @@ assassinate_ruler = {
 		}
 		treasury = 100
 		dip_power = 50
-		has_spy_network_in = {
-			who = FROM
-			value = 100
+		if = {
+			limit = { full_idea_group = spy_ideas }
+			has_spy_network_in = {
+				who = FROM
+				value = 80
+			}
+		} else = {
+			has_spy_network_in = {
+				who = FROM
+				value = 100
+			}
 		}
 		FROM = {
 			NOT = { full_idea_group = spy_ideas }
@@ -47,9 +55,17 @@ assassinate_ruler = {
 		ROOT = {
 			add_treasury = -100
 			add_dip_power = -50
-			add_spy_network_in = {
-   				who = FROM
-    			value = -100
+			if = {
+				limit = { full_idea_group = spy_ideas }
+				add_spy_network_in = {
+				    who = FROM
+				    value = -80
+				}
+			} else = {
+				add_spy_network_in = {
+				    who = FROM
+				    value = -100
+				}
 			}
 		}
 		FROM = {
