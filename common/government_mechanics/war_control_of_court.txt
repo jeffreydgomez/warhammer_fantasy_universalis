@@ -1,0 +1,100 @@
+control_of_court_mechanic = {
+    alert_icon_gfx = GFX_alerticons
+    alert_icon_index = 53
+
+    available = {
+        always = yes
+    }
+
+    ## Affected by prestige, legitimacy, power projection, corruption
+    ## It should go from 0 - 100 in about 20 years in perfect conditions. That means about +1 a month, with an anti-scaling
+
+    powers = {
+        control_of_court_power = {
+            max = 100
+            min = -100
+
+#            gui = control_of_court_mech_gui
+            
+            reset_on_new_ruler = yes
+
+            base_monthly_growth = -0.5
+
+#            monarch_power = adm
+
+            scaled_modifier = {
+                start_value = 0
+                end_value = 100
+                modifier = {
+                    all_estate_influence_modifier = -0.25
+                    liberty_desire_from_subject_development = -0.25
+                    yearly_corruption = -0.25
+                    advisor_cost = -0.25
+                    max_absolutism = 25
+
+                    monthly_control_of_court_power = -0.25
+                }
+            }
+
+            scaled_modifier = {
+                start_value = 0
+                end_value = -100
+                modifier = {
+
+                    all_estate_influence_modifier = 0.25
+                    liberty_desire_from_subject_development = 0.25
+                    yearly_corruption = 0.25
+                    advisor_cost = 0.25
+                    max_absolutism = -25
+
+                    monthly_control_of_court_power = 0.25
+
+                }
+            }
+        }
+    }
+
+
+    interactions = {
+
+        squeeze_church_interaction = {
+            icon = GFX_war_squeeze_church_interaction
+            cost_type = great_plan_insight_power
+            cost = 50
+            effect = {
+                add_stability_or_adm_power = yes
+                add_country_modifier = {
+                    name = war_squeezed_church
+                    duration = 3650
+                }
+            }
+        }
+
+        squeeze_nobles_interaction = {
+            icon = GFX_war_squeeze_nobles_interaction
+            cost_type = great_plan_insight_power
+            cost = 50
+            effect = {               
+                add_yearly_manpower = 2
+                add_country_modifier = {
+                    name = war_squeezed_nobles
+                    duration = 3650
+                }
+            }
+        }
+
+        squeeze_guilds_interaction = {
+            icon = GFX_war_squeeze_guilds_interaction
+            cost_type = great_plan_insight_power
+            cost = 50
+            effect = {
+                add_years_of_income = 1
+                add_country_modifier = {
+                    name = war_squeezed_guilds
+                    duration = 3650
+                }                
+            }
+        }
+    }
+
+}
