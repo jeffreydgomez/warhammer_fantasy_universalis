@@ -601,3 +601,48 @@ country_event = {
 }
 
 
+### Naggaroth Starting Event
+
+country_event = { 
+	id = dark_elf_events.100
+	title = dark_elf_events.100.title
+	desc = dark_elf_events.100.desc
+	picture = DARKELF_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		tag = H12
+		NOT= { has_country_flag = did_intro_event }
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = did_intro_event
+
+			add_country_modifier = {
+				name = war_court_of_knives
+				duration = 36500
+
+			}
+
+			add_country_modifier = {
+				name = war_warring_families
+				duration = 27375
+			}
+
+			set_estate_privilege = estate_influence_of_morathi
+		}
+
+	}
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.100.a 
+
+		add_army_professionalism = 0.05
+		add_yearly_manpower = 1
+	}
+}
+
