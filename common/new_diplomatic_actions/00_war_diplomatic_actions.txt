@@ -850,6 +850,27 @@ implant_cult = {
 	    	}
     	}
 
+    	if = {
+    		limit = {
+    			has_country_modifier = naggaroth_show_them_the_dark
+    			religion_group = FROM
+    		}
+	    	FROM = { 
+		    	random_owned_province = {
+		    		limit = {
+		    			NOT = { religion = ROOT }
+		    			is_reformation_center = no
+		    			is_capital = no
+		    		}
+		    		change_religion = ROOT
+		    		add_province_modifier = { 
+					    name = hidden_cult
+					    duration = 730
+					}
+		    	}
+	    	}
+    	}
+
 		if = {
 			limit = { full_idea_group = spy_ideas }
 			add_spy_network_in = {

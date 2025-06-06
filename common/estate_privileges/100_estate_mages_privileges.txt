@@ -313,15 +313,16 @@ estate_mages_study_ulgu = {
 	}
 }
 
-estate_influence_of_morathi = {
+estate_mages_influence_of_morathi = {
 	icon = estate_eunuchs_royal_intrigue_keepers_privilege
 	max_absolutism = -5
 	is_valid = {
 		tag = H12
+		NOT = { has_country_flag = abolished_cult_of_pleasure }
 	}
 	conditional_modifier = { trigger = { has_absolutism_reduction_for_estate_privileges = yes } modifier = { max_absolutism = 1 } }
 	loyalty = 0.0
-	influence = 0.20
+	influence = 0.15
 	penalties = {
 		religious_unity = -0.1
 		monthly_control_of_court_power = -0.1
@@ -330,6 +331,63 @@ estate_influence_of_morathi = {
 		spy_offence = 0.3
 		yearly_innovativeness = 0.12
 		manpower_recovery_speed = 0.1
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 0
+		modifier = {
+			factor = 0
+			average_unrest = -1.0
+		}
+	}
+}
+
+## We have taken control of the cult of pleasure
+estate_mages_cult_under_the_monarch = {
+	icon = estate_eunuchs_royal_intrigue_keepers_privilege
+	max_absolutism = 5
+	is_valid = {
+		has_country_flag = estate_mages_cult_under_the_monarch
+	}
+	conditional_modifier = { trigger = { has_absolutism_reduction_for_estate_privileges = yes } modifier = { max_absolutism = 1 } }
+	loyalty = 0.5
+	influence = 0.5
+	penalties = {
+		religious_unity = -0.1
+	}
+	benefits = {
+		spy_offence = 0.3
+		yearly_innovativeness = 0.12
+		manpower_recovery_speed = 0.1
+	}
+	cooldown_years = 10
+	ai_will_do = {
+		factor = 0
+		modifier = {
+			factor = 0
+			average_unrest = -1.0
+		}
+	}
+}
+
+## WE have elected to join the Cult of pleasure - not as its leader, but as another supplicant.
+estate_mages_monarch_in_the_cult = {
+	icon = estate_eunuchs_royal_intrigue_keepers_privilege
+	max_absolutism = -5
+	is_valid = {
+		has_country_flag = estate_mages_monarch_in_the_cult
+	}
+	conditional_modifier = { trigger = { has_absolutism_reduction_for_estate_privileges = yes } modifier = { max_absolutism = 1 } }
+	loyalty = 0.10
+	influence = 0.20
+	penalties = {
+		religious_unity = -0.1
+		monthly_control_of_court_power = -0.1
+	}
+	benefits = {
+		spy_offence = 0.5
+		yearly_innovativeness = 0.24
+		manpower_recovery_speed = 0.15
 	}
 	cooldown_years = 10
 	ai_will_do = {
