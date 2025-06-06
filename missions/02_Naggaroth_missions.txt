@@ -134,7 +134,7 @@ war_naggaroth_missions_1 = {
 	}
 
 	naggaroth_the_crown_absolute = { 
-		icon = mission_naggaroth_malekith
+		icon = mission_naggaroth_malekith_2
 		position = 21
 		required_missions = { naggaroth_the_crown_unchallenged }
 		trigger = {
@@ -377,6 +377,9 @@ war_naggaroth_missions_2 = {
 		icon = mission_high_elf_culture
 		required_missions = { naggaroth_send_diplomats }
 		position = 18
+		provinces_to_highlight = {
+			superregion = ulthuan_superregion
+		}	
 		trigger = {
 			OR {
 				any_country = {
@@ -420,6 +423,9 @@ war_naggaroth_missions_2 = {
 		icon = mission_invade_island
 		required_missions = { naggaroth_foothold_on_ulthuan }
 		position = 20
+		provinces_to_highlight = {
+			superregion = ulthuan_superregion
+		}	
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				value = 4
@@ -440,6 +446,15 @@ war_naggaroth_missions_2 = {
 		icon = mission_naggaroth_burning_city
 		required_missions = { naggaroth_a_powerful_beachhead }
 		position = 21
+		provinces_to_highlight = {
+			superregion = ulthuan_superregion
+			owned_by = ROOT
+			OR = {
+				devastation = 1
+				NOT = { num_of_buildings_in_province = 1 }
+				NOT = { development = 5 }
+			}
+		}
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				value = 30
@@ -471,7 +486,7 @@ war_naggaroth_missions_3 = {
 
 ## Our subjects sneer at us from their cities. Naggarond must be raised higher than theirs. We shall build great works that all shall tremble before.
 	naggaroth_build_the_capital = {
-		icon = mission_dark_elf_culture
+		icon = mission_naggaroth_naggarond
 		required_missions = {  }
 		position = 1
 		provinces_to_highlight = {
@@ -888,7 +903,6 @@ war_naggaroth_missions_3 = {
 		trigger = {
 			NOT = {
 				any_province = {
-					is_city = yes
 					superregion = ulthuan_superregion
 					NOT = { country_or_subject_holds = ROOT }
 				}
@@ -1029,7 +1043,7 @@ war_naggaroth_missions_4 = {
 		}
 	}
 
-# Our trained elite came in the night. WE dragged away dissidents and murderd them in their beds. The estates have learned a valuable lesson. We have dominance here.
+# Our trained elite came in the night. We dragged away dissidents and murderd them in their beds. The estates have learned a valuable lesson. We have dominance here.
 	naggaroth_night_of_knives = {
 		icon = mission_naggaroth_soldier_3
 		required_missions = { naggaroth_build_temples naggaroth_build_barracks naggaroth_build_markets }
@@ -1052,6 +1066,30 @@ war_naggaroth_missions_4 = {
 		icon = mission_naggaroth_dark_elf_killer
 		required_missions = { naggaroth_ready_the_army }
 		position = 10
+		provinces_to_highlight = {
+			AND = {
+				NOT = {
+					owner = {
+						OR = {
+							alliance_with = ROOT
+							is_subject_of = ROOT
+							ROOT = {
+								has_won_war_against = {
+									who = PREV
+									max_years_since = 50
+								}
+							}
+						}
+					}
+				}
+
+				OR = {
+					owned_by = H23
+					owned_by = H22
+					owned_by = H20
+				}
+			}
+		}
 		trigger = {
 			H23 = {
 				OR = {
@@ -1106,6 +1144,14 @@ war_naggaroth_missions_4 = {
 		icon = mission_naggaroth_soldier
 		required_missions = { naggaroth_reign_in_the_renegade_druchii }
 		position = 11
+		provinces_to_highlight = {
+			NOT = { owner = { is_subject_of = ROOT } }
+			OR = {
+				owned_by = H23
+				owned_by = H22
+				owned_by = H20
+			}
+		}
 		trigger = {
 			H23 = {
 				OR = {
@@ -1223,6 +1269,20 @@ war_naggaroth_missions_4 = {
 		icon = mission_sow_culture
 		required_missions = { naggaroth_foothold_on_ulthuan }
 		position = 20
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1879
+				province_id = 1965
+				province_id = 1869
+				province_id = 451
+			}
+			NOT = {
+				trade_share = {
+					country = ROOT
+					share = 51
+				}
+			}
+		}
 		trigger = {
 			1879 = {
 				trade_share = {

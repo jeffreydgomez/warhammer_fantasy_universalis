@@ -180,11 +180,12 @@ country_event = {
 		name = dark_elf_events.1.option_2
 
 
-		add_prestige = -10
+		add_prestige = -15
+		add_legitimacy = -10
 
 		add_estate_loyalty = {
 		    estate = estate_nobles
-		    loyalty = -10
+		    loyalty = -15
 		}	
 
 
@@ -599,6 +600,265 @@ country_event = {
 		add_stability = -1
 	}
 }
+
+
+
+
+## Slave return from raids - we have aquired slaves on our raids. What to do with them?
+country_event = { 
+	id = dark_elf_events.8
+	title = dark_elf_events.8.t 
+	desc = dark_elf_events.8.d 
+	picture = DARKELF_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = druchii_group
+			religion = cytharai
+		}
+		any_owned_province = {
+			trade_goods = slaves
+		}
+
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				trade_goods = slaves
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Set them to work
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.8.option_1
+
+		event_target:event_target = {
+			add_base_production = 2
+		}
+
+	}
+
+# Sell them on the open markets
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.8.option_2
+
+		add_treasury = 50
+
+	}
+
+# Conscript them into the army
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.8.option_3
+
+		add_manpower = 1
+	}
+}
+
+
+
+## The Cult of Pleasure is converting people...
+country_event = { 
+	id = dark_elf_events.9
+	title = dark_elf_events.9.title
+	desc = dark_elf_events.9.desc
+	picture = DARKELF_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion = cytharai
+		NOT = { has_country_flag = abolished_cult_of_pleasure }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Burn the cultists to the ground
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.9.option_1
+
+		event_target:event_target = {
+			add_devastation = 25
+		}
+		add_manpower = -1
+
+	}
+
+# Activate the witch hunters
+	option = { 
+		ai_chance = { factor = 0 }
+		name = dark_elf_events.9.option_2
+
+		event_target:event_target = {
+			change_religion = slaaneshi_religion
+		}
+
+		add_country_modifier = { 
+		    name = war_witch_hunts
+		    duration = 1825
+		}
+	}
+
+# No need to panic. We will handle this through normal means.
+	option = { 
+		ai_chance = { factor = 0 }
+		name = dark_elf_events.9.option_3
+		
+		event_target:event_target = {
+			change_religion = slaaneshi_religion
+		}
+	}
+}
+
+
+
+## A wave of hedonism has swept over our country. The Cult of pleasure is causing peopel to turn from their duties and pursue pleasure.
+country_event = { 
+	id = dark_elf_events.10
+	title = dark_elf_events.10.title
+	desc = dark_elf_events.10.desc
+	picture = DARKELF_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion = cytharai
+		NOT = { has_country_flag = abolished_cult_of_pleasure }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Kill the infected!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.10.option_1
+
+		add_yearly_manpower = -1
+
+	}
+
+# Let it sweep over us
+	option = { 
+		ai_chance = { factor = 0 }
+		name = dark_elf_events.10.option_2
+		trigger = { army_professionalism = 0.05 }
+
+		event_target:event_target = {
+			change_religion = slaaneshi_religion
+		}
+		add_army_professionalism = -0.05
+	}
+
+# Yes! More!
+	option = { 
+		ai_chance = { factor = 0 }
+		name = dark_elf_events.10.option_3
+		trigger = { army_professionalism = 0.15 }
+		
+		event_target:event_target = {
+			change_religion = slaaneshi_religion
+		}
+		add_army_professionalism = -0.15
+		change_innovativeness = 5
+	}
+}
+
+
+
+
+## New births pour from the Cult of PLeasure. But they are twisted, strange elves, gibbering and salvating. Dare we let them into the army?
+country_event = { 
+	id = dark_elf_events.11
+	title = dark_elf_events.11.title
+	desc = dark_elf_events.11.desc
+	picture = DARKELF_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion = cytharai
+		NOT = { has_country_flag = abolished_cult_of_pleasure }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Hell no!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = dark_elf_events.11.option_1
+
+		event_target:event_target = {
+			change_religion = slaaneshi_religion
+		}
+
+	}
+
+# Let them join! What's the worst that could happen?
+	option = { 
+		ai_chance = { factor = 0 }
+		name = dark_elf_events.11.option_2
+		trigger = { army_professionalism = 0.05 }
+
+		event_target:event_target = {
+			change_religion = slaaneshi_religion
+		}
+		add_yearly_manpower = 2
+		add_stability = -1
+	}
+}
+
 
 
 ## Morathi's Cult of Pleasure is an insidious monster in our realm. It undermines our authority, and spreads Slannesh to our most vulnerable populace. Yet, it also has its advantages. What, then, to do?
