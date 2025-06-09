@@ -1,0 +1,256 @@
+row_1 = {
+    slot = 1
+    generic = yes
+    ai = yes
+    potential = {
+		culture_group = chaos_dwarf_group
+	}
+    	## unlock railworks 
+	chaos_dwarf_railworks = {
+		icon = mission_chaos_dwarf_factory
+		position = 15
+		required_missions = {  }
+		provinces_to_highlight = {  }
+		trigger = {
+			calc_true_if = {
+				any_province = {
+					trade_goods = iron
+					base_production = 7
+				}
+				amount = 7
+			}
+
+		}
+		effect = {
+			custom_tooltip = tt_eco_buff_railworks
+
+			hidden_effect = {
+				set_country_flag = unlock_eco_buff_railworks
+			}
+		}
+	}
+
+	## unlock ultra tall
+	chaos_dwarf_tall = {
+		icon = mission_chaos_dwarf_factory
+		position = 16
+		required_missions = {  }
+		provinces_to_highlight = { 
+			capital_scope = {
+				always = yes
+			}
+		}
+		trigger = {
+			capital_scope = {
+				num_of_times_improved = 25
+			}
+			all_province = {
+				is_in_capital_area = yes
+				development = 20
+			}
+			is_great_power = yes 
+			has_great_project = {
+				type = any
+				tier = 2
+			}
+		}
+		effect = {
+			add_dip_power = 100
+
+			custom_tooltip = tt_eco_buff_tall
+
+			hidden_effect = {
+				set_country_flag = unlock_eco_buff_tall
+			}
+		}
+	}
+}
+row_2 = {
+    slot = 2
+    generic = yes
+    ai = yes
+    potential = {
+		culture_group = chaos_dwarf_group
+	}
+    	## unlocking repurposed weapons
+	chaos_dwarf_repurposing_weapons = {
+		icon = mission_dwarf_culture
+		position = 15
+		required_missions = {  }
+		provinces_to_highlight = {  }
+		trigger = {
+			calc_true_if = {
+				any_province = {
+					OR = {
+						has_building = workshop
+						has_building = counting_house
+					}
+					development = 15
+				}
+				amount = 5
+			}
+		}
+		effect = {
+			add_prestige = 10
+
+			custom_tooltip = tt_eco_buff_repurpose
+
+			hidden_effect = {
+				set_country_flag = unlock_eco_buff_repurpose
+			}
+		}
+	}
+}
+row_3 = {
+    slot = 3
+    generic = yes
+    ai = yes
+    potential = {
+		culture_group = chaos_dwarf_group
+	}
+	## unlocking interwar 1 
+	chaos_dwarf_interwar_developments = {
+		icon = mission_hashut_religion
+		position = 15
+		required_missions = {}
+		provinces_to_highlight = {}
+		trigger = {
+			army_size_percentage = 0.5
+			NOT = { army_size_percentage = 0.75 }
+			innovativeness = 25
+			prestige = 75
+			adm_power = 300
+			dip_power = 300
+			mil_power = 300
+		}
+		effect = {
+			add_adm_power = -100
+			add_dip_power = -100
+			add_mil_power = -100
+
+			custom_tooltip = tt_unlock_interwar_1
+			hidden_effect = {
+				set_country_flag = unlock_eco_buff_interwar_1
+			}
+		}
+	}
+
+	## unlocking interwar 2
+	chaos_dwarf_rapid_interwar_adaptations = {
+		icon = mission_chaos_dwarf_anvil
+		position = 15
+		required_missions = { chaos_dwarf_interwar_developments }
+		provinces_to_highlight = {}
+		trigger = {
+			army_professionalism = 0.5
+			crown_land_share = 75
+
+			prestige = 100
+
+			adm_power = 300
+			dip_power = 300
+			mil_power = 300
+		}
+		effect = {
+			add_adm_power = -300
+			add_dip_power = -300
+			add_mil_power = -300
+
+			custom_tooltip = tt_unlock_interwar_2
+			hidden_effect = {
+				set_country_flag = unlock_eco_buff_interwar_2
+			}
+		}
+	}
+
+}
+row_4 = {
+    slot = 4
+    generic = yes
+    ai = yes
+    potential = {
+		culture_group = chaos_dwarf_group
+	}
+    ## unlock factory_conversion
+	chaos_dwarf_conversion = {
+		icon = mission_chaos_dwarf_factory
+		position = 15
+		required_missions = {  }
+		provinces_to_highlight = {  }
+		trigger = {
+			grown_by_states = 4
+			has_estate_privilege = estate_guild_industrial_infrastructure
+			NOT = {
+				estate_influence = {
+					estate = estate_mages
+					influence = 40
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = tt_eco_buff_conversion
+
+			hidden_effect = {
+				set_country_flag = unlock_eco_buff_conversion
+			}
+		}
+	}
+}
+row_5 = {
+    slot = 5
+    generic = yes
+    ai = yes
+    potential = {
+		culture_group = chaos_dwarf_group
+	}
+		## unlock field testing
+	chaos_dwarf_field = {
+		icon = mission_chaos_dwarf_factory
+		position = 15
+		required_missions = {  }
+		provinces_to_highlight = {  }
+		trigger = {
+			num_of_wars = {
+				amount = 10
+			}
+			won_war_against_greenskins = yes
+			won_war_against_ogres = yes
+			won_war_against_dwarfs = yes
+			won_war_against_norsca = yes
+			
+		}
+
+		effect = {
+			custom_tooltip = tt_eco_buff_field
+
+			hidden_effect = {
+				set_country_flag = unlock_eco_buff_field
+			}
+		}
+	}
+
+	## unlock logistics
+	chaos_dwarf_logistics = {
+		icon = mission_chaos_dwarf_factory
+		position = 16
+		required_missions = {  }
+		provinces_to_highlight = { }
+		trigger = {
+			won_war_against_empire = yes
+			won_war_against_bretonnia = yes
+			has_great_project = {
+				type = gates_of_zharr
+				tier = 3
+			}
+		}
+		effect = {
+			add_dip_power = 100
+
+			custom_tooltip = tt_eco_buff_logistics
+
+			hidden_effect = {
+				set_country_flag = unlock_eco_buff_logistics
+			}
+		}
+	}
+}
