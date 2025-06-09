@@ -10,11 +10,12 @@ war_lizardmen_faction_1 = {
 	
 	potential = {
 		culture_group = lizardmen_group
+		religion = old_ones
 	}
 
 ## The time has come for expansion! The merchants and saurus desire more!
 	lizardmen_guilds_1 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_rally
 		required_missions = {  }
 		trigger = {
 			army_size_percentage = 1
@@ -30,7 +31,7 @@ war_lizardmen_faction_1 = {
 
 ## As lizardmen, we give little attention to trade, prefering to focus on internal affaris. However, mere trader and money merchants are growing in power. 
 	lizardmen_guilds_2 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_curator
 		required_missions = { lizardmen_saurus_1 }
 		position = 3
 		trigger = {
@@ -56,7 +57,7 @@ war_lizardmen_faction_1 = {
 
 ## It is unacceptable that others would be able to steal money from us in the form of trade. We must work to close of losses to the outside.
 	lizardmen_guilds_3 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_spices
 		required_missions = { lizardmen_saurus_2 }
 		position = 5
 		trigger = {
@@ -83,7 +84,7 @@ war_lizardmen_faction_1 = {
 
 ## We must take control of the old one relic market. Others cannot be allowed to see such sacred relics.
 	lizardmen_guilds_4 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_old_ones_relics
 		required_missions = { lizardmen_saurus_3 }
 		position = 7
 		trigger = {
@@ -107,7 +108,7 @@ war_lizardmen_faction_1 = {
 
 ## Our lands are full of riches that we didn't realize. Our merchants say they can be monopolized upon. Let us proceed.
 	lizardmen_guilds_5 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_spices
 		required_missions = { lizardmen_saurus_4 }
 		position = 9
 		trigger = {
@@ -126,7 +127,7 @@ war_lizardmen_faction_1 = {
 
 ## The riches of the lizardmen are for us alone! With a closed trading system, we can ensure internal stability
 	lizardmen_guilds_6 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_rally
 		required_missions = { lizardmen_saurus_5 }
 		position = 11
 		trigger = {
@@ -134,7 +135,7 @@ war_lizardmen_faction_1 = {
 				all_trade_node = {
 					is_strongest_trade_power = ROOT
 				}
-				amount = 3
+				amount = 4
 			}
 		}
 
@@ -150,7 +151,7 @@ war_lizardmen_faction_1 = {
 
 ## As we seek for wealth abroad, we must remember to stick to the old ones plans
 	lizardmen_guilds_7 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_curator
 		required_missions = { lizardmen_saurus_6 }
 		position = 13
 		trigger = {
@@ -182,11 +183,12 @@ war_lizardmen_faction_2 = {
 	
 	potential = {
 		culture_group = lizardmen_group
+		religion = old_ones
 	}
 
 ## The Saurus are ready for war! Let's make sure they direct their efforts outwards, and not inwards.
 	lizardmen_saurus_1 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_saurus
 		required_missions = { lizardmen_guilds_1 lizardmen_temples_1 }
 		position = 2
 		trigger = {
@@ -210,7 +212,7 @@ war_lizardmen_faction_2 = {
 
 ## While others of our nation may be content to sit on their haunches, not the Saurus. The Old ones created them for conquest, and for conquest they yearn.
 	lizardmen_saurus_2 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_croxigor
 		required_missions = { lizardmen_guilds_2 lizardmen_temples_2 }
 		position = 4
 		trigger = {
@@ -229,7 +231,7 @@ war_lizardmen_faction_2 = {
 
 ## The Saurus demand better conditions for their soldiers.
 	lizardmen_saurus_3 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_saurus
 		required_missions = { lizardmen_guilds_3 lizardmen_temples_3 }
 		position = 6
 		provinces_to_highlight = {
@@ -259,7 +261,7 @@ war_lizardmen_faction_2 = {
 
 # Saurus are our powerful infantry, but they can sometimes run amok. Train them
 	lizardmen_saurus_4 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_rally
 		required_missions = { lizardmen_guilds_4 lizardmen_temples_4 }
 		position = 8
 		trigger = {
@@ -278,12 +280,17 @@ war_lizardmen_faction_2 = {
 
 # Our great dinosaurs have always been a cornerstone of our armies. Do we expand upon them, or leave them in a support role?
 	lizardmen_saurus_5 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_dinosaur
 		required_missions = { lizardmen_guilds_5 lizardmen_temples_5 }
 		position = 10
 		trigger = {
-			num_of_cossacks = 3
-			army_tradition = 20
+			OR = {
+				AND = {
+					num_of_cossacks = 3
+					army_tradition = 20
+				}
+				army_tradition = 50
+			}
 			mil_power = 100
 		}
 
@@ -296,12 +303,17 @@ war_lizardmen_faction_2 = {
 
 ## As our army modernizes, we must ask ourselves - how much do we want dinosaurs to play a role?
 	lizardmen_saurus_6 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_dinosaur
 		required_missions = { lizardmen_guilds_6 lizardmen_temples_6 }
 		position = 12
 		trigger = {
-			num_of_cossacks = 6
-			army_professionalism = 0.20
+			OR = {
+				AND = {
+					num_of_cossacks = 6
+					army_professionalism = 0.20
+				}
+				army_professionalism = 0.50
+			}
 			mil_power = 100
 		}
 
@@ -362,7 +374,7 @@ war_lizardmen_faction_2 = {
 
 ## Our merchants have pushed for trade centers across the waves. But we should use these as forward operating bases for wars against our enemies as well
 	lizardmen_saurus_7 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_rally
 		required_missions = { lizardmen_guilds_7 lizardmen_temples_7 }
 		position = 14
 		trigger = {
@@ -451,12 +463,13 @@ war_lizardmen_faction_3 = {
 	
 	potential = {
 		culture_group = lizardmen_group
+		religion = old_ones
 	}
 
 
 ### Base for the Geomantic Web
 	lizardmen_temples_1 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_geomantic_web
 		required_missions = {  }
 		position = 1
 
@@ -525,7 +538,7 @@ war_lizardmen_faction_3 = {
 
 ## This, and all future temple missions, are about expanding the geomantic web
 	lizardmen_temples_2 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_temple_city
 		required_missions = { lizardmen_saurus_1 lizardmen_slann_1 }
 		position = 3
 
@@ -578,7 +591,7 @@ war_lizardmen_faction_3 = {
 	}
 
 	lizardmen_temples_3 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_geomantic_web
 		required_missions = { lizardmen_saurus_2 lizardmen_slann_2 }
 		position = 5
 
@@ -632,7 +645,7 @@ war_lizardmen_faction_3 = {
 
 
 	lizardmen_temples_4 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_temple_city
 		required_missions = { lizardmen_saurus_3 lizardmen_slann_3 }
 		position = 7
 
@@ -684,7 +697,7 @@ war_lizardmen_faction_3 = {
 	}
 
 	lizardmen_temples_5 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_geomantic_web
 		required_missions = { lizardmen_saurus_4 lizardmen_slann_4 }
 		position = 9
 
@@ -737,7 +750,7 @@ war_lizardmen_faction_3 = {
 
 
 	lizardmen_temples_6 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_temple_city
 		required_missions = { lizardmen_saurus_5 lizardmen_slann_5 }
 		position = 11
 
@@ -789,7 +802,7 @@ war_lizardmen_faction_3 = {
 	}
 
 	lizardmen_temples_7 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_geomantic_web
 		required_missions = { lizardmen_saurus_6 lizardmen_slann_6 }
 		position = 13
 
@@ -841,7 +854,7 @@ war_lizardmen_faction_3 = {
 	}
 
 	lizardmen_temples_8 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_temple_city
 		required_missions = {  }
 		position = 15
 
@@ -906,11 +919,12 @@ war_lizardmen_faction_4 = {
 	
 	potential = {
 		culture_group = lizardmen_group
+		religion = old_ones
 	}
 
 ## Our slann have discovered a way to create a 6th Slann spawning. However, this idea places doubt in some Slann's mind. We must convince them otherwise.
 	lizardmen_slann_1 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_religion
 		required_missions = { lizardmen_temples_1 lizardmen_skinks_1 }
 		position = 2
 		trigger = {
@@ -934,7 +948,7 @@ war_lizardmen_faction_4 = {
 
 ## The old ones left clues as to how to complete the next Slann spawning. We just need enough of their rituals to see.
 	lizardmen_slann_2 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_old_ones_relics
 		required_missions = { lizardmen_temples_2 lizardmen_skinks_2 }
 		position = 4
 		trigger = {
@@ -956,7 +970,7 @@ war_lizardmen_faction_4 = {
 
 ## We have aquired the tablets. Now we must send out an expedition to discover a ritual site.
 	lizardmen_slann_3 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_jungle
 		required_missions = { lizardmen_temples_3 lizardmen_skinks_3 }
 		position = 6
 		trigger = {
@@ -988,7 +1002,7 @@ war_lizardmen_faction_4 = {
 
 ## We must prepare the ritual site
 	lizardmen_slann_4 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_geomantic_web
 		required_missions = { lizardmen_temples_4 lizardmen_skinks_4 }
 		position = 8
 		provinces_to_highlight = {
@@ -1019,7 +1033,7 @@ war_lizardmen_faction_4 = {
 
 ## AS the ritual draws closer, our populace grows skeptical. Now is not the time for fear. We must seize control of the government to push the effort forward.
 	lizardmen_slann_5 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_slann_riding
 		required_missions = { lizardmen_temples_5 lizardmen_skinks_5 }
 		position = 10
 		trigger = {
@@ -1038,7 +1052,7 @@ war_lizardmen_faction_4 = {
 
 ## The ritual requires immense resources. We must build up the ritual site to make it happen.
 	lizardmen_slann_6 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_slann_magic_2
 		required_missions = { lizardmen_temples_6 lizardmen_skinks_6 }
 		position = 12
 		provinces_to_highlight = {
@@ -1069,7 +1083,7 @@ war_lizardmen_faction_4 = {
 
 ## It is time to complete the ritual! The sixth slann spawning is complete!
 	lizardmen_slann_7 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_slann_magic
 		required_missions = { lizardmen_temples_7 lizardmen_skinks_7 }
 		position = 14
 		trigger = {
@@ -1101,9 +1115,10 @@ war_lizardmen_faction_4 = {
 			    duration = -1  
 			}
 			custom_tooltip = upgrade_replace_tt
+			custom_tooltip = future_rulers_slann_tt
 
 			if = {
-				limit = { ruler_has_personality = immortal_personality }
+				limit = { NOT = { ruler_has_personality = immortal_personality } }
 
 				clear_ruler_personalities = yes
 
@@ -1179,10 +1194,11 @@ war_lizardmen_faction_5 = {
 	
 	potential = {
 		culture_group = lizardmen_group
+		religion = old_ones
 	}
 
 	lizardmen_skinks_1 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_slann_riding
 		required_missions = {  }
 		position = 1
 		trigger = {
@@ -1201,7 +1217,7 @@ war_lizardmen_faction_5 = {
 	}
 
 	lizardmen_skinks_2 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_culture
 		required_missions = { lizardmen_slann_1 }
 		position = 3
 		trigger = {
@@ -1226,7 +1242,7 @@ war_lizardmen_faction_5 = {
 	}
 
 	lizardmen_skinks_3 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_temple_city
 		required_missions = { lizardmen_slann_2 }
 		position = 5
 		provinces_to_highlight = {
@@ -1255,7 +1271,7 @@ war_lizardmen_faction_5 = {
 	}
 
 	lizardmen_skinks_4 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_rally
 		required_missions = { lizardmen_slann_3 }
 		position = 7
 		trigger = {
@@ -1278,7 +1294,7 @@ war_lizardmen_faction_5 = {
 	}
 
 	lizardmen_skinks_5 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_croxigor
 		required_missions = { lizardmen_slann_4 }
 		position = 9
 		trigger = {
@@ -1300,7 +1316,7 @@ war_lizardmen_faction_5 = {
 
 ## We must unify our religion!
 	lizardmen_skinks_6 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_curator
 		required_missions = { lizardmen_slann_5 }
 		position = 11
 		provinces_to_highlight = {
@@ -1330,7 +1346,7 @@ war_lizardmen_faction_5 = {
 					NOT = { religion = ROOT }
 				}
 				AND = {
-					province_id = 4265
+					province_id = 4873
 					NOT = { religion = ROOT }
 				}
 				AND = {
@@ -1346,7 +1362,7 @@ war_lizardmen_faction_5 = {
 			2442 = { religion = ROOT }
 			4296 = { religion = ROOT }
 			4807 = { religion = ROOT }
-			4265 = { religion = ROOT }
+			4873 = { religion = ROOT }
 			4383 = { religion = ROOT }
 		}
 
@@ -1361,17 +1377,15 @@ war_lizardmen_faction_5 = {
 	}
 
 	lizardmen_skinks_7 = {
-		icon = mission_trade_company_region_abroad
+		icon = mission_lizardmen_culture
 		required_missions = { lizardmen_slann_6 }
 		position = 13
 		trigger = {
-			all_province = {
-				same_continent = capital
-				religion = ROOT
-			}
+			treasury = 1500
 		}
 
 		effect = {
+			add_treasury = -1500
 			remove_country_modifier = lizardmen_skinks_modifier_6
 			add_country_modifier = { 
 			    name = lizardmen_skinks_modifier_7

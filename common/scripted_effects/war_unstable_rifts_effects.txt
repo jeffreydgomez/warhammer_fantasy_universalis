@@ -1,4 +1,61 @@
 # spawn_rift_tag = { tag = X01 province = 1234 }
+
+rift_tag_setup = {
+
+    war_reset_racial_modifiers = yes
+
+    add_country_modifier = {
+        name = rift_nation_country_modif
+        duration = 3650
+    }
+
+#    add_country_modifier = {
+#        name = rift_nation_country_modif_perm
+#        duration = -1
+#    } 
+
+    set_country_flag = is_rift_nation
+
+    create_unit_forcelimit_percentage = {
+        type = infantry 
+        force_limit_percentage = 0.4
+    }
+
+    create_unit_forcelimit_percentage = {
+        type = cavalry 
+        force_limit_percentage = 0.2
+    }
+
+    create_general = { tradition = 50 }
+
+    add_manpower = 30
+    
+    send_province_event_to_players = { tag = $tag$ id = unstable_rifts.2 }
+
+    set_ai_personality = {
+        personality = ai_militarist
+        locked = yes
+    }
+
+#    declare_war_with_cb = {
+#        who = ROOT
+#        casus_belli = cb_annex
+#    }
+
+    all_province = {
+        discover_country = PREV
+    }
+
+    country_event = { 
+        id = unstable_rifts.110
+        days = 300
+        random = 100
+    }
+
+}
+
+
+# Unused
 spawn_rift_tag = {
     random_province = {
         limit = {
@@ -102,6 +159,7 @@ spawn_rift_tag = {
                 declare_war = Prev
             }
         }
+
         send_province_event_to_players = { tag = $tag$ id = unstable_rifts.2 }
 
         set_ai_personality = {
@@ -109,9 +167,10 @@ spawn_rift_tag = {
             locked = yes
         }
 
-        country_event = {
-            id = unstable_rifts.4
-        }
+## This doesn't exist?
+#        country_event = {
+#            id = unstable_rifts.4
+#        }
 
         every_country = {
             limit = {
@@ -125,6 +184,8 @@ spawn_rift_tag = {
     }
 }
 
+
+# Unused
 # send_province_event_to_players = { tag = R01 id = event_id.0 }
 new_wave_event = {
     $tag$ = {
@@ -138,28 +199,13 @@ new_wave_event = {
         }
         add_yearly_manpower = 10
 
-            random_country = {
-                limit = {
-                    is_neighbor_of = Prev
-                }
-                PREV = {
-                    declare_war = prev
-                }
+        random_country = {
+            limit = {
+                is_neighbor_of = Prev
             }
-    }
-}
-
-add_stability_or_adm = {
-    if = {
-        limit = {
-            ROOT = {
-                stability = 3
+            PREV = {
+                declare_war = prev
             }
         }
-
-        add_adm_power = 150
-    }
-    else = {
-        add_stability = 1
     }
 }

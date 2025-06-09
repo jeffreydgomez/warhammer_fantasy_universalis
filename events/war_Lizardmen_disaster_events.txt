@@ -162,7 +162,7 @@ country_event = {
             }
             add_government_power = {
                 mechanic_type = lizardmen_great_plan_mechanic
-                power_type = great_plan_command_power
+                power_type = great_plan_insight_power
                 value = 25
             }
             
@@ -229,18 +229,13 @@ country_event = {
     # Stalk them for more intel
     option = {
         name = unstable_rifts.6.b
-        
-        random_list = {
-            50 = {
-                add_army_professionalism = 0.05
-            }
-            50 = {
-                add_army_professionalism = -0.05
-                add_prestige = -10
-            }
-        }
+
+        change_innovativeness = 5
+        add_prestige = -25
+
     }
 }
+
 ## Rift closed by temple guards
 country_event = {
     id = unstable_rifts.7
@@ -255,23 +250,17 @@ country_event = {
     # Claim this victory to boost morale
     option = {
         name = unstable_rifts.7.a
-        
-        add_stability_or_adm = yes
+
+
+        add_stability_or_adm_power = yes
+
     }
 
     # Let the SLann absorb the magical energy that got released
     option = {
         name = unstable_rifts.7.b
-        
-        random_list = {
-            50 = {
-                add_army_professionalism = 0.05
-            }
-            50 = {
-                add_army_professionalism = -0.05
-                add_prestige = -10
-            }
-        }
+
+        change_innovativeness = 5
     }
 
     # They can just spawn here? Everyone on high alert!
@@ -284,8 +273,8 @@ country_event = {
             }
             add_government_power = {
                 mechanic_type = lizardmen_great_plan_mechanic
-                power_type = great_plan_command_power
-                value = 5
+                power_type = great_plan_insight_power
+                value = 10
             }
         }
 
@@ -314,9 +303,10 @@ country_event = {
     option = {
         name = unstable_rifts.8.b
         
-        add_years_of_income = -2
+        add_yearly_manpower = -2
     }
 }
+
 ## Lizardmen gore feast
 country_event = {
     id = unstable_rifts.9
@@ -377,8 +367,18 @@ country_event = {
     # Let them take their time, we need resources eslewhere
     option = {
         name = unstable_rifts.10.a
+
+        if = {
+            limit = {
+                has_government_mechanic = lizardmen_great_plan_mechanic
+            }
+            add_government_power = {
+                mechanic_type = lizardmen_great_plan_mechanic
+                power_type = great_plan_insight_power
+                value = 5
+            }
+        }
         
-        add_years_of_income = 1
     }
 
     # Re-allocate some resources to speed up the process
@@ -386,13 +386,22 @@ country_event = {
         name = unstable_rifts.10.b
 
         add_country_modifier = {
-            name = unstable_10b
+            name = unstable_10.b
             duration = 3650
         }
 
-        add_prestige = 15
+        add_years_of_income = -0.5
 
-        add_years_of_income = -1
+        if = {
+            limit = {
+                has_government_mechanic = lizardmen_great_plan_mechanic
+            }
+            add_government_power = {
+                mechanic_type = lizardmen_great_plan_mechanic
+                power_type = great_plan_insight_power
+                value = 10
+            }
+        }
     }
 
     # Direct as much resources as possible
@@ -400,15 +409,401 @@ country_event = {
         name = unstable_rifts.10.b
 
         add_country_modifier = {
-            name = unstable_10c
+            name = unstable_10.c
             duration = 3650
         }
 
         add_stability_or_adm = yes
 
-        add_years_of_income = -3
-        add_yearly_manpower = -3
+        add_years_of_income = -1
+        if = {
+            limit = {
+                has_government_mechanic = lizardmen_great_plan_mechanic
+            }
+            add_government_power = {
+                mechanic_type = lizardmen_great_plan_mechanic
+                power_type = great_plan_insight_power
+                value = 20
+            }
+        }
+    }
+}
+
+## R01:0 "Incursors of Khorne" Rift
+country_event = {
+    id = unstable_rifts.101
+    title = unstable_rifts.101.t
+    desc = unstable_rifts.101.d
+
+    picture = CHAOS_eventPicture
+
+    is_triggered_only = yes
+    major = yes
+    goto = event_target
+
+    trigger = {
+        NOT = { exists = R01 }
+        any_owned_province = {
+            has_empty_adjacent_province = yes
+        }
+
     }
 
-    
+    immediate = {
+        hidden_effect = {
+            random_owned_province = {
+                limit = { has_empty_adjacent_province = yes }
+
+                random_empty_neighbor_province = {
+                    save_event_target_as = event_target
+                    cede_province = R01
+                    add_core = R01
+                    add_province_modifier = {
+                        name = rift_nation_province_modif
+                        duration = 10950
+                    }
+#                    add_building = fort_15th
+
+                    change_culture = tahmaks
+                    change_religion = khornate_religion 
+                }
+
+            }
+
+            R01 = {
+                rift_tag_setup = yes
+                change_religion = khornate_religion 
+            }
+        }
+    }
+
+    ## We will fight them back!
+    option = {
+        name = unstable_rifts.101.a
+    }
+} 
+
+
+
+## R02:0 "Festering Filth" Nurgle Rift
+country_event = {
+    id = unstable_rifts.102
+    title = unstable_rifts.102.t
+    desc = unstable_rifts.102.d
+
+    picture = CHAOS_eventPicture
+
+    is_triggered_only = yes
+    major = yes
+    goto = event_target
+
+    trigger = {
+        NOT = { exists = R02 }
+        any_owned_province = {
+            has_empty_adjacent_province = yes
+        }
+
+    }
+
+    immediate = {
+        hidden_effect = {
+            random_owned_province = {
+                limit = { has_empty_adjacent_province = yes }
+
+                random_empty_neighbor_province = {
+                    save_event_target_as = event_target
+                    cede_province = R02
+                    add_core = R02
+                    add_province_modifier = {
+                        name = rift_nation_province_modif
+                        duration = 10950
+                    }
+#                    add_building = fort_15th
+
+                    change_culture = tahmaks
+                    change_religion = nurglite_religion 
+                }
+
+            }
+
+            R02 = {
+                rift_tag_setup = yes
+                change_religion = nurglite_religion 
+            }
+        }
+    }
+
+    ## We will fight them back!
+    option = {
+        name = unstable_rifts.102.a
+    }
+} 
+
+
+
+## R03:0 "Scryers of Talzian" Tzeenthc Rift
+country_event = {
+    id = unstable_rifts.103
+    title = unstable_rifts.103.t
+    desc = unstable_rifts.103.d
+
+     picture = CHAOS_eventPicture
+
+    is_triggered_only = yes
+    major = yes
+    goto = event_target
+
+    trigger = {
+        NOT = { exists = R03 }
+        any_owned_province = {
+            has_empty_adjacent_province = yes
+        }
+
+    }
+
+    immediate = {
+        hidden_effect = {
+            random_owned_province = {
+                limit = { has_empty_adjacent_province = yes }
+
+                random_empty_neighbor_province = {
+                    save_event_target_as = event_target
+                    cede_province = R03
+                    add_core = R03
+                    add_province_modifier = {
+                        name = rift_nation_province_modif
+                        duration = 10950
+                    }
+#                    add_building = fort_15th
+
+                    change_culture = tahmaks
+                    change_religion = tzeentchian_religion 
+                }
+
+            }
+
+            R03 = {
+                rift_tag_setup = yes
+                change_religion = tzeentchian_religion 
+            }
+        }
+    }
+
+    ## We will fight them back!
+    option = {
+        name = unstable_rifts.103.a
+    }
+}
+
+
+## R04:0 "To'zian Farers" Rift
+country_event = {
+    id = unstable_rifts.104
+    title = unstable_rifts.104.t
+    desc = unstable_rifts.104.d
+
+    picture = CHAOS_eventPicture
+
+    is_triggered_only = yes
+    major = yes
+    goto = event_target
+
+    trigger = {
+        NOT = { exists = R04 }
+        any_owned_province = {
+            has_empty_adjacent_province = yes
+        }
+
+    }
+
+    immediate = {
+        hidden_effect = {
+            random_owned_province = {
+                limit = { has_empty_adjacent_province = yes }
+
+                random_empty_neighbor_province = {
+                    save_event_target_as = event_target
+                    cede_province = R04
+                    add_core = R04
+                    add_province_modifier = {
+                        name = rift_nation_province_modif
+                        duration = 10950
+                    }
+#                    add_building = fort_15th
+
+                    change_culture = tahmaks
+                    change_religion = slaaneshi_religion 
+                }
+
+            }
+
+            R04 = {
+                rift_tag_setup = yes
+                change_religion = slaaneshi_religion 
+            }
+        }
+    }
+
+    ## We will fight them back!
+    option = {
+        name = unstable_rifts.104.a
+    }
+}
+
+
+## R05:0 "Spawn of Glastra" Rift
+country_event = {
+    id = unstable_rifts.105
+    title = unstable_rifts.105.t
+    desc = unstable_rifts.105.d
+
+    picture = CHAOS_eventPicture
+
+    is_triggered_only = yes
+    major = yes
+    goto = event_target
+
+    trigger = {
+        NOT = { exists = R05 }
+        any_owned_province = {
+            has_empty_adjacent_province = yes
+        }
+
+    }
+
+    immediate = {
+        hidden_effect = {
+            random_owned_province = {
+                limit = { has_empty_adjacent_province = yes }
+
+                random_empty_neighbor_province = {
+                    save_event_target_as = event_target
+                    cede_province = R05
+                    add_core = R05
+                    add_province_modifier = {
+                        name = rift_nation_province_modif
+                        duration = 10950
+                    }
+#                    add_building = fort_15th
+
+                    change_culture = tahmaks
+                    change_religion = nurglite_religion 
+                }
+
+            }
+
+            R05 = {
+                rift_tag_setup = yes
+                change_religion = nurglite_religion 
+            }
+        }
+    }
+
+    ## We will fight them back!
+    option = {
+        name = unstable_rifts.105.a
+    }
+}
+
+
+
+## R06:0 "Talzian Ascor" Rift
+country_event = {
+    id = unstable_rifts.106
+    title = unstable_rifts.106.t
+    desc = unstable_rifts.106.d
+
+    picture = CHAOS_eventPicture
+
+    is_triggered_only = yes
+    major = yes
+    goto = event_target
+
+    trigger = {
+        NOT = { exists = R06 }
+        any_owned_province = {
+            has_empty_adjacent_province = yes
+        }
+    }
+
+    immediate = {
+        hidden_effect = {
+            random_owned_province = {
+                limit = { has_empty_adjacent_province = yes }
+
+                random_empty_neighbor_province = {
+                    save_event_target_as = event_target
+                    cede_province = R06
+                    add_core = R06
+                    add_province_modifier = {
+                        name = rift_nation_province_modif
+                        duration = 10950
+                    }
+#                    add_building = fort_15th
+
+                    change_culture = tahmaks
+                    change_religion = tzeentchian_religion 
+                }
+
+            }
+
+            R06 = {
+                rift_tag_setup = yes
+                change_religion = tzeentchian_religion
+            }
+        }
+    }
+
+    ## We will fight them back!
+    option = {
+        name = unstable_rifts.106.a
+    }
+}
+
+
+## Chaos Nation attacks
+country_event = {
+    id = unstable_rifts.110
+    title = unstable_rifts.110.t
+    desc = unstable_rifts.110.d
+
+    picture = CHAOS_eventPicture
+
+    is_triggered_only = yes
+
+    trigger = {
+        is_at_war = no
+        any_neighbor_country = {
+            ROOT = {
+                NOT = { alliance_with = PREV }
+                NOT = { is_subject_of = PREV }
+                NOT = { overlord_of = PREV }
+                NOT = { truce_with = ROOT }
+            }
+        }
+    }
+
+    immediate = {
+        random_neighbor_country = {
+            limit = {
+                ROOT = {
+                    NOT = { alliance_with = PREV }
+                    NOT = { is_subject_of = PREV }
+                    NOT = { overlord_of = PREV }
+                    NOT = { truce_with = ROOT }
+                }
+            }
+            ROOT = {
+                declare_war_with_cb = {
+                    who = PREV
+                    casus_belli = cb_annex
+                }
+            }
+        }
+    }
+
+    ## We will destroy them!
+    option = {
+        name = unstable_rifts.110.a
+    }
 }
