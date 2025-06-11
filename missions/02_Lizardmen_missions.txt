@@ -265,7 +265,13 @@ war_lizardmen_faction_2 = {
 		required_missions = { lizardmen_guilds_4 lizardmen_temples_4 }
 		position = 8
 		trigger = {
-			num_of_regiments_at_full_drill = 25
+			if = {
+				limit = { has_dlc = "Cradle of Civilization" }
+				num_of_regiments_at_full_drill = 25
+			} else = {
+				army_tradition = 50
+				army_professionalism = 0.25
+			}
 		}
 
 		effect = {
@@ -1118,7 +1124,31 @@ war_lizardmen_faction_4 = {
 			custom_tooltip = future_rulers_slann_tt
 
 			if = {
-				limit = { NOT = { ruler_has_personality = immortal_personality } }
+				limit = { ruler_has_personality = slann_personality }
+
+				if = {
+					limit = {
+						NOT = { adm = 6 }
+					}
+					change_adm = 1
+				}
+
+				if = {
+					limit = {
+						NOT = { dip = 6 }
+					}
+					change_dip = 1
+				}
+
+				if = {
+					limit = {
+						NOT = { mil = 6 }
+					}
+					change_mil = 1
+				}
+
+			} else_if = {
+				limit = { ruler_has_personality = immortal_personality }
 
 				clear_ruler_personalities = yes
 
@@ -1147,12 +1177,6 @@ war_lizardmen_faction_4 = {
 				}
 
 			} else = {
-				change_innovativeness = -25
-
-				add_country_modifier = {
-					name = lizard_6th_spawning
-					duration = -1
-				}
 
 				define_ruler = {
 				    adm = 6
@@ -1319,54 +1343,12 @@ war_lizardmen_faction_5 = {
 		icon = mission_lizardmen_curator
 		required_missions = { lizardmen_slann_5 }
 		position = 11
-		provinces_to_highlight = {
-			OR = {
-				AND = {
-					province_id = 4261
-					NOT = { religion = ROOT }
-				}
-				AND = {
-					province_id = 2312
-					NOT = { religion = ROOT }
-				}
-				AND = {
-					province_id = 2466
-					NOT = { religion = ROOT }
-				}
-				AND = {
-					province_id = 2442
-					NOT = { religion = ROOT }
-				}
-				AND = {
-					province_id = 4296
-					NOT = { religion = ROOT }
-				}
-				AND = {
-					province_id = 4807
-					NOT = { religion = ROOT }
-				}
-				AND = {
-					province_id = 4873
-					NOT = { religion = ROOT }
-				}
-				AND = {
-					province_id = 4383
-					NOT = { religion = ROOT }
-				}
-			}
-		}
 		trigger = {
-			4261 = { religion = ROOT }
-			2312 = { religion = ROOT }
-			2466 = { religion = ROOT }
-			2442 = { religion = ROOT }
-			4296 = { religion = ROOT }
-			4807 = { religion = ROOT }
-			4873 = { religion = ROOT }
-			4383 = { religion = ROOT }
+			treasury = 1500
 		}
 
 		effect = {
+			add_treasury = -1500
 			remove_country_modifier = lizardmen_skinks_modifier_5
 			add_country_modifier = { 
 			    name = lizardmen_skinks_modifier_6
@@ -1380,12 +1362,36 @@ war_lizardmen_faction_5 = {
 		icon = mission_lizardmen_culture
 		required_missions = { lizardmen_slann_6 }
 		position = 13
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4261
+				province_id = 2312
+				province_id = 2466
+				province_id = 2442
+				province_id = 4296
+				province_id = 4807
+				province_id = 4873
+				province_id = 4383
+			}
+		}
 		trigger = {
-			treasury = 1500
+			development_in_provinces = {
+				value = 240
+				OR = {
+					province_id = 4261
+					province_id = 2312
+					province_id = 2466
+					province_id = 2442
+					province_id = 4296
+					province_id = 4807
+					province_id = 4873
+					province_id = 4383
+				}
+				religion = ROOT
+			}
 		}
 
 		effect = {
-			add_treasury = -1500
 			remove_country_modifier = lizardmen_skinks_modifier_6
 			add_country_modifier = { 
 			    name = lizardmen_skinks_modifier_7
