@@ -1,0 +1,1862 @@
+
+##################################
+##### CATHAY CULTURE GROUP
+##################################
+asur_missions_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = asur_group
+		any_owned_province = {
+			superregion = ulthuan_superregion
+		}
+	}
+
+	asur_grow_1 = {
+		icon = mission_high_elf_culture
+		required_missions = { asur_picking_up_the_pieces }
+		position = 2
+		provinces_to_highlight = {
+			region = broken_lands_region
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 20
+				superregion = ulthuan_superregion
+				owner = {
+					tag = ROOT
+					NOT = { liberty_desire = 10 }
+
+				}
+			}
+		}
+		effect = {
+			## Reduce devastation, separatism, autonomy in all lands and subject lands?
+			custom_tooltip = claim_ulthuan_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						superregion = ulthuan_superregion
+						is_city = yes
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+
+	asur_please_nobles = {
+		icon = mission_high_elf_culture
+		required_missions = { asur_grow_1 }
+		position = 4
+		trigger = {
+			OR = {
+				AND = {
+					estate_loyalty = {
+					    estate = estate_nobles
+					    loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_nobles
+						value = 1
+					}
+				}
+				NOT = {	
+					estate_influence = {
+					    estate = estate_nobles
+					    influence = 25
+					}
+				}
+				NOT = { has_estate = estate_nobles }
+			}
+		}
+		effect = {
+			add_yearly_manpower = 2.5
+		}
+	}
+
+	asur_grow_2 = {
+		icon = mission_high_elf_culture
+		required_missions = { asur_please_nobles }
+		position = 6
+		provinces_to_highlight = {
+			region = broken_lands_region
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 40
+				superregion = ulthuan_superregion
+				owner = {
+					tag = ROOT
+					NOT = { liberty_desire = 10 }
+
+				}
+			}
+		}
+		effect = {
+			## Reduce devastation, separatism, autonomy in all lands and subject lands?
+		}
+	}
+
+
+	asur_build_barracks = {
+		icon = mission_high_elf_culture
+		required_missions = { asur_grow_2 }
+		position = 8
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = {
+				OR = {
+			 		has_building = barracks
+			 		has_building = training_fields
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+			 		has_building = barracks
+			 		has_building = training_fields
+				}
+				value = 5
+			}
+		}
+		effect = {
+		}
+	}
+
+	asur_grow_3 = {
+		icon = mission_high_elf_culture
+		required_missions = { asur_build_barracks }
+		position = 9
+		provinces_to_highlight = {
+			region = broken_lands_region
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 60
+				superregion = ulthuan_superregion
+				owner = {
+					tag = ROOT
+					NOT = { liberty_desire = 10 }
+
+				}
+			}
+		}
+		effect = {
+			## Reduce devastation, separatism, autonomy in all lands and subject lands?
+		}
+	}
+
+
+	asur_unify_ulthuan = {
+		icon = mission_high_elf_culture
+		required_missions = { asur_grow_3 }
+		position = 10
+		provinces_to_highlight = {
+			superregion = ulthuan_superregion
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+		}
+		trigger = {
+			NOT = {
+				any_province = {
+					superregion = ulthuan_superregion
+					NOT = {
+						OR = {
+							owned_by = ROOT
+							AND = {
+								owned_by_subject_of = ROOT
+								owner = { NOT = { liberty_desire = 10 } }
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+
+
+	asur_naggaroth_foothold = {
+		icon = mission_high_elf_culture
+		required_missions = { asur_build_a_navy }
+		position = 12
+		provinces_to_highlight = {
+			continent = north_america
+			NOT = {
+				owner = {
+					OR = {
+						tag = ROOT
+						alliance_with = ROOT
+						is_subject_of = ROOT
+					}
+				}			
+			}
+		}
+		trigger = {
+			any_province = {
+				continent = north_america
+				owner = {
+					OR = {
+						tag = ROOT
+						alliance_with = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	asur_naggaroth_grow_1 = {
+		icon = mission_high_elf_culture
+		required_missions = { asur_naggaroth_foothold }
+		position = 13
+		provinces_to_highlight = {
+			continent = north_america
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				continent = north_america
+			}
+		}
+		effect = {
+		}
+	}
+
+	asur_naggaroth_grow_2 = {
+		icon = mission_high_elf_culture
+		required_missions = { asur_naggaroth_grow_1 }
+		position = 14
+		provinces_to_highlight = {
+			continent = north_america
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 20
+				continent = north_america
+			}
+		}
+		effect = {
+		}
+	}
+
+
+
+	asur_lustria_foothold = {
+		icon = mission_high_elf_culture
+		required_missions = { asur_exploration }
+		position = 16
+		provinces_to_highlight = {
+			continent = south_america
+			NOT = {
+				owner = {
+					OR = {
+						tag = ROOT
+						alliance_with = ROOT
+						is_subject_of = ROOT
+					}
+				}			
+			}
+		}
+		trigger = {
+			any_province = {
+				continent = south_america
+				owner = {
+					OR = {
+						tag = ROOT
+						alliance_with = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	asur_lustria_grow_1 = {
+		icon = mission_high_elf_culture
+		required_missions = { asur_lustria_foothold }
+		position = 17
+		provinces_to_highlight = {
+			continent = south_america
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				continent = south_america
+			}
+		}
+		effect = {
+		}
+	}
+
+	asur_lustria_grow_2 = {
+		icon = mission_high_elf_culture
+		required_missions = { asur_lustria_grow_1 }
+		position = 18
+		provinces_to_highlight = {
+			continent = south_america
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 20
+				continent = south_america
+			}
+		}
+		effect = {
+		}
+	}
+
+
+}
+
+asur_missions_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = asur_group
+		any_owned_province = {
+			superregion = ulthuan_superregion
+		}
+	}
+
+	asur_rebuild = {
+		icon = mission_high_elf_culture
+		required_missions = { asur_picking_up_the_pieces }
+		position = 2
+		provinces_to_highlight = {
+			superregion = ulthuan_superregion
+			owned_by = ROOT
+			OR = {
+				devastation = 1
+				NOT = { development = 4 }
+			}
+		}
+		trigger = {
+			NOT = {
+				any_owned_province = {
+					superregion = ulthuan_superregion
+					devastation = 1
+					NOT = { development = 5 }
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+	asur_please_church = {
+		icon = mission_cytharai
+		required_missions = { asur_rebuild }
+		position = 4
+		trigger = {
+			OR = {
+				AND = {
+					estate_loyalty = {
+					    estate = estate_church
+					    loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_church
+						value = 1
+					}
+				}
+				NOT = {	
+					estate_influence = {
+					    estate = estate_church
+					    influence = 25
+					}
+				}
+				NOT = { has_estate = estate_church }
+			}
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+		}
+	}
+
+	asur_relations_with_the_dragons = {
+		icon = mission_cytharai
+		required_missions = { asur_please_nobles }
+		position = 5
+		trigger = {
+			diplomatic_reputation = 5
+			prestige = 75
+			## Need the dragon estate privilege
+			## Own the hall of dragons
+		}
+		effect = {
+		}
+	}
+
+	asur_relations_with_colonies = {
+		icon = mission_cytharai
+		required_missions = { asur_global_envoys }
+		position = 6
+		provinces_to_highlight = {
+			owner = {
+				culture_group = asur_group
+				NOT = { capital_scope = { superregion = ulthuan_superregion } }
+				NOT = {
+					OR = {
+						has_opinion = { who = ROOT value = 200 }
+						trust = { who = ROOT value = 100 }
+					}
+				}
+			}
+		}
+		trigger = {
+			OR = {
+				calc_true_if = {
+					all_country = {
+						culture_group = asur_group
+						NOT = { capital_scope = { superregion = ulthuan_superregion } }
+						OR = {
+							has_opinion = { who = ROOT value = 200 }
+							trust = { who = ROOT value = 100 }
+						}
+						amount = 2
+					}
+				}
+
+				NOT = {
+					calc_true_if = {
+						all_country = {
+							culture_group = asur_group
+							NOT = { capital_scope = { superregion = ulthuan_superregion } }
+							amount = 2
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	asur_relations_with_asrai = {
+		icon = mission_cytharai
+		required_missions = { asur_relations_with_colonies }
+		position = 7
+		provinces_to_highlight = {
+			owner = {
+				culture_group = asrai_group
+				NOT = {
+					OR = {
+						has_opinion = { who = ROOT value = 200 }
+						trust = { who = ROOT value = 100 }
+					}
+				}
+			}
+		}
+		trigger = {
+			OR = {
+				calc_true_if = {
+					all_country = {
+						culture_group = asur_group
+						OR = {
+							has_opinion = { who = ROOT value = 200 }
+							trust = { who = ROOT value = 100 }
+						}
+						amount = 2
+					}
+				}
+
+				NOT = {
+					calc_true_if = {
+						all_country = {
+							culture_group = asur_group
+							amount = 2
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	asur_relations_with_druchii = {
+		icon = mission_cytharai
+		required_missions = { asur_relations_with_asrai }
+		position = 8
+		provinces_to_highlight = {
+			owner = {
+				culture_group = druchii_group
+				NOT = {
+					OR = {
+						has_opinion = { who = ROOT value = 200 }
+						trust = { who = ROOT value = 100 }
+					}
+				}
+			}
+		}
+		trigger = {
+			OR = {
+				calc_true_if = {
+					all_country = {
+						culture_group = druchii_group
+						OR = {
+							has_opinion = { who = ROOT value = 200 }
+							trust = { who = ROOT value = 100 }
+						}
+						amount = 2
+					}
+				}
+
+				NOT = {
+					calc_true_if = {
+						all_country = {
+							culture_group = asur_group
+							amount = 2
+						}
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	asur_the_sacred_marriage = {
+		icon = mission_cytharai
+		required_missions = { }
+		position = 10
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1828
+				province_id = 451
+			}
+		}
+		trigger = {
+#			if = {
+#				limit = {
+#					OR = {
+#						has_reform = phoenix_king_reform
+#						any_country = {
+#							has_reform = phoenix_king_reform
+#						}
+#					}
+#
+#					OR = {
+#						has_reform = everqueen_court_reform
+#						any_country = {
+#							has_reform = everqueen_court_reform
+#						}
+#					}					
+#				}
+#
+#				OR = {
+#					has_reform = phoenix_king_reform
+#					has_reform = everqueen_court_reform
+#				}
+#
+#				every_country = {
+#					limit = {
+#						OR = {
+#							has_reform = phoenix_king_reform
+#							has_reform = everqueen_court_reform
+#						}
+#						NOT = ROOT
+#					}
+#					trust = { who = ROOT value = 100 }
+#					has_opinion = { who = ROOT value = 200 }
+#				}
+#
+#			} else = {
+#
+#				1828 = {
+#					owner = {
+#						OR = {
+#							tag = ROOT
+#							AND = {
+#								trust = { who = ROOT value = 100 }
+#								has_opinion = { who = ROOT value = 200 }
+#							}
+#						}
+#					}
+#				}
+#				451 = {
+#					owner = {
+#						OR = {
+#							tag = ROOT
+#							AND = {
+#								trust = { who = ROOT value = 100 }
+#								has_opinion = { who = ROOT value = 200 }
+#							}
+#						}
+#					}
+#				}
+#			}
+		}
+
+		effect = {
+			add_prestige = 25
+		}
+	}
+
+
+	asur_build_a_navy = {
+		icon = mission_naggaroth_ships
+		required_missions = {  }
+		position = 11
+		trigger = {
+			OR = {
+				navy_size = 50			
+				navy_size_percentage = 1.0	
+			}	
+		}
+		effect = {
+			add_navy_tradition = 25
+		}
+	}
+
+	asur_naggaroth_friend = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_naggaroth_foothold }
+		position = 13
+		provinces_to_highlight = {
+			owner = {
+				capital_scope { continent = north_america }
+				OR = {
+					NOT = { trust = { who = ROOT value = 100 } }
+					NOT = { has_opinion = { who = ROOT value = 200 } }
+				}
+			}			
+		}
+		trigger = {
+			any_country = {
+				capital_scope { continent = north_america }
+				trust = { who = ROOT value = 100 }
+				has_opinion = { who = ROOT value = 200 }
+			}
+		}
+		effect = {
+		}
+	}
+
+	asur_naggaroth_purge = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_naggaroth_friend }
+		position = 14
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					OR = {
+						ROOT = { has_country_modifier = order_nation }
+						ROOT = { has_country_modifier = neutral_nation }
+					}
+				}
+				owner = {
+					capital_scope { continent = north_america }
+					OR = {
+						has_country_modifier = destruction_nation
+						has_country_modifier = chaos_nation
+					}
+				}
+			} else = {
+				owner = {
+					capital_scope { continent = north_america }
+					has_country_modifier = order_nation
+				}
+			}
+
+		}
+		trigger = {
+			if = {
+				limit = {
+					OR = {
+						has_country_modifier = order_nation
+						has_country_modifier = neutral_nation
+					}
+				}
+				NOT = {
+					any_country = {
+						capital_scope { continent = north_america }
+						OR = {
+							has_country_modifier = destruction_nation
+							has_country_modifier = chaos_nation
+						}
+					}
+				}
+			} else = {
+				NOT = {
+					any_country = {
+						capital_scope { continent = north_america }
+						has_country_modifier = order_nation
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	asur_lustria_friend = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_lustria_foothold }
+		position = 17
+		provinces_to_highlight = {
+			owner = {
+				capital_scope { continent = south_america }
+				OR = {
+					NOT = { trust = { who = ROOT value = 100 } }
+					NOT = { has_opinion = { who = ROOT value = 200 } }
+				}
+			}			
+		}
+		trigger = {
+			any_country = {
+				capital_scope { continent = south_america }
+				trust = { who = ROOT value = 100 }
+				has_opinion = { who = ROOT value = 200 }
+			}
+		}
+		effect = {
+		}
+	}
+
+	asur_lustria_purge = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_lustria_friend }
+		position = 18
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					OR = {
+						ROOT = { has_country_modifier = order_nation }
+						ROOT = { has_country_modifier = neutral_nation }
+					}
+				}
+				owner = {
+					capital_scope { continent = south_america }
+					OR = {
+						has_country_modifier = destruction_nation
+						has_country_modifier = chaos_nation
+					}
+				}
+			} else = {
+				owner = {
+					capital_scope { continent = north_america }
+					has_country_modifier = order_nation
+				}
+			}
+
+		}
+		trigger = {
+			if = {
+				limit = {
+					OR = {
+						has_country_modifier = order_nation
+						has_country_modifier = neutral_nation
+					}
+				}
+				NOT = {
+					any_country = {
+						capital_scope { continent = north_america }
+						OR = {
+							has_country_modifier = destruction_nation
+							has_country_modifier = chaos_nation
+						}
+					}
+				}
+			} else = {
+				NOT = {
+					any_country = {
+						capital_scope { continent = north_america }
+						has_country_modifier = order_nation
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+}
+
+asur_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = asur_group
+		any_owned_province = {
+			superregion = ulthuan_superregion
+		}
+	}
+
+	asur_picking_up_the_pieces = {
+		icon = mission_lizardmen_culture
+		required_missions = {  }
+		position = 1
+		trigger = {
+			is_at_war = no
+			stability = 1
+		}
+		effect = {
+		}
+	}
+
+
+	asur_trading_in_special_goods = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_please_guilds }
+		position = 3
+		trigger = {
+			OR = {
+				trading_bonus = {
+					trade_goods = glass
+					value = yes
+				}
+				trading_bonus = {
+					trade_goods = gems
+					value = yes
+				}
+				trading_bonus = {
+					trade_goods = dyes
+					value = yes
+				}
+				trading_bonus = {
+					trade_goods = paper
+					value = yes
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+	asur_global_envoys = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_please_church }
+		position = 5
+		trigger = {
+			diplomatic_reputation = 5
+			num_of_diplomats = 4
+		}
+		effect = {
+		}
+	}
+
+	asur_web_of_trust = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_global_envoys }
+		position = 6
+		trigger = {
+			calc_true_if = {
+				all_country = {
+					trust = { who = ROOT value = 90 }
+				}
+				amount = 6
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	asur_united_elven_pantheon = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_relations_with_druchii asur_web_of_trust }
+		position = 9
+		trigger = {
+			is_defender_of_faith_of_tier = 2
+		}
+		effect = {
+			## Heretic Bonus
+		}
+	}
+
+
+	asur_great_monuments = { 
+		icon = mission_naggaroth_temple
+		position = 10
+		required_missions = { asur_crownland }
+		provinces_to_highlight = {
+			has_discovered = ROOT
+			has_great_project = {
+				type = any
+				tier = 1
+			}
+			NOT = {
+				has_great_project = {
+					type = any
+					tier = 2
+				}
+			}
+		}	
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				has_great_project = {
+					type = any
+					tier = 2
+				}
+				value = 5
+			}
+		}
+
+		effect = {		
+		}
+	}
+
+	asur_build_docks = {
+		icon = mission_naggaroth_soldier_2
+		required_missions = { asur_build_a_navy }
+		position = 12
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = {
+				OR = {
+			 		has_building = dock
+			 		has_building = drydock
+			 		has_building = shipyard
+			 		has_building = drydock
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+			 		has_building = dock
+			 		has_building = drydock
+			 		has_building = shipyard
+			 		has_building = drydock
+				}
+				value = 5
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	asur_build_flagship = {
+		icon = mission_naggaroth_soldier_2
+		required_missions = { asur_build_docks }
+		position = 13
+		trigger = {
+			has_flagship = yes
+		}
+		effect = {
+		}
+	}
+
+	asur_naval_tradition = {
+		icon = mission_naggaroth_soldier_2
+		required_missions = { asur_build_flagship }
+		position = 14
+		trigger = {
+			navy_tradition = 50
+		}
+		effect = {
+		}
+	}
+
+	asur_exploration = {
+		icon = mission_naggaroth_soldier_2
+		required_missions = {  }
+		position = 14
+		trigger = {
+			if = {
+				limit = { ai = yes }
+				always = yes
+			} else = {
+				calc_true_if = {
+					all_province = {
+						has_discovered = ROOT
+					}
+					amount = 1200
+				}
+			}
+
+		}
+		effect = {
+		}
+	}
+
+	asur_global_trade = {
+		icon = mission_naggaroth_soldier_2
+		required_missions = { asur_exploration }
+		position = 14
+		trigger = {
+			calc_true_if = {
+				all_trade_node = {
+					is_strongest_trade_power = ROOT
+				}
+				amount = 5
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	asur_far_east_foothold = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_global_trade }
+		position = 17
+		provinces_to_highlight = {
+			continent = asia
+			NOT = {
+				owner = {
+					OR = {
+						tag = ROOT
+						alliance_with = ROOT
+						is_subject_of = ROOT
+					}
+				}			
+			}
+		}
+		trigger = {
+			any_province = {
+				continent = asia
+				owner = {
+					OR = {
+						tag = ROOT
+						alliance_with = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	asur_far_east_grow_1 = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_far_east_foothold }
+		position = 18
+		provinces_to_highlight = {
+			continent = north_america
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				continent = north_america
+			}
+		}
+		effect = {
+		}
+	}
+
+	asur_perfidious_ulthuan = {
+		icon = mission_high_elf_culture
+		position_19
+		provinces_to_highlight = {
+			owner = {
+				NOT = { great_power_rank = 9 }
+				NOT = {
+					OR = {
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 90 }
+						}
+						AND = {
+							is_subject_of = ROOT
+							trust = { who = ROOT value = 90 }
+						}
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 50
+							}
+						}
+						tag = ROOT
+					}
+				}
+			}
+		}
+		required_missions = {
+		}
+		trigger = {
+
+			is_great_power = yes
+
+			NOT = {
+				any_country = {
+					NOT = { great_power_rank = 9 }
+					NOT = {
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 90 }
+						}
+					}
+					NOT = {
+						AND = {
+							is_subject_of = ROOT
+							trust = { who = ROOT value = 90 }
+						}
+					}
+					NOT = {
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 50
+							}
+						}
+					}
+					NOT = {
+						tag = ROOT
+					}
+				}
+			}
+		}
+
+		effect = {
+		}
+	}
+
+
+}
+
+
+asur_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = asur_group
+		any_owned_province = {
+			superregion = ulthuan_superregion
+		}
+	}
+
+	asur_please_guilds = {
+		icon = mission_naggaroth_soldier
+		required_missions = { asur_picking_up_the_pieces }
+		position = 2
+		trigger = {
+			OR = {
+				AND = {
+					estate_loyalty = {
+					    estate = estate_burghers
+					    loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_burghers
+						value = 1
+					}
+				}
+				NOT = {	
+					estate_influence = {
+					    estate = estate_burghers
+					    influence = 25
+					}
+				}
+				NOT = { has_estate = estate_burghers }
+			}
+		}
+		effect = {
+		}
+	}
+
+	asur_trading_in_wine = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_please_guilds }
+		position = 3
+		trigger = {
+			OR = {
+				trading_bonus = {
+					trade_goods = wine
+					value = yes
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+	asur_trade_dominance_ulthuan = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_trading_in_special_goods asur_trading_in_wine asur_trading_in_silk }
+		position = 3
+		trigger = {
+			451 = {
+				trade_share = {
+					country = ROOT
+					share = 51
+				}
+			}
+			1869 = {
+				trade_share = {
+					country = ROOT
+					share = 51
+				}
+			}
+			1879 = {
+				trade_share = {
+					country = ROOT
+					share = 51
+				}
+			}
+			1965 = {
+				trade_share = {
+					country = ROOT
+					share = 51
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+	asur_build_temples = {
+		icon = mission_naggaroth_temple
+		required_missions = { asur_please_church }
+		position = 5
+		provinces_to_highlight = {
+			owned_by = ROOT
+			has_tax_building_trigger = no
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+		 		has_tax_building_trigger = yes
+				value = 5
+			}
+		}
+		effect = {
+		}
+	}
+
+	asur_develop_ulthuan = { 
+		icon = mission_naggaroth_evil_forest
+		position = 6
+		required_missions = { asur_build_temples }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { development = 6 }
+			superregion = ulthuan_superregion
+		}	
+		trigger = {
+			NOT = {
+				any_owned_province = {
+
+					NOT = { development = 6 }
+					superregion = ulthuan_superregion
+				}
+			}
+			development_in_provinces = {
+				value = 100
+				continent = ulthuan_superregion
+			}
+		}
+
+		effect = {
+		}
+	}
+
+	asur_prestigious_elves = { 
+		icon = mission_naggaroth_evil_forest
+		position = 7
+		required_missions = { asur_develop_ulthuan }
+		trigger = {
+			prestige = 99
+			OR = {
+				power_projection = 75
+				is_great_power = yes
+				NOT = { great_power_rank = 2 }
+			}
+		}
+
+		effect = {
+		}
+	}
+
+	asur_crownland = { 
+		icon = mission_naggaroth_malekith
+		position = 9
+		required_missions = { asur_prestigious_elves }
+
+		trigger = {
+			crown_land_share = 60
+		}
+
+		effect = {
+		}
+	}
+
+
+	asur_build_courts = {
+		icon = mission_naggaroth_soldier_2
+		required_missions = { asur_crownland }
+		position = 10
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = {
+				OR = {
+			 		has_building = courthouse
+			 		has_building = town_hall
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+			 		has_building = courthouse
+			 		has_building = town_hall
+				}
+				value = 5
+			}
+		}
+		effect = {
+		}
+	}
+
+	asur_golden_age = {
+		icon = mission_crown_of_denmark
+		required_missions = { asur_unify_ulthuan asur_the_sacred_marriage asur_great_monuments asur_build_courts asur_masters_of_magic }
+		position = 11
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				has_had_golden_age = yes
+				in_golden_age = yes
+			}
+		}
+		effect = {
+			reset_golden_age = yes
+			extend_golden_age = 600
+		}
+	}
+
+
+	asur_old_world_friend = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_old_world_foothold }
+		position = 13
+		provinces_to_highlight = {
+			owner = {
+				capital_scope { continent = europe }
+				OR = {
+					NOT = { trust = { who = ROOT value = 100 } }
+					NOT = { has_opinion = { who = ROOT value = 200 } }
+				}
+			}			
+		}
+		trigger = {
+			any_country = {
+				capital_scope { continent = europe }
+				trust = { who = ROOT value = 100 }
+				has_opinion = { who = ROOT value = 200 }
+			}
+		}
+		effect = {
+		}
+	}
+
+	asur_old_world_purge = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_old_world_friend }
+		position = 14
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					OR = {
+						ROOT = { has_country_modifier = order_nation }
+						ROOT = { has_country_modifier = neutral_nation }
+					}
+				}
+				owner = {
+					capital_scope { continent = europe }
+					OR = {
+						has_country_modifier = destruction_nation
+						has_country_modifier = chaos_nation
+					}
+				}
+			} else = {
+				owner = {
+					capital_scope { continent = europe }
+					has_country_modifier = order_nation
+				}
+			}
+
+		}
+		trigger = {
+			if = {
+				limit = {
+					OR = {
+						has_country_modifier = order_nation
+						has_country_modifier = neutral_nation
+					}
+				}
+				NOT = {
+					any_country = {
+						capital_scope { continent = europe }
+						OR = {
+							has_country_modifier = destruction_nation
+							has_country_modifier = chaos_nation
+						}
+					}
+				}
+			} else = {
+				NOT = {
+					any_country = {
+						capital_scope { continent = europe }
+						has_country_modifier = order_nation
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	asur_southlands_friend = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_southlands_foothold }
+		position = 17
+		provinces_to_highlight = {
+			owner = {
+				capital_scope { continent = africa }
+				OR = {
+					NOT = { trust = { who = ROOT value = 100 } }
+					NOT = { has_opinion = { who = ROOT value = 200 } }
+				}
+			}			
+		}
+		trigger = {
+			any_country = {
+				capital_scope { continent = africa }
+				trust = { who = ROOT value = 100 }
+				has_opinion = { who = ROOT value = 200 }
+			}
+		}
+		effect = {
+		}
+	}
+
+	asur_southlands_purge = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_southlands_friend }
+		position = 18
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					OR = {
+						ROOT = { has_country_modifier = order_nation }
+						ROOT = { has_country_modifier = neutral_nation }
+					}
+				}
+				owner = {
+					capital_scope { continent = africa }
+					OR = {
+						has_country_modifier = destruction_nation
+						has_country_modifier = chaos_nation
+					}
+				}
+			} else = {
+				owner = {
+					capital_scope { continent = africa }
+					has_country_modifier = order_nation
+				}
+			}
+
+		}
+		trigger = {
+			if = {
+				limit = {
+					OR = {
+						has_country_modifier = order_nation
+						has_country_modifier = neutral_nation
+					}
+				}
+				NOT = {
+					any_country = {
+						capital_scope { continent = africa }
+						OR = {
+							has_country_modifier = destruction_nation
+							has_country_modifier = chaos_nation
+						}
+					}
+				}
+			} else = {
+				NOT = {
+					any_country = {
+						capital_scope { continent = africa }
+						has_country_modifier = order_nation
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+}
+
+asur_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = asur_group
+		any_owned_province = {
+			superregion = ulthuan_superregion
+		}
+	}
+
+	naggaroth_build_the_trade_fleets = {
+		icon = mission_naggaroth_corsair
+		required_missions = { asur_picking_up_the_pieces }
+		position = 2
+		trigger = {
+			num_of_light_ship = 15
+		}
+		effect = {
+		}
+	}
+
+	asur_trading_in_silk = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_please_guilds }
+		position = 3
+		trigger = {
+			OR = {
+				trading_bonus = {
+					trade_goods = silk
+					value = yes
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+	asur_build_workshops = {
+		icon = mission_naggaroth_soldier_2
+		required_missions = { asur_trading_in_silk  }
+		position = 4
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = {
+				OR = {
+			 		has_building = barracks
+			 		has_building = training_fields
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+			 		has_building = barracks
+			 		has_building = training_fields
+				}
+				value = 5
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	asur_destroy_the_dreadfleet = {
+		icon = mission_naggaroth_soldier_2
+		required_missions = { asur_trade_dominance_ulthuan }
+		position = 5
+		provinces_to_highlight = {
+			province_id = 3190
+		}
+		trigger = {
+			owns_or_subject_of = 3190
+		}
+		effect = {
+		}
+	}
+
+	asur_please_mages = {
+		icon = mission_cytharai
+		required_missions = { asur_build_temples }
+		position = 6
+		trigger = {
+			OR = {
+				AND = {
+					estate_loyalty = {
+					    estate = estate_mages
+					    loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_mages
+						value = 1
+					}
+				}
+				NOT = {	
+					estate_influence = {
+					    estate = estate_mages
+					    influence = 25
+					}
+				}
+				NOT = { has_estate = estate_mages }
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	asur_build_the_capital = {
+		icon = mission_naggaroth_naggarond
+		required_missions = { asur_please_mages }
+		position = 7
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+		}
+		trigger = {
+			OR = {
+				capital_scope = {
+					development = 30
+				}
+				hidden_trigger = {
+					AND = {
+						ai = yes
+						is_year = 2535
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_towering_monuments
+    			duration = -1  
+			}
+		}
+	}
+
+	asur_build_universities = {
+		icon = mission_naggaroth_soldier_2
+		required_missions = { asur_build_the_capital }
+		position = 8
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_building = university }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				NOT = { has_building = university }
+				value = 5
+			}
+		}
+		effect = {
+		}
+	}
+
+	asur_tower_of_hoeth = {
+		icon = bibliotheca_corviana
+		required_missions = { asur_build_universities }
+		position = 9
+		trigger = {
+			1810 = {
+				has_great_project = {
+					type = gp_white_tower_of_hoeth
+					tier = 2
+				}
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						alliance_with = ROOT
+					}
+				}
+			}
+		}
+
+		effect = {
+		}
+	}
+
+	asur_masters_of_magic = {
+		icon = bibliotheca_corviana
+		required_missions = { asur_tower_of_hoeth }
+		position = 10
+		trigger = {
+			OR = {
+				innovativeness = 100
+				has_country_modifier = war_modern_science
+			}
+		}
+
+		effect = {
+		}
+	}
+
+
+	asur_old_world_foothold = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_build_a_navy }
+		position = 12
+		provinces_to_highlight = {
+			continent = europe
+			NOT = {
+				owner = {
+					OR = {
+						tag = ROOT
+						alliance_with = ROOT
+						is_subject_of = ROOT
+					}
+				}			
+			}
+		}
+		trigger = {
+			any_province = {
+				continent = europe
+				owner = {
+					OR = {
+						tag = ROOT
+						alliance_with = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	asur_old_world_grow_1 = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_old_world_foothold }
+		position = 13
+		provinces_to_highlight = {
+			continent = europe
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				continent = europe
+			}
+		}
+		effect = {
+		}
+	}
+
+	asur_old_world_grow_2 = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_old_world_grow_1 }
+		position = 14
+		provinces_to_highlight = {
+			continent = europe
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 20
+				continent = europe
+			}
+		}
+		effect = {
+		}
+	}
+
+
+
+	asur_southlands_foothold = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_exploration }
+		position = 16
+		provinces_to_highlight = {
+			continent = africa
+			NOT = {
+				owner = {
+					OR = {
+						tag = ROOT
+						alliance_with = ROOT
+						is_subject_of = ROOT
+					}
+				}			
+			}
+		}
+		trigger = {
+			any_province = {
+				continent = africa
+				owner = {
+					OR = {
+						tag = ROOT
+						alliance_with = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	asur_southlands_grow_1 = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_southlands_foothold }
+		position = 17
+		provinces_to_highlight = {
+			continent = africa
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				continent = africa
+			}
+		}
+		effect = {
+		}
+	}
+
+	asur_southlands_grow_2 = {
+		icon = mission_lizardmen_culture
+		required_missions = { asur_southlands_grow_1 }
+		position = 18
+		provinces_to_highlight = {
+			continent = africa
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 20
+				continent = africa
+			}
+		}
+		effect = {
+		}
+	}
+
+
+
+}
