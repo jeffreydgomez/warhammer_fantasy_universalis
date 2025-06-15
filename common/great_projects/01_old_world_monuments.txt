@@ -4968,34 +4968,16 @@ mortensholm_marketplaces = {
 
 ### Norsca
 
-monument_to_the_old_gods = {
-	# province it starts in
-	start = 466
-	
-	# date built in real life (so anything built during game time will be there if you start a game after that date)
+ancient_burial_mounds = { # Reskin of Monument to Old gods
+	start = 26 #Chamon Dharek
 	date = 570.01.01
-	
-	#time to build
-	time = {
-		months = 0
-	}
-	
-	#how much to build one
+	time = { months = 0 }
 	build_cost = 0
-	
-	#can we move it?
 	can_be_moved = yes
-	
-	#time to move the project one unit of distance, in days
 	move_days_per_unit_distance = 1
-	
-	#tier that the project starts at when first placed in the game (be that at game start or when built by a country as the game progresses)
 	starting_tier = 1
-	
-	#project type
 	type = monument
 
-	#can we build it?
 	build_trigger = {
 		OR = {
 			province_is_or_accepts_religion = {
@@ -5011,15 +4993,10 @@ monument_to_the_old_gods = {
 		}
 	}
 
-	#what to do when it's built
-	on_built = {
-	}
+	on_built = {}
 	
-	#what to do when it's destroyed
-	on_destroyed = {
-	}
+	on_destroyed = {}
 
-	#can our country use it?
 	can_use_modifiers_trigger = {
 		OR = {
 			province_is_or_accepts_religion = {
@@ -5035,7 +5012,6 @@ monument_to_the_old_gods = {
 		}
 	}
 
-	#can our country upgrade it?
 	can_upgrade_trigger = {
 		OR = {
 			province_is_or_accepts_religion = {
@@ -5051,9 +5027,7 @@ monument_to_the_old_gods = {
 		}
 	}
 
-	#can our country keep it or is it destroyed when we get hold of it?
-	keep_trigger = {
-	}
+	keep_trigger = {}
 
 	#tier data
 	tier_0 = {
@@ -5169,7 +5143,7 @@ monument_to_the_old_gods = {
 			culture_conversion_cost = -0.25
 			global_missionary_strength = 0.01
 			missionaries = 1
-			idea_cost = -0.05
+			cavalry_power = 0.05
 		}
 
 		#what effects happen when this tier is achieved
@@ -5420,6 +5394,113 @@ church_mermedus = {
 		}
 		on_upgraded = {
 		}
+	}
+}
+
+gorge_of_damned = {
+	start = 466
+	date = 570.01.01
+	time = { months = 0 }
+	build_cost = 0
+	can_be_moved = no
+	move_days_per_unit_distance = 10
+	starting_tier = 1
+	type = monument
+
+	#can we build it?
+	build_trigger = {
+		OR = {
+			province_is_or_accepts_religion_group = {
+				religion_group = the_old_faith
+			}
+
+			hidden_trigger = { owner = { has_harmonized_with = the_old_faith } }
+			hidden_trigger = { owner = { secondary_religion_group = the_old_faith } } 
+		}
+	}
+
+	on_built = {}
+	on_destroyed = {}
+
+	#can our country use it?
+	can_use_modifiers_trigger = {
+		OR = {
+			province_is_or_accepts_religion_group = {
+				religion_group = the_old_faith
+			}
+
+			hidden_trigger = { owner = { has_harmonized_with = the_old_faith } }
+			hidden_trigger = { owner = { secondary_religion_group = the_old_faith } } 
+		}
+	}
+
+	#can our country upgrade it?
+	can_upgrade_trigger = {
+		OR = {
+			province_is_or_accepts_religion_group = {
+				religion_group = the_old_faith
+			}
+
+			hidden_trigger = { owner = { has_harmonized_with = the_old_faith } }
+			hidden_trigger = { owner = { secondary_religion_group = the_old_faith } } 
+		}
+	}
+
+	keep_trigger = {}
+
+	tier_0 = {
+		upgrade_time = { months = 0 }
+		cost_to_upgrade = {	factor = 0 }
+		province_modifiers = { }
+		area_modifier = {}
+		country_modifiers = {}
+		on_upgraded = {}
+	}
+
+	tier_1 = {
+		upgrade_time = { months = 120 }
+		cost_to_upgrade = { factor = 1000 }
+		province_modifiers = {
+			local_defensiveness = 0.1
+			local_hostile_attrition = 1
+			max_attrition = 1
+		}
+		region_modifier = {
+			local_development_cost = -0.025
+			local_monthly_devastation = -0.1
+		}
+		on_upgraded = {}
+	}
+
+	tier_2 = {
+		upgrade_time = { months = 240 }
+		cost_to_upgrade = { factor = 2500 }
+		province_modifiers = {
+			local_defensiveness = 0.25
+			local_hostile_attrition = 2
+			max_attrition = 2
+		}
+		region_modifier = {
+			local_development_cost = -0.05
+			local_monthly_devastation = -0.25
+		}
+		on_upgraded = {}
+	}
+
+	tier_3 = {
+		upgrade_time = { months = 480 }
+		cost_to_upgrade = { factor = 5000 }
+		area_modifier = {
+			local_defensiveness = 0.5
+			local_hostile_attrition = 2
+			max_attrition = 2
+		}
+		region_modifier = {
+			local_development_cost = -0.1
+			trade_goods_size_modifier = 0.05
+			local_monthly_devastation = -0.25
+		}
+		on_upgraded = {}
 	}
 }
 
