@@ -1,6 +1,6 @@
 
 ##################################
-##### CATHAY CULTURE GROUP
+##### ULTHUAN MISSIONS GROUP
 ##################################
 asur_missions_1 = {
 	slot = 1
@@ -35,17 +35,7 @@ asur_missions_1 = {
 			}
 		}
 		effect = {
-			## Reduce devastation, separatism, autonomy in all lands and subject lands?
-			custom_tooltip = claim_ulthuan_tt
-			hidden_effect = {
-				every_province = {
-					limit = {
-						superregion = ulthuan_superregion
-						is_city = yes
-					}
-					add_permanent_claim = ROOT
-				}
-			}
+			add_stability_or_adm_power = yes
 		}
 	}
 
@@ -69,13 +59,23 @@ asur_missions_1 = {
 				NOT = {	
 					estate_influence = {
 					    estate = estate_nobles
-					    influence = 25
+					    influence = 15
 					}
 				}
 				NOT = { has_estate = estate_nobles }
 			}
 		}
 		effect = {
+			custom_tooltip = claim_ulthuan_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						superregion = ulthuan_superregion
+						is_city = yes
+					}
+					add_permanent_claim = ROOT
+				}
+			}
 			add_yearly_manpower = 2.5
 		}
 	}
@@ -101,11 +101,27 @@ asur_missions_1 = {
 			}
 		}
 		effect = {
-			## Reduce devastation, separatism, autonomy in all lands and subject lands?
+			custom_tooltip = nobles_administer_land_tt
+			hidden_effect = {
+				all_owned_province = {
+					limit = { superregion = ulthuan_superregion }
+					add_devastation = -20
+					add_nationalism = -10
+					add_local_autonomy = -20
+				}
+				every_subject_country = {
+					all_owned_province = {
+						limit = { superregion = ulthuan_superregion }
+						add_devastation = -20
+						add_nationalism = -10
+						add_local_autonomy = -20
+					}
+				}
+			}
 		}
 	}
 
-## Before the Next Conclave, we must build up a great army. Our position must be absolute.
+## Before the Next Conclave, we must build up a great army. Our position must be absolute, and our military must have a place to drill.
 	asur_build_barracks = {
 		icon = mission_high_elf_culture
 		required_missions = { asur_grow_2 }
@@ -129,6 +145,10 @@ asur_missions_1 = {
 			}
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = asur_training_grounds
+    			duration = -1  
+			}	
 		}
 	}
 
@@ -152,7 +172,23 @@ asur_missions_1 = {
 			}
 		}
 		effect = {
-			## Reduce devastation, separatism, autonomy in all lands and subject lands?
+			custom_tooltip = nobles_administer_land_tt
+			hidden_effect = {
+				all_owned_province = {
+					limit = { superregion = ulthuan_superregion }
+					add_devastation = -20
+					add_nationalism = -10
+					add_local_autonomy = -20
+				}
+				every_subject_country = {
+					all_owned_province = {
+						limit = { superregion = ulthuan_superregion }
+						add_devastation = -20
+						add_nationalism = -10
+						add_local_autonomy = -20
+					}
+				}
+			}
 		}
 	}
 
@@ -187,11 +223,15 @@ asur_missions_1 = {
 			}
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = asur_approval_of_the_nobles
+    			duration = -1  
+			}	
 		}
 	}
 
 
-## We face no greater threat than from Malekith and his kin. Let us take the fight to him.
+## We face no greater threat than from Malekith and his kin. Let us take the fight to him. 
 	asur_naggaroth_foothold = {
 		icon = mission_high_elf_culture
 		required_missions = { asur_build_a_navy }
@@ -221,11 +261,14 @@ asur_missions_1 = {
 			}
 		}
 		effect = {
-# Colonist?
+			add_country_modifier = { 
+    			name = asur_naggaroth_foothold_1
+    			duration = -1  
+			}
 		}
 	}
 
-## Our foothold on Naggaroth grows. But a prominent asur/druchii halfbreed comes to us, suggesting we make peace with the druchii instead of slaughtering them.
+## Our foothold on Naggaroth grows, and every glorious fight against the Druchii strengthens our prestige
 	asur_naggaroth_grow_1 = {
 		icon = mission_high_elf_culture
 		required_missions = { asur_naggaroth_foothold }
@@ -241,6 +284,12 @@ asur_missions_1 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = asur_naggaroth_foothold_1
+			add_country_modifier = { 
+    			name = asur_naggaroth_foothold_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
@@ -260,7 +309,9 @@ asur_missions_1 = {
 			}
 		}
 		effect = {
-			## Claims or reverse relations with heretics  and accept vassalization reasons
+			country_event = { 
+			    id = asur_events.200
+			}
 		}
 	}
 
@@ -295,12 +346,15 @@ asur_missions_1 = {
 			}
 		}
 		effect = {
-# Colonist?
+			add_country_modifier = { 
+    			name = asur_naggaroth_lustria_1
+    			duration = -1  
+			}
 		}
 	}
 
 
-## We have established the first Lustrian mission, designed to bring order and diplomacy to the lizardmen of Lustria.
+## We have established the first Lustrian mission, designed to bring order and peace to the lizardmen of Lustria.
 	asur_lustria_grow_1 = {
 		icon = mission_high_elf_culture
 		required_missions = { asur_lustria_foothold }
@@ -316,10 +370,16 @@ asur_missions_1 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = asur_lustria_foothold_1
+			add_country_modifier = { 
+    			name = asur_lustria_foothold_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
-## The Lustrian mission has expanded in scope. The leader of the mission, an asur named XXXX has suggeste that instead of working with the lizardmen, we should just conquer them?
+## The Lustrian mission has expanded in scope. The leader of the mission, an asur named XXXX has suggeste that instead of working with the lizardmen, we should just conquer them? They seem to be resisting our every attempt at diplomacy.
 	asur_lustria_grow_2 = {
 		icon = mission_high_elf_culture
 		required_missions = { asur_lustria_grow_1 }
@@ -335,7 +395,9 @@ asur_missions_1 = {
 			}
 		}
 		effect = {
-			## Claims or reverse relations with heathens and accept vassalization reasons
+			country_event = { 
+			    id = asur_events.201
+			}
 		}
 	}
 
@@ -360,29 +422,27 @@ asur_missions_2 = {
 		required_missions = { asur_picking_up_the_pieces }
 		position = 2
 		provinces_to_highlight = {
-			superregion = ulthuan_superregion
 			owned_by = ROOT
 			OR = {
 				devastation = 1
-				NOT = { development = 4 }
+				NOT = { development = 5 }
 			}
 		}
 		trigger = {
-			NOT = {
-				any_owned_province = {
-					superregion = ulthuan_superregion
-					devastation = 1
-					NOT = { development = 5 }
-				}
+			all_owned_province = {
+				NOT = { devastation = 1 }
+				development = 5
 			}
 		}
 		effect = {
+			add_years_of_income = 1
+			add_yearly_manpower = 2
 		}
 	}
 
 ## The Elven church may be our best path forward for peaceful unification. An asur by the name of XXX is offering to be our special envoy to the church, a puppet prophet who will make our lives easier.
 	asur_please_church = {
-		icon = mission_cytharai
+		icon = mission_high_elf_culture
 		required_missions = { asur_rebuild }
 		position = 4
 		trigger = {
@@ -400,35 +460,42 @@ asur_missions_2 = {
 				NOT = {	
 					estate_influence = {
 					    estate = estate_church
-					    influence = 25
+					    influence = 15
 					}
 				}
 				NOT = { has_estate = estate_church }
 			}
 		}
 		effect = {
-			add_stability_or_adm_power = yes
+			add_country_modifier = { 
+    			name = asur_representative_within_the_church
+    			duration = -1  
+			}			
 		}
 	}
 
 ## The asur have always had a special relationship witht the dragons. As we unify Ulthuan, it is critical that they value us over any others.
 	asur_relations_with_the_dragons = {
-		icon = mission_cytharai
+		icon = mission_high_elf_culture
 		required_missions = { asur_please_nobles }
 		position = 5
 		trigger = {
 			diplomatic_reputation = 5
 			prestige = 75
-			## Need the dragon estate privilege
-			## Own the hall of dragons
+			owns_or_non_sovereign_subject_of = 1858
+			has_estate_privilege = estate_nobles_befriend_the_dragons
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = asur_dragon_friend
+    			duration = -1  
+			}	
 		}
 	}
 
-## The first step in regaining our ancient glory is to reforge connections with our far flung colonies.
+## The first step in regaining our ancient glory is to reforge connections with our far flung colonies. Our diplomats shall speed over the waves to get there.
 	asur_relations_with_colonies = {
-		icon = mission_cytharai
+		icon = mission_high_elf_culture
 		required_missions = { asur_global_envoys }
 		position = 6
 		provinces_to_highlight = {
@@ -437,7 +504,7 @@ asur_missions_2 = {
 				NOT = { capital_scope = { superregion = ulthuan_superregion } }
 				NOT = {
 					OR = {
-						has_opinion = { who = ROOT value = 200 }
+						has_opinion = { who = ROOT value = 150 }
 						trust = { who = ROOT value = 100 }
 					}
 				}
@@ -445,36 +512,34 @@ asur_missions_2 = {
 		}
 		trigger = {
 			OR = {
-				calc_true_if = {
-					all_country = {
-						culture_group = asur_group
-						NOT = { capital_scope = { superregion = ulthuan_superregion } }
-						OR = {
-							has_opinion = { who = ROOT value = 200 }
-							trust = { who = ROOT value = 100 }
-						}
-						amount = 2
+				any_country = {
+					culture_group = asur_group
+					NOT = { capital_scope = { superregion = ulthuan_superregion } }
+					OR = {
+						has_opinion = { who = ROOT value = 150 }
+						trust = { who = ROOT value = 100 }
 					}
 				}
 
 				NOT = {
-					calc_true_if = {
-						all_country = {
-							culture_group = asur_group
-							NOT = { capital_scope = { superregion = ulthuan_superregion } }
-							amount = 2
-						}
+					any_country = {
+						culture_group = asur_group
+						NOT = { capital_scope = { superregion = ulthuan_superregion } }
 					}
 				}
 			}
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = asur_elven_connections_1
+    			duration = -1  
+			}	
 		}
 	}
 
 ## We seek to lead more than just the asur. We will be a leader of all Elvenkind. Let us reach out and forge alliances with the Wood Elves.
 	asur_relations_with_asrai = {
-		icon = mission_cytharai
+		icon = mission_high_elf_culture
 		required_missions = { asur_relations_with_colonies }
 		position = 7
 		provinces_to_highlight = {
@@ -482,7 +547,7 @@ asur_missions_2 = {
 				culture_group = asrai_group
 				NOT = {
 					OR = {
-						has_opinion = { who = ROOT value = 200 }
+						has_opinion = { who = ROOT value = 150 }
 						trust = { who = ROOT value = 100 }
 					}
 				}
@@ -490,35 +555,36 @@ asur_missions_2 = {
 		}
 		trigger = {
 			OR = {
-				calc_true_if = {
-					all_country = {
-						culture_group = asur_group
-						OR = {
-							has_opinion = { who = ROOT value = 200 }
-							trust = { who = ROOT value = 100 }
-						}
-						amount = 2
+				any_country = {
+					culture_group = asur_group
+					OR = {
+						has_opinion = { who = ROOT value = 150 }
+						trust = { who = ROOT value = 100 }
 					}
 				}
 
 				NOT = {
-					calc_true_if = {
-						all_country = {
-							culture_group = asur_group
-							amount = 2
-						}
+					any_country = {
+						culture_group = asur_group
+						amount = 2
 					}
 				}
 			}
 		}
 		effect = {
+			remove_country_modifier = asur_elven_connections_1
+			add_country_modifier = { 
+    			name = asur_elven_connections_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
 ## The Druchii are our twisted kin. Yet we are united in our fight against chaos and greater foes. We need not fight if we can acknowledge our differences.
 
 	asur_relations_with_druchii = {
-		icon = mission_cytharai
+		icon = mission_high_elf_culture
 		required_missions = { asur_relations_with_asrai }
 		position = 8
 		provinces_to_highlight = {
@@ -526,7 +592,7 @@ asur_missions_2 = {
 				culture_group = druchii_group
 				NOT = {
 					OR = {
-						has_opinion = { who = ROOT value = 200 }
+						has_opinion = { who = ROOT value = 150 }
 						trust = { who = ROOT value = 100 }
 					}
 				}
@@ -534,34 +600,34 @@ asur_missions_2 = {
 		}
 		trigger = {
 			OR = {
-				calc_true_if = {
-					all_country = {
-						culture_group = druchii_group
-						OR = {
-							has_opinion = { who = ROOT value = 200 }
-							trust = { who = ROOT value = 100 }
-						}
-						amount = 2
+				any_country = {
+					culture_group = druchii_group
+					OR = {
+						has_opinion = { who = ROOT value = 150 }
+						trust = { who = ROOT value = 100 }
 					}
 				}
 
 				NOT = {
-					calc_true_if = {
-						all_country = {
-							culture_group = asur_group
-							amount = 2
-						}
+					any_country = {
+						culture_group = druchii_group
 					}
 				}
 			}
 		}
 		effect = {
+			remove_country_modifier = asur_elven_connections_2
+			add_country_modifier = { 
+    			name = asur_elven_connections_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
 ## The Breaking of the Asur broke one of our most sacred rituals - the Marriage of the Phoenix King and Everqueen. To become whole again, we must forge the ritual alliance again.
 	asur_the_sacred_marriage = {
-		icon = mission_cytharai
+		icon = mission_high_elf_culture
 		required_missions = { }
 		position = 10
 		provinces_to_highlight = {
@@ -571,6 +637,7 @@ asur_missions_2 = {
 			}
 		}
 		trigger = {
+
 #			if = {
 #				limit = {
 #					OR = {
@@ -593,7 +660,7 @@ asur_missions_2 = {
 #					has_reform = everqueen_court_reform
 #				}
 #
-#				every_country = {
+#				any_country = {
 #					limit = {
 #						OR = {
 #							has_reform = phoenix_king_reform
@@ -602,44 +669,47 @@ asur_missions_2 = {
 #						NOT = ROOT
 #					}
 #					trust = { who = ROOT value = 100 }
-#					has_opinion = { who = ROOT value = 200 }
+#					has_opinion = { who = ROOT value = 150 }
 #				}
 #
 #			} else = {
-#
-#				1828 = {
-#					owner = {
-#						OR = {
-#							tag = ROOT
-#							AND = {
-#								trust = { who = ROOT value = 100 }
-#								has_opinion = { who = ROOT value = 200 }
-#							}
-#						}
-#					}
-#				}
-#				451 = {
-#					owner = {
-#						OR = {
-#							tag = ROOT
-#							AND = {
-#								trust = { who = ROOT value = 100 }
-#								has_opinion = { who = ROOT value = 200 }
-#							}
-#						}
-#					}
-#				}
+
+				1828 = {
+					owner = {
+						OR = {
+							tag = ROOT
+							AND = {
+								trust = { who = ROOT value = 100 }
+								has_opinion = { who = ROOT value = 150 }
+							}
+						}
+					}
+				}
+				451 = {
+					owner = {
+						OR = {
+							tag = ROOT
+							AND = {
+								trust = { who = ROOT value = 100 }
+								has_opinion = { who = ROOT value = 150 }
+							}
+						}
+					}
+				}
 #			}
 		}
 
 		effect = {
-			add_prestige = 25
+			add_country_modifier = { 
+    			name = asur_the_ritual_marriage
+    			duration = -1  
+			}
 		}
 	}
 
 ## We are a great island nation. Our navy shall be used both for protection and outreach.
 	asur_build_a_navy = {
-		icon = mission_naggaroth_ships
+		icon = mission_high_elf_culture
 		required_missions = {  }
 		position = 11
 		trigger = {
@@ -649,13 +719,17 @@ asur_missions_2 = {
 			}	
 		}
 		effect = {
-			add_navy_tradition = 25
+			add_country_modifier = { 
+    			name = asur_naval_tradition_1
+    			duration = -1  
+			}
 		}
 	}
 
+
 ## Naggaroth need not be an enemy. There are many druchii and others on the chilled continent who would welcome our outreach.
 	asur_naggaroth_friend = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_naggaroth_foothold }
 		position = 13
 		provinces_to_highlight = {
@@ -663,7 +737,7 @@ asur_missions_2 = {
 				capital_scope { continent = north_america }
 				OR = {
 					NOT = { trust = { who = ROOT value = 100 } }
-					NOT = { has_opinion = { who = ROOT value = 200 } }
+					NOT = { has_opinion = { who = ROOT value = 150 } }
 				}
 			}			
 		}
@@ -671,16 +745,20 @@ asur_missions_2 = {
 			any_country = {
 				capital_scope { continent = north_america }
 				trust = { who = ROOT value = 100 }
-				has_opinion = { who = ROOT value = 200 }
+				has_opinion = { who = ROOT value = 150 }
 			}
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = asur_naggaroth_friend
+    			duration = -1  
+			}
 		}
 	}
 
 ## The time has come to purge naggaroth of evil. If the druchii cannot be turned from their course, then they will follow.
 	asur_naggaroth_purge = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_naggaroth_friend }
 		position = 14
 		provinces_to_highlight = {
@@ -733,12 +811,18 @@ asur_missions_2 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = asur_naggaroth_friend
+			add_country_modifier = { 
+    			name = asur_naggaroth_purge
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
 ## The lizardmen should be our allies in our fight against chaos.
 	asur_lustria_friend = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_lustria_foothold }
 		position = 17
 		provinces_to_highlight = {
@@ -746,7 +830,7 @@ asur_missions_2 = {
 				capital_scope { continent = south_america }
 				OR = {
 					NOT = { trust = { who = ROOT value = 100 } }
-					NOT = { has_opinion = { who = ROOT value = 200 } }
+					NOT = { has_opinion = { who = ROOT value = 150 } }
 				}
 			}			
 		}
@@ -754,16 +838,20 @@ asur_missions_2 = {
 			any_country = {
 				capital_scope { continent = south_america }
 				trust = { who = ROOT value = 100 }
-				has_opinion = { who = ROOT value = 200 }
+				has_opinion = { who = ROOT value = 150 }
 			}
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = asur_lustria_friend
+    			duration = -1  
+			}
 		}
 	}
 
 ## DEspite the lizardmen's best efforts, some vestiges of chaos remain. We must purge them.
 	asur_lustria_purge = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_lustria_friend }
 		position = 18
 		provinces_to_highlight = {
@@ -816,6 +904,12 @@ asur_missions_2 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = asur_lustria_friend
+			add_country_modifier = { 
+    			name = asur_lustria_purge
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
@@ -833,9 +927,9 @@ asur_missions_3 = {
 		}
 	}
 
-## The breaking of the asur civil war wroght havok among our dwindling kin. Let us take a breath and see what we have done.
+## The breaking of the asur civil war wroght havok among our dwindling kin. Let us take a breath and see what we have done. 
 	asur_picking_up_the_pieces = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = {  }
 		position = 1
 		trigger = {
@@ -843,13 +937,17 @@ asur_missions_3 = {
 			stability = 1
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = asur_civil_war_recovery
+    			duration = 3650 
+			}	
 		}
 	}
 
 
-## The high elves are known across the world for our valuable goods. We must maintain our high standards here.
+## Gems, glass, and paper - these are the goods required to operate at a high level magically. We must dominate these goods to succeed.
 	asur_trading_in_special_goods = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_please_guilds }
 		position = 3
 		trigger = {
@@ -863,22 +961,19 @@ asur_missions_3 = {
 					value = yes
 				}
 				trading_bonus = {
-					trade_goods = dyes
-					value = yes
-				}
-				trading_bonus = {
-					trade_goods = chinaware
+					trade_goods = paper
 					value = yes
 				}
 			}
 		}
 		effect = {
+			change_innovativeness = 5
 		}
 	}
 
 ## The end times are coming. It is time to send our envoys across the world to look for allies in the fight against chaos. No nation is too small that they cannot stand beside us.
 	asur_global_envoys = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_please_church }
 		position = 5
 		trigger = {
@@ -886,14 +981,25 @@ asur_missions_3 = {
 			num_of_diplomats = 4
 		}
 		effect = {
-## Temporary 50 opinion modifier with everybody in the world? and 10 Trust?
-
+			custom_tooltip = asur_diplomatic_outreach_tt
+			hidden_effect = {
+				every_country = {
+					add_opinion = {
+					    who = ROOT
+					    modifier = war_asur_diplomatic_outreach
+					}
+					add_trust = {
+					    who = ROOT
+					    value = 10
+					}
+				}
+			}
 		}
 	}
 
 ## We shall build a web of trust that cannot be assailed.
 	asur_web_of_trust = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_global_envoys }
 		position = 6
 		trigger = {
@@ -901,29 +1007,36 @@ asur_missions_3 = {
 				all_country = {
 					trust = { who = ROOT value = 90 }
 				}
-				amount = 6
+				amount = 4
 			}
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = asur_web_of_trust
+    			duration = -1 
+			}	
 		}
 	}
 
 ## All elves worship the same gods. It is high time that we remember that.
 	asur_united_elven_pantheon = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_relations_with_druchii asur_web_of_trust }
 		position = 9
 		trigger = {
-			is_defender_of_faith_of_tier = 2
+			is_defender_of_faith_of_tier = 4
 		}
 		effect = {
-			## Heretic Bonus
+			add_country_modifier = { 
+    			name = asur_defender_of_the_pantheon
+    			duration = -1 
+			}	
 		}
 	}
 
 ## Our monuments have languished in disrepair for too long. We must take the time to update and improve them, and thus regain our glory days.
 	asur_great_monuments = { 
-		icon = mission_naggaroth_temple
+		icon = mission_high_elf_culture
 		position = 10
 		required_missions = { asur_crownland }
 		provinces_to_highlight = {
@@ -949,13 +1062,18 @@ asur_missions_3 = {
 			}
 		}
 
-		effect = {		
+		effect = {
+			add_country_modifier = { 
+    			name = asur_great_monuments_reward
+    			duration = -1 
+			}
 		}
 	}
 
+
 ## We are a seagoing people, and must maintain our fleets with docks.
 	asur_build_docks = {
-		icon = mission_naggaroth_soldier_2
+		icon = mission_high_elf_culture
 		required_missions = { asur_build_a_navy }
 		position = 12
 		provinces_to_highlight = {
@@ -981,38 +1099,55 @@ asur_missions_3 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = asur_naval_tradition_1
+			add_country_modifier = { 
+    			name = asur_naval_tradition_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
-## The Asur flagship is more than a fighting vessel. It is a work of art.
+## The Asur flagship is more than a fighting vessel. It is a work of art. Our naval combat shall be a work of art.
 	asur_build_flagship = {
-		icon = mission_naggaroth_soldier_2
+		icon = mission_high_elf_culture
 		required_missions = { asur_build_docks }
 		position = 13
 		trigger = {
 			has_flagship = yes
 		}
 		effect = {
-			##Flagship bonuses?
+			remove_country_modifier = asur_naval_tradition_2
+			add_country_modifier = { 
+    			name = asur_naval_tradition_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
 ## We are a sea people. Naval tradition is in our blood.
 	asur_naval_tradition = {
-		icon = mission_naggaroth_soldier_2
+		icon = mission_high_elf_culture
 		required_missions = { asur_build_flagship }
 		position = 14
 		trigger = {
-			navy_tradition = 50
+			navy_tradition = 90
 		}
 		effect = {
+			remove_country_modifier = asur_naval_tradition_3
+			add_country_modifier = { 
+    			name = asur_naval_tradition_4
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
 
 ## Much of the world has dissapeared before our eye since our glory days. If we are to lead the charge against chaos, we must know who is out there.
 	asur_exploration = {
-		icon = mission_naggaroth_soldier_2
+		icon = mission_high_elf_culture
 		required_missions = {  }
 		position = 14
 		trigger = {
@@ -1030,29 +1165,43 @@ asur_missions_3 = {
 
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = asur_exploration_1
+    			duration = -1  
+			}
 		}
 	}
 
-## One benefit to being as charming and awesome as us is that most people are willing to trade with us. A strong global trade network will allow us to 
+## One benefit to being as charming and awesome as us is that most people are willing to trade with us. A strong global trade network will allow us to spread influence.
 	asur_global_trade = {
-		icon = mission_naggaroth_soldier_2
+		icon = mission_high_elf_culture
 		required_missions = { asur_exploration }
 		position = 14
 		trigger = {
 			calc_true_if = {
 				all_trade_node = {
-					is_strongest_trade_power = ROOT
+					trade_share = {
+						country = ROOT
+						share = 20
+					}
+					NOT = { superregion = ulthuan_superregion }
 				}
-				amount = 5
+				amount = 2
 			}
 		}
 		effect = {
+			remove_country_modifier = asur_exploration_1
+			add_country_modifier = { 
+    			name = asur_exploration_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
-## The far east is on the other side of the world, but they are mighty. We must see that they do not fall to chaos.
+## The far east is on the other side of the world, but they are mighty. We must see that they do not fall to chaos, and come to their aid quickly.
 	asur_far_east_foothold = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_global_trade }
 		position = 17
 		provinces_to_highlight = {
@@ -1080,13 +1229,18 @@ asur_missions_3 = {
 			}
 		}
 		effect = {
-## Colonist?
+			remove_country_modifier = asur_exploration_2
+			add_country_modifier = { 
+    			name = asur_exploration_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
-## The far east would be better served if we were physically present to help out.
+## The far east would be better served if we were physically present to help out. Our ships must be speedy to reach such goals.
 	asur_far_east_grow_1 = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_far_east_foothold }
 		position = 18
 		provinces_to_highlight = {
@@ -1100,16 +1254,23 @@ asur_missions_3 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = asur_exploration_3
+			add_country_modifier = { 
+    			name = asur_exploration_4
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
-## Some may say that we overreach, or think that we are better than everybody else. They say that because they are worse than us. And jealous of how great we are.
+## Some may say that we overreach, or think that we are better than everybody else. They say that we have our fingers in every pot, and tongues at every court. They say that because they are worse than us. And jealous of how great we are.
 	asur_perfidious_ulthuan = {
 		icon = mission_high_elf_culture
 		position = 19
+		required_missions = { }
 		provinces_to_highlight = {
 			owner = {
-				NOT = { great_power_rank = 9 }
+				is_great_power = yes
 				NOT = {
 					OR = {
 						AND = {
@@ -1131,43 +1292,39 @@ asur_missions_3 = {
 				}
 			}
 		}
-		required_missions = {
-		}
 		trigger = {
 
 			is_great_power = yes
 
-			NOT = {
+			calc_true_if = {
 				any_country = {
-					NOT = { great_power_rank = 9 }
-					NOT = {
+					is_great_power = yes
+					OR = {
 						AND = {
 							alliance_with = ROOT
 							trust = { who = ROOT value = 90 }
 						}
-					}
-					NOT = {
 						AND = {
 							is_subject_of = ROOT
 							trust = { who = ROOT value = 90 }
 						}
-					}
-					NOT = {
 						ROOT = {
 							has_won_war_against = {
 								who = PREV
-								max_years_since = 50
+								max_years_since = 25
 							}
 						}
 					}
-					NOT = {
-						tag = ROOT
-					}
 				}
+				amount = 7
 			}
 		}
 
 		effect = {
+			add_country_modifier = { 
+    			name = asur_perfidious_ulthuan
+    			duration = -1  
+			}
 		}
 	}
 
@@ -1187,7 +1344,7 @@ asur_missions_4 = {
 		}
 	}
 
-## Our merchants had the least to gain and most to lose by the Breaking of the Asur civil war. We must win them back.
+## Our merchants had the least to gain and most to lose by the Breaking of the Asur civil war. We must win them back. If we do, they will be inspired to perform great feats.
 	asur_please_guilds = {
 		icon = mission_naggaroth_soldier
 		required_missions = { asur_picking_up_the_pieces }
@@ -1207,19 +1364,23 @@ asur_missions_4 = {
 				NOT = {	
 					estate_influence = {
 					    estate = estate_burghers
-					    influence = 25
+					    influence = 15
 					}
 				}
 				NOT = { has_estate = estate_burghers }
 			}
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = asur_happy_merchants_1
+    			duration = -1  
+			}
 		}
 	}
 
 ## Elven wine is famous for it's light, delicious nature. Let us make sure it is on every table in every court across the world.
 	asur_trading_in_wine = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_please_guilds }
 		position = 3
 		trigger = {
@@ -1231,12 +1392,14 @@ asur_missions_4 = {
 			}
 		}
 		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			add_years_of_income = 1
 		}
 	}
 
 ## While we strive for Territorial unification, the next best thing is trade unification. In the charter of XXX, we decree that no trade shall enter or exit ulthuan without the express permission of our nation.
 	asur_trade_dominance_ulthuan = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_trading_in_special_goods asur_trading_in_wine asur_trading_in_fine_clothing }
 		position = 3
 		trigger = {
@@ -1266,12 +1429,18 @@ asur_missions_4 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = asur_happy_merchants_1
+			add_country_modifier = { 
+    			name = asur_happy_merchants_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
 ## In the temple revitalization act, we shall build temples to our gods in the new style, bringing us forward into the future.
 	asur_build_temples = {
-		icon = mission_naggaroth_temple
+		icon = mission_high_elf_culture
 		required_missions = { asur_please_church }
 		position = 5
 		provinces_to_highlight = {
@@ -1285,12 +1454,16 @@ asur_missions_4 = {
 			}
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = asur_ulthuan_development_1
+    			duration = -1  
+			}
 		}
 	}
 
-## ULthuan must move forward and be a shining beacon. Our lands shall flow with prosperity.
+## Ulthuan must move forward and be a shining beacon. Every town shall shine with stability and prosperity
 	asur_develop_ulthuan = { 
-		icon = mission_naggaroth_evil_forest
+		icon = mission_high_elf_culture
 		position = 6
 		required_missions = { asur_build_temples }
 		provinces_to_highlight = {
@@ -1307,17 +1480,23 @@ asur_missions_4 = {
 			}
 			development_in_provinces = {
 				value = 100
-				continent = ulthuan_superregion
+				superregion = ulthuan_superregion
 			}
 		}
 
 		effect = {
+			remove_country_modifier = asur_ulthuan_development_1
+			add_country_modifier = { 
+    			name = asur_ulthuan_development_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
-## We are able to project power because our our prestige. May it never fail.
+## We are able to project power because of our prestige. Our people know it, and are reassured.
 	asur_prestigious_elves = { 
-		icon = mission_naggaroth_evil_forest
+		icon = mission_high_elf_culture
 		position = 7
 		required_missions = { asur_develop_ulthuan }
 		trigger = {
@@ -1332,26 +1511,38 @@ asur_missions_4 = {
 		}
 
 		effect = {
+			remove_country_modifier = asur_ulthuan_development_2
+			add_country_modifier = { 
+    			name = asur_ulthuan_development_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
-## The High Elves are a collaborative people, sometimes to a fault. After a council meeting runs for several years, we decide it is time to take more power into our own hands.
+## The High Elves are a collaborative people, sometimes to a fault. After a council meeting runs for several years, we decide it is time to take more power into our own hands. We shall modernize our systems of government, as well as our army.
 	asur_crownland = { 
 		icon = mission_naggaroth_malekith
 		position = 9
 		required_missions = { asur_prestigious_elves }
 
 		trigger = {
-			crown_land_share = 60
+			crown_land_share = 50
 		}
 
 		effect = {
+			remove_country_modifier = asur_ulthuan_development_3
+			add_country_modifier = { 
+    			name = asur_ulthuan_development_4
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
 ## Let us lead the realms of order with law and order.
 	asur_build_courts = {
-		icon = mission_naggaroth_soldier_2
+		icon = mission_high_elf_culture
 		required_missions = { asur_crownland }
 		position = 10
 		provinces_to_highlight = {
@@ -1373,6 +1564,7 @@ asur_missions_4 = {
 			}
 		}
 		effect = {
+			add_stability_or_adm_power = yes
 		}
 	}
 
@@ -1382,11 +1574,15 @@ asur_missions_4 = {
 		required_missions = { asur_unify_ulthuan asur_the_sacred_marriage asur_great_monuments asur_build_courts asur_masters_of_magic }
 		position = 11
 		provinces_to_highlight = {
+			has_province_modifier = location_of_the_phoenix_crown
 		}
 		trigger = {
 			OR = {
 				has_had_golden_age = yes
 				in_golden_age = yes
+			}
+			any_owned_province = {
+				has_province_modifier = location_of_the_phoenix_crown
 			}
 		}
 		effect = {
@@ -1397,7 +1593,7 @@ asur_missions_4 = {
 
 ## Our greatest potential allies lie to the East, in the old world. Let us renew ancient vows.
 	asur_old_world_friend = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_old_world_foothold }
 		position = 13
 		provinces_to_highlight = {
@@ -1405,7 +1601,7 @@ asur_missions_4 = {
 				capital_scope { continent = europe }
 				OR = {
 					NOT = { trust = { who = ROOT value = 100 } }
-					NOT = { has_opinion = { who = ROOT value = 200 } }
+					NOT = { has_opinion = { who = ROOT value = 150 } }
 				}
 			}			
 		}
@@ -1413,16 +1609,20 @@ asur_missions_4 = {
 			any_country = {
 				capital_scope { continent = europe }
 				trust = { who = ROOT value = 100 }
-				has_opinion = { who = ROOT value = 200 }
+				has_opinion = { who = ROOT value = 150 }
 			}
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = asur_old_world_friend_reward
+    			duration = -1  
+			}
 		}
 	}
 
-## If our allies in the old world are to survive the end times, then we must cleanse them of all evil.
+## If our allies in the old world are to survive the end times, then we must cleanse them of all evil. Vampires, beastmen, and other evils stalk these lands. With these lands secured, we can import the great weapons of humans and dwarves.
 	asur_old_world_purge = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_old_world_friend }
 		position = 14
 		provinces_to_highlight = {
@@ -1475,12 +1675,18 @@ asur_missions_4 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = asur_old_world_friend_reward
+			add_country_modifier = { 
+    			name = asur_old_world_purge_reward
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
 ## We have rarely gone to the southlands, but once great empire are there. We should make friends.
 	asur_southlands_friend = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_southlands_foothold }
 		position = 17
 		provinces_to_highlight = {
@@ -1488,7 +1694,7 @@ asur_missions_4 = {
 				capital_scope { continent = africa }
 				OR = {
 					NOT = { trust = { who = ROOT value = 100 } }
-					NOT = { has_opinion = { who = ROOT value = 200 } }
+					NOT = { has_opinion = { who = ROOT value = 150 } }
 				}
 			}			
 		}
@@ -1496,16 +1702,20 @@ asur_missions_4 = {
 			any_country = {
 				capital_scope { continent = africa }
 				trust = { who = ROOT value = 100 }
-				has_opinion = { who = ROOT value = 200 }
+				has_opinion = { who = ROOT value = 150 }
 			}
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = asur_southlands_friend_reward
+    			duration = -1  
+			}
 		}
 	}
 
-## Evil is loose in the southlands. LEt us destroy it.
+## Evil is loose in the southlands. The spirit of Nagash haunts the Tomb Kings, while Beastmen run wild in the forests. Let us destroy them.
 	asur_southlands_purge = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_southlands_friend }
 		position = 18
 		provinces_to_highlight = {
@@ -1558,9 +1768,14 @@ asur_missions_4 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = asur_southlands_purge_reward
+			add_country_modifier = { 
+    			name = asur_southlands_purge_reward
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
-
 }
 
 asur_missions_5 = {
@@ -1576,7 +1791,7 @@ asur_missions_5 = {
 	}
 
 ## Trade is our lifeblood. We must protect it at all costs, particularly from the Dreadfleet and Druchii corsairs.
-	naggaroth_build_the_trade_fleets = {
+	asur_build_the_trade_fleets = {
 		icon = mission_naggaroth_corsair
 		required_missions = { asur_picking_up_the_pieces }
 		position = 2
@@ -1584,33 +1799,32 @@ asur_missions_5 = {
 			num_of_light_ship = 15
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = asur_tradefleet
+    			duration = -1  
+			}
 		}
 	}
 
-## Elven fashion is the best!
+## Elven fashion is the best! With the XXX act, which YYY, we shall dominate the market and minds. 
 	asur_trading_in_fine_clothing = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_please_guilds }
 		position = 3
 		trigger = {
-			OR = {
-				trading_bonus = {
-					trade_goods = cloth
-					value = yes
-				}
-				trading_bonus = {
-					trade_goods = silk
-					value = yes
-				}
+			trading_bonus = {
+				trade_goods = cloth
+				value = yes
 			}
 		}
 		effect = {
+			add_mercantilism = 5
 		}
 	}
 
-## As the ages progress, our weavers are falling behind. We must modernize to survive.
+## As the ages progress, our weavers are falling behind. We must modernize to survive. Factory work, though crude, is the only way of keeping up.
 	asur_build_workshops = {
-		icon = mission_naggaroth_soldier_2
+		icon = mission_high_elf_culture
 		required_missions = { asur_trading_in_fine_clothing  }
 		position = 4
 		provinces_to_highlight = {
@@ -1632,12 +1846,16 @@ asur_missions_5 = {
 			}
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = asur_workshops
+    			duration = -1  
+			}
 		}
 	}
 
-## The Dreadfleet is a thorn in our side, raiding and pillaging our coasts
+## The Dreadfleet is a thorn in our side, raiding and pillaging our coasts. Once it is gone, we will have free and unmolested use of our waters.
 	asur_destroy_the_dreadfleet = {
-		icon = mission_naggaroth_soldier_2
+		icon = mission_high_elf_culture
 		required_missions = { asur_trade_dominance_ulthuan }
 		position = 5
 		provinces_to_highlight = {
@@ -1647,12 +1865,18 @@ asur_missions_5 = {
 			owns_or_subject_of = 3190
 		}
 		effect = {
+			remove_country_modifier = asur_happy_merchants_2
+			add_country_modifier = { 
+    			name = asur_happy_merchants_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
-## We have the best mages in the world, but they are often not aligned with politics.
+## We have the best mages in the world, but they are often not aligned with politics. We over the grand feast of XXX, we have made friends and forged bonds of friendship and legal bonds with key mage stakeholders.
 	asur_please_mages = {
-		icon = mission_cytharai
+		icon = mission_high_elf_culture
 		required_missions = { asur_build_temples }
 		position = 6
 		trigger = {
@@ -1670,19 +1894,23 @@ asur_missions_5 = {
 				NOT = {	
 					estate_influence = {
 					    estate = estate_mages
-					    influence = 25
+					    influence = 15
 					}
 				}
 				NOT = { has_estate = estate_mages }
 			}
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = asur_innovativeness_1
+    			duration = -1  
+			}
 		}
 	}
 
-## Our capital shall be a center of learning.
+## Our capital shall be a center of learning. Mages shall work and report in our government.
 	asur_build_the_capital = {
-		icon = mission_naggaroth_naggarond
+		icon = mission_high_elf_culture
 		required_missions = { asur_please_mages }
 		position = 7
 		provinces_to_highlight = {
@@ -1702,16 +1930,18 @@ asur_missions_5 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = asur_innovativeness_1
 			add_country_modifier = { 
-    			name = naggaroth_towering_monuments
+    			name = asur_innovativeness_2
     			duration = -1  
 			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
 ## Elves are the smartest. As universities crop up across the world, we must make sure that ours are the best.
 	asur_build_universities = {
-		icon = mission_naggaroth_soldier_2
+		icon = mission_high_elf_culture
 		required_missions = { asur_build_the_capital }
 		position = 8
 		provinces_to_highlight = {
@@ -1720,11 +1950,17 @@ asur_missions_5 = {
 		}
 		trigger = {
 			num_of_owned_provinces_with = {
-				NOT = { has_building = university }
+				has_building = university
 				value = 5
 			}
 		}
 		effect = {
+			remove_country_modifier = asur_innovativeness_2
+			add_country_modifier = { 
+    			name = asur_innovativeness_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
@@ -1750,6 +1986,12 @@ asur_missions_5 = {
 		}
 
 		effect = {
+			remove_country_modifier = asur_innovativeness_3
+			add_country_modifier = { 
+    			name = asur_innovativeness_4
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
@@ -1766,12 +2008,18 @@ asur_missions_5 = {
 		}
 
 		effect = {
+			remove_country_modifier = asur_innovativeness_4
+			add_country_modifier = { 
+    			name = asur_innovativeness_5
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
-## The old world would be better served if we had envoys there again.
+## The old world would be better served if we had envoys there again. But we must be careful of the swirling miasma of vampiric and chaos corruption that infests these lands.
 	asur_old_world_foothold = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_build_a_navy }
 		position = 12
 		provinces_to_highlight = {
@@ -1799,14 +2047,17 @@ asur_missions_5 = {
 			}
 		}
 		effect = {
-## Colonist?
+			add_country_modifier = { 
+    			name = asur_old_world_foothold_1
+    			duration = -1  
+			}
 		}
 	}
 
 
-## But it would be even better if we had a physical presense.
+## But it would be even better if we had a physical presense. Let us learn to live with the humans, and better understand their ways
 	asur_old_world_grow_1 = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_old_world_foothold }
 		position = 13
 		provinces_to_highlight = {
@@ -1820,12 +2071,18 @@ asur_missions_5 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = asur_old_world_foothold_1
+			add_country_modifier = { 
+    			name = asur_old_world_foothold_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
-## A strong base of operations will help the world survive the end times.
+## The world of men looks weak and corrupt compared to our shining example. After watching grail knights fall to corruption, kislevites slaughtered by norscan, and vampires encroach on the empire, we must decide. Continue to assist, or assume control of the land directly?
 	asur_old_world_grow_2 = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_old_world_grow_1 }
 		position = 14
 		provinces_to_highlight = {
@@ -1839,13 +2096,16 @@ asur_missions_5 = {
 			}
 		}
 		effect = {
+			country_event = { 
+			    id = asur_events.202
+			}
 		}
 	}
 
 
-## Let us make contact with the peoples of the southlands.
+## Let us make contact with the peoples of the southlands. Great empires once rose there that could help in our fight against chaos.
 	asur_southlands_foothold = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_exploration }
 		position = 16
 		provinces_to_highlight = {
@@ -1873,12 +2133,16 @@ asur_missions_5 = {
 			}
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = asur_southlands_foothold_1
+    			duration = -1  
+			}
 		}
 	}
 
-## The southlands are chaos, let us bring order.
+## The southlands are chaos, let us bring order. Our forts must rise against waves of orcs, undead, and human hordes.
 	asur_southlands_grow_1 = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_southlands_foothold }
 		position = 17
 		provinces_to_highlight = {
@@ -1892,12 +2156,18 @@ asur_missions_5 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = asur_southlands_foothold_1
+			add_country_modifier = { 
+    			name = asur_southlands_foothold_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
-## More order to the southlands!
+## The Southlands have never been a beacon of order and light. Do we trust them now? Or should we assume direct command?
 	asur_southlands_grow_2 = {
-		icon = mission_lizardmen_culture
+		icon = mission_high_elf_culture
 		required_missions = { asur_southlands_grow_1 }
 		position = 18
 		provinces_to_highlight = {
@@ -1911,9 +2181,9 @@ asur_missions_5 = {
 			}
 		}
 		effect = {
+			country_event = { 
+			    id = asur_events.203
+			}
 		}
 	}
-
-
-
 }
