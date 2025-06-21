@@ -35,7 +35,8 @@ country_event = {
 			B02 = {
 				change_religion = ROOT
 				change_government = monarchy
-				add_government_reform = dwarf_kingdom_reform				
+				add_government_reform = dwarf_kingdom_reform	
+				adopt_reform_progress = ROOT			
 				add_opinion  = { who = ROOT modifier = norsca_vassal_opinion }
 				reverse_add_opinion  = { who = ROOT modifier = norsca_vassal_opinion }
 				set_capital = 1141
@@ -107,8 +108,9 @@ country_event = {
 			release = B13
 			B13 = {
 				change_religion = ROOT
-				change_government = tribal
-				add_government_reform = norsan_jarldom_reform				
+				change_government = monarchy
+				add_government_reform = norscan_kingdom_reform
+				adopt_reform_progress = ROOT			
 				add_opinion  = { who = ROOT modifier = norsca_vassal_opinion }
 				reverse_add_opinion  = { who = ROOT modifier = norsca_vassal_opinion }
 				set_capital = 4369
@@ -843,3 +845,242 @@ country_event = { # Destroy Chaos Monoliths
 		ai_chance = { factor = 1 }
 	}
 }
+
+country_event = { # Generic Missions, Choose Gov reform apon reclaiming Norsca
+	id = flavor_norscan_events.14
+	title = flavor_norscan_events.14.t 
+	desc = flavor_norscan_events.14.d
+	picture = NORSCA_eventPicture
+	is_triggered_only = yes 
+	option = { # Reform into Norscan Empire
+		name = flavor_norscan_events.14.a
+		ai_chance = { factor = 1 }
+		hidden_effect = { # Ensure Correct Rank and Gov Type
+				change_government = monarchy
+				set_government_rank = 3
+		}
+		add_government_reform = norscan_high_kingdom_reform
+		custom_tooltip = "   "
+		add_country_modifier = {
+			name = norsca_gen_concede_tradition
+			duration = 7300 # 20 Years
+		}
+	}
+	option = { # Keep Current Reform - By Default Norscan Kingdom
+		name = flavor_norscan_events.14.b
+		ai_chance = { factor = 1 }
+		add_country_modifier = {
+			name = norsca_gen_stay_course
+			duration = 7300 # 20 Years
+		}
+	}
+	option = { # Break the Tribes and Enforce Absolute Rule
+		name = flavor_norscan_events.14.c
+		ai_chance = { factor = 1 }
+		hidden_effect = { # Ensure Correct Rank and Gov Type
+				change_government = monarchy
+				set_government_rank = 3
+		}
+		add_government_reform = norscan_global_empire_reform
+		custom_tooltip = "   "
+		# Trigger Noble Rebels in the Capitals of Each of the major tribes
+		431 = {
+			if = {
+				limit = { owned_by = ROOT }
+				spawn_rebels = { type = pretender_rebels size = 3 }
+			}
+		}
+		410 = {
+			if = {
+				limit = { owned_by = ROOT }
+				spawn_rebels = { type = noble_rebels size = 2 }
+			}
+		}
+		442 = {
+			if = {
+				limit = { owned_by = ROOT }
+				spawn_rebels = { type = noble_rebels size = 2 }
+			}
+		}
+		394 = {
+			if = {
+				limit = { owned_by = ROOT }
+				spawn_rebels = { type = noble_rebels size = 2 }
+			}
+		}
+		414 = {
+			if = {
+				limit = { owned_by = ROOT }
+				spawn_rebels = { type = noble_rebels size = 2 }
+			}
+		}
+		477 = {
+			if = {
+				limit = { owned_by = ROOT }
+				spawn_rebels = { type = noble_rebels size = 2 }
+			}
+		}
+		450 = {
+			if = {
+				limit = { owned_by = ROOT }
+				spawn_rebels = { type = noble_rebels size = 2 }
+			}
+		}
+		custom_tooltip = "   "
+		# Inflict 'Nobles Unhappy' Temp Debuff
+		add_country_modifier = {
+			name = norsca_nobles_outraged # -10 loyalty, +2 global unrest, -20% global manpower
+			duration = 1825 # 5 Years
+		}
+	}
+}
+
+#################################################################################
+############## New Skeggi Events - 81 Onwards - WORK IN PROGRESS DO NOT USE
+#################################################################################
+
+country_event = { # Fate of The Temple Cities
+	id = flavor_norscan_events.81
+	title = flavor_norscan_events.81.t 
+	desc = flavor_norscan_events.81.d
+	picture = NORSCA_eventPicture
+	is_triggered_only = yes 
+	option = {
+		name = flavor_norscan_events.81.a # Plunder the Cities and Slaughter the Lizardmen
+		ai_chance = { factor = 1 }
+		add_treasury = 1000
+		add_adm_power = 100
+		add_dip_power = 100
+		add_mil_power = 100
+		2312 = {
+			set_province_flag = war_sacked_province
+			add_permanent_province_modifier = {
+				name = recently_raided
+				duration = 3650
+			}
+			add_base_tax = -4
+			add_base_production = -4
+			add_base_manpower = -4
+			add_devastation = 50
+		}
+		2321 = {
+			set_province_flag = war_sacked_province
+			add_permanent_province_modifier = {
+				name = recently_raided
+				duration = 3650
+			}
+			add_base_tax = -2
+			add_base_production = -2
+			add_base_manpower = -1
+			add_devastation = 50
+		}
+	}
+	option = {
+		name = flavor_norscan_events.81.b # Enslave the Lizardmen
+		ai_chance = { factor = 1 }
+		add_country_modifier = {
+			name = skeggi_slave_soldiers
+			duration = -1
+		}
+		2312 = {
+			add_permanent_province_modifier = {
+				name = skeggi_slave_cities
+				duration = 7300 #20 years
+			}
+		}
+		2321 = {
+			add_permanent_province_modifier = {
+				name = skeggi_slave_cities
+				duration = 7300 #20 years
+			}
+		}
+	}
+	option = {
+		name = flavor_norscan_events.81.c # Integrate the Slaani into our kingdom (inevitable betrayal)
+		ai_chance = { factor = 1 }
+		add_country_modifier = {
+			name = skeggi_integrate_lizard_scholars
+			duration = -1
+		}
+		2312 = {
+			add_permanent_province_modifier = {
+				name = skeggi_integrate_cities
+				duration = 7300 #20 years
+			}
+		}
+		2321 = {
+			add_permanent_province_modifier = {
+				name = skeggi_integrate_cities
+				duration = 7300 #20 years
+			}
+		}
+		hidden_effect = {
+			country_event = { 
+				id = flavor_norscan_events.82
+				days = 1095 # 3 years
+			}
+		}
+	}
+}
+
+country_event = { # Rumors of Malcontent
+	id = flavor_norscan_events.82
+	title = flavor_norscan_events.82.t 
+	desc = flavor_norscan_events.82.d
+	picture = NORSCA_eventPicture
+	is_triggered_only = yes 
+	option = {
+		name = flavor_norscan_events.82.a #Dismiss Rumors
+		ai_chance = { factor = 1 }
+		add_country_modifier = {
+			name = skeggi_peaceful_coexistance
+			duration = 1825 # 5 years
+		}
+		hidden_effect = {
+			country_event = { 
+				id = flavor_norscan_events.84 # Brutal Attack
+				days = 1095 # 3 years
+			}
+		}
+	}
+	option = {
+		name = flavor_norscan_events.82.b #Send Agents to Infiltrate these 'cells'
+		ai_chance = { factor = 1 }
+		add_country_modifier = {
+			name = skeggi_infiltrate_cells
+			duration = 1825
+		}
+		hidden_effect = {
+			country_event = { 
+				id = flavor_norscan_events.83 # Findings
+				days = 365 # 1 year
+			}
+		}
+	}
+	option = {
+		name = flavor_norscan_events.82.c #Kill them all
+		ai_chance = { factor = 1 }
+		add_stability = -1
+		# Rebels in the temple cities
+		2312 = {
+			spawn_rebels = { type = nationalist_rebels separatists_target = V04 size = 1 } 
+			remove_province_modifier = skeggi_integrate_cities
+			add_permanent_province_modifier = {
+				name = skeggi_brutal_repression
+				duration = 1825 # 5 years
+			}
+		}
+		2321 = { spawn_rebels = {
+			type = nationalist_rebels separatists_target = V04 size = 1 }
+			remove_province_modifier = skeggi_integrate_cities
+			add_permanent_province_modifier = {
+				name = skeggi_brutal_repression
+				duration = 1825 # 5 years
+			}
+		}
+		remove_country_modifier = skeggi_integrate_lizard_scholars
+		add_country_modifier = skeggi_purge_lizards
+		
+	}
+}
+
