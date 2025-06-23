@@ -787,7 +787,7 @@ greenskin_missions_3 = {
 # Worth 8 ideas
 	greenskin_ultimate = {
 		icon = mission_orc_religion
-		required_missions = { greenskin_raid_naggarond greenskin_raid_lothern greenskin_raid_hexotl greenskin_raid_itza greenskin_raid_couronne greenskin_raid_athel_loren greenskin_raid_remas greenskin_raid_palace_of_the_wizard_caliph greenskin_raid_kislev greenskin_raid_altdorf greenskin_raid_barak_varr greenskin_raid_khemri greenskin_raid_skavenhold greenskin_raid_zharr_naggrund greenskin_raid_karaz_a_karak greenskin_raid_pigbarter greenskin_raid_dragon_gate greenskin_raid_wei_jin greenskin_raid_goldtooth_mine greenskin_raid_rajapur }
+		required_missions = { greenskin_raid_naggarond greenskin_raid_lothern greenskin_raid_hexotl greenskin_raid_itza greenskin_raid_couronne greenskin_raid_athel_loren greenskin_raid_remas greenskin_raid_palace_of_the_wizard_caliph greenskin_raid_kislev greenskin_raid_altdorf greenskin_raid_barak_varr greenskin_raid_khemri greenskin_raid_skavenhold greenskin_raid_zharr_naggrund greenskin_raid_karaz_a_karak greenskin_raid_pigbarter greenskin_raid_dragon_gate greenskin_raid_wei_jin greenskin_raid_goldtooth_mine greenskin_raid_mrauk_u }
 		trigger = {
 		}
 		effect = {
@@ -862,7 +862,7 @@ greenskin_missions_4 = {
 		icon = mission_greenskins_fort
 		required_missions = { greenskin_some_war_reps }
 		trigger = {
-			num_of_war_reparations = 8
+			num_of_war_reparations = 6
 		}
 		effect = {
 			remove_country_modifier = greenskin_reform_warscore_cost_1
@@ -880,8 +880,11 @@ greenskin_missions_4 = {
 		required_missions = { greenskin_reform_personal_freedom greenskin_reform_economy }
 		position = 6
 		trigger = {
-			stability = 3
-			legitimacy_equivalent = 99
+			OR = {
+				stability = 3
+				hidden_trigger = {	ai = yes }
+			}
+			legitimacy_equivalent = 100
 		}
 		effect = {
 			change_government_reform_progress = 50
@@ -898,8 +901,11 @@ greenskin_missions_4 = {
 		required_missions = { greenskin_reform_government greenskin_reform_army greenskin_reform_orcs_hobgoblin_or_goblin }
 		position = 9
 		trigger = {
-			stability = 3
-			legitimacy_equivalent = 99
+			OR = {
+				stability = 3
+				hidden_trigger = {	ai = yes }
+			}
+			legitimacy_equivalent = 100
 			prestige = 99
 		}
 		effect = {
@@ -1097,7 +1103,10 @@ greenskin_missions_5 = {
 		position = 7
 		required_missions = { }
 		trigger = {
-			num_of_continents = 4
+			OR = {
+				num_of_continents = 4
+				total_development = 1000
+			}
 		}
 		effect = {
 			add_country_modifier = { 
@@ -1114,7 +1123,10 @@ greenskin_missions_5 = {
 		trigger = {
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 				value = 100
-				culture_group = greenskins_group
+				OR = {
+					culture_group = greenskins_group
+					culture_group = hobgoblin_group
+				}
 			}
 		}
 		effect = {

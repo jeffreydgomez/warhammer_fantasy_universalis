@@ -7,41 +7,8 @@ military_missions = { #Series name is displayed over the slot?
 	generic = yes #if a mission without generic = yes wants this slot then it overrides this.
 	ai = yes #Can exist under the series itself or within individual missions.
 	potential = {
-		always = yes
-		is_part_of_hre = no
-		NOT = { culture_group = cathayan_cg }
-		NOT = { tag = I35 } # Monkey King
-		NOT = { culture_group = asrai_group }
-		NOT = { culture_group = dwarf_group }
-		NOT = { culture_group = chaos_dwarf_group }
-		NOT = { culture_group = ogre_group }
-		NOT = {
-			AND = {
-				culture_group = nehekharan_group
-				capital_scope = { continent = africa }
-			}
-		}
-		NOT = {
-			AND = {
-				culture_group = skaven_group
-				religion = horned_rat
-			}
-		}
-		NOT = {
-			OR = {
-				culture_group = greenskins_group
-				culture_group = hobgoblin_group
-			}
-		}
-		NOT = { culture_group = kislevite_group }
-		NOT = {
-			AND = {
-				culture_group = lizardmen_group
-				NOT = { religion = enlightened_path }
-			}
-		}
-
-	} #These are triggers for the entire series
+		war_has_faction_mission_tree = no
+	}
 
 	#missions
 	#1st tier: (they appear in the order scripted here in the interface, all missions within one "series" has an arrow going down to the next one scripted)
@@ -285,40 +252,7 @@ diplomatic_missions = {
 	generic = yes
 
 	potential = {
-	   always = yes
-	   is_part_of_hre = no
-	   NOT = { culture_group = cathayan_cg }
-	   NOT = { tag = I35 } # Monkey King
-	   NOT = { culture_group = asrai_group }
-	   NOT = { culture_group = dwarf_group }
-	   NOT = { culture_group = chaos_dwarf_group }
-	   NOT = { culture_group = ogre_group }
-		NOT = {
-			AND = {
-				culture_group = nehekharan_group
-				capital_scope = { continent = africa }
-			}
-		}
-		NOT = {
-			AND = {
-				culture_group = skaven_group
-				religion = horned_rat
-			}
-		}
-
-		NOT = {
-			OR = {
-				culture_group = greenskins_group
-				culture_group = hobgoblin_group
-			}
-		}
-		NOT = { culture_group = kislevite_group }
-		NOT = {
-			AND = {
-				culture_group = lizardmen_group
-				NOT = { religion = enlightened_path }
-			}
-		}
+	   war_has_faction_mission_tree = no
 	}
 
 	building_alliances = {
@@ -396,8 +330,11 @@ diplomatic_missions = {
 		required_missions = { }
 		position = 6
 		trigger = {
-			stability = 3
-			legitimacy_equivalent = 99
+			OR = {
+				stability = 3
+				hidden_trigger = {	ai = yes }
+			}
+			legitimacy_equivalent = 100
 		}
 		effect = {
 			change_innovativeness = 10
@@ -473,40 +410,7 @@ administrative_missions = {
 	generic = yes
 
 	potential = {
-	   always = yes
-	   is_part_of_hre = no
-	   NOT = { culture_group = cathayan_cg }
-	   NOT = { tag = I35 } # Monkey King
-	   NOT = { culture_group = asrai_group }
-	   NOT = { culture_group = dwarf_group }
-	   NOT = { culture_group = chaos_dwarf_group }
-	   NOT = { culture_group = ogre_group }
-	   	NOT = {
-			AND = {
-				culture_group = nehekharan_group
-				capital_scope = { continent = africa }
-			}
-		}
-		NOT = {
-			AND = {
-				culture_group = skaven_group
-				religion = horned_rat
-			}
-		}
-
-		NOT = {
-			OR = {
-				culture_group = greenskins_group
-				culture_group = hobgoblin_group
-			}
-		}
-		NOT = { culture_group = kislevite_group }
-		NOT = {
-			AND = {
-				culture_group = lizardmen_group
-				NOT = { religion = enlightened_path }
-			}
-		}
+	   war_has_faction_mission_tree = no
 	}
 	high_income_mission = {
 		icon = mission_high_income

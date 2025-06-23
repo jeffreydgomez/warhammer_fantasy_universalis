@@ -1,5 +1,87 @@
 country_decisions = {
 
+	war_unite_all_elvenkind = {
+		major = yes
+		potential = {
+			ai = no
+			has_country_modifier = elven_administration
+			NOT = { has_country_modifier = united_all_elvenkind }
+		}
+		provinces_to_highlight = {
+
+			OR = {
+				owner = {
+					has_country_modifier = elven_administration
+				}
+				province_id = 451
+				province_id = 2009
+				province_id = 770
+			}
+			owner = {
+				NOT = { tag = ROOT }
+				NOT = { is_subject_of = ROOT }
+			}
+
+		}
+		allow = {
+			owns_or_subject_of = 451
+			owns_or_subject_of = 2009
+			owns_or_subject_of = 770
+			NOT = {
+				any_country = {
+					has_country_modifier = elven_administration
+					NOT = {	
+						OR = {
+							tag = ROOT
+							is_subject_of = ROOT
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+			    name = united_all_elvenkind
+				duration = -1 
+			}
+
+			custom_tooltip = add_all_elf_culture_tt
+			hidden_effect = {
+				add_accepted_culture = eatainian
+				add_accepted_culture = yvressi
+				add_accepted_culture = sapherian
+				add_accepted_culture = avelorni
+				add_accepted_culture = chracian
+				add_accepted_culture = cothiq
+				add_accepted_culture = nagarythi
+				add_accepted_culture = tiranoci
+				add_accepted_culture = ellyrian
+				add_accepted_culture = caledori
+				add_accepted_culture = colonial_asur
+
+				add_accepted_culture = naggarondi
+				add_accepted_culture = ghrondari
+				add_accepted_culture = graefi
+				add_accepted_culture = avelorni
+				add_accepted_culture = clari
+				add_accepted_culture = karondi
+				add_accepted_culture = ganethi
+				add_accepted_culture = autarri
+
+				add_accepted_culture = loren
+				add_accepted_culture = eonir
+				add_accepted_culture = dryad
+				add_accepted_culture = treemen
+			}
+
+		}
+
+		ai_will_do = { factor = 0 }
+		ai_importance = 0
+	}
+
+
+
 	war_claim_the_phoenix_throne = {
 		major = yes
 		potential = {
@@ -8,14 +90,12 @@ country_decisions = {
 				culture_group = asur_group
 				culture_group = druchii_group
 			}
-			NOT = {
-				any_country = { has_reform = phoenix_king_reform }
-			}
+			all_country = { NOT = { has_reform = phoenix_king_reform } }
+			NOT = { has_reform = phoenix_king_reform }
 		}
 		allow = {
-			NOT = {
-				any_country = { has_reform = phoenix_king_reform }
-			}
+			all_country = { NOT = { has_reform = phoenix_king_reform } }
+			NOT = { has_reform = phoenix_king_reform }
 			451 = { owned_by = ROOT }
 		}
 		effect = {
@@ -112,7 +192,7 @@ country_decisions = {
 
 			num_of_owned_provinces_with = {
 				value = 50
-				region = ulthuan_region
+				superregion = ulthuan_superregion
 			}
 
 			owns_or_non_sovereign_subject_of = 451			# Lothern

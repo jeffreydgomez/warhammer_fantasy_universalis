@@ -37,7 +37,6 @@ war_norsca_1 = {
 				siege = 2
 			}
 			add_army_tradition = 15
-
 		}
 	}
 
@@ -135,9 +134,12 @@ war_norsca_1 = {
 			tag = A88
 		}
 		effect = {
+			hidden_effect = {
+				change_government = monarchy
+				set_government_rank = 3
+			}
 			add_prestige_or_monarch_power = { amount = 50 }
-			#Unlock Norscan high kingdom reform when available
-			add_government_reform = norsan_great_jarldom_reform
+			add_government_reform = norscan_high_kingdom_reform
 			custom_tooltip = "   "
 			remove_country_modifier = norsca_claimant
 			add_country_modifier = {
@@ -443,7 +445,7 @@ war_norsca_alliance_missions = {
 		capital_scope = { region = norsca_region }
 	}
 
-	gen_norsca_alliance_1  = {
+	war_norsca_alliance_1  = {
 		icon = mission_diplomatic_relation
 		required_missions = { war_norsca_conquest_1  }
 		position = 2
@@ -473,13 +475,12 @@ war_norsca_alliance_missions = {
 					}
 				}
 			}
-
 		}
 	}
 
-	gen_norsca_alliance_2  = {
+	war_norsca_alliance_2  = {
 		icon = spa_tercios_system
-		required_missions = { gen_norsca_alliance_1 }
+		required_missions = { war_norsca_alliance_1 }
 		trigger = {
 			calc_true_if = {
 				all_ally = {
@@ -690,9 +691,11 @@ war_norsca_religous_norse_2 = {
 				limit = {
 					has_dlc = "Leviathan"
 				}
-				has_great_project = {
-					type = church_mermedus
-					tier = 2
+				431 = {
+					has_great_project = {
+						type = church_mermedus
+						tier = 2
+					}
 				}
 			}
 			else = {
@@ -1021,26 +1024,11 @@ war_norsca_marines_missions = {
 		}
 	}
 
-	gen_norsca_marines_2  = { # Raid Northern Provinces
+	gen_norsca_marines_2  = { # Pillage Rivals
 		icon = mission_norscan_marauder
 		required_missions = { gen_norsca_marines_1 gen_norsca_fjords_1 }
-		provinces_to_highlight = {
-			province_group = north_empire_coast_province
-			NOT = {
-				OR = {
-					country_or_non_sovereign_subject_holds = ROOT
-					controlled_by = ROOT
-				}
-			}
-		}
 		trigger = {
-			north_empire_coast_province = {
-				type = all
-				OR = {
-					country_or_non_sovereign_subject_holds = ROOT
-					controlled_by = ROOT
-				}
-			}
+			num_of_times_used_pillage_capital = 3
 		}
 		effect = {
 			add_country_modifier = {
@@ -1050,110 +1038,41 @@ war_norsca_marines_missions = {
 		}
 	}
 
-	gen_norsca_marines_3  = { # Raid Along the Reik
+	gen_norsca_marines_3  = { # Pillage the south
 		icon = mission_norscan_marienburg
 		required_missions = { gen_norsca_marines_2 }
-		provinces_to_highlight = {
-			province_group = mouth_reik_river_province
-			NOT = {
-				OR = {
-					country_or_non_sovereign_subject_holds = ROOT
-					controlled_by = ROOT
-				}
-			}
-		}
 		trigger = {
-			mouth_reik_river_province = {
-				type = all
-				OR = {
-					country_or_non_sovereign_subject_holds = ROOT
-					controlled_by = ROOT
-				}
-			}
+			num_of_times_used_pillage_capital = 5
 		}
 		effect = {
-			79 = { add_base_tax = -4 add_base_production = -4 add_base_manpower = -4 }
 			remove_country_modifier = norsca_wars_1
 			add_country_modifier = {
 				name = norsca_wars_2
 				duration = -1
 			}
+			custom_tooltip = upgrade_replace_tt
 		}
-		custom_tooltip = upgrade_replace_tt
 	}
 
-	gen_norsca_marines_4  = { # Raid Altdorf
+	gen_norsca_marines_4  = { # Pillage the Empire
 		icon = mission_norscan_altdorf
 		required_missions = { gen_norsca_marines_3 }
-		provinces_to_highlight = {
-			area = altdorf_area
-			NOT = {
-				OR = {
-					country_or_non_sovereign_subject_holds = ROOT
-					controlled_by = ROOT
-				}
-			}
-		}
 		trigger = {
-			altdorf_area = {
-				type = all
-				OR = {
-					country_or_non_sovereign_subject_holds = ROOT
-					controlled_by = ROOT
-				}
-			}
+			has_pillaged_capital_against = emperor
 		}
 		effect = {
-			custom_tooltip = norsca_raze_altdorf_tt
-			hidden_effect = {
-				1 = { add_base_tax = -6 add_base_production = -6 add_base_manpower = -6 
-					add_permanent_province_modifier = {
-						name = recently_raided
-						duration = 3650
-					}
-				}
-				2 = { add_base_tax = -6 add_base_production = -6 add_base_manpower = -6 
-					add_permanent_province_modifier = {
-						name = recently_raided
-						duration = 3650
-					}	
-				}
-				3 = { add_base_tax = -6 add_base_production = -6 add_base_manpower = -6 
-					add_permanent_province_modifier = {
-						name = recently_raided
-						duration = 3650
-					}
-				}
-			}
 			remove_country_modifier = norsca_wars_2
 			add_country_modifier = {
 				name = norsca_wars_3
 				duration = -1
 			}
-			hidden_effect = { # No Idea if this actually works - might also spam the person 3 times lol
-				if = {
-					limit = { 1 = { NOT = { owned_by = ROOT }} }
-					1 = {
-						owner = { country_event = { id = greenskin_events.100 } }
-					}
-				}
-				if = {
-					limit = { 2 = { NOT = { owned_by = ROOT }} }
-					2 = {
-						owner = { country_event = { id = greenskin_events.100 } }
-					}
-				}
-				if = {
-					limit = { 3 = { NOT = { owned_by = ROOT }} }
-					3 = {
-						owner = { country_event = { id = greenskin_events.100 } }
-					}
-				}
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 10
 			}
-			add_treasury = 2000
-			add_prestige_or_monarch_power = { amount = 50 }
+			add_imperial_influence = -25
+			custom_tooltip = upgrade_replace_tt
 		}
-		custom_tooltip = upgrade_replace_tt
 	}
 
 }
@@ -1313,7 +1232,7 @@ war_norsca_religous_norse_3 = {
 			war_score = 100
 		}
 		effect = {
-			add_manpower = 8
+			add_manpower = 10
 			add_country_modifier = {
 				name = norsca_religion_norscan_raids
 				duration = -1
@@ -1338,6 +1257,7 @@ war_norsca_religous_norse_3 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = norsca_religion_norscan_raids
 			add_country_modifier = {
 				name = norsca_religion_norscan_convert
 				duration = -1

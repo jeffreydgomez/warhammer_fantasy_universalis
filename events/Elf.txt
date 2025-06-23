@@ -41,10 +41,14 @@ country_event = {
 	}
 
 
-## Declare War
+# Declare War
 	option = { 
 		ai_chance = {
-			factor = 100
+			factor = 1
+			modifier = {
+				factor = 100
+				is_in_coalition = yes
+			}
 		}
 		name = asur_events.0.a 
 		random_country = {
@@ -64,16 +68,17 @@ country_event = {
 			ROOT = {
 				declare_war_with_cb = {
 				    who = PREV
-				    casus_belli = cb_war_cultural_unification_take
+				    casus_belli = cb_super_badboy
 				}
 			}
 		}
 		add_prestige = 25
 	}
 
+## Let us gather a coalition
 	option = { 
 		ai_chance = {
-			factor = 25
+			factor = 100
 			modifier = {
 				factor = 10
 				OR = {
@@ -87,10 +92,46 @@ country_event = {
 		}
 		name = asur_events.0.b 
 
-		add_prestige = -50
-		add_legitimacy = -25
-		add_devotion = -25
-		add_republican_tradition = -15
+		add_prestige = -10
+		add_legitimacy = -5
+		add_devotion = -5
+		add_republican_tradition = -2
+
+
+		random_country = {
+			limit = {
+				NOT = { culture_group = asur_group }
+				NOT = { truce_with = ROOT }
+				ROOT = {
+					NOT = {
+						has_opinion = {
+							who = PREV
+							value = 0
+						}
+					}
+				}
+				provinces_on_capital_continent_of = ROOT
+			}
+			
+			every_country = {
+				limit = {
+					culture_group = asur_group
+					capital_scope = { superregion = ulthuan_superregion }
+					NOT = {
+						OR = {
+							alliance_with = PREV
+							is_subject_of = PREV
+						}
+					}
+				}
+
+				add_aggressive_expansion = {
+					who = PREV
+					value = 10
+					apply_calc = no
+				}
+			}
+		}
 	}
 
 
@@ -102,7 +143,7 @@ country_event = {
 			modifier = {
 				factor = 50
 				H12 = { religion = cytharai }
-				has_matching_religion = H12
+				religion = cytharai
 			}
 			modifier = {
 				factor = 50
@@ -135,6 +176,7 @@ country_event = {
 		}
 	}
 }
+
 
 
 
@@ -506,5 +548,204 @@ country_event = {
 
 		add_army_professionalism = 0.05
 		add_mercantilism = 10
+	}
+}
+
+### Mission Events
+
+
+### We have established a powerful base of operations on Naggaroth. Do we press the conquest forward, or instead seek more diplomatic inroads.
+country_event = { 
+	id = asur_events.200
+	title = asur_events.200.title
+	desc = asur_events.200.desc
+	picture = DARKELF_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Naggaroth shall be ours!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = asur_events.200.a 
+			add_prestige = -25
+
+			custom_tooltip = claim_naggaroth_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						continent = north_america
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+	}
+
+# Let us better understand the Druchii and thier take on our gods.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = asur_events.200.b
+		remove_country_modifier = asur_naggaroth_foothold_2
+		add_country_modifier = { 
+			name = asur_naggaroth_foothold_3
+			duration = -1  
+		}
+		custom_tooltip = upgrade_replace_tt
+	}
+}
+
+
+
+### We came to Lustria to befriend the lizardmen, but they have resisted us at every turn. It is time to choose. Do we bring them in line through conquest, or do we strive further to make them our allies?
+country_event = { 
+	id = asur_events.201
+	title = asur_events.201.title
+	desc = asur_events.201.desc
+	picture = LIZARDMEN_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Lustria shall be ours!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = asur_events.201.a 
+			add_prestige = -25
+
+			custom_tooltip = claim_lustria_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						continent = south_america
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+	}
+
+# Let us better understand the Lizardmen, and take the old ones into account
+	option = { 
+		ai_chance = { factor = 50 }
+		name = asur_events.201.b
+		remove_country_modifier = asur_lustria_foothold_2
+		add_country_modifier = { 
+			name = asur_lustria_foothold_3
+			duration = -1  
+		}
+		custom_tooltip = upgrade_replace_tt
+	}
+}
+
+
+## The world of men looks weak and corrupt compared to our shining example. After watching grail knights fall to corruption, kislevites slaughtered by norscan, and vampires encroach on the empire, we must decide. Continue to assist, or assume control of the land directly?
+country_event = { 
+	id = asur_events.202
+	title = asur_events.202.title
+	desc = asur_events.202.desc
+	picture = VAMPIRE_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# The Old World shall be ours!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = asur_events.202.a 
+			add_prestige = -25
+
+			custom_tooltip = claim_old_world_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						continent = europe
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+	}
+
+# We can still save them. Let them add their armor to our own.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = asur_events.202.b
+		remove_country_modifier = asur_old_world_foothold_2
+		add_country_modifier = { 
+			name = asur_old_world_foothold_3
+			duration = -1  
+		}
+		custom_tooltip = upgrade_replace_tt
+	}
+}
+
+
+## The Southlands have never been a beacon of order and light. Do we trust them now? Or should we assume direct command?
+country_event = { 
+	id = asur_events.203
+	title = asur_events.203.title
+	desc = asur_events.203.desc
+	picture = TOMBKING_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# The Southlands shall be ours!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = asur_events.203.a 
+			add_prestige = -25
+
+			custom_tooltip = claim_southlands_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						continent = africa
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+	}
+
+# We can still save them. Let us bleed their enemies dry and work together with our allies.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = asur_events.203.b
+		remove_country_modifier = asur_southlands_foothold_2
+		add_country_modifier = { 
+			name = asur_southlands_foothold_3
+			duration = -1  
+		}
+		custom_tooltip = upgrade_replace_tt
 	}
 }

@@ -288,7 +288,10 @@ war_empire_faction_1 = {
 		position = 10
 		required_missions = {  }
 		trigger = {
-			innovativeness = 25
+			OR = {
+				innovativeness = 25
+				has_country_modifier = war_modern_science
+			}
 			treasury = 500
 		}
 
@@ -952,8 +955,16 @@ war_empire_faction_3 = {
 				}
 			}
 			else = {
-				num_of_trusted_allies = 3
-				power_projection = 25
+				calc_true_if = {
+					all_country = {
+						trust = { who = ROOT value = 90 }
+					}
+					amount = 3
+				}
+				OR = {
+					power_projection = 25
+					is_great_power = yes
+				}
 			}
 		}
 		
@@ -998,8 +1009,17 @@ war_empire_faction_3 = {
 				}
 			}
 			else = {
-				num_of_trusted_allies = 4
-				power_projection = 50
+				calc_true_if = {
+					all_country = {
+						trust = { who = ROOT value = 90 }
+					}
+					amount = 4
+				}
+				OR = {
+					power_projection = 50
+					is_great_power = yes
+					NOT = { great_power_rank = 4 }
+				}
 			}
 		}
 		
@@ -1035,8 +1055,17 @@ war_empire_faction_3 = {
 				is_emperor = yes
 			}
 			else = {
-				num_of_trusted_allies = 5
-				power_projection = 75
+				calc_true_if = {
+					all_country = {
+						trust = { who = ROOT value = 90 }
+					}
+					amount = 5
+				}
+				OR = {
+					power_projection = 75
+					is_great_power = yes
+					NOT = { great_power_rank = 2 }
+				}
 			}
 		}
 		
@@ -1106,7 +1135,10 @@ war_empire_faction_3 = {
 
 		}
 		trigger = {
-			stability = 3
+			OR = {
+				stability = 3
+				hidden_trigger = {	ai = yes }
+			}
 			legitimacy_equivalent = 95
 
 			NOT = {
@@ -2283,7 +2315,10 @@ war_empire_faction_5 = {
 		trigger = {
 			NOT = { num_of_loans = 1 }
 			NOT = { inflation = 0.01 }
-			innovativeness = 15
+			OR = {
+				innovativeness = 15
+				has_country_modifier = war_modern_science
+			}
 
 			any_owned_province = {
 				trade_goods = gold

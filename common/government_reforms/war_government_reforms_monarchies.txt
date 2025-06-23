@@ -166,7 +166,9 @@ united_bretonnia_reform = {
 		cavalry_power = 0.10
 		governing_capacity = 350
 	}
-	
+	government_abilities = { 
+		control_of_court_mechanic
+	}	
 	conditional = {
 		allow = { 
 			has_dlc = "Lions of the North"
@@ -294,6 +296,9 @@ dwarf_kingdom_reform = {
 	}
 	custom_attributes = {
 	}
+	government_abilities = {
+		flexible_industry_mechanic
+	}
 	ai = {
 		factor = 0.5		#generic
 	}
@@ -334,6 +339,11 @@ naval_dwarf_reform = {
  			war_reset_racial_modifiers = yes
  		} 
  	}
+
+ 	government_abilities = {
+		flexible_industry_mechanic
+	}
+
 	ai = {
 		factor = 0.5		#generic
 	}
@@ -363,6 +373,9 @@ midnight_aristocracy_reform = {
 		governing_capacity = 50
 		max_absolutism = 25
 	}
+	government_abilities = { 
+		control_of_court_mechanic
+	}
 	custom_attributes = {
 	}
 	ai = {
@@ -377,9 +390,11 @@ witch_kingdom_reform = {
 	nation_designer_cost = 0
 	lock_level_when_selected = yes
 	fixed_rank = 3
-	queen = no
-	royal_marriage = no
-	heir = no
+
+#	queen = no
+#	royal_marriage = no
+#	heir = no
+
 	nation_designer_trigger = {
 		or = {
 			was_tag = H12
@@ -401,6 +416,9 @@ witch_kingdom_reform = {
 		max_absolutism = 20
 	}
 	custom_attributes = {
+	}
+	government_abilities = { 
+		control_of_court_mechanic
 	}
 	ai = {
 		factor = 100		#generic
@@ -486,6 +504,9 @@ monkey_court = {
 	nation_designer_trigger = {
 		tag = I35
 	}
+	government_abilities = { 
+		control_of_court_mechanic
+	}
 	lock_level_when_selected = yes
 	modifiers = {
 		diplomats = 2
@@ -529,6 +550,9 @@ grand_cathay_reform = {
 		land_morale = 0.1
 
 	}
+	government_abilities = { 
+		control_of_court_mechanic
+	}
 
 	fixed_rank = 3
 	heir = yes
@@ -561,7 +585,6 @@ everchosen_reform = {
 	valid_for_new_country = no
 	is_eligible_for_hre_emperor = no
 	fixed_rank = 3
-	locked_government_type = yes
 
 	modifiers = {
 
@@ -723,6 +746,9 @@ silver_court_reform = {
 			culture_group = druchii_group
 		}
 	}
+	government_abilities = { 
+		control_of_court_mechanic
+	}
 	modifiers = {
 		diplomatic_reputation = 1
 		prestige_decay = -0.01
@@ -745,6 +771,9 @@ kislev_initial_monarchy_reform = {
 	allow_normal_conversion = no
 	potential = {
 		tag = A29
+	}
+	government_abilities = { 
+		control_of_court_mechanic
 	}
 	modifiers = {
 		all_estate_influence_modifier = 0.2
@@ -770,6 +799,9 @@ kislev_grand_monarchy_reform = {
 	allow_normal_conversion = no
 	potential = {
 		has_reform = kislev_grand_monarchy_reform
+	}
+	government_abilities = { 
+		control_of_court_mechanic
 	}
 	modifiers = {
 		all_estate_influence_modifier = 0.1
@@ -798,6 +830,9 @@ hre_monarchy_reform = {
 		legitimacy = 1
 		global_unrest = 1
 	}
+	government_abilities = { 
+		control_of_court_mechanic
+	}
 	ai = {
 		factor = 1.0 #generic
 	}
@@ -825,6 +860,9 @@ obsidian_court_reform = {
 		global_autonomy = -0.05
 		ae_impact = 0.2
 		global_unrest = 1
+	}
+	government_abilities = { 
+		control_of_court_mechanic
 	}
 	ai = {
 		factor = 1.0 #generic
@@ -877,6 +915,9 @@ unified_empire_reform = {
 		diplomatic_reputation = 2
 		legitimacy = 2
 		all_estate_influence_modifier = 0.15
+	}
+	government_abilities = { 
+		control_of_court_mechanic
 	}
 	ai = {
 		factor = 20.0 #generic
@@ -1005,24 +1046,17 @@ korean_monarchy = {
 	nation_designer_cost = 0
 	fixed_rank = 3
 	lock_level_when_selected = yes
-	locked_government_type = yes
 	potential = {
 		OR = {
 			culture_group = asur_group
 			culture_group = druchii_group
 		}
+		
 	}
 
-#	trigger = {
-#		is_subject = no
-#		OR = {
-#			has_reform = phoenix_king_reform
-#			AND = {
-#				all_country = { NOT = { has_reform = phoenix_king_reform } }
-#				owns_or_subject_of = 451
-#			}
-#		}
-#	}
+	trigger = {
+		has_reform = phoenix_king_reform
+	}
 
 	modifiers = {
 		diplomatic_reputation = 1
@@ -1031,8 +1065,14 @@ korean_monarchy = {
 		land_morale = 0.05
 		reduced_liberty_desire = 20
 	}
+	custom_attributes = {
+		locked_government_type = yes
+	}
+	government_abilities = { 
+		control_of_court_mechanic
+	}
 	ai = {
-		factor = 1.0 #generic
+		factor = 100.0 #generic
 	}
 }
 
@@ -1044,7 +1084,6 @@ everqueen_court_reform = {
 	nation_designer_cost = 0
 
 	lock_level_when_selected = yes
-	locked_government_type = yes
 	potential = {
 		tag = H08
 	}
@@ -1056,7 +1095,10 @@ everqueen_court_reform = {
 		female_advisor_chance = 1.0
 	}
 	ai = {
-		factor = 10.0 #generic
+		factor = 100.0 #generic
+	}
+	custom_attributes = {
+		locked_government_type = yes
 	}
 }
 
@@ -1142,5 +1184,112 @@ luccini_monarchy_reformed = {
 
 	ai = {
 		factor = 0 # AI should never pick this
+	}
+}
+
+norscan_kingdom_reform = { #Exodus Kingdom
+	icon = "viking"
+	allow_normal_conversion = no
+	lock_level_when_selected = yes
+	allow_force_tributary = yes
+	potential = {
+		OR = {
+			religion = norscan
+			technology_group = tech_norscan
+			culture_group = norse_group
+		}
+	}
+	modifiers = {
+		#Positive
+		max_absolutism = 10
+		manpower_recovery_speed = 0.1
+		trade_efficiency = 0.2
+		#Negative
+		global_institution_spread = -0.15
+		#Other
+		may_perform_slave_raid = yes
+		may_explore = yes
+		may_recruit_female_generals = yes
+		female_advisor_chance = 0.30
+	}
+	ai = {
+		factor = 0.5 #generic
+	}
+	custom_attributes = {
+		locked_government_type = yes
+	}
+}
+
+norscan_high_kingdom_reform = { #Norsca Exclusive High Kingdom
+	icon = "viking"
+	allow_normal_conversion = no
+	lock_level_when_selected = yes
+	allow_force_tributary = yes
+	potential = {
+		OR = {
+			religion = norscan
+			technology_group = tech_norscan
+			culture_group = norse_group
+		}
+	}
+	modifiers = {
+		#Positive
+		diplomats = 1
+		liberty_desire_from_subject_development = -0.25
+		vassal_naval_forcelimit_bonus = 0.3
+		manpower_recovery_speed = 0.10
+		#Negative
+		max_absolutism = -10
+		governing_capacity_modifier = -0.15
+		global_institution_spread = -0.20
+		#Other
+		may_perform_slave_raid = yes
+		may_recruit_female_generals = yes 
+		female_advisor_chance = 0.30
+	}
+	ai = {
+		factor = 0.5 #generic
+	}
+	custom_attributes = {
+		locked_government_type = yes
+	}
+}
+
+norscan_global_empire_reform = { # Secret Reform, Only Possible if Norscan Minor gets all of Norsca
+	icon = "viking"
+	allow_normal_conversion = no
+	lock_level_when_selected = yes
+	allow_force_tributary = yes
+	potential = {
+		AND = {
+			OR = {
+				religion = norscan
+				technology_group = tech_norscan
+				culture_group = norse_group
+			}
+			# Cannot be Switched into unless you have completed the mission
+			mission_completed = war_gen_norsca_unique_middle_3
+		}
+	}
+	modifiers = {
+		#Positive
+		max_absolutism = 15
+		governing_capacity_modifier = 0.1
+		envoy_travel_time = -0.25 # There is a -0.3 in MT already and -25% in influence Ideas
+		liberty_desire_from_subject_development = -0.2
+		#Negative
+		nobles_loyalty_modifier = -0.1 # Disbanded Jarldom
+		global_institution_spread = -0.15
+		#Other
+		may_perform_slave_raid = yes
+		may_explore = yes
+		may_recruit_female_generals = yes
+		female_advisor_chance = 0.30
+	}
+	ai = {
+		factor = 0.5 #generic
+	}
+	custom_attributes = {
+		locked_government_type = yes
 	}
 }
