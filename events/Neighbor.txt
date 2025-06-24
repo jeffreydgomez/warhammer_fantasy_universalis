@@ -1,0 +1,121 @@
+########################################
+# Events for Neighbors
+########################################
+
+
+### Denominations
+# old_world_denominations ruinous_powers_denominations greenskin_denominations ogre_denominations elven_denominations dawi_denominations the_old_faith arabyn_denominations skaven_denominations lizardmen_denominations eastern_denominations indish_denominations
+
+## Religions
+# lady_of_the_lake myrmidia ursun cult_of_sigmar cult_of_ulric_religion cult_of_taal_religion old_world_cults_religion vampiric
+# khornate_religion nurglite_religion tzeentchian_religion slaaneshi_religion norscan chaos_undivided_religion hashut 
+# gork_n_mork_religion hobgoblin_religion
+# the_great_maw_religion
+# asrai_cadai cytharai cadai
+# ancestor_gods
+# druidism kislev_old_faith dragon_cult
+# the_one_faith nehekharan_pantheon nagash_worship
+# horned_rat
+# old_ones enlightened_path
+# yin_yang 
+# the_thousand_gods
+
+
+# Humans: imperial_group estalian_group kislevite_group tilean_group norse_group albionise_group arabyan_group hung_group kurgan_group darkland_human_group amazon_group cathayan_cg indish_cg nipponese_cg
+# Non-human humans: halfling_group gnome_group
+# Undead Humans: nehekharan_group strigany_group nagashi_group vampire_coast_cg
+
+# Greenskins: greenskins_group hobgoblin_group
+# Elves: asrai_group asur_group druchii_group
+# Beatmen: beastmen_group snakefolk_cg eastern_beastfolk_cg
+# Fimir: fimir_group
+# Dwarf: dwarf_group
+# Chaos Dwarf: chaos_dwarf_group
+# Ogre: ogre_group
+# Skaven: skaven_group
+# Lizardfolk: lizardmen_group
+
+
+namespace = neighbor_events
+normal_or_historical_nations = yes
+
+
+##  A group of #### from our neighboring country want to come in.
+### There are benefits to neighboring XXX
+
+country_event = { 
+	id = neighbor_events.X
+	title = neighbor_events.X.t 
+	desc = neighbor_events.X.d 
+	picture = COURT_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = { culture_group = cathayan_cg }
+		any_neighbor_country = { culture_group = cathayan_cg }
+
+		NOT = { religion = yin_yang }
+		any_neighbor_country = { religion = yin_yang }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		if = {
+			any_owned_province = {
+				limit = {
+					any_neighbor_province = {
+						culture_group = cathayan_cg
+						religion = yin_yang
+					}
+				}
+
+				random_owned_province = {
+					limit = {
+						any_neighbor_province = {
+							culture_group = cathayan_cg
+							religion = yin_yang
+						}
+					}
+					save_event_target_as = event_target
+				}
+			}
+		} else = {
+			random_owned_province = {
+				save_event_target_as = event_target
+			}
+		}
+	}
+
+	goto = event_target
+
+# Send them Away
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.X.option_1
+
+		add_prestige = 5
+
+	}
+
+# Take them in
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.X.option_2
+
+		event_target:event_target = {
+			change_religion = yin_yang
+			change_culture = peasant_cathayan
+
+			add_base_tax = 1
+			add_base_production = 1
+			add_base_manpower = 1
+
+		}
+	}
+}

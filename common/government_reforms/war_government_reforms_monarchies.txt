@@ -1,14 +1,17 @@
 ﻿bretonnian_dukedom_reform = {
 	icon = "bretonnian_duke"
 	allow_normal_conversion = no
-	valid_for_nation_designer = no
-	nation_designer_cost = 0
-	replacement_on_independence_war = indep_bretonnian_dukedom_reform
+	valid_for_nation_designer = yes
+	nation_designer_cost = 20
+#	replacement_on_independence_war = indep_bretonnian_dukedom_reform
 	fixed_rank = 1
 	lock_level_when_selected = yes
 	potential = {
-		has_reform = bretonnian_royarch_reform
-		NOT = { has_global_flag = formed_bretonnia }
+		culture_group = bretonnian_group
+		capital_scope = { continent = europe }
+	}
+	trigger = {
+		always = yes
 	}
 	modifiers = {
 		nobles_influence_modifier = 0.05
@@ -226,12 +229,12 @@ indep_bretonnian_dukedom_reform = {
 	nation_designer_cost = 20
 	lock_level_when_selected = no
 	potential = {
-		religion = lady_of_the_lake
+		culture_group = bretonnian_group
+		NOT = { capital_scope = { continent = europe } }
 	}
 	modifiers = {
 		nobles_influence_modifier = 0.05
 		cavalry_power = 0.10
-		
 	}
 	
 	conditional = {
