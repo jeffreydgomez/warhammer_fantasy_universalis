@@ -225,7 +225,7 @@ war_naggaroth_missions_2 = {
 		position = 4
 		required_missions = { naggaroth_annex_hag_graef naggaroth_annex_har_ganeth naggaroth_annex_clar_karond naggaroth_annex_karond_kar }
 		trigger = {
-			stability = 3
+			stability = 2
 			legitimacy_equivalent = 100
 		}
 
@@ -629,17 +629,25 @@ war_naggaroth_missions_3 = {
 		required_missions = { naggaroth_deal_with_mages }
 		position = 8
 		trigger = {
-			num_of_regiments_at_full_drill = 25
-			stability = 3
+
+			if = {
+				limit = { has_dlc = "Cradle of Civilization" }
+				num_of_regiments_at_full_drill = 25
+			}
+
+			stability = 2
 			legitimacy_equivalent = 100
 			prestige = 50
 			if = {
 				limit = {
 					H13 = { has_ruler = "Morathi" }
 				}
-				H13 = {
-					is_subject_of = ROOT
-					NOT = { liberty_desire = 25 }
+				OR = {
+					H13 = {
+						is_subject_of = ROOT
+						NOT = { liberty_desire = 25 }
+					}
+					NOT = { exists = H13 }
 				}
 			}
 		}
@@ -1045,11 +1053,16 @@ war_naggaroth_missions_4 = {
 
 # Our trained elite came in the night. We dragged away dissidents and murderd them in their beds. The estates have learned a valuable lesson. We have dominance here.
 	naggaroth_night_of_knives = {
-		icon = mission_naggaroth_soldier_3
+		icon = mission_naggaroth_malekith_2
 		required_missions = { naggaroth_build_temples naggaroth_build_barracks naggaroth_build_markets }
 		position = 6
 		trigger = {
-			num_of_regiments_at_full_drill = 7
+			if = {
+				limit = { has_dlc = "Cradle of Civilization" }
+				num_of_regiments_at_full_drill = 7
+			} else = {
+				army_professionalism = 0.25
+			}
 		}
 		effect = {
 			remove_country_modifier = war_court_of_knives
@@ -1343,6 +1356,7 @@ war_naggaroth_missions_5 = {
 				    loyalty = 60
 				}
 				NOT = { has_estate = estate_burghers }
+				hidden_trigger = { ai = yes }
 			}
 			OR = {
 				estate_loyalty = {
@@ -1350,6 +1364,7 @@ war_naggaroth_missions_5 = {
 				    loyalty = 60
 				}
 				NOT = { has_estate = estate_nobles }
+				hidden_trigger = { ai = yes }
 			}
 			OR = {
 				estate_loyalty = {
@@ -1357,6 +1372,7 @@ war_naggaroth_missions_5 = {
 				    loyalty = 60
 				}
 				NOT = { has_estate = estate_church }
+				hidden_trigger = { ai = yes }
 			}
 		}
 

@@ -293,7 +293,10 @@ wood_elf_missions_2 = {
 			}
 		}
 		trigger = {
-			stability = 3
+			OR = {
+				stability = 3
+				hidden_trigger = {	ai = yes }
+			}
 			legitimacy_equivalent = 99
 			all_owned_province = {
 				OR = {
@@ -864,7 +867,15 @@ wood_elf_missions_4 = {
 		required_missions = {  }
 		position = 10
 		trigger = {
-			num_of_regiments_at_full_drill = 20
+			
+			if = {
+				limit = { has_dlc = "Cradle of Civilization" }
+				num_of_regiments_at_full_drill = 20
+			} else = {
+				army_tradition = 25
+				army_professionalism = 0.25
+			}
+
 			is_at_war = yes
 			army_tradition = 50
 		}

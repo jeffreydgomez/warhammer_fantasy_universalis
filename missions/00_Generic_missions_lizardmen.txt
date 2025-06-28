@@ -150,7 +150,13 @@ gen_lizard_missions = {
 		position = 6
 		trigger = {
 			is_at_war = yes
-			num_of_regiments_at_full_drill = 30
+			if = {
+				limit = { has_dlc = "Cradle of Civilization" }
+				num_of_regiments_at_full_drill = 30
+			} else = {
+				army_tradition = 25
+				army_professionalism = 0.25
+			}
 		}
 		effect = {
 			add_country_modifier = {
@@ -327,15 +333,40 @@ gen_old_ones_missions = {
 			is_prosperous = no
 		}
 		trigger = {
-			OR = {
-				all_owned_province = {
-					is_prosperous = yes
+
+			if = {
+				limit = { has_dlc = "Mandate of Heaven" }
+
+				OR = {
+					all_owned_province = {
+						is_prosperous = yes
+					}
+					num_of_owned_provinces_with = {
+						is_prosperous = yes
+						value = 12
+					}
 				}
-				num_of_owned_provinces_with = {
-					is_prosperous = yes
-					value = 12
+
+			} else = {
+
+				OR = {
+					all_owned_province = {
+						NOT = { devastation = 1 }
+						development = 4
+					}
+					num_of_owned_provinces_with = {
+						NOT = { devastation = 1 }
+						development = 4
+						value = 12
+					}
 				}
 			}
+
+
+
+
+
+
 		}
 		effect = {
 			random_owned_province = {
