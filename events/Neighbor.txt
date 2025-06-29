@@ -1,0 +1,3852 @@
+########################################
+# Events for Neighbors
+########################################
+
+
+# Humans: imperial_group estalian_group kislevite_group tilean_group norse_group albionise_group arabyan_group hung_group kurgan_group darkland_human_group amazon_group cathayan_cg indish_cg nipponese_cg bretonnian_group 
+
+# Undead Humans: nehekharan_group strigany_group nagashi_group vampire_coast_cg
+
+# Greenskins: greenskins_group hobgoblin_group
+# Elves: asrai_group asur_group druchii_group
+# Beastmen: beastmen_group snakefolk_cg eastern_beastfolk_cg
+# Fimir: fimir_group
+# Dwarf: dwarf_group
+# Chaos Dwarf: chaos_dwarf_group
+# Ogre: ogre_group
+# Skaven: skaven_group
+# Lizardfolk: lizardmen_group
+
+
+
+### Denominations
+# old_world_denominations ruinous_powers_denominations greenskin_denominations ogre_denominations elven_denominations dawi_denominations the_old_faith arabyn_denominations skaven_denominations lizardmen_denominations eastern_denominations indish_denominations
+
+## Religions
+# lady_of_the_lake myrmidia ursun cult_of_sigmar cult_of_ulric_religion cult_of_taal_religion old_world_cults_religion vampiric
+# khornate_religion nurglite_religion tzeentchian_religion slaaneshi_religion norscan chaos_undivided_religion hashut 
+# gork_n_mork_religion hobgoblin_religion
+# the_great_maw_religion
+# asrai_cadai cytharai cadai
+# ancestor_gods
+# druidism kislev_old_faith dragon_cult
+# the_one_faith nehekharan_pantheon nagash_worship
+# horned_rat
+# old_ones enlightened_path
+# yin_yang 
+# the_thousand_gods
+
+## Done
+
+
+
+namespace = neighbor_events
+normal_or_historical_nations = yes
+
+
+## Reference the neighboring country in the localization as "[neighbor_country.GetName]". Reference our province that neighbors theirs as "[target_province.GetName]". If you want to reference their monarch, that's "[neighbor_country.Monarch.GetTitle] [neighbor_country.Monarch.GetName]" (i.e. King Philip)
+
+
+##  A group of #### from our neighboring country want to come in.
+country_event = { 
+	id = neighbor_events.X
+	title = neighbor_events.X.t 
+	desc = neighbor_events.X.d 
+	picture = COURT_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			culture_group = cathayan_cg
+			religion = yin_yang
+		}
+		any_neighbor_country = {
+			culture_group = cathayan_cg
+			religion = yin_yang
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = cathayan_cg
+				religion = yin_yang
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Send them Away
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.X.option_1
+
+		add_prestige = 5
+
+	}
+
+# Take them in
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.X.option_2
+		goto = target_province
+
+		event_target:target_province = {
+			change_religion = yin_yang
+			change_culture = peasant_cathayan
+
+			add_base_tax = 1
+			add_base_production = 1
+			add_base_manpower = 1
+		}
+	}
+}
+
+
+
+##  Having Tileans as neighbors is a mixed blessing. A group of merchants from our neighboring country have tricked our own merchants.
+country_event = { 
+	id = neighbor_events.1
+	title = neighbor_events.1.t 
+	desc = neighbor_events.1.d 
+	picture = TILEA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			culture_group = tilean_group
+			religion = myrmidia
+		}
+		any_neighbor_country = {
+			culture_group = tilean_group
+			religion = myrmidia
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = tilean_group
+				religion = myrmidia
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Capture the merchants and take their things by force!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.1.option_1
+
+		add_years_of_income = 0.5
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_poor_relations
+		}
+	}
+
+# Keep our money! But teach us how you did that.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.1.option_2
+
+		add_mercantilism = 2
+	}
+
+# We can always use skilled merchants such as yourselves. Why not join us?
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.1.option_3
+		goto = target_province
+
+		add_mercantilism = 3
+
+		event_target:target_province = {
+			change_religion = myrmidia
+			change_culture = reman
+
+			add_base_tax = 1
+		}
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_poor_relations
+		}
+	}
+}
+
+
+
+##  Having Kislevites as neighbors has its benefits. A group of cossacks in search of more wars has come to our lands.
+country_event = { 
+	id = neighbor_events.2
+	title = neighbor_events.2.t 
+	desc = neighbor_events.2.d 
+	picture = KISLEV_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			culture_group = kislevite_group
+			religion = ursun
+		}
+		any_neighbor_country = {
+			culture_group = kislevite_group
+			religion = ursun
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = kislevite_group
+				religion = ursun
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# draft them directly into the army
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.2.option_1
+
+		add_manpower = 4
+
+	}
+
+# send them back to [neighbor_country.Monarch.GetTitle] [neighbor_country.Monarch.GetName]. I'm sure it will be appreciated.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.2.option_2
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_good_relations
+		}
+	}
+
+# We can always use skilled merchants such as yourselves. Why not join us?
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.2.option_3
+		goto = target_province
+
+		event_target:target_province = {
+			change_religion = ursun
+			change_culture = sudevarian
+
+			add_base_manpower = 3
+		}
+	}
+}
+
+
+
+##  Having Estalians next door can be a boon. An old sea captain and his retinue have come bringing stories of exploration and adventure on the high seas.
+country_event = { 
+	id = neighbor_events.3
+	title = neighbor_events.3.t 
+	desc = neighbor_events.3.d 
+	picture = ESTALIA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = { culture_group = estalian_group }
+		any_neighbor_country = {
+			culture_group = estalian_group
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = estalian_group
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# You have so much more adventure ahead of you!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.3.option_1
+
+		add_navy_tradition = 10
+		create_admiral = { tradition = 50 }
+
+	}
+
+# Come in! Take a load off! Bring your friends! You'd be a wonderful mayor!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.3.option_2
+		goto = target_province
+
+		event_target:target_province = {
+			change_culture = tigarrian
+			change_religion = myrmidia
+
+			add_base_tax = 1
+			add_base_production = 1
+			add_base_manpower = 1
+		}
+	}
+}
+
+
+
+##  A group of Norscans sit precariously on our borders. While they look like a raiding party, they have women and children with them. They seem to hesitate, rudderless. How should we intervene?
+country_event = { 
+	id = neighbor_events.4
+	title = neighbor_events.4.t 
+	desc = neighbor_events.4.d 
+	picture = NORSCA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = { culture_group = norse_group }
+		any_neighbor_country = {
+			culture_group = norse_group
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = norse_group
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Perhaps they can be bought
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.4.option_1
+
+		add_treasury = -50
+		add_manpower = 5
+
+	}
+
+# Drive them off. We'll take no chances
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.4.option_2
+
+		add_manpower = -3
+		add_prestige = 10
+	}
+
+# Take them in. They are still people, after all
+	option = { 
+		ai_chance = { factor = 0 }
+		name = neighbor_events.4.option_3
+		goto = target_province
+
+		event_target:target_province = {
+			change_religion = norscan
+			change_culture = skaeling
+
+			add_base_tax = 1
+			add_base_production = 1
+			add_base_manpower = 1
+		}
+	}
+}
+
+
+
+
+##  Having Albionese next door can be a boon. An old sea captain and his retinue have come bringing stories of exploration and adventure on the high seas.
+country_event = { 
+	id = neighbor_events.5
+	title = neighbor_events.5.t 
+	desc = neighbor_events.5.d 
+	picture = COURT_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = { culture_group = albionise_group }
+		any_neighbor_country = {
+			culture_group = albionise_group
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = albionise_group
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# You have so much more adventure ahead of you!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.5.option_1
+
+		add_navy_tradition = 10
+		create_admiral = { tradition = 50 }
+
+	}
+
+# Come in! Take a load off! Bring your friends! You'd be a wonderful mayor!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.5.option_2
+		goto = target_province
+
+		event_target:target_province = {
+			change_culture = albionise
+			change_religion = druidism
+
+			add_base_tax = 1
+			add_base_production = 1
+			add_base_manpower = 1
+		}
+	}
+}
+
+
+##  A learned prophet from Araby has come to show us the light. What should we do with this band?
+country_event = { 
+	id = neighbor_events.6
+	title = neighbor_events.6.t 
+	desc = neighbor_events.6.d 
+	picture = ARABY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			culture_group = arabyan_group
+			religion = the_one_faith
+		}
+		any_neighbor_country = {
+			culture_group = arabyan_group
+			religion = the_one_faith
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = arabyan_group
+				religion = the_one_faith
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Send them Away
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.6.option_1
+
+		add_prestige = 5
+
+	}
+
+# Very well, on the condition you teach us your ways of war
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.6.option_2
+		goto = target_province
+
+		add_army_tradition = 10
+
+		event_target:target_province = {
+			change_religion = the_one_faith
+		}
+	}
+
+# Very well, on the condition you teach us of numerancy
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.6.option_3
+		goto = target_province
+
+		change_innovativeness = 2
+
+		event_target:target_province = {
+			change_religion = the_one_faith
+		}
+	}
+
+
+# Your ways are wonderful! Perhaps you'd like to stay?
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.6.option_4
+		goto = target_province
+
+		event_target:target_province = {
+			change_religion = the_one_faith
+			change_culture = medean_arabyan
+
+			add_base_tax = 1
+			add_base_production = 1
+			add_base_manpower = 1
+		}
+	}
+
+# Please, tutor my heir!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.6.option_5
+		trigger = { has_heir = yes }
+
+		change_heir_adm = 1
+		change_heir_dip = 1
+		change_heir_mil = 1
+		set_heir_culture = medean_arabyan
+		set_heir_religion = the_one_faith
+
+		add_estate_loyalty = {
+		    estate = estate_church
+		    loyalty = -10
+		}
+		add_estate_loyalty = {
+		    estate = estate_nobles
+		    loyalty = -10
+		}
+	}
+
+}
+
+
+
+##  A haggard general from the imperial lands is sick of fighting, and seeks peace and respite in our lands.
+country_event = { 
+	id = neighbor_events.7
+	title = neighbor_events.7.t 
+	desc = neighbor_events.7.d 
+	picture = EMPIRE_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = { culture_group = imperial_group }
+		any_neighbor_country = {
+			culture_group = imperial_group
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = imperial_group
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Before you retire, you must help train our troops
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.7.option_1
+
+		add_army_professionalism = 0.05	
+	}
+
+# Desertion! Send him back to [neighbor_country.Monarch.GetTitle] [neighbor_country.Monarch.GetName]
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.7.option_2
+
+		add_prestige = 10
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_good_relations
+		}
+	}
+
+# We'll take you in, and help you smuggle in your best soldiers in an exclave.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.7.option_3
+		goto = target_province
+
+		add_army_professionalism = 0.05	
+
+		event_target:target_province = {
+			change_religion = old_world_cults_religion
+			change_culture = reiklander
+
+			add_base_manpower = 2
+		}
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_poor_relations
+		}
+	}
+}
+
+
+
+##  A raiding party of Hung hover on our border.
+country_event = { 
+	id = neighbor_events.8
+	title = neighbor_events.8.t 
+	desc = neighbor_events.8.d 
+	picture = CHAOS_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = { culture_group = hung_group }
+		any_neighbor_country = {
+			culture_group = hung_group
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = hung_group
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Pay Them off
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.8.option_1
+
+		add_treasury = -50
+	}
+
+
+# Scare them off with some some soldiers
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.8.option_2
+		trigger = { manpower = 5 }
+
+		add_manpower = -5
+	}
+
+# Hire them to fight for us
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.8.option_3
+		trigger = { manpower = 5 }
+
+		add_treasury = -100
+		add_manpower = 10
+		add_army_professionalism = -0.05
+	}
+
+
+# Oh, just let them settle
+	option = { 
+		ai_chance = { factor = 0 }
+		name = neighbor_events.8.option_4
+		goto = target_province
+
+		add_stability = -1
+
+		event_target:target_province = {
+			change_religion = chaos_undivided_religion
+			change_culture = aghols
+
+			add_base_tax = 1
+			add_base_manpower = 2
+		}
+	}
+}
+
+
+##  A raiding party of Kurgan hover on our border.
+country_event = { 
+	id = neighbor_events.9
+	title = neighbor_events.9.t 
+	desc = neighbor_events.9.d 
+	picture = CHAOS_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = { culture_group = kurgan_group }
+		any_neighbor_country = {
+			culture_group = kurgan_group
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = kurgan_group
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Pay Them off
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.9.option_1
+
+		add_treasury = -50
+	}
+
+
+# Scare them off with some some soldiers
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.9.option_2
+		trigger = { manpower = 5 }
+
+		add_manpower = -5
+	}
+
+# Hire them to fight for us
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.9.option_3
+		trigger = { manpower = 5 }
+
+		add_treasury = -100
+		add_manpower = 10
+		add_army_professionalism = -0.05
+	}
+
+
+# Oh, just let them settle
+	option = { 
+		ai_chance = { factor = 0 }
+		name = neighbor_events.9.option_4
+		goto = target_province
+
+		add_stability = -1
+
+		event_target:target_province = {
+			change_religion = chaos_undivided_religion
+			change_culture = dolgan
+
+			add_base_tax = 1
+			add_base_manpower = 2
+		}
+	}
+}
+
+
+
+##  A group of Darkland Humans sit precariously on our borders. While they look like a raiding party, they have women and children with them. They seem to hesitate, rudderless. How should we intervene?
+country_event = { 
+	id = neighbor_events.10
+	title = neighbor_events.10.t 
+	desc = neighbor_events.10.d 
+	picture = COURT_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = { culture_group = darkland_human_group }
+		any_neighbor_country = {
+			culture_group = darkland_human_group
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = darkland_human_group
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Perhaps they can be bought
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.10.option_1
+
+		add_treasury = -50
+		add_manpower = 5
+
+	}
+
+# Drive them off. We'll take no chances
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.10.option_2
+
+		add_manpower = -3
+		add_prestige = 10
+	}
+
+# Take them in. They are still people, after all
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.10.option_3
+		goto = target_province
+
+		event_target:target_province = {
+			change_culture = pigbarterite
+
+			add_base_tax = 1
+			add_base_manpower = 1
+		}
+	}
+}
+
+
+
+
+##  A group of primitive Amazon Humans sit precariously on our borders. While they look like a raiding party, they have women and children with them. They seem to hesitate, rudderless. How should we intervene?
+country_event = { 
+	id = neighbor_events.11
+	title = neighbor_events.11.t 
+	desc = neighbor_events.11.d 
+	picture = COURT_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = { culture_group = amazon_group }
+		any_neighbor_country = {
+			culture_group = amazon_group
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = amazon_group
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Perhaps they can be bought
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.4.option_1
+
+		add_treasury = -50
+		add_manpower = 5
+
+	}
+
+# Drive them off. We'll take no chances
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.4.option_2
+
+		add_manpower = -3
+		add_prestige = 10
+	}
+
+# Take them in. They are still people, after all
+	option = { 
+		ai_chance = { factor = 0 }
+		name = neighbor_events.11.option_3
+		goto = target_province
+
+		event_target:target_province = {
+			change_religion = animism
+			change_culture = amazon_culture
+
+			add_base_tax = 1
+			add_base_production = 1
+			add_base_manpower = 1
+		}
+	}
+}
+
+
+## A Cathayan Scholar has been driven from his home, but he won't divulge why. He offers to teach us great mysteries, as knowledge is it's own reward.
+country_event = { 
+	id = neighbor_events.12
+	title = neighbor_events.12.t 
+	desc = neighbor_events.12.d 
+	picture = GRAND_CATHAY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = { culture_group = cathayan_cg }
+		any_neighbor_country = {
+			culture_group = cathayan_cg
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = cathayan_cg
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Help administering our country
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.12.option_1
+
+		add_adm_power = 50
+
+	}
+
+# Teach us the nuances of the ways of diplomacy
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.12.option_2
+
+		add_dip_power = 50
+
+	}
+
+# Send him back, and collect the reward on his head
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.12.option_3
+
+		add_treasury = 100
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_good_relations
+		}
+
+	}
+
+# Set up a school! We'll get some other scholars out of that country too.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.12.option_4
+		goto = target_province
+
+		change_innovativeness = 5
+
+		event_target:target_province = {
+			change_religion = yin_yang
+			change_culture = peasant_cathayan
+		}
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_poor_relations
+		}
+	}
+}
+
+
+
+
+## Being next to the indish is a mixed blessing. Their obsession with the spice trade means they have some very aggressive merchants.
+country_event = { 
+	id = neighbor_events.13
+	title = neighbor_events.13.t 
+	desc = neighbor_events.13.d 
+	picture = IND_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = { culture_group = indish_cg }
+		any_neighbor_country = {
+			culture_group = indish_cg
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = indish_cg
+				religion = myrmidia
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Capture the merchants and take their things by force!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.13.option_1
+
+		add_years_of_income = 0.5
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_poor_relations
+		}
+	}
+
+# Keep our money! But teach us how you did that.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.13.option_2
+
+		add_mercantilism = 2
+	}
+
+# We can always use skilled merchants such as yourselves. Why not join us?
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.13.option_3
+		goto = target_province
+
+		add_mercantilism = 3
+
+		event_target:target_province = {
+			change_religion = the_thousand_gods
+			change_culture = north_indish_c
+
+			add_base_tax = 1
+		}
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_poor_relations
+		}
+	}
+}
+
+
+##  A Bretonnian knight's grail quest has taken him to your lands. What do to with him?
+country_event = { 
+	id = neighbor_events.14
+	title = neighbor_events.14.t 
+	desc = neighbor_events.14.d 
+	picture = BRETONNIA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = { culture_group = bretonnian_group }
+		any_neighbor_country = {
+			culture_group = bretonnian_group
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = bretonnian_group
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Treat him with the utmost courtesy
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.14.option_1
+
+		add_prestige = 15
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_good_relations
+		}
+
+	}
+
+# Delay him only briefly to have him teach us of his martial ways
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.14.option_2
+
+		add_army_tradition = 15
+
+	}
+
+# Convince him to set up a great cathedral to await his return
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.14.option_3
+		goto = target_province
+
+		event_target:target_province = {
+			change_religion = lady_of_the_lake
+			change_culture = couronnien
+
+			add_building = cathedral
+		}
+
+		add_estate_loyalty = {
+		    estate = estate_church
+		    loyalty = -20
+		}
+
+	}
+
+# Kidnap him and take his riches!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.14.option_4
+
+		add_treasury = 100
+
+		add_prestige = -10
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_poor_relations
+		}
+	}
+}
+
+
+
+
+##  Nehekharans have ancient customs. A delegation from the mortuary cult is here to act as diplomatic envoy, presenting gifts of friendship if we will acknowledge the greatness of [neighbor_country.Monarch.GetTitle] [neighbor_country.Monarch.GetName] from our neighboring country want to come in.
+country_event = { 
+	id = neighbor_events.15
+	title = neighbor_events.15.t 
+	desc = neighbor_events.15.d 
+	picture = TOMBKING_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			culture_group = nehekharan_group
+			religion = nehekharan_pantheon
+		}
+		any_neighbor_country = {
+			culture_group = nehekharan_group
+			religion = nehekharan_pantheon
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = nehekharan_group
+				religion = nehekharan_pantheon
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Accept the gifts and plesantries, and speak lip service
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.15.option_1
+
+		add_prestige = -10
+
+		add_treasury = 100
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_good_relations
+		}
+
+	}
+
+# Send them Away
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.15.option_2
+
+		add_prestige = 10
+
+	}
+
+# Steal their things
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.15.option_3
+
+		add_treasury = 100
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_poor_relations
+		}
+
+	}
+
+# Allow them to set up a permanent delegation
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.15.option_4
+		goto = target_province
+
+		event_target:target_province = {
+			change_religion = nehekharan_pantheon
+			change_culture = nehekharan_culture
+
+			add_base_tax = 3
+		}
+	}
+}
+
+
+##  Being Neighbors with Vampires is rarely a good thing. They come in the night and ...
+country_event = { 
+	id = neighbor_events.16
+	title = neighbor_events.16.t 
+	desc = neighbor_events.16.d 
+	picture = VAMPIRE_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			religion = vampiric
+			ruler_religion = vampiric
+		}
+		any_neighbor_country = {
+			religion = vampiric
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				religion = vampiric
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Take our menfolk
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.16.option_1
+		trigger = { manpower = 4 }
+
+		add_manpower = -4
+
+	}
+
+# Eat our livestock
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.16.option_2
+		trigger = {
+			event_target:target_province = {
+				base_production = 2
+			}
+		}
+
+		event_target:target_province = {
+			add_base_production = -1
+		}
+	}
+
+# Spread Vamprism
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.16.option_3
+		goto = target_province
+
+		event_target:target_province = {
+			change_religion = vampiric
+		}
+	}
+
+# Instead, teach me more about this strange religion
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.16.option_4
+
+		set_ruler_religion = vampiric
+	}
+}
+
+
+
+
+##  Having Vampiric Pirates next door can be a mixed blessing. An old sea captain and his retinue have come bringing stories of exploration and adventure on the high seas.
+country_event = { 
+	id = neighbor_events.17
+	title = neighbor_events.17.t 
+	desc = neighbor_events.17.d 
+	picture = VAMPIRE_COAST_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			culture_group = vampire_coast_cg
+			religion = vampiric
+		}
+		any_neighbor_country = {
+			culture_group = vampire_coast_cg
+			religion = vampiric
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = estalian_group
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+
+# Get out! We don't want you!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.17.option_1
+
+		add_prestige = 5
+
+	}
+
+
+# You have so much more adventure ahead of you!
+	option = { 
+		ai_chance = { factor = 0 }
+		name = neighbor_events.17.option_2
+
+		add_navy_tradition = 10
+		create_admiral = { tradition = 50 }
+
+		event_target:target_province = {
+			change_religion = vampiric
+		}
+
+
+	}
+
+# Come in! Take a load off! Bring your whole crew!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.17.option_3
+		goto = target_province
+
+		add_navy_tradition = 10
+		create_admiral = { tradition = 50 }
+
+		add_sailors = 150
+
+		event_target:target_province = {
+			change_culture = drowned_c
+			change_religion = vampiric
+
+			add_base_production = 1
+			add_base_manpower = 1
+		}
+	}
+}
+
+
+
+
+##  A group of Greenskins are maurading around our borders. How should we proceed?
+country_event = { 
+	id = neighbor_events.18
+	title = neighbor_events.18.t 
+	desc = neighbor_events.18.d 
+	picture = GREENSKIN_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			culture_group = greenskins_group
+			religion = gork_n_mork_religion
+		}
+		any_neighbor_country = {
+			culture_group = greenskins_group
+			religion = gork_n_mork_religion
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = greenskins_group
+				religion = gork_n_mork_religion
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+			add_devastation = 15
+		}
+	}
+
+	goto = neighbor_capital
+
+# Try to civilize them
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.18.option_1
+		goto = target_province
+		highlight = yes
+		trigger = { adm = 5 }
+
+		event_target:target_province = {
+			change_religion = gork_n_mork_religion
+			change_culture = common_orc
+
+			add_base_manpower = 2
+		}
+	}
+
+# Entreat their leader to take them back
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.18.option_2
+		highlight = yes
+		trigger = { dip = 5 }
+
+		add_prestige = -5
+
+	}
+
+# You are good fighters! Into the army! You can set up shop here.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.18.option_3
+		goto = target_province
+		highlight = yes
+		trigger = { mil = 5 }
+
+		add_manpower = 15
+		add_army_professionalism = -0.02
+
+		event_target:target_province = {
+			change_religion = gork_n_mork_religion
+			change_culture = common_orc
+		}
+	}
+
+# Fight them Off
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.18.option_4
+		goto = target_province
+
+		event_target:target_province = {
+			spawn_rebels = {
+			    type = raiding_party_rebels
+			    size = 1
+			}
+		}
+	}
+
+# Pay them off
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.18.option_5
+
+		add_years_of_income = -0.5
+	}
+}
+
+
+
+##  A group of Hobgoblins are maurading around our borders. How should we proceed?
+country_event = { 
+	id = neighbor_events.19
+	title = neighbor_events.19.t 
+	desc = neighbor_events.19.d 
+	picture = GREENSKIN_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			culture_group = hobgoblin_group
+			religion = hobgoblin_religion
+		}
+		any_neighbor_country = {
+			culture_group = hobgoblin_group
+			religion = hobgoblin_religion
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = hobgoblin_group
+				religion = hobgoblin_religion
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+			add_devastation = 15
+		}
+	}
+
+	goto = neighbor_capital
+
+# Try to civilize them
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.19.option_1
+		goto = target_province
+		highlight = yes
+		trigger = { adm = 5 }
+
+		event_target:target_province = {
+			change_religion = hobgoblin_religion
+			change_culture = steppe_hobgoblin
+
+			add_base_manpower = 2
+		}
+	}
+
+# Entreat their leader to take them back
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.19.option_2
+		highlight = yes
+		trigger = { dip = 5 }
+
+		add_prestige = -5
+
+	}
+
+# You are good fighters! Into the army! You can set up shop here.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.19.option_3
+		goto = target_province
+		highlight = yes
+		trigger = { mil = 5 }
+
+		add_manpower = 15
+		add_army_professionalism = -0.02
+
+		event_target:target_province = {
+			change_religion = hobgoblin_religion
+			change_culture = steppe_hobgoblin
+		}
+	}
+
+# Fight them Off
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.19.option_4
+
+		event_target:target_province = {
+			spawn_rebels = {
+			    type = raiding_party_rebels
+			    size = 1
+			}
+		}
+	}
+
+# Pay them off
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.19.option_5
+
+		add_years_of_income = -0.5
+	}
+}
+
+
+##  One of our advisors has wandered into Asrai territory, and they want to make an example of him. We have gotten word before the execution takes place. How should we proceed?
+
+country_event = { 
+	id = neighbor_events.20
+	title = neighbor_events.20.t 
+	desc = neighbor_events.20.d 
+	picture = WOODELF_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			culture_group = asrai_group
+		}
+		any_neighbor_country = {
+			culture_group = asrai_group
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = asrai_group
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Bah, let them have him.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.20.option_1
+
+		kill_advisor = random
+
+	}
+
+# Beg Forgiveness on hand and knee
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.20.option_2
+
+		add_prestige = -10
+		add_legitimacy = -10
+
+	}
+
+# Take him, with our apologies
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.20.option_3
+
+		add_prestige = -5
+		kill_advisor = random
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_good_relations
+		}
+
+	}
+
+# You will be avenged!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.20.option_4
+
+		kill_advisor = random
+		add_prestige = 10
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_poor_relations
+		}
+
+		add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_poor_relations
+		}
+	}
+}
+
+
+
+##  A group of Asur neighbors are usually quite pleasant. A group of asur would like to establish a significant embassy/diplomatic base of operations in this province. How should we proceed?
+country_event = { 
+	id = neighbor_events.21
+	title = neighbor_events.21.t 
+	desc = neighbor_events.21.d 
+	picture = HIGHELF_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			culture_group = asur_group
+		}
+		any_neighbor_country = {
+			culture_group = asur_group
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = asur_group
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Gently turn them down
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.21.option_1
+
+		add_prestige = 5
+
+	}
+
+# Run them out and take their things!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.21.option_2
+
+		add_treasury = 100
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_poor_relations
+		}
+	}
+
+
+# Let's set up the embassy
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.21.option_3
+		goto = target_province
+
+		event_target:target_province = {
+			change_culture = eatainian
+
+			add_base_tax = 1
+			add_base_manpower = 1
+		}
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_good_relations
+		}
+
+		add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_good_relations
+		}
+	}
+
+# Such excellent diplomats! Want to work for us?
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.21.option_4
+		goto = target_province
+
+		add_treasury = -50
+
+		event_target:target_province = {
+			change_culture = eatainian
+
+			add_base_tax = 1
+
+			add_province_modifier = { 
+			    name = war_better_dip_rep
+			    duration = 7300  
+			}
+		}
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_poor_relations
+		}
+	}
+}
+
+
+
+##  These Druchii slave raids are getting absurd. A raiding party has just entered [target_province.GetName]. How should we proceed?
+country_event = { 
+	id = neighbor_events.22
+	title = neighbor_events.22.t 
+	desc = neighbor_events.22.d 
+	picture = DARKELF_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			culture_group = druchii_group
+		}
+		any_neighbor_country = {
+			culture_group = druchii_group
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_neighbor_country = {
+			limit = {
+				culture_group = druchii_group
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+				base_manpower = 2
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Attack!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.22.option_1
+		goto = target_province
+
+		add_prestige = 5
+
+		event_target:target_province = {
+			spawn_rebels = {
+			    type = raiding_party_rebels
+			    size = 1
+			}
+		}
+
+	}
+
+# Just let them have it, we can't deal with this right now.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.22.option_2
+		goto = target_province
+
+		event_target:target_province = {
+			if = {
+				limit = { base_manpower = 2 }
+				add_base_manpower = -1
+			} else_if = {
+				limit = { base_tax = 2 }
+				add_base_tax = -1
+			} else_if = {
+				limit = { base_production = 2 }
+				add_base_production = -1
+			} else = {
+				devastation = 20
+			}
+		}
+	}
+
+## It's a nice place, isn't it? Why don't you settle down
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.22.option_3
+		goto = target_province
+		highlight = yes
+		trigger = { dip = 4 }
+
+		event_target:target_province = {
+			change_religion = cytharai
+			change_culture = naggarondi
+			add_base_manpower = 1
+		}
+	}
+}
+
+
+##  Beastmen are a scourge. Across the border, we see another party getting ready for a raid. How should we proceed?
+country_event = { 
+	id = neighbor_events.23
+	title = neighbor_events.23.t 
+	desc = neighbor_events.23.d 
+	picture = BEASTMEN_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			culture_group = beastmen_group
+		}
+		any_neighbor_country = {
+			culture_group = beastmen_group
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = beastmen_group
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Try to civilize them
+	option = { 
+		ai_chance = { factor = 0 }
+		name = neighbor_events.23.option_1
+		goto = target_province
+		highlight = yes
+		trigger = { adm = 6 }
+
+		event_target:target_province = {
+			change_religion = chaos_undivided_religion
+			change_culture = beastmen_group
+
+			add_base_manpower = 2
+		}
+	}
+
+# Entreat their leader to take them back
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.23.option_2
+		highlight = yes
+		trigger = { dip = 5 }
+
+		add_prestige = -5
+
+	}
+
+# You are good fighters! Into the army! You can set up shop here.
+	option = { 
+		ai_chance = { factor = 0 }
+		name = neighbor_events.23.option_3
+		goto = target_province
+		highlight = yes
+		trigger = { mil = 5 }
+
+		add_manpower = 15
+		add_army_professionalism = -0.02
+
+		event_target:target_province = {
+			change_religion = chaos_undivided_religion
+			change_culture = beastmen_group
+		}
+	}
+
+# Fight them Off
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.23.option_4
+		goto = target_province
+
+		event_target:target_province = {
+			spawn_rebels = {
+			    type = raiding_party_rebels
+			    size = 1
+			}
+		}
+	}
+
+# Pay them off
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.23.option_5
+
+		add_years_of_income = -0.5
+	}
+}
+
+
+
+
+##  Having Eastern Beastfolk as neighbors is a mixed blessing. A group of merchants from our neighboring country have tricked our own merchants.
+country_event = { 
+	id = neighbor_events.24
+	title = neighbor_events.24.t 
+	desc = neighbor_events.24.d 
+	picture = BEASTMEN_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			culture_group = eastern_beastfolk_cg
+		}
+		any_neighbor_country = {
+			culture_group = eastern_beastfolk_cg
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = eastern_beastfolk_cg
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Capture the merchants and take their things by force!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.24.option_1
+
+		add_years_of_income = 0.5
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_poor_relations
+		}
+	}
+
+# Keep our money! But teach us how you did that.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.24.option_2
+
+		add_mercantilism = 2
+	}
+
+# We can always use skilled merchants such as yourselves. Why not join us?
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.24.option_3
+		goto = target_province
+
+		add_mercantilism = 3
+
+		event_target:target_province = {
+			change_religion = the_thousand_gods
+			change_culture = monkeyfolk_c
+
+			add_base_tax = 1
+		}
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_poor_relations
+		}
+	}
+}
+
+
+
+##  These Snakefolk slave raids are getting absurd. A raiding party has just entered [target_province.GetName]. How should we proceed?
+country_event = { 
+	id = neighbor_events.25
+	title = neighbor_events.25.t 
+	desc = neighbor_events.25.d 
+	picture = SNAKEMEN_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			culture_group = snakefolk_cg
+		}
+		any_neighbor_country = {
+			culture_group = snakefolk_cg
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_neighbor_country = {
+			limit = {
+				culture_group = snakefolk_cg
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+				base_manpower = 2
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Attack!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.25.option_1
+		goto = target_province
+
+		add_prestige = 5
+
+		event_target:target_province = {
+			spawn_rebels = {
+			    type = raiding_party_rebels
+			    size = 1
+			}
+		}
+
+	}
+
+# Just let them have it, we can't deal with this right now.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.25.option_2
+		goto = target_province
+
+		event_target:target_province = {
+			if = {
+				limit = { base_manpower = 2 }
+				add_base_manpower = -1
+			} else_if = {
+				limit = { base_tax = 2 }
+				add_base_tax = -1
+			} else_if = {
+				limit = { base_production = 2 }
+				add_base_production = -1
+			} else = {
+				devastation = 20
+			}
+		}
+	}
+
+## It's a nice place, isn't it? Why don't you settle down
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.25.option_3
+		goto = target_province
+		highlight = yes
+		trigger = { dip = 4 }
+
+		event_target:target_province = {
+			change_religion = animism
+			change_culture = khureshi_snakefolk
+			add_base_manpower = 1
+		}
+	}
+}
+
+
+
+##  These Fimir slave raids are getting absurd. A raiding party has just entered [target_province.GetName] from [neighbor_country.GetName]. How should we proceed?
+country_event = { 
+	id = neighbor_events.26
+	title = neighbor_events.26.t 
+	desc = neighbor_events.26.d 
+	picture = FIMIR_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			culture_group = fimir_group
+		}
+		any_neighbor_country = {
+			culture_group = fimir_group
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_neighbor_country = {
+			limit = {
+				culture_group = fimir_group
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+				base_manpower = 2
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Attack!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.26.option_1
+		goto = target_province
+
+		add_prestige = 5
+
+		event_target:target_province = {
+			spawn_rebels = {
+			    type = raiding_party_rebels
+			    size = 1
+			}
+		}
+	}
+
+# Just let them have it, we can't deal with this right now.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.26.option_2
+		goto = target_province
+
+		event_target:target_province = {
+			if = {
+				limit = { base_manpower = 2 }
+				add_base_manpower = -1
+			} else_if = {
+				limit = { base_tax = 2 }
+				add_base_tax = -1
+			} else_if = {
+				limit = { base_production = 2 }
+				add_base_production = -1
+			} else = {
+				devastation = 20
+			}
+		}
+	}
+
+## It's a nice place, isn't it? Why don't you settle down
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.26.option_3
+		goto = target_province
+		highlight = yes
+		trigger = { dip = 4 }
+
+		event_target:target_province = {
+			change_religion = chaos_undivided_religion
+			change_culture = fimir_culture
+			add_base_manpower = 1
+		}
+	}
+}
+
+
+
+##  Dwarves are a prickily bunch, but being neighbors can be lucrative. A group of delegates from [neighbor_country.GetName] has arrives to discuss future wars, alliances, and trade routes. How should we receive them?
+
+country_event = { 
+	id = neighbor_events.27
+	title = neighbor_events.27.t 
+	desc = neighbor_events.27.d 
+	picture = DWARF_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			culture_group = dwarf_group
+		}
+		any_neighbor_country = {
+			culture_group = dwarf_group
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = dwarf_group
+				religion = yin_yang
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Receive them with a great feast, and talk trade routes.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.27.option_1
+
+		add_treasury = -50
+		add_mercantilism = 3
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_good_relations
+		}
+	}
+
+
+# Receive them with a great feast, and talk war!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.27.option_2
+
+		add_treasury = -50
+		add_army_tradition = 15
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_good_relations
+		}
+	}
+
+# Receive them with a great feast, and talk glory!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.27.option_3
+
+		add_treasury = -50
+		add_prestige = 15
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_good_relations
+		}
+	}
+
+# We have no time for feasting
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.27.option_4
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_poor_relations
+		}
+	}
+
+# Offer to set up a mining company in the province, run by dwarves, with shared profits
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.27.option_5
+		goto = target_province
+
+		event_target:target_province = {
+			change_religion = ancestor_gods
+			change_culture = common_dwarf
+
+			add_local_autonomy = 15
+
+			add_base_production = 3
+		}
+	}
+}
+
+
+
+##  A group of chaos dwarves is looking to set up a trade charter on our lands. How should we proceed?
+country_event = { 
+	id = neighbor_events.28
+	title = neighbor_events.28.t 
+	desc = neighbor_events.28.d 
+	picture = CHAOS_DWARF_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			culture_group = chaos_dwarf_group
+		}
+		any_neighbor_country = {
+			culture_group = chaos_dwarf_group
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = chaos_dwarf_group
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Send them Away
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.28.option_1
+
+		add_prestige = 5
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_poor_relations
+		}
+
+	}
+
+# Accept the charter
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.28.option_2
+		goto = target_province
+
+		event_target:target_province = {
+			change_culture = chaos_dwarf
+
+			add_local_autonomy = 25
+
+			add_base_production = 3
+		}
+	}
+
+# No you see, the contract should be written like this...
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.28.option_3
+		highlight = yes
+		trigger = { adm = 5 }
+		goto = target_province
+
+		event_target:target_province = {
+			change_culture = chaos_dwarf
+			add_base_production = 3
+		}
+	}
+}
+
+
+
+
+##  Having Ogres as neighbors is a mixed blessing. A group of ogres from our neighboring country have harrased and intimidated our own merchants.
+country_event = { 
+	id = neighbor_events.29
+	title = neighbor_events.29.t 
+	desc = neighbor_events.29.d 
+	picture = OGRE_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			culture_group = ogre_group
+		}
+		any_neighbor_country = {
+			culture_group = ogre_group
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = ogre_group
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+
+		add_years_of_income = -0.5
+	}
+
+	goto = neighbor_capital
+
+# Capture the merchants and take their things by force!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.29.option_1
+
+		add_years_of_income = 1.0
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_poor_relations
+		}
+	}
+
+# Keep our money! But teach us how you did that.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.29.option_2
+
+		add_mercantilism = 2
+	}
+
+# We can always use skilled merchants such as yourselves. Why not join us?
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.29.option_3
+		goto = target_province
+
+		add_mercantilism = 3
+
+		event_target:target_province = {
+			change_religion = the_great_maw_religion
+			change_culture = ogre_main
+
+			add_base_tax = 1
+		}
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_poor_relations
+		}
+	}
+}
+
+
+
+##  A group of SKAVEN are tunnelling under our borders. How should we proceed?
+country_event = { 
+	id = neighbor_events.30
+	title = neighbor_events.30.t 
+	desc = neighbor_events.30.d 
+	picture = SKAVEN_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			culture_group = skaven_group
+		}
+		any_neighbor_country = {
+			culture_group = skaven_group
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = skaven_group
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+			add_devastation = 15
+		}
+	}
+
+	goto = neighbor_capital
+
+# What fascinating technology you carry! Can I buy some?
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.30.option_1
+		goto = target_province
+		highlight = yes
+		trigger = { adm = 5 }
+
+		add_treasury = -100
+
+		change_innovativeness = 3
+
+	}
+
+
+# Entreat their leader to take them back
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.30.option_2
+		highlight = yes
+		trigger = { dip = 5 }
+
+		add_prestige = -15
+
+	}
+
+# We could use some meat shields. Want to join our army?
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.30.option_3
+		goto = target_province
+		highlight = yes
+		trigger = { mil = 5 }
+
+		add_manpower = 20
+		add_army_professionalism = -0.05
+		add_stability = -1
+
+	}
+
+# Fight them Off
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.30.option_4
+		goto = target_province
+
+		add_prestige = 5
+
+		event_target:target_province = {
+			spawn_rebels = {
+			    type = raiding_party_rebels
+			    size = 1
+			}
+		}
+	}
+
+# Let them tunnel, who cares
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.30.option_5
+		goto = target_province
+
+		event_target:target_province = {
+			add_devastation = 25
+		}
+	}
+}
+
+
+##  A group of Lizardmen from our neighboring country want to come in to teach of us the old ones. But they certainly have a lot of warriors with them...
+country_event = { 
+	id = neighbor_events.31
+	title = neighbor_events.31.t 
+	desc = neighbor_events.31.d 
+	picture = LIZARDMEN_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			culture_group = lizardmen_group
+			religion = old_ones
+		}
+		any_neighbor_country = {
+			culture_group = lizardmen_group
+			religion = old_ones
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				culture_group = lizardmen_group
+				religion = old_ones
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Send them away with calm words
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.31.option_1
+		highlight = yes
+		trigger = { dip = 5 }
+
+		add_prestige = 5
+
+	}
+
+# Get out of here!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.31.option_2
+		goto = target_province
+
+		event_target:target_province = {
+			spawn_rebels = {
+			    type = old_ones_rebels
+			    size = 1
+			}
+		}
+	}
+
+
+# Oh certainly, the old ones sound great. Will you be leaving soon?
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.31.option_3
+		goto = target_province
+
+		event_target:target_province = {
+			change_religion = old_ones
+		}
+	}
+
+# Why not leave a delegation here to build a church to your gods?
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.31.option_4
+		goto = target_province
+
+		event_target:target_province = {
+			change_religion = old_ones
+			change_culture = lustrian_lizardmen
+
+			add_local_autonomy = 25
+
+			add_building = cathedral
+
+		}
+	}
+}
+
+
+
+
+##  Khorne growls at us from the nearby lands of [neighbor_country.GetName], promising us victory in battle!
+country_event = { 
+	id = neighbor_events.32
+	title = neighbor_events.32.t 
+	desc = neighbor_events.32.d 
+	picture = KHORNE_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			religion = khornate_religion
+		}
+		any_neighbor_country = {
+			religion = khornate_religion
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				religion = khornate_religion
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Activate the Witch hunters!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.32.option_1
+
+		add_country_modifier = { 
+		    name = war_witch_hunts
+		    duration = 3650
+		}
+	}
+
+
+# Don't panic, but don't listen
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.32.option_2
+
+		add_prestige = 5
+
+	}
+
+# But think of the blood we could spill with his blessing. Just a little blessing...
+	option = { 
+		ai_chance = { factor = 0 }
+		name = neighbor_events.32.option_3
+		goto = target_province
+
+		event_target:target_province = {
+			change_religion = khornate_religion
+		}
+
+		add_country_modifier = { 
+		    name = war_khorne_blessing
+		    duration = 3650
+		}
+	}
+
+# I'll personally look into this!
+	option = { 
+		ai_chance = { factor = 0 }
+		name = neighbor_events.32.option_4
+		goto = target_province
+
+		set_ruler_religion = khornate_religion
+
+		event_target:target_province = {
+			change_religion = khornate_religion
+		}
+
+		add_country_modifier = { 
+		    name = war_khorne_blessing
+		    duration = 7300
+		}
+	}
+}
+
+
+
+##  Nurgle mumbles at us from the nearby lands of [neighbor_country.GetName], promising us wealth and growth.
+country_event = { 
+	id = neighbor_events.33
+	title = neighbor_events.33.t 
+	desc = neighbor_events.33.d 
+	picture = NURGLE_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			religion = nurglite_religion
+		}
+		any_neighbor_country = {
+			religion = nurglite_religion
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				religion = nurglite_religion
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Activate the Witch hunters!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.33.option_1
+
+		add_country_modifier = { 
+		    name = war_witch_hunts
+		    duration = 3650
+		}
+	}
+
+
+# Don't panic, but don't listen
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.33.option_2
+
+		add_prestige = 5
+
+	}
+
+# But think of the plague we could spread with his blessing. Just a little blessing...
+	option = { 
+		ai_chance = { factor = 0 }
+		name = neighbor_events.33.option_3
+		goto = target_province
+
+		event_target:target_province = {
+			change_religion = nurglite_religion
+		}
+
+		add_country_modifier = { 
+		    name = war_nurgle_blessing
+		    duration = 3650
+		}
+	}
+
+# I'll personally look into this!
+	option = { 
+		ai_chance = { factor = 0 }
+		name = neighbor_events.33.option_4
+		goto = target_province
+
+		set_ruler_religion = nurglite_religion
+
+		event_target:target_province = {
+			change_religion = nurglite_religion
+		}
+
+		add_country_modifier = { 
+		    name = war_nurgle_blessing
+		    duration = 7300
+		}
+	}
+}
+
+
+
+##  Tzeentch chitters at us from the nearby lands of [neighbor_country.GetName], promising us wealth and growth.
+country_event = { 
+	id = neighbor_events.34
+	title = neighbor_events.34.t 
+	desc = neighbor_events.34.d 
+	picture = TZEENTCH_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			religion = tzeentchian_religion
+		}
+		any_neighbor_country = {
+			religion = tzeentchian_religion
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				religion = tzeentchian_religion
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Activate the Witch hunters!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.34.option_1
+
+		add_country_modifier = { 
+		    name = war_witch_hunts
+		    duration = 3650
+		}
+	}
+
+
+# Don't panic, but don't listen
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.34.option_2
+
+		add_prestige = 5
+
+	}
+
+# But think of the change we could make with his blessing. Just a little blessing...
+	option = { 
+		ai_chance = { factor = 0 }
+		name = neighbor_events.34.option_3
+		goto = target_province
+
+		event_target:target_province = {
+			change_religion = tzeentchian_religion
+		}
+
+		add_country_modifier = { 
+		    name = war_tzeentch_blessing
+		    duration = 3650
+		}
+	}
+
+# I'll personally look into this!
+	option = { 
+		ai_chance = { factor = 0 }
+		name = neighbor_events.34.option_4
+		goto = target_province
+
+		set_ruler_religion = tzeentchian_religion
+
+		event_target:target_province = {
+			change_religion = tzeentchian_religion
+		}
+
+		add_country_modifier = { 
+		    name = war_tzeentch_blessing
+		    duration = 7300
+		}
+	}
+}
+
+
+
+##  Slaanesh whispers at us from the nearby lands of [neighbor_country.GetName], promising us pleasure and pain.
+country_event = { 
+	id = neighbor_events.35
+	title = neighbor_events.35.t 
+	desc = neighbor_events.35.d 
+	picture = SLAANESH_PARTY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			religion = slaaneshi_religion
+		}
+		any_neighbor_country = {
+			religion = slaaneshi_religion
+			NOT = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				religion = slaaneshi_religion
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Activate the Witch hunters!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.35.option_1
+
+		add_country_modifier = { 
+		    name = war_witch_hunts
+		    duration = 3650
+		}
+	}
+
+
+# Don't panic, but don't listen
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.35.option_2
+
+		add_prestige = 5
+
+	}
+
+# But think of the fun we could have with his blessing. Just a little blessing...
+	option = { 
+		ai_chance = { factor = 0 }
+		name = neighbor_events.35.option_3
+		goto = target_province
+
+		event_target:target_province = {
+			change_religion = slaaneshi_religion
+		}
+
+		add_country_modifier = { 
+		    name = war_slaanesh_blessing
+		    duration = 3650
+		}
+	}
+
+# I'll personally look into this!
+	option = { 
+		ai_chance = { factor = 0 }
+		name = neighbor_events.35.option_4
+		goto = target_province
+
+		set_ruler_religion = slaaneshi_religion
+
+		event_target:target_province = {
+			change_religion = slaaneshi_religion
+		}
+
+		add_country_modifier = { 
+		    name = war_slaanesh_blessing
+		    duration = 7300
+		}
+	}
+}
+
+
+
+##  Nehekharans have ancient customs. A delegation from the mortuary cult is here to act as diplomatic envoy, presenting gifts of friendship if we will acknowledge the greatness of [neighbor_country.Monarch.GetTitle] [neighbor_country.Monarch.GetName] from our neighboring country want to come in.
+country_event = { 
+	id = neighbor_events.36
+	title = neighbor_events.36.t 
+	desc = neighbor_events.36.d 
+	picture = TOMBKING_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = {
+			religion = nagash_worship
+		}
+		any_neighbor_country = {
+			religion = nagash_worship
+			NOT = { war_with = ROOT }
+		}
+
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+
+		random_neighbor_country = {
+			limit = {
+				religion = nagash_worship
+			}
+			save_event_target_as = neighbor_country
+		}
+
+		event_target:neighbor_country = {
+			capital_scope = { save_event_target_as = neighbor_capital }
+
+		}
+
+		random_owned_province = {
+			limit = { 
+				any_neighbor_province = { 
+					owned_by = event_target:neighbor_country
+				}
+			}
+			save_event_target_as = target_province
+		}
+	}
+
+	goto = neighbor_capital
+
+# Accept the gifts and plesantries, and speak lip service
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.36.option_1
+
+		add_prestige = -10
+
+		add_treasury = 100
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_good_relations
+		}
+
+	}
+
+# Send them Away
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.36.option_2
+
+		add_prestige = 10
+
+	}
+
+# Steal their things
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.36.option_3
+
+		add_treasury = 100
+
+		reverse_add_opinion = {
+		    who = event_target:neighbor_country
+		    modifier = war_poor_relations
+		}
+
+	}
+
+# Allow them to set up a permanent delegation
+	option = { 
+		ai_chance = { factor = 50 }
+		name = neighbor_events.36.option_4
+		goto = target_province
+
+		event_target:target_province = {
+			change_religion = nagash_worship
+			add_base_tax = 2
+		}
+	}
+}
+
