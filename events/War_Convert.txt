@@ -6,6 +6,7 @@
 # ruinous_powers_denominations
 
 ## Religions
+
 # vampiric
 # cytharai 
 # nagash_worship
@@ -71,7 +72,7 @@ country_event = {
 	id = war_convert_events.3
 	title = war_convert_events.3.t 
 	desc = war_convert_events.3.d 
-	picture = DARKELF_eventPicture
+	picture = TOMBKING_eventPicture
 	
 	fire_only_once = no
 	is_triggered_only = yes
@@ -203,3 +204,904 @@ country_event = {
 	}
 }
 
+
+
+### Offers
+
+## Vampiric Offer
+# A vampire has come to offer us eternal life and power.
+country_event = { 
+	id = war_convert_events.11
+	title = war_convert_events.11.t 
+	desc = war_convert_events.11.d 
+	picture = VAMPIRE_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = { religion = vampiric }
+		NOT = { has_country_modifier = war_resisted_dark_gift }
+
+		NOT = { has_country_modifier = undead_administration }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 2
+			dominant_religion = vampiric
+		}
+		modifier = {
+			factor = 2
+			num_of_religion = {
+				religion = vampiric
+				value = 0.75
+			}
+		}
+		modifier = {
+			factor = 2
+			num_of_religion = {
+				religion = vampiric
+				value = 0.9
+			}
+		}
+	}
+
+
+# Get out of here!
+	option = { 
+		name = war_convert_events.11.option_1
+
+		ai_chance = { factor = 100 }
+
+		add_prestige = 5
+		random_owned_province = {
+			limit = { religion = vampiric }
+			change_religion = ROOT
+		}
+
+		add_country_modifier = { 
+		    name = war_resisted_dark_gift
+		    duration = 7300
+		}
+	}
+
+
+# Let us embrace this offer
+	option = { 
+		name = war_convert_events.11.option_2
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 0
+				religious_unity = 0.90
+			}
+			modifier = {
+				factor = 0
+				NOT = { 
+					num_of_religion = {
+						religion = vampiric
+						value = 0.05
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				dominant_religion = vampiric
+			}
+			modifier = {
+				factor = 2
+				num_of_religion = {
+					religion = vampiric
+					value = 0.75
+				}
+			}
+			modifier = {
+				factor = 2
+				num_of_religion = {
+					religion = vampiric
+					value = 0.9
+				}
+			}
+		}
+
+		change_religion = vampiric
+		capital_scope = { change_religion = vampiric }
+		set_ruler_religion = vampiric
+
+		add_stability = -1
+
+		add_legitimacy = -25
+		add_horde_unity = -25
+		add_meritocracy = -25
+		add_republican_tradition = -10
+		add_devotion = -50
+	}
+}
+
+
+
+## cytharai Offer
+# A cytharai dark elf has come to offer us darkness
+country_event = { 
+	id = war_convert_events.12
+	title = war_convert_events.12.t 
+	desc = war_convert_events.12.d 
+	picture = DARKELF_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		NOT = { religion = cytharai }
+		NOT = { has_country_modifier = war_resisted_dark_gift }
+		religion_group = elven_denominations
+	}
+
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 2
+			dominant_religion = cytharai
+		}
+		modifier = {
+			factor = 2
+			num_of_religion = {
+				religion = cytharai
+				value = 0.75
+			}
+		}
+		modifier = {
+			factor = 2
+			num_of_religion = {
+				religion = cytharai
+				value = 0.9
+			}
+		}
+	}
+
+
+# Get out of here!
+	option = { 
+		name = war_convert_events.12.option_1
+
+		ai_chance = { factor = 100 }
+
+		add_prestige = 5
+		random_owned_province = {
+			limit = { religion = cytharai }
+			change_religion = ROOT
+		}
+
+		add_country_modifier = { 
+		    name = war_resisted_dark_gift
+		    duration = 7300
+		}
+	}
+
+
+# Let us embrace this offer
+	option = { 
+		name = war_convert_events.12.option_2
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 0
+				religious_unity = 0.90
+			}
+			modifier = {
+				factor = 0
+				NOT = { 
+					num_of_religion = {
+						religion = cytharai
+						value = 0.05
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				dominant_religion = cytharai
+			}
+			modifier = {
+				factor = 2
+				num_of_religion = {
+					religion = cytharai
+					value = 0.75
+				}
+			}
+			modifier = {
+				factor = 2
+				num_of_religion = {
+					religion = cytharai
+					value = 0.9
+				}
+			}
+		}
+
+		change_religion = cytharai
+		capital_scope = { change_religion = cytharai }
+		set_ruler_religion = cytharai
+
+		add_stability = -1
+
+		add_legitimacy = -25
+		add_horde_unity = -25
+		add_meritocracy = -25
+		add_republican_tradition = -10
+		add_devotion = -50
+	}
+}
+
+
+
+## Nagash Offer
+# A nagash worshipper has come to offer us darkness
+country_event = { 
+	id = war_convert_events.13
+	title = war_convert_events.13.t 
+	desc = war_convert_events.13.d 
+	picture = TOMBKING_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			religion = nehekharan_pantheon
+			any_neighbor_country = { religion = nagash_worship }
+		}
+		NOT = { has_country_modifier = war_resisted_dark_gift }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 3
+			dominant_religion = nagash_worship
+		}
+		modifier = {
+			factor = 3
+			num_of_religion = {
+				religion = nagash_worship
+				value = 0.75
+			}
+		}
+		modifier = {
+			factor = 3
+			num_of_religion = {
+				religion = nagash_worship
+				value = 0.9
+			}
+		}
+	}
+
+
+# Get out of here!
+	option = { 
+		name = war_convert_events.13.option_1
+
+		ai_chance = { factor = 100 }
+
+		add_prestige = 5
+		random_owned_province = {
+			limit = { religion = nagash_worship }
+			change_religion = ROOT
+		}
+
+		add_country_modifier = { 
+		    name = war_resisted_dark_gift
+		    duration = 7300
+		}
+	}
+
+
+# Let us embrace this offer
+	option = { 
+		name = war_convert_events.13.option_2
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 0
+				religious_unity = 0.90
+			}
+			modifier = {
+				factor = 0
+				NOT = { 
+					num_of_religion = {
+						religion = nagash_worship
+						value = 0.05
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				dominant_religion = nagash_worship
+			}
+			modifier = {
+				factor = 2
+				num_of_religion = {
+					religion = nagash_worship
+					value = 0.75
+				}
+			}
+			modifier = {
+				factor = 2
+				num_of_religion = {
+					religion = nagash_worship
+					value = 0.9
+				}
+			}
+		}
+
+		change_religion = nagash_worship
+		capital_scope = { change_religion = nagash_worship }
+		set_ruler_religion = nagash_worship
+
+		add_stability = -1
+
+		add_legitimacy = -25
+		add_horde_unity = -25
+		add_meritocracy = -25
+		add_republican_tradition = -10
+		add_devotion = -50
+	}
+}
+
+
+
+## Khorne Offer
+# An emessary from Khorne to offer us his ways
+country_event = { 
+	id = war_convert_events.14
+	title = war_convert_events.14.t 
+	desc = war_convert_events.14.d 
+	picture = KHORNE_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = { religion_group = ruinous_powers_denominations }
+		NOT = { has_country_modifier = war_resisted_dark_gift }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 3
+			dominant_religion = khornate_religion
+		}
+		modifier = {
+			factor = 3
+			num_of_religion = {
+				religion = khornate_religion
+				value = 0.75
+			}
+		}
+		modifier = {
+			factor = 3
+			num_of_religion = {
+				religion = khornate_religion
+				value = 0.9
+			}
+		}
+	}
+
+
+# Get out of here!
+	option = { 
+		name = war_convert_events.14.option_1
+
+		ai_chance = { factor = 100 }
+
+		add_prestige = 5
+		random_owned_province = {
+			limit = { religion = khornate_religion }
+			change_religion = ROOT
+		}
+
+		add_country_modifier = { 
+		    name = war_resisted_dark_gift
+		    duration = 7300
+		}
+	}
+
+
+# Let us embrace this offer
+	option = { 
+		name = war_convert_events.14.option_2
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 0
+				religious_unity = 0.90
+			}
+			modifier = {
+				factor = 0
+				NOT = { 
+					num_of_religion = {
+						religion = khornate_religion
+						value = 0.05
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				dominant_religion = khornate_religion
+			}
+			modifier = {
+				factor = 2
+				num_of_religion = {
+					religion = khornate_religion
+					value = 0.75
+				}
+			}
+			modifier = {
+				factor = 2
+				num_of_religion = {
+					religion = khornate_religion
+					value = 0.9
+				}
+			}
+		}
+
+		change_religion = khornate_religion
+		capital_scope = { change_religion = khornate_religion }
+		set_ruler_religion = khornate_religion
+
+		add_stability = -1
+
+		add_legitimacy = -25
+		add_horde_unity = -25
+		add_meritocracy = -25
+		add_republican_tradition = -10
+		add_devotion = -50
+	}
+}
+
+
+## Nurgle Offer
+# An emessary from Nurgle to offer us his ways
+country_event = { 
+	id = war_convert_events.15
+	title = war_convert_events.15.t 
+	desc = war_convert_events.15.d 
+	picture = NURGLE_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = { religion_group = ruinous_powers_denominations }
+		NOT = { has_country_modifier = war_resisted_dark_gift }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 3
+			dominant_religion = nurglite_religion
+		}
+		modifier = {
+			factor = 3
+			num_of_religion = {
+				religion = nurglite_religion
+				value = 0.75
+			}
+		}
+		modifier = {
+			factor = 3
+			num_of_religion = {
+				religion = nurglite_religion
+				value = 0.9
+			}
+		}
+	}
+
+
+# Get out of here!
+	option = { 
+		name = war_convert_events.15.option_1
+
+		ai_chance = { factor = 100 }
+
+		add_prestige = 5
+		random_owned_province = {
+			limit = { religion = nurglite_religion }
+			change_religion = ROOT
+		}
+
+		add_country_modifier = { 
+		    name = war_resisted_dark_gift
+		    duration = 7300
+		}
+	}
+
+
+# Let us embrace this offer
+	option = { 
+		name = war_convert_events.15.option_2
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 0
+				religious_unity = 0.90
+			}
+			modifier = {
+				factor = 0
+				NOT = { 
+					num_of_religion = {
+						religion = nurglite_religion
+						value = 0.05
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				dominant_religion = nurglite_religion
+			}
+			modifier = {
+				factor = 2
+				num_of_religion = {
+					religion = nurglite_religion
+					value = 0.75
+				}
+			}
+			modifier = {
+				factor = 2
+				num_of_religion = {
+					religion = nurglite_religion
+					value = 0.9
+				}
+			}
+		}
+
+		change_religion = nurglite_religion
+		capital_scope = { change_religion = nurglite_religion }
+		set_ruler_religion = nurglite_religion
+
+		add_stability = -1
+
+		add_legitimacy = -25
+		add_horde_unity = -25
+		add_meritocracy = -25
+		add_republican_tradition = -10
+		add_devotion = -50
+	}
+}
+
+
+## Tzeentch Offer
+# An emessary from Tzeentch to offer us his ways
+country_event = { 
+	id = war_convert_events.16
+	title = war_convert_events.16.t 
+	desc = war_convert_events.16.d 
+	picture = TZEENTCH_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = { religion_group = ruinous_powers_denominations }
+		NOT = { has_country_modifier = war_resisted_dark_gift }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 3
+			dominant_religion = tzeentchian_religion
+		}
+		modifier = {
+			factor = 3
+			num_of_religion = {
+				religion = tzeentchian_religion
+				value = 0.75
+			}
+		}
+		modifier = {
+			factor = 3
+			num_of_religion = {
+				religion = tzeentchian_religion
+				value = 0.9
+			}
+		}
+	}
+
+
+# Get out of here!
+	option = { 
+		name = war_convert_events.16.option_1
+
+		ai_chance = { factor = 100 }
+
+		add_prestige = 5
+		random_owned_province = {
+			limit = { religion = tzeentchian_religion }
+			change_religion = ROOT
+		}
+
+		add_country_modifier = { 
+		    name = war_resisted_dark_gift
+		    duration = 7300
+		}
+	}
+
+
+# Let us embrace this offer
+	option = { 
+		name = war_convert_events.16.option_2
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 0
+				religious_unity = 0.90
+			}
+			modifier = {
+				factor = 0
+				NOT = { 
+					num_of_religion = {
+						religion = tzeentchian_religion
+						value = 0.05
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				dominant_religion = tzeentchian_religion
+			}
+			modifier = {
+				factor = 2
+				num_of_religion = {
+					religion = tzeentchian_religion
+					value = 0.75
+				}
+			}
+			modifier = {
+				factor = 2
+				num_of_religion = {
+					religion = tzeentchian_religion
+					value = 0.9
+				}
+			}
+		}
+
+		change_religion = tzeentchian_religion
+		capital_scope = { change_religion = tzeentchian_religion }
+		set_ruler_religion = tzeentchian_religion
+
+		add_stability = -1
+
+		add_legitimacy = -25
+		add_horde_unity = -25
+		add_meritocracy = -25
+		add_republican_tradition = -10
+		add_devotion = -50
+	}
+}
+
+
+## Slaanesh Offer
+# An emessary from Slaanesh to offer us his ways
+country_event = { 
+	id = war_convert_events.17
+	title = war_convert_events.17.t 
+	desc = war_convert_events.17.d 
+	picture = SLAANESH_PARTY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = { religion_group = ruinous_powers_denominations }
+		NOT = { has_country_modifier = war_resisted_dark_gift }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 3
+			dominant_religion = slaaneshi_religion
+		}
+		modifier = {
+			factor = 3
+			num_of_religion = {
+				religion = slaaneshi_religion
+				value = 0.75
+			}
+		}
+		modifier = {
+			factor = 3
+			num_of_religion = {
+				religion = slaaneshi_religion
+				value = 0.9
+			}
+		}
+	}
+
+
+# Get out of here!
+	option = { 
+		name = war_convert_events.17.option_1
+
+		ai_chance = { factor = 100 }
+
+		add_prestige = 5
+		random_owned_province = {
+			limit = { religion = slaaneshi_religion }
+			change_religion = ROOT
+		}
+
+		add_country_modifier = { 
+		    name = war_resisted_dark_gift
+		    duration = 7300
+		}
+	}
+
+
+# Let us embrace this offer
+	option = { 
+		name = war_convert_events.17.option_2
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 0
+				religious_unity = 0.90
+			}
+			modifier = {
+				factor = 0
+				NOT = { 
+					num_of_religion = {
+						religion = slaaneshi_religion
+						value = 0.05
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				dominant_religion = slaaneshi_religion
+			}
+			modifier = {
+				factor = 2
+				num_of_religion = {
+					religion = slaaneshi_religion
+					value = 0.75
+				}
+			}
+			modifier = {
+				factor = 2
+				num_of_religion = {
+					religion = slaaneshi_religion
+					value = 0.9
+				}
+			}
+		}
+
+		change_religion = slaaneshi_religion
+		capital_scope = { change_religion = slaaneshi_religion }
+		set_ruler_religion = slaaneshi_religion
+
+		add_stability = -1
+
+		add_legitimacy = -25
+		add_horde_unity = -25
+		add_meritocracy = -25
+		add_republican_tradition = -10
+		add_devotion = -50
+	}
+}
+
+
+
+
+## Chaos Undivided Offer
+# An emessary from Chaos Undivided to offer us his ways
+country_event = { 
+	id = war_convert_events.18
+	title = war_convert_events.18.t 
+	desc = war_convert_events.18.d 
+	picture = CHAOS_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = { religion_group = ruinous_powers_denominations }
+		NOT = { has_country_modifier = war_resisted_dark_gift }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 3
+			dominant_religion = chaos_undivided_religion
+		}
+		modifier = {
+			factor = 3
+			num_of_religion = {
+				religion = chaos_undivided_religion
+				value = 0.75
+			}
+		}
+		modifier = {
+			factor = 3
+			num_of_religion = {
+				religion = chaos_undivided_religion
+				value = 0.9
+			}
+		}
+	}
+
+
+# Get out of here!
+	option = { 
+		name = war_convert_events.18.option_1
+
+		ai_chance = { factor = 100 }
+
+		add_prestige = 5
+		random_owned_province = {
+			limit = { religion = chaos_undivided_religion }
+			change_religion = ROOT
+		}
+
+		add_country_modifier = { 
+		    name = war_resisted_dark_gift
+		    duration = 7300
+		}
+	}
+
+
+# Let us embrace this offer
+	option = { 
+		name = war_convert_events.18.option_2
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 0
+				religious_unity = 0.90
+			}
+			modifier = {
+				factor = 0
+				NOT = { 
+					num_of_religion = {
+						religion = chaos_undivided_religion
+						value = 0.05
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				dominant_religion = chaos_undivided_religion
+			}
+			modifier = {
+				factor = 2
+				num_of_religion = {
+					religion = chaos_undivided_religion
+					value = 0.75
+				}
+			}
+			modifier = {
+				factor = 2
+				num_of_religion = {
+					religion = chaos_undivided_religion
+					value = 0.9
+				}
+			}
+		}
+
+		change_religion = chaos_undivided_religion
+		capital_scope = { change_religion = chaos_undivided_religion }
+		set_ruler_religion = chaos_undivided_religion
+
+		add_stability = -1
+
+		add_legitimacy = -25
+		add_horde_unity = -25
+		add_meritocracy = -25
+		add_republican_tradition = -10
+		add_devotion = -50
+	}
+}
