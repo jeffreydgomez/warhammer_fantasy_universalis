@@ -1,0 +1,904 @@
+
+########################################
+# Events for TILEA & ESTALIS
+########################################
+
+namespace = war_sow_events
+normal_or_historical_nations = yes
+
+
+# Template
+## Reference our country as [ROOT.GetName]. Reference our Monarch as "[ROOT.Monarch.GetTitle] [ROOT.Monarch.GetName]"
+# Reference the province in question as "[event_target.GetName]".
+country_event = { 
+	id = war_sow_events.X
+	title = war_sow_events.X.t 
+	desc = war_sow_events.X.d 
+	picture = TILEA_eventPicture
+#	picture = ESTALIA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = estalian_group #Spain
+			culture_group = tilean_group #Italy
+			religion = myrmidia
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# FIRST OPTION
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.X.option_1 
+
+	}
+
+# SECOND OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.X.option_2
+
+
+	}
+
+# THIRD OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.X.option_3
+	}
+}
+
+
+## Remas was once the heart of our ancient empire. We look with loathing and jealousy towards its current owners.
+country_event = { 
+	id = war_sow_events.1
+	title = war_sow_events.1.t 
+	desc = war_sow_events.1.d 
+	picture = TILEA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = estalian_group #Spain
+			culture_group = tilean_group #Italy
+		}
+		NOT = { owns_or_subject_of = 590 }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		capital_scope = {
+			save_event_target_as = event_target
+		}
+	}
+
+	
+# Remas shall be ours!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.1.option_1
+		goto = 590
+
+		590 = { add_claim = ROOT }
+		591 = { add_claim = ROOT }
+		592 = { add_claim = ROOT }
+		585 = { add_claim = ROOT }
+	}
+
+# Let's focus on our own capital
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.1.option_2
+
+		goto = event_target
+
+		capital_scope = {
+			add_random_development = 2
+		}
+	}
+}
+
+
+## A would-be explorer from nearby [target_country.GetName] has been frustrated in their attempt to seek funding for a voyage. They have come to our court. Estalians are famed navigators, so it may be worth it.
+country_event = { 
+	id = war_sow_events.2
+	title = war_sow_events.2.t 
+	desc = war_sow_events.2.d 
+	picture = TILEA_eventPicture
+#	picture = ESTALIA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = estalian_group #Spain
+			culture_group = tilean_group #Italy
+			religion = myrmidia
+			any_neighbor_country = {
+				culture_group = estalian_group
+			}
+		}
+		any_country = {
+			culture_group = estalian_group
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_country = {
+			limit = {
+				culture_group = estalian_group
+			}
+			save_event_target_as = target_country
+		}
+		event_target:target_country = {
+			capital_scope = { save_event_target_as = target_capital }
+		}
+	}
+
+	goto = target_capital
+
+# You'll have to look elsewhere.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.2.option_1 
+
+
+	}
+
+# You are hired!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.2.option_2
+
+
+		add_treasury = -100
+		create_explorer = { tradition = 75 }
+
+	}
+
+# And bring that famous friend of yours!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.2.option_3
+
+		add_treasury = -200
+		create_explorer = { tradition = 75 }
+		create_conquistador = { tradition = 75 }
+
+	}
+}
+
+## A religious squabble has broken out amoung several high ranking officials. While all believe that Myrmidia excelled in war, some believed that she loved it for the sake it war, and others that it was a necessary evil. The crown is expected to offer some direction.
+country_event = { 
+	id = war_sow_events.3
+	title = war_sow_events.3.t 
+	desc = war_sow_events.3.d 
+	picture = TILEA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			religion = myrmidia
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# War is excellent for war's sake!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.3.option_1 
+
+		add_country_modifier = { 
+		    name = war_war_exhaustion
+		    duration = 3650
+		}
+
+	}
+
+# Far more important is the protection of civilization
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.3.option_2
+
+		add_country_modifier = { 
+		    name = war_improved_stability
+		    duration = 3650
+		}
+	}
+
+# I defer to the church's opinion
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.3.option_3
+
+		add_estate_loyalty = {
+		    estate = estate_church
+		    loyalty = 15
+		}
+	}
+}
+
+## The [ROOT.GetGroupName] people are ones of blood duels and family fueds. A member of the nobility has challenged a merchant's son to a duel to settle the score between two great families. We can stay impartial and aloof, or throw our backing behind one side. The Nobleman is favored to win, but the merchant's son is an unknown.
+country_event = { 
+	id = war_sow_events.4
+	title = war_sow_events.4.t 
+	desc = war_sow_events.4.d 
+	picture = ESTALIA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = estalian_group #Spain
+			culture_group = tilean_group #Italy
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Favor the nobleman.
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.4.option_1
+
+		add_estate_loyalty = {
+		    estate = estate_nobles
+		    loyalty = 10
+		}
+
+		add_estate_loyalty = {
+		    estate = estate_burghers
+		    loyalty = -10
+		}
+
+		random = { 
+		    chance = 75
+		    add_prestige = 5
+		}
+	}
+
+# Favor the merchant's son.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.4.option_2
+
+
+		add_estate_loyalty = {
+		    estate = estate_nobles
+		    loyalty = -10
+		}
+
+		add_estate_loyalty = {
+		    estate = estate_burghers
+		    loyalty = 10
+		}
+
+		random = { 
+		    chance = 25
+		    add_prestige = 15
+		}
+	}
+
+# Stay Aloof
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.4.option_3
+
+		add_estate_loyalty = {
+		    estate = estate_nobles
+		    loyalty = -5
+		}
+		add_estate_loyalty = {
+		    estate = estate_burghers
+		    loyalty = -5	
+		}
+
+		add_legitimacy = 10
+		add_republican_tradition = 5
+		add_devotion = 10
+		add_horde_unity = 10
+
+	}
+
+# Suppress the duel. Now is not the time for such things.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.4.option_4
+
+		random_list = {
+		    50 = {
+		    	add_prestige = 10
+				add_legitimacy = 10
+				add_republican_tradition = 5
+				add_devotion = 10
+				add_horde_unity = 10
+		    }
+		    50 = {
+				add_estate_loyalty = {
+				    estate = estate_nobles
+				    loyalty = -10
+				}
+				add_estate_loyalty = {
+				    estate = estate_burghers
+				    loyalty = -10	
+				}
+				event_target:event_target = {
+					spawn_rebels = {
+					    size = 1
+					    leader = noble_rebels
+					}
+				}
+		    }
+		}
+	}
+}
+
+## [ROOT.GetName] have long been lands of mercenaries. But some argue that it is time to modernize our army. When a great mercenary leader renegotiates a contract, how shall we respond?
+country_event = { 
+	id = war_sow_events.5
+	title = war_sow_events.5.t 
+	desc = war_sow_events.5.d 
+	picture = ESTALIA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = estalian_group #Spain
+			culture_group = tilean_group #Italy
+			religion = myrmidia
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Mercenaries are our way of life.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.5.option_1
+
+		add_country_modifier = { 
+		    name = war_better_mercenaries
+		    duration = 7300
+		}
+
+	}
+
+# Perhaps you'd be interested in a more permanent position?
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.5.option_2
+
+		add_army_professionalism = 0.05
+
+	}
+
+# We'll sign this contract, but we expect you to train our troops as well.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.5.option_3
+
+		add_army_professionalism = 0.025
+
+		add_country_modifier = { 
+		    name = war_better_mercenaries
+		    duration = 3650
+		}
+
+	}
+}
+
+## Tilea has a long history of squabbling city states. Yet it is this internal conflict that so often drives innovation. One of our advisors is suggestiong that we take a more unified approach to our governance, while the other suggests stoking the flames of division even higher. What should we do?
+country_event = { 
+	id = war_sow_events.6
+	title = war_sow_events.6.t 
+	desc = war_sow_events.6.d 
+	picture = TILEA_eventPicture
+#	picture = ESTALIA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = tilean_group #Italy
+		is_lacking_institutions = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Conflict breeds innovation! Let them argue!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.6.option_1 
+
+		random_owned_province = {
+			add_next_institution_embracement = 25
+			add_local_autonomy = 25
+		}
+		random_owned_province = {
+			add_next_institution_embracement = 25
+			add_local_autonomy = 25
+		}
+		random_owned_province = {
+			add_next_institution_embracement = 25
+			add_local_autonomy = 25
+		}
+		random_owned_province = {
+			add_next_institution_embracement = 25
+			add_local_autonomy = 25
+		}
+	}
+
+# Nonsense. We should focus on unity.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.6.option_2
+
+		add_stability_or_adm_power = yes
+	}
+}
+
+
+### We have often looked to the lands of Bretonnia with a measure of jealous. Estalia has history failed to unify in comparison with her eastern sister. There's nothing for it but to learn from them. The thing we seek to learn is ...
+country_event = { 
+	id = war_sow_events.7
+	title = war_sow_events.7.t 
+	desc = war_sow_events.7.d 
+	picture = ESTALIA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = estalian_group #Spain
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+
+# The royal court
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.7.option_1 
+
+		add_country_modifier = { 
+		    name = war_better_dip_rep
+		    duration = 3650
+		}
+
+	}
+
+# Their religious strength
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.7.option_2
+
+		add_country_modifier = { 
+		    name = war_better_religious_unity
+		    duration = 3650
+		}
+
+	}
+
+# Their cavalry, of course
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.7.option_3
+
+		add_country_modifier = { 
+		    name = war_cavalry
+		    duration = 3650
+		}
+	}
+
+# The way they suppresss their peasants is delightful.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.7.option_4
+
+		add_country_modifier = { 
+		    name = war_reduced_unrest
+		    duration = 3650
+		}
+	}
+}
+
+
+# As humans of the old world, gunpowder is a core part of our militaries. But the particular mix our our mass produced gunpowder is a topic of fierce debate.
+country_event = { 
+	id = war_sow_events.8
+	title = war_sow_events.8.t 
+	desc = war_sow_events.8.d 
+	picture = ESTALIA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		technology_group = tech_imperial
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Guns are more important
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.8.option_1 
+
+		add_country_modifier = { 
+		    name = war_fire_damage
+		    duration = 3650
+		}
+
+	}
+
+# Explosive charges to take down walls.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.8.option_2
+
+		add_country_modifier = { 
+		    name = war_siege_speed
+		    duration = 3650
+		}
+
+	}
+
+# Bah! All this research could be going to something more valuable.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.8.option_3
+
+		change_innovativeness = 2
+	}
+}
+
+
+## WE are heirs to the legacy of the Reman empire. Once a republic, the empire turned into a dicatorship before growing explosively. We find this mirrored in our current situation. After a series of gaffs by political opponents, "[ROOT.Monarch.GetTitle] [ROOT.Monarch.GetName]" has the opportunity to seize greater power for himself. Shoule he take it.
+country_event = { 
+	id = war_sow_events.9
+	title = war_sow_events.9.t 
+	desc = war_sow_events.9.d 
+	picture = TILEA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = estalian_group #Spain
+			culture_group = tilean_group #Italy
+		}
+		government = republic
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+
+# The country will benefit if I take more power.
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.9.option_1
+
+		if = {
+			limit = {
+				adm = 6
+			}
+			add_adm_power = 100
+		}
+		else = {
+			change_adm = 1
+		}
+
+		if = {
+			limit = {
+				dip = 6
+			}
+			add_dip_power = 100
+		}
+		else = {
+			change_dip = 1
+		}
+
+		add_republican_tradition = -25
+	}
+
+# No, the republic is paramount
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.9.option_2
+
+		add_republican_tradition = 15
+
+	}
+
+# This is an opportunity to examine our institutions.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.9.option_3
+
+		change_government_reform_progress = 100
+	}
+}
+
+## There's been an attack during the festival of Myrmidia! Bandits have taken several important members of society, and are demanding ransom.
+country_event = { 
+	id = war_sow_events.10
+	title = war_sow_events.10.t 
+	desc = war_sow_events.10.d 
+	picture = ESTALIA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion = myrmidia
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Send in the army!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.10.option_1
+
+		event_target:event_target = {
+			spawn_rebels = {
+			    size = 1
+			    leader = anti_tax_rebels
+			}
+		}
+	}
+
+# Pay the bandits
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.10.option_2
+
+		add_years_of_income = -1.0
+
+	}
+
+# Do nothing. We don't need those people anyway.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.10.option_3
+
+		add_estate_loyalty = {
+		    estate = estate_nobles
+		    loyalty = -15
+		}
+		add_estate_loyalty = {
+		    estate = estate_church
+		    loyalty = -15
+		}
+		add_estate_loyalty = {
+		    estate = estate_burghers
+		    loyalty = -15
+		}
+	}
+}
+
+
+
+## The Festival of Myrmidia is approaching, and we have selected the location. However, we have some decisions to make about the focus this year.
+country_event = { 
+	id = war_sow_events.11
+	title = war_sow_events.11.t 
+	desc = war_sow_events.11.d 
+	picture = ESTALIA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion = myrmidia
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Invest in the infrastructure of the city.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.11.option_1
+
+		add_base_tax = 2
+	}
+
+# We shall focus on order and heirarchy
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.11.option_2
+
+		add_stability_or_adm_power = yes
+
+	}
+
+# A Great military parade! Time to goosestep
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.11.option_3
+
+		add_army_professionalism = 0.05
+	}
+
+# Fill our citizens with pride for our colonies
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.11.option_4
+		trigger = { num_of_colonies = 1 }
+
+		random_owned_province = {
+			limit = { is_colony = yes }
+			add_colonysize = 250
+		}
+	}
+}
+
+
+
+# As a [ROOT.GetGroupName] nation, our navy is a matter of national pride. The only question is, how should we use it?
+country_event = { 
+	id = war_sow_events.12
+	title = war_sow_events.12.t 
+	desc = war_sow_events.12.d 
+	picture = TILEA_eventPicture
+#	picture = ESTALIA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = estalian_group #Spain
+			culture_group = tilean_group #Italy
+			religion = myrmidia
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Our navy exists to protect our merchants
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.12.option_1 
+
+		add_mercantilism = 3
+
+	}
+
+# Our navy is unbeatable!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.12.option_2
+
+		add_navy_tradition = 15
+
+	}
+
+# We shall explore far and wide.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.12.option_3
+
+		add_country_modifier = { 
+		    name = war_naval_exploration
+		    duration = 3650
+		}
+	}
+}
