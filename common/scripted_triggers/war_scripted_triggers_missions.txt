@@ -43,5 +43,107 @@ war_has_faction_mission_tree = {
 			}
 		}
 	}
+}
 
+
+
+### Add your mission tree requirements to the appropriate place. Take everything that is a priority number lower than yours, and add it as "no" to your potential. So if you have a mission_priority_2, then add "war_mission_priority_1 = no" to your potential. Add it to any racial challenge missions as well.
+
+# Unique Tags
+war_mission_priority_1 = {
+	OR = {
+		tag = A74 # Barrow Legion
+		tag = A29 # Kislev
+		tag = H12 # Naggaroth
+
+	}
+}
+
+
+## Generally, culture or culture + location
+war_mission_priority_2 = {
+	OR {
+		culture_group = asrai_group
+		AND = {
+			culture_group = asur_group
+			any_owned_province = {
+				superregion = ulthuan_superregion
+			}
+		}
+		AND = {
+			culture_group = bretonnian_group
+			capital_scope = { continent = europe }
+		}
+		OR = {
+			culture_group = cathayan_cg
+			tag = I35 # Monkey King
+		}
+		culture_group = chaos_dwarf_group
+		culture_group = dwarf_group
+
+		AND = { 
+			culture_group = norse_group
+			NOT = { capital_scope = { region = norsca_region } }
+		}
+		OR = {
+			culture_group = greenskins_group
+			culture_group = hobgoblin_group
+		}
+		AND = {
+			culture_group = lizardmen_group
+			religion = old_ones
+		}
+		AND = {
+			culture_group = norse_group
+			capital_scope = { region = norsca_region }
+		}
+		culture_group = ogre_group
+		AND = {
+			culture_group = skaven_group
+			religion = horned_rat
+		}
+		AND = {
+			culture_group = nehekharan_group
+			capital_scope = { continent = africa }
+		}
+		culture_group = asrai_group
+
+
+
+	}
+}
+
+
+
+# Generally, religion
+war_mission_priority_3 = {
+	OR = {
+	
+		OR = {
+			religion = khornate_religion
+			religion = nurglite_religion
+			religion = chaos_undivided_religion
+			religion = tzeentchian_religion
+			religion = slaaneshi_religion
+		}
+
+		is_part_of_hre = yes
+
+
+
+	}
+}
+
+
+## Next tier people
+war_mission_priority_4 = {
+	OR = {
+		AND = {
+			culture_group = norse_group
+			NOT = { capital_scope = { region = norsca_region } }
+		}
+
+
+
+	}
 }
