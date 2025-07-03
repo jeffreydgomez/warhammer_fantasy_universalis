@@ -836,3 +836,60 @@ country_event = {
         add_meritocracy = -20
     }
 }
+
+## Existential crisis. Who am I why am I here? I look deep inside myself, and I'm not sure I like what I see.
+country_event = {
+    id = ruler_skill_events.8
+    title = ruler_skill_events.8.t
+    desc = ruler_skill_events.8.desc
+    picture = WESTERNISATION_eventPicture
+
+    is_triggered_only = yes
+    trigger = {
+        is_lesser_in_union = no
+        has_regency = no
+    }
+    mean_time_to_happen = { days = 1 }
+
+# Keep it together. Don't look into the void...
+    option = {
+        name = ruler_skill_events.8.a
+    }
+
+# It's time for a new me!
+    option = {
+        name = ruler_skill_events.8.b
+        clear_non_racial_ruler_personalities = yes
+        hidden_effect = {
+            clear_saved_ruler_personalities = yes
+        }
+    }
+
+
+# My spouse is more qualified. She should take command.
+    option = {
+        name = ruler_skill_events.8.c
+        trigger = { has_consort = yes }
+        change_consort_regent_to_ruler = yes
+        add_legitimacy = -15
+        hidden_effect = {
+            clr_country_flag = has_saved_immortal_ruler
+            clear_saved_name = immortal_ruler_name
+            clear_saved_ruler_personalities = yes
+        }
+    }
+
+
+# I'm leaving! Put my heir in command!
+    option = {
+        name = ruler_skill_events.8.d
+        trigger = { has_heir = yes }
+        exile_ruler_as = { name = my_exiled_ruler }
+        add_legitimacy = -15
+        hidden_effect = {
+            clr_country_flag = has_saved_immortal_ruler
+            clear_saved_name = immortal_ruler_name
+            clear_saved_ruler_personalities = yes
+        }
+    }
+}

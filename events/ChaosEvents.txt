@@ -772,6 +772,39 @@ country_event = {
 			}
 
 		}
+	}
+}
 
+
+
+## We are CHAOS! We follow the chaos gods, and our destiny is the destroy the world. The time is coming soon when the everchosen shall be chosen from the greatest amongst us. When the End Times begin, the greatest chaos worshipper will be blessed with unimaginable power and tasked with destroying the world!
+country_event = { 
+	id = chaos_nations_events.100
+	title = chaos_nations_events.100.title
+	desc = chaos_nations_events.100.desc
+	picture = ARCHAON_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			religion = slaaneshi_religion
+			religion = nurglite_religion
+			religion = tzeentchian_religion
+			religion = khornate_religion
+			religion = chaos_undivided_religion
+		}
+		NOT= { has_country_flag = did_intro_event }
+	}
+
+	immediate = { set_country_flag = did_intro_event }
+	## For the lady!
+	option = {
+		name = chaos_nations_events.100.a
+		ai_chance = { factor = 1 }
+
+		add_army_tradition = 10
+		add_church_power = 100
 	}
 }
