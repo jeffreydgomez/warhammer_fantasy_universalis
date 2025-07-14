@@ -1,0 +1,1541 @@
+
+
+
+war_reman_faction_1 = {
+
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		OR = {
+			culture_group = estalian_group
+			culture_group = tilean_group
+		}
+		capital_scope = { continent = europe }
+		war_mission_priority_1 = no
+	}
+
+
+## It is time to revive our pride in our naval abilities.
+	reman_revive_naval_pride = {
+		icon = mission_sow_culture
+		required_missions = { reman_revive_national_prestige }
+		position = 2
+		trigger = {
+			navy_tradition = 25
+		}
+		effect = {
+
+		}
+	}
+
+## As "[Root.GetGroupName]", naval trade is a long and stories part of our national identity, going back to the times of ancient Remas.
+	reman_trade_ships = {
+		icon = mission_sow_culture
+		required_missions = { reman_revive_naval_pride }
+		position = 4
+		trigger = {
+			num_of_light_ship = 15
+		}
+		effect = {
+
+		}
+	}
+
+
+## We shall inspire our people with a ship worthy of them, and a leader to match!
+	reman_flagship = {
+		icon = mission_sow_culture
+		required_missions = { reman_trade_ships }
+		position = 5
+		trigger = {
+			has_flagship = yes
+			has_leader_with = {
+				admiral = yes
+				total_pips = 10
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+## Gains colonist and explorer
+	reman_base_of_exploration = {
+		icon = mission_sow_culture
+		required_missions = { reman_flagship }
+		position = 6
+		trigger = {
+			 OR = {
+			 	dock = 5
+			 	drydock = 5
+			 }
+		}
+		effect = {
+
+		}
+	}
+
+## Land on Foreign Shores
+	reman_land_on_foreign_shores = {
+		icon = mission_sow_culture
+		required_missions = { reman_base_of_exploration }
+		position = 7
+		trigger = {
+			 num_of_continents = 2
+		}
+		effect = {
+
+		}
+	}
+
+## The New World!
+	reman_the_new_world_1 = {
+		icon = mission_sow_culture
+		required_missions = { reman_land_on_foreign_shores }
+		position = 8
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				OR = {
+					continent = north_america
+					continent = south_america
+				}
+				value = 5
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+## The New World!
+	reman_the_new_world_2 = {
+		icon = mission_sow_culture
+		required_missions = { reman_the_new_world_1 }
+		position = 9
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				OR = {
+					continent = north_america
+					continent = south_america
+				}
+				value = 15
+			}
+		}
+		effect = {
+
+		}
+	}
+
+## Colonial Armies
+	reman_colonial_armies = {
+		icon = mission_sow_culture
+		required_missions = { reman_foreign_investments }
+		position = 11
+		trigger = {
+			any_subject_country = {
+				land_forcelimit = 50
+				army_size = 25
+			}
+		}
+		effect = {
+
+		}
+	}
+}
+
+
+war_reman_faction_2 = {
+
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		OR = {
+			culture_group = estalian_group
+			culture_group = tilean_group
+		}
+		capital_scope = { continent = europe }
+		war_mission_priority_1 = no
+	}
+
+
+## The old Reman empire dissolved into a patchwork of fragmented alliances. To put it back together, we must first reforge those alliances.
+	reman_allies = {
+		icon = mission_sow_culture
+		required_missions = { reman_revive_national_prestige }
+		position = 2
+		trigger = {
+			calc_true_if = {
+				all_country = {
+					OR ={
+						trust = { who = ROOT value = 90 }
+						alliance_with = ROOT
+					}
+				}
+				amount = 4
+			}
+		}
+		effect = {
+
+		}
+	}
+
+## In order to take command of our web of allies, we must establish ourselves as the obvious diplomatic powerhouse
+	reman_diplomatic_reputation = {
+		icon = mission_sow_culture
+		required_missions = { reman_allies }
+		position = 3
+		trigger = {
+			diplomatic_reputation = 5
+			prestige = 80
+		}
+		effect = {
+
+		}
+	}
+
+	reman_markets = {
+		icon = mission_sow_culture
+		required_missions = { reman_capital_area }
+		position = 4
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+				 	has_building = marketplace
+				 	has_building = trade_depot
+				 	has_building = stock_exchange
+				}
+				value = 5
+			}
+		}
+		effect = {
+
+		}
+	}
+
+	reman_dominate_home_trade_node = {
+		icon = mission_dominate_home_trade_node
+		required_missions = { reman_markets }
+		position = 5
+		trigger = {
+			home_trade_node = {
+				trade_share = {
+					country = ROOT
+					share = 75
+				}
+			}
+		}
+		effect = {
+		}
+	}
+
+
+## As our fleet grows in size, we explore different building techniques. However, our shipyards can only truling specialize in one type of warship. What shall it be? Heavies for the open ocean, or galleys to defend our coasts?
+	reman_galleys_or_heavies = {
+		icon = mission_sow_culture
+		required_missions = { reman_flagship }
+		position = 6
+		trigger = {
+			navy_size = 50
+		}
+		effect = {
+		}
+	}
+
+## As our empire grows, we must quickly and efficiently move soldiers around.
+	reman_transports = {
+		icon = mission_sow_culture
+		required_missions = { reman_galleys_or_heavies }
+		position = 7
+		trigger = {
+			num_of_transport = 25
+		}
+		effect = {
+		}
+	}
+
+
+## Araby
+	reman_araby_1 = {
+		icon = mission_sow_culture
+		required_missions = { reman_land_on_foreign_shores }
+		position = 8
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				continent = africa
+				NOT = { region = badlands_region }
+				value = 5
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+## Araby
+	reman_araby_2 = {
+		icon = mission_sow_culture
+		required_missions = { reman_araby_1 }
+		position = 9
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				continent = africa
+				NOT = { region = badlands_region }
+				value = 15
+			}
+		}
+		effect = {
+
+		}
+	}
+
+## Our overseas provinces grow. WE need to rethink our legal arrangements
+	reman_foreign_investments = {
+		icon = mission_sow_culture
+		required_missions = { reman_the_new_world_2 reman_araby_2 }
+		position = 10
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				NOT = { continent = europe }
+				NOT = { region = badlands_region }
+				value = 50
+			}
+		}
+		effect = {
+
+		}
+	}
+
+	reman_colonial_economies = {
+		icon = mission_sow_culture
+		required_missions = { reman_foreign_investments }
+		position = 11
+		trigger = {
+			any_subject_country = {
+				monthly_income = 25
+			}
+		}
+		effect = {
+
+		}
+	}
+
+	reman_a_new_type_of_subject = {
+		icon = mission_sow_culture
+		required_missions = { reman_colonial_armies reman_subject_governance reman_colonial_economies }
+		position = 12
+		trigger = {
+			any_subject_country = {
+				total_development = 250
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+	reman_rightful_colonial_overlord = {
+		icon = mission_sow_culture
+		required_missions = { reman_a_new_type_of_subject }
+		position = 13
+		trigger = {
+			num_of_subjects = 7
+		}
+		effect = {
+			#Perm claims on all the new world
+
+		}
+	}
+
+}
+
+war_reman_faction_3 = {
+
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		OR = {
+			culture_group = estalian_group
+			culture_group = tilean_group
+		}
+		capital_scope = { continent = europe }
+		war_mission_priority_1 = no
+	}
+
+## For too long, we have coasted on our long distant historical ancestors: the Reman Empire. It is time to build ourselves up in history
+	reman_revive_national_prestige = {
+		icon = mission_sow_culture
+		required_missions = {  }
+		position = 1
+		trigger = {
+			prestige = 25
+		}
+		effect = {
+
+		}
+	}
+	
+# We need a strong base from which to run our area
+	reman_capital_area = {
+		icon = mission_sow_culture
+		required_missions = { reman_revive_national_prestige }
+		position = 3
+		trigger = {
+			capital_scope = {
+				development = 20
+
+				all_neighbor_province = {
+					owned_by = ROOT
+					development = 9
+				}
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+# It is time to come together as a society and embrace our destiny.
+	reman_centralize_power = {
+		icon = mission_sow_culture
+		required_missions = { reman_capital_area }
+		position = 4
+		trigger = {
+			crown_land_share = 40
+			stability = 2
+			legitimacy_equivalent = 95
+		}
+		effect = {
+
+		}
+	}
+
+## Control over the church is a core part of control over the people. Let us build churches and unify our power base.
+	reman_build_temples = {
+		icon = mission_sow_culture
+		required_missions = { reman_centralize_power }
+		position = 5
+		trigger = {
+			religious_unity = 0.95
+			num_of_owned_provinces_with = {
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+				value = 5
+			}
+		}
+		effect = {
+
+		}
+	}
+
+## The time has come to retake Remas, and to build it back to its former glory.
+	reman_retake_remas = {
+		icon = mission_sow_culture
+		required_missions = { reman_build_temples }
+		position = 7
+		trigger = {
+			590 = {
+				owned_by = ROOT
+				development = 30
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+	reman_native_policy = {
+		icon = mission_sow_culture
+		required_missions = { reman_land_on_foreign_shores }
+		position = 8
+		trigger = {
+		}
+		effect = {
+
+		}
+	}
+
+## The time has come to retake Remas, and to build it back to its former glory. This will require a major restructuring of society, and we must make sure the guilds are on board.
+	reman_please_guilds = {
+		icon = mission_sow_culture
+		required_missions = { reman_retake_old_remas }
+		position = 9
+		trigger = {
+			OR = {
+				AND = {
+					estate_loyalty = {
+					    estate = estate_burghers
+					    loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_burghers
+						value = 1
+					}
+				}
+				NOT = {	
+					estate_influence = {
+					    estate = estate_burghers
+					    influence = 25
+					}
+				}
+				NOT = { has_estate = estate_burghers }
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+	reman_far_east_trade = {
+		icon = mission_sow_culture
+		required_missions = { reman_please_guilds }
+		position = 10
+		trigger = {
+			any_trade_node = {
+				OR = {
+					superregion = cathay_superregion
+					superregion = ind_superregion
+				}
+				trade_share = {
+					country = ROOT
+					share = 15
+				}
+			}
+		}
+		effect = {
+
+		}
+	}
+
+	reman_subject_governance = {
+		icon = mission_sow_culture
+		required_missions = { reman_foreign_investments }
+		position = 11
+		trigger = {
+			calc_true_if = {
+				all_subject_country = {
+					religion = ROOT
+					culture_group = ROOT
+					NOT = { liberty_desire = 10 }
+				}
+				amount = 5
+			}
+		}
+		effect = {
+
+		}
+	}
+
+	reman_weaken_bretonnia = {
+		icon = mission_mansure_army
+		required_missions = { reman_the_reman_claim }
+		position = 12
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 263
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 281
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+
+			263 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+
+			281 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+
+			}
+		}
+
+		effect = {
+
+			263 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 10 } }
+					} else {
+						custom_tooltip = empire_claims_on_bretonnia_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									region = bretonnia_region
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					ROOT = {
+						add_casus_belli = {
+						    target = PREV
+						    type = cb_restore_personal_union
+						    months = 600
+						}
+					}
+				}
+			}
+
+			281 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 10 } }
+					} else {
+						custom_tooltip = empire_claims_on_bretonnia_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									region = bretonnia_region
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					ROOT = {
+						add_casus_belli = {
+						    target = PREV
+						    type = cb_restore_personal_union
+						    months = 600
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+	reman_global_empire = {
+		icon = mission_sow_culture
+		required_missions = {  }
+		position = 14
+		provinces_to_highlight = {
+
+			trade_node_value = 1
+
+			NOT = { 
+				trade_share = {
+					country = ROOT
+					share = 5
+				}
+			}
+
+		}
+		trigger = {
+			all_trade_node = {
+				trade_share = {
+					country = ROOT
+					share = 5
+				}
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+}
+
+war_reman_faction_4 = {
+
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		OR = {
+			culture_group = estalian_group
+			culture_group = tilean_group
+		}
+		capital_scope = { continent = europe }
+		war_mission_priority_1 = no
+	}
+
+## Mercenaries have long been a part of our national army. But should they remain so?
+	reman_mercs_1 = {
+		icon = mission_sow_culture
+		required_missions = { reman_revive_military_pride }
+		position = 3
+		trigger = {
+			num_of_mercenaries = 10
+			is_at_war = yes
+		}
+		effect = {
+
+		}
+	}
+
+# Let us start up state-funded mercenary bands of our own
+	reman_mercs_2 = {
+		icon = mission_sow_culture
+		required_missions = { reman_mercs_1 }
+		position = 4
+		trigger = {
+			army_tradition = 25
+			any_country = {
+				ROOT = { is_renting_condottieri_to = PREV }
+			}
+		}
+		effect = {
+
+		}
+	}
+
+## To us, the idea of war and wealth have become interdependent. Do we rely on independent bands for our military, or do we reduce our reliance on mercenaries?
+	reman_mercs_3 = {
+		icon = mission_sow_culture
+		required_missions = { reman_mercs_2 }
+		position = 5
+		trigger = {
+			num_of_war_reparations = 4
+		}
+		effect = {
+
+		}
+	}
+
+## "$COUNTRY_RELIGION$" has always been associated with knowledge. From the most ancient days, our scholars and philosophers have prized knowledge. It is time to establish it as part of our institutions.
+	reman_myrmidian_knowledge = {
+		icon = mission_sow_culture
+		required_missions = { reman_build_temples }
+		position = 6
+		trigger = {
+			innovativeness = 15
+		}
+		effect = {
+
+		}
+	}
+
+## In order to continue our learning, we must have houses of learning
+	reman_myrmidian_universities = {
+		icon = mission_sow_culture
+		required_missions = { reman_myrmidian_knowledge }
+		position = 7
+		trigger = {
+			university = 5
+		}
+		effect = {
+
+		}
+	}
+
+## It is time to retake the core of old Remas. With this under our control, we take the next steps to Reforging the Reman empire.
+	reman_retake_old_remas = {
+		icon = mission_sow_culture
+		required_missions = { reman_retake_remas }
+		position = 8
+		trigger = {
+			tilea_region = {
+				type = all
+				country_or_subject_holds = ROOT
+			}
+			estalia_region = {
+				type = all
+				country_or_subject_holds = ROOT
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+## The time has come to retake Remas, and to build it back to its former glory. This will require a major restructuring of society, and we must make sure the guilds are on board.
+	reman_please_nobles = {
+		icon = mission_sow_culture
+		required_missions = { reman_retake_old_remas }
+		position = 9
+		trigger = {
+			OR = {
+				AND = {
+					estate_loyalty = {
+					    estate = estate_nobles
+					    loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_nobles
+						value = 1
+					}
+				}
+				NOT = {	
+					estate_influence = {
+					    estate = estate_nobles
+					    influence = 25
+					}
+				}
+				NOT = { has_estate = estate_nobles }
+			}
+		}
+		effect = {
+
+		}
+	}
+
+## It is time to reform Remas into our own image. We must tear down the current systems and forge a new system of governance to reflect the old Reman empire
+	reman_reform_society = {
+		icon = mission_sow_culture
+		required_missions = { reman_please_guilds reman_please_nobles reman_please_church }
+		position = 10
+		trigger = {
+			stability = 2
+			government_reform_progress = 100
+			legitimacy_equivalent = 95
+		}
+		effect = {
+
+		}
+	}
+
+## We are now the true successor the the Reman Empire, and can make a legitimate claim to the entire scope of the old empire!
+	reman_the_reman_claim = {
+		icon = mission_sow_culture
+		required_missions = { reman_reform_society }
+		position = 11
+		trigger = {
+			army_size = 100
+			navy_size = 100
+			prestige = 75
+			is_great_power = yes
+		}
+		effect = {
+			europe = {
+				 add_permanent_claim = ROOT
+			}
+
+		}
+	}
+
+
+	reman_weaken_borderlands = {
+		icon = alpine_fortifications
+		required_missions = { reman_the_reman_claim }
+		position = 12
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 655
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 872
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+			655 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+
+			872 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+
+
+
+		}
+		effect = {
+
+			655 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 10 } }
+					} else {
+						custom_tooltip = empire_claims_on_borderlands_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									region = border_princes_region
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					ROOT = {
+						add_casus_belli = {
+						    target = PREV
+						    type = cb_restore_personal_union
+						    months = 600
+						}
+					}
+				}
+			}
+
+
+			872 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 10 } }
+					} else {
+						custom_tooltip = empire_claims_on_borderlands_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									region = border_princes_region
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					ROOT = {
+						add_casus_belli = {
+						    target = PREV
+						    type = cb_restore_personal_union
+						    months = 600
+						}
+					}
+				}
+			}
+
+		}
+	}
+
+
+	reman_leader_of_the_old_world = {
+		icon = mission_empire_culture
+		required_missions = { reman_weaken_bretonnia reman_weaken_borderlands reman_weaken_empire }
+		provinces_to_highlight = {
+			owner = {
+				capital_scope = { continent = europe }
+				NOT = { tag = ROOT }
+				NOT = { is_subject_of = ROOT }
+				NOT = { alliance_with = ROOT }
+				NOT = {
+					ROOT = {
+						has_won_war_against = {
+							who = PREV
+							max_years_since = 250
+						}
+					}
+				}
+			}
+		}
+		
+		trigger = {
+			is_great_power = yes
+
+			NOT = {
+				any_country = {
+					capital_scope = { continent = europe }
+					NOT = { tag = ROOT }
+					NOT = { is_subject_of = ROOT }
+					NOT = { alliance_with = ROOT }
+					NOT = {
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 250
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		effect = {
+		}
+	}
+
+
+}
+
+war_reman_faction_5 = {
+
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		OR = {
+			culture_group = estalian_group
+			culture_group = tilean_group
+		}
+		capital_scope = { continent = europe }
+		war_mission_priority_1 = no
+	}
+
+	reman_revive_military_pride = {
+		icon = mission_sow_culture
+		required_missions = { reman_revive_national_prestige }
+		position = 2
+		trigger = {
+			OR = {
+				army_size_percentage = 1
+				army_size = 50
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+
+	reman_build_barracks = {
+		icon = mission_sow_culture
+		required_missions = { reman_revive_military_pride }
+		position = 4
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+			 		has_building = barracks
+			 		has_building = training_fields
+				}
+				value = 5
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+	reman_legions = {
+		icon = mission_sow_culture
+		required_missions = { reman_build_barracks }
+		position = 6
+		trigger = {
+			army_tradition = 75
+			has_leader_with = {
+				total_pips = 12
+			}
+			OR = {
+				army_professionalism = 0.10
+				has_country_modifier = war_modern_army
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+	reman_myrmidian_military = {
+		icon = mission_sow_culture
+		required_missions = { reman_legions reman_myrmidian_knowledge }
+		position = 7
+		trigger = {
+			has_leader_with = {
+				total_pips = 15
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+	reman_please_church = {
+		icon = mission_sow_culture
+		required_missions = { reman_retake_old_remas }
+		position = 9
+		trigger = {
+			OR = {
+				AND = {
+					estate_loyalty = {
+					    estate = estate_church
+					    loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_church
+						value = 1
+					}
+				}
+				NOT = {	
+					estate_influence = {
+					    estate = estate_church
+					    influence = 25
+					}
+				}
+				NOT = { has_estate = estate_church }
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+	empire_weaken_empire = {
+		icon = mission_handle_the_streltsy
+		required_missions = { reman_the_reman_claim }
+		position = 12
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 1
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 2
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+			1 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+
+			2 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+
+			1 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 10 } }
+					} else {
+						custom_tooltip = empire_claims_on_kislev_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									OR = {
+										region = kislev_heartlands_region
+										region = troll_country_region
+									}
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					ROOT = {
+						add_casus_belli = {
+						    target = PREV
+						    type = cb_restore_personal_union
+						    months = 600
+						}
+					}
+				}
+			}
+
+
+			2 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 10 } }
+					} else {
+						custom_tooltip = empire_claims_on_kislev_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									region = kislev_heartlands_region
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					ROOT = {
+						add_casus_belli = {
+						    target = PREV
+						    type = cb_restore_personal_union
+						    months = 600
+						}
+					}
+				}
+			}
+
+		}
+	}
+
+	reman_weaken_kislev = {
+		icon = mission_handle_the_streltsy
+		required_missions = { reman_weaken_empire }
+		position = 13
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 330
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 379
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+			330 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+
+			379 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+
+			330 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 10 } }
+					} else {
+						custom_tooltip = empire_claims_on_kislev_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									OR = {
+										region = kislev_heartlands_region
+										region = troll_country_region
+									}
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					ROOT = {
+						add_casus_belli = {
+						    target = PREV
+						    type = cb_restore_personal_union
+						    months = 600
+						}
+					}
+				}
+			}
+
+
+			379 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 10 } }
+					} else {
+						custom_tooltip = empire_claims_on_kislev_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									region = kislev_heartlands_region
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					ROOT = {
+						add_casus_belli = {
+						    target = PREV
+						    type = cb_restore_personal_union
+						    months = 600
+						}
+					}
+				}
+			}
+
+		}
+	}
+
+
+	
+}
+
