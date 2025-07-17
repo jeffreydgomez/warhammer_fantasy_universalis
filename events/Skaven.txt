@@ -10,7 +10,7 @@ country_event = {
 	id = skaven.X
 	title = skaven.X.t 
 	desc = skaven.X.d 
-	picture = ANGRY_MOB_eventPicture
+	picture = SKAVEN_eventPicture
 	
 	fire_only_once = no
 	is_triggered_only = yes
@@ -392,7 +392,7 @@ country_event = {
 		name = skaven.6.b
 
 		add_yearly_manpower = -2.0
-		change_innovativeness = 10
+		change_innovativeness = 5
 
 
 	}
@@ -424,6 +424,7 @@ country_event = {
 		culture_group = skaven_group
 		any_owned_province = {
 			trade_goods = warpstone
+			base_production = 2
 		}
 	}
 
@@ -432,11 +433,11 @@ country_event = {
 	}
 
 	immediate = {
-		limit = {
-			trade_goods = warpstone
-			base_production = 2
-		}
 		random_owned_province = {
+			limit = {
+				trade_goods = warpstone
+				base_production = 2
+			}
 			save_event_target_as = event_target
 		}
 	}
@@ -473,6 +474,80 @@ country_event = {
 		name = skaven.7.c
 	}
 }
+
+
+## Our warren teams with skaven. The population is out of control! What should we do?
+country_event = { 
+	id = skaven.8
+	title = skaven.8.t 
+	desc = skaven.8.d 
+	picture = SKAVEN_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = skaven_group
+		any_owned_province = {
+			base_manpower = 6
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				base_manpower = 6
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Distribute the population to other cities
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.8.a 
+
+		random_owned_province = {
+			add_base_manpower = 1
+		}
+
+
+		random_owned_province = {
+			add_base_manpower = 1
+		}
+
+
+		random_owned_province = {
+			add_base_manpower = 1
+		}
+	}
+
+# Into the Army!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.8.b
+
+		add_manpower = 3
+
+	}
+
+# Bodies for research you say?
+	option = { 
+		ai_chance = { factor = 50 }
+		name = skaven.8.c
+
+		change_innovativeness = 3
+	}
+}
+
+
 
 
 ### A Doomsphere was dropped on our capital
