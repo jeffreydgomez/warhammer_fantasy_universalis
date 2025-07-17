@@ -902,3 +902,102 @@ country_event = {
 		}
 	}
 }
+
+
+## As our fleet grows in size, we explore different building techniques. However, our shipyards can only truling specialize in one type of warship. What shall it be? Heavies for the open ocean, or galleys to defend our coasts?
+country_event = { 
+	id = war_sow_events.101
+	title = war_sow_events.101.t 
+	desc = war_sow_events.101.d 
+	picture = TILEA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# We will favor Heavy Ships
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.101.option_1 
+
+		add_country_modifier = { 
+		    name = reman_focus_on_heavies
+		    duration = -1  
+		}
+
+	}
+
+# We will favor gallies
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.101.option_2
+
+
+		add_country_modifier = { 
+		    name = reman_focus_on_gallies
+		    duration = -1  
+		}
+
+	}
+
+# Our trade ships will become warships!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.101.option_3
+
+		add_country_modifier = { 
+		    name = reman_focus_on_light_ships
+		    duration = -1  
+		}
+	}
+}
+
+## Mercenaries have long been a part of our national army. But should they remain so?
+country_event = { 
+	id = war_sow_events.102
+	title = war_sow_events.102.t 
+	desc = war_sow_events.102.d 
+	picture = ESTALIA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+
+# Mercenaries are core to our national military!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.102.option_1 
+			add_country_modifier = { 
+			    name = reman_mercenaries_1
+			    duration = -1  
+			}
+
+
+	}
+
+# Let us modernize our armies instead.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = war_sow_events.102.option_2
+			add_country_modifier = { 
+			    name = reman_professional_armies_1
+			    duration = -1  
+			}
+
+	}
+}
