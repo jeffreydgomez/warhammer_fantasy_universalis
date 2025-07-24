@@ -78,65 +78,6 @@ country_event = {
 			}
 			ai = yes
 		}
-		### Succeded at Chaos Tribe things
-		modifier = {
-			factor = 0.9
-			mission_completed = gen_chaos_defeated_nurgle
-		}
-		modifier = {
-			factor = 0.9
-			mission_completed = gen_chaos_defeated_khorne
-		}
-		modifier = {
-			factor = 0.9
-			mission_completed = gen_chaos_defeated_tzeentch
-		}
-		modifier = {
-			factor = 0.9
-			mission_completed = gen_chaos_defeated_slaanesh
-		}
-		modifier = {
-			factor = 0.9
-			mission_completed = gen_chaos_defeated_undivided
-		}
-		modifier = {
-			factor = 0.9
-			mission_completed = gen_chaos_defeated_norscan
-		}
-		modifier = {
-			factor = 0.9
-			mission_completed = gen_chaos_gods_try_nurgle
-		}
-		modifier = {
-			factor = 0.9
-			mission_completed = gen_chaos_gods_try_khorne
-		}
-		modifier = {
-			factor = 0.9
-			mission_completed = gen_chaos_gods_try_tzeentch
-		}
-		modifier = {
-			factor = 0.9
-			mission_completed = gen_chaos_gods_try_slaanesh
-		}
-		modifier = {
-			factor = 0.9
-			mission_completed = gen_chaos_gods_try_undivided
-		}
-		modifier = {
-			factor = 0.01
-			mission_completed = gen_chaos_defeated_nurgle
-			mission_completed = gen_chaos_defeated_khorne
-			mission_completed = gen_chaos_defeated_tzeentch
-			mission_completed = gen_chaos_defeated_slaanesh
-			mission_completed = gen_chaos_defeated_undivided
-			mission_completed = gen_chaos_defeated_norscan
-			mission_completed = gen_chaos_gods_try_nurgle
-			mission_completed = gen_chaos_gods_try_khorne
-			mission_completed = gen_chaos_gods_try_tzeentch
-			mission_completed = gen_chaos_gods_try_slaanesh
-			mission_completed = gen_chaos_gods_try_undivided
-		}
 		### Bigger than all other ruininous powers that aren't hashut (So if you are the biggest non-hashut chaos country, or a hashut country bigger than all other chaos). Either all other countries aren't ruinous powers, or they don't have a greater development than you.
 		## Is this borked?
 		modifier = {
@@ -887,7 +828,7 @@ country_event = {
 	option = {
 		name = end_times_events.1.option_2
 		ai_chance = {
-			factor = 1
+			factor = 0
 		}
 		goto = event_target
 		event_target:event_target = {
@@ -896,6 +837,7 @@ country_event = {
 				type = chaos_undivided_religion_rebels
 			}
 		}
+		add_stability = -1
 		add_government_power = {
 			mechanic_type = everchosen_mechanic
 			power_type = everchosen_favor
@@ -1556,6 +1498,16 @@ country_event = {
 		}
 		is_colonial_nation = no
 		ai = yes
+
+		OR = {
+			is_subject = no
+			any_neighbor_country = {
+				has_reform = everchosen_reform
+				total_development = ROOT
+				overlord_of = ROOT
+			}
+		}
+
 	}
 	mean_time_to_happen = {
 		months = 24
