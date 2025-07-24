@@ -110,6 +110,60 @@ war_empire_faction_1 = {
 	}
 
 
+## Develop the production base for the empire.
+## Reward worth about 1/3 of an idea
+	empire_production_powerhouse = {
+		icon = mission_have_manufactories
+		required_missions = {   }
+		trigger = {
+			any_owned_province = {
+				OR = {
+					has_building = workshop
+					has_building = counting_house
+				}
+				OR = {
+					has_building = mills
+					has_building = farm_estate
+					has_building = tradecompany
+					has_building = plantations
+					has_building = textile
+					has_building = weapons
+					has_building = wharf
+					has_building = furnace
+				}
+				base_production = 20
+			}
+		}
+		# flood of investments leading to increased production
+		effect = {
+			custom_tooltip = empire_production_powerhouse_tt
+			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_building = workshop
+							has_building = counting_house
+						}
+						OR = {
+							has_building = mills
+							has_building = farm_estate
+							has_building = tradecompany
+							has_building = plantations
+							has_building = textile
+							has_building = weapons
+							has_building = wharf
+							has_building = furnace
+						}
+						base_production = 20
+					}
+					add_permanent_province_modifier = { 
+					    name = empire_local_production_efficiency
+					    duration = -1 
+					}
+				}
+			}
+		}
+	}
 
 
 ## Reward is worth 1/3
@@ -351,7 +405,7 @@ war_empire_faction_2 = {
 					has_building = barracks
 					has_building = training_fields
 				}
-				base_manpower = 10
+				base_manpower = 20
 			}
 		}
 
@@ -364,7 +418,7 @@ war_empire_faction_2 = {
 							has_building = barracks
 							has_building = training_fields
 						}
-						base_manpower = 10
+						base_manpower = 20
 					}
 					add_permanent_province_modifier = { 
 					    name = empire_local_manpower_efficiency
@@ -382,7 +436,7 @@ war_empire_faction_2 = {
 	empire_sword_of_the_empire = {
 		icon = mission_build_up_to_force_limit
 		position = 4
-		required_missions = { empire_military_powerhouse }
+		required_missions = {  }
 		provinces_to_highlight = {
 			owner = {
 				OR = {
@@ -1583,7 +1637,7 @@ war_empire_faction_3 = {
 		required_missions = { }
 		provinces_to_highlight = {
 			owner = {
-				has_country_modifier = human_administration
+				technology_group = ROOT
 				NOT = { tag = ROOT }
 				NOT = { is_subject_of = ROOT }
 				NOT = { alliance_with = ROOT }
@@ -1591,7 +1645,7 @@ war_empire_faction_3 = {
 					ROOT = {
 						has_won_war_against = {
 							who = PREV
-							max_years_since = 250
+							max_years_since = 100
 						}
 					}
 				}
@@ -1603,7 +1657,7 @@ war_empire_faction_3 = {
 
 			NOT = {
 				any_country = {
-					has_country_modifier = human_administration
+					technology_group = ROOT
 					NOT = { tag = ROOT }
 					NOT = { is_subject_of = ROOT }
 					NOT = { alliance_with = ROOT }
@@ -1611,7 +1665,7 @@ war_empire_faction_3 = {
 						ROOT = {
 							has_won_war_against = {
 								who = PREV
-								max_years_since = 250
+								max_years_since = 100
 							}
 						}
 					}
@@ -1689,7 +1743,7 @@ war_empire_faction_4 = {
 		icon = mission_hundred_years_war
 		required_missions = {  }
 		trigger = {
-			army_tradition = 50
+			army_tradition = 75
 			OR = {
 				army_professionalism = 0.25
 				has_country_modifier = war_modern_army
@@ -1769,7 +1823,7 @@ war_empire_faction_4 = {
 ## Worth no ideas
 	empire_deal_with_laurelon = {
 		icon = mission_wood_elf_culture
-		required_missions = { empire_backed_by_some_electors }
+		required_missions = {  }
 		provinces_to_highlight = {
 			province_id = 4892
 		}
@@ -2190,51 +2244,11 @@ war_empire_faction_5 = {
 		}
 	}
 
-
-## Religious Center Powerhouse. This church is amoung the greatest in the world.
-### Worth .33
-
-	empire_religious_center = {
-		icon = mission_european_church
-		position = 2
-		required_missions = { empire_happy_church  }
-		trigger = {
-			religious_unity = 1
-			any_owned_province = {
-				OR = {
-					has_building = temple
-					has_building = cathedral
-				}
-				base_tax = 10
-			}
-		}
-		# flood of investments leading to increased production
-		effect = {
-			custom_tooltip = empire_tax_powerhouse_tt
-			hidden_effect = {
-				random_owned_province = {
-					limit = {
-						OR = {
-							has_building = temple
-							has_building = cathedral
-						}
-						base_tax = 10
-					}
-					add_permanent_province_modifier = { 
-					    name = empire_local_tax_efficiency
-					    duration = -1 
-					}
-				}
-			}
-		}
-	}
-
 ## Do we empower or push away the witch hunters?
 ## Worth 1 idea
 	empire_decide_on_witch_hunters = { 
 		icon = mission_empire_religion
-		required_missions = { empire_religious_center } 
-		position = 3
+		required_missions = { empire_happy_church  } 
 		trigger = {
 			estate_influence = {
 			    estate = estate_church
@@ -2252,56 +2266,37 @@ war_empire_faction_5 = {
 	}
 
 
+## Religious Center Powerhouse. This church is amoung the greatest in the world.
+### Worth .33
 
-## Develop the production base for the empire.
-## Reward worth about 1/3 of an idea
-	empire_production_powerhouse = {
-		icon = mission_have_manufactories
-		required_missions = {   }
+	empire_religious_center = {
+		icon = mission_european_church
 		position = 4
+		required_missions = {   }
 		trigger = {
+			religious_unity = 1
 			any_owned_province = {
 				OR = {
-					has_building = workshop
-					has_building = counting_house
+					has_building = temple
+					has_building = cathedral
 				}
-				OR = {
-					has_building = mills
-					has_building = farm_estate
-					has_building = tradecompany
-					has_building = plantations
-					has_building = textile
-					has_building = weapons
-					has_building = wharf
-					has_building = furnace
-				}
-				base_production = 10
+				base_tax = 20
 			}
 		}
 		# flood of investments leading to increased production
 		effect = {
-			custom_tooltip = empire_production_powerhouse_tt
+			custom_tooltip = empire_tax_powerhouse_tt
 			hidden_effect = {
 				random_owned_province = {
 					limit = {
 						OR = {
-							has_building = workshop
-							has_building = counting_house
+							has_building = temple
+							has_building = cathedral
 						}
-						OR = {
-							has_building = mills
-							has_building = farm_estate
-							has_building = tradecompany
-							has_building = plantations
-							has_building = textile
-							has_building = weapons
-							has_building = wharf
-							has_building = furnace
-						}
-						base_production = 10
+						base_tax = 20
 					}
 					add_permanent_province_modifier = { 
-					    name = empire_local_production_efficiency
+					    name = empire_local_tax_efficiency
 					    duration = -1 
 					}
 				}
@@ -2310,12 +2305,11 @@ war_empire_faction_5 = {
 	}
 
 
-
 ## With our economy and tithes flowing in, we have an opportunity to develop a single unified currency for the empire.
 ## Half an idea
 	empire_imperial_currency = {
 		icon = mission_war_chest
-		required_missions = { empire_bank_of_the_empire empire_production_powerhouse }
+		required_missions = { empire_bank_of_the_empire empire_religious_center }
 		provinces_to_highlight = {
 			OR = {
 				trade_goods = gold
@@ -2333,7 +2327,7 @@ war_empire_faction_5 = {
 
 			any_owned_province = {
 				trade_goods = gold
-				base_production = 10
+				base_production = 15
 				OR = {
 				 	has_building = marketplace
 				 	has_building = trade_depot
@@ -2342,7 +2336,7 @@ war_empire_faction_5 = {
 			}
 			any_owned_province = {
 				trade_goods = copper
-				base_production = 10
+				base_production = 15
 				OR = {
 					has_building = workshop
 					has_building = counting_house
