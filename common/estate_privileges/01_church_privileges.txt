@@ -563,6 +563,16 @@ estate_church_papal_emissary = {
 estate_church_clerical_ministers = {
 	icon = privilege_recruit_minister
 	max_absolutism = -5
+	is_valid = {
+		OR = {
+			religion = hashut
+			religion = gork_n_mork_religion
+			religion = yin_yang
+			religion = ursun
+			church_power = 0
+			fervor = 0
+		}
+	}
 	conditional_modifier = {
 		trigger = {
 			has_absolutism_reduction_for_estate_privileges = yes
@@ -632,12 +642,28 @@ estate_church_clerical_ministers = {
 			yearly_patriarch_authority = 0.01
 		}
 	}
+
+	conditional_modifier = {
+		trigger = {
+			church_power = 0
+		}
+		modifier = {
+			church_power_modifier = 0.1
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			fervor = 0
+		}
+		modifier = {
+			monthly_fervor_increase = 0.5
+		}
+	}
+
 	penalties = {
 	}
 
 	benefits = {
-		church_power_modifier = 0.1
-		monthly_fervor_increase = 0.5
 	}
 
 	conditional_modifier = {
