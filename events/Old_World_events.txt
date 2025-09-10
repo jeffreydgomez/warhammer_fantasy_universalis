@@ -929,8 +929,10 @@ country_event = {
 		every_elector = {
 			limit = { NOT = { tag = ROOT } }
 			add_prestige = 10
+			add_legitimacy = 2
 			ROOT = {
 				add_prestige = -10
+				add_legitimacy = -2
 				add_imperial_influence = 1
 			}
 		}
@@ -947,16 +949,16 @@ country_event = {
 			limit = { NOT = { tag = ROOT } }
 			custom_tooltip = elector_gains_power_tt
 			hidden_effect = {
-				add_adm_power = 25
-				add_dip_power = 25
-				add_mil_power = 25
+				add_adm_power = 15
+				add_dip_power = 15
+				add_mil_power = 15
 			}
 			ROOT = {
 				custom_tooltip = emperor_loses_power_tt
 				hidden_effect = {
-					add_adm_power = -25
-					add_dip_power = -25
-					add_mil_power = -25
+					add_adm_power = -15
+					add_dip_power = -15
+					add_mil_power = -15
 				}
 				add_imperial_influence = 1
 			}
@@ -965,17 +967,36 @@ country_event = {
 	}
 
 
-
-# This is all too much! Get out, all of you!
+# A great feast
 	option = { 
 		ai_chance = { factor = 50 }
 		name = old_world_events.100.option_5
+
+		add_years_of_income = -0.5
+
+	}
+
+
+# I am once again asking for your financial support
+	option = { 
+		ai_chance = { factor = 50 }
+		name = old_world_events.100.option_6
 
 		remove_country_modifier =  empire_summoned_the_counts
 		add_country_modifier = {
 		    name = empire_failed_summoned_the_counts
 		    duration = 3650
 		}
+
+		every_elector = {
+			limit = { NOT = { tag = ROOT } }
+			add_treasury = -25
+			ROOT = {
+				add_treasury = 25
+				add_imperial_influence = -1
+			}
+		}
+
 
 	}
 

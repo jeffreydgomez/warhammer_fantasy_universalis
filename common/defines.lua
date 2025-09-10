@@ -589,7 +589,7 @@ NCountry = {
 	ESTATE_CROWNLAND_FROM_DEV = 0.2,			-- How much crownland you gain from developing a province.
 
 	ESTATE_PRIVILEGE_ADMIN_COST = 0,			-- Cost of granting a privilege
-	ESTATE_PRIVILEGES_MAX_CONCURRENT = 6,		-- Max. number of privileges active at the same time. Also see ESTATE_MAX_PRIVILEGES in NAI ## WARHAMMER
+	ESTATE_PRIVILEGES_MAX_CONCURRENT = 7,		-- Max. number of privileges active at the same time. Also see ESTATE_MAX_PRIVILEGES in NAI ## WARHAMMER
 
 	ESTATE_AGENDA_DEFAULT_MAX_ACTIVE_DAYS = 7300, -- Default max amount of days an agenda can stay active
 	ESTATE_AGENDA_ABOUT_TO_EXPIRE_WARNING = 1095, -- How many days it should start warning for agenda about to expire
@@ -2148,7 +2148,7 @@ NAI = {
 	ESTATE_INTERACTION_THRESHOLD = 49.9,
 	ESTATE_MAX_WANTED_INFLUENCE = 73.0,
 	ESTATE_MIN_WANTED_CROWNLAND = 33.0,
-	ESTATE_MAX_PRIVILEGES = 6, -- Also see ESTATE_PRIVILEGES_MAX_CONCURRENT in NCountry
+	ESTATE_MAX_PRIVILEGES = 7, -- Also see ESTATE_PRIVILEGES_MAX_CONCURRENT in NCountry
 	MIN_SCORE_TO_CONCENTRATE_DEVELOPMENT = 1.5,
 
 	-- # AI unit strength evaluation

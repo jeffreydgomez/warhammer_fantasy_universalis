@@ -6,6 +6,7 @@ country_decisions = {
 		potential = {
 			culture_group = asrai_group
 			NOT = { has_global_flag = world_tree_connected }
+			NOT = { has_global_flag = world_tree_severed }
 			OR = {
 				ai = no
 				num_of_cities = 75
@@ -51,6 +52,42 @@ country_decisions = {
 		ai_will_do = { factor = 100 }	
 	
 	}
+
+
+
+	sever_the_world_tree = {
+		potential = {
+			OR = {
+				662 = {
+					controlled_by = ROOT
+				}
+			}
+			has_global_flag = world_tree_connected
+			NOT = { has_global_flag = world_tree_severed }
+			NOT = { has_country_flag = connected_the_world_tree }
+		}
+
+		provinces_to_highlight = {
+			province_id = 662
+		}
+
+		allow = {
+			662 = {
+				controlled_by = ROOT
+			}
+		}
+
+		effect = {
+			set_global_flag = world_tree_severed
+			
+
+		}
+
+		ai_will_do = { factor = 100 }	
+	
+	}
+
+
 
 
 	burn_the_oak_of_ages = {
