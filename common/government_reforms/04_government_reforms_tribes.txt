@@ -14,11 +14,7 @@ steppe_horde = {
 	icon = "horde_riding"
 	allow_normal_conversion = no
 	potential = {
-		OR = {
-			has_reform = steppe_horde
-		}
 		has_reform = steppe_horde
-#		NOT = { has_reform = great_mongol_state_reform }
 	}
 	legacy_equivalent = steppe_horde_legacy
 	nomad = yes
@@ -585,7 +581,6 @@ horde_barbaric_despoilers_reform = {
 	}
 	modifiers = {
 		raze_power_gain = 0.33
-		
 	}
 	ai = {
 		factor = 2
@@ -596,10 +591,7 @@ horde_tribal_unity_reform = {
 	icon = "fist_in_air"
 	allow_normal_conversion = yes
 	potential = {
-		OR = {
-			has_reform = steppe_horde
-#			has_reform = great_mongol_state_reform
-		}
+		has_reform = steppe_horde
 		has_dlc = "The Cossacks"
 	}
 	modifiers = {
@@ -626,79 +618,6 @@ tribe_becomes_monarchy_reform = {
 	effect = {
 		set_country_flag = populists_in_government
 		lose_reforms = 4
-		if = {
-			limit = {
-				technology_group = nomad_group
-				OR = {
-					religion_group = muslim
-					secondary_religion = sunni
-					secondary_religion = shiite
-					secondary_religion = ibadi
-				}
-			}
-#			change_technology_group = muslim
-#			change_unit_type = muslim
-		}
-		if = {
-			limit = {
-				technology_group = nomad_group
-				religion_group = christian
-			}
-#			change_technology_group = eastern
-#			change_unit_type = eastern
-		}
-		if = {
-			limit = {
-				technology_group = nomad_group
-				religion = totemism
-			}
-#			change_technology_group = north_american
-#			change_unit_type = north_american
-		}
-		if = {
-			limit = {
-				technology_group = nomad_group
-				religion = inti
-			}
-#			change_technology_group = andean
-#			change_unit_type = andean
-		}
-		if = {
-			limit = {
-				technology_group = nomad_group
-				OR = {
-#					religion = mesoamerican_religion
-#					religion = nahuatl
-				}
-			}
-#			change_technology_group = mesoamerican
-#			change_unit_type = mesoamerican
-		}
-		if = {
-			limit = {
-				technology_group = nomad_group
-				religion = dreamtime
-			}
-#			change_technology_group = aboriginal_tech
-#			change_unit_type = aboriginal_tech
-		}
-		if = {
-			limit = {
-				technology_group = nomad_group
-				NOT = { religion_group = muslim }
-				NOT = { religion_group = christian }
-				NOT = { secondary_religion = sunni }
-				NOT = { secondary_religion = shiite }
-				NOT = { secondary_religion = ibadi }
-				NOT = { religion = totemism }
-				NOT = { religion = inti }
-				NOT = { religion = nahuatl }
-				NOT = { religion = mesoamerican_religion }
-				NOT = { religion = dreamtime }
-			}
-#			change_technology_group = chinese
-#			change_unit_type = chinese
-		}
 		change_government = monarchy
 		if = {
 			limit = {
@@ -709,19 +628,6 @@ tribe_becomes_monarchy_reform = {
 			}
 			add_government_reform = greenskin_monarchy
 		}
-
-
-
-		# if = {
-		# 	limit = {
-		# 		tag = AVE
-		# 	}
-		# 	hidden_effect = {
-		# 		country_event = {
-		# 			id = flavor_gbr.20
-		# 		}
-		# 	}
-		# }
 	}
 	ai = {
 		factor = 1
@@ -732,11 +638,8 @@ tribe_becomes_republic_reform = {
 	icon = "parliament_highlighted"
 	allow_normal_conversion = yes
 	potential = {
-		NOT = { 
-			or = { 
-#				has_reform = stateless_society
-				has_reform = greenskin_tribe
-			}
+		NOT = {
+			has_reform = greenskin_tribe
 		}
 	}
 	trigger = {
@@ -746,90 +649,7 @@ tribe_becomes_republic_reform = {
 	effect = {
 		set_country_flag = populists_in_government
 		lose_reforms = 4
-		if = {
-			limit = {
-				technology_group = nomad_group
-				OR = {
-					religion_group = muslim
-					secondary_religion = sunni
-					secondary_religion = shiite
-					secondary_religion = ibadi
-				}
-			}
-#			change_technology_group = muslim
-#			change_unit_type = muslim
-		}
-		if = {
-			limit = {
-				technology_group = nomad_group
-				religion_group = christian
-			}
-#			change_technology_group = eastern
-#			change_unit_type = eastern
-		}
-		if = {
-			limit = {
-				technology_group = nomad_group
-				religion = totemism
-			}
-#			change_technology_group = north_american
-#			change_unit_type = north_american
-		}
-		if = {
-			limit = {
-				technology_group = nomad_group
-				religion = inti
-			}
-#			change_technology_group = andean
-#			change_unit_type = andean
-		}
-		if = {
-			limit = {
-				technology_group = nomad_group
-				OR = {
-					religion = mesoamerican_religion
-					religion = nahuatl
-				}
-			}
-#			change_technology_group = mesoamerican
-#			change_unit_type = mesoamerican
-		}
-		if = {
-			limit = {
-				technology_group = nomad_group
-				religion = dreamtime
-			}
-#			change_technology_group = aboriginal_tech
-#			change_unit_type = aboriginal_tech
-		}
-		if = {
-			limit = {
-				technology_group = nomad_group
-				NOT = { religion_group = muslim }
-				NOT = { religion_group = christian }
-				NOT = { secondary_religion = sunni }
-				NOT = { secondary_religion = shiite }
-				NOT = { secondary_religion = ibadi }
-				NOT = { religion = totemism }
-				NOT = { religion = inti }
-				NOT = { religion = nahuatl }
-				NOT = { religion = mesoamerican_religion }
-				NOT = { religion = dreamtime }
-			}
-#			change_technology_group = chinese
-#			change_unit_type = chinese
-		}
 		change_government = republic
-		# if = {
-		# 	limit = {
-		# 		tag = AVE
-		# 	}
-		# 	hidden_effect = {
-		# 		country_event = {
-		# 			id = flavor_gbr.20
-		# 		}
-		# 	}
-		# }
 		if = {
 			limit = {
 				have_had_reform = stateless_society
@@ -843,7 +663,6 @@ tribe_becomes_republic_reform = {
 			factor = 0
 			OR = {
 				has_reform = steppe_horde
-#				has_reform = great_mongol_state_reform
 				NOT = { trade_income_percentage = 0.3 }
 			}
 		}
@@ -875,79 +694,6 @@ tribe_becomes_theocracy_reform = {
 	effect = {
 		set_country_flag = populists_in_government
 		lose_reforms = 4
-		if = {
-			limit = {
-				technology_group = nomad_group
-				OR = {
-					religion_group = muslim
-					secondary_religion = sunni
-					secondary_religion = shiite
-					secondary_religion = ibadi
-				}
-			}
-#			change_technology_group = muslim
-#			change_unit_type = muslim
-		}
-		else_if = {
-			limit = {
-				technology_group = nomad_group
-				religion_group = christian
-			}
-#			change_technology_group = eastern
-#			change_unit_type = eastern
-		}
-		if = {
-			limit = {
-				technology_group = nomad_group
-				religion = totemism
-			}
-#			change_technology_group = north_american
-#			change_unit_type = north_american
-		}
-		if = {
-			limit = {
-				technology_group = nomad_group
-				religion = inti
-			}
-#			change_technology_group = andean
-#			change_unit_type = andean
-		}
-		if = {
-			limit = {
-				technology_group = nomad_group
-				OR = {
-					religion = mesoamerican_religion
-					religion = nahuatl
-				}
-			}
-#			change_technology_group = mesoamerican
-#			change_unit_type = mesoamerican
-		}
-		if = {
-			limit = {
-				technology_group = nomad_group
-				religion = dreamtime
-			}
-#			change_technology_group = aboriginal_tech
-#			change_unit_type = aboriginal_tech
-		}
-		if = {
-			limit = {
-				technology_group = nomad_group
-				NOT = { religion_group = muslim }
-				NOT = { religion_group = christian }
-				NOT = { secondary_religion = sunni }
-				NOT = { secondary_religion = shiite }
-				NOT = { secondary_religion = ibadi }
-				NOT = { religion = totemism }
-				NOT = { religion = inti }
-				NOT = { religion = nahuatl }
-				NOT = { religion = mesoamerican_religion }
-				NOT = { religion = dreamtime }
-			}
-#			change_technology_group = chinese
-#			change_unit_type = chinese
-		}
 		change_government = theocracy
 		if = {
 			limit = {
@@ -958,17 +704,6 @@ tribe_becomes_theocracy_reform = {
 			}
 			add_government_reform = greenskin_theocracy
 		}
-
-		# if = {
-		# 	limit = {
-		# 		tag = AVE
-		# 	}
-		# 	hidden_effect = {
-		# 		country_event = {
-		# 			id = flavor_gbr.20
-		# 		}
-		# 	}
-		# }
 	}
 	ai = {
 		factor = 1
@@ -976,7 +711,6 @@ tribe_becomes_theocracy_reform = {
 			factor = 0
 			OR = {
 				has_reform = steppe_horde
-#				has_reform = great_mongol_state_reform
 				NOT = { religion_group = muslim }
 			}
 		}
@@ -987,11 +721,8 @@ tribe_becomes_horde_reform = {
 	icon = "horde_riding_highlighted"
 	allow_normal_conversion = yes
 	potential = {
-		NOT = { 
-			or = { 
-#				has_reform = stateless_society
-				has_reform = greenskin_tribe
-			}
+		NOT = {
+			has_reform = greenskin_tribe
 		}
 	}
 	effect = {
@@ -1019,10 +750,7 @@ tribe_remain_tribal_reform = {
 	allow_normal_conversion = yes
 	potential = {
 		OR = {
-			AND = {
-				NOT = { has_reform = steppe_horde }
-#				NOT = { has_reform = great_mongol_state_reform }
-			}
+			NOT = { has_reform = steppe_horde }
 			NOT = { has_dlc = "The Cossacks" }
 		}
 	}

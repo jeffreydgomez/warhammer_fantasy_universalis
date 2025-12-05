@@ -951,6 +951,26 @@ country_event = {
 			factor = 10
 		}
 		custom_tooltip = "end_times_events.1.option_1.tt"
+
+		if = { 
+			limit = { 
+				has_government_power = {
+					mechanic_type = chaos_favor_mechanic
+					power_type = chaos_favor
+					value = 0.1
+				}
+			}
+			add_government_power = {
+				mechanic_type = chaos_favor_mechanic
+				power_type = chaos_favor
+				value = -10
+			}
+
+			add_manpower = 150
+			add_treasury = 1250
+		}
+
+
 		hidden_effect = {
 			every_owned_province = {
 				if = {
@@ -2273,33 +2293,19 @@ country_event = {
 
 		every_country = {
 			limit = {
-				ai = yes
-				NOT = { truce_with = ROOT }
-				NOT = { war_with = ROOT }
-				has_opinion_modifier = {
-					who = root
-					modifier = aggressive_expansion
-				}
-				NOT = {
-					has_opinion_modifier = {
-						who = root
-						modifier = aggressive_expansion
-						value = -50
-					}
-				}
-
+				defensive_war_with = ROOT
 			}
-			form_coalition_against = ROOT
-		}
-
-
-		random_war_enemy_country = {
 
 			every_country = {
 				limit = {
 					ai = yes
+					is_at_war = no
+					is_subject = no
+
 					NOT = { truce_with = ROOT }
-					NOT = { war_with = ROOT }
+					NOT = { alliance_with = ROOT }
+					NOT = { truce_with = PREV }
+
 					has_opinion_modifier = {
 						who = root
 						modifier = aggressive_expansion
@@ -2308,26 +2314,94 @@ country_event = {
 						has_opinion_modifier = {
 							who = root
 							modifier = aggressive_expansion
-							value = -100
+							value = -50
 						}
+					}
+
+					OR = {
+						is_neighbor_of = PREV
+						is_neighbor_of = ROOT
+						capital_scope = { is_island = yes }
 					}
 				}
 
-## This is risky, because if other people are at war with each other, then it will get messy
-
 				join_all_defensive_wars_of = PREV
-				join_all_offensive_wars_of = PREV
-
-	#			declare_war_with_cb = {
-	#			    who = ROOT
-	#			    casus_belli = cb_war_end_end_times
-	#			}
 
 			}
 		}
+
+
+		every_country = {
+			limit = {
+				offensive_war_with = ROOT
+			}
+
+			every_country = {
+				limit = {
+					ai = yes
+					is_at_war = no
+					is_subject = no
+
+					NOT = { truce_with = ROOT }
+					NOT = { alliance_with = ROOT }
+					NOT = { truce_with = PREV }
+
+					has_opinion_modifier = {
+						who = root
+						modifier = aggressive_expansion
+					}
+					NOT = {
+						has_opinion_modifier = {
+							who = root
+							modifier = aggressive_expansion
+							value = -50
+						}
+					}
+
+					OR = {
+						is_neighbor_of = PREV
+						is_neighbor_of = ROOT
+						capital_scope = { is_island = yes }
+					}
+				}
+
+				join_all_offensive_wars_of = PREV
+
+			}
+		}
+
+
+
+
+#		random_war_enemy_country = {
+#
+#			every_country = {
+#				limit = {
+#					ai = yes
+#					NOT = { truce_with = ROOT }
+#					NOT = { war_with = ROOT }
+#					has_opinion_modifier = {
+#						who = root
+#						modifier = aggressive_expansion
+#					}
+#					NOT = {
+#						has_opinion_modifier = {
+#							who = root
+#							modifier = aggressive_expansion
+#							value = -100
+#						}
+#					}
+#				}
+#
+## This is risky, because if other people are at war with each other, then it will get messy
+#
+#				join_all_defensive_wars_of = PREV
+#				join_all_offensive_wars_of = PREV
+#
+#			}
+#		}
+
 	}
-
-
 }
 
 ## Give occupied cored Everchosen provinces back to owner

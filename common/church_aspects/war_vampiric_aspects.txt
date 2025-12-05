@@ -321,50 +321,50 @@ vampiric_raise_dead = {
 	}
 }
 
-vampiric_infiltration = {
-	sprite = "GFX_vampiric_infiltration"
-	cost = 100
-
-	effect = {
-		custom_tooltip = vampiric_infiltration_tt
-
-		hidden_effect = {
-			every_ally = {
-				add_trust = {
-					who = ROOT
-					value = 15
-				}
-				ROOT = {
-					add_favors = {
-					   who = PREV
-					   amount = 15
-					}
-				}
-			}
-
-			every_subject_country = {
-				add_trust = {
-					who = ROOT
-					value = 15
-				}
-				ROOT = {
-					add_favors = {
-					   who = PREV
-					   amount = 15
-					}
-				}
-			}
-		}
-	}
-
-	ai_will_do = {
-		factor = 5
-		modifier = {
-			factor = 0
-			NOT = { num_of_allies = 2 }
-		}
-	}
-}
+#vampiric_infiltration = {
+#	sprite = "GFX_vampiric_infiltration"
+#	cost = 100
+#
+#	effect = {
+#		custom_tooltip = vampiric_infiltration_tt
+#
+#		hidden_effect = {
+#			every_ally = {
+#				add_trust = {
+#					who = ROOT
+#					value = 20
+#				}
+#				ROOT = {
+#					add_favors = {
+#					   who = PREV
+#					   amount = 20
+#					}
+#				}
+#			}
+#
+#			every_subject_country = {
+#				add_trust = {
+#					who = ROOT
+#					value = 20
+#				}
+#				ROOT = {
+#					add_favors = {
+#					   who = PREV
+#					   amount = 20
+#					}
+#				}
+#			}
+#		}
+#	}
+#
+#	ai_will_do = {
+#		factor = 5
+#		modifier = {
+#			factor = 0
+#			NOT = { num_of_allies = 2 }
+#		}
+#	}
+#}
 
 vampiric_dark_awakening = {
 	sprite = "GFX_vampiric_dark_awakening"
@@ -395,11 +395,12 @@ vampiric_whispers_of_night = {
 	effect = {
 		custom_tooltip = vampiric_whispers_of_night_tt
 		hidden_effect = {
+
 			every_neighbor_country = {
-#				limit = { 
-#					religion_group = old_world_denominations
-#					NOT = { religion = vampiric }
-#				}
+				limit = {
+					NOT = { alliance_with = ROOT }
+					NOT = { is_subject_of = ROOT }			
+				}
 				add_opinion = {
 					who = ROOT
 					modifier = vampiric_whispers_opinion
@@ -408,16 +409,89 @@ vampiric_whispers_of_night = {
 					who = ROOT
 					modifier = vampiric_whispers_opinion_reverse
 				}
+				add_trust = {
+					who = ROOT
+					value = 20
+				}
+				ROOT = {
+					add_favors = {
+					   who = PREV
+					   amount = 20
+					}
+				}
+				random_owned_province = {
+					limit = {
+						NOT = { religion = ROOT }
+						is_reformation_center = no
+						is_capital = no
+					}
+					change_religion = ROOT
+				}
 			}
+
+			every_ally = {
+				add_opinion = {
+					who = ROOT
+					modifier = vampiric_whispers_opinion
+				}
+				reverse_add_opinion = {
+					who = ROOT
+					modifier = vampiric_whispers_opinion_reverse
+				}
+				add_trust = {
+					who = ROOT
+					value = 20
+				}
+				ROOT = {
+					add_favors = {
+					   who = PREV
+					   amount = 20
+					}
+				}
+				random_owned_province = {
+					limit = {
+						NOT = { religion = ROOT }
+						is_reformation_center = no
+						is_capital = no
+					}
+					change_religion = ROOT
+				}
+			}
+
+			every_subject_country = {
+				add_opinion = {
+					who = ROOT
+					modifier = vampiric_whispers_opinion
+				}
+				reverse_add_opinion = {
+					who = ROOT
+					modifier = vampiric_whispers_opinion_reverse
+				}
+				add_trust = {
+					who = ROOT
+					value = 20
+				}
+				ROOT = {
+					add_favors = {
+					   who = PREV
+					   amount = 20
+					}
+				}
+				random_owned_province = {
+					limit = {
+						NOT = { religion = ROOT }
+						is_reformation_center = no
+						is_capital = no
+					}
+					change_religion = ROOT
+				}
+			}
+
 		}
 	}
 
 	ai_will_do = {
 		factor = 5
-		modifier = {
-			factor = 100
-			NOT = { num_of_allies = 1 }
-		}
 	}
 }
 
@@ -426,7 +500,7 @@ vampiric_blood_tax = {
 	cost = 100
 
 	effect = {
-		add_years_of_income = 1
+		add_years_of_income = 0.75
 	}
 
 	ai_will_do = {
@@ -467,6 +541,15 @@ vampiric_spread_vampirism = {
 				limit = {
 					NOT = { religion = ROOT }
 					is_reformation_center = no
+					is_capital = no
+				}
+				change_religion = ROOT
+			}
+			random_neighbor_province = {
+				limit = {
+					NOT = { religion = ROOT }
+					is_reformation_center = no
+					is_capital = no
 				}
 				change_religion = ROOT
 			}

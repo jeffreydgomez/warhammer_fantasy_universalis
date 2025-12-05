@@ -54,32 +54,32 @@ country_event = {
         days = 1
 
         modifier = {
-            factor = 0.9
+            factor = 0.8
             adm = 4
         }
 
         modifier = {
-            factor = 0.9
+            factor = 0.8
             dip = 4
         }
 
         modifier = {
-            factor = 0.9
+            factor = 0.8
             mil = 4
         }
 
         modifier = {
-            factor = 0.75
+            factor = 0.7
             adm = 6
         }
 
         modifier = {
-            factor = 0.75
+            factor = 0.7
             dip = 6
         }
 
         modifier = {
-            factor = 0.75
+            factor = 0.7
             mil = 6
         }
 
@@ -356,27 +356,27 @@ country_event = {
         days = 1
 
         modifier = {
-            factor = 0.9
+            factor = 0.8
             adm = 4
         }
 
         modifier = {
-            factor = 0.9
+            factor = 0.8
             dip = 4
         }
 
         modifier = {
-            factor = 0.9
+            factor = 0.8
             mil = 4
         }
 
         modifier = {
-            factor = 0.75
+            factor = 0.6
             adm = 6
         }
 
         modifier = {
-            factor = 0.75
+            factor = 0.6
             dip = 6
         }
 
@@ -891,5 +891,183 @@ country_event = {
             clear_saved_name = immortal_ruler_name
             clear_saved_ruler_personalities = yes
         }
+    }
+}
+
+
+
+## Tedium of Immortality. I have an infinite life ahead of me. I'm awash with ennui, and losing interest in ruling.
+
+country_event = {
+    id = ruler_skill_events.9
+    title = ruler_skill_events.9.t
+    desc = ruler_skill_events.9.d
+    picture = MYSTIC_IN_PRAYER_eventPicture
+
+    is_triggered_only = yes
+    trigger = {
+        is_lesser_in_union = no
+        has_regency = no
+        ruler_has_personality = immortal_personality
+    }
+    mean_time_to_happen = {
+        days = 1
+
+        modifier = {
+            factor = 1.2
+            adm = 4
+        }
+
+        modifier = {
+            factor = 1.2
+            dip = 4
+        }
+
+        modifier = {
+            factor = 1.2
+            mil = 4
+        }
+
+        modifier = {
+            factor = 1.2
+            adm = 6
+        }
+
+        modifier = {
+            factor = 1.2
+            dip = 6
+        }
+
+        modifier = {
+            factor = 1.2
+            mil = 6
+        }
+
+        modifier = {
+            factor = 0.9
+            NOT = { adm = 3 }
+        }
+
+        modifier = {
+            factor = 0.5
+            NOT = { adm = 1 }
+        }
+
+        modifier = {
+            factor = 0.9
+            NOT = { dip = 3 }
+        }
+
+        modifier = {
+            factor = 0.5
+            NOT = { dip = 1 }
+        }
+
+        modifier = {
+            factor = 0.9
+            NOT = { mil = 3 }
+        }
+
+        modifier = {
+            factor = 0.5
+            NOT = { mil = 1 }
+        }
+    }
+
+
+# I'm not interested in administration
+    option = {
+        name = ruler_skill_events.9.a
+        trigger = { adm = 1 }
+        ai_chance = { factor = 50 }
+
+        change_adm = -1
+
+    }
+
+# I'm not interested in diplomacy
+    option = {
+        name = ruler_skill_events.9.b
+        trigger = { dip = 1 }
+        ai_chance = { factor = 50 }
+
+        change_dip = -1
+
+    }
+
+# I'm not interested in military
+    option = {
+        name = ruler_skill_events.9.c
+        trigger = { mil = 1 }
+        ai_chance = { factor = 50 }
+
+        change_mil = -1
+
+    }
+
+## I can fight this! Let experts from around the empire inspire me!
+    option = {
+        name = ruler_skill_events.9.e
+        ai_chance = { factor = 0 }
+        add_adm_power = -50
+        add_dip_power = -50
+        add_mil_power = -50
+    }
+}
+
+
+## Changing times - I am immortal, and that means that things change. I may have once been on top of my game, but the game has changed.
+
+country_event = {
+    id = ruler_skill_events.10
+    title = ruler_skill_events.10.t
+    desc = ruler_skill_events.10.d
+    picture = MYSTIC_IN_PRAYER_eventPicture
+
+    is_triggered_only = yes
+    trigger = {
+        is_lesser_in_union = no
+        has_regency = no
+        ruler_has_personality = immortal_personality
+        OR = {
+            adm = 6
+            dip = 6
+            mil = 6
+        }
+    }
+    mean_time_to_happen = {
+        days = 1
+
+    }
+
+
+# I can't keep up with modern administration
+    option = {
+        name = ruler_skill_events.10.a
+        trigger = { adm = 6 }
+        ai_chance = { factor = 50 }
+
+        change_adm = -1
+
+    }
+
+# I'm can't keep up with modern diplomacy
+    option = {
+        name = ruler_skill_events.10.b
+        trigger = { dip = 6 }
+        ai_chance = { factor = 50 }
+
+        change_dip = -1
+
+    }
+
+# I can't keep up with modern military tacttics
+    option = {
+        name = ruler_skill_events.10.c
+        trigger = { mil = 6 }
+        ai_chance = { factor = 50 }
+
+        change_mil = -1
+
     }
 }
