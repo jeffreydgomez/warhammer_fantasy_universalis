@@ -45,7 +45,7 @@ country_event = {
     #The old one's blessed us
     option = {
         name = unstable_rifts.1.a
-        add_stability = 1
+        add_stability_or_adm_power = yes
     }
 }
 
@@ -191,10 +191,7 @@ country_event = {
            duration = 7300
         }
         
-        random_province = {
-            limit = {
-                owned_by = ROOT
-            }
+        random_owned_province = {
             change_religion = nurglite_religion
         }
     }
@@ -222,16 +219,20 @@ country_event = {
     # Burn them all in the name of the Great Plan 
     option = {
         name = unstable_rifts.6.a
-        
-        add_stability_or_adm = yes
+        random_owned_province = {
+            add_devastation = 50
+        }
     }
 
     # Stalk them for more intel
     option = {
         name = unstable_rifts.6.b
 
-        change_innovativeness = 2
-        add_prestige = -25
+        change_innovativeness = 1
+        add_devotion = -25
+        random_owned_province = {
+            change_religion = tzeentchian_religion
+        }
 
     }
 }
@@ -251,8 +252,7 @@ country_event = {
     option = {
         name = unstable_rifts.7.a
 
-
-        add_stability_or_adm_power = yes
+        add_prestige = 20
 
     }
 
@@ -260,7 +260,7 @@ country_event = {
     option = {
         name = unstable_rifts.7.b
 
-        change_innovativeness = 2
+        change_innovativeness = 1
     }
 
     # They can just spawn here? Everyone on high alert!
@@ -302,6 +302,10 @@ country_event = {
     # Try to clean the vitals of the spawning pools 
     option = {
         name = unstable_rifts.8.b
+
+        trigger = {
+            years_of_manpower = 3
+        }
         
         add_yearly_manpower = -2
     }
@@ -321,6 +325,10 @@ country_event = {
     # Sacrifice them for the Great Plan
     option = {
         name = unstable_rifts.9.a
+
+        trigger = {
+            years_of_manpower = 4
+        }
         
         add_yearly_manpower = -3
     }

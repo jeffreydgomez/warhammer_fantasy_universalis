@@ -887,3 +887,549 @@ country_event = {
 }
 
 
+### We've dredged up a strange ship. It's many tomes pulse with chaos energy, but thet speak of new magics.
+country_event = { 
+	id = vampire_events.100
+	title = vampire_events.100.title
+	desc = vampire_events.100.desc
+	picture = VAMPIRE_COAST_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR ={
+			has_reform = vampire_coast_reform
+			has_reform = dread_fleet_reform
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Send it back to the deep
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.100.a
+		add_prestige = 5
+	}
+
+# Read the tomes
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.100.b
+
+		change_innovativeness = 2
+		add_stability = -1
+	}
+}
+
+
+### Some of our smugglers think it might be a little more profitable to do things by the rules. Whick path should they choose? Trade, or privateering?
+country_event = { 
+	id = vampire_events.101
+	title = vampire_events.101.title
+	desc = vampire_events.101.desc
+	picture = VAMPIRE_COAST_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR ={
+			has_reform = vampire_coast_reform
+			has_reform = dread_fleet_reform
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Trade!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.101.a
+		add_mercantilism = 2
+	}
+
+# Privateering!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.101.b
+
+		add_navy_tradition = 10
+	}
+}
+
+
+### We've dredged up a great warship for ancient times. But, as we pull it up, it cracks in two. We can either save the crew, or the cargo.
+country_event = { 
+	id = vampire_events.102
+	title = vampire_events.102.title
+	desc = vampire_events.102.desc
+	picture = VAMPIRE_COAST_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR ={
+			has_reform = vampire_coast_reform
+			has_reform = dread_fleet_reform
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# The crew
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.102.a
+		add_yearly_sailors = 2
+		create_admiral = { tradition = 100 }
+	}
+
+# Privateering!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.102.b
+
+		add_navy_tradition = 10
+	}
+}
+
+
+
+### We often attract the ire of the creatures of the deep. A kraken is attacking on of our ports!
+country_event = { 
+	id = vampire_events.103
+	title = vampire_events.103.title
+	desc = vampire_events.103.desc
+	picture = VAMPIRE_COAST_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR ={
+			has_reform = vampire_coast_reform
+			has_reform = dread_fleet_reform
+		}
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				has_port = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# our battle shall be legendary!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		trigger = {
+			sailors = 1000
+			manpower = 1
+		}
+		name = vampire_events.103.a
+		add_sailors = -1000
+		add_manpower = -1
+		add_prestige = 5
+
+	}
+
+# Let him have his blood
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.103.b
+
+		event_target:event_target = {
+			add_devastation = 25
+		}
+	}
+}
+
+
+
+### It's time to expand our operations. If we apply a little bit of elbow grease, we can turn our port into a true trading center
+country_event = { 
+	id = vampire_events.104
+	title = vampire_events.104.title
+	desc = vampire_events.104.desc
+	picture = VAMPIRE_COAST_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR ={
+			has_reform = vampire_coast_reform
+			has_reform = dread_fleet_reform
+		}
+		any_owned_province = {
+			has_port = yes
+			province_has_center_of_trade_of_level = 1
+			NOT = { province_has_center_of_trade_of_level = 2 }
+		}
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				has_port = yes
+				province_has_center_of_trade_of_level = 1
+				NOT = { province_has_center_of_trade_of_level = 2 }
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Let us upgrade the port
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.104.a
+		add_treasury = -100
+		event_target:event_target = {
+			add_center_of_trade_level = 1
+		}
+	}
+
+# Let's use the port as a training grounds for merchants instead
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.104.b
+		add_mercantilism = 3
+	}
+}
+
+
+### Even the undead demand clarity. The captains want to know. Are we focusing on land or sea battles this season?
+country_event = { 
+	id = vampire_events.105
+	title = vampire_events.105.title
+	desc = vampire_events.105.desc
+	picture = VAMPIRE_COAST_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR ={
+			has_reform = vampire_coast_reform
+			has_reform = dread_fleet_reform
+		}
+	}
+
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Sea, of course!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.105.a
+		add_republican_tradition = 5
+		add_navy_tradition = 20
+		add_army_tradition = -20
+
+	}
+
+# We still need to take ports to use them
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.105.b
+
+		add_navy_tradition = -20
+		add_army_tradition = 20
+	}
+}
+
+
+### A pirate's life is an unruly one. What started as a friendly brawl has quickly spiraled out of control. Entire crews are threatening the streets. What should we do?
+country_event = { 
+	id = vampire_events.106
+	title = vampire_events.106.title
+	desc = vampire_events.106.desc
+	picture = VAMPIRE_COAST_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR ={
+			has_reform = vampire_coast_reform
+			has_reform = dread_fleet_reform
+		}
+	}
+
+	immediate = {
+		random_owned_province = {
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Go personally reassure them.
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.106.a
+		random = { 
+		    chance = 10
+		    kill_ruler = yes
+		}
+	}
+
+# Call a pirate's council and have them voice their disagreements there
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.106.b
+		add_stability = -1
+	}
+
+# Let them riot!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.106.c
+		event_target:event_target = {
+			anti_tax_rebels = 1
+		}
+	}
+}
+
+
+### A pirate's life is an unruly one. What started as a friendly brawl has quickly spiraled out of control. Entire crews are threatening the streets. What should we do?
+country_event = { 
+	id = vampire_events.107
+	title = vampire_events.107.title
+	desc = vampire_events.107.desc
+	picture = VAMPIRE_COAST_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR ={
+			has_reform = vampire_coast_reform
+			has_reform = dread_fleet_reform
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# I'm still the boss
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.107.a 
+
+		add_legitimacy = -10
+
+		}
+
+# The throne is theirs
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.107.b
+
+		kill_ruler = yes
+
+	}
+
+# Let's fight it out!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.107.c
+
+		random_list = {
+			50 = {
+				if = {
+					limit = {
+						mil = 6
+					}
+					add_mil_power = 100
+				}
+				else = {
+					change_mil = 1
+				}
+			}
+
+			50 = {
+				kill_ruler = yes
+			}
+		}
+		add_prestige = 10
+		add_republican_tradition = 5
+	}
+}
+
+
+### The charade is coming to an end. The captains can't seriously believe this is a republic with no elections.
+country_event = { 
+	id = vampire_events.108
+	title = vampire_events.108.title
+	desc = vampire_events.108.desc
+	picture = VAMPIRE_COAST_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR ={
+			has_reform = vampire_coast_reform
+			has_reform = dread_fleet_reform
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# I'm still the boss
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.108.a 
+		add_republican_tradition = -20
+		}
+
+# Fine! Hold an election!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.108.b
+
+		kill_ruler = yes
+		add_republican_tradition = 10
+	}
+
+# Wait! Maybe coin would make you forget all about this!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.108.c
+
+		add_years_of_income = -2.0
+	}
+}
+
+### Vampire Coast Starting Event
+country_event = { 
+	id = vampire_events.1000
+	title = vampire_events.1000.t 
+	desc = vampire_events.1000.d 
+	picture = VAMPIRE_COAST_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			has_reform = vampire_coast_reform
+			has_reform = dread_fleet_reform
+#			tag = V19
+#			tag = V01
+		}
+		NOT = {  has_country_flag = did_intro_event }
+	}
+
+	immediate = { set_country_flag = did_intro_event }
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.1000.option_1 
+
+		add_navy_tradition = 15
+		add_mercantilism = 5
+
+		custom_tooltip = claims_on_trade_centers_tt
+
+		hidden_effect = {
+			every_province = {
+				limit = {
+					province_has_center_of_trade_of_level = 1
+					has_port = yes
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+
+	}
+}
+
+
+### DELETE THIS
+country_event = { 
+	id = vampire_events.2000
+	title = vampire_events.2000.t 
+	desc = vampire_events.2000.d 
+	picture = VAMPIRE_COAST_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = no
+	}
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = vampire_events.2000.option_1 
+
+		hidden_effect = {
+			every_province = {
+				limit = {
+					province_has_center_of_trade_of_level = 1
+					has_port = yes
+				}
+				cede_province = ROOT
+				add_core = ROOT
+				change_religion = ROOT
+				change_culture = ROOT
+				add_nationalism = -50
+			}
+		}
+
+	}
+}
+

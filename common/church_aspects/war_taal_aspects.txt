@@ -50,61 +50,6 @@ taal_sell_pelts = {	#ADM aspect
 
 taal_communal_hunt = {	#DIP aspect
 	cost = 100
-	effect = {
-		hidden_effect = {
-			every_country = {
-				limit = {
-					has_opinion_modifier = {
-						who = ROOT
-						modifier = diplomatic_rabbi_opinion
-					}
-				}
-				remove_opinion = {
-					who = ROOT
-					modifier = diplomatic_rabbi_opinion
-				}
-				reverse_remove_opinion = {
-					who = ROOT
-					modifier = diplomatic_rabbi_opinion_reverse
-				}
-			}
-			every_owned_province = {
-				limit = {
-					has_province_modifier = taal_empire_roots_modifier
-				}
-				remove_province_modifier = taal_empire_roots_modifier
-			}
-			every_owned_province = {
-				limit = {
-					religion = cult_of_taal_religion
-				}
-				if = {
-					limit = {
-						NOT = { culture_group = ROOT }
-						has_owner_accepted_culture = no
-						has_owner_culture = no
-					}
-					add_province_modifier = {
-						name = taal_community_wrong_culture
-						duration = -1
-					}
-				}
-				else_if = {
-					limit = {
-						owner = {
-							has_cultural_union = no
-						}
-						culture_group = ROOT
-						has_owner_accepted_culture = no
-					}
-					add_province_modifier = {
-						name = taal_community_same_culture_group
-						duration = -1
-					}
-				}
-			}
-		}
-	}
 	modifier = {
 		tolerance_own = 2
 	}
@@ -124,53 +69,9 @@ taal_communal_hunt = {	#DIP aspect
 
 taal_empire_roots = {	#DIP aspect
 	cost = 100
-	effect = {
-		hidden_effect = {
-			every_country = {
-				limit = {
-					has_opinion_modifier = {
-						who = ROOT
-						modifier = taal_group_opinion
-					}
-				}
-				remove_opinion = {
-					who = ROOT
-					modifier = taal_group_opinion
-				}
-				reverse_remove_opinion = {
-					who = ROOT
-					modifier = taal_group_opinion_reverse
-				}
-			}
-			every_owned_province = {
-				limit = {
-					religion_group = old_world_denominations
-				}
-				add_province_modifier = {
-					name = taal_empire_roots_modifier
-					duration = -1
-				}
-			}
-			every_owned_province = {
-				limit = {
-					OR = {
-						has_province_modifier = taal_community_wrong_culture
-						has_province_modifier = taal_community_same_culture_group
-					}
-				}
-				if = {
-					limit = { has_province_modifier = taal_community_wrong_culture }
-					remove_province_modifier = taal_community_wrong_culture
-				}
-				if = {
-					limit = { has_province_modifier = taal_community_same_culture_group }
-					remove_province_modifier = taal_community_same_culture_group
-				}
-			}
-		}
-	}
 	modifier = {
-		tolerance_heretic = 2
+		tolerance_heretic = 4
+		global_heretic_missionary_strength = -0.01
 	}
 	monarch_power = dip
 	ai_will_do = {
@@ -188,54 +89,8 @@ taal_empire_roots = {	#DIP aspect
 
 taal_home = {	#DIP aspect
 	cost = 100
-	effect = {
-		hidden_effect = {
-			every_known_country = {
-				limit = {
-					religion_group = old_world_denominations
-					NOT = {
-						has_opinion_modifier = {
-							who = ROOT
-							modifier = taal_group_opinion
-						}
-					}
-					NOT = { government = theocracy }
-				}
-				add_opinion = {
-					who = ROOT
-					modifier = taal_group_opinion
-				}
-				reverse_add_opinion = {
-					who = ROOT
-					modifier = taal_group_opinion_reverse
-				}
-			}
-			every_owned_province = {
-				limit = {
-					has_province_modifier = taal_empire_roots_modifier
-				}
-				remove_province_modifier = taal_empire_roots_modifier
-			}
-			every_owned_province = {
-				limit = {
-					OR = {
-						has_province_modifier = taal_community_wrong_culture
-						has_province_modifier = taal_community_same_culture_group
-					}
-				}
-				if = {
-					limit = { has_province_modifier = taal_community_wrong_culture }
-					remove_province_modifier = taal_community_wrong_culture
-				}
-				if = {
-					limit = { has_province_modifier = taal_community_same_culture_group }
-					remove_province_modifier = taal_community_same_culture_group
-				}
-			}
-		}
-	}
 	modifier = {
-		development_cost_in_primary_culture = -0.05
+		global_missionary_strength = 0.01
 	}
 	monarch_power = dip
 	ai_will_do = {

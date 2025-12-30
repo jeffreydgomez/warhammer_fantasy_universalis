@@ -295,21 +295,38 @@ military_garrison_reform = {
 dread_fleet_reform = {
 	icon = "pirate_republic"
 	allow_normal_conversion = no
-	lock_level_when_selected = yes
+	lock_level_when_selected = no
 	modifiers = {
 		republican_tradition = -1
-		max_absolutism = 10
 		naval_forcelimit_modifier = 0.5
-		capture_ship_chance = 0.33
-		state_governing_cost = 0.75
+		global_sailors_modifier = 0.5
+		privateer_efficiency = 0.25
 		may_perform_slave_raid_on_same_religion = yes
 		allowed_marine_fraction = 0.5
+		naval_morale = 0.1
+		trade_efficiency = 0.1
+		range = 2
+		fire_damage = 0.1
+		regiment_disembark_speed = 0.5
+
+
+		has_man_of_war = yes
+		allowed_man_of_war_fraction = 0.1
+
+		province_warscore_cost = 1.0
+		state_governing_cost = 1.0
+
+		may_explore = yes
 	}
 	trigger = {
-		is_or_was_tag =  { tag = V19 }
+		owns = 3190
+		OR = {
+			has_country_modifier = undead_administration
+			has_reform = dread_fleet_reform
+		}
 	}
 	valid_for_nation_designer = no
-	nation_designer_cost = 40
+	nation_designer_cost = 60
 	can_form_trade_league = no
 
 	removed_effect = {
@@ -319,7 +336,13 @@ dread_fleet_reform = {
 	has_term_election = no
 	
 	potential = {
-		has_reform = dread_fleet_reform
+		OR = {
+			OR = {
+				owns = 3190
+				has_reform = dread_fleet_reform
+			}
+			has_country_modifier = undead_administration
+		}
 		OR = {
 			has_dlc = "Lions of the North"
 			has_dlc = "Golden Century"
@@ -332,10 +355,21 @@ dread_fleet_reform = {
 		pr_smugglers
 		pr_captains
 	}
+
+	effect = {
+ 		hidden_effect = {
+ 			war_reset_racial_modifiers = yes
+ 		}
+ 	}
+ 	removed_effect = {
+		hidden_effect = {
+ 			war_reset_racial_modifiers = yes
+ 		} 
+ 	}
 	
 	
 	custom_attributes = {
-		locked_government_type = yes
+#		locked_government_type = yes
 		force_admiral_leader = yes
 		is_pirate_republic_reform = yes
 		elections_increase_factions_influence = yes
@@ -347,20 +381,37 @@ dread_fleet_reform = {
 vampire_coast_reform = {
 	icon = "pirate_republic"
 	allow_normal_conversion = no
-	lock_level_when_selected = yes
+	lock_level_when_selected = no
 	modifiers = {
 		republican_tradition = -1
-		max_absolutism = 10
 		naval_forcelimit_modifier = 0.5
-		capture_ship_chance = 0.33
-		state_governing_cost = 0.75
+		global_sailors_modifier = 0.5
+		privateer_efficiency = 0.25
 		may_perform_slave_raid_on_same_religion = yes
 		allowed_marine_fraction = 0.5
+		may_explore = yes
+		trade_efficiency = 0.1
+		range = 1
+		fire_damage = 0.1
+		regiment_disembark_speed = 0.5
+
+		has_man_of_war = yes
+		allowed_man_of_war_fraction = 0.1
+
+		province_warscore_cost = 1.0
+		state_governing_cost = 1.0
+
 	}
 	trigger = {
-		is_or_was_tag =  { tag = V01 }
+		OR = {
+			has_reform = vampire_coast_reform
+			AND = {
+				has_country_modifier = undead_administration
+				num_of_ports = 1
+			}
+		}
 	}
-	valid_for_nation_designer = no
+	valid_for_nation_designer = yes
 	nation_designer_cost = 40
 	can_form_trade_league = no
 	
@@ -370,8 +421,23 @@ vampire_coast_reform = {
 		clr_country_flag = pirate_mutineer_council
 	}
 
+	effect = {
+ 		hidden_effect = {
+ 			war_reset_racial_modifiers = yes
+ 		}
+ 	}
+ 	removed_effect = {
+		hidden_effect = {
+ 			war_reset_racial_modifiers = yes
+ 		} 
+ 	}
+
 	potential = {
-		has_reform = vampire_coast_reform
+		OR = {
+			has_reform = vampire_coast_reform
+			has_country_modifier = undead_administration
+			num_of_ports = 1
+		}
 		OR = {
 			has_dlc = "Lions of the North"
 			has_dlc = "Golden Century"
@@ -387,7 +453,7 @@ vampire_coast_reform = {
 	
 	
 	custom_attributes = {
-		locked_government_type = yes
+#		locked_government_type = yes
 		force_admiral_leader = yes
 		is_pirate_republic_reform = yes
 		elections_increase_factions_influence = yes
