@@ -6,6 +6,58 @@ namespace = end_times_events
 
 
 
+## Prophesy the End Times Event
+country_event = {
+	id = end_times_events.999
+	title = end_times_events.999.t
+	desc = end_times_events.999.d
+	picture = ARCHAON_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		always = yes
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	## No End Times
+	option = {
+		name = end_times_events.999.option_1
+		custom_tooltip = no_end_times_tt
+
+		set_global_flag = no_end_times_flag
+		clr_global_flag = easy_end_times_flag
+		clr_global_flag = normal_end_times_flag
+
+		add_prestige = -10
+
+	}
+
+	## Easy End Times
+	option = {
+		name = end_times_events.999.option_2
+		custom_tooltip = easy_end_times_tt	
+
+		clr_global_flag = no_end_times_flag
+		set_global_flag = easy_end_times_flag
+		clr_global_flag = normal_end_times_flag
+
+		add_prestige = -5
+
+	}
+
+	## Normal End Times
+	option = {
+		name = end_times_events.999.option_3
+		custom_tooltip = normal_end_times_tt
+
+		clr_global_flag = no_end_times_flag
+		clr_global_flag = easy_end_times_flag
+		set_global_flag = normal_end_times_flag
+
+	}
+}
+
+
 #Spawning the Center
 country_event = {
 	id = end_times_events.1000
@@ -15,6 +67,8 @@ country_event = {
 	major = yes
 	goto = root
 	trigger = {
+
+		NOT = { has_global_flag = no_end_times_flag }
 
 		#### Take out ages when testing
 		OR = {
@@ -46,22 +100,22 @@ country_event = {
 		}
 		### Chances over time increase dramatically
 		modifier = {
+			is_year = 2665
+			factor = 0.1
+		}
+		### Chances over time increase dramatically
+		modifier = {
 			is_year = 2670
 			factor = 0.1
 		}
 		### Chances over time increase dramatically
 		modifier = {
+			is_year = 2675
+			factor = 0.1
+		}
+		### Chances over time increase dramatically
+		modifier = {
 			is_year = 2680
-			factor = 0.1
-		}
-		### Chances over time increase dramatically
-		modifier = {
-			is_year = 2690
-			factor = 0.1
-		}
-		### Chances over time increase dramatically
-		modifier = {
-			is_year = 2700
 			factor = 0.1
 		}
 		### Albion, Islands, or Southern Chaos Wastes are basically impossible if you are an AI
@@ -374,6 +428,13 @@ country_event = {
 	immediate = {
 		hidden_effect = {
 
+			if = {
+				limit = { has_global_flag = easy_end_times_flag }
+				add_country_modifier = { 
+				    name = easy_endtimes_debuff
+				    duration = -1
+				}
+			}
 
 
 			set_global_flag = end_times_started
@@ -420,11 +481,13 @@ country_event = {
 					duration = -1
 				}
 
-				add_province_modifier = {
-					name = temp_energy_defenses
-					duration = 3650
+				if = {
+					limit = { NOT = { has_global_flag = easy_end_times_flag } }
+					add_province_modifier = {
+						name = temp_energy_defenses
+						duration = 1825
+					}
 				}
-
 
 				add_building = fort_17th
 
@@ -775,7 +838,10 @@ country_event = {
 	major = no
 	hidden = yes
 	immediate = {
-		## REMOVE CHAOS GATE		
+		## REMOVE CHAOS GATE
+
+		set_global_flag = end_times_ended
+
 		every_province = {
 			limit = {
 				is_reformation_center = yes
@@ -839,6 +905,8 @@ country_event = {
 			kill_leader = { type = random }
 			kill_leader = { type = random }
 
+			remove_country_modifier = easy_endtimes_debuff
+
 			remove_country_modifier = everchosen_buff_1
 			remove_country_modifier = everchosen_buff_2
 			remove_country_modifier = everchosen_buff_3
@@ -852,10 +920,8 @@ country_event = {
 			remove_country_modifier = everchosen_buff_15
 			remove_country_modifier = everchosen_buff_20
 
-
-
-
 		}
+
 		## Good Countries
 		every_country = {
 			limit = {
@@ -930,11 +996,13 @@ country_event = {
 	is_triggered_only = no
 	trigger = {
 		has_global_flag = end_times_started
+		NOT = { has_global_flag = end_times_ended }
+
 		religion_group = ruinous_powers_denominations
-		any_province = {
-			is_reformation_center = yes
-			religion = chaos_undivided_religion
-		}
+#		any_province = {
+#			is_reformation_center = yes
+#			religion = chaos_undivided_religion
+#		}
 	}
 	immediate = {
 		random_owned_province = {
@@ -1040,6 +1108,8 @@ country_event = {
 	is_triggered_only = no
 	trigger = {
 		has_global_flag = end_times_started
+		NOT = { has_global_flag = end_times_ended }
+
 		NOT = {
 			has_reform = everchosen_reform
 		}
@@ -1047,10 +1117,10 @@ country_event = {
 			is_at_war = yes
 		}
 		religion_group = ruinous_powers_denominations
-		any_province = {
-			is_reformation_center = yes
-			religion = chaos_undivided_religion
-		}
+#		any_province = {
+#			is_reformation_center = yes
+#			religion = chaos_undivided_religion
+#		}
 	}
 	immediate = {
 		random_owned_province = {
@@ -1325,13 +1395,15 @@ country_event = {
 	}
 }
 
+### Start of Bad Events for Good People
+
 ### REBELS IF THERE ARE ANY GATES ANYWHERE
 country_event = {
 	id = end_times_events.2
 	title = end_times_events.2.t
 	desc = end_times_events.2.d
 	picture = ARCHAON_eventPicture
-	is_triggered_only = no
+	is_triggered_only = yes
 	immediate = {
 		random_owned_province = {
 			save_event_target_as = event_target
@@ -1340,16 +1412,11 @@ country_event = {
 #	goto = event_target
 	trigger = {
 		has_global_flag = end_times_started
-		any_province = {
-			is_reformation_center = yes
-			religion = chaos_undivided_religion
-		}
-		NOT = {
-			religion_group = ruinous_powers_denominations
-		}
+		NOT = { has_global_flag = end_times_ended }
+		NOT = { religion_group = ruinous_powers_denominations }
 	}
 	mean_time_to_happen = {
-		months = 30
+		days = 1
 	}
 	### Kill them
 	option = {
@@ -1360,29 +1427,65 @@ country_event = {
 
 		custom_tooltip = owned_province_10_chance_of_tt
 
-		tooltip = {
-		    capital_scope = {
-				random = {
-					chance = 10
-					spawn_rebels = {
-						size = 1
-						type = chaos_undivided_religion_rebels
-					}
-				}
-		    }
-		}
 
-		hidden_effect = {
-			every_owned_province = {
-				random = {
-					chance = 10
-					spawn_rebels = {
-						size = 1
-						type = chaos_undivided_religion_rebels
+		if = {
+			limit = { has_global_flag = easy_end_times_flag }
+
+			tooltip = {
+			    capital_scope = {
+					random = {
+						chance = 5
+						spawn_rebels = {
+							size = 1
+							type = chaos_undivided_religion_rebels
+						}
+					}
+			    }
+			}
+
+			hidden_effect = {
+				every_owned_province = {
+					random = {
+						chance = 5
+						spawn_rebels = {
+							size = 1
+							type = chaos_undivided_religion_rebels
+						}
 					}
 				}
 			}
+
+
+		} else = {
+
+			tooltip = {
+			    capital_scope = {
+					random = {
+						chance = 10
+						spawn_rebels = {
+							size = 1
+							type = chaos_undivided_religion_rebels
+						}
+					}
+			    }
+			}
+
+			hidden_effect = {
+				every_owned_province = {
+					random = {
+						chance = 10
+						spawn_rebels = {
+							size = 1
+							type = chaos_undivided_religion_rebels
+						}
+					}
+				}
+			}
+
 		}
+
+
+
 	}
 	### Better Not
 	option = {
@@ -1397,7 +1500,13 @@ country_event = {
 				is_subject = yes
 			}
 		}
-		add_stability = -1
+
+		if = {
+			limit = { has_global_flag = easy_end_times_flag }
+			add_adm_power = -50
+		} else = {
+			add_stability = -1
+		}
 	}
 }
 
@@ -1407,7 +1516,7 @@ country_event = {
 	title = end_times_events.4.t
 	desc = end_times_events.4.d
 	picture = ARCHAON_eventPicture
-	is_triggered_only = no
+	is_triggered_only = yes
 	immediate = {
 		random_owned_province = {
 			save_event_target_as = event_target
@@ -1416,16 +1525,11 @@ country_event = {
 #	goto = event_target
 	trigger = {
 		has_global_flag = end_times_started
-		any_province = {
-			is_reformation_center = yes
-			religion = chaos_undivided_religion
-		}
-		NOT = {
-			religion_group = ruinous_powers_denominations
-		}
+		NOT = { has_global_flag = end_times_ended }
+		NOT = { religion_group = ruinous_powers_denominations }
 	}
 	mean_time_to_happen = {
-		months = 35
+		days = 1
 	}
 	### There's nothing we can do
 	option = {
@@ -1436,30 +1540,45 @@ country_event = {
 
 		custom_tooltip = owned_province_10_chance_of_tt
 
-		tooltip = {
-		    random_owned_province = {
-		    	limit = {
-		    		NOT = { trade_goods = warpstone }
-		    	}
-				random = {
-					chance = 10
-					add_devastation = 25
+
+		if = {
+			limit = { has_global_flag = easy_end_times_flag }
+
+			tooltip = {
+			    random_owned_province = {
 					random = {
-						chance = 1
-						change_trade_goods = warpstone
+						chance = 10
+						add_devastation = 15
+					}
+			    }
+			}
+
+			hidden_effect = {
+				every_owned_province = {
+					random = {
+						chance = 10
+						add_devastation = 15
 					}
 				}
-		    }
-		}
+			}
 
-		hidden_effect = {
-			every_owned_province = {
-				random = {
-					chance = 10
-					add_devastation = 25
+
+		} else = {
+
+			tooltip = {
+			    random_owned_province = {
 					random = {
-						chance = 1
-						change_trade_goods = warpstone
+						chance = 10
+						add_devastation = 25
+					}
+			    }
+			}
+
+			hidden_effect = {
+				every_owned_province = {
+					random = {
+						chance = 10
+						add_devastation = 25
 					}
 				}
 			}
@@ -1475,35 +1594,69 @@ country_event = {
 
 		custom_tooltip = owned_province_10_chance_of_tt
 
-		tooltip = {
-		    random_owned_province = {
-		    	limit = {
-		    		NOT = { trade_goods = warpstone }
-		    	}
-				random = {
-					chance = 10
-					add_devastation = 50
+
+		if = {
+			limit = { has_global_flag = easy_end_times_flag }
+			tooltip = {
+			    random_owned_province = {
+			    	limit = {
+			    		NOT = { trade_goods = warpstone }
+			    	}
 					random = {
 						chance = 10
-						change_trade_goods = warpstone
+						add_devastation = 25
+						random = {
+							chance = 15
+							change_trade_goods = warpstone
+						}
+					}
+			    }
+			}
+
+			hidden_effect = {
+				every_owned_province = {
+					random = {
+						chance = 10
+						add_devastation = 25
+						random = {
+							chance = 15
+							change_trade_goods = warpstone
+						}
 					}
 				}
-		    }
-		}
+			}
 
-		hidden_effect = {
-			every_owned_province = {
-				random = {
-					chance = 10
-					add_devastation = 50
+		} else = {
+
+			tooltip = {
+			    random_owned_province = {
+			    	limit = {
+			    		NOT = { trade_goods = warpstone }
+			    	}
 					random = {
 						chance = 10
-						change_trade_goods = warpstone
+						add_devastation = 50
+						random = {
+							chance = 15
+							change_trade_goods = warpstone
+						}
+					}
+			    }
+			}
+
+			hidden_effect = {
+				every_owned_province = {
+					random = {
+						chance = 10
+						add_devastation = 50
+						random = {
+							chance = 15
+							change_trade_goods = warpstone
+						}
 					}
 				}
 			}
 		}
-
 	}
 }
 
@@ -1513,34 +1666,33 @@ country_event = {
 	title = end_times_events.5.t
 	desc = end_times_events.5.d
 	picture = ARCHAON_eventPicture
-	is_triggered_only = no
+	is_triggered_only = yes
 	trigger = {
 		has_global_flag = end_times_started
-		any_province = {
-			is_reformation_center = yes
-			religion = chaos_undivided_religion
-		}
-		NOT = {
-			religion_group = ruinous_powers_denominations
-		}
+		NOT = { has_global_flag = end_times_ended }
+		NOT = { religion_group = ruinous_powers_denominations }
+		years_of_manpower = 1.0
 	}
 	mean_time_to_happen = {
-		months = 40
+		days = 1
 	}
 	### End their misery
 	option = {
 		name = end_times_events.5.option_1
-		ai_chance = {
-			factor = 5
+		ai_chance = { factor = 5 }
+		if = {
+			limit = { has_global_flag = easy_end_times_flag }
+			add_yearly_manpower = -0.5
+
+		} else = {
+			add_yearly_manpower = -0.75
 		}
-		add_yearly_manpower = -0.5
+		
 	}
 	### They can still fire a gun!
 	option = {
 		name = end_times_events.5.option_2
-		ai_chance = {
-			factor = 10
-		}
+		ai_chance = { factor = 10 }
 		add_country_modifier = {
 			name = war_worse_morale
 			duration = 3650
@@ -1554,19 +1706,14 @@ country_event = {
 	title = end_times_events.6.t
 	desc = end_times_events.6.d
 	picture = ARCHAON_eventPicture
-	is_triggered_only = no
+	is_triggered_only = yes
 	trigger = {
 		has_global_flag = end_times_started
-		any_province = {
-			is_reformation_center = yes
-			religion = chaos_undivided_religion
-		}
-		NOT = {
-			religion_group = ruinous_powers_denominations
-		}
+		NOT = { has_global_flag = end_times_ended }
+		NOT = { religion_group = ruinous_powers_denominations }
 	}
 	mean_time_to_happen = {
-		months = 50
+		days = 1
 	}
 	### There's nothing we can do
 	option = {
@@ -1574,7 +1721,13 @@ country_event = {
 		ai_chance = {
 			factor = 5
 		}
-		add_years_of_income = -0.5
+		if = {
+			limit = { has_global_flag = easy_end_times_flag }
+			add_years_of_income = -0.5
+		} else = {
+			add_years_of_income = -0.75
+		}
+
 	}
 	### Replace the currency with cheap copper!
 	option = {
@@ -1582,7 +1735,12 @@ country_event = {
 		ai_chance = {
 			factor = 10
 		}
-		add_inflation = 1
+		if = {
+			limit = { has_global_flag = easy_end_times_flag }
+			add_inflation = 1
+		} else = {
+			add_inflation = 2
+		}
 	}
 }
 
@@ -1592,7 +1750,7 @@ country_event = {
 	title = end_times_events.7.t
 	desc = end_times_events.7.d
 	picture = ARCHAON_eventPicture
-	is_triggered_only = no
+	is_triggered_only = yes
 	immediate = {
 		random_owned_province = {
 			limit = {
@@ -1609,10 +1767,8 @@ country_event = {
 #	goto = event_target
 	trigger = {
 		has_global_flag = end_times_started
-		any_province = {
-			is_reformation_center = yes
-			religion = chaos_undivided_religion
-		}
+		NOT = { has_global_flag = end_times_ended }
+		NOT = { religion_group = ruinous_powers_denominations }
 		any_owned_province = {
 			base_manpower = 2
 			base_production = 2
@@ -1621,12 +1777,9 @@ country_event = {
 				religion = chaos_undivided_religion
 			}
 		}
-		NOT = {
-			religion_group = ruinous_powers_denominations
-		}
 	}
 	mean_time_to_happen = {
-		months = 20
+		days = 1
 	}
 	### There's nothing we can do
 	option = {
@@ -1641,42 +1794,84 @@ country_event = {
 
 		custom_tooltip = owned_province_10_chance_of_tt
 
-		tooltip = {
-		    random_owned_province = {
-		    	limit = {
-		    		base_tax = 2
-		    		base_production = 2
-		    		base_manpower = 2
-		    	}
-				random = {
-					chance = 10
-					add_base_tax = -1
-					add_base_production = -1
-					add_base_manpower = -1
-				}
-		    }
-		}
+		if = {
+			limit = { has_global_flag = easy_end_times_flag }
 
-		hidden_effect = {
-			every_owned_province = {
-				random = {
-					chance = 10
-					if = {
-						limit = { base_tax = 2 }
+			tooltip = {
+			    random_owned_province = {
+			    	limit = {
+			    		base_tax = 2
+			    		base_production = 2
+			    		base_manpower = 2
+			    	}
+					random = {
+						chance = 5
 						add_base_tax = -1
-					}
-					if = {
-						limit = { base_production = 2 }
 						add_base_production = -1
-					}
-					if = {
-						limit = { base_manpower = 2 }
 						add_base_manpower = -1
+					}
+			    }
+			}
+
+			hidden_effect = {
+				every_owned_province = {
+					random = {
+						chance = 5
+						if = {
+							limit = { base_tax = 2 }
+							add_base_tax = -1
+						}
+						if = {
+							limit = { base_production = 2 }
+							add_base_production = -1
+						}
+						if = {
+							limit = { base_manpower = 2 }
+							add_base_manpower = -1
+						}
+					}
+				}
+			}
+
+		} else = {
+			tooltip = {
+			    random_owned_province = {
+			    	limit = {
+			    		base_tax = 2
+			    		base_production = 2
+			    		base_manpower = 2
+			    	}
+					random = {
+						chance = 10
+						add_base_tax = -1
+						add_base_production = -1
+						add_base_manpower = -1
+					}
+			    }
+			}
+
+			hidden_effect = {
+				every_owned_province = {
+					random = {
+						chance = 10
+						if = {
+							limit = { base_tax = 2 }
+							add_base_tax = -1
+						}
+						if = {
+							limit = { base_production = 2 }
+							add_base_production = -1
+						}
+						if = {
+							limit = { base_manpower = 2 }
+							add_base_manpower = -1
+						}
 					}
 				}
 			}
 		}
 	}
+
 	### Just scrape the corruption off, it's fine
 	option = {
 		name = end_times_events.7.option_2
@@ -1686,21 +1881,46 @@ country_event = {
 
 		custom_tooltip = owned_province_10_chance_of_tt
 
-		tooltip = {
-		    random_owned_province = {
-		    	limit = { NOT = { religion = chaos_undivided_religion } }
-				random = {
-					chance = 10
-					change_religion = chaos_undivided_religion
-				}
-		    }
-		}
+		if = {
+			limit = { has_global_flag = easy_end_times_flag }
 
-		hidden_effect = {
-			every_owned_province = {
-				random = {
-					chance = 10
-					change_religion = chaos_undivided_religion
+			tooltip = {
+			    random_owned_province = {
+			    	limit = { NOT = { religion = chaos_undivided_religion } }
+					random = {
+						chance = 5
+						change_religion = chaos_undivided_religion
+					}
+			    }
+			}
+
+			hidden_effect = {
+				every_owned_province = {
+					random = {
+						chance = 5
+						change_religion = chaos_undivided_religion
+					}
+				}
+			}
+
+		} else = {
+
+			tooltip = {
+			    random_owned_province = {
+			    	limit = { NOT = { religion = chaos_undivided_religion } }
+					random = {
+						chance = 10
+						change_religion = chaos_undivided_religion
+					}
+			    }
+			}
+
+			hidden_effect = {
+				every_owned_province = {
+					random = {
+						chance = 10
+						change_religion = chaos_undivided_religion
+					}
 				}
 			}
 		}
@@ -1794,6 +2014,8 @@ country_event = {
 	is_triggered_only = no
 	trigger = {
 		has_global_flag = end_times_started
+		NOT = { has_global_flag = end_times_ended }
+
 		religion_group = ruinous_powers_denominations
 		any_neighbor_country = {
 			has_reform = everchosen_reform
@@ -2082,6 +2304,8 @@ province_event = {
 	hidden = yes
 	trigger = {
 		has_global_flag = end_times_started
+		NOT = { has_global_flag = end_times_ended }
+
 		controller = {
 			has_reform = everchosen_reform
 		}
@@ -2125,7 +2349,7 @@ country_event = {
 		has_reform = everchosen_reform
 	}
 	mean_time_to_happen = {
-		months = 24
+		months = 12
 	}
 	option = {
 		name = everchosen_events.3.a

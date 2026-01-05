@@ -4,12 +4,56 @@
 
 country_decisions = {
 	
+	prophesy_the_end_times = {
+		major = yes
+		
+		potential = {
+			NOT = { has_global_flag = end_times_started }
+			ai = no
+		}
+		
+		allow = {
+			always = yes
+		}
+		
+		effect = {
+
+			custom_tooltip = the_current_prophecy_tt
+
+			if = {
+				limit = { has_global_flag = no_end_times_flag }
+				custom_tooltip = no_end_times_tt
+			}
+
+			if = {
+				limit = { has_global_flag = easy_end_times_flag }
+				custom_tooltip = easy_end_times_tt
+			}
+
+			if = {
+				limit = { has_global_flag = normal_end_times_flag }
+				custom_tooltip = normal_end_times_tt
+			}
+
+			country_event = { 
+			    id = end_times_events.999
+			}
+
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+
+
 	destroy_the_chaos_gate_decision = {
 		major = yes
 		
 		potential = {
 
 			has_global_flag = end_times_started
+			NOT = { has_global_flag = end_times_ended }
 
 			OR = {
 				ai = no
