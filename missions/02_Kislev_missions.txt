@@ -89,16 +89,10 @@ kislev_missions_1 = {
 		trigger = {
 			
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-				value = 30
+				value = 60
 				region = norsca_region
 			}
 
-			NOT = {
-				any_province = {
-					region = norsca_region
-					NOT = { religion_group = ROOT }
-				}
-			}
 		}
 		effect = {
 			remove_country_modifier = kislev_norsca_mod_2
@@ -304,17 +298,13 @@ kislev_missions_1 = {
 					}
 					num_of_estate_agendas_completed = {
 						estate = estate_nobles
-						value = 4
-					}
-					estate_influence = {
-					    estate = estate_nobles
-					    influence = 80
+						value = 5
 					}
 				}
 				NOT = {
 					estate_influence = {
 				    	estate = estate_nobles
-				    	influence = 10
+				    	influence = 15
 					}
 				}
 			}
@@ -786,9 +776,14 @@ kislev_missions_3 = {
 		provinces_to_highlight = {
         }
 		trigger = {
-			crown_land_share = 95
 			capital_scope = { development = 50 }
-			NOT = { num_of_powerful_estates = 2 }
+			OR = {
+				crown_land_share = 95
+				AND = {
+					NOT = { num_of_powerful_estates = 2 }
+					crown_land_share = 70
+				}
+			}
 		}
 
 ### Event here to choose
@@ -1242,17 +1237,13 @@ kislev_missions_5 = {
 					}
 					num_of_estate_agendas_completed = {
 						estate = estate_church
-						value = 4
-					}
-					estate_influence = {
-					    estate = estate_church
-					    influence = 80
+						value = 5
 					}
 				}
 				NOT = {
 					estate_influence = {
 				    	estate = estate_church
-				    	influence = 10
+				    	influence = 15
 					}
 				}
 			}

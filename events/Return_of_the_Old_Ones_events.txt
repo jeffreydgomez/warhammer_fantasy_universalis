@@ -1,0 +1,878 @@
+
+namespace = return_of_the_old_ones_events
+
+## old_ones_culture_group
+#  old_ones_culture
+# Religion: old_ones
+
+## Tags
+# X97 - Xel’Quin
+# X98 - Varnexus
+# X99 - Thuun-Kai
+
+
+## Events
+## return_of_the_old_ones_events.1 - trigger the event
+## return_of_the_old_ones_events.2 - Set up the old ones nations
+## return_of_the_old_ones_events.3 - Maximize Tech
+
+## return_of_the_old_ones_events.4 - notify everybody but old ones worshippers
+## return_of_the_old_ones_events.5 - notify the old ones worshippers
+
+## return_of_the_old_ones_events.6 - Old Ones declare war on neighbors
+
+
+
+## Trigger the return
+country_event = {
+	id = return_of_the_old_ones_events.1
+	title = return_of_the_old_ones_events.1.t
+	desc = return_of_the_old_ones_events.1.d
+	picture = OLDONES_eventPicture
+
+	hidden = no
+	fire_only_once = yes
+
+	trigger = {
+
+		## Take out when testing
+		 current_age = age_of_revolutions
+		##
+
+		always = yes
+
+	}
+
+	mean_time_to_happen = {
+		months = 1
+	}
+
+	immediate = {
+
+		set_global_flag = old_ones_have_returned
+
+
+		random_province = {
+			limit = { 
+				is_island = no
+				is_capital = no
+				is_wasteland = no
+				continent = europe
+			}
+			change_religion = old_ones
+			change_culture = old_ones_culture
+			cede_province = X95
+			add_core = X95
+		}
+
+		random_province = {
+			limit = { 
+				is_island = no
+				is_capital = no
+				is_wasteland = no
+				continent = asia
+			}
+			change_religion = old_ones
+			change_culture = old_ones_culture
+			cede_province = X96
+			add_core = X96
+		}
+
+
+		random_province = {
+			limit = { 
+				is_island = no
+				is_capital = no
+				is_wasteland = no
+				OR = {
+					continent = north_america
+					continent = oceania
+				}
+			}
+			change_religion = old_ones
+			change_culture = old_ones_culture
+			cede_province = X97
+			add_core = X97
+		}
+
+		random_province = {
+			limit = { 
+				is_island = no
+				is_capital = no
+				is_wasteland = no
+				continent = africa
+			}
+			change_religion = old_ones
+			change_culture = old_ones_culture
+			cede_province = X98
+			add_core = X98
+		}
+
+		random_province = {
+			limit = { 
+				is_island = no
+				is_capital = no
+				is_wasteland = no
+				continent = south_america
+			}
+			change_religion = old_ones
+			change_culture = old_ones_culture
+			cede_province = X99
+			add_core = X99
+		}
+
+		X95 = {
+			country_event = { 
+    			id = return_of_the_old_ones_events.2
+    		}
+		}
+
+		X96 = {
+			country_event = { 
+    			id = return_of_the_old_ones_events.2
+    		}
+		}
+
+
+		X97 = {
+			country_event = { 
+    			id = return_of_the_old_ones_events.2
+    		}
+		}
+
+		X98 = {
+			country_event = { 
+    			id = return_of_the_old_ones_events.2
+    		}
+		}
+
+		X99 = {
+			country_event = { 
+    			id = return_of_the_old_ones_events.2
+    		}
+		}
+
+		every_country = {
+			limit = {
+				NOT = { religion = old_ones }
+				ai = no
+			}
+			country_event = { 
+				id = return_of_the_old_ones_events.4
+			}		
+		}
+
+		every_country = {
+			limit = {
+				religion = old_ones
+				ai = no
+			}
+			country_event = { 
+				id = return_of_the_old_ones_events.5
+			}		
+		}
+
+	}
+
+	option = {
+		ai_chance = { factor = 50 }
+		name = return_of_the_old_ones_events.1.a
+	}
+}
+
+
+
+## Set up old one countries
+country_event = {
+	id = return_of_the_old_ones_events.2
+	title = return_of_the_old_ones_events.2.t
+	desc = return_of_the_old_ones_events.2.d
+	picture = OLDONES_eventPicture
+	hidden = yes
+	fire_only_once = no
+
+	is_triggered_only = yes
+
+	trigger = {
+		always = yes
+	}
+
+	immediate = {
+
+		capital_scope = {
+			set_base_tax = 100
+			set_base_production = 100
+			set_base_manpower = 100
+			change_religion = old_ones
+			change_culture = old_ones_culture
+
+			add_building = fort_15th
+
+			war_create_100_infantry = yes
+
+			cavalry = ROOT
+			cavalry = ROOT
+			cavalry = ROOT
+			cavalry = ROOT
+			cavalry = ROOT
+			cavalry = ROOT
+			cavalry = ROOT
+			cavalry = ROOT
+			cavalry = ROOT
+			cavalry = ROOT
+			cavalry = ROOT
+			cavalry = ROOT
+			cavalry = ROOT
+			cavalry = ROOT
+			cavalry = ROOT
+			cavalry = ROOT
+			cavalry = ROOT
+			cavalry = ROOT
+			cavalry = ROOT
+			cavalry = ROOT
+
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+			artillery = ROOT
+
+		}
+
+		country_event = { 
+			id = return_of_the_old_ones_events.3
+		}
+
+		set_ai_personality = {
+		    personality = ai_militarist
+		    locked = yes
+		}
+
+		change_culture = old_ones_culture
+
+		add_army_professionalism = 1
+		add_navy_tradition = 100
+		add_army_tradition = 100
+
+		change_innovativeness = 100
+		add_prestige = 100
+		add_stability = 6
+
+		add_adm_power = 999
+		add_dip_power = 999
+		add_mil_power = 999
+
+		change_estate_land_share = {
+		    estate = estate_church
+		    share = -100
+		}
+
+		change_estate_land_share = {
+		    estate = estate_burghers
+		    share = -100
+		}
+
+		change_estate_land_share = {
+		    estate = estate_nobles
+		    share = -100
+		}
+
+		change_estate_land_share = {
+		    estate = estate_mages
+		    share = -100
+		}
+
+		add_country_modifier = { 
+		    name = war_modern_army
+		    duration = -1  
+		}
+
+		add_country_modifier = { 
+		    name = war_modern_science
+		    duration = -1  
+		}
+
+		add_treasury = 5000
+		add_manpower = 50
+		add_sailors = 5000
+
+		change_government_reform_progress = 10000
+
+		create_alliance = X95
+    	add_historical_friend = X95
+    	create_alliance = X96
+    	add_historical_friend = X96
+    	create_alliance = X97
+    	add_historical_friend = X97
+    	create_alliance = X98
+    	add_historical_friend = X98
+    	create_alliance = X99
+    	add_historical_friend = X99
+
+		all_province = {
+			discover_country = ROOT
+		}
+
+		add_country_modifier = { 
+		    name = returned_old_ones_modifier
+		    duration = -1  
+		}
+
+	}
+
+	option = {
+		ai_chance = { factor = 50 }
+		name = return_of_the_old_ones_events.2.a
+	}
+}
+
+
+
+### Maximize Tech
+country_event = { 
+	id = return_of_the_old_ones_events.3
+	title = return_of_the_old_ones_events.3.t
+	desc = return_of_the_old_ones_events.3.d
+	picture = OLDONES_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+	hidden = yes
+
+	trigger = {
+		always = yes
+	}
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = return_of_the_old_ones_events.3.a 
+
+		if = {
+			limit = { NOT = { adm_tech = 32 } }
+			add_adm_tech = 1
+			country_event = { 
+			    id = return_of_the_old_ones_events.3
+			}
+		}
+		if = {
+			limit = { NOT = { dip_tech = 32 } }
+			add_dip_tech = 1
+			country_event = { 
+			    id = return_of_the_old_ones_events.3
+			}
+		}
+		if = {
+			limit = { NOT = { mil_tech = 32 } }
+			add_mil_tech = 1
+			country_event = { 
+			    id = return_of_the_old_ones_events.3
+			}
+		}
+	}
+}
+
+
+
+
+### Let the non-worshippers know
+country_event = { 
+	id = return_of_the_old_ones_events.4
+	title = return_of_the_old_ones_events.4.t
+	desc = return_of_the_old_ones_events.4.d
+	picture = OLDONES_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+	hidden = no
+
+	trigger = {
+		always = yes
+	}
+
+
+	immediate = {
+		X95 = {
+			capital_scope = {
+				save_event_target_as = X95_capital
+			}
+		}
+
+		X96 = {
+			capital_scope = {
+				save_event_target_as = X96_capital
+			}
+		}
+		X97 = {
+			capital_scope = {
+				save_event_target_as = X97_capital
+			}
+		}
+
+		X98 = {
+			capital_scope = {
+				save_event_target_as = X98_capital
+			}
+		}
+
+		X99 = {
+			capital_scope = {
+				save_event_target_as = X99_capital
+			}
+		}
+	}
+
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = return_of_the_old_ones_events.4.option_1
+		goto = X95_capital
+	}
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = return_of_the_old_ones_events.4.option_2
+		goto = X96_capital
+	}
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = return_of_the_old_ones_events.4.option_3
+		goto = X97_capital
+	}
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = return_of_the_old_ones_events.4.option_4
+		goto = X98_capital
+	}
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = return_of_the_old_ones_events.4.option_5
+		goto = X99_capital
+	}
+}
+
+
+
+### Let the non-worshippers know
+country_event = { 
+	id = return_of_the_old_ones_events.5
+	title = return_of_the_old_ones_events.5.t
+	desc = return_of_the_old_ones_events.5.d
+	picture = OLDONES_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+	hidden = no
+
+	trigger = {
+		always = yes
+	}
+
+
+	immediate = {
+		X95 = {
+			capital_scope = {
+				save_event_target_as = X95_capital
+			}
+		}
+
+		X96 = {
+			capital_scope = {
+				save_event_target_as = X96_capital
+			}
+		}
+		X97 = {
+			capital_scope = {
+				save_event_target_as = X97_capital
+			}
+		}
+
+		X98 = {
+			capital_scope = {
+				save_event_target_as = X98_capital
+			}
+		}
+
+		X99 = {
+			capital_scope = {
+				save_event_target_as = X99_capital
+			}
+		}
+	}
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = return_of_the_old_ones_events.5.option_1
+		goto = X95_capital
+	}
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = return_of_the_old_ones_events.5.option_2
+		goto = X96_capital
+	}
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = return_of_the_old_ones_events.5.option_3
+		goto = X97_capital
+	}
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = return_of_the_old_ones_events.5.option_4
+		goto = X98_capital
+	}
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = return_of_the_old_ones_events.5.option_5
+		goto = X99_capital
+	}
+}
+
+
+
+
+
+## Give occupied provinces to Old Ones
+province_event = {
+	id = return_of_the_old_ones_events.6
+	title = return_of_the_old_ones_events.6.t
+	desc = return_of_the_old_ones_events.6.d
+	picture = ARCHAON_eventPicture
+	hidden = yes
+	trigger = {
+
+		has_global_flag = old_ones_have_returned
+
+		controller = {
+			has_country_modifier = returned_old_ones_modifier
+		}
+		owner = {
+			NOT = {
+				has_country_modifier = returned_old_ones_modifier
+			}
+		}
+		any_neighbor_province = {
+			owner = {
+				has_country_modifier = returned_old_ones_modifier
+			}
+		}
+		is_capital = no
+	}
+	mean_time_to_happen = {
+		months = 6
+	}
+	option = {
+		name = return_of_the_old_ones_events.6.a
+		controller = {
+			ROOT = {
+				add_core = PREV
+				cede_province = PREV
+			}
+		}
+	}
+}
+
+
+
+## Give occupied cored Old Ones provinces back to owner
+province_event = {
+	id = return_of_the_old_ones_events.7
+	title = return_of_the_old_ones_events.7.t
+	desc = return_of_the_old_ones_events.7.d
+	picture = ARCHAON_eventPicture
+	hidden = yes
+	trigger = {
+		has_global_flag = old_ones_have_returned
+
+		owner = {
+			has_country_modifier = returned_old_ones_modifier
+		}
+		controller = {
+			NOT = {
+				has_country_modifier = returned_old_ones_modifier
+			}
+			ROOT = {
+				is_core = PREV
+			}
+		}
+	}
+	mean_time_to_happen = {
+		months = 6
+	}
+	option = {
+		name = return_of_the_old_ones_events.7.a
+		controller = {
+			ROOT = {
+				add_core = PREV
+				cede_province = PREV
+			}
+		}
+		add_nationalism = -100
+	}
+}
+
+
+
+
+#### Declare war on nearby person
+country_event = {
+	id = return_of_the_old_ones_events.6
+	title = return_of_the_old_ones_events.6.t
+	desc = return_of_the_old_ones_events.6.d
+	picture = OLDONES_eventPicture
+	is_triggered_only = no
+	trigger = {
+		has_global_flag = old_ones_have_returned
+		is_at_war = no
+		OR = {
+			tag = X95
+			tag = X96
+			tag = X97
+			tag = X98
+			tag = X99
+		}
+	}
+	mean_time_to_happen = {
+		months = 24
+	}
+	# Declare War on Somebody
+	option = {
+		name = return_of_the_old_ones_events.6.option_1
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0
+				is_subject = yes
+			}
+		}
+		trigger = {
+			any_neighbor_country = {
+				NOT = {
+					OR = {
+						is_subject_of = root
+						overlord_of = root
+						alliance_with = root
+						truce_with = prev
+					}
+				}
+			}
+		}
+		add_yearly_manpower = 0.5
+		random_neighbor_country = {
+			LIMIT = {
+				NOT = {
+					OR = {
+						is_subject_of = root
+						overlord_of = root
+						alliance_with = root
+						truce_with = prev
+					}
+				}
+			}
+			ROOT = {
+				declare_war_with_cb = {
+					who = PREV
+					casus_belli = cb_crusade
+				}
+			}
+		}
+	}
+	option = {
+		name = return_of_the_old_ones_events.6.option_2
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 0
+				is_subject = yes
+			}
+		}
+		trigger = {
+			any_neighbor_country = {
+				NOT = {
+					OR = {
+						is_subject_of = root
+						overlord_of = root
+						alliance_with = root
+						truce_with = prev
+					}
+				}
+				ROOT = {
+					army_strength = {
+						who = prev
+						value = 1.25
+					}
+				}
+			}
+		}
+		add_yearly_manpower = 0.5
+		random_neighbor_country = {
+			LIMIT = {
+				NOT = {
+					OR = {
+						is_subject_of = root
+						overlord_of = root
+						alliance_with = root
+						truce_with = prev
+					}
+				}
+				ROOT = {
+					army_strength = {
+						who = prev
+						value = 1.25
+					}
+				}
+			}
+			ROOT = {
+				declare_war_with_cb = {
+					who = PREV
+					casus_belli = cb_crusade
+				}
+			}
+		}
+	}
+	option = {
+		name = return_of_the_old_ones_events.6.option_3
+		ai_chance = {
+			factor = 1000
+			modifier = {
+				factor = 0
+				is_subject = yes
+			}
+		}
+		trigger = {
+			any_neighbor_country = {
+				NOT = {
+					OR = {
+						is_subject_of = root
+						overlord_of = root
+						alliance_with = root
+						truce_with = prev
+					}
+				}
+				ROOT = {
+					army_strength = {
+						who = prev
+						value = 2
+					}
+				}
+			}
+		}
+		add_yearly_manpower = 0.5
+		random_neighbor_country = {
+			LIMIT = {
+				NOT = {
+					OR = {
+						is_subject_of = root
+						overlord_of = root
+						alliance_with = root
+						truce_with = prev
+					}
+				}
+				ROOT = {
+					army_strength = {
+						who = prev
+						value = 2
+					}
+				}
+			}
+			ROOT = {
+				declare_war_with_cb = {
+					who = PREV
+					casus_belli = cb_crusade
+				}
+			}
+		}
+	}
+	option = {
+		name = return_of_the_old_ones_events.6.option_4
+		ai_chance = {
+			factor = 10000
+			modifier = {
+				factor = 0
+				is_subject = yes
+			}
+		}
+		trigger = {
+			any_neighbor_country = {
+				NOT = {
+					OR = {
+						is_subject_of = root
+						overlord_of = root
+						alliance_with = root
+						truce_with = prev
+					}
+				}
+				ROOT = {
+					army_strength = {
+						who = prev
+						value = 4
+					}
+				}
+			}
+		}
+		add_yearly_manpower = 0.5
+		random_neighbor_country = {
+			LIMIT = {
+				NOT = {
+					OR = {
+						is_subject_of = root
+						overlord_of = root
+						alliance_with = root
+						truce_with = prev
+					}
+				}
+				ROOT = {
+					army_strength = {
+						who = prev
+						value = 4
+					}
+				}
+			}
+			ROOT = {
+				declare_war_with_cb = {
+					who = PREV
+					casus_belli = cb_crusade
+				}
+			}
+		}
+	}
+	# Nothing Instead - If nothing is eligible
+	option = {
+		name = return_of_the_old_ones_events.6.option_5
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+
