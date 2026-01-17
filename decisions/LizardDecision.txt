@@ -117,4 +117,60 @@ country_decisions = {
 		ai_will_do = { factor = 100 }	
 	
 	}
+
+
+	prophesy_the_old_ones = {
+		major = yes
+		
+		potential = {
+			OR = {
+				current_age = age_of_absolutism
+				current_age = age_of_revolutions
+			}
+			NOT = { has_global_flag = old_ones_have_returned }
+			ai = no
+		}
+		
+		allow = {
+			always = yes
+		}
+		
+		effect = {
+
+			custom_tooltip = the_current_prophecy_tt
+
+			if = {
+				limit = { has_global_flag = no_old_ones_flag }
+				custom_tooltip = no_old_ones_tt
+			}
+
+			if = {
+				limit = { has_global_flag = easy_old_ones_flag }
+				custom_tooltip = easy_old_ones_tt
+			}
+
+			if = {
+				limit = {
+					OR = {
+						has_global_flag = normal_old_ones_flag
+						AND = {
+							NOT = { has_global_flag = no_old_ones_flag }
+							NOT = { has_global_flag = easy_old_ones_flag }
+						}
+					}
+				}
+				custom_tooltip = normal_old_ones_tt
+			}
+
+			country_event = { 
+			    id = return_of_the_old_ones_events.999
+			}
+
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+
 }
