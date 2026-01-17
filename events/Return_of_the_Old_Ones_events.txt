@@ -23,6 +23,59 @@ namespace = return_of_the_old_ones_events
 
 
 
+## Prophesy the Old Ones Event
+country_event = {
+	id = return_of_the_old_ones_events.999
+	title = return_of_the_old_ones_events.999.t
+	desc = return_of_the_old_ones_events.999.d
+	picture = OLDONES_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		always = yes
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	## No Old Ones
+	option = {
+		name = return_of_the_old_ones_events.999.option_1
+		custom_tooltip = no_old_ones_tt
+
+		set_global_flag = no_old_ones_flag
+		clr_global_flag = easy_old_ones_flag
+		clr_global_flag = normal_old_ones_flag
+
+		add_prestige = -10
+
+	}
+
+	## Easy Old Ones
+	option = {
+		name = return_of_the_old_ones_events.999.option_2
+		custom_tooltip = easy_old_ones_tt	
+
+		clr_global_flag = no_old_ones_flag
+		set_global_flag = easy_old_ones_flag
+		clr_global_flag = normal_old_ones_flag
+
+		add_prestige = -5
+
+	}
+
+	## Normal Old Ones
+	option = {
+		name = return_of_the_old_ones_events.999.option_3
+		custom_tooltip = normal_old_ones_tt
+
+		clr_global_flag = no_old_ones_flag
+		clr_global_flag = easy_old_ones_flag
+		set_global_flag = normal_old_ones_flag
+
+	}
+}
+
+
+
 ## Trigger the return
 country_event = {
 	id = return_of_the_old_ones_events.1
@@ -39,7 +92,7 @@ country_event = {
 		 current_age = age_of_revolutions
 		##
 
-		always = yes
+		NOT = { has_global_flag = no_old_ones_flag }
 
 	}
 
@@ -337,6 +390,16 @@ country_event = {
 		all_province = {
 			discover_country = ROOT
 		}
+
+
+		if = {
+			limit = { has_global_flag = easy_old_ones_flag }
+			add_country_modifier = { 
+			    name = easy_old_ones_debuff
+			    duration = -1
+			}
+		}
+
 
 		add_country_modifier = { 
 		    name = returned_old_ones_modifier
@@ -874,5 +937,8 @@ country_event = {
 		}
 	}
 }
+
+
+
 
 
