@@ -549,6 +549,8 @@ country_event = {
 
 			capital_scope = {
 
+				save_global_event_target_as = chaos_gate_province
+
 				add_reform_center = chaos_undivided_religion
 
 				add_next_institution_embracement = 100
@@ -834,18 +836,18 @@ country_event = {
 	is_triggered_only = yes
 	hidden = no
 	major = no
+
 	immediate = {
-		hidden_effect = {
-			every_province = {
-				limit = {
-					is_reformation_center = yes
-					religion = chaos_undivided_religion
-				}
-				save_event_target_as = chaos_gate_province
+		random_province = {
+			limit = { 
+				is_reformation_center = yes
+				religion = chaos_undivided_religion
 			}
+			save_event_target_as = event_target
 		}
 	}
-	goto = chaos_gate_province
+
+	goto = event_target
 
 	option = {
 		name = end_times_events.1001.option_1
@@ -922,10 +924,7 @@ country_event = {
 
 		set_global_flag = end_times_ended
 
-		every_province = {
-			limit = {
-				is_reformation_center = yes
-			}
+		event_target:chaos_gate_province = {
 			remove_reform_center = chaos_undivided_religion
 		}
 		every_province = {

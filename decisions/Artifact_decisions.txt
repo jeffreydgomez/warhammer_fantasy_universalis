@@ -4,8 +4,6 @@
 country_decisions = {
 
 
-
-
 	take_the_phoenix_crown = {
 		potential = {
 
@@ -221,6 +219,10 @@ country_decisions = {
 				owner = {
 					country_event = { 
     					id = artifact_events.0
+    				}
+    				if = {
+    					limit = { has_ruler_flag = wielding_the_widowmaker }
+    					kill_ruler = yes
     				}
     			}
 			}
@@ -1996,6 +1998,83 @@ country_decisions = {
 		}
 		ai_will_do = {
 			factor = 100000
+		}
+	}
+
+
+
+	wield_the_widowmaker = {
+		major = yes
+		
+		potential = {
+			ai = no
+			any_owned_province = {
+				has_province_modifier = location_of_the_widowmaker
+			}
+			NOT = {
+				has_ruler_flag = wielding_the_widowmaker
+			}
+		}
+		
+		allow = {
+			any_owned_province = {
+				has_province_modifier = location_of_the_widowmaker
+			}
+		}
+		
+		effect = {
+
+	        clear_non_racial_ruler_personalities = yes
+
+	        hidden_effect = {
+	            clear_saved_ruler_personalities = yes
+	        }
+			
+			add_ruler_personality = widowmaker_personality
+	        add_ruler_personality = malevolent_personality
+	        hidden_effect = {
+	        	add_ruler_personality = cruel_personality
+	        }
+
+	        set_ruler_flag = wielding_the_widowmaker
+
+	        add_stability = -1
+
+	        if = {
+	        	limit = { adm = 1 }
+	        	change_adm = -1
+	        }
+	        if = {
+	        	limit = { dip = 1 }
+	        	change_dip = -1
+	        } 
+	        if = {
+	        	limit = { NOT = { mil = 6 } }
+	        	change_mil = 1
+	        }      
+
+	        if = {
+	        	limit = { is_female = no }
+
+				define_ruler_to_general = {
+				    fire = 8
+				    shock = 8
+				    manuever = 5
+				    siege = 4
+				}
+	        } else = {
+				define_ruler_to_general = {
+				    fire = 8
+				    shock = 8
+				    manuever = 5
+				    siege = 4
+				    female = yes
+				}
+	        }
+		}
+
+		ai_will_do = {
+			factor = 0
 		}
 	}
 

@@ -67,9 +67,10 @@ country_decisions = {
 
 			NOT = { has_reform = everchosen_reform }
 
-			any_province = {
-				religion = chaos_undivided_religion
-				is_reformation_center = yes
+
+			## Basically, does this exist
+			event_target:chaos_gate_province = {
+				development = 0
 			}
 
 		}
@@ -82,10 +83,19 @@ country_decisions = {
 		}
 		
 		allow = {
-			any_province = {
-				religion = chaos_undivided_religion
-				is_reformation_center = yes
-				controlled_by = ROOT
+			OR = {
+				event_target:chaos_gate_province = {
+					controlled_by = ROOT
+				}
+
+		## Remove this hidden trigger after a bit - march 2026? And the Or Claus
+				hidden_trigger = {
+					any_province = {
+						religion = chaos_undivided_religion
+						is_reformation_center = yes
+						controlled_by = ROOT
+					}
+				}
 			}
 		}
 		
