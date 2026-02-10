@@ -1,0 +1,760 @@
+# Do not change tags in here without changing every other reference to them.
+# Do not change tags in here without changing every other reference to them.
+# If adding new groups or ideas, make sure they are unique.
+
+# ai_will do is only used to determine which idea group is picked if AI_USES_HISTORICAL_IDEA_GROUPS define is 0, OR start is custom/random
+# ai never picks an idea that resolves to ai_will_do = 0, even if AI_USES_HISTORICAL_IDEA_GROUPS = 1
+# ROOT = country picking the idea
+# groups set to colonial=yes will be higher prioritized by the AI when spending power
+
+#ideas in the group can have effect = {} and removed_effect = {}
+
+
+# Vanilla ADM innovativeness_ideas religious_ideas economic_ideas expansion_ideas administrative_ideas humanist_ideas infrastructure_ideas
+# Vanilla DIP spy_ideas diplomatic_ideas trade_ideas exploration_ideas maritime_ideas influence_ideas court_ideas
+# Vanilla MIL aristocracy_ideas plutocracy_ideas horde_gov_ideas theocracy_gov_ideas indigenous_ideas offensive_ideas defensive_ideas quality_ideas quantity_ideas naval_ideas mercenary_ideas
+
+# War ADM  good_ideas  dwarven_ideas  undead_ideas  fimir_ideas  skaven_ideas  beastfolk_ideas
+# War DIP  neutral_ideas  human_ideas  elven_ideas
+# War MIL  chaos_ideas  evil_ideas  greenskin_ideas  ogre_ideas  lizardmen_ideas
+
+
+### Alignment
+
+
+chaos_group_ideas = {
+	category = MIL
+
+	bonus = {
+		can_recruit_revolutionary_guards = yes
+		allowed_rev_guard_fraction = 0.15
+	}
+
+	trigger = {
+		has_country_modifier = chaos_nation
+	}
+
+	chaotic_the_nature_of_chaos = {
+		warscore_cost_vs_other_religion = -0.125
+	}
+	chaotic_chosen_of_chaos = {
+		land_morale = 0.15
+	}
+	chaotic_changer_of_ways = {
+		innovativeness_gain = 0.5
+	}
+	chaotic_garden_of_nurgle = {
+		land_attrition = -0.25
+	}
+	chaotic_blood_for_the_blood_god = {
+		leader_land_shock = 1
+	}
+	chaotic_the_dark_prince = {
+		improve_relation_modifier = 0.25
+		diplomats = 1
+	}
+	chaotic_chaos_undivided = {
+		manpower_in_true_faith_provinces = 0.2
+	}
+
+	ai_will_do = {
+		factor = 10
+	}
+}
+
+
+good_group_ideas = {
+	category = ADM
+
+	bonus = {
+		war_exhaustion = -0.02
+	}
+
+	trigger = {
+		has_country_modifier = order_nation
+	}
+
+	good_group_ideas_1 = {
+		diplomatic_reputation = 2
+	}
+	good_group_ideas_2 = {
+		global_unrest = -2
+	}
+	good_group_ideas_3 = {
+		global_monthly_devastation = -0.25
+		global_prosperity_growth = 0.75
+	}
+	good_group_ideas_4 = {
+		land_morale = 0.15
+	}
+	good_group_ideas_5 = {
+		tolerance_heretic = 3
+		tolerance_heathen = 3
+	}
+	good_group_ideas_6 = {
+		global_tax_modifier = 0.15	
+	}
+	good_group_ideas_7 = {
+		ae_impact = -0.2
+	}
+
+	ai_will_do = {
+		factor = 10
+	}
+}
+
+
+neutral_group_ideas = {
+	category = DIP
+
+	bonus = {
+		years_of_nationalism = -10
+	}
+
+	trigger = {
+		has_country_modifier = neutral_nation
+	}
+
+	neutral_group_ideas_1 = {
+		trade_efficiency = 0.1
+	}
+	neutral_group_ideas_2 = {
+		yearly_army_professionalism = 0.003
+	}
+	neutral_group_ideas_3 = {
+		monthly_reform_progress_modifier = 0.15
+	}
+	neutral_group_ideas_4 = {
+		legitimacy = 1
+		devotion = 1
+		horde_unity = 1
+		meritocracy = 1
+		republican_tradition = 0.5
+	}
+	neutral_group_ideas_5 = {
+		embracement_cost = -0.25
+		global_institution_spread = 0.25
+	}
+	neutral_group_ideas_6 = {
+		diplomatic_upkeep = 2
+	}
+	neutral_group_ideas_7 = {
+		diplomats = 1
+		envoy_travel_time = -0.25		
+	}
+
+	ai_will_do = {
+		factor = 10
+	}
+}
+
+
+evil_group_ideas = {
+	category = MIL
+
+	bonus = {
+		administrative_efficiency = 0.05
+	}
+
+	trigger = {
+		has_country_modifier = destruction_nation
+	}
+
+	evil_group_ideas_1 = {
+		warscore_cost_vs_other_religion = -0.15
+	}
+
+	evil_group_ideas_2 = {
+		discipline = 0.05
+	}
+
+	evil_group_ideas_3 = {
+		land_forcelimit_modifier = 0.2
+	}
+
+	evil_group_ideas_4 = {
+		liberty_desire_from_subject_development = -0.2
+	}
+
+	evil_group_ideas_5 = {
+		production_efficiency = 0.1
+	}
+
+	evil_group_ideas_6 = {
+		prestige_from_land = 1.0
+	}
+
+	evil_group_ideas_7 = {
+		tolerance_own = 2
+	}
+
+	ai_will_do = {
+		factor = 10
+	}
+}
+
+### Racial
+
+
+human_group_ideas = {
+	category = DIP
+
+	bonus = {
+		reform_progress_growth = 0.2
+	}
+
+	trigger = {
+		OR = {
+			has_country_modifier = human_administration
+			has_country_modifier = human_military
+		}
+	}
+
+	#Gunpowder mastery
+	human_group_ideas_1 = {
+		fire_damage = 0.1
+	}
+
+	# Open to new ideas
+	human_group_ideas_2 = {
+		technology_cost = -0.1
+	}
+
+	# Alliance Managers
+	human_group_ideas_3 = {
+		diplomats = 1
+		diplomatic_upkeep = 1
+	}
+
+	## Empire Builders
+	human_group_ideas_4 = {
+		governing_capacity_modifier = 0.2
+	}
+
+	## Witch Hunters
+	human_group_ideas_5 = {
+		missionaries = 1
+		global_missionary_strength = 0.01
+	}
+
+	# Horse riders - from bears of kislev to steeds of bretonnia to camels of araby, humans are masters of riding
+	human_group_ideas_6 = {
+		cavalry_power = 0.10
+		cav_to_inf_ratio = 0.10
+	}
+
+	# Willing to Trade
+	human_group_ideas_7 = {
+		trade_efficiency = 0.1
+	}
+
+	ai_will_do = {
+		factor = 10
+	}
+}
+
+
+greenskin_group_ideas = {
+	category = MIL
+
+	bonus = {
+		liberty_desire_from_subject_development = -0.15
+	}
+
+	trigger = {
+		OR = {
+			has_country_modifier = orcish_administration
+			has_country_modifier = orcish_military
+		}
+	}
+
+	# Unbreakable
+	greenskin_group_ideas_1 = {
+		land_morale = 0.15
+	}
+
+	# Driven by Loot
+	greenskin_group_ideas_2 = {
+		available_province_loot = 1.0
+	}
+
+	# Motivated by War
+	greenskin_group_ideas_3 = {
+		prestige_from_land = 1.0
+	}
+
+	# Every battle a lesson
+	greenskin_group_ideas_4 = {
+		army_tradition_from_battle = 1.5
+	}
+
+	## Everyone is willing to fight
+	greenskin_group_ideas_5 = {
+		global_manpower_modifier = 0.2
+	}
+
+	## Lords of Conquest
+	greenskin_group_ideas_6 = {
+		province_warscore_cost = -0.2
+	}
+
+	## Great ARmies
+	greenskin_group_ideas_7 = {
+		land_forcelimit_modifier = 0.2
+	}
+
+	ai_will_do = {
+		factor = 10
+	}
+}
+
+
+dwarven_group_ideas = {
+	category = ADM
+
+	bonus = {
+		global_trade_goods_size_modifier = 0.1
+	}
+
+	trigger = {
+		OR = {
+			has_country_modifier = dwarven_administration
+			has_country_modifier = dwarven_military
+		}
+	}
+
+	# Dwarven industry
+	dwarven_group_ideas_1 = {
+		production_efficiency = 0.1
+	}
+
+	# Forged Armor
+	dwarven_group_ideas_2 = {
+		fire_damage_received = -0.1
+	}
+
+	# City Builders
+	dwarven_group_ideas_3 = {
+		development_cost = -0.075
+	}
+
+	# Heavy Footed
+	dwarven_group_ideas_4 = {
+		shock_damage_received = -0.1
+	}
+
+	#unity of the Dwarves
+	dwarven_group_ideas_5 = {
+		religious_unity = 0.2
+	}
+
+	# Great Fortresses
+	dwarven_group_ideas_6 = {
+		defensiveness = 0.3
+	}
+
+	# Great Cannons
+	dwarven_group_ideas_7 = {
+		artillery_power = 0.1
+	}
+
+	ai_will_do = {
+		factor = 10
+	}
+}
+
+
+elven_group_ideas = {
+	category = DIP
+
+	bonus = {
+		legitimacy = 1.0
+		devotion = 1.0
+		horde_unity = 1.0
+		meritocracy = 1.0
+		republican_tradition = 0.5
+	}
+
+	trigger = {
+		OR = {
+			has_country_modifier = elven_administration
+			has_country_modifier = elven_military
+		}
+	}
+
+	# Elven Courts
+	elven_group_ideas_1 = {
+		diplomatic_reputation = 2
+	}
+
+	# Professional Armies
+	elven_group_ideas_2 = {
+		discipline = 0.05
+	}
+
+	# Undying Prestige
+	elven_group_ideas_3 = {
+		prestige_decay = -0.015
+	}
+
+	# Skilled Fleets
+	elven_group_ideas_4 = {
+		navy_tradition = 1
+		sailors_recovery_speed = 0.1
+	}
+
+	# A satisfied society
+	elven_group_ideas_5 = {
+		global_unrest = -2
+	}
+
+	# Masters of Magic
+	elven_group_ideas_6 = {
+		innovativeness_gain = 0.5
+	}
+
+	# Many advisorts
+	elven_group_ideas_7 = {
+		advisor_pool = 2
+	}
+
+	ai_will_do = {
+		factor = 10
+	}
+}
+
+
+undead_group_ideas = {
+	category = ADM
+
+	bonus = {
+		hostile_attrition = 1
+		max_hostile_attrition = 1
+	}
+
+	trigger = {
+		OR = {
+			has_country_modifier = undead_administration
+			has_country_modifier = undead_military
+		}
+	}
+
+	# Magic runs society
+	undead_group_ideas_1 = {
+		innovativeness_gain = 0.5
+	}
+
+	## Open the Tombs
+	undead_group_ideas_2 = {
+		global_manpower_modifier = 0.2
+	}
+
+	# Slave labor
+	undead_group_ideas_3 = {
+		global_tax_modifier = 0.15
+	}
+
+	# Terrifying armies
+	undead_group_ideas_4 = {
+		morale_damage = 0.1
+	}
+
+	# The Dead Do Not Complain
+	undead_group_ideas_5 = {
+		global_unrest = -2
+	}
+
+	# Transform the living
+	undead_group_ideas_6 = {
+		missionaries = 1
+		culture_conversion_cost = -0.1
+	}
+
+	# The Dead Know Thier Place
+	undead_group_ideas_7 = {
+		state_governing_cost = -0.1
+	}
+
+	ai_will_do = {
+		factor = 10
+	}
+}
+
+
+
+
+ogre_group_ideas = {
+	category = MIL
+
+	bonus = {
+		shock_damage_received = -0.1
+	}
+
+	trigger = {
+		OR = {
+			has_country_modifier = ogre_administration
+			has_country_modifier = ogre_military
+		}
+	}
+
+	# Aggressive Trade Policies
+	ogre_group_ideas_1 = {
+		global_trade_power = 0.2
+	}
+
+	# We are big
+	ogre_group_ideas_2 = {
+		infantry_power = 0.1
+	}
+
+	# Steer Trade
+	ogre_group_ideas_3 = {
+		trade_steering = 0.25
+	}
+
+	# We run into people
+	ogre_group_ideas_4 = {
+		shock_damage = 0.1
+	}
+
+	# Aggressive Merchants
+	ogre_group_ideas_5 = {
+		merchants = 1
+		placed_merchant_power = 5
+	}
+
+	# They know they will be eaten
+	ogre_group_ideas_6 = {
+		morale_damage = 0.1
+	}
+
+	# Happy to work with others
+	ogre_group_ideas_7 = {
+		diplomatic_upkeep = 1
+		tolerance_heathen = 2
+	}
+
+	ai_will_do = {
+		factor = 10
+	}
+}
+
+
+skaven_group_ideas = {
+	category = ADM
+
+	bonus = {
+		production_efficiency = 0.10
+	}
+
+	trigger = {
+		OR = {
+			has_country_modifier = skaven_administration
+			has_country_modifier = skaven_military
+		}
+	}
+
+	# Experiment Masters
+	skaven_group_ideas_1 = {
+		innovativeness_gain = 0.5
+	}
+
+	# Powerful Weapons
+	skaven_group_ideas_2 = {
+		fire_damage = 0.1
+	}
+
+	# Masters of Science
+	skaven_group_ideas_3 = {
+		technology_cost = -0.1
+	}
+
+	# Tunnels under the enemy
+	skaven_group_ideas_4 = {
+		siege_ability = 0.2
+	}
+
+	# Many Spies
+	skaven_group_ideas_5 = {
+		diplomats = 1
+		spy_offence = 0.25
+	}
+
+	# Unlimited Skavens
+	skaven_group_ideas_6 = {
+		global_manpower_modifier = 0.15
+		manpower_recovery_speed = 0.15
+	}
+
+	# Full Raiders
+	skaven_group_ideas_7 = {
+		available_province_loot = 0.5
+		movement_speed = 0.10
+	}
+
+	ai_will_do = {
+		factor = 10
+	}
+}
+
+
+lizardmen_group_ideas = {
+	category = MIL
+
+	bonus = {
+		innovativeness_gain = 0.5
+	}
+
+	trigger = {
+		OR = {
+			has_country_modifier = lizardmen_administration
+			has_country_modifier = lizardmen_military
+		}
+	}
+
+	# Unified Society
+	lizardmen_group_ideas_1 = {
+		tolerance_own = 2
+	}
+
+	# Powerful Infantry
+	lizardmen_group_ideas_2 = {
+		infantry_power = 0.1
+	}
+
+	# Justified War
+	lizardmen_group_ideas_3 = {
+		war_exhaustion = -0.05
+	}
+
+	lizardmen_group_ideas_4 = {
+		land_morale = 0.15
+	}
+
+	# Destroy the Heathens
+	lizardmen_group_ideas_5 = {
+		warscore_cost_vs_other_religion = -0.15
+	}
+
+	# Dinosaurs
+	lizardmen_group_ideas_6 = {
+		cavalry_power = 0.15
+	}
+
+	# Speak with one voice
+	lizardmen_group_ideas_7 = {
+		all_estate_loyalty_equilibrium = 0.05
+		max_absolutism = 10
+	}
+
+	ai_will_do = {
+		factor = 10
+	}
+}
+
+
+beastfolk_group_ideas = {
+	category = ADM
+
+	bonus = {
+		morale_damage = 0.1
+	}
+
+	trigger = {
+		OR = {
+			has_country_modifier = beastfolk_administration
+			has_country_modifier = beastfolk_military
+		}
+	}
+
+	# Flexible Governance
+	beastfolk_group_ideas_1 = {
+		state_governing_cost = -0.1
+		state_maintenance_modifier = -0.5
+	}
+
+	# Unmoved by Death
+	beastfolk_group_ideas_2 = {
+		morale_damage_received = -0.1
+	}
+
+	# Driven by War
+	beastfolk_group_ideas_3 = {
+		prestige_from_land = 1.0
+	}
+
+	# We will be one
+	beastfolk_group_ideas_4 = {
+		missionaries = 1
+		missionary_maintenance_cost = -0.25
+	}
+
+	# REligion Unifies
+	beastfolk_group_ideas_5 = {
+		tolerance_own = 2
+	}
+
+	# Beastroads
+	beastfolk_group_ideas_6 = {
+		movement_speed = 0.15
+	}
+
+	# Looters
+	beastfolk_group_ideas_7 = {
+		available_province_loot = 1.0
+	}
+
+	ai_will_do = {
+		factor = 10
+	}
+}
+
+
+
+fimir_group_ideas = {
+	category = ADM
+
+	bonus = {
+		hostile_attrition = 1
+		max_hostile_attrition = 1
+	}
+
+	trigger = {
+		OR = {
+			has_country_modifier = fimir_administration
+			has_country_modifier = fimir_military
+		}
+	}
+
+	fimir_group_ideas_1 = {
+		global_tax_modifier = 0.15
+	}
+
+	fimir_group_ideas_2 = {
+		land_attrition = -0.25
+	}
+
+	fimir_group_ideas_3 = {
+		global_unrest = -2
+	}
+
+	fimir_group_ideas_4 = {
+		infantry_power = 0.1
+	}
+
+	fimir_group_ideas_5 = {
+		all_estate_loyalty_equilibrium = 0.1
+	}
+
+	fimir_group_ideas_6 = {
+		shock_damage = 0.1
+	}
+
+	fimir_group_ideas_7 = {
+		same_culture_advisor_cost = -0.25
+	}
+
+	ai_will_do = {
+		factor = 10
+	}
+}
