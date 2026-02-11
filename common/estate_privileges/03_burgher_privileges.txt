@@ -3704,3 +3704,52 @@ estate_guild_industrial_infrastructure = {
 	}
 }
 
+
+# Replaced with Raise Expectations
+## Placate the Guilds - Give prestige to the guilds to make them happy and integrate them into the state.
+estate_guild_placate_the_guild = {
+	icon = privilege_royal_authority
+	max_absolutism = 0
+	influence = 0.05
+	loyalty = 0.1
+	is_valid = {
+		prestige = -25
+	}
+	can_select = {
+		prestige = 90
+	}
+	benefits = {
+		burghers_privilege_slots = 1
+
+		governing_capacity_modifier = 0.1
+		global_trade_power = 0.1
+		trade_efficiency = 0.1
+		navy_tradition = 1
+		movement_speed = 0.1
+
+	}
+	penalties = {
+		prestige_decay = 0.075
+	}
+	on_granted = {
+	}
+	on_revoked = {
+		add_prestige = -25
+	}
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 5
+			prestige = 95
+		}
+		modifier = {
+			factor = 5
+			government_rank = 3
+		}
+		modifier = {
+			factor = 0
+			NOT = { prestige = 50 }
+		}
+	}
+}
+

@@ -3825,3 +3825,50 @@ estate_church_purge_evil_races = {
 }
 
 
+# Replaced with Raise Expectations
+## Placate the Church - Give prestige to the church to make them happy and integrate them into the state.
+estate_church_placate_the_church = {
+	icon = privilege_royal_authority
+	max_absolutism = 0
+	influence = 0.05
+	loyalty = 0.1
+	is_valid = {
+		prestige = -25
+	}
+	can_select = {
+		prestige = 90
+	}
+	benefits = {
+		church_privilege_slots = 1
+
+		governing_capacity_modifier = 0.1
+		missionaries = 1
+		global_missionary_strength = 0.02
+		global_tax_modifier = 0.10
+		tolerance_own = 2
+
+	}
+	penalties = {
+		prestige_decay = 0.075
+	}
+	on_granted = {
+	}
+	on_revoked = {
+		add_prestige = -25
+	}
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 5
+			prestige = 95
+		}
+		modifier = {
+			factor = 5
+			government_rank = 3
+		}
+		modifier = {
+			factor = 0
+			NOT = { prestige = 50 }
+		}
+	}
+}
