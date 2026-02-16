@@ -50,4 +50,151 @@ country_decisions = {
 	
 	}
 
+	war_raise_expectations = {
+		potential = {
+			NOT = { has_country_modifier = war_great_expectations_5 }
+		}
+
+		allow = {
+			prestige = 95
+			legitimacy_equivalent = 95
+		}
+
+		effect = {
+
+			add_prestige = -100
+
+			add_legitimacy = -25
+			add_republican_tradition = -15
+			add_devotion = -25
+			add_horde_unity = -25
+			add_meritocracy = -25
+
+			if = {
+				limit = { has_country_modifier = war_great_expectations_1 }
+
+				remove_country_modifier = war_great_expectations_1
+
+				add_country_modifier = { 
+				    name = war_great_expectations_2
+				    duration = -1
+				}
+			} else_if = {
+				limit = { has_country_modifier = war_great_expectations_2 }
+
+				remove_country_modifier = war_great_expectations_2
+
+				add_country_modifier = { 
+				    name = war_great_expectations_3
+				    duration = -1
+				}
+			} else_if = {
+				limit = { has_country_modifier = war_great_expectations_3 }
+
+				remove_country_modifier = war_great_expectations_3
+
+				add_country_modifier = { 
+				    name = war_great_expectations_4
+				    duration = -1
+				}
+			} else_if = {
+				limit = { has_country_modifier = war_great_expectations_4 }
+
+				remove_country_modifier = war_great_expectations_4
+
+				add_country_modifier = { 
+				    name = war_great_expectations_5
+				    duration = -1
+				}
+			} else = {
+
+				add_country_modifier = { 
+				    name = war_great_expectations_1
+				    duration = -1
+				}
+
+			}
+			
+		}
+
+		ai_will_do = { factor = 0 }	
+	
+	}
+
+
+
+	war_reduce_expectations = {
+		potential = {
+			OR = {
+				has_country_modifier = war_great_expectations_1
+				has_country_modifier = war_great_expectations_2
+				has_country_modifier = war_great_expectations_3
+				has_country_modifier = war_great_expectations_4
+				has_country_modifier = war_great_expectations_5
+			}
+		}
+
+		allow = {
+			always = yes
+		}
+
+		effect = {
+
+			add_prestige = -25
+
+			add_legitimacy = -10
+			add_republican_tradition = -5
+			add_devotion = -10
+			add_horde_unity = -10
+			add_meritocracy = -10
+
+			if = {
+				limit = { has_country_modifier = war_great_expectations_5 }
+
+				remove_country_modifier = war_great_expectations_5
+
+				add_country_modifier = { 
+				    name = war_great_expectations_4
+				    duration = -1
+				}
+			} else_if = {
+				limit = { has_country_modifier = war_great_expectations_4 }
+
+				remove_country_modifier = war_great_expectations_4
+
+				add_country_modifier = { 
+				    name = war_great_expectations_3
+				    duration = -1
+				}
+			} else_if = {
+				limit = { has_country_modifier = war_great_expectations_3 }
+
+				remove_country_modifier = war_great_expectations_3
+
+				add_country_modifier = { 
+				    name = war_great_expectations_2
+				    duration = -1
+				}
+			} else_if = {
+				limit = { has_country_modifier = war_great_expectations_2 }
+
+				remove_country_modifier = war_great_expectations_2
+
+				add_country_modifier = { 
+				    name = war_great_expectations_1
+				    duration = -1
+				}
+			} else = {
+
+				remove_country_modifier = war_great_expectations_1
+
+			}
+			
+		}
+
+		ai_will_do = { factor = 0 }	
+	
+	}
+
+
 }
