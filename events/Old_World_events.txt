@@ -810,6 +810,58 @@ country_event = {
 
 
 
+## The Green Knight Rides to our aid!
+country_event = { 
+	id = old_world_events.13
+	title = old_world_events.13.title
+	desc = old_world_events.13.desc
+	picture = BRETONNIA_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion = lady_of_the_lake
+		is_at_war = yes
+		NOT = { war_score = -10 }
+		any_war_enemy_country = { NOT = { religion = lady_of_the_lake } }
+		NOT = { 
+			has_leader_with = {
+				shock = 6
+				manuever = 6
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Come, lead our men
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = old_world_events.13.a 
+
+		create_general = {
+			tradition = 100
+			add_shock = 8
+			add_manuever = 8
+			name = the_green_knight_name
+
+		}
+
+	}
+
+# We do not need your services, green knight.
+	option = { 
+		ai_chance = { factor = 10 }
+		name = old_world_events.13.b
+		add_prestige_or_monarch_power = { amount = 25 }
+	}
+}
+
+
 
 ### Meeting of the Elector Counts
 country_event = { 
