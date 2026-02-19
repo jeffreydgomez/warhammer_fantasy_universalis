@@ -2866,3 +2866,783 @@ dip_gift_the_grail = {
 		always = no
     }
 }
+
+
+##
+
+
+dip_request_the_reman_scroll = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_reman_scroll } }
+	}
+
+	is_allowed = {
+		hidden_trigger = {
+			OR = {
+				ai = no
+				AND = {
+					FROM = { trust = { who = ROOT value = 100 } }
+					FROM = { owes_favors = { who = ROOT value = 100 } }
+				}
+			}
+		}
+
+		OR = {
+			FROM = { is_at_war = no }
+			capital_scope = { infantry_in_province = FROM }
+			capital_scope = { cavalry_in_province = FROM }
+			FROM = { capital_scope = { infantry_in_province = ROOT } }
+			FROM = { capital_scope = { cavalry_in_province = ROOT } }
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_reman_scroll }
+			remove_province_modifier = location_of_the_reman_scroll
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_reman_scroll
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_the_reman_scroll = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_reman_scroll }
+	}
+
+	is_allowed = {
+		OR = {
+			is_at_war = no
+			capital_scope = { infantry_in_province = FROM }
+			capital_scope = { cavalry_in_province = FROM }
+			FROM = { capital_scope = { infantry_in_province = ROOT } }
+			FROM = { capital_scope = { cavalry_in_province = ROOT } }
+		}
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_reman_scroll }
+			remove_province_modifier = location_of_the_reman_scroll
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_reman_scroll
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+
+
+
+dip_request_the_genie_in_a_bottle = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_genie_in_a_bottle } }
+	}
+
+	is_allowed = {
+		hidden_trigger = {
+			OR = {
+				ai = no
+				AND = {
+					FROM = { trust = { who = ROOT value = 100 } }
+					FROM = { owes_favors = { who = ROOT value = 100 } }
+				}
+			}
+		}
+
+		OR = {
+			FROM = { is_at_war = no }
+			capital_scope = { infantry_in_province = FROM }
+			capital_scope = { cavalry_in_province = FROM }
+			FROM = { capital_scope = { infantry_in_province = ROOT } }
+			FROM = { capital_scope = { cavalry_in_province = ROOT } }
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_genie_in_a_bottle }
+			remove_province_modifier = location_of_the_genie_in_a_bottle
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_genie_in_a_bottle
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_the_genie_in_a_bottle = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_genie_in_a_bottle }
+	}
+
+	is_allowed = {
+		OR = {
+			is_at_war = no
+			capital_scope = { infantry_in_province = FROM }
+			capital_scope = { cavalry_in_province = FROM }
+			FROM = { capital_scope = { infantry_in_province = ROOT } }
+			FROM = { capital_scope = { cavalry_in_province = ROOT } }
+		}
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_genie_in_a_bottle }
+			remove_province_modifier = location_of_the_genie_in_a_bottle
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_genie_in_a_bottle
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+
+
+
+dip_request_the_heavens_gate = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_heavens_gate } }
+	}
+
+	is_allowed = {
+		hidden_trigger = {
+			OR = {
+				ai = no
+				AND = {
+					FROM = { trust = { who = ROOT value = 100 } }
+					FROM = { owes_favors = { who = ROOT value = 100 } }
+				}
+			}
+		}
+
+		OR = {
+			FROM = { is_at_war = no }
+			capital_scope = { infantry_in_province = FROM }
+			capital_scope = { cavalry_in_province = FROM }
+			FROM = { capital_scope = { infantry_in_province = ROOT } }
+			FROM = { capital_scope = { cavalry_in_province = ROOT } }
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_heavens_gate }
+			remove_province_modifier = location_of_the_heavens_gate
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_heavens_gate
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_the_heavens_gate = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_heavens_gate }
+	}
+
+	is_allowed = {
+		OR = {
+			is_at_war = no
+			capital_scope = { infantry_in_province = FROM }
+			capital_scope = { cavalry_in_province = FROM }
+			FROM = { capital_scope = { infantry_in_province = ROOT } }
+			FROM = { capital_scope = { cavalry_in_province = ROOT } }
+		}
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_heavens_gate }
+			remove_province_modifier = location_of_the_heavens_gate
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_heavens_gate
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+
+
+
+dip_request_the_bleeding_idol = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_bleeding_idol } }
+	}
+
+	is_allowed = {
+		hidden_trigger = {
+			OR = {
+				ai = no
+				AND = {
+					FROM = { trust = { who = ROOT value = 100 } }
+					FROM = { owes_favors = { who = ROOT value = 100 } }
+				}
+			}
+		}
+
+		OR = {
+			FROM = { is_at_war = no }
+			capital_scope = { infantry_in_province = FROM }
+			capital_scope = { cavalry_in_province = FROM }
+			FROM = { capital_scope = { infantry_in_province = ROOT } }
+			FROM = { capital_scope = { cavalry_in_province = ROOT } }
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_bleeding_idol }
+			remove_province_modifier = location_of_the_bleeding_idol
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_bleeding_idol
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_the_bleeding_idol = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_bleeding_idol }
+	}
+
+	is_allowed = {
+		OR = {
+			is_at_war = no
+			capital_scope = { infantry_in_province = FROM }
+			capital_scope = { cavalry_in_province = FROM }
+			FROM = { capital_scope = { infantry_in_province = ROOT } }
+			FROM = { capital_scope = { cavalry_in_province = ROOT } }
+		}
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_bleeding_idol }
+			remove_province_modifier = location_of_the_bleeding_idol
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_bleeding_idol
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+
+
+
+dip_request_the_shoguns_katana = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		FROM = { any_owned_province = { has_province_modifier = location_of_the_shoguns_katana } }
+	}
+
+	is_allowed = {
+		hidden_trigger = {
+			OR = {
+				ai = no
+				AND = {
+					FROM = { trust = { who = ROOT value = 100 } }
+					FROM = { owes_favors = { who = ROOT value = 100 } }
+				}
+			}
+		}
+
+		OR = {
+			FROM = { is_at_war = no }
+			capital_scope = { infantry_in_province = FROM }
+			capital_scope = { cavalry_in_province = FROM }
+			FROM = { capital_scope = { infantry_in_province = ROOT } }
+			FROM = { capital_scope = { cavalry_in_province = ROOT } }
+		}
+
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = -100
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_shoguns_katana }
+			remove_province_modifier = location_of_the_shoguns_katana
+		}
+		capital_scope = {
+			add_permanent_province_modifier = { 
+			    name = location_of_the_shoguns_katana
+			    duration = -1  
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 99
+			}
+		}
+
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { 
+				which = ai_value
+				value = 199
+			}
+        }
+
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+dip_gift_the_shoguns_katana = {
+
+	category = trust
+
+	require_acceptance = yes
+
+	is_visible = {
+		any_owned_province = { has_province_modifier = location_of_the_shoguns_katana }
+	}
+
+	is_allowed = {
+		OR = {
+			is_at_war = no
+			capital_scope = { infantry_in_province = FROM }
+			capital_scope = { cavalry_in_province = FROM }
+			FROM = { capital_scope = { infantry_in_province = ROOT } }
+			FROM = { capital_scope = { cavalry_in_province = ROOT } }
+		}
+	}
+
+    on_accept = {
+
+    	add_favors = {
+		   who = FROM
+		   amount = 50
+		}
+
+		every_province ={
+			limit = { has_province_modifier = location_of_the_shoguns_katana }
+			remove_province_modifier = location_of_the_shoguns_katana
+		}
+
+		FROM = {
+			capital_scope = {
+				add_permanent_province_modifier = { 
+				    name = location_of_the_shoguns_katana
+				    duration = -1  
+				}
+			}
+		}
+
+    }
+
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+    }
+
+    ai_will_do = {
+		always = no
+    }
+}
