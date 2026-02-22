@@ -6,7 +6,15 @@ control_of_court_mechanic = {
         always = yes
     }
 
-    ## Affected by prestige, legitimacy, power projection, corruption
+#       AI: 0.25
+#       Legitimacy Equivalent: 1.00
+#       Corruption: -10
+#       Overextension: -0.5
+#       Prestige: 0.5
+#       Power Projection: 0.5
+#       Court ideas: 0.25
+#       Over Gov cap
+
     ## It should go from 0 - 100 in about 20 years in perfect conditions. That means about +1 a month, with an anti-scaling
 
     powers = {
@@ -26,10 +34,13 @@ control_of_court_mechanic = {
                 start_value = 0
                 end_value = 100
                 modifier = {
-                    all_estate_influence_modifier = -0.25
+
                     liberty_desire_from_subject_development = -0.25
                     advisor_cost = -0.25
-                    max_absolutism = 25
+                    global_autonomy = -0.05
+
+#                   max_absolutism = 25
+#                   all_estate_influence_modifier = -0.25
 
                     monthly_control_of_court_power = -0.5
                 }
@@ -40,10 +51,12 @@ control_of_court_mechanic = {
                 end_value = -100
                 modifier = {
 
-                    all_estate_influence_modifier = 0.25
                     liberty_desire_from_subject_development = 0.25
                     advisor_cost = 0.25
-                    max_absolutism = -25
+                    global_autonomy = 0.05
+
+#                   max_absolutism = -25
+#                   all_estate_influence_modifier = 0.25
 
                     monthly_control_of_court_power = 0.5
 
@@ -58,7 +71,19 @@ control_of_court_mechanic = {
         squeeze_church_interaction = {
             icon = GFX_war_squeeze_church_interaction
             cost_type = control_of_court_power
-            cost = 75
+#           cost = 0
+            trigger = {
+                NOT = { has_country_modifier = war_squeezed_church }
+                has_government_power = {
+                    mechanic_type = control_of_court_power
+                    power_type = control_of_court_power
+                    value = 50
+                }
+                estate_loyalty = {
+                    estate = estate_church
+                    loyalty = 65
+                }
+            }
             effect = {
                 add_stability_or_adm_power = yes
                 add_country_modifier = {
@@ -71,7 +96,19 @@ control_of_court_mechanic = {
         squeeze_nobles_interaction = {
             icon = GFX_war_squeeze_nobles_interaction
             cost_type = control_of_court_power
-            cost = 75
+#           cost = 0
+            trigger = {
+                NOT = { has_country_modifier = war_squeezed_nobles }
+                has_government_power = {
+                    mechanic_type = control_of_court_power
+                    power_type = control_of_court_power
+                    value = 50
+                }
+                estate_loyalty = {
+                    estate = estate_church
+                    loyalty = 65
+                }
+            }
             effect = {               
                 add_yearly_manpower = 1
                 add_country_modifier = {
@@ -84,7 +121,19 @@ control_of_court_mechanic = {
         squeeze_guilds_interaction = {
             icon = GFX_war_squeeze_guilds_interaction
             cost_type = control_of_court_power
-            cost = 75
+#           cost = 0
+            trigger = {
+                NOT = { has_country_modifier = war_squeezed_guilds }
+                has_government_power = {
+                    mechanic_type = control_of_court_power
+                    power_type = control_of_court_power
+                    value = 50
+                }
+                estate_loyalty = {
+                    estate = estate_burghers
+                    loyalty = 65
+                }
+            }
             effect = {
                 add_years_of_income = 0.5
                 add_country_modifier = {
