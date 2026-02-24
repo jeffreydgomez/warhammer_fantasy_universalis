@@ -379,9 +379,9 @@ NDiplomacy = {
 	CELESTIAL_EMPIRE_MANDATE_PER_STATE_WITH_PROSPERITY = 0.04,	-- Yearly change of Mandate for each State with prosperity.
 	CELESTIAL_EMPIRE_MANDATE_PER_HUNDRED_DEVASTATION = -12.0,	-- Yearly change of Mandate for each hundred devastated development (scaled to devastation).
 	CELESTIAL_EMPIRE_MANDATE_PER_HUNDRED_TRIBUTARY_DEV = 0.15,	-- Yearly change of Mandate for each hundred development tributary state.
-	CELESTIAL_EMPIRE_MANDATE_PER_HUNDRED_NONTRIBUTARY_DEV = 0.0,	-- Yearly change of Mandate for each hundred development of neighbouring states that are not the Emperor's tributaries
+	CELESTIAL_EMPIRE_MANDATE_PER_HUNDRED_NONTRIBUTARY_DEV = -0.15,	-- Yearly change of Mandate for each hundred development of neighbouring states that are not the Emperor's tributaries # WAR In vanilla this is 0, though in older versions it was higer.
 	CELESTIAL_EMPIRE_MANDATE_FROM_DEFENDING = 5,	-- How much Mandate is gained when successfully defending the Emperor title.
-	CELESTIAL_EMPIRE_MANDATE_PER_5_LOANS = -0.60,	-- Yearly change of Mandate for every 5 loans.
+	CELESTIAL_EMPIRE_MANDATE_PER_5_LOANS = -1.00,	-- Yearly change of Mandate for every 5 loans.	# WAR this is normally -0.6
 
 	REMOVE_ELECTORATE_INFLUENCE_COST = 10,			-- The amount of IA Remove Electorate costs.
 	GRANT_ELECTORATE_INFLUENCE = 0,					-- The amount of AI Grant Electorate gives.
@@ -2708,7 +2708,7 @@ NNationDesigner = {
 	GOVERNMENT_RANK_COST_2 = 0,
 	GOVERNMENT_RANK_COST_3 = 30,
 
-	MANDATE_SUBCONTINENT_NAME = "china_superregion", -- Name of the subcontinent where the Mandate will be given to the biggest nation by development when using random generated nations
+	MANDATE_SUBCONTINENT_NAME = "northern_south_lands_superregion", -- Name of the subcontinent where the Mandate will be given to the biggest nation by development when using random generated nations # WAR this used to be china_superregion
 },
 
 NGovernment = {
