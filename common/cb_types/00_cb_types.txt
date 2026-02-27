@@ -1380,56 +1380,36 @@ cb_humiliate_rotw = {
 	war_goal = humiliate_rotw
 }
 
-# # Reunification of China
-# cb_chinese_unification = {
-# 	valid_for_subject = no
+ # Reunification of China/Southlands
+ cb_chinese_unification = {
+ 	valid_for_subject = no
 
-# 	prerequisites_self = {
-# 		is_free_or_tributary_trigger = yes
-# 		OR = {
-# 			AND = {
-# 				has_dlc = "Mandate of Heaven"
-# 				is_emperor_of_china = yes
-# 			}
-# 			AND = {
-# 				NOT = { has_dlc = "Mandate of Heaven" }
-# 				culture_group = east_asian #Chinese
-# 				OR = {	#Manchus won't get this unless they unify
-# 					tag = MCH
-# 					tag = QNG
-# 					NOT = { primary_culture = manchu }
-# 				}
-# 			}
-# 			has_government_attribute = has_unify_china_cb
-# 		}
-# 	}
+ 	prerequisites_self = {
+ 		is_emperor_of_china = yes
+ 	}
 
-# 	prerequisites = {		
-# 		FROM = { #Applies against other powers in China unless they have the Mandate of Heaven
-# 			NOT = { is_subject_of = ROOT }
-# 			OR = {
-# 				has_dlc = "Mandate of Heaven"
-# 				culture_group = east_asian #Chinese
-# 			}
-# 			any_owned_province = {
-# 				OR = {
-# 					region = north_china_region
-# 					region = xinan_region
-# 					region = south_china_region
-# 				}
-# 			}
-# 			NOT = { has_country_modifier = the_mandate_of_heaven }
-# 			is_emperor_of_china = no
-# 		}
-# 	}
+ 	prerequisites = {		
+ 		FROM = { #Applies against other powers in China unless they have the Mandate of Heaven
+ 			NOT = { is_subject_of = ROOT }
+ 			OR = {
+ 				has_dlc = "Mandate of Heaven"
+ 				culture_group = east_asian #Chinese
+ 			}
+ 			any_owned_province = {
+ 				continent = africa
+ 			}
+ 			NOT = { has_country_modifier = the_mandate_of_heaven }
+ 			is_emperor_of_china = no
+ 		}
+ 	}
 
-# 	attacker_disabled_po = {
-# 		po_become_tributary_state
-# 		po_subjugate_tributary_state
-# 	}
+ 	attacker_disabled_po = {
+ 		po_become_tributary_state
+ 		po_subjugate_tributary_state
+ 	}
 
-# 	war_goal = superiority_chinese_unification
-# }
+ 	war_goal = superiority_chinese_unification
+ }
 
 # Take the Mandate of Heaven
 cb_take_mandate = {
@@ -1440,8 +1420,7 @@ cb_take_mandate = {
 		is_subject = no
 		is_revolutionary = no
 
-		num_of_provinces_owned_or_owned_by_subjects_with = {
-			value = 5
+		capital_scope = {
 			continent = africa
 		}
 
@@ -1463,7 +1442,7 @@ cb_take_mandate = {
 	}
 
 	prerequisites = {
-		is_neighbor_of = FROM
+#		is_neighbor_of = FROM
 		FROM = { is_emperor_of_china = yes }
 		NOT = { truce_with = FROM }		
 	}
