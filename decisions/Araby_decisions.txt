@@ -12,14 +12,6 @@ country_decisions = {
 			NOT = {
 				has_country_flag = formed_araby_flag
 			}
-			OR = {
-				ai = no
-				is_playing_custom_nation = no
-			}
-			OR = {
-#				is_free_or_tributary_trigger = yes
-				ai = no
-			}
 			NOT = {
 				exists = Z98
 			}
@@ -161,11 +153,17 @@ country_decisions = {
 	claim_solar_mandate = {
 		major = yes
 		potential = {
+			religion_group = arabyn_denominations
 			hidden_trigger = {
-				is_great_power = yes
-				prestige = 95
-				legitimacy_equivalent = 100
-				religion_group = arabyn_denominations
+				OR = {
+					ai = no
+					AND = {
+						is_great_power = yes
+						prestige = 95
+						legitimacy_equivalent = 100
+					}
+				}
+
 			}
 			all_countries_including_self = {
 				is_emperor_of_china = no
@@ -178,8 +176,12 @@ country_decisions = {
 			religion_group = arabyn_denominations
 		}
 		effect = {
-			dismantle_empire_of_china = no
-			set_emperor_of_china = ROOT
+			custom_tooltip = claim_solar_mandate_effect_tt
+			hidden_effect = {
+				dismantle_empire_of_china = no
+				set_emperor_of_china = ROOT
+			}
+			set_government_rank = 3
 		}
 
 		ai_will_do = { factor = 100 }
