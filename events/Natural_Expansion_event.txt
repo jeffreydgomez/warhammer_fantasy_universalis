@@ -24,7 +24,42 @@ country_event = {
 	option = { 
 		ai_chance = { factor = 100 }
 		name = natural_expansion_event.0.a 
-		war_natural_expansion = yes		
+		war_natural_expansion = yes
+
+
+		# AI Prophet of the Sun slowly eats AI tributaries
+		if = {
+			limit = {
+				is_emperor_of_china = yes
+				has_subject_of_type = tributary_state
+			}
+			every_subject_country = {
+				limit = {
+					ai = yes
+					is_subject_of_type = tributary_state
+					has_opinion = {
+						who = ROOT
+						value = 190
+					}			
+				}
+
+				random_owned_province = {
+					limit = {
+						any_neighbor_province = {
+							owned_by = ROOT
+						}
+						OR = {
+							religion = ROOT
+							culture_group = ROOT
+						}
+					}
+					cede_province = ROOT
+					add_core = ROOT
+
+				}
+			}
+
+		}
 	}
 }
 

@@ -1,0 +1,1234 @@
+
+##################################
+##### Araby CULTURE GROUP
+##################################
+araby_missions_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = arabyan_group
+		war_mission_priority_1 = no
+	}
+
+	# Araby is a land of trade. We must dominate ours to control araby.
+	araby_dominate_home_trade_node = {
+		icon = mission_araby_culture
+		required_missions = {  }
+		position = 3
+		trigger = {
+			home_trade_node = {
+				trade_share = {
+					country = ROOT
+					share = 51
+				}
+			}
+		}
+		effect = {
+
+		}
+	}
+
+	# In order for trade to flourish, we need to protect the trade routes that go across the deserts.
+	araby_protect_desert_routes = {
+		icon = mission_araby_culture
+		required_missions = { araby_dominate_home_trade_node }
+		position = 4
+		trigger = {
+			# Control all deserts in arabia
+		}
+		effect = {
+			# all deserts in arabia get movement, trade power, and supply limit buff
+
+		}
+	}
+
+# The desert routes have long been dangerous. We must install resting points within them
+	araby_resting_posts = {
+		icon = mission_araby_culture
+		required_missions = { araby_protect_desert_routes }
+		position = 5
+		trigger = {
+			## 3x forts and expanded infrastructure in provinces?
+		}
+		effect = {
+
+		}
+	}
+
+	# Araby has long been a center of trade. To ensure that foreigners are not scared by our new religion, we must have great centers of trading.
+	araby_centers_of_trade = {
+		icon = mission_araby_culture
+		required_missions = { araby_resting_posts }
+		position = 7
+		trigger = {
+			## 3x level 3 centers of trade, 5x level 2 centers of trade
+		}
+		effect = {
+
+		}
+	}
+
+
+	#
+	araby_build_counting_houses = {
+		icon = mission_early_game_buildings
+		required_missions = { araby_build_temples }
+		position = 9
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					has_building = workshop
+					has_building = counting_house
+				}
+				value = 5
+			}
+		}
+		effect = {
+
+		}
+	}
+
+	araby_arabian_coffee = {
+		icon = mission_early_game_buildings
+		required_missions = { araby_build_counting_houses }
+		position = 10
+		trigger = {
+			OR = {
+				trade_goods_produced_amount = {
+					trade_goods = coffee
+					amount = 15
+				}
+				trading_bonus = {
+					trade_goods = coffee
+					value = yes
+				}
+			}
+		}
+		effect = {
+
+		}
+	}
+
+	araby_build_manufactories = {
+		icon = mission_have_manufactories
+		required_missions = { araby_arabian_coffee }
+		position = 12
+		trigger = {
+			calc_true_if = {
+				desc = build_manufactories_mission_tooltip
+				all_owned_province = {
+					OR = {
+						has_building = mills
+						has_building = farm_estate
+						has_building = tradecompany
+						has_building = plantations
+						has_building = textile
+						has_building = weapons
+						has_building = wharf
+						has_building = furnace
+					}
+				}
+				amount = 20
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	araby_new_world_foothold_1 = {
+		icon = mission_high_elf_lustria_map
+		required_missions = { araby_dominate_araby }
+		position = 12
+		provinces_to_highlight = {
+			OR = {
+				continent = south_america
+				continent = north_america
+			}
+			NOT = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}			
+			}
+		}
+		trigger = {
+			any_province = {
+				OR = {
+					continent = south_america
+					continent = north_america
+				}
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+## We have established the first Lustrian mission, designed to bring order and peace to the lizardmen of Lustria.
+	araby_new_world_foothold_2 = {
+		icon = mission_high_elf_lustria_map
+		required_missions = { araby_new_world_foothold_1 }
+		position = 13
+		provinces_to_highlight = {
+			OR = {
+				continent = south_america
+				continent = north_america
+			}
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 5
+				OR = {
+					continent = south_america
+					continent = north_america
+				}
+				NOT = { owner = { is_subject_of_type = tributary_state } }
+			}
+		}
+		effect = {
+		}
+	}
+
+	araby_new_world_foothold_3 = {
+		icon = mission_high_elf_lustria_map
+		required_missions = { araby_new_world_foothold_2 }
+		position = 14
+		provinces_to_highlight = {
+			OR = {
+				continent = south_america
+				continent = north_america
+			}
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 15
+				OR = {
+					continent = south_america
+					continent = north_america
+				}
+				NOT = { owner = { is_subject_of_type = tributary_state } }
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+}
+
+
+
+##################################
+araby_missions_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = arabyan_group
+		war_mission_priority_1 = no
+	}
+
+	# In order to further consolidate our religious practices, we must include the powerful merchants in their opinions.
+	araby_please_guilds = {
+		icon = mission_high_elf_docks_2
+		required_missions = {  }
+		position = 2
+		trigger = {
+			OR = {
+				AND = {
+					estate_loyalty = {
+					    estate = estate_burghers
+					    loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_burghers
+						value = 1
+					}
+				}
+				NOT = {	
+					estate_influence = {
+					    estate = estate_burghers
+					    influence = 15
+					}
+				}
+				NOT = { has_estate = estate_burghers }
+			}
+		}
+		effect = {
+		}
+	}
+
+	araby_build_markets = {
+		icon = mission_trade_company_region_abroad
+		required_missions = { araby_please_guilds }
+		position = 4
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+				 	has_building = marketplace
+				 	has_building = trade_depot
+				 	has_building = stock_exchange
+				}
+				value = 5
+			}
+		}
+		effect = {
+		}
+	}
+
+
+	araby_pirates_or_not = {
+		icon = mission_trade_company_region_abroad
+		required_missions = { araby_build_markets }
+		position = 5
+		trigger = {
+
+			
+		}
+		effect = {
+		}
+	}
+
+
+	araby_dominate_arabian_nodes = {
+		icon = mission_trade_company_region_abroad
+		required_missions = { araby_pirates_or_not }
+		position = 6
+		trigger = {
+			calc_true_if = {
+				all_trade_node = {
+					is_strongest_trade_power = ROOT
+				}
+				amount = 3
+			}
+			
+		}
+		effect = {
+		}
+	}
+
+
+	araby_build_temples = {
+		icon = mission_high_elf_religion
+		required_missions = { araby_the_holy_cities }
+		position = 8
+		provinces_to_highlight = {
+			owned_by = ROOT
+			has_tax_building_trigger = no
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+		 		has_tax_building_trigger = yes
+				value = 15
+			}
+		}
+		effect = {
+			
+		}
+	}
+
+	araby_build_courts = {
+		icon = mission_high_elf_building_1
+		required_missions = { araby_build_temples }
+		position = 9
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = {
+				OR = {
+			 		has_building = courthouse
+			 		has_building = town_hall
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+			 		has_building = courthouse
+			 		has_building = town_hall
+				}
+				value = 5
+			}
+		}
+		effect = {
+
+		}
+	}
+
+	araby_world_center = {
+		icon = mission_high_elf_building_1
+		required_missions = { araby_build_courts }
+		position = 10
+		trigger = {
+			any_owned_province = {
+				num_of_times_expanded_infrastructure = 4
+				num_of_buildings_in_province = 7
+				province_has_center_of_trade_of_level = 3
+			}
+		}
+		effect = {
+
+		}
+	}
+
+	araby_badlands_1 = {
+		icon = mission_high_elf_army
+		required_missions = {  }
+		position = 14
+		provinces_to_highlight = {
+			region = badlands_region
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				region = badlands_region
+				owner = {
+					OR = {
+						tag = ROOT
+						NOT = { liberty_desire = 10 }
+					}
+				}
+				NOT = { owner = { is_subject_of_type = tributary_state } }
+			}
+		}
+		effect = {
+		}
+	}
+
+	araby_badlands_2 = {
+		icon = mission_high_elf_army
+		required_missions = { araby_badlands_1 }
+		position = 15
+		provinces_to_highlight = {
+			region = badlands_region
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 25
+				region = badlands_region
+				owner = {
+					OR = {
+						tag = ROOT
+						NOT = { liberty_desire = 10 }
+					}
+				}
+				NOT = { owner = { is_subject_of_type = tributary_state } }
+			}
+		}
+		effect = {
+		}
+	}
+
+}
+
+
+
+
+
+##################################
+araby_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = arabyan_group
+		war_mission_priority_1 = no
+	}
+
+
+	araby_a_new_faith_is_born = {
+		icon = mission_araby_culture
+		required_missions = {  }
+		position = 1
+		trigger = {
+			religious_unity = 1.0
+		}
+		effect = {
+
+		}
+	}
+
+	araby_please_church = {
+		icon = mission_high_elf_docks_2
+		required_missions = { araby_a_new_faith_is_born }
+		position = 2
+		trigger = {
+			OR = {
+				AND = {
+					estate_loyalty = {
+					    estate = estate_church
+					    loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_church
+						value = 1
+					}
+				}
+				NOT = {	
+					estate_influence = {
+					    estate = estate_church
+					    influence = 15
+					}
+				}
+				NOT = { has_estate = estate_church }
+			}
+		}
+		effect = {
+		}
+	}
+
+	araby_defender_of_faith = { 
+		icon = catholic_volunteers
+		required_missions = { araby_please_church araby_please_guilds araby_please_nobles}
+		position = 3
+		provinces_to_highlight = {
+			owner = {
+				total_development = ROOT
+				religion = ROOT
+			}
+		}
+		trigger = {
+			prestige = 75
+			religious_unity = 1.0
+			OR = {
+				is_defender_of_faith = yes
+				AND = {
+					at_war_with_religious_enemy = yes
+					NOT = {
+						any_country = {
+							total_development = ROOT
+							religion = ROOT
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+		
+		}
+	}
+
+
+	araby_write_the_first_texts = { 
+		icon = catholic_volunteers
+		required_missions = { araby_defender_of_faith }
+		position = 4
+		trigger = {
+			prestige = 99
+			legitimacy_equivalent = 100
+		}
+
+		effect = {
+		
+		}
+	}
+
+	araby_charity_and_taxes = { 
+		icon = catholic_volunteers
+		required_missions = { araby_write_the_first_texts }
+		position = 6
+		trigger = {
+			
+		}
+
+		effect = {
+		
+		}
+	}
+
+	araby_the_holy_cities = { 
+		icon = catholic_volunteers
+		required_missions = { araby_write_the_first_texts }
+		position = 7
+		trigger = {
+			1 = {
+				owned_by = ROOT
+				num_of_times_expanded_infrastructure  = 1
+				has_tax_building_trigger = yes
+			}
+			
+		}
+
+		effect = {
+		
+		}
+	}
+
+	araby_role_of_the_army = { 
+		icon = catholic_volunteers
+		required_missions = { araby_the_holy_cities }
+		position = 7
+		trigger = {
+			has_flagship = yes
+			army_size_percentage = 1
+			navy_size_percentage = 1
+		}
+
+		effect = {
+		
+		}
+	}
+
+
+	araby_prevent_schism = {
+		icon = mission_asian_trader
+		required_missions = { araby_role_of_the_army }
+		position = 10
+		trigger = {
+			crown_land_share = 50
+			NOT = {
+				estate_influence = {
+			    	estate = all
+			    	influence = 95
+				}
+			}
+		}
+
+		effect = {
+				
+		}
+	}
+
+	araby_dominate_araby = {
+		icon = mission_high_elf_lustria_map
+		required_missions = { araby_prevent_schism }
+		position = 11
+		provinces_to_highlight = {
+			region = araby_region
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 60
+				region = araby_region
+				NOT = { owner = { is_subject_of_type = tributary_state } }
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+	araby_into_nehekhara = {
+		icon = mission_high_elf_lustria_map
+		required_missions = { araby_prevent_schism }
+		position = 12
+		provinces_to_highlight = {
+			region = nehekhara_region
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 15
+				region = nehekhara_region
+				NOT = { owner = { is_subject_of_type = tributary_state } }
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+	araby_nehekhara_monuments = {
+		icon = mission_high_elf_lustria_map
+		required_missions = { araby_into_nehekhara }
+		position = 13
+		provinces_to_highlight = {
+			region = nehekhara_region
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 5
+				region = nehekhara_region
+				has_great_project = {
+					type = any
+					tier = 1
+				}
+				NOT = { owner = { is_subject_of_type = tributary_state } }
+			}
+		}
+		effect = {
+
+		}
+	}
+
+	araby_mountains_1 = {
+		icon = mission_high_elf_army
+		required_missions = { araby_nehekhara_monuments }
+		position = 14
+		provinces_to_highlight = {
+			region = badlands_region
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				region = southern_world_edge_mountains_region
+				owner = {
+					OR = {
+						tag = ROOT
+						NOT = { liberty_desire = 10 }
+					}
+				}
+				NOT = { owner = { is_subject_of_type = tributary_state } }
+			}
+		}
+		effect = {
+		}
+	}
+
+	araby_mountains_2 = {
+		icon = mission_high_elf_army
+		required_missions = { araby_mountains_1 }
+		position = 15
+		provinces_to_highlight = {
+			region = southern_world_edge_mountains_region
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 25
+				region = badlands_region
+				owner = {
+					OR = {
+						tag = ROOT
+						NOT = { liberty_desire = 10 }
+					}
+				}
+				NOT = { owner = { is_subject_of_type = tributary_state } }
+			}
+		}
+		effect = {
+		}
+	}
+
+	araby_convert_the_world = {
+		icon = mission_high_elf_army
+		required_missions = {  }
+		position = 16
+		provinces_to_highlight = {
+			NOT = { religion = ROOT }
+		}
+		trigger = {
+			is_defender_of_faith_of_tier = 5
+			calc_true_if = {
+				all_province = {
+					religion = ROOT
+				}
+				amount = 1000
+			}
+		}
+		effect = {
+		}
+	}
+
+}
+
+
+
+##################################
+araby_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = arabyan_group
+		war_mission_priority_1 = no
+	}
+
+	araby_please_nobles = {
+		icon = mission_high_elf_docks_2
+		required_missions = { araby_a_new_faith_is_born }
+		position = 2
+		trigger = {
+			OR = {
+				AND = {
+					estate_loyalty = {
+					    estate = estate_nobles
+					    loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_nobles
+						value = 1
+					}
+				}
+				NOT = {	
+					estate_influence = {
+					    estate = estate_nobles
+					    influence = 15
+					}
+				}
+				NOT = { has_estate = estate_nobles }
+			}
+		}
+		effect = {
+		}
+	}
+
+	araby_army_tradition = {
+		icon = mission_greenskins_savage_orc
+		required_missions = { araby_please_nobles }
+		position = 4
+		trigger = {
+			army_tradition = 75
+		}
+		effect = {
+			
+		}
+	}
+
+
+	araby_arabian_horse_breeding_1 = {
+		icon = mission_subdue_rajputana
+		required_missions = { araby_army_tradition }
+		position = 5
+		provinces_to_highlight = {
+			trade_goods = livestock
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_cavalry = 10
+			trade_goods_produced_amount = {
+				trade_goods = livestock
+				amount = 10
+			}
+		}
+	}
+
+	araby_arabian_horse_breeding_2 = {
+		icon = mission_subdue_rajputana
+		required_missions = { araby_army_tradition }
+		position = 6
+		provinces_to_highlight = {
+			trade_goods = livestock
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_cavalry = 50
+			production_leader = {
+				trade_goods = livestock
+			}
+		}
+	}
+
+	araby_please_mages = {
+		icon = mission_high_elf_docks_2
+		required_missions = { araby_the_holy_cities }
+		position = 8
+		trigger = {
+			OR = {
+				AND = {
+					estate_loyalty = {
+					    estate = estate_mages
+					    loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_mages
+						value = 1
+					}
+				}
+				NOT = {	
+					estate_influence = {
+					    estate = estate_mages
+					    influence = 15
+					}
+				}
+				NOT = { has_estate = estate_games }
+			}
+		}
+		effect = {
+		}
+	}
+
+	araby_brass_for_bottles_1 = {
+		icon = mission_subdue_rajputana
+		required_missions = { araby_please_mages }
+		position = 9
+		provinces_to_highlight = {
+			trade_goods = copper
+			has_discovered = ROOT
+		}
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = copper
+				amount = 10
+			}
+		}
+	}
+
+	araby_other_valuables = {
+		icon = mission_subdue_rajputana
+		required_missions = { araby_brass_for_bottles_1 }
+		position = 10
+		provinces_to_highlight = {
+			OR = {
+				trade_goods = warpstone
+				trade_goods = gems
+				trade_goods = paper
+				trade_goods = old_ones_relics
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			OR = {
+				trading_bonus = {
+					trade_goods = gems
+					value = yes
+				}
+				trading_bonus = {
+					trade_goods = paper
+					value = yes
+				}
+				trading_bonus = {
+					trade_goods = warpstone
+					value = yes
+				}
+				trading_bonus = {
+					trade_goods = old_ones_relics
+					value = yes
+				}
+			}
+		}
+	}
+
+	araby_djinn_mastery = {
+		icon = mission_subdue_rajputana
+		required_missions = { araby_other_valuables }
+		position = 11
+		provinces_to_highlight = {
+			trade_goods = copper
+			has_discovered = ROOT
+		}
+		trigger = {
+			production_leader = {
+				trade_goods = copper
+			}
+			OR = {
+				innovativeness = 50
+				has_country_modifier = war_modern_science
+			}
+			OR = {
+				AND = {
+					estate_loyalty = {
+					    estate = estate_mages
+					    loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_mages
+						value = 5
+					}
+				}
+				NOT = {	
+					estate_influence = {
+					    estate = estate_mages
+					    influence = 15
+					}
+				}
+				NOT = { has_estate = estate_games }
+			}
+		}
+	}
+
+	araby_to_the_south_1 = {
+		icon = mission_high_elf_army
+		required_missions = {  }
+		position = 14
+		provinces_to_highlight = {
+			OR = {
+				region = new_coast_region
+				region = plain_of_tuskers_region
+			}
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				OR = {
+					region = new_coast_region
+					region = plain_of_tuskers_region
+				}
+				owner = {
+					OR = {
+						tag = ROOT
+						NOT = { liberty_desire = 10 }
+					}
+				}
+				NOT = { owner = { is_subject_of_type = tributary_state } }
+			}
+		}
+		effect = {
+		}
+	}
+
+	araby_to_the_south_1 = {
+		icon = mission_high_elf_army
+		required_missions = { araby_to_the_south_2 }
+		position = 15
+		provinces_to_highlight = {
+			OR = {
+				region = new_coast_region
+				region = plain_of_tuskers_region
+			}
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 25
+				OR = {
+					region = new_coast_region
+					region = plain_of_tuskers_region
+				}
+				owner = {
+					OR = {
+						tag = ROOT
+						NOT = { liberty_desire = 10 }
+					}
+				}
+				NOT = { owner = { is_subject_of_type = tributary_state } }
+			}
+		}
+		effect = {
+		}
+	}
+
+
+}
+
+
+##################################
+araby_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = arabyan_group
+		war_mission_priority_1 = no
+	}
+
+	araby_places_to_train = {
+		icon = mission_landsknecht_soldier
+		required_missions = { araby_please_nobles  }
+		position = 2
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = {
+				OR = {
+			 		has_building = barracks
+			 		has_building = training_fields
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+			 		has_building = barracks
+			 		has_building = training_fields
+				}
+				value = 10
+			}
+		}
+		effect = {	
+		}
+	}
+
+
+	araby_modern_military_tactics = {
+		icon = mission_landsknecht_soldier
+		required_missions = {  araby_please_nobles }
+		position = 3
+		trigger = {
+			OR = {
+				army_professionalism = 0.15
+				has_country_modifier = war_modern_army
+			}
+		}
+
+		effect = {
+		}
+	}
+
+	araby_convert_people_1 = {
+		icon = mission_landsknecht_soldier
+		required_missions = { araby_army_tradition araby_places_to_train }
+		position = 5
+		trigger = {
+			 ###
+		}
+
+		effect = {
+		}
+	}
+
+	araby_convert_people_2 = {
+		icon = mission_landsknecht_soldier
+		required_missions = { araby_convert_people_1 }
+		position = 6
+		trigger = {
+			 ###
+		}
+
+		effect = {
+		}
+	}
+
+	araby_convert_people_3 = {
+		icon = mission_landsknecht_soldier
+		required_missions = { araby_convert_people_2 }
+		position = 7
+		trigger = {
+			 ###
+		}
+
+		effect = {
+		}
+	}
+
+	araby_convert_people_4 = {
+		icon = mission_landsknecht_soldier
+		required_missions = { araby_convert_people_4 }
+		position = 8
+		trigger = {
+			 ###
+		}
+
+		effect = {
+		}
+	}
+
+
+	araby_teachings_of_the_djinn = {
+		icon = mission_subdue_rajputana
+		required_missions = { araby_please_mages }
+		position = 9
+		trigger = {
+			OR = {
+				innovativeness = 15
+				has_country_modifier = war_modern_science
+			}
+		}
+	}
+
+	araby_places_of_study = {
+		icon = mission_subdue_rajputana
+		required_missions = { araby_teachings_of_the_djinn }
+		position = 10
+		trigger = {
+			university = 5
+		}
+	}
+
+
+	araby_old_world_foothold_1 = {
+		icon = mission_high_elf_lustria_map
+		required_missions = { araby_dominate_araby }
+		position = 12
+		provinces_to_highlight = {
+			continent = europe
+			NOT = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}			
+			}
+		}
+		trigger = {
+			any_province = {
+				continent = europe
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+## We have established the first Lustrian mission, designed to bring order and peace to the lizardmen of Lustria.
+	araby_old_world_foothold_2 = {
+		icon = mission_high_elf_lustria_map
+		required_missions = { araby_old_world_foothold_1 }
+		position = 13
+		provinces_to_highlight = {
+			continent = europe
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 5
+				continent = europe
+				NOT = { owner = { is_subject_of_type = tributary_state } }
+			}
+		}
+		effect = {
+		}
+	}
+
+	araby_old_world_foothold_3 = {
+		icon = mission_high_elf_lustria_map
+		required_missions = { araby_old_world_foothold_2 }
+		position = 14
+		provinces_to_highlight = {
+			continent = europe
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 15
+				continent = europe
+				NOT = { owner = { is_subject_of_type = tributary_state } }
+			}
+		}
+		effect = {
+
+		}
+	}
+
+
+}

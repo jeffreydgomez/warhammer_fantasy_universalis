@@ -675,3 +675,42 @@ country_event = {
 	}
 
 }
+
+
+
+#### INTRO EVENTS
+
+### Araby Intro.
+# A new religion is born! For millenia, Araby has worshipped demons, Nehekharan gods, and Djinn. But now, the Sun God Ptra has sent Anmar Fakir, the Prophet of the Sun, to bring us the truth. There is only one god, who rules over all. 
+# Over the past 30 years, prophet Fakir has charged across Araby, unifying it through diplomacy and force. And yet, as he reaches he life there is still so much left to do. The One Faith must be spread across the world, to deliver us all from demons.
+# The Prophet of the Sun carries the Solar Mandate from the one god. As long as people believe in his power, the Sun Prophet carries power and prestige, and is capable of making great reforms. But if people believe he has lost his mandate, then his rule will fall apart.
+# There is one other important teaching of the Sun God. The next Prophet may come from anywhere. All creatures, from Skaven to Ogres to Brettonnians are capable of speaking his truth. Not only may any individual claim the solar mantle, but this is proof that the entire world is eager to learn the one truth. Let us begin.
+
+country_event = { 
+	id = araby_events.100
+	title = araby_events.100.t 
+	desc = araby_events.100.d 
+	picture = ARABY_eventPicture
+	
+#	fire_only_once = yes
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = arabyan_group
+		NOT= { has_country_flag = did_intro_event }
+	}
+
+	immediate = { set_country_flag = did_intro_event }
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = araby_events.100.a 
+		trigger = { }
+		add_mercantilism = 5
+
+		add_country_modifier = { 
+		    name = war_religious_fervor
+		    duration = 9125
+		}
+	}
+}
