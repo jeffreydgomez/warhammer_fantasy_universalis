@@ -1,7 +1,8 @@
-
 ##################################
 ##### Araby CULTURE GROUP
 ##################################
+
+## About 30 of these should give half bonuses. The remaining should give one off things.
 araby_missions_1 = {
 	slot = 1
 	generic = yes
@@ -12,7 +13,7 @@ araby_missions_1 = {
 		war_mission_priority_1 = no
 	}
 
-	# Araby is a land of trade. We must dominate ours to control araby.
+	# Araby is a land of trade. We must dominate ours to control araby, and expand our trade centers.
 	araby_dominate_home_trade_node = {
 		icon = mission_araby_culture
 		required_missions = { araby_please_guilds }
@@ -26,6 +27,12 @@ araby_missions_1 = {
 			}
 		}
 		effect = {
+
+			add_country_modifier = { 
+    			name = araby_trade_1
+    			duration = -1  
+			}
+
 
 		}
 	}
@@ -44,7 +51,7 @@ araby_missions_1 = {
 		}
 	}
 
-# The desert routes have long been dangerous. We must install resting points within them
+	# The desert routes have long been dangerous. We must install resting points within them, and take these learnings to other lands.
 	araby_resting_posts = {
 		icon = mission_araby_culture
 		required_missions = { araby_protect_desert_routes }
@@ -54,24 +61,42 @@ araby_missions_1 = {
 		}
 		effect = {
 
+			add_country_modifier = { 
+    			name = araby_resting_posts
+    			duration = -1  
+			}
+
 		}
 	}
 
-	# Araby has long been a center of trade. To ensure that foreigners are not scared by our new religion, we must have great centers of trading.
+	# Araby has long been a center of trade. To ensure that foreigners are not scared by our new religion, we must have great centers of trading. Foreign investments will flood in.
 	araby_centers_of_trade = {
 		icon = mission_araby_culture
 		required_missions = { araby_resting_posts }
 		position = 7
 		trigger = {
-			## 3x level 3 centers of trade, 5x level 2 centers of trade
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 3
+				province_has_center_of_trade_of_level = 3
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 7
+				province_has_center_of_trade_of_level = 2
+			}
 		}
 		effect = {
-
+			every_province = {
+				limit = {
+					country_or_subject_holds = ROOT
+					province_has_center_of_trade_of_level = 2
+				}
+				add_base_production = 2
+			}
 		}
 	}
 
 
-	#
+	# Temples have long been great sources of wealth for us. But as the ages continue, new ways of making money emerge. Let's make hay while the sun shines!
 	araby_build_counting_houses = {
 		icon = mission_early_game_buildings
 		required_missions = { araby_build_temples }
@@ -86,10 +111,12 @@ araby_missions_1 = {
 			}
 		}
 		effect = {
+			add_years_of_income = 1
 
 		}
 	}
 
+	# While coffee exists in the new world and beyond, our own Arabian Coffee is the best in the world. We must make a name for ourselves on the global stage.
 	araby_arabian_coffee = {
 		icon = mission_early_game_buildings
 		required_missions = { araby_build_counting_houses }
@@ -107,10 +134,15 @@ araby_missions_1 = {
 			}
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = araby_arabian_coffee
+    			duration = -1  
+			}
 
 		}
 	}
 
+	# We've long been considered a desert wasteland, merely a stopping point for more valuable resources. But now we have truely entered the world stage as a great producer of goods ourselves.
 	araby_build_manufactories = {
 		icon = mission_have_manufactories
 		required_missions = { araby_arabian_coffee }
@@ -134,10 +166,15 @@ araby_missions_1 = {
 			}
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = araby_production_center
+    			duration = -1  
+			}
 		}
 	}
 
 
+# The new world is ripe for the taking, and araby is a spear in its heart. We are perfectly positioned to take advantage.
 	araby_new_world_foothold_1 = {
 		icon = mission_high_elf_lustria_map
 		required_missions = { araby_dominate_araby }
@@ -179,12 +216,76 @@ araby_missions_1 = {
 			}
 		}
 		effect = {
-
+			add_prestige_or_monarch_power = { amount = 25 }
+			every_neighbor_province = {
+				limit = { 
+					OR = {
+						continent = south_america
+						continent = north_america
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			every_subject = {
+				every_neighbor_province = {
+					limit = { 
+						OR = {
+							continent = south_america
+							continent = north_america
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			random_province = {
+				limit = {
+					OR = {
+						continent = south_america
+						continent = north_america
+					}
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					OR = {
+						continent = south_america
+						continent = north_america
+					}
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					OR = {
+						continent = south_america
+						continent = north_america
+					}
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					OR = {
+						continent = south_america
+						continent = north_america
+					}
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
 		}
 	}
 
 
-## We have established the first Lustrian mission, designed to bring order and peace to the lizardmen of Lustria.
+## We have gained a foothold in the New World, and we shall bring our ways to these savages.
 	araby_new_world_foothold_2 = {
 		icon = mission_high_elf_lustria_map
 		required_missions = { araby_new_world_foothold_1 }
@@ -207,8 +308,75 @@ araby_missions_1 = {
 			}
 		}
 		effect = {
+			add_prestige_or_monarch_power = { amount = 50 }
+			every_neighbor_province = {
+				limit = { 
+					OR = {
+						continent = south_america
+						continent = north_america
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			every_subject = {
+				every_neighbor_province = {
+					limit = {
+						OR = {
+							continent = south_america
+							continent = north_america
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			random_province = {
+				limit = {
+					OR = {
+						continent = south_america
+						continent = north_america
+					}
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					OR = {
+						continent = south_america
+						continent = north_america
+					}
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					OR = {
+						continent = south_america
+						continent = north_america
+					}
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					OR = {
+						continent = south_america
+						continent = north_america
+					}
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
 		}
 	}
+
+## We have gained a foothold in the New World, and we shall bring our ways to these savages.
 
 	araby_new_world_foothold_3 = {
 		icon = mission_high_elf_lustria_map
@@ -223,7 +391,7 @@ araby_missions_1 = {
 		}
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
-				value = 25
+				value = 75
 				OR = {
 					continent = south_america
 					continent = north_america
@@ -232,7 +400,71 @@ araby_missions_1 = {
 			}
 		}
 		effect = {
-
+			add_prestige_or_monarch_power = { amount = 50 }
+			every_neighbor_province = {
+				limit = { 
+					OR = {
+						continent = south_america
+						continent = north_america
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			every_subject = {
+				every_neighbor_province = {
+					limit = {
+						OR = {
+							continent = south_america
+							continent = north_america
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			random_province = {
+				limit = {
+					OR = {
+						continent = south_america
+						continent = north_america
+					}
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					OR = {
+						continent = south_america
+						continent = north_america
+					}
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					OR = {
+						continent = south_america
+						continent = north_america
+					}
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					OR = {
+						continent = south_america
+						continent = north_america
+					}
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
 		}
 	}
 
@@ -252,7 +484,7 @@ araby_missions_2 = {
 		war_mission_priority_1 = no
 	}
 
-	# In order to further consolidate our religious practices, we must include the powerful merchants in their opinions.
+	# In order to further consolidate our religious practices, we must include the powerful merchants in their opinions. We must convince them to give up their influence of their own accord.
 	araby_please_guilds = {
 		icon = mission_high_elf_docks_2
 		required_missions = { araby_a_new_faith_is_born }
@@ -279,9 +511,14 @@ araby_missions_2 = {
 			}
 		}
 		effect = {
+			change_estate_land_share = {
+ 			 	estate = estate_burghers
+    			share = -5.0
+			}
 		}
 	}
 
+## There are many independent brokers and competing interests at the Bazaar. Let the state fund markets so that we have a stake in things.
 	araby_build_markets = {
 		icon = mission_trade_company_region_abroad
 		required_missions = { araby_please_guilds }
@@ -297,23 +534,31 @@ araby_missions_2 = {
 			}
 		}
 		effect = {
+			remove_country_modifier = araby_trade_1
+			add_country_modifier = { 
+    			name = araby_trade_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
 
+## Our people have long been pirates. But as stronger ships take to the waves, we need to decide. Will we continue our piracy? Or deploy our ships to protect our trade?
 	araby_pirates_or_not = {
 		icon = mission_trade_company_region_abroad
 		required_missions = { araby_build_markets }
 		position = 5
 		trigger = {
+			## Privateering or something else?
 
-			
+
 		}
 		effect = {
 		}
 	}
 
-
+# The more trade we control, the stronger we become. Merchants flock to our offices, hoping to represent us. We will take the best.
 	araby_dominate_arabian_nodes = {
 		icon = mission_trade_company_region_abroad
 		required_missions = { araby_pirates_or_not }
@@ -328,10 +573,16 @@ araby_missions_2 = {
 			
 		}
 		effect = {
+			remove_country_modifier = araby_trade_3
+			add_country_modifier = { 
+    			name = araby_trade_4
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
-
+# Our religion must have places to grow and flourish. Strategically placed temples will help us stabilize our country.
 	araby_build_temples = {
 		icon = mission_high_elf_religion
 		required_missions = { araby_the_holy_cities }
@@ -347,10 +598,11 @@ araby_missions_2 = {
 			}
 		}
 		effect = {
-			
+			add_stability_or_adm_power = yes
 		}
 	}
 
+# One pillar of our religion is "Eadala", or justice. With federal courthouses throughout our land, we promise justice to the people.
 	araby_build_courts = {
 		icon = mission_high_elf_building_1
 		required_missions = { araby_build_temples }
@@ -374,10 +626,15 @@ araby_missions_2 = {
 			}
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = araby_justice
+    			duration = -1  
+			}
 
 		}
 	}
 
+# Once, we held the greatest and most forward thinking cities in the world. Let us re-claim that glory.
 	araby_world_center = {
 		icon = mission_high_elf_building_1
 		required_missions = { araby_build_courts }
@@ -391,6 +648,40 @@ araby_missions_2 = {
 		}
 		effect = {
 
+			if = {
+				limit = { 
+					any_owned_province = {
+						num_of_times_expanded_infrastructure = 4
+						num_of_buildings_in_province = 7
+						province_has_center_of_trade_of_level = 3
+					}
+				}
+
+				random_owned_province = {
+					limit = {
+						num_of_times_expanded_infrastructure = 4
+						num_of_buildings_in_province = 7
+						province_has_center_of_trade_of_level = 3
+					}
+
+					add_province_modifier = { 
+					    name = araby_world_center_of_learning
+					    duration = -1  
+					}
+				}
+
+
+
+			} else = {
+
+				capital_scope = {
+
+					add_province_modifier = { 
+					    name = araby_world_center_of_learning
+					    duration = -1  
+					}
+				}
+			}
 		}
 	}
 
@@ -416,6 +707,53 @@ araby_missions_2 = {
 			}
 		}
 		effect = {
+			add_prestige_or_monarch_power = { amount = 50 }
+			every_neighbor_province = {
+				limit = { 
+					region = badlands_region
+				}
+				add_permanent_claim = ROOT
+			}
+			every_subject = {
+				every_neighbor_province = {
+					limit = {
+						region = badlands_region
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			random_province = {
+				limit = {
+					region = badlands_region
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					region = badlands_region
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					region = badlands_region
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					region = badlands_region
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
 		}
 	}
 
@@ -441,6 +779,53 @@ araby_missions_2 = {
 			}
 		}
 		effect = {
+			add_prestige_or_monarch_power = { amount = 100 }
+			every_neighbor_province = {
+				limit = { 
+					region = badlands_region
+				}
+				add_permanent_claim = ROOT
+			}
+			every_subject = {
+				every_neighbor_province = {
+					limit = {
+						region = badlands_region
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			random_province = {
+				limit = {
+					region = badlands_region
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					region = badlands_region
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					region = badlands_region
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					region = badlands_region
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
 		}
 	}
 
@@ -462,6 +847,7 @@ araby_missions_3 = {
 	}
 
 
+# A few faith emerges from the chaos of Araby. One faith, guided by Ptra the Sun God's Prophet, Anmar Fakir, the Prophet of the Sun. This is a once in a millenia experience. Our people are energized.
 	araby_a_new_faith_is_born = {
 		icon = mission_araby_culture
 		required_missions = {  }
@@ -470,10 +856,15 @@ araby_missions_3 = {
 			religious_unity = 1.0
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = araby_evangelism
+    			duration = -1  
+			}
 
 		}
 	}
 
+# To help form this new religion, we must value the opinions of the priests. In fact, we should get them so involved that they are willing to give up their own church land to help us write it.
 	araby_please_church = {
 		icon = mission_high_elf_docks_2
 		required_missions = { araby_a_new_faith_is_born }
@@ -500,9 +891,14 @@ araby_missions_3 = {
 			}
 		}
 		effect = {
+			change_estate_land_share = {
+ 			 	estate = estate_church
+    			share = -5.0
+			}
 		}
 	}
 
+	## Now that we have gathered the estates, we must solidify our right to help adjudicate our beliefs. We must become the pre-eminent nation of our faith.
 	araby_defender_of_faith = { 
 		icon = catholic_volunteers
 		required_missions = { araby_please_church araby_please_guilds araby_please_nobles}
@@ -531,11 +927,13 @@ araby_missions_3 = {
 		}
 
 		effect = {
+
+		## Event to choose
 		
 		}
 	}
 
-
+	# Our religion lacks a holy text. Let us be the first to create it.
 	araby_write_the_first_texts = { 
 		icon = catholic_volunteers
 		required_missions = { araby_defender_of_faith }
@@ -543,32 +941,70 @@ araby_missions_3 = {
 		trigger = {
 			prestige = 99
 			legitimacy_equivalent = 100
+			# Needs something else here.
 		}
 
 		effect = {
+
+		## Event to choose
 		
 		}
 	}
 
+# The Prophet of the Sun must often wield the sword to bring peace to the world. But many wonder: what is the role of the army, and conquest, in our religion? Must the sword always be used? Or can we spread the word through softer means?
+	araby_role_of_the_army = { 
+		icon = catholic_volunteers
+		required_missions = { araby_write_the_first_texts araby_army_tradition }
+		position = 5
+		trigger = {
+			has_flagship = yes
+			army_size_percentage = 1
+			navy_size_percentage = 1
+			employed_advisor = {
+				category = MIL
+				is_male = yes
+			    skill = 4
+			}
+			num_of_diplomatic_relations = 4
+		}
+
+		effect = {
+			# Choose
+		
+		}
+	}
+
+	# Zakat, or charity, is a core pillar of our religion. Let us take the time to invest in our least affluent citizens. But the question remains - will we, as a government, give Zakat? Or should we merely encourage Zakat among our citizens?
 	araby_charity_and_taxes = { 
 		icon = catholic_volunteers
-		required_missions = { araby_write_the_first_texts }
-		position = 6
+		required_missions = { araby_role_of_the_army }
+		position = 7
 		trigger = {
-			
+			all_owned_province = {
+				development = 5
+			}
+			employed_advisor = {
+				category = ADM
+				is_male = yes
+			    skill = 4
+			}
 		}
 
 		effect = {
+
+			## Event to choose.
 		
 		}
 	}
 
+
+	## The four holy cities are where Anmar Fakir received his visions of prophecy. By controlling and investing in these cities, we can further expand our religious mandate, inspiring our missionaries to work of their own accord.
 	araby_the_holy_cities = { 
 		icon = catholic_volunteers
 		required_missions = { araby_charity_and_taxes }
-		position = 7
+		position = 8
 		trigger = {
-			1 = {
+			1 = {	# Change these to the four holy cities.
 				owned_by = ROOT
 				num_of_times_expanded_infrastructure  = 1
 				has_tax_building_trigger = yes
@@ -577,48 +1013,48 @@ araby_missions_3 = {
 		}
 
 		effect = {
-		
-		}
-	}
 
-	araby_role_of_the_army = { 
-		icon = catholic_volunteers
-		required_missions = { araby_the_holy_cities }
-		position = 7
-		trigger = {
-			has_flagship = yes
-			army_size_percentage = 1
-			navy_size_percentage = 1
-		}
+			remove_country_modifier = araby_evangelism
+			add_country_modifier = { 
+    			name = araby_inspired_missionaries
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 
-		effect = {
-		
+	
 		}
 	}
 
 
+
+## Such rapid growth, both of our faithful and of our teachings, has lead to the possibilty of schism. We must head this off immediately to prevent any issues. Once we have calmed the dissenting voices refer then, to our newly created texts. How do we deal with other opinions?
 	araby_prevent_schism = {
 		icon = mission_asian_trader
-		required_missions = { araby_role_of_the_army }
+		required_missions = { araby_the_holy_cities }
 		position = 10
 		trigger = {
 			crown_land_share = 50
+			religious_unity = 1.0
 			NOT = {
 				estate_influence = {
 			    	estate = all
 			    	influence = 95
 				}
 			}
+			NOT = { average_unrest = -1 }
 		}
 
 		effect = {
+
+			## Decide on tolerance self, or tolerance heathen and heretic.
 				
 		}
 	}
 
+# With Araby unified, men show up in droves to fight for the cause. After all, who else would they fight for?
 	araby_dominate_araby = {
 		icon = mission_high_elf_lustria_map
-		required_missions = { araby_prevent_schism }
+		required_missions = { }
 		position = 11
 		provinces_to_highlight = {
 			region = araby_region
@@ -633,10 +1069,17 @@ araby_missions_3 = {
 		}
 		effect = {
 
+			add_country_modifier = { 
+    			name = araby_a_unified_people
+    			duration = -1  
+			}
+
 		}
 	}
 
 
+
+## Nekehkara is our birthright. Our ancestors were forces from their deserts long ago, and now it is time to reclaim it.
 	araby_into_nehekhara = {
 		icon = mission_high_elf_lustria_map
 		required_missions = { araby_dominate_araby }
@@ -653,11 +1096,26 @@ araby_missions_3 = {
 			}
 		}
 		effect = {
-
+			add_prestige_or_monarch_power = { amount = 50 }
+			every_neighbor_province = {
+				limit = { 
+					region = nehekhara_region
+				}
+				add_permanent_claim = ROOT
+			}
+			every_subject = {
+				every_neighbor_province = {
+					limit = {
+						region = nehekhara_region
+					}
+					add_permanent_claim = ROOT
+				}
+			}
 		}
 	}
 
 
+## Nehekhara is known for its monuments. Let us study them, and be inspired by them.
 	araby_nehekhara_monuments = {
 		icon = mission_high_elf_lustria_map
 		required_missions = { araby_into_nehekhara }
@@ -678,6 +1136,10 @@ araby_missions_3 = {
 			}
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = araby_now_we_build
+    			duration = -1  
+			}
 
 		}
 	}
@@ -687,7 +1149,7 @@ araby_missions_3 = {
 		required_missions = { araby_nehekhara_monuments }
 		position = 14
 		provinces_to_highlight = {
-			region = badlands_region
+			region = southern_world_edge_mountains_region
 			NOT = { country_or_subject_holds = ROOT }
 		}
 		trigger = {
@@ -704,6 +1166,21 @@ araby_missions_3 = {
 			}
 		}
 		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			every_neighbor_province = {
+				limit = { 
+					region = southern_world_edge_mountains_region
+				}
+				add_permanent_claim = ROOT
+			}
+			every_subject = {
+				every_neighbor_province = {
+					limit = {
+						region = southern_world_edge_mountains_region
+					}
+					add_permanent_claim = ROOT
+				}
+			}
 		}
 	}
 
@@ -718,7 +1195,7 @@ araby_missions_3 = {
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				value = 25
-				region = badlands_region
+				region = southern_world_edge_mountains_region 
 				owner = {
 					OR = {
 						tag = ROOT
@@ -729,9 +1206,25 @@ araby_missions_3 = {
 			}
 		}
 		effect = {
+			add_prestige_or_monarch_power = { amount = 50 }
+			every_neighbor_province = {
+				limit = { 
+					region = southern_world_edge_mountains_region
+				}
+				add_permanent_claim = ROOT
+			}
+			every_subject = {
+				every_neighbor_province = {
+					limit = {
+						region = southern_world_edge_mountains_region
+					}
+					add_permanent_claim = ROOT
+				}
+			}
 		}
 	}
 
+## We have taken the world by storm. Soon, all peoples, regardless of their color or creed, will be freed from the ignorance of the past and helped into a unified, glorious future.
 	araby_convert_the_world = {
 		icon = mission_high_elf_army
 		required_missions = {  }
@@ -749,6 +1242,10 @@ araby_missions_3 = {
 			}
 		}
 		effect = {
+			add_country_modifier = { 
+    			name = araby_global_religion
+    			duration = -1  
+			}
 		}
 	}
 
@@ -767,6 +1264,7 @@ araby_missions_4 = {
 		war_mission_priority_1 = no
 	}
 
+## There can be no structured faith without the consent of the nobles. Regardless of what our theologians think, we must include their opinions. And we can bargain with them - their lands, for their opinions.
 	araby_please_nobles = {
 		icon = mission_high_elf_docks_2
 		required_missions = { araby_a_new_faith_is_born }
@@ -793,26 +1291,35 @@ araby_missions_4 = {
 			}
 		}
 		effect = {
+			change_estate_land_share = {
+ 			 	estate = estate_nobles
+    			share = -5.0
+			}
 		}
 	}
 
+# Our people are traditionally a horse and camel people, raiding and attacking like the wind. Let us embrace that.
 	araby_army_tradition = {
 		icon = mission_greenskins_savage_orc
 		required_missions = { araby_please_nobles }
-		position = 3
+		position = 4
 		trigger = {
 			army_tradition = 75
 		}
 		effect = {
-			
+			add_country_modifier = { 
+    			name = araby_cavalry_1
+    			duration = -1  
+			}
 		}
 	}
 
 
+# Arabian horses are the best in the world. Let us control production to increase it.
 	araby_arabian_horse_breeding_1 = {
 		icon = mission_subdue_rajputana
 		required_missions = { araby_army_tradition }
-		position = 4
+		position = 5
 		provinces_to_highlight = {
 			trade_goods = livestock
 			has_discovered = ROOT
@@ -824,12 +1331,21 @@ araby_missions_4 = {
 				amount = 10
 			}
 		}
+		effect = {
+			remove_country_modifier = araby_cavalry_1
+			add_country_modifier = { 
+    			name = araby_cavalry_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
 	}
 
+# It is not enough that we have enough horses for our cavalry. Let us field enough horses for every man!
 	araby_arabian_horse_breeding_2 = {
 		icon = mission_subdue_rajputana
 		required_missions = { araby_arabian_horse_breeding_1 }
-		position = 5
+		position = 6
 		provinces_to_highlight = {
 			trade_goods = livestock
 			has_discovered = ROOT
@@ -840,7 +1356,44 @@ araby_missions_4 = {
 				trade_goods = livestock
 			}
 		}
+		effect = {
+			remove_country_modifier = araby_cavalry_2
+			add_country_modifier = { 
+    			name = araby_cavalry_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
 	}
+
+# Horses for every man, woman, and child!
+	araby_arabian_horse_breeding_3 = {
+		icon = mission_subdue_rajputana
+		required_missions = { araby_arabian_horse_breeding_1 }
+		position = 6
+		provinces_to_highlight = {
+			trade_goods = livestock
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_cavalry = 100
+			trade_goods_produced_amount = {
+				trade_goods = livestock
+				amount = 100
+			}
+		}
+		effect = {
+			remove_country_modifier = araby_cavalry_3
+			add_country_modifier = {
+    			name = araby_cavalry_4
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+
+
 
 	araby_please_mages = {
 		icon = mission_high_elf_docks_2
@@ -988,6 +1541,27 @@ araby_missions_4 = {
 			}
 		}
 		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			every_neighbor_province = {
+				limit = { 
+					OR = {
+						region = new_coast_region
+						region = plain_of_tuskers_region
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			every_subject = {
+				every_neighbor_province = {
+					limit = {
+						OR = {
+							region = new_coast_region
+							region = plain_of_tuskers_region
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
 		}
 	}
 
@@ -1019,6 +1593,27 @@ araby_missions_4 = {
 			}
 		}
 		effect = {
+			add_prestige_or_monarch_power = { amount = 50 }
+			every_neighbor_province = {
+				limit = { 
+					OR = {
+						region = new_coast_region
+						region = plain_of_tuskers_region
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			every_subject = {
+				every_neighbor_province = {
+					limit = {
+						OR = {
+							region = new_coast_region
+							region = plain_of_tuskers_region
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
 		}
 	}
 
@@ -1185,7 +1780,49 @@ araby_missions_5 = {
 			}
 		}
 		effect = {
-
+			add_prestige_or_monarch_power = { amount = 25 }
+			every_neighbor_province = {
+				limit = { continent = europe }
+				add_permanent_claim = ROOT
+			}
+			every_subject = {
+				every_neighbor_province = {
+					limit = { continent = europe }
+					add_permanent_claim = ROOT
+				}
+			}
+			random_province = {
+				limit = {
+					continent = europe
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					continent = europe
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					continent = europe
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					continent = europe
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
 		}
 	}
 
@@ -1207,6 +1844,49 @@ araby_missions_5 = {
 			}
 		}
 		effect = {
+			add_prestige_or_monarch_power = { amount = 50 }
+			every_neighbor_province = {
+				limit = { continent = europe }
+				add_permanent_claim = ROOT
+			}
+			every_subject = {
+				every_neighbor_province = {
+					limit = { continent = europe }
+					add_permanent_claim = ROOT
+				}
+			}
+			random_province = {
+				limit = {
+					continent = europe
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					continent = europe
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					continent = europe
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					continent = europe
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
 		}
 	}
 
@@ -1226,7 +1906,49 @@ araby_missions_5 = {
 			}
 		}
 		effect = {
-
+			add_prestige_or_monarch_power = { amount = 75 }
+			every_neighbor_province = {
+				limit = { continent = europe }
+				add_permanent_claim = ROOT
+			}
+			every_subject = {
+				every_neighbor_province = {
+					limit = { continent = europe }
+					add_permanent_claim = ROOT
+				}
+			}
+			random_province = {
+				limit = {
+					continent = europe
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					continent = europe
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					continent = europe
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
+			random_province = {
+				limit = {
+					continent = europe
+					has_port = yes
+					is_city = yes
+				}
+				add_permanent_claim = ROOT
+			}
 		}
 	}
 
