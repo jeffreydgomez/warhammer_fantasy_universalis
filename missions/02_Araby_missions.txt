@@ -2,7 +2,6 @@
 ##### Araby CULTURE GROUP
 ##################################
 
-## About 30 of these should give half bonuses. The remaining should give one off things.
 araby_missions_1 = {
 	slot = 1
 	generic = yes
@@ -27,13 +26,10 @@ araby_missions_1 = {
 			}
 		}
 		effect = {
-
 			add_country_modifier = { 
     			name = araby_trade_1
     			duration = -1  
 			}
-
-
 		}
 	}
 
@@ -43,11 +39,33 @@ araby_missions_1 = {
 		required_missions = { araby_dominate_home_trade_node }
 		position = 4
 		trigger = {
-			# Control all deserts in arabia
+			NOT = {
+				any_province = {
+					OR = {
+						region = araby_region
+						region = sudron_region
+						region = gulf_of_medes_region
+					}
+					has_terrain = desert
+					NOT = { owned_by_subject_of = ROOT }
+				}
+			}
 		}
 		effect = {
-			# all deserts in arabia get movement, trade power, and supply limit buff
-
+			every_province = {
+				limit = { 
+					OR = {
+						region = araby_region
+						region = sudron_region
+						region = gulf_of_medes_region
+					}
+					has_terrain = desert
+				}
+				add_province_modifier = { 
+				    name = araby_protected_desert_trade
+				    duration = -1 
+				}
+			}
 		}
 	}
 
@@ -57,15 +75,20 @@ araby_missions_1 = {
 		required_missions = { araby_protect_desert_routes }
 		position = 5
 		trigger = {
-			## 3x forts and expanded infrastructure in provinces?
+			calc_true_if = {
+				all_owned_province = {
+					has_terrain = desert
+					num_of_times_expanded_infrastructure = 1
+					fort_level = 2
+				}
+				amount = 3
+			}
 		}
 		effect = {
-
 			add_country_modifier = { 
     			name = araby_resting_posts
     			duration = -1  
 			}
-
 		}
 	}
 
@@ -112,7 +135,6 @@ araby_missions_1 = {
 		}
 		effect = {
 			add_years_of_income = 1
-
 		}
 	}
 
@@ -138,7 +160,6 @@ araby_missions_1 = {
     			name = araby_arabian_coffee
     			duration = -1  
 			}
-
 		}
 	}
 
@@ -400,7 +421,7 @@ araby_missions_1 = {
 			}
 		}
 		effect = {
-			add_prestige_or_monarch_power = { amount = 50 }
+			add_prestige_or_monarch_power = { amount = 75 }
 			every_neighbor_province = {
 				limit = { 
 					OR = {
@@ -550,11 +571,19 @@ araby_missions_2 = {
 		required_missions = { araby_build_markets }
 		position = 5
 		trigger = {
-			## Privateering or something else?
-
-
+			OR = {
+				num_ships_privateering = 35
+				num_ships_protecting_trade = 35
+			}
 		}
 		effect = {
+			remove_country_modifier = araby_trade_2
+			add_country_modifier = { 
+    			name = araby_trade_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+
 		}
 	}
 
@@ -630,7 +659,6 @@ araby_missions_2 = {
     			name = araby_justice
     			duration = -1  
 			}
-
 		}
 	}
 
@@ -669,13 +697,8 @@ araby_missions_2 = {
 					    duration = -1  
 					}
 				}
-
-
-
 			} else = {
-
 				capital_scope = {
-
 					add_province_modifier = { 
 					    name = araby_world_center_of_learning
 					    duration = -1  
@@ -707,7 +730,7 @@ araby_missions_2 = {
 			}
 		}
 		effect = {
-			add_prestige_or_monarch_power = { amount = 50 }
+			add_prestige_or_monarch_power = { amount = 25 }
 			every_neighbor_province = {
 				limit = { 
 					region = badlands_region
@@ -779,7 +802,7 @@ araby_missions_2 = {
 			}
 		}
 		effect = {
-			add_prestige_or_monarch_power = { amount = 100 }
+			add_prestige_or_monarch_power = { amount = 50 }
 			every_neighbor_province = {
 				limit = { 
 					region = badlands_region
@@ -860,7 +883,6 @@ araby_missions_3 = {
     			name = araby_evangelism
     			duration = -1  
 			}
-
 		}
 	}
 
@@ -898,7 +920,7 @@ araby_missions_3 = {
 		}
 	}
 
-	## Now that we have gathered the estates, we must solidify our right to help adjudicate our beliefs. We must become the pre-eminent nation of our faith.
+	## Now that we have gathered the estates, we must solidify our right to help adjudicate our beliefs. We must become the pre-eminent nation of our faith. In doing so, eo we appeal to the estates, or the common people?
 	araby_defender_of_faith = { 
 		icon = catholic_volunteers
 		required_missions = { araby_please_church araby_please_guilds araby_please_nobles}
@@ -933,7 +955,7 @@ araby_missions_3 = {
 		}
 	}
 
-	# Our religion lacks a holy text. Let us be the first to create it.
+	# Our religion lacks a holy text. Let us be the first to create it, and we must have the resources to distribute it. But do we take a radical approach? Or appeach to stability?
 	araby_write_the_first_texts = { 
 		icon = catholic_volunteers
 		required_missions = { araby_defender_of_faith }
@@ -941,13 +963,16 @@ araby_missions_3 = {
 		trigger = {
 			prestige = 99
 			legitimacy_equivalent = 100
-			# Needs something else here.
+			trade_goods_produced_amount = {
+				trade_goods = paper
+				amount = 1
+			}
 		}
 
 		effect = {
-
-		## Event to choose
-		
+			country_event = { 
+			    id = araby_events.100
+			}
 		}
 	}
 
@@ -969,8 +994,9 @@ araby_missions_3 = {
 		}
 
 		effect = {
-			# Choose
-		
+			country_event = { 
+			    id = araby_events.101
+			}
 		}
 	}
 
@@ -991,9 +1017,9 @@ araby_missions_3 = {
 		}
 
 		effect = {
-
-			## Event to choose.
-		
+			country_event = { 
+			    id = araby_events.102
+			}
 		}
 	}
 
@@ -1046,7 +1072,9 @@ araby_missions_3 = {
 
 		effect = {
 
-			## Decide on tolerance self, or tolerance heathen and heretic.
+			country_event = { 
+			    id = araby_events.103
+			}
 				
 		}
 	}
@@ -1057,13 +1085,21 @@ araby_missions_3 = {
 		required_missions = { }
 		position = 11
 		provinces_to_highlight = {
-			region = araby_region
+			OR = {
+				region = araby_region
+				region = sudron_region
+				region = gulf_of_medes_region
+			}
 			NOT = { country_or_subject_holds = ROOT }
 		}
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				value = 60
-				region = araby_region
+				OR = {
+					region = araby_region
+					region = sudron_region
+					region = gulf_of_medes_region
+				}
 				NOT = { owner = { is_subject_of_type = tributary_state } }
 			}
 		}
@@ -1096,7 +1132,7 @@ araby_missions_3 = {
 			}
 		}
 		effect = {
-			add_prestige_or_monarch_power = { amount = 50 }
+			add_prestige_or_monarch_power = { amount = 25 }
 			every_neighbor_province = {
 				limit = { 
 					region = nehekhara_region
@@ -1123,6 +1159,10 @@ araby_missions_3 = {
 		provinces_to_highlight = {
 			region = nehekhara_region
 			NOT = { country_or_subject_holds = ROOT }
+			has_great_project = {
+				type = any
+				tier = 1
+			}
 		}
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
@@ -1369,7 +1409,7 @@ araby_missions_4 = {
 # Horses for every man, woman, and child!
 	araby_arabian_horse_breeding_3 = {
 		icon = mission_subdue_rajputana
-		required_missions = { araby_arabian_horse_breeding_1 }
+		required_missions = { araby_arabian_horse_breeding_2 }
 		position = 6
 		provinces_to_highlight = {
 			trade_goods = livestock
@@ -1394,10 +1434,10 @@ araby_missions_4 = {
 
 
 
-
+## While not a true political organization, individual Djinn Binders do wield a great amount of power. Let us consult them on how the Djinn fit into our new theology.
 	araby_please_mages = {
 		icon = mission_high_elf_docks_2
-		required_missions = { araby_the_holy_cities }
+		required_missions = {  }
 		position = 8
 		trigger = {
 			OR = {
@@ -1417,13 +1457,19 @@ araby_missions_4 = {
 					    influence = 15
 					}
 				}
-				NOT = { has_estate = estate_games }
+				NOT = { has_estate = estate_mages }
 			}
 		}
 		effect = {
+			
+			country_event = { 
+			    id = araby_events.104
+			}
+
 		}
 	}
 
+## Brass is a core component in the binding of djinn - brass bottles, brass urns, and brass lamps. To ensure the continued production of bound djinn, and integrate them into our weapons, we must ensure access to copper.
 	araby_brass_for_bottles_1 = {
 		icon = mission_subdue_rajputana
 		required_missions = { araby_please_mages }
@@ -1438,8 +1484,16 @@ araby_missions_4 = {
 				amount = 10
 			}
 		}
+		effect = {
+			add_country_modifier = {
+    			name = araby_djinn_warfare_1
+    			duration = -1  
+			}
+		}
 	}
 
+
+# Ornamention is just as important for the capture of djinn as it is the trade.
 	araby_other_valuables = {
 		icon = mission_subdue_rajputana
 		required_missions = { araby_brass_for_bottles_1 }
@@ -1450,68 +1504,91 @@ araby_missions_4 = {
 				trade_goods = gems
 				trade_goods = paper
 				trade_goods = old_ones_relics
+				trade_goods = incense
+				trade_goods = dyes
+				trade_goods = glass
+				trade_goods = fur
+				trade_goods = ivory
 			}
 			has_discovered = ROOT
 		}
 		trigger = {
 			OR = {
-				trading_bonus = {
+				trade_goods_produced_amount = {
 					trade_goods = gems
-					value = yes
+					amount = 10
 				}
-				trading_bonus = {
+				trade_goods_produced_amount = {
 					trade_goods = paper
-					value = yes
+					amount = 10
 				}
-				trading_bonus = {
+				trade_goods_produced_amount = {
 					trade_goods = warpstone
-					value = yes
+					amount = 10
 				}
-				trading_bonus = {
+				trade_goods_produced_amount = {
 					trade_goods = old_ones_relics
-					value = yes
+					amount = 10
+				}
+				trade_goods_produced_amount = {
+					trade_goods = incense
+					amount = 10
+				}
+				trade_goods_produced_amount = {
+					trade_goods = dyes
+					amount = 10
+				}
+				trade_goods_produced_amount = {
+					trade_goods = glass
+					amount = 10
+				}
+				trade_goods_produced_amount = {
+					trade_goods = fur
+					amount = 10
+				}
+				trade_goods_produced_amount = {
+					trade_goods = ivory
+					amount = 10
 				}
 			}
 		}
+		effect = {
+			remove_country_modifier = araby_djinn_warfare_1
+			add_country_modifier = { 
+    			name = araby_djinn_warfare_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
 	}
 
-	araby_djinn_mastery = {
+# Our cannons are already famous. Let us make great djinn cannons to tear down any wall.
+	araby_djinn_cannons = {
 		icon = mission_subdue_rajputana
-		required_missions = { araby_other_valuables araby_places_of_study }
+		required_missions = { araby_other_valuables }
 		position = 11
 		provinces_to_highlight = {
 			trade_goods = copper
 			has_discovered = ROOT
 		}
 		trigger = {
-			production_leader = {
+			num_of_artillery = 100
+			trade_goods_produced_amount = {
 				trade_goods = copper
-			}
-			OR = {
-				innovativeness = 50
-				has_country_modifier = war_modern_science
-			}
-			OR = {
-				AND = {
-					estate_loyalty = {
-					    estate = estate_mages
-					    loyalty = 65
-					}
-					num_of_estate_agendas_completed = {
-						estate = estate_mages
-						value = 5
-					}
-				}
-				NOT = {	
-					estate_influence = {
-					    estate = estate_mages
-					    influence = 15
-					}
-				}
-				NOT = { has_estate = estate_games }
+				amount = 50
 			}
 		}
+		effect = {
+			remove_country_modifier = araby_djinn_warfare_2
+			add_country_modifier = {
+    			name = araby_djinn_warfare_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
 	}
+
+
 
 	araby_to_the_south_1 = {
 		icon = mission_high_elf_army
@@ -1616,8 +1693,6 @@ araby_missions_4 = {
 			}
 		}
 	}
-
-
 }
 
 
@@ -1632,6 +1707,7 @@ araby_missions_5 = {
 		war_mission_priority_1 = no
 	}
 
+# We have long been a people of fierce spirits. Let us find places to train to encourage these spirits.
 	araby_places_to_train = {
 		icon = mission_landsknecht_soldier
 		required_missions = { araby_please_nobles  }
@@ -1655,10 +1731,14 @@ araby_missions_5 = {
 			}
 		}
 		effect = {	
+			add_country_modifier = { 
+    			name = araby_morale_1
+    			duration = -1  
+			}
 		}
 	}
 
-
+## as we enter into this new age of fighting, we cannot forget our past.
 	araby_modern_military_tactics = {
 		icon = mission_landsknecht_soldier
 		required_missions = { araby_army_tradition araby_places_to_train }
@@ -1671,58 +1751,103 @@ araby_missions_5 = {
 		}
 
 		effect = {
+			remove_country_modifier = araby_morale_1
+			add_country_modifier = { 
+    			name = araby_morale_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
+## It is our mandate to bring the true faith to the world. The process will be bloody, but they will thank us for it.
 	araby_convert_people_1 = {
 		icon = mission_landsknecht_soldier
-		required_missions = { araby_modern_military_tactics }
+		required_missions = { araby_army_tradition araby_modern_military_tactics }
 		position = 5
 		trigger = {
-			 ###
+			check_variable = {
+				which = warhammer_countries_converted
+				value = 3
+			}
 		}
 
 		effect = {
+			add_country_modifier = { 
+    			name = araby_convert_nonbelievers_1
+    			duration = -1  
+			}
 		}
 	}
 
+## It is our mandate to bring the true faith to the world. The process will be bloody, but they will thank us for it.
 	araby_convert_people_2 = {
 		icon = mission_landsknecht_soldier
 		required_missions = { araby_convert_people_1 }
 		position = 6
 		trigger = {
-			 ###
+			check_variable = {
+				which = warhammer_countries_converted
+				value = 10
+			}
 		}
 
 		effect = {
+			remove_country_modifier = araby_convert_nonbelievers_1
+			add_country_modifier = { 
+    			name = araby_convert_nonbelievers_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
+## It is our mandate to bring the true faith to the world. The process will be bloody, but they will thank us for it.
 	araby_convert_people_3 = {
 		icon = mission_landsknecht_soldier
 		required_missions = { araby_convert_people_2 }
 		position = 7
 		trigger = {
-			 ###
+			check_variable = {
+				which = warhammer_countries_converted
+				value = 20
+			}
 		}
 
 		effect = {
+			remove_country_modifier = araby_convert_nonbelievers_2
+			add_country_modifier = { 
+    			name = araby_convert_nonbelievers_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
+## It is our mandate to bring the true faith to the world. The process will be bloody, but they will thank us for it.
 	araby_convert_people_4 = {
 		icon = mission_landsknecht_soldier
 		required_missions = { araby_convert_people_3 }
 		position = 8
 		trigger = {
-			 ###
+			check_variable = {
+				which = warhammer_countries_converted
+				value = 30
+			}
 		}
 
 		effect = {
+			remove_country_modifier = araby_convert_nonbelievers_3
+			add_country_modifier = { 
+    			name = araby_convert_nonbelievers_4
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
 
+## Bound, allied, or enemies, it is worth listening to the Djinn to see what they have to say.
 	araby_teachings_of_the_djinn = {
 		icon = mission_subdue_rajputana
 		required_missions = { araby_please_mages }
@@ -1733,8 +1858,15 @@ araby_missions_5 = {
 				has_country_modifier = war_modern_science
 			}
 		}
+		effect = {
+			add_country_modifier = { 
+    			name = araby_djinn_bindings_1
+    			duration = -1  
+			}
+		}
 	}
 
+## We must build great places of study where people and djinn can learn from one another.
 	araby_places_of_study = {
 		icon = mission_subdue_rajputana
 		required_missions = { araby_teachings_of_the_djinn }
@@ -1742,8 +1874,63 @@ araby_missions_5 = {
 		trigger = {
 			university = 5
 		}
+		effect = {
+			remove_country_modifier = araby_djinn_bindings_1
+			add_country_modifier = { 
+    			name = araby_djinn_bindings_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
 	}
 
+
+# We have achieved total mastery over the djinn. We use them in all aspects of our work, immensely speeding our capabilities.
+	araby_djinn_mastery = {
+		icon = mission_subdue_rajputana
+		required_missions = { araby_other_valuables araby_places_of_study }
+		position = 11
+		provinces_to_highlight = {
+			trade_goods = copper
+			has_discovered = ROOT
+		}
+		trigger = {
+			production_leader = {
+				trade_goods = copper
+			}
+			OR = {
+				innovativeness = 50
+				has_country_modifier = war_modern_science
+			}
+			OR = {
+				AND = {
+					estate_loyalty = {
+					    estate = estate_mages
+					    loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_mages
+						value = 5
+					}
+				}
+				NOT = {	
+					estate_influence = {
+					    estate = estate_mages
+					    influence = 15
+					}
+				}
+				NOT = { has_estate = estate_mages }
+			}
+		}
+		effect = {
+			remove_country_modifier = araby_djinn_bindings_2
+			add_country_modifier = { 
+    			name = araby_djinn_mastery
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
 
 	araby_old_world_foothold_1 = {
 		icon = mission_high_elf_lustria_map
@@ -1951,6 +2138,4 @@ araby_missions_5 = {
 			}
 		}
 	}
-
-
 }
