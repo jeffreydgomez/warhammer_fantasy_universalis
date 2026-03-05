@@ -17,7 +17,7 @@ establish_gaituguiliu_decision = {
  	}
  	member = { advisor_pool = 1 }
  	emperor = {
- 		meritocracy = 0.5
+ 		advisor_pool = 1
  	}
  }
 
@@ -32,13 +32,10 @@ establish_gaituguiliu_decision = {
  reform_land_tax_decision = {
  	empire = celestial_empire
  	trigger = {
- 		OR = { 
- 			crown_land_share = 35
- 			adm = 5 
- 			AND = { 
- 				treasurer = 3 
- 				reform_level = 7
- 			}
+		crown_land_share = 35
+		AND = { 
+			treasurer = 3 
+			reform_level = 7
  		}
  	}
  	member = { state_maintenance_modifier = -0.25 } 
@@ -51,11 +48,8 @@ establish_gaituguiliu_decision = {
  military_governors_decision = {
  	empire = celestial_empire
  	trigger = {
- 		OR = { 
- 			monthly_mil = 10 
- 			national_focus = MIL 
- 			mil = 6
- 		}
+		monthly_mil = 10 
+#		mil = 6
  	}
  	member = { autonomy_change_time = -0.2 }
  	emperor = {
@@ -98,7 +92,6 @@ establish_gaituguiliu_decision = {
  	trigger = { 
  		empire_of_china_reform_passed = reform_land_tax_decision 
  		OR = { 
- 			mission_completed = mng_single_whip_law
  			full_idea_group = economic_ideas 
  			reform_level = 7
  		}
@@ -133,13 +126,9 @@ establish_gaituguiliu_decision = {
  	empire = celestial_empire 
  	trigger = {
  		NOT = { inflation = 1 } 
- 		OR = { 
- 			monthly_adm = 10 
- 			adm = 5 
- 			national_focus = ADM 
- 		}
+		monthly_adm = 10 
  		is_in_deficit = no 
- 		empire_of_china_reform_passed = codify_single_whip_law_decision
+# 		empire_of_china_reform_passed = codify_single_whip_law_decision
  	}
  	member = { interest = -0.25 } 
  	emperor = { 
@@ -155,7 +144,7 @@ establish_gaituguiliu_decision = {
  			full_idea_group = trade_ideas 
  			any_subject_country = { is_colonial_nation = yes } 
  			num_of_merchants = 4 
- 			national_focus = DIP 
+ #			national_focus = DIP 
  		}
  	}
  	member = { trade_efficiency = 0.05 } 
@@ -168,14 +157,8 @@ establish_gaituguiliu_decision = {
  new_keju_formats_decision = {
  	empire = celestial_empire 
  	trigger = {
- 		OR = {
- 			has_reform = examination_system_reform
- 			full_idea_group = administrative_ideas  
- 		}
- 		OR = { 
- 			adm = 4 
- 			monthly_adm = 9 
- 		}
+ 		full_idea_group = administrative_ideas  
+ 		monthly_adm = 9 
  	}
  	member = { governing_capacity_modifier = 0.05 } 
  	emperor = { 
@@ -189,8 +172,7 @@ establish_gaituguiliu_decision = {
  	trigger = {
  		OR = { 
  			full_idea_group = humanist_ideas 
- 			harmony = 80 
- 			theologian = 2 
+ 			theologian = 4
  		}
  		stability = 1 
  	}
@@ -205,6 +187,12 @@ establish_gaituguiliu_decision = {
  	empire = celestial_empire
  	trigger = {
  		not = { empire_of_china_reform_passed = promote_military_faction_decision }
+  		NOT = {
+	 		estate_influence = {
+			    estate = estate_nobles
+			    influence = 90
+			}
+ 		}
  	}
  	member = {
  		church_loyalty_modifier = 0.05
@@ -220,6 +208,12 @@ establish_gaituguiliu_decision = {
  	empire = celestial_empire 
  	trigger = {
  		not = { empire_of_china_reform_passed = promote_bureaucratic_faction_decision }
+ 		NOT = {
+	 		estate_influence = {
+			    estate = estate_church
+			    influence = 90
+			}
+ 		}
  	}
  	member = {
  		nobles_loyalty_modifier = 0.05 
@@ -236,15 +230,10 @@ establish_gaituguiliu_decision = {
  	trigger = { 
  		empire_of_china_reform_passed = seaban_decision
  		empire_of_china_reform_passed = kanhe_certificate_decision
- 		OR = { 
- 			mission_completed = mng_improve_haijin_policy
- 			mission_completed = mng_repeal_haijin_policy
- 			mercantilism = 50 
- 			dip = 6
- 		}
  		OR = {
  			full_idea_group = trade_ideas
  			trade_income_percentage = 0.35
+ 			mercantilism = 50
  			home_trade_node = {
  				highest_value_trade_node = yes
  				is_strongest_trade_power = ROOT
@@ -288,13 +277,16 @@ establish_gaituguiliu_decision = {
 
  modernize_the_banners_decision = {
  	empire = celestial_empire 
- 	trigger = { 
+ 	trigger = {
  		OR = {
- 			num_of_banners = 25 
- 			has_global_modifier_value = {
- 				which = cavalry_power 
- 				value = 0.15
- 			}
+			has_global_modifier_value = {
+				which = cavalry_power 
+				value = 0.15
+			}
+			has_global_modifier_value = {
+				which = cav_to_inf_ratio 
+				value = 0.50
+			}
  		}
  	}
  	member = {

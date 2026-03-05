@@ -38,6 +38,15 @@ araby_missions_1 = {
 		icon = mission_araby_culture
 		required_missions = { araby_dominate_home_trade_node }
 		position = 4
+		provinces_to_highlight = {
+			OR = {
+				region = araby_region
+				region = sudron_region
+				region = gulf_of_medes_region
+			}
+			has_terrain = desert
+			NOT = { owned_by_subject_of = ROOT }
+		}
 		trigger = {
 			NOT = {
 				any_province = {
@@ -597,7 +606,7 @@ araby_missions_2 = {
 				all_trade_node = {
 					is_strongest_trade_power = ROOT
 				}
-				amount = 3
+				amount = 4
 			}
 			
 		}
@@ -614,7 +623,7 @@ araby_missions_2 = {
 # Our religion must have places to grow and flourish. Strategically placed temples will help us stabilize our country.
 	araby_build_temples = {
 		icon = mission_high_elf_religion
-		required_missions = { araby_the_holy_cities }
+		required_missions = { araby_charity_and_taxes }
 		position = 8
 		provinces_to_highlight = {
 			owned_by = ROOT
@@ -950,7 +959,9 @@ araby_missions_3 = {
 
 		effect = {
 
-		## Event to choose
+			country_event = { 
+			    id = araby_events.100
+			}
 		
 		}
 	}
@@ -960,18 +971,22 @@ araby_missions_3 = {
 		icon = catholic_volunteers
 		required_missions = { araby_defender_of_faith }
 		position = 4
+		provinces_to_highlight = {
+			trade_goods = paper
+			has_discovered = ROOT
+		}
 		trigger = {
 			prestige = 99
 			legitimacy_equivalent = 100
 			trade_goods_produced_amount = {
 				trade_goods = paper
-				amount = 1
+				amount = 0.5
 			}
 		}
 
 		effect = {
 			country_event = { 
-			    id = araby_events.100
+			    id = araby_events.105
 			}
 		}
 	}
@@ -987,7 +1002,6 @@ araby_missions_3 = {
 			navy_size_percentage = 1
 			employed_advisor = {
 				category = MIL
-				is_male = yes
 			    skill = 4
 			}
 			num_of_diplomatic_relations = 4
@@ -1029,8 +1043,32 @@ araby_missions_3 = {
 		icon = catholic_volunteers
 		required_missions = { araby_charity_and_taxes }
 		position = 8
+		provinces_to_highlight = {
+			OR = {
+				province_id = 974
+				province_id = 988
+				province_id = 1746
+				province_id = 4159
+			}
+			NOT = { owned_by = ROOT }
+		}
 		trigger = {
-			1 = {	# Change these to the four holy cities.
+			974 = {	
+				owned_by = ROOT
+				num_of_times_expanded_infrastructure  = 1
+				has_tax_building_trigger = yes
+			}
+			988 = {	
+				owned_by = ROOT
+				num_of_times_expanded_infrastructure  = 1
+				has_tax_building_trigger = yes
+			}
+			1746 = {	
+				owned_by = ROOT
+				num_of_times_expanded_infrastructure  = 1
+				has_tax_building_trigger = yes
+			}
+			4158 = {	
 				owned_by = ROOT
 				num_of_times_expanded_infrastructure  = 1
 				has_tax_building_trigger = yes
@@ -1094,7 +1132,7 @@ araby_missions_3 = {
 		}
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
-				value = 60
+				value = 75
 				OR = {
 					region = araby_region
 					region = sudron_region
@@ -1481,7 +1519,7 @@ araby_missions_4 = {
 		trigger = {
 			trade_goods_produced_amount = {
 				trade_goods = copper
-				amount = 10
+				amount = 6
 			}
 		}
 		effect = {
@@ -1500,14 +1538,10 @@ araby_missions_4 = {
 		position = 10
 		provinces_to_highlight = {
 			OR = {
-				trade_goods = warpstone
 				trade_goods = gems
-				trade_goods = paper
-				trade_goods = old_ones_relics
 				trade_goods = incense
 				trade_goods = dyes
 				trade_goods = glass
-				trade_goods = fur
 				trade_goods = ivory
 			}
 			has_discovered = ROOT
@@ -1516,35 +1550,19 @@ araby_missions_4 = {
 			OR = {
 				trade_goods_produced_amount = {
 					trade_goods = gems
-					amount = 10
-				}
-				trade_goods_produced_amount = {
-					trade_goods = paper
-					amount = 10
-				}
-				trade_goods_produced_amount = {
-					trade_goods = warpstone
-					amount = 10
-				}
-				trade_goods_produced_amount = {
-					trade_goods = old_ones_relics
-					amount = 10
-				}
-				trade_goods_produced_amount = {
-					trade_goods = incense
-					amount = 10
+					amount = 5
 				}
 				trade_goods_produced_amount = {
 					trade_goods = dyes
-					amount = 10
+					amount = 5
+				}
+				trade_goods_produced_amount = {
+					trade_goods = incense
+					amount = 5
 				}
 				trade_goods_produced_amount = {
 					trade_goods = glass
-					amount = 10
-				}
-				trade_goods_produced_amount = {
-					trade_goods = fur
-					amount = 10
+					amount = 5
 				}
 				trade_goods_produced_amount = {
 					trade_goods = ivory
@@ -1575,7 +1593,7 @@ araby_missions_4 = {
 			num_of_artillery = 100
 			trade_goods_produced_amount = {
 				trade_goods = copper
-				amount = 50
+				amount = 25
 			}
 		}
 		effect = {
@@ -1741,7 +1759,7 @@ araby_missions_5 = {
 ## as we enter into this new age of fighting, we cannot forget our past.
 	araby_modern_military_tactics = {
 		icon = mission_landsknecht_soldier
-		required_missions = { araby_army_tradition araby_places_to_train }
+		required_missions = { araby_places_to_train }
 		position = 4
 		trigger = {
 			OR = {
