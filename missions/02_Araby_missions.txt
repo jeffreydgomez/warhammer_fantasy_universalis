@@ -45,7 +45,12 @@ araby_missions_1 = {
 				region = gulf_of_medes_region
 			}
 			has_terrain = desert
-			NOT = { owned_by_subject_of = ROOT }
+			NOT = {
+				OR = {
+					owned_by_subject_of = ROOT 
+					owned_by = ROOT
+				}
+			}
 		}
 		trigger = {
 			NOT = {
@@ -56,7 +61,12 @@ araby_missions_1 = {
 						region = gulf_of_medes_region
 					}
 					has_terrain = desert
-					NOT = { owned_by_subject_of = ROOT }
+					NOT = {
+						OR = {
+							owned_by_subject_of = ROOT
+							owned_by = ROOT
+						}
+					}
 				}
 			}
 		}
@@ -112,7 +122,7 @@ araby_missions_1 = {
 				province_has_center_of_trade_of_level = 3
 			}
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-				value = 7
+				value = 10
 				province_has_center_of_trade_of_level = 2
 			}
 		}
@@ -206,7 +216,7 @@ araby_missions_1 = {
 
 # The new world is ripe for the taking, and araby is a spear in its heart. We are perfectly positioned to take advantage.
 	araby_new_world_foothold_1 = {
-		icon = mission_high_elf_lustria_map
+		icon = mission_high_elf_naggaroth_map
 		required_missions = { araby_dominate_araby }
 		position = 12
 		provinces_to_highlight = {
@@ -410,7 +420,7 @@ araby_missions_1 = {
 
 	araby_new_world_foothold_3 = {
 		icon = mission_high_elf_lustria_map
-		required_missions = { araby_new_world_foothold_2 }
+		required_missions = { mission_lizardmen_temple_city }
 		position = 14
 		provinces_to_highlight = {
 			OR = {
@@ -549,7 +559,7 @@ araby_missions_2 = {
 ## There are many independent brokers and competing interests at the Bazaar. Let the state fund markets so that we have a stake in things.
 	araby_build_markets = {
 		icon = mission_trade_company_region_abroad
-		required_missions = { araby_please_guilds }
+		required_missions = { araby_dominate_home_trade_node araby_please_guilds }
 		position = 4
 		trigger = {
 			num_of_owned_provinces_with = {
@@ -716,7 +726,7 @@ araby_missions_2 = {
 	}
 
 	araby_badlands_1 = {
-		icon = mission_high_elf_army
+		icon = mission_orc_culture
 		required_missions = { araby_nehekhara_monuments }
 		position = 14
 		provinces_to_highlight = {
@@ -788,7 +798,7 @@ araby_missions_2 = {
 	}
 
 	araby_badlands_2 = {
-		icon = mission_high_elf_army
+		icon = mission_orc_religion
 		required_missions = { araby_badlands_1 }
 		position = 15
 		provinces_to_highlight = {
@@ -879,7 +889,7 @@ araby_missions_3 = {
 
 # A few faith emerges from the chaos of Araby. One faith, guided by Ptra the Sun God's Prophet, Anmar Fakir, the Prophet of the Sun. This is a once in a millenia experience. Our people are energized.
 	araby_a_new_faith_is_born = {
-		icon = mission_araby_culture
+		icon = mission_araby_religion
 		required_missions = {  }
 		position = 1
 		trigger = {
@@ -929,7 +939,7 @@ araby_missions_3 = {
 
 	## Now that we have gathered the estates, we must solidify our right to help adjudicate our beliefs. We must become the pre-eminent nation of our faith. In doing so, eo we appeal to the estates, or the common people?
 	araby_defender_of_faith = { 
-		icon = catholic_volunteers
+		icon = mission_araby_religion
 		required_missions = { araby_please_church araby_please_guilds araby_please_nobles}
 		position = 3
 		provinces_to_highlight = {
@@ -964,7 +974,7 @@ araby_missions_3 = {
 
 	# Our religion lacks a holy text. Let us be the first to create it, and we must have the resources to distribute it. But do we take a radical approach? Or appeach to stability?
 	araby_write_the_first_texts = { 
-		icon = catholic_volunteers
+		icon = mission_araby_religion
 		required_missions = { araby_defender_of_faith }
 		position = 4
 		provinces_to_highlight = {
@@ -989,17 +999,17 @@ araby_missions_3 = {
 
 # The Prophet of the Sun must often wield the sword to bring peace to the world. But many wonder: what is the role of the army, and conquest, in our religion? Must the sword always be used? Or can we spread the word through softer means?
 	araby_role_of_the_army = { 
-		icon = catholic_volunteers
+		icon = mission_araby_culture
 		required_missions = { araby_write_the_first_texts araby_army_tradition }
 		position = 5
 		trigger = {
 			has_flagship = yes
 			army_size_percentage = 1
 			navy_size_percentage = 1
-			employed_advisor = {
-				category = MIL
-			    skill = 4
-			}
+#			employed_advisor = { # This isn't working
+#				category = MIL
+#			    skill = 4
+#			}
 			num_of_diplomatic_relations = 4
 		}
 
@@ -1012,18 +1022,21 @@ araby_missions_3 = {
 
 	# Zakat, or charity, is a core pillar of our religion. Let us take the time to invest in our least affluent citizens. But the question remains - will we, as a government, give Zakat? Or should we merely encourage Zakat among our citizens?
 	araby_charity_and_taxes = { 
-		icon = catholic_volunteers
+		icon = mission_araby_religion
 		required_missions = { araby_role_of_the_army }
 		position = 7
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { development = 5 }
+		}
 		trigger = {
 			all_owned_province = {
 				development = 5
 			}
-			employed_advisor = {
-				category = ADM
-				is_male = yes
-			    skill = 4
-			}
+#			employed_advisor = {
+#				category = ADM
+#			    skill = 4
+#			}
 		}
 
 		effect = {
@@ -1036,7 +1049,7 @@ araby_missions_3 = {
 
 	## The four holy cities are where Anmar Fakir received his visions of prophecy. By controlling and investing in these cities, we can further expand our religious mandate, inspiring our missionaries to work of their own accord.
 	araby_the_holy_cities = { 
-		icon = catholic_volunteers
+		icon = mission_araby_religion
 		required_missions = { araby_charity_and_taxes }
 		position = 8
 		provinces_to_highlight = {
@@ -1044,7 +1057,7 @@ araby_missions_3 = {
 				province_id = 974
 				province_id = 988
 				province_id = 1746
-				province_id = 4159
+				province_id = 4168
 			}
 			NOT = { owned_by = ROOT }
 		}
@@ -1064,7 +1077,7 @@ araby_missions_3 = {
 				num_of_times_expanded_infrastructure  = 1
 				has_tax_building_trigger = yes
 			}
-			4158 = {	
+			4168 = {	
 				owned_by = ROOT
 				num_of_times_expanded_infrastructure  = 1
 				has_tax_building_trigger = yes
@@ -1089,7 +1102,7 @@ araby_missions_3 = {
 
 ## Such rapid growth, both of our faithful and of our teachings, has lead to the possibilty of schism. We must head this off immediately to prevent any issues. Once we have calmed the dissenting voices refer then, to our newly created texts. How do we deal with other opinions?
 	araby_prevent_schism = {
-		icon = mission_asian_trader
+		icon = mission_araby_religion
 		required_missions = { araby_the_holy_cities }
 		position = 10
 		trigger = {
@@ -1115,7 +1128,7 @@ araby_missions_3 = {
 
 # With Araby unified, men show up in droves to fight for the cause. After all, who else would they fight for?
 	araby_dominate_araby = {
-		icon = mission_high_elf_lustria_map
+		icon = mission_araby_religion
 		required_missions = { }
 		position = 11
 		provinces_to_highlight = {
@@ -1151,7 +1164,7 @@ araby_missions_3 = {
 
 ## Nekehkara is our birthright. Our ancestors were forces from their deserts long ago, and now it is time to reclaim it.
 	araby_into_nehekhara = {
-		icon = mission_high_elf_lustria_map
+		icon = mission_tomb_king_religion
 		required_missions = { araby_dominate_araby }
 		position = 12
 		provinces_to_highlight = {
@@ -1187,7 +1200,7 @@ araby_missions_3 = {
 
 ## Nehekhara is known for its monuments. Let us study them, and be inspired by them.
 	araby_nehekhara_monuments = {
-		icon = mission_high_elf_lustria_map
+		icon = mission_tomb_king_culture
 		required_missions = { araby_into_nehekhara }
 		position = 13
 		provinces_to_highlight = {
@@ -1219,7 +1232,7 @@ araby_missions_3 = {
 	}
 
 	araby_mountains_1 = {
-		icon = mission_high_elf_army
+		icon = mission_dwarf_culture
 		required_missions = { araby_nehekhara_monuments }
 		position = 14
 		provinces_to_highlight = {
@@ -1259,7 +1272,7 @@ araby_missions_3 = {
 	}
 
 	araby_mountains_2 = {
-		icon = mission_high_elf_army
+		icon = mission_greenskins_goblin_warboss
 		required_missions = { araby_mountains_1 }
 		position = 15
 		provinces_to_highlight = {
@@ -1300,7 +1313,7 @@ araby_missions_3 = {
 
 ## We have taken the world by storm. Soon, all peoples, regardless of their color or creed, will be freed from the ignorance of the past and helped into a unified, glorious future.
 	araby_convert_the_world = {
-		icon = mission_high_elf_army
+		icon = mission_araby_religion
 		required_missions = {  }
 		position = 16
 		provinces_to_highlight = {
@@ -1311,6 +1324,7 @@ araby_missions_3 = {
 			calc_true_if = {
 				all_province = {
 					religion = ROOT
+					NOT = { owned_by = ROOT }
 				}
 				amount = 1000
 			}
@@ -1340,7 +1354,7 @@ araby_missions_4 = {
 
 ## There can be no structured faith without the consent of the nobles. Regardless of what our theologians think, we must include their opinions. And we can bargain with them - their lands, for their opinions.
 	araby_please_nobles = {
-		icon = mission_high_elf_docks_2
+		icon = mission_araby_culture
 		required_missions = { araby_a_new_faith_is_born }
 		position = 2
 		trigger = {
@@ -1374,7 +1388,7 @@ araby_missions_4 = {
 
 # Our people are traditionally a horse and camel people, raiding and attacking like the wind. Let us embrace that.
 	araby_army_tradition = {
-		icon = mission_greenskins_savage_orc
+		icon = mission_araby_culture
 		required_missions = { araby_please_nobles }
 		position = 4
 		trigger = {
@@ -1391,7 +1405,7 @@ araby_missions_4 = {
 
 # Arabian horses are the best in the world. Let us control production to increase it.
 	araby_arabian_horse_breeding_1 = {
-		icon = mission_subdue_rajputana
+		icon = mission_araby_culture
 		required_missions = { araby_army_tradition }
 		position = 5
 		provinces_to_highlight = {
@@ -1417,7 +1431,7 @@ araby_missions_4 = {
 
 # It is not enough that we have enough horses for our cavalry. Let us field enough horses for every man!
 	araby_arabian_horse_breeding_2 = {
-		icon = mission_subdue_rajputana
+		icon = mission_araby_culture
 		required_missions = { araby_arabian_horse_breeding_1 }
 		position = 6
 		provinces_to_highlight = {
@@ -1442,7 +1456,7 @@ araby_missions_4 = {
 
 # Horses for every man, woman, and child!
 	araby_arabian_horse_breeding_3 = {
-		icon = mission_subdue_rajputana
+		icon = mission_araby_culture
 		required_missions = { araby_arabian_horse_breeding_2 }
 		position = 6
 		provinces_to_highlight = {
@@ -1546,23 +1560,23 @@ araby_missions_4 = {
 			OR = {
 				trade_goods_produced_amount = {
 					trade_goods = gems
-					amount = 5
+					amount = 8
 				}
 				trade_goods_produced_amount = {
 					trade_goods = dyes
-					amount = 5
+					amount = 8
 				}
 				trade_goods_produced_amount = {
 					trade_goods = incense
-					amount = 5
+					amount = 8
 				}
 				trade_goods_produced_amount = {
 					trade_goods = glass
-					amount = 5
+					amount = 8
 				}
 				trade_goods_produced_amount = {
 					trade_goods = ivory
-					amount = 10
+					amount = 8
 				}
 			}
 		}
@@ -1586,7 +1600,7 @@ araby_missions_4 = {
 			has_discovered = ROOT
 		}
 		trigger = {
-			num_of_artillery = 100
+			num_of_artillery = 30
 			trade_goods_produced_amount = {
 				trade_goods = copper
 				amount = 25
@@ -1605,7 +1619,7 @@ araby_missions_4 = {
 
 
 	araby_to_the_south_1 = {
-		icon = mission_high_elf_army
+		icon = mission_lizardmen_culture
 		required_missions = { araby_nehekhara_monuments }
 		position = 14
 		provinces_to_highlight = {
@@ -1657,7 +1671,7 @@ araby_missions_4 = {
 	}
 
 	araby_to_the_south_2 = {
-		icon = mission_high_elf_army
+		icon = mission_wood_elf_culture
 		required_missions = { araby_to_the_south_1 }
 		position = 15
 		provinces_to_highlight = {
@@ -1776,7 +1790,7 @@ araby_missions_5 = {
 
 ## It is our mandate to bring the true faith to the world. The process will be bloody, but they will thank us for it.
 	araby_convert_people_1 = {
-		icon = mission_landsknecht_soldier
+		icon = mission_araby_religion
 		required_missions = { araby_army_tradition araby_modern_military_tactics }
 		position = 5
 		trigger = {
@@ -1796,7 +1810,7 @@ araby_missions_5 = {
 
 ## It is our mandate to bring the true faith to the world. The process will be bloody, but they will thank us for it.
 	araby_convert_people_2 = {
-		icon = mission_landsknecht_soldier
+		icon = mission_araby_religion
 		required_missions = { araby_convert_people_1 }
 		position = 6
 		trigger = {
@@ -1818,7 +1832,7 @@ araby_missions_5 = {
 
 ## It is our mandate to bring the true faith to the world. The process will be bloody, but they will thank us for it.
 	araby_convert_people_3 = {
-		icon = mission_landsknecht_soldier
+		icon = mission_araby_religion
 		required_missions = { araby_convert_people_2 }
 		position = 7
 		trigger = {
@@ -1840,7 +1854,7 @@ araby_missions_5 = {
 
 ## It is our mandate to bring the true faith to the world. The process will be bloody, but they will thank us for it.
 	araby_convert_people_4 = {
-		icon = mission_landsknecht_soldier
+		icon = mission_araby_religion
 		required_missions = { araby_convert_people_3 }
 		position = 8
 		trigger = {
@@ -1947,7 +1961,7 @@ araby_missions_5 = {
 	}
 
 	araby_old_world_foothold_1 = {
-		icon = mission_high_elf_lustria_map
+		icon = mission_empire_culture
 		required_missions = { araby_dominate_araby }
 		position = 12
 		provinces_to_highlight = {
@@ -2030,7 +2044,7 @@ araby_missions_5 = {
 
 ## We have established the first Lustrian mission, designed to bring order and peace to the lizardmen of Lustria.
 	araby_old_world_foothold_2 = {
-		icon = mission_high_elf_lustria_map
+		icon = mission_empire_religion
 		required_missions = { araby_old_world_foothold_1 }
 		position = 13
 		provinces_to_highlight = {
@@ -2092,7 +2106,7 @@ araby_missions_5 = {
 	}
 
 	araby_old_world_foothold_3 = {
-		icon = mission_high_elf_lustria_map
+		icon = mission_kislev_culture
 		required_missions = { araby_old_world_foothold_2 }
 		position = 14
 		provinces_to_highlight = {
