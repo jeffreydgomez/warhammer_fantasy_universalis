@@ -1391,12 +1391,15 @@ cb_humiliate_rotw = {
  	prerequisites = {		
  		FROM = { #Applies against other powers in China unless they have the Mandate of Heaven
  			NOT = { is_subject_of = ROOT }
- 			OR = {
- 				has_dlc = "Mandate of Heaven"
- 				culture_group = east_asian #Chinese
- 			}
+# 			OR = {
+# 				has_dlc = "Mandate of Heaven"
+# 				culture_group = east_asian #Chinese
+# 			}
  			any_owned_province = {
- 				continent = africa
+ 				OR = {
+ 					continent = africa
+ 					religion_group = ROOT
+ 				}
  			}
  			NOT = { has_country_modifier = the_mandate_of_heaven }
  			is_emperor_of_china = no
@@ -1404,8 +1407,8 @@ cb_humiliate_rotw = {
  	}
 
  	attacker_disabled_po = {
- 		po_become_tributary_state
- 		po_subjugate_tributary_state
+# 		po_become_tributary_state
+# 		po_subjugate_tributary_state
  	}
 
  	war_goal = superiority_chinese_unification
@@ -1420,9 +1423,9 @@ cb_take_mandate = {
 		is_subject = no
 		is_revolutionary = no
 
-		capital_scope = {
-			continent = africa
-		}
+#		capital_scope = {
+#			continent = africa
+#		}
 
 
 	#	NOT = { has_reform = shogunate }
