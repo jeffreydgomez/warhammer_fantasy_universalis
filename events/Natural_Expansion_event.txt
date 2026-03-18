@@ -31,7 +31,6 @@ country_event = {
 		if = {
 			limit = {
 				is_emperor_of_china = yes
-				has_subject_of_type = tributary_state
 			}
 			every_subject_country = {
 				limit = {
@@ -42,7 +41,6 @@ country_event = {
 						value = 190
 					}			
 				}
-
 				random_owned_province = {
 					limit = {
 						any_neighbor_province = {
@@ -64,10 +62,32 @@ country_event = {
 					}
 					cede_province = ROOT
 					add_core = ROOT
-
 				}
 			}
 
+			## Convert neighboring countries into tributaries
+			every_neighbor_country = {
+				limit = {
+					ai = yes
+					NOT = { is_subject = yes }
+					NOT = { has_subject_of_type = tributary_state }
+					OR = {
+						has_opinion = {
+							who = ROOT
+							value = 10
+						}
+						is_threat = ROOT
+					}
+					NOT = { total_development = ROOT }
+					NOT = { army_size = ROOT }
+				}
+				ROOT = {
+					create_subject = {
+					    subject_type = tributary_state
+					    subject = PREV
+					}
+				}
+			}
 		}
 	}
 }
