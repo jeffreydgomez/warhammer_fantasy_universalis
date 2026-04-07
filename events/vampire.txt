@@ -1397,39 +1397,33 @@ country_event = {
 }
 
 
-### DELETE THIS
+
+
+### Sires of Mourkain Starting Event
 country_event = { 
-	id = vampire_events.2000
-	title = vampire_events.2000.t 
-	desc = vampire_events.2000.d 
-	picture = VAMPIRE_COAST_eventPicture
+	id = vampire_events.1001
+	title = vampire_events.1001.t 
+	desc = vampire_events.1001.d 
+	picture = VAMPIRE_eventPicture
 
 	
 	fire_only_once = no
 	is_triggered_only = yes
 		
 	trigger = {
-		always = no
+		tag = B16
+		NOT = {  has_country_flag = did_intro_event }
 	}
+
+	immediate = { set_country_flag = did_intro_event }
 
 	option = { 
 		ai_chance = { factor = 50 }
-		name = vampire_events.2000.option_1 
+		name = vampire_events.1001.option_1
 
-		hidden_effect = {
-			every_province = {
-				limit = {
-					province_has_center_of_trade_of_level = 1
-					has_port = yes
-				}
-				cede_province = ROOT
-				add_core = ROOT
-				change_religion = ROOT
-				change_culture = ROOT
-				add_nationalism = -50
-			}
-		}
-
+		add_army_tradition = 50
+		add_church_power = 200
 	}
 }
+
 
