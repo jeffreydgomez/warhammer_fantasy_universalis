@@ -1584,9 +1584,38 @@ country_event = {
 			limit = { has_global_flag = easy_end_times_flag }
 			add_adm_power = -50
 		} else = {
-			add_stability = -2
+			add_stability = -1
 		}
 	}
+
+	### Our people are unified in fighting the everchosen!
+	option = {
+		name = end_times_events.2.option_3
+		highlight = yes
+		trigger = {
+			OR = {
+				full_idea_group = humanist_ideas
+				any_war_enemy_country = {
+					has_reform = everchosen_reform
+				}
+			}
+		}
+		ai_chance = {
+			factor = 1000
+			modifier = {
+				factor = 10
+				is_subject = yes
+			}
+		}
+
+		if = {
+			limit = { has_global_flag = easy_end_times_flag }
+			add_adm_power = -25
+		} else = {
+			add_adm_power = -50
+		}
+	}
+
 }
 
 ### Bolt of Chaos Energy
@@ -1737,6 +1766,95 @@ country_event = {
 			}
 		}
 	}
+
+	### Our mages channel their best effots
+	option = {
+		name = end_times_events.4.option_3
+		ai_chance = {
+			factor = 1000
+		}
+		highlight = yes
+		trigger = {
+			OR = {
+				estate_loyalty = {
+				    estate = estate_mages
+				    loyalty = 90
+				}
+				innovativeness = 75
+				has_country_modifier = war_modern_science
+				any_war_enemy_country = {
+					has_reform = everchosen_reform
+				}
+			}
+		}
+		custom_tooltip = owned_province_10_chance_of_tt
+
+		if = {
+			limit = { has_global_flag = easy_end_times_flag }
+			tooltip = {
+			    random_owned_province = {
+			    	limit = {
+			    		NOT = { trade_goods = warpstone }
+			    	}
+					random = {
+						chance = 10
+						add_devastation = 10
+						random = {
+							chance = 15
+							change_trade_goods = warpstone
+						}
+					}
+			    }
+			}
+
+			hidden_effect = {
+				every_owned_province = {
+					random = {
+						chance = 10
+						add_devastation = 10
+						random = {
+							chance = 15
+							change_trade_goods = warpstone
+						}
+					}
+				}
+			}
+
+		} else = {
+
+			tooltip = {
+			    random_owned_province = {
+			    	limit = {
+			    		NOT = { trade_goods = warpstone }
+			    	}
+					random = {
+						chance = 10
+						add_devastation = 20
+						random = {
+							chance = 15
+							change_trade_goods = warpstone
+						}
+					}
+			    }
+			}
+
+			hidden_effect = {
+				every_owned_province = {
+					random = {
+						chance = 10
+						add_devastation = 20
+						random = {
+							chance = 15
+							change_trade_goods = warpstone
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+
 }
 
 ### Since the gate is open, solders have been corrupted into unusable piles of goo
@@ -1766,7 +1884,6 @@ country_event = {
 		} else = {
 			add_yearly_manpower = -0.75
 		}
-		
 	}
 	### They can still fire a gun!
 	option = {
@@ -1777,6 +1894,31 @@ country_event = {
 			duration = 3650
 		}
 	}
+
+	### We can still train blobs of flesh!
+	option = {
+		name = end_times_events.5.option_3
+		ai_chance = { factor = 1000 }
+		highlight = yes
+		trigger = {
+			OR = {
+				army_professionalism = 0.75
+				has_country_modifier = war_modern_army
+				any_war_enemy_country = {
+					has_reform = everchosen_reform
+				}
+			}
+		}
+		if = {
+			limit = { has_global_flag = easy_end_times_flag }
+			add_yearly_manpower = -0.15
+
+		} else = {
+			add_yearly_manpower = -0.33
+		}
+	}
+
+
 }
 
 ### Since the chaos gate is open, our goods our rotting, and our stores of gold are turning to ash
@@ -1816,11 +1958,41 @@ country_event = {
 		}
 		if = {
 			limit = { has_global_flag = easy_end_times_flag }
-			add_inflation = 1
-		} else = {
 			add_inflation = 2
+		} else = {
+			add_inflation = 4
 		}
 	}
+
+	### Come now, no reason to run the banks
+	option = {
+		name = end_times_events.6.option_3
+		ai_chance = {
+			factor = 1000
+		}
+		highlight = yes
+		trigger = {
+			OR = {
+				full_idea_group = economic_ideas
+				trade_goods_produced_amount = {
+					trade_goods = gold
+					amount = 25
+				}
+				any_war_enemy_country = {
+					has_reform = everchosen_reform
+				}
+			}
+		}
+
+		if = {
+			limit = { has_global_flag = easy_end_times_flag }
+			add_inflation = 0.5
+		} else = {
+			add_inflation = 1
+		}
+	}
+
+
 }
 
 ### Since the gate has opened, our infrastructure is literally warping away. We need to destroy it to stay safe
@@ -2001,6 +2173,238 @@ country_event = {
 						change_religion = chaos_undivided_religion
 					}
 				}
+			}
+		}
+	}
+
+	### Localize the problem in our capital
+	option = {
+		name = end_times_events.7.option_3
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 10
+				is_subject = yes
+			}
+		}
+		highlight = yes
+		trigger = {
+			OR = {
+				capital_scope = {
+					development = 30
+				}
+				any_war_enemy_country = {
+					has_reform = everchosen_reform
+				}
+			}
+		}
+
+		capital_scope = {
+			if = {
+				limit = { base_tax = 3 }
+				add_base_tax = -2
+			} else_if = {
+				limit = { base_tax = 2 }
+				add_base_tax = -1
+			}
+			if = {
+				limit = { base_production = 3 }
+				add_base_production = -2
+			} else_if = {
+				limit = { base_production = 2 }
+				add_base_production = -1
+			}
+			if = {
+				limit = { base_manpower = 3 }
+				add_base_manpower = -2
+			} else_if = {
+				limit = { base_manpower = 2 }
+				add_base_manpower = -1			
+			}
+		}
+	}
+}
+
+
+### Our estates are falling prey to the spreading chaos corruption. Do we purge them, or let them continue on their path?
+country_event = {
+	id = end_times_events.8
+	title = end_times_events.8.t
+	desc = end_times_events.8.d
+	picture = ARCHAON_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		has_global_flag = end_times_started
+		NOT = { has_global_flag = end_times_ended }
+		NOT = { religion_group = ruinous_powers_denominations }
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	### Purge it from their ranks
+	option = {
+		name = end_times_events.8.option_1
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 10
+				is_subject = yes
+			}
+		}
+
+		if = {
+			limit = { has_global_flag = easy_end_times_flag }
+
+			add_estate_loyalty = {
+			    estate = estate_nobles
+			    loyalty = -15
+			}
+			add_estate_loyalty = {
+			    estate = estate_church
+			    loyalty = -15
+			}
+			add_estate_loyalty = {
+			    estate = estate_burghers
+			    loyalty = -15
+			}
+			add_estate_loyalty = {
+			    estate = estate_mages
+			    loyalty = -15
+			}
+
+		} else = {
+
+			add_estate_loyalty = {
+			    estate = estate_nobles
+			    loyalty = -30
+			}
+			add_estate_loyalty = {
+			    estate = estate_church
+			    loyalty = -30
+			}
+			add_estate_loyalty = {
+			    estate = estate_burghers
+			    loyalty = -30
+			}
+			add_estate_loyalty = {
+			    estate = estate_mages
+			    loyalty = -30
+			}
+		}
+	}
+
+	### Let them spread their corruption
+	option = {
+		name = end_times_events.8.option_2
+		ai_chance = {
+			factor = 10
+		}
+
+		custom_tooltip = owned_province_10_chance_of_tt
+
+		if = {
+			limit = { has_global_flag = easy_end_times_flag }
+
+			tooltip = {
+			    random_owned_province = {
+			    	limit = { NOT = { religion = chaos_undivided_religion } }
+					random = {
+						chance = 5
+						change_religion = chaos_undivided_religion
+					}
+			    }
+			}
+
+			hidden_effect = {
+				every_owned_province = {
+					random = {
+						chance = 5
+						change_religion = chaos_undivided_religion
+					}
+				}
+			}
+
+		} else = {
+
+			tooltip = {
+			    random_owned_province = {
+			    	limit = { NOT = { religion = chaos_undivided_religion } }
+					random = {
+						chance = 10
+						change_religion = chaos_undivided_religion
+					}
+			    }
+			}
+
+			hidden_effect = {
+				every_owned_province = {
+					random = {
+						chance = 10
+						change_religion = chaos_undivided_religion
+					}
+				}
+			}
+		}
+	}
+
+	### Please. We know how to deal with this.
+	option = {
+		name = end_times_events.8.option_3
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 10
+				is_subject = yes
+			}
+		}
+		highlight = yes
+		trigger = {
+			OR = {
+				crown_land_share = 75
+				absolutism = 50
+				any_war_enemy_country = {
+					has_reform = everchosen_reform
+				}
+			}
+		}
+
+		if = {
+			limit = { has_global_flag = easy_end_times_flag }
+
+			add_estate_loyalty = {
+			    estate = estate_nobles
+			    loyalty = -5
+			}
+			add_estate_loyalty = {
+			    estate = estate_church
+			    loyalty = -5
+			}
+			add_estate_loyalty = {
+			    estate = estate_burghers
+			    loyalty = -5
+			}
+			add_estate_loyalty = {
+			    estate = estate_mages
+			    loyalty = -5
+			}
+
+		} else = {
+
+			add_estate_loyalty = {
+			    estate = estate_nobles
+			    loyalty = -10
+			}
+			add_estate_loyalty = {
+			    estate = estate_church
+			    loyalty = -10
+			}
+			add_estate_loyalty = {
+			    estate = estate_burghers
+			    loyalty = -10
+			}
+			add_estate_loyalty = {
+			    estate = estate_mages
+			    loyalty = -10
 			}
 		}
 	}
