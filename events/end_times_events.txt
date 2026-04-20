@@ -1582,9 +1582,9 @@ country_event = {
 
 		if = {
 			limit = { has_global_flag = easy_end_times_flag }
-			add_adm_power = -50
-		} else = {
 			add_stability = -1
+		} else = {
+			add_stability = -2
 		}
 	}
 
@@ -1610,9 +1610,9 @@ country_event = {
 
 		if = {
 			limit = { has_global_flag = easy_end_times_flag }
-			add_adm_power = -25
-		} else = {
 			add_adm_power = -50
+		} else = {
+			add_stability = -1
 		}
 	}
 
@@ -1888,16 +1888,70 @@ country_event = {
 	### They can still fire a gun!
 	option = {
 		name = end_times_events.5.option_2
-		ai_chance = { factor = 10 }
+		ai_chance = { factor = 5 }
 		add_country_modifier = {
 			name = war_worse_morale
 			duration = 3650
 		}
 	}
 
-	### We can still train blobs of flesh!
+	### Recruit the cultists
 	option = {
 		name = end_times_events.5.option_3
+		ai_chance = {
+			factor = 20
+		}
+
+		custom_tooltip = owned_province_10_chance_of_tt
+
+		if = {
+			limit = { has_global_flag = easy_end_times_flag }
+
+			tooltip = {
+			    random_owned_province = {
+			    	limit = { NOT = { religion = chaos_undivided_religion } }
+					random = {
+						chance = 5
+						change_religion = chaos_undivided_religion
+					}
+			    }
+			}
+
+			hidden_effect = {
+				every_owned_province = {
+					random = {
+						chance = 5
+						change_religion = chaos_undivided_religion
+					}
+				}
+			}
+
+		} else = {
+
+			tooltip = {
+			    random_owned_province = {
+			    	limit = { NOT = { religion = chaos_undivided_religion } }
+					random = {
+						chance = 10
+						change_religion = chaos_undivided_religion
+					}
+			    }
+			}
+
+			hidden_effect = {
+				every_owned_province = {
+					random = {
+						chance = 10
+						change_religion = chaos_undivided_religion
+					}
+				}
+			}
+		}
+	}
+
+	### We can still train blobs of flesh!
+	option = {
+		name = end_times_events.5.option_4
 		ai_chance = { factor = 1000 }
 		highlight = yes
 		trigger = {
@@ -1954,19 +2008,74 @@ country_event = {
 	option = {
 		name = end_times_events.6.option_2
 		ai_chance = {
-			factor = 10
+			factor = 5
 		}
 		if = {
 			limit = { has_global_flag = easy_end_times_flag }
 			add_inflation = 2
 		} else = {
-			add_inflation = 4
+			add_inflation = 3
+		}
+	}
+
+
+	### Let them use the corrupted coin
+	option = {
+		name = end_times_events.6.option_3
+		ai_chance = {
+			factor = 20
+		}
+
+		custom_tooltip = owned_province_10_chance_of_tt
+
+		if = {
+			limit = { has_global_flag = easy_end_times_flag }
+
+			tooltip = {
+			    random_owned_province = {
+			    	limit = { NOT = { religion = chaos_undivided_religion } }
+					random = {
+						chance = 5
+						change_religion = chaos_undivided_religion
+					}
+			    }
+			}
+
+			hidden_effect = {
+				every_owned_province = {
+					random = {
+						chance = 5
+						change_religion = chaos_undivided_religion
+					}
+				}
+			}
+
+		} else = {
+
+			tooltip = {
+			    random_owned_province = {
+			    	limit = { NOT = { religion = chaos_undivided_religion } }
+					random = {
+						chance = 10
+						change_religion = chaos_undivided_religion
+					}
+			    }
+			}
+
+			hidden_effect = {
+				every_owned_province = {
+					random = {
+						chance = 10
+						change_religion = chaos_undivided_religion
+					}
+				}
+			}
 		}
 	}
 
 	### Come now, no reason to run the banks
 	option = {
-		name = end_times_events.6.option_3
+		name = end_times_events.6.option_4
 		ai_chance = {
 			factor = 1000
 		}
@@ -2191,7 +2300,7 @@ country_event = {
 		trigger = {
 			OR = {
 				capital_scope = {
-					development = 30
+					development = 50
 				}
 				any_war_enemy_country = {
 					has_reform = everchosen_reform
