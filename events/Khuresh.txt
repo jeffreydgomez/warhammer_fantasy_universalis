@@ -101,3 +101,709 @@ country_event = {
 	}
 }
 
+### Khuresh Random Events
+
+# A naga court demands tribute wrapped in ceremony and threat.
+country_event = {
+	id = khuresh_events.1
+	title = khuresh_events.1.t
+	desc = khuresh_events.1.d
+	picture = SNAKEMEN_eventPicture
+	# Event Weighing Value: +1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		capital_scope = {
+			OR = {
+				region = north_khuresh_region
+				region = south_khuresh_region
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Offer tribute.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.1.a
+		# Weighing Value: +2
+
+		add_years_of_income = -0.5
+		add_country_modifier = {
+			name = war_better_dip_rep
+			duration = 5475
+		}
+		add_country_modifier = {
+			name = war_reduced_unrest
+			duration = 5475
+		}
+	}
+
+# Send knives.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.1.b
+		# Weighing Value: +1
+
+		add_dip_power = -50
+		add_country_modifier = {
+			name = war_better_spies
+			duration = 5475
+		}
+	}
+
+# Deny them.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.1.c
+		# Weighing Value: 0
+
+		add_mil_power = 50
+		add_country_modifier = {
+			name = war_worse_dip_rep
+			duration = 5475
+		}
+	}
+}
+
+# Jungle venom can arm soldiers, enrich traders, or feed shrines.
+country_event = {
+	id = khuresh_events.2
+	title = khuresh_events.2.t
+	desc = khuresh_events.2.d
+	picture = SNAKEMEN_eventPicture
+	# Event Weighing Value: +1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		capital_scope = {
+			OR = {
+				region = north_khuresh_region
+				region = south_khuresh_region
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				OR = {
+					region = north_khuresh_region
+					region = south_khuresh_region
+				}
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Coat blades.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.2.a
+		# Weighing Value: +1
+
+		add_years_of_income = -0.5
+		add_country_modifier = {
+			name = war_fire_damage
+			duration = 5475
+		}
+	}
+
+# Sell vials.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.2.b
+		# Weighing Value: +1
+
+		add_years_of_income = 0.5
+		add_mercantilism = 1
+		event_target:event_target = {
+			add_devastation = 25
+		}
+	}
+
+# Feed shrines.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.2.c
+		# Weighing Value: +2
+
+		add_dip_power = -50
+		add_country_modifier = {
+			name = war_religious_fervor
+			duration = 5475
+		}
+	}
+
+# Bury stock.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.2.dd
+		# Weighing Value: 0
+
+		add_adm_power = 50
+		add_country_modifier = {
+			name = war_worse_dip_rep
+			duration = 5475
+		}
+	}
+}
+
+# Skaven tunnels gnaw beneath the strangler roots.
+country_event = {
+	id = khuresh_events.3
+	title = khuresh_events.3.t
+	desc = khuresh_events.3.d
+	picture = SNAKEMEN_eventPicture
+	# Event Weighing Value: -1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		capital_scope = {
+			OR = {
+				region = north_khuresh_region
+				region = south_khuresh_region
+			}
+		}
+		any_neighbor_country = { culture_group = skaven_group }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				OR = {
+					region = north_khuresh_region
+					region = south_khuresh_region
+				}
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Smoke tunnels.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.3.a
+		# Weighing Value: -2
+
+		add_mil_power = -50
+		event_target:event_target = {
+			add_devastation = 25
+		}
+	}
+
+# Use fear.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.3.b
+		# Weighing Value: 0
+
+		add_yearly_manpower = -1
+		add_country_modifier = {
+			name = war_better_spies
+			duration = 5475
+		}
+		add_country_modifier = {
+			name = war_worse_dip_rep
+			duration = 5475
+		}
+	}
+}
+
+# Blood orchids bloom where old sacrifices seep into the soil.
+country_event = {
+	id = khuresh_events.4
+	title = khuresh_events.4.t
+	desc = khuresh_events.4.d
+	picture = SNAKEMEN_eventPicture
+	# Event Weighing Value: +1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		capital_scope = {
+			OR = {
+				region = north_khuresh_region
+				region = south_khuresh_region
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Harvest medicine.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.4.a
+		# Weighing Value: +1
+
+		add_yearly_manpower = -1
+		add_years_of_income = 0.5
+		change_innovativeness = 1
+	}
+
+# Feed idols.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.4.b
+		# Weighing Value: +2
+
+		add_years_of_income = -0.5
+		add_country_modifier = {
+			name = war_religious_fervor
+			duration = 5475
+		}
+	}
+
+# Forbid harvest.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.4.c
+		# Weighing Value: 0
+
+		add_adm_power = 50
+		add_country_modifier = {
+			name = war_worse_dip_rep
+			duration = 5475
+		}
+	}
+}
+
+# Masked serpent factions turn diplomacy into ritual theater.
+country_event = {
+	id = khuresh_events.5
+	title = khuresh_events.5.t
+	desc = khuresh_events.5.d
+	picture = SNAKEMEN_eventPicture
+	# Event Weighing Value: 0
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		capital_scope = {
+			OR = {
+				region = north_khuresh_region
+				region = south_khuresh_region
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Sponsor masks.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.5.a
+		# Weighing Value: 0
+
+		add_years_of_income = -0.5
+		add_country_modifier = {
+			name = war_better_dip_rep
+			duration = 5475
+		}
+	}
+
+# Blackmail priests.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.5.b
+		# Weighing Value: +1
+
+		add_dip_power = -50
+		add_country_modifier = {
+			name = war_better_spies
+			duration = 5475
+		}
+	}
+
+# Let them coil.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.5.c
+		# Weighing Value: 0
+	}
+}
+
+# Beastfolk herds trample a temple road.
+country_event = {
+	id = khuresh_events.6
+	title = khuresh_events.6.t
+	desc = khuresh_events.6.d
+	picture = SNAKEMEN_eventPicture
+	# Event Weighing Value: -1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		capital_scope = {
+			OR = {
+				region = north_khuresh_region
+				region = south_khuresh_region
+			}
+		}
+		OR = {
+			culture_group = eastern_beastfolk_cg
+			culture_group = beastmen_group
+			any_owned_province = { culture_group = eastern_beastfolk_cg }
+			any_neighbor_country = { culture_group = eastern_beastfolk_cg }
+			any_neighbor_country = { culture_group = beastmen_group }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				OR = {
+					region = north_khuresh_region
+					region = south_khuresh_region
+				}
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Hunt herds.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.6.a
+		# Weighing Value: 0
+
+		add_yearly_manpower = -1
+		event_target:event_target = {
+			add_devastation = 25
+		}
+		add_country_modifier = {
+			name = war_siege_speed
+			duration = 5475
+		}
+	}
+
+# Redirect herds.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.6.b
+		# Weighing Value: 0
+
+		add_dip_power = -50
+		add_country_modifier = {
+			name = war_better_spies
+			duration = 5475
+		}
+		add_country_modifier = {
+			name = war_worse_dip_rep
+			duration = 5475
+		}
+	}
+
+# Barricade shrines.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.6.c
+		# Weighing Value: -1
+
+		add_years_of_income = -0.5
+	}
+}
+
+# Rain season omens divide generals and snake-priests.
+country_event = {
+	id = khuresh_events.7
+	title = khuresh_events.7.t
+	desc = khuresh_events.7.d
+	picture = SNAKEMEN_eventPicture
+	# Event Weighing Value: +1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		capital_scope = {
+			OR = {
+				region = north_khuresh_region
+				region = south_khuresh_region
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Obey omens.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.7.a
+		# Weighing Value: +1
+
+		add_years_of_income = -0.5
+		add_country_modifier = {
+			name = war_improved_stability
+			duration = 5475
+		}
+	}
+
+# Force marches.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.7.b
+		# Weighing Value: +1
+
+		add_yearly_manpower = -1
+		add_country_modifier = {
+			name = war_increased_speed
+			duration = 5475
+		}
+	}
+}
+
+# Orc camps squat in a clearing sacred to older predators.
+country_event = {
+	id = khuresh_events.8
+	title = khuresh_events.8.t
+	desc = khuresh_events.8.d
+	picture = SNAKEMEN_eventPicture
+	# Event Weighing Value: -1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		capital_scope = {
+			OR = {
+				region = north_khuresh_region
+				region = south_khuresh_region
+			}
+		}
+		any_neighbor_country = { culture_group = greenskins_group }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				OR = {
+					region = north_khuresh_region
+					region = south_khuresh_region
+				}
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Hire bruisers.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.8.a
+		# Weighing Value: 0
+
+		add_years_of_income = -0.5
+		add_country_modifier = {
+			name = war_better_mercenaries
+			duration = 5475
+		}
+		add_country_modifier = {
+			name = war_worse_dip_rep
+			duration = 5475
+		}
+	}
+
+# Burn camp.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.8.b
+		# Weighing Value: 0
+
+		add_yearly_manpower = -1
+		add_mil_power = -50
+		add_country_modifier = {
+			name = war_reduced_unrest
+			duration = 5475
+		}
+	}
+
+# Send them away.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.8.c
+		# Weighing Value: -1
+
+		add_country_modifier = {
+			name = war_worse_dip_rep
+			duration = 5475
+		}
+	}
+
+# Tax loot.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.8.dd
+		# Weighing Value: 0
+
+		add_years_of_income = 0.5
+		event_target:event_target = {
+			add_devastation = 25
+		}
+	}
+}
+
+# A lotus-veiled embassy promises safer roads to Cathay.
+country_event = {
+	id = khuresh_events.9
+	title = khuresh_events.9.t
+	desc = khuresh_events.9.d
+	picture = SNAKEMEN_eventPicture
+	# Event Weighing Value: +1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		capital_scope = {
+			OR = {
+				region = north_khuresh_region
+				region = south_khuresh_region
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Send gifts.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.9.a
+		# Weighing Value: +1
+
+		add_years_of_income = -0.5
+		add_dip_power = 50
+		add_country_modifier = {
+			name = war_better_dip_rep
+			duration = 5475
+		}
+	}
+
+# Veil threats.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.9.b
+		# Weighing Value: +1
+
+		add_dip_power = -50
+		add_country_modifier = {
+			name = war_better_spies
+			duration = 5475
+		}
+	}
+
+# Close road.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.9.c
+		# Weighing Value: 0
+
+		add_adm_power = 50
+		add_country_modifier = {
+			name = war_worse_dip_rep
+			duration = 5475
+		}
+	}
+}
+
+# A hidden temple demands blood before the idol wakes.
+country_event = {
+	id = khuresh_events.10
+	title = khuresh_events.10.t
+	desc = khuresh_events.10.d
+	picture = SNAKEMEN_eventPicture
+	# Event Weighing Value: -2
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		capital_scope = {
+			OR = {
+				region = north_khuresh_region
+				region = south_khuresh_region
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Refuse idol.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.10.a
+		# Weighing Value: -2
+
+		add_stability = -1
+		add_adm_power = 50
+	}
+
+# Pay blood.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.10.b
+		# Weighing Value: -2
+
+		add_yearly_manpower = -1
+		add_years_of_income = -0.5
+	}
+
+# Cover tracks.
+	option = {
+		ai_chance = { factor = 50 }
+		name = khuresh_events.10.c
+		# Weighing Value: -2
+
+		add_dip_power = -50
+		add_country_modifier = {
+			name = war_worse_dip_rep
+			duration = 5475
+		}
+	}
+}

@@ -780,3 +780,596 @@ country_event = {
 		add_navy_tradition = 50
 	}
 }
+
+### Asur Colonies Random Events
+
+# Pearl lamps and harbor ledgers turn colonial wealth into a test of discipline.
+country_event = {
+	id = asur_events.8
+	title = asur_events.8.t
+	desc = asur_events.8.d
+	picture = HIGHELF_eventPicture
+	# Event Weighing Value: +1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = asur_group
+		capital_scope = { NOT = { superregion = ulthuan_superregion } }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Count warehouses.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.8.a
+		# Weighing Value: +1
+
+		add_adm_power = -50
+		add_country_modifier = {
+			name = war_increased_taxes
+			duration = 5475
+		}
+	}
+
+# Trust lords.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.8.b
+		# Weighing Value: +1
+
+		add_legitimacy = 10
+		add_republican_tradition = 5
+		add_devotion = 10
+		add_horde_unity = 10
+		add_meritocracy = 10
+	}
+
+# Quiet ledgers.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.8.c
+		# Weighing Value: 0
+
+		add_dip_power = 50
+		add_country_modifier = {
+			name = war_worse_dip_rep
+			duration = 5475
+		}
+	}
+}
+
+# A distant waystone requires careful recalibration.
+country_event = {
+	id = asur_events.9
+	title = asur_events.9.t
+	desc = asur_events.9.d
+	picture = HIGHELF_eventPicture
+	# Event Weighing Value: +1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = asur_group
+		capital_scope = { NOT = { superregion = ulthuan_superregion } }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Repair stone.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.9.a
+		# Weighing Value: +1
+
+		add_years_of_income = -0.5
+		add_country_modifier = {
+			name = war_improved_stability
+			duration = 5475
+		}
+	}
+
+# Rotate mages.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.9.b
+		# Weighing Value: +1
+
+		add_dip_power = -50
+		add_country_modifier = {
+			name = war_all_power_cost
+			duration = 5475
+		}
+	}
+}
+
+# Monsoon charts become a prize among sea lords and pilots.
+country_event = {
+	id = asur_events.10
+	title = asur_events.10.t
+	desc = asur_events.10.d
+	picture = HIGHELF_eventPicture
+	# Event Weighing Value: +1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = asur_group
+		capital_scope = { NOT = { superregion = ulthuan_superregion } }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Fund charts.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.10.a
+		# Weighing Value: +1
+
+		add_years_of_income = -0.5
+		add_country_modifier = {
+			name = war_naval_exploration
+			duration = 5475
+		}
+	}
+
+# Share captains.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.10.b
+		# Weighing Value: +1
+
+		add_dip_power = -50
+		add_country_modifier = {
+			name = war_better_navy_morale
+			duration = 5475
+		}
+	}
+
+# Sell copies.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.10.c
+		# Weighing Value: +1
+
+		add_years_of_income = 0.5
+		add_mercantilism = 1
+		add_country_modifier = {
+			name = war_worse_dip_rep
+			duration = 5475
+		}
+	}
+
+# Seal archives.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.10.dd
+		# Weighing Value: 0
+
+		add_adm_power = 50
+		add_country_modifier = {
+			name = war_worse_dip_rep
+			duration = 5475
+		}
+	}
+}
+
+# Dark Elf corsairs test the courage of a distant harbor.
+country_event = {
+	id = asur_events.11
+	title = asur_events.11.t
+	desc = asur_events.11.d
+	picture = HIGHELF_eventPicture
+	# Event Weighing Value: -1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = asur_group
+		capital_scope = { NOT = { superregion = ulthuan_superregion } }
+		OR = {
+			any_neighbor_country = { culture_group = druchii_group }
+			H12 = { war_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = { always = yes }
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Hunt raiders.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.11.a
+		# Weighing Value: 0
+
+		add_yearly_manpower = -1
+		add_country_modifier = {
+			name = war_better_navy_morale
+			duration = 5475
+		}
+		add_country_modifier = {
+			name = war_worse_dip_rep
+			duration = 5475
+		}
+	}
+
+# Repair harbor.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.11.b
+		# Weighing Value: 0
+
+		add_years_of_income = -0.5
+		event_target:event_target = {
+			add_base_production = 2
+		}
+	}
+
+# Pull settlers.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.11.c
+		# Weighing Value: -1
+
+		add_years_of_income = -0.5
+	}
+}
+
+# Cadai rites at a reef provoke argument among scholars and captains.
+country_event = {
+	id = asur_events.12
+	title = asur_events.12.t
+	desc = asur_events.12.d
+	picture = HIGHELF_eventPicture
+	# Event Weighing Value: +1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = asur_group
+		capital_scope = { NOT = { superregion = ulthuan_superregion } }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Sponsor rites.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.12.a
+		# Weighing Value: +2
+
+		add_years_of_income = -0.5
+		add_country_modifier = {
+			name = war_religious_fervor
+			duration = 5475
+		}
+	}
+
+# Send scholars.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.12.b
+		# Weighing Value: +2
+
+		add_dip_power = -50
+		change_innovativeness = 1
+		add_country_modifier = {
+			name = war_all_power_cost
+			duration = 5475
+		}
+	}
+
+# Seal reef.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.12.c
+		# Weighing Value: 0
+	}
+}
+
+# Sealed letters from Ulthuan conflict with colonial necessity.
+country_event = {
+	id = asur_events.13
+	title = asur_events.13.t
+	desc = asur_events.13.d
+	picture = HIGHELF_eventPicture
+	# Event Weighing Value: 0
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = asur_group
+		capital_scope = { NOT = { superregion = ulthuan_superregion } }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Obey letters.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.13.a
+		# Weighing Value: 0
+
+		add_dip_power = -50
+		add_legitimacy = 10
+		add_republican_tradition = 5
+		add_devotion = 10
+		add_horde_unity = 10
+		add_meritocracy = 10
+	}
+
+# Act locally.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.13.b
+		# Weighing Value: 0
+
+		add_mil_power = 50
+		add_country_modifier = {
+			name = war_worse_dip_rep
+			duration = 5475
+		}
+	}
+}
+
+# Lizardmen envoys bring cold-blooded demands to a colony gate.
+country_event = {
+	id = asur_events.14
+	title = asur_events.14.t
+	desc = asur_events.14.d
+	picture = HIGHELF_eventPicture
+	# Event Weighing Value: 0
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = asur_group
+		capital_scope = { NOT = { superregion = ulthuan_superregion } }
+		any_neighbor_country = { has_country_modifier = lizardmen_administration }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Honor envoys.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.14.a
+		# Weighing Value: 0
+
+		add_years_of_income = -0.5
+		add_country_modifier = {
+			name = war_better_dip_rep
+			duration = 5475
+		}
+	}
+
+# Map plaques.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.14.b
+		# Weighing Value: 0
+
+		add_dip_power = -50
+		change_innovativeness = 1
+	}
+
+# Seize relic.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.14.c
+		# Weighing Value: 0
+
+		add_years_of_income = 0.5
+		add_country_modifier = {
+			name = war_worse_dip_rep
+			duration = 5475
+		}
+	}
+}
+
+# Beacon batteries along the sea lane need new crews and coin.
+country_event = {
+	id = asur_events.15
+	title = asur_events.15.t
+	desc = asur_events.15.d
+	picture = HIGHELF_eventPicture
+	# Event Weighing Value: +1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = asur_group
+		capital_scope = { NOT = { superregion = ulthuan_superregion } }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Build batteries.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.15.a
+		# Weighing Value: +1
+
+		add_years_of_income = -0.5
+		add_country_modifier = {
+			name = war_siege_speed
+			duration = 5475
+		}
+	}
+
+# Drill fleet.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.15.b
+		# Weighing Value: +1
+
+		add_yearly_manpower = -1
+		add_country_modifier = {
+			name = war_better_navy_morale
+			duration = 5475
+		}
+	}
+
+# Hire pilots.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.15.c
+		# Weighing Value: +1
+
+		add_dip_power = -50
+		add_country_modifier = {
+			name = war_naval_exploration
+			duration = 5475
+		}
+	}
+
+# Postpone work.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.15.dd
+		# Weighing Value: 0
+
+		add_dip_power = 50
+		add_country_modifier = {
+			name = war_worse_dip_rep
+			duration = 5475
+		}
+	}
+}
+
+# Pearl divers vanish beneath a reef claimed by old oaths.
+country_event = {
+	id = asur_events.16
+	title = asur_events.16.t
+	desc = asur_events.16.d
+	picture = HIGHELF_eventPicture
+	# Event Weighing Value: -1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = asur_group
+		capital_scope = { NOT = { superregion = ulthuan_superregion } }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Rescue divers.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.16.a
+		# Weighing Value: 0
+
+		add_years_of_income = -0.5
+		add_dip_power = -50
+		add_country_modifier = {
+			name = war_reduced_unrest
+			duration = 5475
+		}
+	}
+
+# Accept losses.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.16.b
+		# Weighing Value: -1
+
+		add_yearly_manpower = -1
+	}
+}
+
+# Sister fortresses quarrel over charts, prestige, and sea lanes.
+country_event = {
+	id = asur_events.17
+	title = asur_events.17.t
+	desc = asur_events.17.d
+	picture = HIGHELF_eventPicture
+	# Event Weighing Value: 0
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = asur_group
+		capital_scope = { NOT = { superregion = ulthuan_superregion } }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Formal duel.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.17.a
+		# Weighing Value: +1
+
+		add_mil_power = -50
+		add_country_modifier = {
+			name = war_better_morale
+			duration = 5475
+		}
+	}
+
+# Exchange hostages.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.17.b
+		# Weighing Value: 0
+
+		add_dip_power = -50
+		add_country_modifier = {
+			name = war_better_dip_rep
+			duration = 5475
+		}
+	}
+
+# Ask arbitration.
+	option = {
+		ai_chance = { factor = 50 }
+		name = asur_events.17.c
+		# Weighing Value: +1
+
+		add_years_of_income = -0.5
+		add_country_modifier = {
+			name = war_improved_stability
+			duration = 5475
+		}
+	}
+}

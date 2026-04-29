@@ -8,6 +8,7 @@
 - Random events should choose an intended event `Weighing Value` from -3 to +3 inclusive, depending on whether the event is bad, neutral, or good.
 - Each random event option should total within +1/0/-1 of the event's intended `Weighing Value`, and each option's total `Weighing Value` should be commented in the event script.
 - It is acceptable to mix and match effects and modifiers to hit the target value. Increase or decrease effect magnitudes together with their `Weighing Value` so the balance target remains intentional.
+- Use `add_country_modifier` sparingly in random events. Prefer direct effects from the balance guide when they fit, and keep timed country modifiers to roughly half or less of the options in a new event batch unless the design specifically needs them.
 - If the guide is unavailable or does not cover a modifier/effect being used, call that out before making a balance-sensitive change.
 
 ## Events
