@@ -1,0 +1,91 @@
+########################################
+# Events for IND
+########################################
+
+namespace = ind_events
+normal_or_historical_nations = yes
+
+
+
+
+### TEMPLATE
+
+country_event = { 
+	id = ind_events.X
+	title = ind_events.X.t 
+	desc = ind_events.X.d 
+	picture = IND_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		capital_scope = { superregion = ind_superregion }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# FIRST OPTION
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = ind_events.X.option_1 
+
+	}
+
+# SECOND OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = ind_events.X.option_2
+
+
+	}
+
+# THIRD OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = ind_events.X.option_3
+	}
+}
+
+
+
+### Ind Intro Event
+
+country_event = {
+	id = ind_events.1000
+	title = ind_events.1000.t
+	desc = ind_events.1000.d
+	picture = IND_eventPicture
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		capital_scope = { superregion = ind_superregion }
+		NOT = { has_country_flag = did_intro_event }
+	}
+
+	immediate = { set_country_flag = did_intro_event }
+
+	option = {
+		ai_chance = { factor = 100 }
+		name = ind_events.1000.a
+
+		add_years_of_income = 1
+		add_yearly_manpower = 1
+	}
+}

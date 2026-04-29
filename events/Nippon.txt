@@ -1,0 +1,91 @@
+########################################
+# Events for Khuresh
+########################################
+
+namespace = nippon_events
+normal_or_historical_nations = yes
+
+
+
+
+### TEMPLATE
+
+country_event = { 
+	id = nippon_events.X
+	title = nippon_events.X.t 
+	desc = nippon_events.X.d 
+	picture = NIPPON_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		capital_scope = { region = nippon_region }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# FIRST OPTION
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = nippon_events.X.option_1 
+
+	}
+
+# SECOND OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = nippon_events.X.option_2
+
+
+	}
+
+# THIRD OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = nippon_events.X.option_3
+	}
+}
+
+
+
+### Nippon Intro Event
+
+country_event = {
+	id = nippon_events.100
+	title = nippon_events.100.t
+	desc = nippon_events.100.d
+	picture = NIPPON_eventPicture
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		capital_scope = { region = nippon_region }
+		NOT = { has_country_flag = did_intro_event }
+	}
+
+	immediate = { set_country_flag = did_intro_event }
+
+	option = {
+		ai_chance = { factor = 100 }
+		name = nippon_events.100.a
+
+		add_mil_power = 100
+		add_stability = 1
+	}
+}

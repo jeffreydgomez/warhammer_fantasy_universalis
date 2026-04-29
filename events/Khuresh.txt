@@ -1,0 +1,103 @@
+########################################
+# Events for Khuresh
+########################################
+
+namespace = khuresh_events
+normal_or_historical_nations = yes
+
+
+
+
+### TEMPLATE
+
+country_event = { 
+	id = khuresh_events.X
+	title = khuresh_events.X.t 
+	desc = khuresh_events.X.d 
+	picture = SNAKEMEN_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		capital_scope = {
+			OR = {
+				region = north_khuresh_region
+				region = south_khuresh_region
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# FIRST OPTION
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = khuresh_events.X.option_1 
+
+	}
+
+# SECOND OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = khuresh_events.X.option_2
+
+
+	}
+
+# THIRD OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = khuresh_events.X.option_3
+	}
+}
+
+
+
+### Khuresh Intro Event
+
+
+country_event = {
+	id = khuresh_events.1000
+	title = khuresh_events.1000.t
+	desc = khuresh_events.1000.d
+	picture = SNAKEMEN_eventPicture
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		capital_scope = {
+			OR = {
+				region = north_khuresh_region
+				region = south_khuresh_region
+			}
+		}
+		NOT = { has_country_flag = did_intro_event }
+	}
+
+	immediate = { set_country_flag = did_intro_event }
+
+	option = {
+		ai_chance = { factor = 100 }
+		name = khuresh_events.1000.a
+
+		add_army_tradition = 25
+		add_yearly_manpower = 1
+	}
+}
+

@@ -1,0 +1,81 @@
+#####################
+# LIZARDMEN EVENTS
+#####################
+
+namespace = dragon_isles_events
+normal_or_historical_nations = yes
+
+
+### TEMPLATE
+
+country_event = { 
+	id = dragon_isles_events.X
+	title = dragon_isles_events.X.title
+	desc = dragon_isles_events.X.desc
+	picture = FOREST_DRAGON_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		has_country_modifier = lizardmen_administration
+		capital_scope = { region = dragon_isles_region }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# FIRST OPTION
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.X.a 
+
+	}
+
+# SECOND OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.X.b
+
+
+	}
+
+# THIRD OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = lizardmen_events.X.c
+	}
+}
+
+
+
+
+### Dragon Isles Intro Event
+
+country_event = {
+	id = dragon_isles_events.1000
+	title = dragon_isles_events.1000.t
+	desc = dragon_isles_events.1000.d
+	picture = FOREST_DRAGON_eventPicture
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		capital_scope = { region = dragon_isles_region }
+		NOT = { has_country_flag = did_intro_event }
+	}
+
+	immediate = { set_country_flag = did_intro_event }
+
+	option = {
+		ai_chance = { factor = 100 }
+		name = dragon_isles_events.1000.a
+
+		add_army_tradition = 25
+		add_years_of_income = 1
+	}
+}
