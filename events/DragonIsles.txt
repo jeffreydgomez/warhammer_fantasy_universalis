@@ -79,3 +79,667 @@ country_event = {
 		add_years_of_income = 1
 	}
 }
+
+### Dragon Isles Random Events
+
+# A dragon stirs and demands tribute from the local gem caves.
+country_event = {
+	id = dragon_isles_events.1
+	title = dragon_isles_events.1.t
+	desc = dragon_isles_events.1.d
+	picture = FOREST_DRAGON_eventPicture
+	# Event Weighing Value: 0
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		has_country_modifier = lizardmen_administration
+		capital_scope = { region = dragon_isles_region }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = { region = dragon_isles_region }
+			save_event_target_as = event_target
+		}
+	}
+
+# Pay tribute.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.1.a
+		# Weighing Value: +1
+
+		add_years_of_income = -0.5
+		add_country_modifier = {
+			name = war_better_morale
+			duration = 5475
+		}
+	}
+
+# Keep the gems.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.1.b
+		# Weighing Value: 0
+
+		add_years_of_income = 0.5
+		add_country_modifier = {
+			name = war_worse_dip_rep
+			duration = 5475
+		}
+	}
+
+# Share the tribute.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.1.c
+		# Weighing Value: 0
+
+		add_dip_power = -50
+		add_country_modifier = {
+			name = war_better_dip_rep
+			duration = 5475
+		}
+	}
+}
+
+# Old One plaques are uncovered and contested by dragon-priests.
+country_event = {
+	id = dragon_isles_events.2
+	title = dragon_isles_events.2.t
+	desc = dragon_isles_events.2.d
+	picture = FOREST_DRAGON_eventPicture
+	# Event Weighing Value: 0
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		has_country_modifier = lizardmen_administration
+		capital_scope = { region = dragon_isles_region }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = { region = dragon_isles_region }
+			save_event_target_as = event_target
+		}
+	}
+
+# Preserve the plaques.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.2.a
+		# Weighing Value: 0
+
+		add_years_of_income = -0.5
+		change_innovativeness = 1
+	}
+
+# Recarve the omen.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.2.b
+		# Weighing Value: 0
+
+		add_dip_power = -50
+		add_legitimacy = 10
+		add_republican_tradition = 5
+		add_devotion = 10
+		add_horde_unity = 10
+		add_meritocracy = 10
+	}
+
+# Seal them away.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.2.c
+		# Weighing Value: -1
+
+		add_years_of_income = -0.5
+	}
+}
+
+# A lesser daimyo offers spawn-hostages under draconic oath.
+country_event = {
+	id = dragon_isles_events.3
+	title = dragon_isles_events.3.t
+	desc = dragon_isles_events.3.d
+	picture = FOREST_DRAGON_eventPicture
+	# Event Weighing Value: 0
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		has_country_modifier = lizardmen_administration
+		capital_scope = { region = dragon_isles_region }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = { region = dragon_isles_region }
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Take hostages.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.3.a
+		# Weighing Value: 0
+
+		event_target:event_target = {
+			add_base_manpower = 2
+		}
+		add_country_modifier = {
+			name = war_worse_dip_rep
+			duration = 5475
+		}
+	}
+
+# Demand tribute.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.3.b
+		# Weighing Value: 0
+
+		add_yearly_manpower = -1
+		add_years_of_income = 0.5
+	}
+}
+
+# River Ruin trade forces a choice between patrols and tolls.
+country_event = {
+	id = dragon_isles_events.4
+	title = dragon_isles_events.4.t
+	desc = dragon_isles_events.4.d
+	picture = FOREST_DRAGON_eventPicture
+	# Event Weighing Value: +1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		has_country_modifier = lizardmen_administration
+		capital_scope = { region = dragon_isles_region }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = { region = dragon_isles_region }
+			save_event_target_as = event_target
+		}
+	}
+
+# Patrol the river.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.4.a
+		# Weighing Value: 0
+
+		add_years_of_income = -0.5
+		add_dip_power = -50
+		add_country_modifier = {
+			name = war_naval_exploration
+			duration = 5475
+		}
+	}
+
+# Levy harbor tolls.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.4.b
+		# Weighing Value: +1
+
+		add_years_of_income = 0.5
+		add_mercantilism = 1
+		add_country_modifier = {
+			name = war_worse_dip_rep
+			duration = 5475
+		}
+	}
+
+# License pilots.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.4.c
+		# Weighing Value: +1
+
+		add_dip_power = -50
+		add_country_modifier = {
+			name = war_better_navy_morale
+			duration = 5475
+		}
+	}
+}
+
+# Fresh volcanic glass can arm warriors or enrich markets.
+country_event = {
+	id = dragon_isles_events.5
+	title = dragon_isles_events.5.t
+	desc = dragon_isles_events.5.d
+	picture = FOREST_DRAGON_eventPicture
+	# Event Weighing Value: +1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		has_country_modifier = lizardmen_administration
+		capital_scope = { region = dragon_isles_region }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = { region = dragon_isles_region }
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Forge weapons.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.5.a
+		# Weighing Value: +1
+
+		add_years_of_income = -0.5
+		add_country_modifier = {
+			name = war_fire_damage
+			duration = 5475
+		}
+	}
+
+# Sell the glass.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.5.b
+		# Weighing Value: +1
+
+		add_years_of_income = 0.5
+		event_target:event_target = {
+			add_base_production = 2
+			add_devastation = 25
+		}
+	}
+
+# Consecrate idols.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.5.c
+		# Weighing Value: +2
+
+		add_years_of_income = -0.5
+		add_country_modifier = {
+			name = war_religious_fervor
+			duration = 5475
+		}
+	}
+
+# Leave it cooling.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.5.dd
+		# Weighing Value: 0
+	}
+}
+
+# A hungry dragon wakes above a troubled valley.
+country_event = {
+	id = dragon_isles_events.6
+	title = dragon_isles_events.6.t
+	desc = dragon_isles_events.6.d
+	picture = FOREST_DRAGON_eventPicture
+	# Event Weighing Value: -1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		has_country_modifier = lizardmen_administration
+		capital_scope = { region = dragon_isles_region }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = { region = dragon_isles_region }
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Feed the dragon.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.6.a
+		# Weighing Value: -1
+
+		add_years_of_income = -0.5
+	}
+
+# Redirect its hunger.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.6.b
+		# Weighing Value: 0
+
+		add_yearly_manpower = -1
+		event_target:event_target = {
+			add_devastation = 25
+		}
+		add_country_modifier = {
+			name = war_better_morale
+			duration = 5475
+		}
+	}
+}
+
+# Blood-tainted spawning pools tempt the clans with sanctioned frenzy.
+country_event = {
+	id = dragon_isles_events.7
+	title = dragon_isles_events.7.t
+	desc = dragon_isles_events.7.d
+	picture = FOREST_DRAGON_eventPicture
+	# Event Weighing Value: -1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		has_country_modifier = lizardmen_administration
+		capital_scope = { region = dragon_isles_region }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = { region = dragon_isles_region }
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Cleanse the pools.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.7.a
+		# Weighing Value: 0
+
+		add_stability_or_adm_power = yes
+		add_yearly_manpower = -1
+		add_years_of_income = -0.5
+		add_adm_power = -50
+	}
+
+# Bind the frenzy.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.7.b
+		# Weighing Value: 0
+
+		event_target:event_target = {
+			add_devastation = 25
+		}
+		add_country_modifier = {
+			name = war_better_morale
+			duration = 5475
+		}
+		add_country_modifier = {
+			name = war_worse_dip_rep
+			duration = 5475
+		}
+	}
+
+# Let it burn out.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.7.c
+		# Weighing Value: -2
+
+		add_yearly_manpower = -1
+		event_target:event_target = {
+			add_devastation = 25
+		}
+	}
+}
+
+# Cathayan harmonists offer rites for balancing island cult disputes.
+country_event = {
+	id = dragon_isles_events.8
+	title = dragon_isles_events.8.t
+	desc = dragon_isles_events.8.d
+	picture = FOREST_DRAGON_eventPicture
+	# Event Weighing Value: +1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		has_country_modifier = lizardmen_administration
+		capital_scope = { region = dragon_isles_region }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = { region = dragon_isles_region }
+			save_event_target_as = event_target
+		}
+	}
+
+# Sponsor the rites.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.8.a
+		# Weighing Value: +1
+
+		add_years_of_income = -0.5
+		add_country_modifier = {
+			name = war_improved_stability
+			duration = 5475
+		}
+	}
+
+# Use interpreters.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.8.b
+		# Weighing Value: +1
+
+		add_dip_power = 50
+		add_years_of_income = -0.5
+		add_country_modifier = {
+			name = war_better_dip_rep
+			duration = 5475
+		}
+	}
+
+# Dismiss them.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.8.c
+		# Weighing Value: 0
+
+		add_dip_power = 50
+		add_country_modifier = {
+			name = war_worse_dip_rep
+			duration = 5475
+		}
+	}
+}
+
+# Dragon clutches are discovered among gem deposits.
+country_event = {
+	id = dragon_isles_events.9
+	title = dragon_isles_events.9.t
+	desc = dragon_isles_events.9.d
+	picture = FOREST_DRAGON_eventPicture
+	# Event Weighing Value: +1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		has_country_modifier = lizardmen_administration
+		capital_scope = { region = dragon_isles_region }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = { region = dragon_isles_region }
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Guard the eggs.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.9.a
+		# Weighing Value: +1
+
+		add_yearly_manpower = -1
+		add_country_modifier = {
+			name = war_reduced_unrest
+			duration = 5475
+		}
+	}
+
+# Gather loose gems.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.9.b
+		# Weighing Value: +1
+
+		add_mil_power = 50
+		add_years_of_income = 0.5
+		event_target:event_target = {
+			add_devastation = 25
+		}
+	}
+}
+
+# The Shogun's drum summons clans toward war or council.
+country_event = {
+	id = dragon_isles_events.10
+	title = dragon_isles_events.10.t
+	desc = dragon_isles_events.10.d
+	picture = FOREST_DRAGON_eventPicture
+	# Event Weighing Value: +1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		has_country_modifier = lizardmen_administration
+		capital_scope = { region = dragon_isles_region }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = { region = dragon_isles_region }
+			save_event_target_as = event_target
+		}
+	}
+
+# Rally the clans.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.10.a
+		# Weighing Value: +1
+
+		add_years_of_income = -0.5
+		add_country_modifier = {
+			name = war_better_morale
+			duration = 5475
+		}
+	}
+
+# Convene council.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.10.b
+		# Weighing Value: +1
+
+		add_years_of_income = -0.5
+		add_dip_power = 50
+		add_country_modifier = {
+			name = war_better_dip_rep
+			duration = 5475
+		}
+	}
+
+# Bind latecomers.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.10.c
+		# Weighing Value: 0
+
+		add_years_of_income = -0.5
+		add_legitimacy = 10
+		add_republican_tradition = 5
+		add_devotion = 10
+		add_horde_unity = 10
+		add_meritocracy = 10
+	}
+
+# Delay the summons.
+	option = {
+		ai_chance = { factor = 50 }
+		name = dragon_isles_events.10.dd
+		# Weighing Value: +1
+
+		add_years_of_income = -0.5
+		add_country_modifier = {
+			name = war_improved_stability
+			duration = 5475
+		}
+	}
+}
