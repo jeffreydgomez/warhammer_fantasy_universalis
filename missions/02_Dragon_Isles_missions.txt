@@ -564,12 +564,16 @@ dragon_isles_missions_3 = {
 			dragon_isles_region = {
 				type = all
 				OR = {
-					owned_by = ROOT
-					owned_by_subject_of = ROOT
+					AND = {
+						OR = {
+							owned_by = ROOT
+							owned_by_subject_of = ROOT
+						}
+						NOT = { pure_unrest = -2 }
+						NOT = { local_autonomy = 15 }
+					}
 					is_city = no
 				}
-				NOT = { pure_unrest = -2 }
-				NOT = { local_autonomy = 15 }
 			}
 		}
 		effect = {
