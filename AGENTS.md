@@ -65,6 +65,7 @@
 
 ## Localizations
 
+- New or edited EU4 localisation `.yml` files should be saved as UTF-8 with BOM, matching the existing mod files. If a localization file appears valid but does not load in-game, check for the BOM first.
 - Use "\n\n" for line breaks.
 - Mission localization should include both `mission_id_title:0 "Mission Name"` and `mission_id_desc:0 "Mission description"`. It is also fine to include the bare `mission_id:0 "Mission Name"` key for compatibility, but do not rely on it alone.
 - Event descriptions should be 2-3 paragraphs of 2-4 sentences each. Vary paragraph counts and paragraph sentence counts across event batches.
