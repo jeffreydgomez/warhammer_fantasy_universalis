@@ -7,10 +7,8 @@ country_decisions = {
 			NOT = { tag = Z95 }
 			NOT = { has_country_flag = formed_dragon_isles_flag }
 			was_never_end_game_tag_trigger = yes
-			has_reform = shogunate
-			any_country = {
-				vassal_of = ROOT
-				has_reform = daimyo
+			capital_scope = {
+				superregion = dragon_isles_superregion
 			}
 		}
 		provinces_to_highlight = {
@@ -22,34 +20,41 @@ country_decisions = {
 		allow = {
 			NOT = { exists = Z95 }
 #			is_free_or_tributary_trigger = yes
-			is_nomad = no
 			is_at_war = no
-			num_of_cities = 25
+			calc_true_if = {
+				all_owned_province = {
+					superregion = dragon_isles_superregion
+				}
+				amount = 25
+			}
 			owns = 4261
 		}
 		effect = {
 			remove_government_reform = shogunate
 			on_change_tag_effect = yes
-			#set_legacy_government = despotic_monarchy
 			set_government_rank = 3
-			custom_tooltip = unite_dragon_isles_subject_tooltip
+			every_subject_country = {
+				limit = {
+					has_reform = daimyo
+					NOT = { liberty_desire = 50 }
+				}
+				ROOT = {
+					inherit = PREV
+				}
+				remove_government_reform = daimyo
+			}
 			hidden_effect = {
 				every_subject_country = {
 					limit = {
 						has_reform = daimyo
 					}
 					ROOT = {
-						free_vassal = PREV
+						vassalize = PREV
 					}
 					remove_government_reform = daimyo
-					#set_legacy_government = despotic_monarchy
-					every_owned_province = {
-						remove_core = Z95
-					}
 				}
 			}
 			change_tag = Z95
-			# swap_non_generic_missions = yes
 			if = {
 				limit = { ai = no }
 				on_change_tag_effect = yes
@@ -76,136 +81,11 @@ country_decisions = {
 			 
 		}
 		ai_will_do = {
-			factor = 1
+			factor = 100
 			modifier = {
 				factor = 0
 				NOT = { num_of_cities = 30 }
 			}
 		}
 	}
-	
-	# United dragon_isles
-	united_dragon_isles = {
-		major = yes
-		potential = {
-			has_reform = shogunate
-			NOT = { has_country_flag = formed_dragon_isles_flag }
-			was_never_end_game_tag_trigger = yes
-			NOT = { exists = Z95 }
-		}
-		allow = {
-			NOT = { exists = Z95 }
-#			is_free_or_tributary_trigger = yes
-			owns = 4261
-			all_country = {
-				NOT = {
-					has_reform = daimyo
-				}
-				NOT = {
-					has_reform = indep_daimyo
-				}
-			}
-			is_at_war = no
-		}
-		effect = {
-			change_tag = Z95
-			# swap_non_generic_missions = yes
-			on_change_tag_effect = yes
-			restore_country_name_effect = yes
-			remove_government_reform = shogunate
-			#set_legacy_government = despotic_monarchy
-			set_country_flag = formed_dragon_isles_flag
-			country_event = { id = war_formable_nations.32 }
-			set_government_rank = 3
-			add_legitimacy = 100
-			add_adm_power = 100
-			add_dip_power = 100
-			add_mil_power = 100
-			if = { 
-				limit = { 
-					dragon_isles_region = { NOT = { country_or_non_sovereign_subject_holds = ROOT } } 
-				}
-				dragon_isles_region = {
-					limit = {
-						NOT = { is_core = ROOT } 
-						NOT = { owned_by = ROOT } 
-					}
-					add_permanent_claim = ROOT 
-				}
-			}
-			if = {
-				limit = { has_custom_ideas = no }
-				country_event = { id = ideagroups.1 } #Swap Ideas
-			}
-			  
-		}
-		ai_will_do = {
-			factor = 1
-		}
-	}
-	
-	# United dragon_isles
-	united_dragon_isles_daimyo = {
-		major = yes
-		potential = {
-			NOT = { tag = Z95 }
-			NOT = { has_country_flag = formed_dragon_isles_flag }
-			was_never_end_game_tag_trigger = yes
-			NOT = { has_reform = shogunate }
-			NOT = { has_reform = celestial_empire }
-			culture = dragon_isles_lizardmen
-		}
-		provinces_to_highlight = {
-			OR = {
-				province_id = 4261
-			}
-			NOT = { owned_by = ROOT }
-		}
-		allow = {
-			NOT = { exists = Z95 }
-#			is_free_or_tributary_trigger = yes
-			owns = 4261
-			all_country = {
-				OR = {
-					tag = ROOT
-					AND = {
-						NOT = { has_reform = daimyo }
-						NOT = { has_reform = indep_daimyo }
-						NOT = { has_reform = shogunate }
-					}
-				}
-			}
-			is_at_war = no
-		}
-		effect = {
-			change_tag = Z95
-			# swap_non_generic_missions = yes
-			on_change_tag_effect = yes
-			restore_country_name_effect = yes
-			set_country_flag = formed_dragon_isles_flag
-			country_event = { id = war_formable_nations.32 }
-			remove_non_electors_emperors_from_empire_effect = yes
-			remove_government_reform = daimyo
-			remove_government_reform = indep_daimyo
-			#set_legacy_government = despotic_monarchy
-			set_government_rank = 3
-			add_legitimacy = 100
-			add_adm_power = 100
-			add_dip_power = 100
-			add_mil_power = 100
-			if = {
-				limit = { has_custom_ideas = no }
-				country_event = { id = ideagroups.1 } #Swap Ideas
-			}
-			if = {
-				limit = { ai = no }
-				on_change_tag_effect = yes
-			}
-			  
-		}
-		ai_will_do = {
-			factor = 400
-		}
-	}
-	
 }

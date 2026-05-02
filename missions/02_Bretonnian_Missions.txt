@@ -1058,35 +1058,64 @@ bretonnian_3_missions = {
 	bretonnia_rid_world_of_evil = {
 		icon = bohemian_crystal
 		required_missions = {		}
-        provinces_to_highlight = {
-			owner = {
-				has_country_modifier = destruction_nation
-				NOT = { tag = ROOT }
-				NOT = { is_subject_of = ROOT }
+		provinces_to_highlight = {
+
+			if = {
+				limit = { has_country_modifier = destruction_nation }
+
+        		OR = {
+        			continent = europe
+        			region = the_western_wastes_region
+        			superregion = darklands_superregion
+        			superregion = northern_south_lands_superregion
+        			superregion = western_mountains_superregion
+        			superregion = world_edge_mountain_superregion
+        		}
+	            owner = { has_country_modifier = order_nation }
+	        } else = {
+
+        		OR = {
+        			continent = europe
+        			region = the_western_wastes_region
+        			superregion = darklands_superregion
+        			superregion = northern_south_lands_superregion
+        			superregion = western_mountains_superregion
+        			superregion = world_edge_mountain_superregion
+        		}
+	            owner = { has_country_modifier = destruction_nation }
+	        }
+        }
+		trigger = {
+			is_great_power = yes
+			if = {
+				limit = { has_country_modifier = destruction_nation }
 				NOT = {
-					ROOT = {
-						has_won_war_against = {
-							who = PREV
-							max_years_since = 250
-						}
+					any_province = {
+						owner = { has_country_modifier = order_nation }
+	            		OR = {
+	            			continent = europe
+	            			superregion = darklands_superregion
+	            			superregion = northern_south_lands_superregion
+	            			superregion = western_mountains_superregion
+	            			superregion = world_edge_mountain_superregion
+	            			superregion = chaos_wastes_superregion
+	            		}
+	            		
 					}
 				}
-			}
-		}
-		
-		trigger = {
-			NOT = {
-				any_country = {
-					has_country_modifier = destruction_nation
-					NOT = { tag = ROOT }
-					NOT = { is_subject_of = ROOT }
-					NOT = {
-						ROOT = {
-							has_won_war_against = {
-								who = PREV
-								max_years_since = 250
-							}
-						}
+			} else = {
+
+				NOT = {
+					any_province = {
+						owner = { has_country_modifier = destruction_nation }
+	            		OR = {
+	            			continent = europe
+	            			superregion = darklands_superregion
+	            			superregion = northern_south_lands_superregion
+	            			superregion = western_mountains_superregion
+	            			superregion = world_edge_mountain_superregion
+	            			superregion = chaos_wastes_superregion
+	            		}
 					}
 				}
 			}

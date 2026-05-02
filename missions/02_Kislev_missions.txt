@@ -799,17 +799,64 @@ kislev_missions_3 = {
 		icon = mission_kislev_destroy_chaos
 		required_missions = { }
 		provinces_to_highlight = {
-            owner = {
-            	NOT = { tag = ROOT }
-            	religion_group = ruinous_powers_denominations
-            }
+
+			if = {
+				limit = { has_country_modifier = chaos_nation }
+
+        		OR = {
+        			continent = europe
+        			superregion = chaos_wastes_superregion
+        			superregion = darklands_superregion
+        			superregion = northern_south_lands_superregion
+        			superregion = western_mountains_superregion
+        			superregion = world_edge_mountain_superregion
+        		}
+	            owner = { has_country_modifier = order_nation }
+	        } else = {
+
+        		OR = {
+        			continent = europe
+        			superregion = chaos_wastes_superregion
+        			superregion = darklands_superregion
+        			superregion = northern_south_lands_superregion
+        			superregion = western_mountains_superregion
+        			superregion = world_edge_mountain_superregion
+        		}
+	            owner = { has_country_modifier = chaos_nation }
+	        }
         }
 		trigger = {
-
 			is_great_power = yes
+			if = {
+				limit = { has_country_modifier = chaos_nation }
+				NOT = {
+					any_province = {
+						owner = { has_country_modifier = order_nation }
+	            		OR = {
+	            			continent = europe
+	            			superregion = darklands_superregion
+	            			superregion = northern_south_lands_superregion
+	            			superregion = western_mountains_superregion
+	            			superregion = world_edge_mountain_superregion
+	            			superregion = chaos_wastes_superregion
+	            		}
+					}
+				}
+			} else = {
 
-			all_country = {
-				NOT = { religion_group = ruinous_powers_denominations }
+				NOT = {
+					any_province = {
+						owner = { has_country_modifier = chaos_nation }
+	            		OR = {
+	            			continent = europe
+	            			superregion = darklands_superregion
+	            			superregion = northern_south_lands_superregion
+	            			superregion = western_mountains_superregion
+	            			superregion = world_edge_mountain_superregion
+	            			superregion = chaos_wastes_superregion
+	            		}
+					}
+				}
 			}
 		}
 		effect = {

@@ -1,0 +1,974 @@
+##################################
+##### DRAGON ISLES
+##################################
+
+dragon_isles_missions_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture = dragon_isles_lizardmen
+		capital_scope = { region = dragon_isles_region }
+		war_mission_priority_1 = no
+	}
+
+	# The River Ruin mouth is unknown water. The Shogun must turn clan canoes into pilots.
+	dragon_isles_survey_river_ruin_mouth = {
+		icon = mission_vamp_coast_docks
+		required_missions = { }
+		position = 1
+		trigger = {
+			navy_size_percentage = 0.75
+			num_of_light_ship = 3
+			navy_tradition = 10
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_surveyed_river_ruin_mouth
+				duration = -1
+			}
+		}
+	}
+
+	# The reefs answer to clan custom. The state must license the pilots who know them.
+	dragon_isles_license_island_pilots = {
+		icon = mission_vamp_coast_ship_4
+		required_missions = { dragon_isles_survey_river_ruin_mouth }
+		position = 2
+		trigger = {
+			navy_tradition = 15
+			num_of_owned_provinces_with = {
+				OR = {
+					has_building = dock
+					has_building = drydock
+					has_building = shipyard
+					has_building = grand_shipyard
+				}
+				value = 2
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_licensed_island_pilots
+				duration = -1
+			}
+		}
+	}
+
+	# Foreign sails test the shoals. The patrols must make the river mouth feel watched.
+	dragon_isles_patrol_river_mouth = {
+		icon = mission_vamp_coast_ship_3
+		required_missions = { dragon_isles_license_island_pilots }
+		position = 3
+		trigger = {
+			num_of_galley = 6
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_river_mouth_patrols
+				duration = -1
+			}
+		}
+	}
+
+	# Tribute harbors are still clan prizes. The Shogun must turn them into public toll gates.
+	dragon_isles_gem_toll_harbors = {
+		icon = mission_magical_gems
+		required_missions = { dragon_isles_patrol_river_mouth dragon_isles_oath_hostages_of_the_daimyo }
+		position = 5
+		trigger = {
+			mercantilism = 10
+			num_of_owned_provinces_with = {
+				has_port = yes
+				province_has_center_of_trade_of_level = 3
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_gem_toll_harbors_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The River Ruin enriches strangers. The isles must learn to count its cargo first.
+	dragon_isles_river_ruin_customs = {
+		icon = mission_caravan
+		required_missions = { dragon_isles_gem_toll_harbors }
+		position = 6
+		trigger = {
+			monthly_income = 25
+			home_trade_node = {
+				trade_share = {
+					country = ROOT
+					share = 75
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_river_ruin_customs_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Indish and Cathayan captains now seek our reefs. They must enter under names and seals.
+	dragon_isles_foreign_sails_under_license = {
+		icon = mission_vamp_coast_ship_4
+		required_missions = { dragon_isles_river_ruin_customs }
+		position = 8
+		trigger = {
+			diplomatic_reputation = 3
+			any_trade_node = {
+				superregion = ind_superregion
+				trade_share = {
+					country = ROOT
+					share = 15
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_licensed_foreign_sails
+				duration = -1
+			}
+		}
+	}
+
+	# The unified isles need more than clan captains. They must raise one dragonwake admiralty.
+	dragon_isles_dragonwake_admiralty = {
+		icon = mission_vamp_coast_ship_1
+		required_missions = { dragon_isles_foreign_sails_under_license }
+		position = 10
+		trigger = {
+			navy_size = 50
+			navy_tradition = 50
+			has_flagship = yes
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_dragonwake_admiralty_mod
+				duration = -1
+			}
+			create_admiral = { tradition = 100 }
+		}
+	}
+
+	# The old beaches cannot hold a realm's ambitions. The ports must receive deeper hulls.
+	dragon_isles_deepwater_dragon_harbors = {
+		icon = mission_vamp_coast_docks_2
+		required_missions = { dragon_isles_dragonwake_admiralty }
+		position = 11
+		trigger = {
+			num_of_heavy_ship = 5
+			num_of_owned_provinces_with = {
+				has_port = yes
+				province_has_center_of_trade_of_level = 3
+				value = 2
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_deepwater_dragon_harbors_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The eastern sea lanes no longer end at our reefs. We must make Ind account for us.
+	dragon_isles_command_eastern_sea_lanes = {
+		icon = mission_high_elf_ship
+		required_missions = { dragon_isles_deepwater_dragon_harbors }
+		position = 13
+		trigger = {
+			is_great_power = yes
+			navy_size = 80
+			any_trade_node = {
+				superregion = ind_superregion
+				trade_share = {
+					country = ROOT
+					share = 50
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_eastern_sea_lanes
+				duration = -1
+			}
+		}
+	}
+
+	# Smoke from the River Ruin reaches our waters. The Scalded Delta must become our warning post.
+	dragon_isles_scalded_delta_watch = {
+		icon = mission_cathayan_outpost
+		required_missions = { dragon_isles_command_eastern_sea_lanes }
+		position = 14
+		provinces_to_highlight = {
+			area = scalded_delta
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+		}
+		trigger = {
+			army_size = 80
+			scalded_delta = {
+				type = all
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+			num_of_owned_provinces_with = {
+				area = scalded_delta
+				fort_level = 2
+				value = 2
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_scalded_delta_watch_mod
+				duration = -1
+			}
+		}
+	}
+}
+
+dragon_isles_missions_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture = dragon_isles_lizardmen
+		capital_scope = { region = dragon_isles_region }
+		war_mission_priority_1 = no
+	}
+
+	# The clans hear only local drums. The Shogun must make one summons louder than all others.
+	dragon_isles_shoguns_drum = {
+		icon = mission_lizardmen_rally
+		required_missions = { }
+		position = 1
+		trigger = {
+			is_subject = no
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 60
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_shoguns_drum_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Private pride is louder than court law. The council must make rivalry speak in ritual.
+	dragon_isles_quiet_council = {
+		icon = mission_high_elf_court
+		required_missions = { dragon_isles_shoguns_drum dragon_isles_shrine_of_the_great_dragon }
+		position = 3
+		trigger = {
+			stability = 2
+			diplomatic_reputation = 2
+			OR = {
+				num_of_allies = 2
+				num_of_subjects = 2
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_quiet_council_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Hostages keep the daimyo obedient. The court must turn that fear into usable loyalty.
+	dragon_isles_oath_hostages_of_the_daimyo = {
+		icon = mission_cathay_sentinel
+		required_missions = { dragon_isles_quiet_council }
+		position = 4
+		trigger = {
+			legitimacy_equivalent = 95
+			OR = {
+				AND = {
+					num_of_subjects = 2
+					all_subject_country = {
+						NOT = { liberty_desire = 25 }
+					}
+				}
+				AND = {
+					NOT = { num_of_subjects = 2 }
+					num_of_owned_provinces_with = {
+						region = dragon_isles_region
+						value = 12
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_oath_hostages_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Clan war has become habit. The Shogun must prove that only the realm may draw the sword.
+	dragon_isles_break_private_wars = {
+		icon = mission_lizardmen_saurus
+		required_missions = { dragon_isles_oath_hostages_of_the_daimyo dragon_isles_river_ruin_customs }
+		position = 7
+		trigger = {
+			stability = 2
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				region = dragon_isles_region
+				value = 20
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_broken_private_wars
+				duration = -1
+			}
+		}
+	}
+
+	# The daimyo still imagine separate islands. The seal must cover the whole archipelago.
+	dragon_isles_daimyo_under_one_seal = {
+		icon = mission_red_asian_dragon
+		required_missions = { dragon_isles_break_private_wars }
+		position = 8
+		trigger = {
+			legitimacy_equivalent = 90
+			crown_land_share = 50
+			dragon_isles_region = {
+				type = all
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+					is_city = no
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_daimyo_one_seal
+				duration = -1
+			}
+		}
+	}
+
+	# A unified realm cannot be governed by rumor. The clans must be counted and named.
+	dragon_isles_census_of_the_clans = {
+		icon = mission_lizardmen_curator
+		required_missions = { dragon_isles_daimyo_under_one_seal dragon_isles_dragonwake_admiralty }
+		position = 11
+		trigger = {
+			stability = 2
+			total_development = 300
+			num_of_owned_provinces_with = {
+				region = dragon_isles_region
+				is_prosperous = yes
+				value = 15
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_census_clans_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Isles are one realm in law. They must become one realm in daily obedience.
+	dragon_isles_inner_isles_obey = {
+		icon = mission_cathay_flag
+		required_missions = { dragon_isles_census_of_the_clans }
+		position = 12
+		trigger = {
+			religious_unity = 1.0
+			dragon_isles_region = {
+				type = all
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+					is_city = no
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_inner_isles_obey_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The hostage generation knows the court better than the cage. They must become governors.
+	dragon_isles_hostages_become_governors = {
+		icon = mission_cathay_city
+		required_missions = { dragon_isles_inner_isles_obey }
+		position = 15
+		trigger = {
+			crown_land_share = 75
+			num_of_owned_provinces_with = {
+				region = dragon_isles_region
+				is_prosperous = yes
+				value = 25
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_hostages_governors_mod
+				duration = -1
+			}
+		}
+	}
+}
+
+dragon_isles_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture = dragon_isles_lizardmen
+		capital_scope = { region = dragon_isles_region }
+		war_mission_priority_1 = no
+	}
+
+	# The Great Dragon is feared more than understood. The cult needs a central shrine.
+	dragon_isles_shrine_of_the_great_dragon = {
+		icon = mission_mystical_dragon
+		required_missions = { dragon_isles_shoguns_drum }
+		position = 2
+		trigger = {
+			prestige = 15
+			num_of_owned_provinces_with = {
+				region = dragon_isles_region
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_shrine_great_dragon_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Dragons respect tribute before law. The Shogun must make gem-offerings undeniable.
+	dragon_isles_tribute_of_gem_scales = {
+		icon = mission_magical_gems
+		required_missions = { dragon_isles_shrine_of_the_great_dragon }
+		position = 3
+		trigger = {
+			treasury = 200
+			trade_goods_produced_amount = {
+				trade_goods = gems
+				amount = 3
+			}
+		}
+		effect = {
+			add_treasury = -200
+			add_country_modifier = {
+				name = dragon_isles_tribute_gem_scales_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Dragon eggs are prizes to the greedy. They must become wards of the whole realm.
+	dragon_isles_guard_the_sacred_clutches = {
+		icon = mission_green_dragon
+		required_missions = { dragon_isles_tribute_of_gem_scales dragon_isles_quiet_council }
+		position = 4
+		trigger = {
+			army_size = 20
+			legitimacy_equivalent = 75
+			num_of_owned_provinces_with = {
+				region = dragon_isles_region
+				fort_level = 2
+				value = 4
+			}
+		}
+		effect = {
+			country_event = {
+				id = dragon_isles_events.11
+			}
+		}
+	}
+
+	# Waking wyrms still treat us as prey. The court must feed them without kneeling.
+	dragon_isles_feed_the_waking_wyrms = {
+		icon = mission_dragon_breathing_fire
+		required_missions = { dragon_isles_guard_the_sacred_clutches }
+		position = 6
+		trigger = {
+			OR = {
+				diplomatic_reputation = 5
+				is_great_power = yes
+			}
+			OR = {
+				army_size = 80
+				land_morale = 6.0
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_feed_waking_wyrms_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Shogun speaks beneath the wings. The dragons and clans must accept that voice.
+	dragon_isles_regent_beneath_the_wings = {
+		icon = mission_cathay_dragon_blooded
+		required_missions = { dragon_isles_feed_the_waking_wyrms dragon_isles_break_private_wars dragon_isles_cathayan_harmonists_at_court }
+		position = 8
+		provinces_to_highlight = {
+			region = dragon_isles_region
+			is_city = yes
+			OR = {
+				NOT = {
+					OR = {
+						owned_by = ROOT
+						owned_by_subject_of = ROOT
+					}
+				}
+				pure_unrest = -2
+				local_autonomy = 15
+			}
+		}
+
+		trigger = {
+			dragon_isles_region = {
+				type = all
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+					is_city = no
+				}
+				NOT = { pure_unrest = -2 }
+				NOT = { local_autonomy = 15 }
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_regent_beneath_wings_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The mandate is still a cage of old forms. It must become law without devouring the realm.
+	dragon_isles_seal_the_great_dragons_mandate = {
+		icon = mission_red_asian_dragon
+		required_missions = { dragon_isles_regent_beneath_the_wings }
+		position = 9
+		trigger = {
+			legitimacy_equivalent = 95
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 3
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_sealed_mandate_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The throne once displayed submission. It must now show dragons a partner worth respecting.
+	dragon_isles_gem_throne = {
+		icon = mission_high_elf_gems
+		required_missions = { dragon_isles_seal_the_great_dragons_mandate dragon_isles_census_of_the_clans }
+		position = 12
+		trigger = {
+			trading_bonus = {
+				trade_goods = gems
+				value = yes
+			}
+			capital_scope = {
+				development = 50
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_gem_throne_mod
+				duration = -1
+			}
+		}
+	}
+
+
+## This is the ultimate. What should it be? Total amount of Gems created? Maybe really building up the dragon isles - development, buildings, everything, along with a hugh army and navy.
+	# Dragons still see lizardmen as useful servants. The realm must stand as dragon-kin.
+	dragon_isles_wake_the_great_dragon = {
+		icon = mission_mystical_dragon
+		required_missions = { }
+		position = 16
+		provinces_to_highlight = {
+			region = dragon_isles_region
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					is_prosperous = yes
+					culture_group = ROOT
+					religion = ROOT
+				}
+			}
+		}
+		trigger = {
+			is_hegemon = yes
+			development_in_provinces = {
+				value = 500
+				region = dragon_isles_region
+			}
+			dragon_isles_region = {
+				type = all
+				owned_by = ROOT
+				is_prosperous = yes
+				culture_group = ROOT
+				religion = ROOT
+			}
+			trade_goods_produced_amount = {
+				trade_goods = gems
+				amount = 50
+			}
+		}
+		effect = {
+			country_event = {
+				id = dragon_isles_events.14
+			}
+		}
+	}
+}
+
+dragon_isles_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture = dragon_isles_lizardmen
+		capital_scope = { region = dragon_isles_region }
+		war_mission_priority_1 = no
+	}
+
+	# The ash hides memory older than dragon worship. The priests must recover it carefully.
+	dragon_isles_plaques_beneath_the_ash = {
+		icon = mission_volcano
+		required_missions = { }
+		position = 1
+		trigger = {
+			stability = 1
+			OR = {
+				innovativeness = 5
+				has_country_modifier = war_modern_science
+				num_of_estate_agendas_completed = {
+					estate = estate_church
+					value = 1
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_plaques_beneath_ash_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Island rites contradict each other. The court must catalogue them before judging them.
+	dragon_isles_catalogue_the_island_rites = {
+		icon = mission_lizardmen_curator
+		required_missions = { dragon_isles_plaques_beneath_the_ash dragon_isles_tribute_of_gem_scales }
+		position = 4
+		trigger = {
+			religious_unity = 1.0
+			crown_land_share = 40
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_catalogued_rites_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Shrine courts wear sacred masks over local feuds. Their law must be reconciled.
+	dragon_isles_shrine_courts_reconciled = {
+		icon = mission_lizardmen_temple_city
+		required_missions = { dragon_isles_catalogue_the_island_rites }
+		position = 5
+		trigger = {
+			diplomatic_reputation = 1
+			capital_scope = { 
+				num_of_buildings_in_province = 4
+			}
+			all_subject_country = {
+				NOT = { liberty_desire = 25 }
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_shrine_courts_reconciled_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Cathay knows dragons as order, not only terror. We must learn without becoming Cathayan.
+	dragon_isles_cathayan_harmonists_at_court = {
+		icon = mission_yin_yang
+		required_missions = { dragon_isles_shrine_courts_reconciled dragon_isles_feed_the_waking_wyrms }
+		position = 7
+		trigger = {
+			prestige = 75
+			OR = {
+				innovativeness = 10
+				has_country_modifier = war_modern_science
+			}
+			num_of_allies = 3
+		}
+		effect = {
+			country_event = {
+				id = dragon_isles_events.12
+			}
+		}
+	}
+
+	# A thousand shrines still speak too many verdicts. They must keep their rites but share one voice.
+	dragon_isles_a_thousand_shrines_one_voice = {
+		icon = mission_lizardmen_religion
+		required_missions = { dragon_isles_cathayan_harmonists_at_court dragon_isles_seal_the_great_dragons_mandate }
+		position = 10
+		trigger = {
+			stability = 2
+			religious_unity = 1
+			dragon_isles_region = {
+				type = all
+				OR = {
+					religion = ROOT
+					is_city = no
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_thousand_shrines_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Broken glyphs refuse the Dragon Cult's easy answers. Scholars must preserve that discomfort.
+	dragon_isles_preserve_the_broken_glyphs = {
+		icon = mission_lizardmen_slann_magic
+		required_missions = { dragon_isles_a_thousand_shrines_one_voice dragon_isles_gem_throne }
+		position = 13
+		trigger = {
+			OR = {
+				innovativeness = 25
+				has_country_modifier = war_modern_science
+			}
+			num_of_owned_provinces_with = {
+				region = dragon_isles_region
+				num_of_times_expanded_infrastructure = 2
+				has_building = university
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_broken_glyphs_preserved
+				duration = -1
+			}
+		}
+	}
+
+	# The old code cannot bind every future. Faith must join scale, ash, memory, and choice.
+	dragon_isles_faith_of_scale_and_ash = {
+		icon = mission_lizardmen_geomantic_web
+		required_missions = { dragon_isles_preserve_the_broken_glyphs }
+		position = 15
+		trigger = {
+			prestige = 75
+			OR = {
+				innovativeness = 50
+				has_country_modifier = war_modern_science
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_faith_scale_ash_mod
+				duration = -1
+			}
+		}
+	}
+}
+
+dragon_isles_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture = dragon_isles_lizardmen
+		capital_scope = { region = dragon_isles_region }
+		war_mission_priority_1 = no
+	}
+
+	# The war-broods still fight like hunters. They must become soldiers before they lose the hunt.
+	dragon_isles_obsidian_spearheads = {
+		icon = mission_lizardmen_saurus
+		required_missions = { }
+		position = 1
+		trigger = {
+			army_size_percentage = 1.0
+			army_tradition = 10
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_obsidian_spearheads_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Discipline is alien to the hunt-cohorts. The shogunate must chain fury to formation.
+	dragon_isles_smoke_watched_barracks = {
+		icon = mission_cathay_jade_lancers
+		required_missions = { dragon_isles_obsidian_spearheads }
+		position = 2
+		trigger = {
+			army_size = 12
+			num_of_owned_provinces_with = {
+				region = dragon_isles_region
+				OR = {
+					has_building = barracks
+					has_building = training_fields
+				}
+				value = 2
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_smoke_watched_barracks_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Volcanic glass is still treated as omen and accident. It must become an industry.
+	dragon_isles_volcano_glass_forges = {
+		icon = mission_volcano
+		required_missions = { dragon_isles_smoke_watched_barracks dragon_isles_shrine_courts_reconciled }
+		position = 6
+		trigger = {
+			num_of_owned_provinces_with = {
+				region = dragon_isles_region
+				base_production = 5
+				value = 3
+			}
+			num_of_owned_provinces_with = {
+				region = dragon_isles_region
+				OR = {
+					has_building = mills
+					has_building = farm_estate
+					has_building = tradecompany
+					has_building = plantations
+					has_building = textile
+					has_building = weapons
+					has_building = wharf
+					has_building = furnace
+				}
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_volcano_glass_forges_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Fear once scattered our enemies by accident. The black masks must make terror deliberate.
+	dragon_isles_war_masks_of_black_glass = {
+		icon = mission_cathay_jade_warrior
+		required_missions = { dragon_isles_volcano_glass_forges }
+		position = 9
+		trigger = {
+			OR = {
+				army_professionalism = 0.5
+				has_country_modifier = war_modern_army
+			}
+			army_tradition = 30
+			num_of_regiments_at_full_drill = 10
+		}
+		effect = {
+			add_country_modifier = {
+				name = dragon_isles_war_masks_black_glass_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The mountain wyrms obey neither shogun nor shrine. They must choose to fight beside us.
+	dragon_isles_rouse_the_mountain_wyrms = {
+		icon = mission_dragon_breathing_fire
+		required_missions = { dragon_isles_war_masks_of_black_glass dragon_isles_preserve_the_broken_glyphs }
+		position = 14
+		trigger = {
+			OR = {
+				army_professionalism = 0.5
+				has_country_modifier = war_modern_army
+			}
+			num_of_owned_provinces_with = {
+				region = dragon_isles_region
+				OR = {
+			 		has_building = barracks
+			 		has_building = training_fields
+				}
+				base_manpower = 3
+				value = 10
+			}
+		}
+		effect = {
+			country_event = {
+				id = dragon_isles_events.13
+			}
+		}
+	}
+}

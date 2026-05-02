@@ -212,11 +212,12 @@ indian_sultanate_reform = {
 	}
 }
 
+## Dragon Isles
 shogunate = {
 	icon = "shogunate"
 	allow_normal_conversion = yes
 	potential = {
-		NOT = { has_country_flag = formed_japan_flag }
+		NOT = { exists = Z95 }
 		OR = {
 			AND = {
 				capital_scope = {
@@ -256,8 +257,14 @@ shogunate = {
 
 	modifiers = {
 		diplomats = 1
-		envoy_travel_time = -0.25
-		max_absolutism = 5
+
+		land_morale = 0.1
+		infantry_power = 0.1
+		global_regiment_cost = -0.15
+		max_absolutism = 25
+
+		governing_capacity_modifier = -0.25
+
 		amount_of_samurai = 10
 		has_samurai = yes
 	}
@@ -267,11 +274,14 @@ shogunate = {
 	}
 }
 
+
+## Dragon Isles
 daimyo = {
 	icon = "daimyo"
 	allow_normal_conversion = no
 	potential = {
-		NOT = { has_country_flag = formed_japan_flag }
+
+		NOT = { exists = Z95 }
 		overlord = { has_reform = shogunate }
 	}
 	replacement_on_independence_war = indep_daimyo
@@ -287,8 +297,15 @@ daimyo = {
 		capital_scope = { region = dragon_isles_region }
 	}
 	modifiers = {
+		diplomats = 1
+
 		land_morale = 0.1
 		infantry_power = 0.1
+		global_regiment_cost = -0.15
+		max_absolutism = 25
+
+		governing_capacity_modifier = -0.33
+
 		amount_of_samurai = 4
 	}
 	custom_attributes = {
@@ -297,32 +314,11 @@ daimyo = {
 }
 
 
-appanage_reform = {
-	icon = "nobleman"
-	allow_normal_conversion = no
-	potential = {
-		is_subject_of_type = appanage
-	}
-	replacement_on_independence_war = feudalism_reform
-	fixed_rank = 1
-	maintain_dynasty = yes
-	valid_for_nation_designer = no
-	lock_level_when_selected = yes
-	modifiers = {
-		global_manpower_modifier = 0.1
-		nobles_loyalty_modifier = 0.1
-		nobles_influence_modifier = 0.05
-	}
-	custom_attributes = {
-		locked_government_type = yes
-	}
-}
-
 indep_daimyo = {
 	icon = "samurai"
 	allow_normal_conversion = no
 	potential = {
-		NOT = { has_country_flag = formed_japan_flag }
+		NOT = { exists = Z95 }
 		OR = {
 			AND = {
 				OR = {
@@ -352,7 +348,33 @@ indep_daimyo = {
 	modifiers = {
 		land_morale = 0.1
 		infantry_power = 0.1
+
+		governing_capacity_modifier = -0.33
+
 		amount_of_samurai = 5
+	}
+	custom_attributes = {
+		locked_government_type = yes
+	}
+}
+
+
+
+appanage_reform = {
+	icon = "nobleman"
+	allow_normal_conversion = no
+	potential = {
+		is_subject_of_type = appanage
+	}
+	replacement_on_independence_war = feudalism_reform
+	fixed_rank = 1
+	maintain_dynasty = yes
+	valid_for_nation_designer = no
+	lock_level_when_selected = yes
+	modifiers = {
+		global_manpower_modifier = 0.1
+		nobles_loyalty_modifier = 0.1
+		nobles_influence_modifier = 0.05
 	}
 	custom_attributes = {
 		locked_government_type = yes

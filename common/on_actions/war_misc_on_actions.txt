@@ -920,3 +920,77 @@ on_mandate_of_heaven_gained = {
 
 
 
+
+## Old Ones Annexed
+on_annexed = {
+
+	FROM = {
+		capital_scope = {
+			change_religion = ROOT
+			change_culture = ROOT
+			add_core = ROOT
+		}
+	}
+
+	if = {
+		limit = {
+			or = {
+				and = {
+					FROM = { TAG = X95 }
+					NOT = { has_country_flag = got_tech_from_X95_flag }
+				}
+				and = {
+					FROM = { TAG = X96 }
+					NOT = { has_country_flag = got_tech_from_X96_flag }
+				}
+				and = {
+					FROM = { TAG = X97 }
+					NOT = { has_country_flag = got_tech_from_X97_flag }
+				}
+				and = {
+					FROM = { TAG = X98}
+					NOT = { has_country_flag = got_tech_from_X98_flag }
+				}
+				and = {
+					FROM = { TAG = X99 }
+					NOT = { has_country_flag = got_tech_from_X99_flag }
+				}
+			}
+		}
+
+		if = {
+			limit = { FROM = { TAG = X95} }
+			set_country_flag = got_tech_from_X95_flag
+		} else_if = {
+			limit = { FROM = { TAG = X96} }
+			set_country_flag = got_tech_from_X96_flag
+		} else_if = {
+			limit = { FROM = { TAG = X97} }
+			set_country_flag = got_tech_from_X97_flag
+		} else_if = {
+			limit = { FROM = { TAG = X98} }
+			set_country_flag = got_tech_from_X98_flag
+		} else_if = {
+			limit = { FROM = { TAG = X99} }
+			set_country_flag = got_tech_from_X99_flag
+		}
+
+		country_event = { id = return_of_the_old_ones_events.10 }
+
+	}
+}
+
+
+# For edge cases - make sure this works!
+on_province_owner_change = {
+	if = {
+		limit = { development = 100 }
+		owner = {
+			ROOT = {
+				change_religion = PREV
+				change_culture = PREV
+				add_core = PREV
+			}
+		}
+	}
+}
