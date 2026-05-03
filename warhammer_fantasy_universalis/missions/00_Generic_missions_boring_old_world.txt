@@ -1,0 +1,379 @@
+
+
+
+
+
+##################################
+##### South Old World
+##################################
+
+
+gen_sow_missions = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		technology_group = tech_imperial
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_mission_priority_4 = no
+	}
+
+	gen_sow_happy_nobles = { 
+		icon = mission_sow_culture
+		required_missions = {  } 
+		trigger = {
+			estate_loyalty = {
+			    estate = estate_nobles
+			    loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+
+		effect = { 
+			add_country_modifier = { 
+ 				name = sow_happy_nobles
+				duration = -1
+			}
+		}
+	}
+
+	gen_sow_unify_friends = { 
+		icon = mission_sow_culture
+		required_missions = { gen_sow_happy_nobles } 
+		trigger = {
+			num_of_allies = 4
+		}
+
+		effect = { 
+			add_country_modifier = { 
+ 				name = sow_unify_friends_modifier
+				duration = -1
+			}
+		}
+	}
+
+
+
+	gen_sow_place_of_study = { 
+		icon = mission_sow_culture
+		required_missions = { } 
+		trigger = {
+			capital_scope = {
+				development = 35
+			}
+		}
+
+		effect = { 
+			capital_scope = {
+				add_permanent_province_modifier = { 
+ 				  	name = sow_place_of_study
+    				duration = -1  
+				}
+			}
+		}
+	}
+
+	gen_sow_places_of_law = { 
+		icon = mission_sow_culture
+		required_missions = { gen_sow_place_of_study } 
+		trigger = {
+			all_owned_province = {
+				OR = {
+					has_building = courthouse
+					has_building = town_hall
+				}
+			}
+		}
+
+		effect = { 
+			add_country_modifier = { 
+ 				name = sow_place_of_law
+				duration = -1
+			}
+		}
+	}
+
+	gen_sow_places_of_innovation = { 
+		icon = mission_sow_culture
+		required_missions = { gen_sow_places_of_law } 
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { development = 8 }
+		}
+		trigger = {
+			all_owned_province = {
+				development = 8
+			}
+		}
+
+		effect = { 
+			add_country_modifier = { 
+ 				name = sow_place_of_innovation
+				duration = -1
+			}
+		}
+	}
+
+	gen_sow_center_of_trade = { 
+		icon = mission_sow_culture
+		required_missions = {  } 
+		trigger = {
+			any_owned_province = {
+				province_has_center_of_trade_of_level = 3
+			}
+		}
+
+		effect = { 
+			add_country_modifier = { 
+ 				name = sow_explore_the_world
+				duration = -1
+			}			
+		}
+	}
+
+	gen_sow_trade_ships = { 
+		icon = mission_sow_culture
+		required_missions = {gen_sow_center_of_trade } 
+		trigger = {
+			num_of_light_ship = 25
+		}
+
+		effect = { 
+			add_country_modifier = { 
+ 				name = sow_trade_hub
+				duration = -1
+			}
+		}
+	}
+
+}
+
+
+gen_sow_ultimate_missions = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		technology_group = tech_imperial
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_mission_priority_4 = no
+	}
+	gen_sow_ultimate_mission = { 
+		icon = mission_sow_culture
+		required_missions = {  }
+		position = 9
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 15
+				continent = europe
+			}
+			num_of_owned_provinces_with = {
+				value = 15
+				continent = asia
+			}
+			num_of_owned_provinces_with = {
+				value = 15
+				continent = north_america
+			}
+			num_of_owned_provinces_with = {
+				value = 15
+				continent = africa
+			}
+			num_of_owned_provinces_with = {
+				value = 15
+				continent = south_america
+			}
+			num_of_owned_provinces_with = {
+				value = 15
+				continent = oceania
+			}
+			num_of_owned_provinces_with = {
+				value = 15
+				continent = underempire
+			}
+			num_of_owned_provinces_with = {
+				value = 15
+				continent = chaos_wastes
+			}
+		}
+
+		effect = { 
+			add_country_modifier = { 
+ 				name = sow_global_empire
+				duration = -1
+			}
+		}
+	}
+}
+
+
+##################################
+##### MYRMIDIAN 
+##################################
+
+
+
+gen_myrmidian_missions = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		religion = myrmidia
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_mission_priority_4 = no
+	}
+
+	gen_myrmidian_please_church = { 
+		icon = mission_myrmidia
+		required_missions = {  } 
+		trigger = {
+			estate_loyalty = {
+			    estate = estate_church
+			    loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 1
+			}
+		}
+
+		effect = { 
+			add_country_modifier = { 
+ 				name = sow_add_missionary_1
+				duration = -1
+			}
+		}
+	}
+
+
+	gen_myrmidian_mercenary_armies = { 
+		icon = mission_myrmidia
+		required_missions = {  } 
+		trigger = {
+			num_of_mercenaries = 10
+			is_at_war = yes
+		}
+
+		effect = { 
+			add_country_modifier = { 
+ 				name = sow_better_mercs
+				duration = -1
+			}
+		}
+	}
+
+
+
+	gen_myrmidian_next_crusade = { 
+		icon = mission_myrmidia
+		required_missions = {  } 
+		trigger = {
+			at_war_with_religious_enemy = yes
+			any_country = {
+				NOT = { religion = ROOT }
+				ROOT = {
+					has_won_war_against = {
+						who = PREV
+						max_years_since = 20
+					}
+				}
+			}
+		}
+
+		effect = { 
+			add_country_modifier = { 
+ 				name = sow_holy_war
+				duration = -1
+			}
+		}
+	}
+
+	gen_myrmidian_war_expand_faith = { 
+		icon = mission_myrmidia
+		required_missions = { gen_myrmidian_next_crusade } 
+		trigger = {
+			num_of_continents = 2
+		}
+
+		effect = { 
+			add_country_modifier = { 
+ 				name = sow_holy_war_2
+				duration = -1
+			}
+		}
+	}
+
+
+	gen_myrmidian_build_docks = { 
+		icon = mission_myrmidia
+		required_missions = {  }
+		position = 6
+		trigger = {
+			 OR = {
+			 	dock = 5
+			 	drydock = 5
+			 }
+
+		}
+
+		effect = { 
+			add_country_modifier = { 
+ 				name = sow_expand_abroad
+				duration = -1
+			}
+		}
+	}
+
+	gen_myrmidian_expand_overseas = { 
+		icon = mission_myrmidia
+		required_missions = { gen_myrmidian_build_docks } 
+		trigger = {
+			num_of_continents = 3
+		}
+
+		effect = { 
+			add_country_modifier = { 
+ 				name = sow_add_missionary_2
+				duration = -1
+			}
+		}
+	}
+
+
+	gen_sow_defender_of_faith = { 
+		icon = mission_myrmidia
+		required_missions = {  }
+		trigger = {
+			is_defender_of_faith = yes
+			prestige = 99
+			religious_unity = 1.0
+		}
+
+		effect = {
+			add_country_modifier = { 
+ 				name = sow_historical_defender
+				duration = -1
+			}
+		}
+	}
+
+
+
+}
+
+
+
+
+

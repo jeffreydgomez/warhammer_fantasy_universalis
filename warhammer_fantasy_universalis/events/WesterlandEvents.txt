@@ -1,0 +1,99 @@
+########################################
+# Events for Westerland Missions
+########################################
+
+namespace = war_westerland_events
+normal_or_historical_nations = yes
+
+## Marienburg's dockyards must choose which warship doctrine best protects trade, marsh, and sea lane.
+country_event = {
+	id = war_westerland_events.1
+	title = war_westerland_events.1.t
+	desc = war_westerland_events.1.d
+	picture = EMPIRE_eventPicture
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		is_or_was_tag = { tag = A12 }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Heavy ships to overawe the open sea.
+	option = {
+		ai_chance = { factor = 35 }
+		name = war_westerland_events.1.option_1
+
+		add_country_modifier = {
+			name = westerland_focus_on_heavies
+			duration = -1
+		}
+	}
+
+# Galleys to hold the river mouth and shallows.
+	option = {
+		ai_chance = { factor = 35 }
+		name = war_westerland_events.1.option_2
+
+		add_country_modifier = {
+			name = westerland_focus_on_gallies
+			duration = -1
+		}
+	}
+
+# Light ships to make trade patrols fight as escorts.
+	option = {
+		ai_chance = { factor = 50 }
+		name = war_westerland_events.1.option_3
+
+		add_country_modifier = {
+			name = westerland_focus_on_light_ships
+			duration = -1
+		}
+	}
+}
+
+## Westerland must decide whether its emergency defense rests on hired companies or a more permanent city army.
+country_event = {
+	id = war_westerland_events.2
+	title = war_westerland_events.2.t
+	desc = war_westerland_events.2.d
+	picture = EMPIRE_eventPicture
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		is_or_was_tag = { tag = A12 }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Keep paid companies close to the Stadsraad.
+	option = {
+		ai_chance = { factor = 50 }
+		name = war_westerland_events.2.option_1
+
+		add_country_modifier = {
+			name = westerland_mercenaries_1
+			duration = -1
+		}
+	}
+
+# Build a permanent force loyal to Marienburg.
+	option = {
+		ai_chance = { factor = 50 }
+		name = war_westerland_events.2.option_2
+
+		add_country_modifier = {
+			name = westerland_professional_armies_1
+			duration = -1
+		}
+	}
+}

@@ -1,0 +1,631 @@
+##### Lizardmen Generic Missions
+
+##################################
+##### LIZARDMEN CULTURE GROUP
+##################################
+
+### Seven missions per
+
+### Own monstrous creature, makes them cheaper & better
+
+### Certain level of Geomantic Web
+
+### Destroy Skaven - use bretonian defeat evil armies
+
+### No non - lizardfolk in area
+
+
+gen_lizard_missions = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = lizardmen_group
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_mission_priority_4 = no
+	}
+
+
+### Nobles teach the leader about military might
+	gen_lizard_please_nobility = {
+		icon = mission_lizardmen_culture
+		required_missions = { }
+		trigger = {
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					mil = 6
+				}
+				add_mil_power = 100
+			}
+			else = {
+				change_mil = 1
+			}
+		}
+	}
+
+### Give the skinks somewhere to do their research
+	gen_lizard_skinks = {
+		icon = mission_lizardmen_culture
+		required_missions = { gen_lizard_please_nobility }
+		trigger = {
+			num_of_owned_provinces_with = {
+				development = 25
+				OR = {
+					has_building = temple
+					has_building = cathedral
+					has_building = university
+				}
+				value = 2
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = lizard_skink_researchers
+				duration = -1
+			}
+		}
+	}
+
+
+### With the nobles and skinks on side, throw a big celebration
+	gen_lizard_celebration = {
+		icon = mission_lizardmen_culture
+		required_missions = { gen_lizard_skinks }
+		trigger = {
+			treasury = 1000
+		}
+		effect = {
+
+			add_treasury = -1000
+
+			add_estate_loyalty = {
+ 				estate = estate_nobles
+    			loyalty = 20
+			}
+
+			add_estate_loyalty = {
+ 				estate = estate_church
+    			loyalty = 20
+			}
+
+			add_estate_loyalty = {
+ 				estate = estate_burghers
+    			loyalty = 20
+			}
+		}
+	}
+
+### Morale is high. It's time to claim our birthright and take over all the Lizardfolk Temple Cities
+
+	gen_lizard_claim_temples = {
+		icon = mission_lizardmen_culture
+		required_missions = { gen_lizard_celebration }
+		provinces_to_highlight = {
+			has_terrain = temple_city_terrain
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_terrain = temple_city_terrain
+				value = 7
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = lizard_core_anywhere
+				duration = -1
+			}
+
+			custom_tooltip = claim_all_temple_cities_tooltip
+
+			hidden_effect = {
+			
+				every_province = {
+					limit = {
+						has_terrain = temple_city_terrain
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+
+		}
+	}
+
+
+### Saurus are our powerful infantry, but they can sometimes run amok. Train them
+	gen_lizard_saurus = {
+		icon = mission_lizardmen_culture
+		required_missions = {  }
+		position = 6
+		trigger = {
+			is_at_war = yes
+			if = {
+				limit = { has_dlc = "Cradle of Civilization" }
+				num_of_regiments_at_full_drill = 30
+			} else = {
+				army_tradition = 25
+				army_professionalism = 0.25
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = lizard_saurus_warriors
+				duration = -1
+			}
+		}
+	}
+
+
+### It's always been challenging to integrate our huge dinosaurs into our army. We need an army reform to do this.
+	gen_lizard_get_monsters = {
+		icon = mission_lizardmen_culture
+		required_missions = { gen_lizard_saurus }
+		trigger = {
+			num_of_cossacks = 3
+			army_tradition = 20
+			mil_power = 100
+		}
+		effect = {
+			add_army_tradition = -20
+			add_mil_power = -100
+
+			add_country_modifier = {
+				name = lizard_better_monsters_1
+				duration = -1
+			}
+		}
+	}
+
+### Fighting alongside dinosaurs can be challenging. We need to resturcture our army to make this work.
+	gen_lizard_monster_spawning_grounds = {
+		icon = mission_lizardmen_culture
+		required_missions = { gen_lizard_get_monsters }
+		trigger = {
+			num_of_cossacks = 6
+			army_professionalism = 0.20
+			mil_power = 100
+		}
+		effect = {
+			add_army_professionalism = -0.20
+			add_mil_power = -100
+
+			add_country_modifier = {
+				name = lizard_better_monsters_2
+				duration = -1
+			}
+		}
+	}
+}
+
+
+### Complete the Geomantic web
+gen_lizard_ultimate_missions = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = lizardmen_group
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_mission_priority_4 = no
+	}
+	gen_lizard_ultimate_mission = {
+		icon = mission_lizardmen_culture
+		required_missions = {
+		}
+		position = 9
+
+
+		provinces_to_highlight = {
+			has_terrain = temple_city_terrain
+			NOT = { religion = ROOT }
+		}
+		
+		trigger = {
+
+			is_great_power = yes
+
+			NOT = {
+				any_province = {
+					has_terrain = temple_city_terrain
+					NOT = { religion = ROOT }
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = lizard_geomantic_web
+				duration = -1
+			}
+		}
+	}
+}
+
+##################################
+##### OLD ONES
+##################################
+
+#### Different Continents
+
+### Purge chaos - At war with a nation that follows a chaos god? No chaos folks in superregion
+### Control a certain number of temple city terrain types
+### 10 states with geomantic web
+### Get claims on all the temple cities
+### Building towards the sixth spawning
+### Need something to give colonists
+
+
+gen_old_ones_missions = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		religion_group = lizardmen_denominations
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_mission_priority_4 = no
+	}
+
+### Priests are now willing to try a 6th Slann spawning. They attune with the ley lines
+	gen_old_ones_happy_priest = {
+		icon = mission_lizardmen_religion
+		required_missions = { }
+		trigger = {
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = lizard_allow_geomantic_web
+				duration = -1
+			}
+			4261 = {
+				add_permanent_claim = ROOT
+			}
+			2312 = {
+				add_permanent_claim = ROOT
+			}
+			2466 = {
+				add_permanent_claim = ROOT
+			}
+			2442 = {
+				add_permanent_claim = ROOT
+			}
+			4296 = {
+				add_permanent_claim = ROOT
+			}
+			4807 = {
+				add_permanent_claim = ROOT
+			}
+			4265 = {
+				add_permanent_claim = ROOT
+			}
+			4383 = {
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+
+### The skink priests find a good place with good ley lines for the rituals
+	gen_old_ones_identify_ritual_site = {
+		icon = mission_lizardmen_religion
+		required_missions = { gen_old_ones_happy_priest }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			is_prosperous = no
+		}
+		trigger = {
+
+			if = {
+				limit = { has_dlc = "Mandate of Heaven" }
+
+				OR = {
+					all_owned_province = {
+						is_prosperous = yes
+					}
+					num_of_owned_provinces_with = {
+						is_prosperous = yes
+						value = 12
+					}
+				}
+
+			} else = {
+
+				OR = {
+					all_owned_province = {
+						NOT = { devastation = 1 }
+						development = 4
+					}
+					num_of_owned_provinces_with = {
+						NOT = { devastation = 1 }
+						development = 4
+						value = 12
+					}
+				}
+			}
+
+
+
+
+
+
+		}
+		effect = {
+			random_owned_province = {
+				add_permanent_province_modifier = { 
+				    name = lizard_6th_spawning_site
+				    duration = -1 
+				}
+			}
+		}
+	}
+
+
+
+### They build a ritual site at the leyline
+	gen_old_ones_build_ritual_site = {
+		icon = mission_lizardmen_religion
+		required_missions = { gen_old_ones_identify_ritual_site }
+		provinces_to_highlight = {
+			has_province_modifier = lizard_6th_spawning_site
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_province_modifier = lizard_6th_spawning_site
+				development = 30
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+				value = 1
+			}
+		}
+		effect = {
+			random_owned_province = {
+				limit = {
+					has_province_modifier = lizard_6th_spawning_site
+					development = 30
+					OR = {
+						has_building = temple
+						has_building = cathedral
+					}
+				}
+				add_permanent_province_modifier = { 
+				    name = lizard_ritual_site_ready
+				    duration = -1 
+				}
+			}
+		}
+	}
+
+### Trying out some things before attempting the 6th Slann Spawning.
+	gen_old_ones_experiments = {
+		icon = mission_lizardmen_religion
+		required_missions = { gen_old_ones_build_ritual_site }
+		trigger = {
+			adm_power = 200
+			dip_power = 200
+			mil_power = 200
+			manpower = 10.0
+		}
+		effect = {
+			add_adm_power = -200
+			add_dip_power = -200
+			add_mil_power = -200
+			add_manpower = -2.0
+			add_country_modifier = {
+				name = lizard_innovation
+				duration = -1
+			}
+		}
+	}
+
+### The 6th Slann spawning is a success! A slann rules the nation, there is a slann heir, and most future leaders will be Slann.
+	gen_old_6th_spawning = {
+		icon = mission_lizardmen_religion
+		required_missions = { gen_old_ones_experiments }
+		provinces_to_highlight = {
+			has_province_modifier = lizard_ritual_site_ready
+		}
+		trigger = {
+
+			num_of_owned_provinces_with = {
+				has_province_modifier = lizard_ritual_site_ready
+				development = 50
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+				value = 1
+			}
+
+			innovativeness = 50
+
+		}
+		effect = {
+
+			if = {
+				limit = { ruler_has_personality = immortal_personality }
+
+				change_innovativeness = -25
+
+				add_country_modifier = {
+					name = lizard_6th_spawning
+					duration = -1
+				}
+
+				clear_ruler_personalities = yes
+
+				add_ruler_personality = slann_personality
+				add_ruler_personality = immortal_personality
+
+				if = {
+					limit = {
+						adm = 6
+					}
+					add_adm_power = 100
+				}
+				else = {
+					change_adm = 1
+				}
+
+				if = {
+					limit = {
+						dip = 6
+					}
+					add_dip_power = 100
+				}
+				else = {
+					change_dip = 1
+				}
+
+				if = {
+					limit = {
+						mil = 6
+					}
+					add_mil_power = 100
+				}
+				else = {
+					change_mil = 1
+				}
+
+				define_heir = {
+				    adm = 6
+				    dip = 5
+				    mil = 4
+				    age = 0
+				    claim = 100
+				}
+
+				add_heir_personality = slann_personality
+
+
+			} else = {
+				change_innovativeness = -25
+
+				add_country_modifier = {
+					name = lizard_6th_spawning
+					duration = -1
+				}
+
+				define_ruler = {
+				    adm = 6
+				    dip = 4
+				    mil = 6
+				    age = 16
+				    claim = 100
+				}
+
+				add_ruler_personality = slann_personality
+
+				define_heir = {
+				    adm = 6
+				    dip = 5
+				    mil = 4
+				    age = 0
+				    claim = 100
+				}
+
+				add_heir_personality = slann_personality
+			}
+		}
+	}
+
+### We are branching to different continents to find the ley lines
+	gen_old_ones_find_ley_lines = {
+		icon = mission_lizardmen_religion
+		required_missions = {  }
+		position = 6
+		trigger = {
+			num_of_continents = 3
+		}
+		effect = {
+			add_country_modifier = {
+				name = lizard_colonists
+				duration = -1
+			}
+		}
+	}
+
+### Our religion is unified!
+	gen_old_ones_holy_sites_converted = {
+		icon = mission_lizardmen_religion
+		required_missions = { }
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 4261
+					NOT = { religion = ROOT }
+				}
+				AND = {
+					province_id = 2312
+					NOT = { religion = ROOT }
+				}
+				AND = {
+					province_id = 2466
+					NOT = { religion = ROOT }
+				}
+				AND = {
+					province_id = 2442
+					NOT = { religion = ROOT }
+				}
+				AND = {
+					province_id = 4296
+					NOT = { religion = ROOT }
+				}
+				AND = {
+					province_id = 4807
+					NOT = { religion = ROOT }
+				}
+				AND = {
+					province_id = 4265
+					NOT = { religion = ROOT }
+				}
+				AND = {
+					province_id = 4383
+					NOT = { religion = ROOT }
+				}
+			}
+		}
+		trigger = {
+			4261 = { religion = ROOT }
+			2312 = { religion = ROOT }
+			2466 = { religion = ROOT }
+			2442 = { religion = ROOT }
+			4296 = { religion = ROOT }
+			4807 = { religion = ROOT }
+			4265 = { religion = ROOT }
+			4383 = { religion = ROOT }
+		}
+		effect = {
+			add_country_modifier = {
+				name = lizard_explosive_growth
+				duration = -1
+			}
+		}
+	}
+}

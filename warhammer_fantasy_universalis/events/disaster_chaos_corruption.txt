@@ -1,0 +1,494 @@
+########################################
+# End Times Events
+########################################
+
+namespace = chaos_corruption_events
+
+
+
+country_event = {
+	id = chaos_corruption_events.1
+	title = chaos_corruption_events.1.t
+	desc = chaos_corruption_events.1.d
+	picture = CHAOS_eventPicture
+
+	is_triggered_only = yes
+	
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = { months = 1 }
+
+### 
+	option = {
+		name = chaos_corruption_events.1.option_1
+		ai_chance = { factor = 50 }
+		add_stability = -2
+
+	}
+}
+
+
+
+#### Slaanshi
+
+country_event = {
+	id = chaos_corruption_events.2
+	title = chaos_corruption_events.2.t
+	desc = chaos_corruption_events.2.d
+	picture = CHAOS_eventPicture
+
+	is_triggered_only = yes
+	
+	goto = event_target
+
+	trigger = {
+		always = yes
+	}
+
+	immediate = {
+		random_owned_province = {
+			save_event_target_as = event_target
+		}
+	}
+
+	mean_time_to_happen = { months = 1 }
+
+### Slaaneshi Party
+	option = {
+		name = chaos_corruption_events.2.option_1
+		ai_chance = { factor = 15 }
+		event_target:event_target = {
+			spawn_rebels = {
+			    size = 1
+			    type = slaaneshi_religion_rebels
+			}
+		}
+	}
+
+### Slaaneshi Party
+	option = {
+		name = chaos_corruption_events.2.option_2
+		ai_chance = { factor = 35 }
+		add_years_of_income = -1.0
+	}
+
+### Convert to Slaanesh
+	option = {
+		name = chaos_corruption_events.2.option_3
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				NOT = { stability = -1 }
+			}
+			modifier = {
+				factor = 2
+				NOT = { years_of_manpower = 1 }
+			}
+			modifier = {
+				factor = 2
+				num_of_loans = 5
+			}
+			modifier = {
+				factor = 0.25
+				religious_unity = 0.90
+			}
+		}
+		change_religion = slaaneshi_religion
+
+		if = {
+			limit = { NOT = { overlord = { religion_group = ruinous_powers_denominations } } }
+			overlord = {
+				ROOT = { 
+					declare_war_with_cb = {
+					    who = PREV
+					    casus_belli = cb_independence_war
+					}
+				}
+			}
+		}
+
+	}
+}
+
+
+
+#### Nurgle
+
+country_event = {
+	id = chaos_corruption_events.3
+	title = chaos_corruption_events.3.t
+	desc = chaos_corruption_events.3.d
+	picture = CHAOS_eventPicture
+
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = { months = 1 }
+
+	immediate = {
+		random_owned_province = {
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+
+### Nurgle Plague
+	option = {
+		name = chaos_corruption_events.3.option_1
+		ai_chance = { factor = 15 }
+		event_target:event_target = {
+			spawn_rebels = {
+			    size = 1
+			    type = nurglite_religion_rebels
+			}
+		}
+	}
+
+	option = {
+		name = chaos_corruption_events.3.option_2
+		ai_chance = { factor = 35 }
+		trigger = { years_of_manpower = 1.0 }
+		add_yearly_manpower = -1.0
+	}
+
+### Convert to Nurgle
+	option = {
+		name = chaos_corruption_events.3.option_3
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				NOT = { stability = -1 }
+			}
+			modifier = {
+				factor = 2
+				NOT = { years_of_manpower = 1 }
+			}
+			modifier = {
+				factor = 2
+				num_of_loans = 5
+			}
+			modifier = {
+				factor = 0.25
+				religious_unity = 0.90
+			}
+		}
+		change_religion = nurglite_religion
+
+		if = {
+			limit = { NOT = { overlord = { religion_group = ruinous_powers_denominations } } }
+			overlord = {
+				ROOT = { 
+					declare_war_with_cb = {
+					    who = PREV
+					    casus_belli = cb_independence_war
+					}
+				}
+			}
+		}
+
+
+	}
+}
+
+#### Khorne
+
+country_event = {
+	id = chaos_corruption_events.4
+	title = chaos_corruption_events.4.t
+	desc = chaos_corruption_events.4.d
+	picture = CHAOS_eventPicture
+
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		always = yes
+	}
+
+	immediate = {
+		random_owned_province = {
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+	mean_time_to_happen = { months = 1 }
+
+### They just want to fight
+	option = {
+		name = chaos_corruption_events.4.option_1
+		ai_chance = { factor = 15 }
+		event_target:event_target = {
+			spawn_rebels = {
+			    size = 1
+			    type = khornate_religion_rebels
+			}
+		}
+	}
+
+	option = {
+		name = chaos_corruption_events.4.option_2
+		ai_chance = { factor = 35 }
+		event_target:event_target = {
+			spawn_rebels = {
+			    size = 1
+			    type = khornate_religion_rebels
+			}
+			spawn_rebels = {
+			    size = 1
+			    type = chaos_undivided_religion_rebels
+			}
+		}
+	}
+
+### Convert to Khorne
+	option = {
+		name = chaos_corruption_events.4.option_3
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				NOT = { stability = -1 }
+			}
+			modifier = {
+				factor = 2
+				NOT = { years_of_manpower = 1 }
+			}
+			modifier = {
+				factor = 2
+				num_of_loans = 5
+			}
+			modifier = {
+				factor = 0.25
+				religious_unity = 0.90
+			}
+		}
+		change_religion = khornate_religion
+
+		if = {
+			limit = { NOT = { overlord = { religion_group = ruinous_powers_denominations } } }
+			overlord = {
+				ROOT = { 
+					declare_war_with_cb = {
+					    who = PREV
+					    casus_belli = cb_independence_war
+					}
+				}
+			}
+		}
+
+
+	}
+}
+
+
+#### Tzeentch
+
+country_event = {
+	id = chaos_corruption_events.5
+	title = chaos_corruption_events.5.t
+	desc = chaos_corruption_events.5.d
+	picture = CHAOS_eventPicture
+
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		always = yes
+	}
+
+	immediate = {
+		random_owned_province = {
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+	mean_time_to_happen = { months = 1 }
+
+### Things going crazy
+	option = {
+		name = chaos_corruption_events.5.option_1
+		ai_chance = { factor = 15 }
+		event_target:event_target = {
+			spawn_rebels = {
+			    size = 1
+			    type = tzeentchian_religion_rebels
+			}
+		}
+	}
+
+	option = {
+		name = chaos_corruption_events.5.option_2
+		ai_chance = { factor = 35 }
+		trigger = { stability = -2 }
+		add_stability = -1
+	}
+
+### Convert to Tzeentch
+	option = {
+		name = chaos_corruption_events.5.option_3
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				NOT = { stability = -1 }
+			}
+			modifier = {
+				factor = 2
+				NOT = { years_of_manpower = 1 }
+			}
+			modifier = {
+				factor = 2
+				num_of_loans = 5
+			}
+			modifier = {
+				factor = 0.25
+				religious_unity = 0.90
+			}
+		}
+		change_religion = tzeentchian_religion
+		if = {
+			limit = { NOT = { overlord = { religion_group = ruinous_powers_denominations } } }
+			overlord = {
+				ROOT = { 
+					declare_war_with_cb = {
+					    who = PREV
+					    casus_belli = cb_independence_war
+					}
+				}
+			}
+		}
+
+
+	}
+}
+
+
+#### Undivided
+
+country_event = {
+	id = chaos_corruption_events.6
+	title = chaos_corruption_events.6.t
+	desc = chaos_corruption_events.6.d
+	picture = CHAOS_eventPicture
+
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		always = yes
+	}
+
+	immediate = {
+		random_owned_province = {
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+	mean_time_to_happen = { months = 1 }
+
+### The Estates are corrupted! Root them out.
+	option = {
+		name = chaos_corruption_events.6.option_1
+		ai_chance = { factor = 15 }
+		event_target:event_target = {
+			spawn_rebels = {
+			    size = 1
+			    type = chaos_undivided_religion_rebels
+			}
+		}
+	}
+
+	option = {
+		name = chaos_corruption_events.6.option_2
+		ai_chance = { factor = 35 }
+		add_estate_loyalty = {
+		    estate = estate_nobles
+		    loyalty = -10
+		}
+		add_estate_loyalty = {
+		    estate = estate_church
+		    loyalty = -10
+		}
+		add_estate_loyalty = {
+		    estate = estate_burghers
+		    loyalty = -10
+		}
+	}
+
+### Convert to Chaos Undivided
+	option = {
+		name = chaos_corruption_events.6.option_3
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				NOT = { stability = -1 }
+			}
+			modifier = {
+				factor = 2
+				NOT = { years_of_manpower = 1 }
+			}
+			modifier = {
+				factor = 2
+				num_of_loans = 5
+			}
+			modifier = {
+				factor = 0.25
+				religious_unity = 0.90
+			}
+		}
+		change_religion = chaos_undivided_religion
+		if = {
+			limit = { NOT = { overlord = { religion_group = ruinous_powers_denominations } } }
+			overlord = {
+				ROOT = { 
+					declare_war_with_cb = {
+					    who = PREV
+					    casus_belli = cb_independence_war
+					}
+				}
+			}
+		}
+
+
+	}
+}
+
+
+### Dummy
+country_event = {
+	id = chaos_corruption_events.10
+	title = chaos_corruption_events.10.t
+	desc = chaos_corruption_events.10.d
+	picture = CHAOS_eventPicture
+	hidden = yes
+
+	is_triggered_only = yes
+	
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = { months = 1 }
+
+	option = {
+		name = chaos_corruption_events.10.option_1
+		ai_chance = { factor = 50 }
+	}
+}

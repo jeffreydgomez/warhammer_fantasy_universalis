@@ -1,0 +1,525 @@
+remove_winds_gain_effect = {
+	remove_country_modifier = magic_wom_mod_1
+	remove_country_modifier = magic_wom_mod_2
+	remove_country_modifier = magic_wom_mod_3
+	remove_country_modifier = magic_wom_mod_4
+	remove_country_modifier = magic_wom_mod_5
+}
+
+add_winds_gain_effect = {
+	random_list = {
+		#low
+		20 = {
+			add_country_modifier = {
+				name = magic_wom_mod_1
+				duration = -1
+			}
+		}
+		#mid
+		20 = {
+			add_country_modifier = {
+				name = magic_wom_mod_2
+				duration = -1
+			}
+		}
+		#moderate
+		20 = {
+			add_country_modifier = {
+				name = magic_wom_mod_3
+				duration = -1
+			}
+		}
+		#strong
+		20 = {
+			add_country_modifier = {
+				name = magic_wom_mod_4
+				duration = -1
+			}
+		}
+		#power overwhelming
+		20 = {
+			add_country_modifier = {
+				name = magic_wom_mod_5
+				duration = -1
+			}
+		}
+	}
+}
+
+update_magic_study_experience_modifier = {
+	hidden_effect = {
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = study_modifier_set
+				}
+			}
+			set_country_flag = study_modifier_set
+			set_variable = {
+				experienceModifier = 0
+			}
+		}
+		[[value]
+		change_variable = {
+			experienceModifier = $value$
+		}
+		# This handle negative. Value must be whole, so +10% = 10
+		]
+		if = {
+			limit = {
+				NOT = {
+					check_variable = {
+						experienceModifier = -100
+					}
+				}
+			}
+			# We never go under -100%
+			set_variable = {
+				experienceModifier = -100
+			}
+		}
+	}
+}
+
+increase_study_experience = {
+	[[experience]
+	custom_tooltip = magic_study_experience_$experience$_tt
+	update_magic_study_experience_modifier = {
+	}
+	hidden_effect = {
+		set_variable = {
+			experienceGain = $experience$
+		}
+	}
+	# If the modifier is positive or negative
+	if = {
+		limit = {
+			NOT = {
+				is_variable_equal = {
+					which = experienceModifier
+					value = 0
+				}
+			}
+			# XP modifier not 0
+		}
+		custom_tooltip = magic_study_experience_modifier_tt
+		hidden_effect = {
+			set_variable = {
+				which = expFoo
+				which = experienceModifier
+			}
+			divide_variable = {
+				expFoo = 100
+			}
+			change_variable = {
+				expFoo = 1
+			}
+			multiply_variable = {
+				which = experienceGain
+				which = expFoo
+			}
+		}
+	}
+	hidden_effect = {
+		change_variable = {
+			which = ruler_study_experience
+			which = experienceGain
+		}
+	}
+	]
+	hidden_effect = {
+		country_event = {
+			id = magic_study.100
+			days = 1
+		}
+	}
+}
+
+magic_study_start_effect = {
+	add_country_modifier = {
+		name = colleges_studying_magic
+		duration = -1
+	}
+	custom_tooltip = study_experience_cost_tt
+	set_country_flag = country_studying_magic_flag
+	hidden_effect = {
+		if = {
+			limit = {
+				ai = no
+			}
+			if = {
+				limit = {
+					has_country_flag = magical_study_1
+				}
+				set_variable = {
+					magic_study_experience_target = 1000
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = magical_study_2
+				}
+				set_variable = {
+					magic_study_experience_target = 1500
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = magical_study_3
+				}
+				set_variable = {
+					magic_study_experience_target = 2000
+				}
+			}
+			else = {
+				set_variable = {
+					magic_study_experience_target = 5000
+				}
+			}
+		}
+	}
+}
+
+magic_casted_spell = {
+	hidden_effect = {
+		ROOT = {
+			add_country_modifier = {
+				name = magic_recently_casted_spell
+				duration = 28				#a month
+				desc = magic_recently_casted_spell_desc
+				#hidden = yes
+			}
+		}
+	}
+	set_country_flag = magic_just_casted_spell
+}
+
+magic_open_single_menu = {
+	set_country_flag = magic_menu_opened
+}
+
+magic_close_single_menu = {
+	if = {
+		limit = {
+			has_country_flag = magic_menu_opened
+		}
+		clr_country_flag = magic_menu_opened
+	}
+}
+
+magic_study_clear_study_effects = {
+	clr_country_flag = country_studying_lore_of_life
+	clr_country_flag = country_studying_lore_of_shadows
+	clr_country_flag = country_studying_lore_of_fire
+	clr_country_flag = country_studying_lore_of_beasts
+	clr_country_flag = country_studying_lore_of_metal
+	clr_country_flag = country_studying_lore_of_heavens
+	clr_country_flag = country_studying_lore_of_death
+	clr_country_flag = country_studying_lore_of_light
+	clr_country_flag = money_magic_study
+	clr_country_flag = country_studying_magic_flag
+	clr_country_flag = magical_study_1
+	clr_country_flag = magical_study_2
+	clr_country_flag = magical_study_3
+	remove_country_modifier = colleges_studying_magic
+	hidden_effect = {
+		set_variable = {
+			which = country_study_experience
+			value = 0
+		}
+	}
+}
+
+magic_study_level_up_lore_of_life = {
+	if = {
+		limit = {
+			is_lore_of_life_1 = yes
+		}
+		set_country_flag = lore_of_life_2
+		custom_tooltip = tooltip_lore_of_life_2_level_up
+	}
+	else_if = {
+		limit = {
+			is_lore_of_life_2 = yes
+		}
+		set_country_flag = lore_of_life_3
+		custom_tooltip = tooltip_lore_of_life_3_level_up
+	}
+	else_if = {
+		limit = {
+			is_lore_of_life_3 = yes
+		}
+		set_country_flag = lore_of_life_3
+		custom_tooltip = tooltip_lore_of_life_3_level_up
+	}
+	else = {
+		set_country_flag = lore_of_life_1
+		custom_tooltip = tooltip_lore_of_life_1_level_up
+	}
+	if = {
+		limit = {
+			has_country_flag = country_studying_lore_of_life
+		}
+		magic_study_clear_study_effects = yes
+	}
+}
+
+magic_study_level_up_lore_of_shadows = {
+	if = {
+		limit = {
+			is_lore_of_shadows_1 = yes
+		}
+		set_country_flag = lore_of_shadows_2
+		custom_tooltip = tooltip_lore_of_shadows_2_level_up
+	}
+	else_if = {
+		limit = {
+			is_lore_of_shadows_2 = yes
+		}
+		set_country_flag = lore_of_shadows_3
+		custom_tooltip = tooltip_lore_of_shadows_3_level_up
+	}
+	else_if = {
+		limit = {
+			lore_of_shadows_3 = yes
+		}
+		set_country_flag = lore_of_shadows_3
+	}
+	else = {
+		set_country_flag = lore_of_shadows_1
+		custom_tooltip = tooltip_lore_of_shadows_1_level_up
+	}
+	if = {
+		limit = {
+			has_country_flag = country_studying_lore_of_shadows
+		}
+		magic_study_clear_study_effects = yes
+	}
+}
+
+magic_study_level_up_lore_of_fire = {
+	if = {
+		limit = {
+			is_lore_of_fire_1 = yes
+		}
+		set_country_flag = lore_of_fire_2
+		custom_tooltip = tooltip_lore_of_fire_2_level_up
+	}
+	else_if = {
+		limit = {
+			is_lore_of_fire_2 = yes
+		}
+		set_country_flag = lore_of_fire_3
+		custom_tooltip = tooltip_lore_of_fire_3_level_up
+	}
+	else_if = {
+		limit = {
+			is_lore_of_fire_3 = yes
+		}
+		set_country_flag = lore_of_fire_3
+	}
+	else_if = {
+		limit = {
+			is_lore_of_fire_0 = yes
+		}
+		set_country_flag = lore_of_fire_1
+		custom_tooltip = tooltip_lore_of_fire_1_level_up
+	}
+	if = {
+		limit = {
+			has_country_flag = country_studying_lore_of_fire
+		}
+		magic_study_clear_study_effects = yes
+	}
+}
+
+magic_study_level_up_lore_of_beasts = {
+	if = {
+		limit = {
+			is_lore_of_beasts_1 = yes
+		}
+		set_country_flag = lore_of_beasts_2
+		custom_tooltip = tooltip_lore_of_beasts_2_level_up
+	}
+	else_if = {
+		limit = {
+			is_lore_of_beasts_2 = yes
+		}
+		set_country_flag = lore_of_beasts_3
+		custom_tooltip = tooltip_lore_of_beasts_3_level_up
+	}
+	else_if = {
+		limit = {
+			is_lore_of_beasts_3 = yes
+		}
+		set_country_flag = lore_of_beasts_3
+	}
+	else_if = {
+		limit = {
+			is_lore_of_beasts_0 = yes
+		}
+		set_country_flag = lore_of_beasts_1
+		custom_tooltip = tooltip_lore_of_beasts_1_level_up
+	}
+	if = {
+		limit = {
+			has_country_flag = country_studying_lore_of_beasts
+		}
+		magic_study_clear_study_effects = yes
+	}
+}
+
+magic_study_level_up_lore_of_metal = {
+	if = {
+		limit = {
+			is_lore_of_metal_1 = yes
+		}
+		set_country_flag = lore_of_metal_2
+		custom_tooltip = tooltip_lore_of_metal_2_level_up
+	}
+	else_if = {
+		limit = {
+			is_lore_of_metal_2 = yes
+		}
+		set_country_flag = lore_of_metal_3
+		custom_tooltip = tooltip_lore_of_metal_3_level_up
+	}
+	else_if = {
+		limit = {
+			is_lore_of_metal_3 = yes
+		}
+		set_country_flag = lore_of_metal_3
+	}
+	else_if = {
+		limit = {
+			is_lore_of_metal_0 = yes
+		}
+		set_country_flag = lore_of_metal_1
+		custom_tooltip = tooltip_lore_of_metal_1_level_up
+	}
+	if = {
+		limit = {
+			has_country_flag = country_studying_lore_of_metal
+		}
+		magic_study_clear_study_effects = yes
+	}
+}
+
+magic_study_level_up_lore_of_heavens = {
+	if = {
+		limit = {
+			is_lore_of_heavens_1 = yes
+		}
+		set_country_flag = lore_of_heavens_2
+		custom_tooltip = tooltip_lore_of_heavens_2_level_up
+	}
+	else_if = {
+		limit = {
+			is_lore_of_heavens_2 = yes
+		}
+		set_country_flag = lore_of_heavens_3
+		custom_tooltip = tooltip_lore_of_heavens_3_level_up
+	}
+	else_if = {
+		limit = {
+			is_lore_of_heavens_3 = yes
+		}
+		set_country_flag = lore_of_heavens_3
+	}
+	else_if = {
+		limit = {
+			is_lore_of_heavens_0 = yes
+		}
+		set_country_flag = lore_of_heavens_1
+		custom_tooltip = tooltip_lore_of_heavens_1_level_up
+	}
+	if = {
+		limit = {
+			has_country_flag = country_studying_lore_of_heavens
+		}
+		magic_study_clear_study_effects = yes
+	}
+}
+
+magic_study_level_up_lore_of_death = {
+	if = {
+		limit = {
+			is_lore_of_death_1 = yes
+		}
+		set_country_flag = lore_of_death_2
+		custom_tooltip = tooltip_lore_of_death_2_level_up
+	}
+	else_if = {
+		limit = {
+			is_lore_of_death_2 = yes
+		}
+		set_country_flag = lore_of_death_3
+		custom_tooltip = tooltip_lore_of_death_3_level_up
+	}
+	else_if = {
+		limit = {
+			is_lore_of_death_3 = yes
+		}
+		set_country_flag = lore_of_death_3
+	}
+	else_if = {
+		limit = {
+			is_lore_of_death_0 = yes
+		}
+		set_country_flag = lore_of_death_1
+		custom_tooltip = tooltip_lore_of_death_1_level_up
+	}
+	if = {
+		limit = {
+			has_country_flag = country_studying_lore_of_death
+		}
+		magic_study_clear_study_effects = yes
+	}
+}
+
+magic_study_level_up_lore_of_light = {
+	if = {
+		limit = {
+			is_lore_of_light_1 = yes
+		}
+		set_country_flag = lore_of_light_2
+		custom_tooltip = tooltip_lore_of_light_2_level_up
+	}
+	else_if = {
+		limit = {
+			is_lore_of_light_2 = yes
+		}
+		set_country_flag = lore_of_light_3
+		custom_tooltip = tooltip_lore_of_light_3_level_up
+	}
+	else_if = {
+		limit = {
+			is_lore_of_light_3 = yes
+		}
+		set_country_flag = lore_of_light_3
+	}
+	else_if = {
+		limit = {
+			is_lore_of_light_0 = yes
+		}
+		set_country_flag = lore_of_light_1
+		custom_tooltip = tooltip_lore_of_light_1_level_up
+	}
+	if = {
+		limit = {
+			has_country_flag = country_studying_lore_of_light
+		}
+		magic_study_clear_study_effects = yes
+	}
+}
+
+magic_study_level_up_all = {
+	magic_study_level_up_lore_of_life = yes
+	magic_study_level_up_lore_of_fire = yes
+	magic_study_level_up_lore_of_shadows = yes
+	magic_study_level_up_lore_of_beasts = yes
+	magic_study_level_up_lore_of_metal = yes
+	magic_study_level_up_lore_of_heavens = yes
+	magic_study_level_up_lore_of_death = yes
+	magic_study_level_up_lore_of_light = yes
+}

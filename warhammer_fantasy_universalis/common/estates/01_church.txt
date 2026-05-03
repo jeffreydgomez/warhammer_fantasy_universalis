@@ -1,0 +1,332 @@
+estate_church = {
+	icon = 1
+
+	# If true, country will get estate
+	trigger = {
+		always = yes
+#		NOT = { religion = the_thousand_gods }
+		NOT = { has_government_attribute = disables_estate_church }
+		NOT = { has_disabled_estate = { estate = estate_church } }
+#		if = {
+#			limit = {
+#				religion_group = dharmic
+#			}
+#			OR = {
+#				has_enabled_estate = { estate = estate_church }
+#				NOT = { has_estate = estate_brahmins }
+#			}
+#		}
+#		OR = {
+#			has_government_attribute = enables_estate_church
+#			has_enabled_estate = { estate = estate_church }
+#			has_unlocked_estate = { estate = estate_church }
+#			AND = {
+#				NOT = { has_government_attribute = is_pirate_republic_reform }
+#				NOT = { has_reform = siberian_tribe }
+#				NOT = { government = native }
+#				NOT = { is_revolutionary_republic_trigger = yes }
+#				NOT = { has_reform = revolutionary_empire_reform }
+#				is_nomad = no
+#				is_colonial_nation = no
+#			}
+#		}
+#		NOT = { has_government_attribute = is_merchant_republic }
+#		NOT = { has_reform = veche_republic }
+#		NOT = { has_reform = trading_city }
+#		OR = {
+#			NOT = { has_reform = celestial_empire }
+#			has_dlc = "Mandate of Heaven"
+#		}
+	}
+
+	# These scale with loyalty & power
+	country_modifier_happy = {
+		global_tax_modifier = 0.2
+		papal_influence = 1
+		devotion = 0.5
+		church_power_modifier = 0.1
+		monthly_fervor_increase = 1
+		stability_cost_modifier = -0.1
+		# War
+		monthly_control_of_court_power = 0.25
+	}
+	country_modifier_neutral = {
+		global_tax_modifier = 0.2
+		# War
+		monthly_control_of_court_power = -0.1
+		monthly_brt_authority = -0.1
+	}	
+	country_modifier_angry = {
+		global_tax_modifier = -0.1
+		papal_influence = -1
+		devotion = -0.5
+		church_power_modifier = -0.25
+		monthly_fervor_increase = -1
+		stability_cost_modifier = 0.1
+		global_unrest = 2
+		# War
+		monthly_brt_authority = -0.25
+		monthly_control_of_court_power = -0.25
+	}
+
+	land_ownership_modifier = {
+		church_loyalty_modifier = 0.2
+	}
+
+	province_independence_weight = {
+		factor = 1
+		modifier = {
+			factor = 0.1
+			NOT = { religion_group = owner }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { religion = owner }
+		}
+		modifier = {
+			factor = 0.67
+			NOT = { is_state_core = owner }
+		}
+		modifier = {
+			factor = 1.2
+			base_tax = 10
+		}
+	}
+	custom_name = {
+		desc = estate_plague_priests
+		trigger = {
+			culture = pestilens_skaven
+			religion = horned_rat
+		}
+	}
+	custom_name = {
+		desc = estate_grey_seers
+		trigger = {
+			religion = horned_rat
+		}
+	}
+
+	custom_name = {
+		desc = estate_grail_chapel
+		trigger = {
+			religion = lady_of_the_lake
+		}
+	}
+
+	custom_name = {
+		desc = estate_slaanesh_ecstatics
+		trigger = {
+			OR = {
+			religion = khornate_religion
+			religion = nurglite_religion
+			religion = chaos_undivided_religion
+			religion = tzeentchian_religion
+			religion = slaaneshi_religion
+			}
+		}
+	}
+
+	custom_name = {
+		desc = estate_temple_of_khaine
+		trigger = {
+			religion = cytharai
+		}
+	}
+
+	custom_name = {
+		desc = estate_shamans
+		trigger = {
+			OR = {
+				religion_group = greenskin_denominations
+				religion = norscan
+			}
+		}
+	}
+
+	custom_name = {
+		desc = estate_mortuary_cult
+		trigger = {
+			OR = {
+				religion = nehekharan_pantheon
+				religion = nagash_worship
+			}
+		}
+	}
+
+	custom_name = {
+		desc = estate_necromancers
+		trigger = {
+			religion = vampiric
+		}
+	}
+
+	custom_name = {
+		desc = estate_forest_spirits
+		trigger = {
+			religion = asrai_cadai
+		}
+	}
+
+	custom_name = {
+		desc = estate_cultists
+		trigger = {
+			OR = {
+				religion = slaaneshi_religion
+				religion = khornate_religion
+				religion = nurglite_religion
+				religion = tzeentchian_religion
+				religion = chaos_undivided_religion
+			}
+		}
+	}
+
+	custom_name = {
+		desc = estate_orthodoxy
+		trigger = {
+			religion = ursun
+		}
+	}
+
+	custom_name = {
+		desc = estate_skinks
+		trigger = {
+			has_country_modifier = lizardmen_administration
+		}
+	}
+
+
+	custom_name = {
+		desc = estate_scholars
+		trigger = {
+			religion = yin_yang
+		}
+	}
+
+	custom_name = {
+		desc = estate_druids
+		trigger = {
+			religion = druidism
+		}
+	}
+
+	# Influence modifiers
+	base_influence = 10
+	influence_modifier = {
+		desc = EST_VAL_STATE_RELIGIOUS_MINORITY
+		trigger = {
+			NOT = { dominant_religion = ROOT }
+		}	
+		influence = -15
+	}
+	influence_modifier = {
+		desc = EST_VAL_OTHER_ESTATE_IN_POWER
+		trigger = {
+			has_any_estate_disaster_active = yes
+			has_not_own_estate_disaster_active = { estate = estate_church }
+		}
+		influence = -40
+	}
+
+	loyalty_modifier = {
+		desc = EST_VAL_OTHER_ESTATE_IN_POWER_LOY
+		trigger = {
+			has_any_estate_disaster_active = yes
+			has_not_own_estate_disaster_active = { estate = estate_church }
+		}
+		loyalty = -20
+	}
+
+	
+
+	contributes_to_curia_treasury = yes
+	color = { 200 150 0 }
+
+	privileges = {
+
+
+		#Warhammer
+
+		estate_church_purge_evil_races
+		estate_church_purge_lesser_races
+		estate_church_legitimacy_to_rule
+
+#		estate_church_placate_the_church	# Replaced with Raise Expectations
+
+		##
+
+		estate_church_land_rights
+		estate_church_papal_emissary
+		estate_church_religious_state
+		estate_church_independent_inquisition
+		estate_church_new_world_mission
+		estate_church_clerical_ministers
+		estate_church_freedom_of_interpretation
+		estate_church_clerical_oversight
+		
+		estate_church_enforced_one_faith
+		estate_church_for_the_faith
+		estate_church_karma_temples
+		estate_church_influence_temples
+		estate_church_brahmins_at_court
+		estate_church_lao_animism
+		estate_church_administrative_privileges
+		estate_church_monopoly_of_incense
+		estate_church_monopoly_of_wool
+		estate_church_monopoly_of_wine
+		estate_church_monopoly_of_slaves
+		estate_church_statutory_rights
+		estate_church_yakobs_churches
+		estate_church_one_faith_one_culture
+		estate_church_religious_diplomats
+		estate_church_heir_shrine
+		estate_church_embrace_singluar_cult
+		estate_church_flexible_cults
+		estate_church_scholar_connections
+		estate_church_integrated_school
+		estate_church_anti_heresy_act
+		estate_church_lands_of_riga
+		estate_church_bishopric_of_dorpat
+		estate_church_bishopric_of_osel_wiek
+		estate_church_bishopric_of_courland
+		estate_church_bishopric_of_reval
+		estate_church_japanese_christian_communities_privilege
+		estate_church_development_of_temples
+		estate_church_expand_the_theology
+		estate_church_clerical_education
+		estate_church_religious_delegation
+		estate_church_institutionalized_clergy
+		estate_church_donation_right
+
+		estate_church_inwards_perfection
+		
+		#1.36
+		estate_church_fund_dar_al_hadith
+		estate_church_fund_madrasas
+		estate_church_sponsor_waqf_payments
+		estate_church_muslim_integration
+
+	}
+
+	agendas = {
+		estate_church_develop_x
+		estate_church_build_temple_in_y
+		estate_church_build_university_in_y
+		estate_church_build_manufactory_in_y
+		estate_church_convert_province_x
+		estate_church_reduce_war_exhaustion
+		estate_church_recover_stability
+		estate_church_increase_stability
+		estate_church_reduce_overextension
+		estate_church_restore_devotion
+		estate_church_root_out_heresy
+		estate_church_relations_with_pope
+		estate_church_restore_the_holy_see
+		estate_church_crush_religious_revolts
+		estate_church_protect_brethren
+		estate_church_propagate_religion
+		estate_church_relations_with_dotf
+		estate_church_hire_advisor
+		estate_church_fire_advisor
+	}
+	influence_from_dev_modifier = 1.0
+}

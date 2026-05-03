@@ -1,0 +1,452 @@
+brt_authority_mechanic = {
+	alert_icon_gfx = GFX_alerticons_government_mechanics
+	alert_icon_index = 17
+	available = {
+		has_reform = bretonnian_royarch_reform
+	}
+	powers = {
+		brt_authority = {
+			gui = brt_authority_gov_mech
+			max = 100
+			reset_on_new_ruler = no
+			default = 40
+
+			base_monthly_growth = 0.0 # Was 0.5, changed for testing, probably change to 0 now
+
+#			development_scaled_monthly_growth = 0.5
+
+			show_before_interactions = yes
+
+#			monarch_power = dip
+
+			scaled_modifier = {
+				start_value = 50
+				end_value = 100
+				modifier = {
+					diplomatic_reputation = 1
+					reduced_liberty_desire = 15
+					global_unrest = -1
+					legitimacy = 0.25
+				}
+			}
+			reverse_scaled_modifier = {
+				start_value = 0
+				end_value = 50
+				modifier = {
+					diplomatic_reputation = -1
+					reduced_liberty_desire = -15
+					global_unrest = 1
+					legitimacy = -0.25
+				}
+			}
+			is_good = yes
+		}
+	}
+	interactions = {
+
+		brt_authority_reform_one = {
+			icon = GFX_brt_authority_reform_1
+			gui = brt_authority_gov_mech_interaction
+			cost_type = brt_authority
+			cost = 100
+			trigger = {
+				NOT = {
+					has_country_flag = brt_first_reform_flag
+				}
+			}
+			effect = {
+				country_event = {
+					id = flavor_bretonnia.201
+				}
+				war_increase_reform_resistance = yes
+				hidden_effect = {
+					set_government_power = {
+						mechanic_type = brt_authority_mechanic
+						power_type = brt_authority
+						value = 0
+					}
+					set_country_flag = brt_first_reform_flag
+				}
+			}
+			ai_chance = {
+				factor = 100
+				modifier = {
+					factor = 100
+					has_government_power = {
+						mechanic_type = brt_authority_mechanic
+						power_type = brt_authority
+						value = 90
+					}
+				}
+			}
+		}
+
+		brt_authority_reform_two = {
+			icon = GFX_brt_authority_reform_2
+			gui = brt_authority_gov_mech_interaction
+			cost_type = brt_authority
+			cost = 100
+			trigger = {
+				has_country_flag = brt_first_reform_flag
+				NOT = {
+					has_country_flag = brt_second_reform_flag
+				}
+			}
+			effect = {
+				country_event = {
+					id = flavor_bretonnia.202
+				}
+				war_increase_reform_resistance = yes
+				hidden_effect = {
+					set_government_power = {
+						mechanic_type = brt_authority_mechanic
+						power_type = brt_authority
+						value = 0
+					}
+					set_country_flag = brt_second_reform_flag
+				}
+			}
+			ai_chance = {
+				factor = 100
+				modifier = {
+					factor = 100
+					has_government_power = {
+						mechanic_type = brt_authority_mechanic
+						power_type = brt_authority
+						value = 90
+					}
+				}
+			}
+		}
+
+		brt_authority_reform_three = {
+			icon = GFX_brt_authority_reform_3
+			gui = brt_authority_gov_mech_interaction
+			cost_type = brt_authority
+			cost = 100
+			trigger = {
+				has_country_flag = brt_first_reform_flag
+				NOT = {
+					has_country_flag = brt_third_reform_flag
+				}
+			}
+			effect = {
+				country_event = {
+					id = flavor_bretonnia.203
+				}
+				war_increase_reform_resistance = yes
+				hidden_effect = {
+					set_government_power = {
+						mechanic_type = brt_authority_mechanic
+						power_type = brt_authority
+						value = 0
+					}
+					set_country_flag = brt_third_reform_flag
+				}
+			}
+			ai_chance = {
+				factor = 100
+				modifier = {
+					factor = 100
+					has_government_power = {
+						mechanic_type = brt_authority_mechanic
+						power_type = brt_authority
+						value = 90
+					}
+				}
+			}
+		}
+
+		brt_authority_reform_four = {
+			icon = GFX_brt_authority_reform_4
+			gui = brt_authority_gov_mech_interaction
+			cost_type = brt_authority
+			cost = 100
+			trigger = {
+				has_country_flag = brt_first_reform_flag
+				NOT = {
+					has_country_flag = brt_fourth_reform_flag
+				}
+			}
+			effect = {
+				country_event = {
+					id = flavor_bretonnia.204
+				}
+				war_increase_reform_resistance = yes
+				hidden_effect = {
+					set_government_power = {
+						mechanic_type = brt_authority_mechanic
+						power_type = brt_authority
+						value = 0
+					}
+					set_country_flag = brt_fourth_reform_flag
+				}
+			}
+			ai_chance = {
+				factor = 100
+				modifier = {
+					factor = 100
+					has_government_power = {
+						mechanic_type = brt_authority_mechanic
+						power_type = brt_authority
+						value = 90
+					}
+				}
+			}
+		}
+
+		brt_authority_reform_five = {
+			icon = GFX_brt_authority_reform_5
+			gui = brt_authority_gov_mech_interaction
+			cost_type = brt_authority
+			cost = 100
+			trigger = {
+				has_country_flag = brt_first_reform_flag
+				NOT = {
+					has_country_flag = brt_fifth_reform_flag
+				}
+			}
+			effect = {
+				country_event = {
+					id = flavor_bretonnia.205
+				}
+				war_increase_reform_resistance = yes
+				hidden_effect = {
+					set_government_power = {
+						mechanic_type = brt_authority_mechanic
+						power_type = brt_authority
+						value = 0
+					}
+					set_country_flag = brt_fifth_reform_flag
+				}
+			}
+			ai_chance = {
+				factor = 100
+				modifier = {
+					factor = 100
+					has_government_power = {
+						mechanic_type = brt_authority_mechanic
+						power_type = brt_authority
+						value = 90
+					}
+				}
+			}
+		}
+
+		brt_authority_reform_six = {
+			icon = GFX_brt_authority_reform_6
+			gui = brt_authority_gov_mech_interaction
+			cost_type = brt_authority
+			cost = 100
+			trigger = {
+				has_country_flag = brt_first_reform_flag
+				NOT = {
+					has_country_flag = brt_sixth_reform_flag
+				}
+			}
+			effect = {
+				country_event = {
+					id = flavor_bretonnia.206
+				}
+				war_increase_reform_resistance = yes
+				hidden_effect = {
+					set_government_power = {
+						mechanic_type = brt_authority_mechanic
+						power_type = brt_authority
+						value = 0
+					}
+					set_country_flag = brt_sixth_reform_flag
+				}
+			}
+			ai_chance = {
+				factor = 100
+				modifier = {
+					factor = 100
+					has_government_power = {
+						mechanic_type = brt_authority_mechanic
+						power_type = brt_authority
+						value = 90
+					}
+				}
+			}
+		}
+
+		brt_authority_reform_seven = {
+			icon = GFX_brt_authority_reform_7
+			gui = brt_authority_gov_mech_interaction
+			cost_type = brt_authority
+			cost = 100
+			trigger = {
+				has_country_flag = brt_first_reform_flag
+				NOT = {
+					has_country_flag = brt_seventh_reform_flag
+				}
+			}
+			effect = {
+				country_event = {
+					id = flavor_bretonnia.207
+				}
+				war_increase_reform_resistance = yes
+				hidden_effect = {
+					set_government_power = {
+						mechanic_type = brt_authority_mechanic
+						power_type = brt_authority
+						value = 0
+					}
+					set_country_flag = brt_seventh_reform_flag
+				}
+			}
+			ai_chance = {
+				factor = 100
+				modifier = {
+					factor = 100
+					has_government_power = {
+						mechanic_type = brt_authority_mechanic
+						power_type = brt_authority
+						value = 90
+					}
+				}
+			}
+		}
+
+		brt_authority_reform_eight = {
+			icon = GFX_brt_authority_reform_8
+			gui = brt_authority_gov_mech_interaction
+			cost_type = brt_authority
+			cost = 100
+			trigger = {
+				has_country_flag = brt_first_reform_flag
+				NOT = {
+					has_country_flag = brt_eighth_reform_flag
+				}
+			}
+			effect = {
+				country_event = {
+					id = flavor_bretonnia.208
+				}
+				war_increase_reform_resistance = yes
+				set_country_flag = brt_eighth_reform_flag
+			}
+			ai_chance = {
+				factor = 100
+				modifier = {
+					factor = 100
+					has_government_power = {
+						mechanic_type = brt_authority_mechanic
+						power_type = brt_authority
+						value = 90
+					}
+				}
+			}
+		}
+
+		brt_authority_reform_nine = {
+			icon = GFX_brt_authority_reform_9
+			gui = brt_authority_gov_mech_interaction
+			cost_type = brt_authority
+			cost = 100
+			trigger = {
+				has_country_flag = brt_first_reform_flag
+				has_country_flag = brt_second_reform_flag
+				has_country_flag = brt_third_reform_flag
+				has_country_flag = brt_fourth_reform_flag
+				has_country_flag = brt_fifth_reform_flag
+				has_country_flag = brt_sixth_reform_flag
+				has_country_flag = brt_seventh_reform_flag
+				has_country_flag = brt_eighth_reform_flag
+				NOT = {
+					has_country_flag = formed_bretonnia
+				}
+			}
+			effect = {
+				custom_tooltip = inherit_bret_subj_tt
+
+				custom_tooltip = remove_bretonnian_resistance_tt
+
+				hidden_effect = {
+
+					add_government_power = {
+						mechanic_type = brt_authority_mechanic
+						power_type = brt_authority
+						value = 90
+					}
+
+					every_subject_country = {
+						limit = {
+							culture_group = bretonnian_group
+							capital_scope = { region = bretonnia_region }
+							NOT = {
+								liberty_desire = 25
+							}
+						}
+						ROOT = {
+							inherit = PREV
+						}
+					}
+
+					change_tag = A98
+
+					A98 = {
+						set_government_rank = 3
+					}
+			
+					add_government_reform = united_bretonnia_reform
+					swap_non_generic_missions = yes
+					set_country_flag = formed_bretonnia
+					set_global_flag = formed_bretonnia
+					on_change_tag_effect = yes
+					restore_country_name = yes
+
+					remove_country_modifier = bretonnia_reform_resistance_8
+					remove_country_modifier = bretonnia_reform_resistance_7
+					remove_country_modifier = bretonnia_reform_resistance_6
+					remove_country_modifier = bretonnia_reform_resistance_5
+					remove_country_modifier = bretonnia_reform_resistance_4
+					remove_country_modifier = bretonnia_reform_resistance_3
+					remove_country_modifier = bretonnia_reform_resistance_2
+					remove_country_modifier = bretonnia_reform_resistance_1
+
+				}
+
+				add_prestige = 25
+
+
+				if = {
+					limit = {
+						has_custom_ideas = no
+					}
+					country_event = {
+						id = ideagroups.1
+					}
+					#Swap Ideas
+				}
+				hidden_effect = {
+					if = {
+						limit = { has_dlc = "Lions of the North" }
+						ROOT = {
+							add_country_modifier = { 
+								##File Name war_bretonnia_modifiers
+								name = bretonnian_hussars_united_modifier ## amount_of_hussars = 9
+								duration = -1  
+								hidden = yes
+							}
+							remove_country_modifier = bretonnian_hussars_indep_modifier
+							remove_country_modifier = bretonnian_hussars_modifier
+						}
+					}
+				}
+			}
+			ai_chance = {
+				factor = 100
+				modifier = {
+					factor = 100
+					has_government_power = {
+						mechanic_type = brt_authority_mechanic
+						power_type = brt_authority
+						value = 90
+					}
+				}
+			}
+		}
+	}
+}

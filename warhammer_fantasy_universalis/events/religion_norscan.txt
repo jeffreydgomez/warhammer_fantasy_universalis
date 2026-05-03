@@ -1,0 +1,322 @@
+namespace = religion_norscan_events
+
+country_event = {
+	id = religion_norscan_events.1
+	title = religion_norscan_events.1.t
+	desc = religion_norscan_events.1.d
+	picture = NORSE_TEMPLE_eventPicture
+	is_triggered_only = yes
+
+	# Olric
+	option = {
+		name = religion_norscan_events.1.b
+		trigger = {
+			NOT = { has_personal_deity = olric }
+		}
+		change_personal_deity = olric
+	}
+
+	# The Hound(Khorne)
+	option = {
+		name = religion_norscan_events.1.c
+		trigger = {
+			NOT = { has_personal_deity = the_hound }
+		}
+		change_personal_deity = the_hound
+	}
+
+	# The Raven(Tzeentch)
+	option = {
+		name = religion_norscan_events.1.e
+		trigger = {
+			NOT = { has_personal_deity = the_raven }
+		}
+		change_personal_deity = the_raven
+	}
+
+	# The Crow(Nurgle)
+	option = {
+		name = religion_norscan_events.1.f
+		trigger = {
+			NOT = { has_personal_deity = the_crow }
+		}
+		change_personal_deity = the_crow
+	}
+
+	# The Serpeant(Slannesh)
+	option = {
+		name = religion_norscan_events.1.g
+		trigger = {
+			NOT = { has_personal_deity = the_serpent }
+		}
+		change_personal_deity = the_serpent
+	}
+	# The bear (Ursun)
+	option = {
+		name = religion_norscan_events.1.h
+		trigger = {
+			NOT = { has_personal_deity = the_bear }
+		}
+		change_personal_deity = the_bear
+	}
+	# mermudus
+	option = {
+		name = religion_norscan_events.1.i
+		trigger = {
+			NOT = { has_personal_deity = mermedus }
+		}
+		change_personal_deity = mermedus
+	}	
+}
+
+##############
+#MONSTER HUNTS
+##############
+
+#Selecting location of the Hunt
+country_event = {
+	id = religion_norscan_events.100 
+	title = religion_norscan_events.100.t
+	desc = religion_norscan_events.100.d
+	picture = KINGS_CHOICE_eventPicture
+	
+	is_triggered_only = yes
+
+	trigger = {
+		religion = norscan
+		has_ruler_flag = norscan_hunt_menu_open
+	}
+
+	#exit
+	option = {
+		name = religion_norscan_events.100.a
+			add_prestige = -5
+			ai_chance = { factor = 5 }
+			clr_ruler_flag = norscan_hunt_menu_open 
+	}
+
+	#Norsca
+	option = {
+		name = religion_norscan_events.100.b
+		trigger = {
+			any_owned_province = {
+				region = norsca_region
+			}
+		}
+		ai_chance = { factor = 5 }
+		set_ruler_flag = norscan_hunting_norsca
+		country_event = { id = religion_norscan_events.101 }
+	}
+}
+
+#Selecting target
+country_event = {
+	id = religion_norscan_events.101
+	title = religion_norscan_events.101.t
+	desc = religion_norscan_events.101.d
+	picture = KINGS_CHOICE_eventPicture
+	
+	is_triggered_only = yes
+
+	trigger = {
+		has_ruler_flag = norscan_hunting_norsca
+		has_ruler_flag = norscan_hunt_menu_open 
+	}
+
+	after = { 
+		clr_ruler_flag = norscan_hunt_menu_open 
+	}
+	
+	#exit
+	option = {
+		name = religion_norscan_events.101.a
+			add_prestige = -5
+			ai_chance = { factor = 5 }
+	}
+
+	#Mammoth
+	option = {
+		trigger = {
+			has_ruler_flag = norscan_hunting_norsca
+		}
+		name = religion_norscan_events.101.b
+		ai_chance = { factor = 5 }
+		set_ruler_flag = norscan_hunting_mammoth
+		add_ruler_modifier = { name = norscan_monster_hunt duration = -1 }
+	}
+	
+
+	#Chaos Spawn
+	option = {
+		trigger = {
+			has_ruler_flag = norscan_hunting_norsca
+		}
+		name = religion_norscan_events.101.c
+		ai_chance = { factor = 5 }
+		set_ruler_flag = norscan_hunting_spawn
+		add_ruler_modifier = { name = norscan_monster_hunt duration = -1 }
+	}
+
+	#giant
+	option = {
+		trigger = {
+			has_ruler_flag = norscan_hunting_norsca
+		}
+		name = religion_norscan_events.101.e
+		ai_chance = { factor = 5 }
+		set_ruler_flag = norscan_hunting_giant
+		add_ruler_modifier = { name = norscan_monster_hunt duration = -1 }
+	}	
+
+}
+
+#success
+country_event = {
+	id = religion_norscan_events.102
+	title = religion_norscan_events.102.t
+	desc = religion_norscan_events.102.d
+	picture = KINGS_CHOICE_eventPicture
+	
+	is_triggered_only = yes
+
+	trigger = {
+		has_ruler_modifier =  norscan_monster_hunt
+	}
+	option = {
+		name = religion_norscan_events.102.a	
+		ai_chance = { factor = 5 }
+		norscan_hunting_effect = { Reward = yes }
+		add_ruler_modifier = { name = norscan_hunt_fatigue duration = 730 }
+	}
+
+}
+
+#failure
+country_event = {
+	id = religion_norscan_events.103
+	title = religion_norscan_events.103.t
+	desc = religion_norscan_events.103.d
+	picture = KINGS_CHOICE_eventPicture
+	
+	is_triggered_only = yes
+	trigger = { has_ruler_modifier = norscan_monster_hunt }
+
+	#R I P 
+	option = {
+		name = religion_norscan_events.103.a	
+		ai_chance = { factor = 5 }
+		kill_ruler = yes
+	}
+}
+
+## Chaos Spawn/Mutant
+#tracking
+country_event = {
+	id = religion_norscan_events.110
+	title = religion_norscan_events.110.t
+	desc = religion_norscan_events.110.d
+	picture = EXPLORERS_eventPicture
+	
+	is_triggered_only = yes
+	trigger = { has_ruler_flag = norscan_hunting_spawn }
+
+	#follow the footprints
+	option = {
+		name = religion_norscan_events.110.a
+		ai_chance = { factor = 5 }
+		norscan_hunting_effect = { Track = yes Difficulty = 1.5 ID = 111 }
+	}
+}
+
+#fight
+country_event = {
+	id = religion_norscan_events.111
+	title = religion_norscan_events.111.t
+	desc = religion_norscan_events.111.d
+	picture = GREAT_MAN_eventPicture
+	
+	is_triggered_only = yes
+	trigger = { has_ruler_flag = norscan_hunting_spawn }
+
+	#fight
+	option = {
+		name = religion_norscan_events.111.a
+		ai_chance = { factor = 5 }
+		norscan_hunting_effect = { Slaying = yes Difficulty = 1.5 }
+	}
+}
+
+## giant
+#tracking
+country_event = {
+	id = religion_norscan_events.120
+	title = religion_norscan_events.120.t
+	desc = religion_norscan_events.120.d
+	picture = EXPLORERS_eventPicture
+	
+	is_triggered_only = yes
+	trigger = { has_ruler_flag = norscan_hunting_giant }
+
+	#follow the footprints
+	option = {
+		name = religion_norscan_events.120.a
+		ai_chance = { factor = 5 }
+		norscan_hunting_effect = { Track = yes Difficulty = 2 ID = 121 }
+	}
+}
+
+#fight
+country_event = {
+	id = religion_norscan_events.121
+	title = religion_norscan_events.121.t
+	desc = religion_norscan_events.121.d
+	picture = GREAT_MAN_eventPicture
+	
+	is_triggered_only = yes
+	trigger = { has_ruler_flag = norscan_hunting_giant }
+
+	#fight
+	option = {
+		name = religion_norscan_events.121.a
+		ai_chance = { factor = 5 }
+		norscan_hunting_effect = { Slaying = yes Difficulty = 2 }
+	}
+}
+
+
+## mammoth
+#tracking
+country_event = {
+	id = religion_norscan_events.130
+	title = religion_norscan_events.130.t
+	desc = religion_norscan_events.130.d
+	picture = EXPLORERS_eventPicture
+	
+	is_triggered_only = yes
+	trigger = { has_ruler_flag = norscan_hunting_mammoth }
+
+	#follow the footprints
+	option = {
+		name = religion_norscan_events.130.a
+		ai_chance = { factor = 5 }
+		norscan_hunting_effect = { Track = yes Difficulty = 1 ID = 131 }
+	}
+}
+
+#fight
+country_event = {
+	id = religion_norscan_events.131
+	title = religion_norscan_events.131.t
+	desc = religion_norscan_events.131.d
+	picture = GREAT_MAN_eventPicture
+	
+	is_triggered_only = yes
+	trigger = { has_ruler_flag = norscan_hunting_mammoth }
+
+	#fight
+	option = {
+		name = religion_norscan_events.131.a
+		ai_chance = { factor = 5 }
+		norscan_hunting_effect = { Slaying = yes Difficulty = 1 }
+	}
+}

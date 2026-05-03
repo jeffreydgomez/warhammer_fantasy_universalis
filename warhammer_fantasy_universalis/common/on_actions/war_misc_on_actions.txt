@@ -1,0 +1,996 @@
+
+
+### Karma
+
+on_adm_development = {
+	owner = { add_karma = 0.5 }
+}
+
+on_dip_development = {
+	owner = { add_karma = 0.5 }
+}
+
+on_mil_development = {
+	owner = { add_karma = 0.5 }
+}
+
+on_great_project_constructed = {
+	owner = { add_karma = 10 }
+}
+
+
+on_startup = {
+	IF = {
+		limit = { ai = no }
+		remove_country_modifier = war_ai_bonus_1
+		remove_country_modifier = war_ai_bonus_2
+		remove_country_modifier = war_ai_bonus_3
+		remove_country_modifier = war_ai_bonus_4
+		remove_country_modifier = war_ai_bonus_5
+	}
+}
+
+on_annexed = {
+
+	FROM = {
+		every_subject_country = {
+			limit = { is_subject_of_type = dominion }
+
+			ROOT = {
+				create_subject = {
+					subject = PREV
+					subject_type = dominion
+				}
+			}
+		}
+
+		every_subject_country = {
+			limit = { is_subject_of_type = chaos_warband_vassal }
+
+			ROOT = {
+				create_subject = {
+					subject = PREV
+					subject_type = dominion
+				}
+			}
+		}
+
+
+	}
+}
+
+on_heir_needed_theocracy = {
+	events = {
+		chaos_dwarfs.1
+	}
+}
+
+on_battle_won_country = {
+	#on_battle_ended_effect = yes
+	on_battle_won_country_effect = yes	#1.35
+	if = {
+		limit = {
+			owner = {
+				religion = khornate_religion
+			}
+		}
+		add_church_power = 1
+	}
+}
+
+on_battle_lost_country = {
+	if = {
+		limit = {
+			owner = {
+				religion = khornate_religion
+			}
+		}
+		add_church_power = 1		#khorne cares not where the blood flows so long as it flows
+	}
+}
+
+on_raid_coast = {
+	if = {
+		limit = {
+			religion = khornate_religion
+		}
+		add_church_power = 1
+	}
+}
+
+on_raze = {
+	if = {
+		limit = {
+			owner = {
+				religion = khornate_religion
+			}
+		}
+		owner = {
+			add_church_power = 2
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_government_mechanic = orc_fightiness_mechanic
+			}
+		}
+		add_government_power = {
+			mechanic_type = orc_fightiness_mechanic
+			power_type = orc_fightiness_power
+			value = 5
+		}
+	}
+}
+
+on_new_term_election = {
+	events = {
+		flavor_verezzo.1		#verezzo
+		700
+		elections.720
+		elections.800
+	}
+}
+
+on_monarch_death = {
+	on_monarch_death_effect = yes
+#	events = {
+#		tomb_king.1  # this is now replaced with resurrect_events.1
+#	}
+#	if = {
+#		limit = {
+#			has_reform = bretonnian_royarch_reform
+#		}
+#		country_event = {
+#			id = flavor_bretonnia.3
+#		}
+#	}
+
+
+	if = {
+		limit = {
+			has_country_flag = has_saved_immortal_ruler
+			OR = {
+				has_country_modifier = undead_administration
+				has_country_modifier = nehekhara_true_immortality
+			}
+#			NOT = { has_ruler = immortal_ruler_name }
+			NOT = { has_country_flag = dont_bring_back_ruler_flag }
+		}
+		country_event = {
+			id = resurrect_events.1
+		}
+	}
+
+	clr_country_flag = dont_bring_back_ruler_flag
+}
+
+on_death_election = {
+	events = {
+		flavor_verezzo.2
+		701
+		elections.721
+		elections.800
+	}
+}
+
+on_war_won = {
+
+## Setup variables
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+				    which = warhammer_Wars_Won
+				    value = 1
+				}
+			}
+		}
+		set_variable = {
+	    	which = warhammer_Wars_Won
+	    	value = 0
+		}
+	}
+
+
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+				    which = warhammer_Evil_Wars_Won
+				    value = 1
+				}
+			}
+		}
+		set_variable = {
+	    	which = warhammer_Evil_Wars_Won
+	    	value = 0
+		}
+	}
+
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+				    which = warhammer_countries_converted
+				    value = 1
+				}
+			}
+		}
+		set_variable = {
+	    	which = warhammer_countries_converted
+	    	value = 0
+		}
+	}
+
+
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+				    which = warhammer_Religious_Wars_Won
+				    value = 1
+				}
+			}
+		}
+		set_variable = {
+	    	which = warhammer_Religious_Wars_Won
+	    	value = 0
+		}
+	}
+
+	change_variable = {
+        which = warhammer_Wars_Won
+        value = 1
+    }
+
+	if = {
+		limit = {
+			FROM = { has_country_modifier = destruction_nation }
+		}
+		change_variable = {
+	        which = warhammer_Evil_Wars_Won
+	        value = 1
+	    }
+	}
+	if = {
+		limit = {
+			FROM = { NOT = { religion = ROOT } }
+		}
+		change_variable = {
+	        which = warhammer_Religious_Wars_Won
+	        value = 1
+	    }
+	}
+}
+
+on_annexed = {
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+				    which = warhammer_Evil_Wars_Won
+				    value = 1
+				}
+			}
+		}
+		set_variable = {
+	    	which = warhammer_Evil_Wars_Won
+	    	value = 0
+		}
+	}
+
+	if = {
+		limit = {
+			FROM = { has_country_modifier = destruction_nation }
+		}
+		change_variable = {
+	        which = warhammer_Evil_Wars_Won
+	        value = 1
+	    }
+	}
+
+}
+
+on_hre_dismantled = {
+	every_country = {
+		limit = {
+			OR = {
+				has_country_modifier = emp_religious_tension_1
+				has_country_modifier = emp_religious_tension_2
+				has_country_modifier = emp_religious_tension_3
+				has_country_modifier = emp_religious_tension_4
+				has_country_modifier = emp_religious_tension_5
+			}
+		}
+		remove_country_modifier = emp_religious_tension_1
+		remove_country_modifier = emp_religious_tension_2
+		remove_country_modifier = emp_religious_tension_3
+		remove_country_modifier = emp_religious_tension_4
+		remove_country_modifier = emp_religious_tension_5
+	}
+}
+
+on_lock_hre_religion = {
+	every_country = {
+		limit = {
+			OR = {
+				has_country_modifier = emp_religious_tension_1
+				has_country_modifier = emp_religious_tension_2
+				has_country_modifier = emp_religious_tension_3
+				has_country_modifier = emp_religious_tension_4
+				has_country_modifier = emp_religious_tension_5
+			}
+		}
+		remove_country_modifier = emp_religious_tension_1
+		remove_country_modifier = emp_religious_tension_2
+		remove_country_modifier = emp_religious_tension_3
+		remove_country_modifier = emp_religious_tension_4
+		remove_country_modifier = emp_religious_tension_5
+	}
+}
+
+on_religion_change = {
+	if = {
+		#Save the empire if the emperor is force converted
+		limit = {
+			is_emperor = yes
+			NOT = {
+				religion_group = old_world_denominations
+			}
+		}
+		set_emperor = no
+	}
+	#converting out of lady of the lake
+
+}
+
+on_lock_hre_religion = {
+	events = {
+		religious_leagues.1
+		religious_leagues.8
+		religious_leagues.9
+	}
+}
+
+on_change_hre_religion = {
+	events = {
+		religious_leagues.2
+		religious_leagues.3
+		religious_leagues.27
+	}
+}
+
+
+## use with with resurrect_events.1
+
+on_bi_yearly_pulse = {
+	if = {
+		limit = {
+			has_country_flag = has_saved_immortal_ruler
+		}
+		save_ruler_stats = yes
+		save_persistent_ruler_personalities = yes
+	}
+}
+
+
+### Orc Fightiness
+
+on_battle_won_country = {
+	if = {
+		limit = { has_government_mechanic = orc_fightiness_mechanic }
+
+		add_government_power = {
+			mechanic_type = orc_fightiness_mechanic
+			power_type = orc_fightiness_power
+			value = 50
+		}
+	}
+}
+
+on_battle_lost_country = {
+	if = {
+		limit = { has_government_mechanic = orc_fightiness_mechanic }
+
+		add_government_power = {
+			mechanic_type = orc_fightiness_mechanic
+			power_type = orc_fightiness_power
+			value = 25
+		}
+	}
+}
+
+
+on_war_won = {
+	if = {
+		limit = { has_government_mechanic = orc_fightiness_mechanic }
+
+		add_government_power = {
+			mechanic_type = orc_fightiness_mechanic
+			power_type = orc_fightiness_power
+			value = 100
+		}
+	}
+}
+
+
+### Race Fought Flag
+
+on_war_won = {
+	if = {
+		limit = { FROM = { has_country_modifier = human_military } }
+		set_country_flag = defeated_humans
+	}
+
+	if = {
+		limit = { FROM = { has_country_modifier = orcish_military } }
+		set_country_flag = defeated_orcs
+	}
+
+	if = {
+		limit = { FROM = { has_country_modifier = dwarven_military } }
+		set_country_flag = defeated_dwarves
+	}
+
+	if = {
+		limit = { FROM = { has_country_modifier = elven_military } }
+		set_country_flag = defeated_elves
+	}
+
+	if = {
+		limit = { FROM = { has_country_modifier = undead_military } }
+		set_country_flag = defeated_undead
+	}
+
+	if = {
+		limit = { FROM = { has_country_modifier = fimir_military } }
+		set_country_flag = defeated_fimir
+	}
+
+	if = {
+		limit = { FROM = { has_country_modifier = ogre_military } }
+		set_country_flag = defeated_ogres
+	}
+
+	if = {
+		limit = { FROM = { has_country_modifier = skaven_military } }
+		set_country_flag = defeated_skaven
+	}
+
+	if = {
+		limit = { FROM = { has_country_modifier = lizardmen_military } }
+		set_country_flag = defeated_lizardmen
+	}
+
+	if = {
+		limit = { FROM = { has_country_modifier = beastfolk_military } }
+		set_country_flag = defeated_beastfolk
+	}
+
+	if = {
+		limit = { FROM = { culture_group = chaos_dwarf_group } }
+		set_country_flag = defeated_chaos_dwarf
+	}
+	if = {
+		limit = {FROM = { is_enemy = ROOT } }
+		set_country_flag = defeated_rival
+	}
+  
+#
+
+	if = {
+		limit = { FROM = { religion = nurglite_religion } }
+		set_country_flag = defeated_nurgle
+	}
+
+	if = {
+		limit = { FROM = { religion = khornate_religion } }
+		set_country_flag = defeated_khorne
+	}
+
+	if = {
+		limit = { FROM = { religion = tzeentchian_religion } }
+		set_country_flag = defeated_tzeentch
+	}
+
+	if = {
+		limit = { FROM = { religion = slaaneshi_religion } }
+		set_country_flag = defeated_slaanesh
+	}
+
+	if = {
+		limit = { FROM = { religion = chaos_undivided_religion } }
+		set_country_flag = defeated_undivided
+	}
+
+	if = {
+		limit = { FROM = { religion = norscan } }
+		set_country_flag = defeated_norscan
+	}
+}
+
+
+on_annexed = {
+	if = {
+		limit = { FROM = { has_country_modifier = human_military } }
+		set_country_flag = defeated_humans
+	}
+
+	if = {
+		limit = { FROM = { has_country_modifier = orcish_military } }
+		set_country_flag = defeated_orcs
+	}
+
+	if = {
+		limit = { FROM = { has_country_modifier = dwarven_military } }
+		set_country_flag = defeated_dwarves
+	}
+
+	if = {
+		limit = { FROM = { has_country_modifier = elven_military } }
+		set_country_flag = defeated_elves
+	}
+
+	if = {
+		limit = { FROM = { has_country_modifier = undead_military } }
+		set_country_flag = defeated_undead
+	}
+
+	if = {
+		limit = { FROM = { has_country_modifier = fimir_military } }
+		set_country_flag = defeated_fimir
+	}
+
+	if = {
+		limit = { FROM = { has_country_modifier = ogre_military } }
+		set_country_flag = defeated_ogres
+	}
+
+	if = {
+		limit = { FROM = { has_country_modifier = skaven_military } }
+		set_country_flag = defeated_skaven
+	}
+
+	if = {
+		limit = { FROM = { has_country_modifier = lizardmen_military } }
+		set_country_flag = defeated_lizardmen
+	}
+
+	if = {
+		limit = { FROM = { has_country_modifier = beastfolk_military } }
+		set_country_flag = defeated_beastfolk
+	}
+
+	if = {
+		limit = { FROM = { culture_group = chaos_dwarf_group } }
+		set_country_flag = defeated_chaos_dwarf
+	}
+	if = {
+		limit = {FROM = { is_enemy = ROOT } }
+		set_country_flag = defeated_rival
+	}
+
+#
+
+	if = {
+		limit = { FROM = { religion = nurglite_religion } }
+		set_country_flag = defeated_nurgle
+	}
+
+	if = {
+		limit = { FROM = { religion = khornate_religion } }
+		set_country_flag = defeated_khorne
+	}
+
+	if = {
+		limit = { FROM = { religion = tzeentchian_religion } }
+		set_country_flag = defeated_tzeentch
+	}
+
+	if = {
+		limit = { FROM = { religion = slaaneshi_religion } }
+		set_country_flag = defeated_slaanesh
+	}
+
+	if = {
+		limit = { FROM = { religion = chaos_undivided_religion } }
+		set_country_flag = defeated_undivided
+	}
+
+	if = {
+		limit = { FROM = { religion = norscan } }
+		set_country_flag = defeated_norscan
+	}
+}
+
+# For Bretonnia Grail Quest
+
+on_heir_death = {
+		hidden_effect = {
+			set_variable = {
+				which = heirGrailQuestLevel
+				value = 0
+			}
+#		clr_country_flag = heir_started_grail_quest
+		remove_country_modifier = heir_on_grail_quest_modifier
+	}
+}
+
+on_new_heir = {
+		hidden_effect = {
+			set_variable = {
+				which = heirGrailQuestLevel
+				value = 0
+			}
+#		clr_country_flag = heir_started_grail_quest
+		remove_country_modifier = heir_on_grail_quest_modifier
+	}
+}
+
+
+on_new_monarch = {
+	if = {
+		limit = { has_heir = no }
+
+		hidden_effect = {
+			set_variable = {
+				which = heirGrailQuestLevel
+				value = 0
+			}
+		}
+#		clr_country_flag = heir_started_grail_quest
+		remove_country_modifier = heir_on_grail_quest_modifier
+	}	
+}
+
+# For threat to the world
+
+on_war_lost = {
+	remove_country_modifier = threat_to_the_world
+}
+
+
+
+
+
+
+on_province_culture_converted = {
+	if = {
+		limit = {
+			owner = { culture_group = PREV }
+			NOT = { trade_goods = slaves }
+			has_province_modifier = enslaved_lesser_races
+		}
+		remove_province_modifier = enslaved_lesser_races
+	}
+
+	if = {
+		limit = {
+			owner = { culture_group = PREV }
+			NOT = { trade_goods = slaves }
+			has_province_modifier = industrial_enslavement
+		}
+		remove_province_modifier = industrial_enslavement
+	}
+	
+}
+
+
+on_expanded_infrastructure = {
+	if = {
+		limit = {
+			num_of_times_expanded_infrastructure = 1
+			owner = { has_estate_privilege = estate_guild_industrial_infrastructure }
+		}
+		add_province_modifier = {
+			name = industrial_infrastructure
+			duration = -1
+		}
+		add_province_modifier = {
+			name = war_rail_system
+			duration = -1
+		}
+
+		every_neighbor_province = {
+			limit = {
+				owned_by = ROOT
+			}
+			add_province_modifier = {
+				name = war_rail_system
+				duration = -1
+			}
+		}
+	}
+}
+
+on_mandate_of_heaven_gained = {
+	if = {
+		limit = { 
+			religion = vampiric
+		}
+		country_event = { 
+		    id = solar_mandate_events.1
+		}
+	} else_if = {
+		limit = { 
+			religion = lady_of_the_lake
+		}
+		country_event = { 
+		    id = solar_mandate_events.2
+		}
+	} else_if = {
+		limit = { 
+			religion = myrmidia
+		}
+		country_event = { 
+		    id = solar_mandate_events.3
+		}
+	} else_if = {
+		limit = { 
+			religion = ursun
+		}
+		country_event = { 
+		    id = solar_mandate_events.4
+		}
+	} else_if = {
+		limit = { 
+			religion_group = old_world_denominations
+		}
+		country_event = { 
+		    id = solar_mandate_events.5
+		}
+	} else_if = {
+		limit = { 
+			religion = hashut
+		}
+		country_event = { 
+		    id = solar_mandate_events.6
+		}
+	} else_if = {
+		limit = { 
+			religion = norscan
+		}
+		country_event = { 
+		    id = solar_mandate_events.7
+		}
+	} else_if = {
+		limit = { 
+			religion_group = ruinous_powers_denominations
+		}
+		country_event = { 
+		    id = solar_mandate_events.8
+		}
+	} else_if = {
+		limit = { 
+			religion_group = greenskin_denominations # Gork N Mork
+		}
+		country_event = { 
+		    id = solar_mandate_events.9
+		}
+	} else_if = {
+		limit = { 
+			religion_group = ogre_denominations # Great Maw
+		}
+		country_event = { 
+		    id = solar_mandate_events.10
+		}
+	} else_if = {
+		limit = { 
+			religion_group = elven_denominations # Cadai, Cytharai, & Asrai Cadai
+		}
+		country_event = { 
+		    id = solar_mandate_events.11
+		}
+	} else_if = {
+		limit = { 
+			religion_group = dawi_denominations # Ancestor God Worship
+		}
+		country_event = { 
+		    id = solar_mandate_events.12
+		}
+	} else_if = {
+		limit = { 
+			religion_group = the_old_faith
+		}
+		country_event = { 
+		    id = solar_mandate_events.13
+		}
+	} else_if = {
+		limit = { 
+			religion = the_one_faith
+		}
+		country_event = { 
+		    id = solar_mandate_events.14
+		}
+	} else_if = {
+		limit = { 
+			religion = nehekharan_pantheon
+		}
+		country_event = { 
+		    id = solar_mandate_events.15
+		}
+	} else_if = {
+		limit = { 
+			religion = nagash_worship
+		}
+		country_event = { 
+		    id = solar_mandate_events.16
+		}
+	} else_if = {
+		limit = { 
+			religion_group = skaven_denominations # Horned Rat Worship
+		}
+		country_event = { 
+		    id = solar_mandate_events.17
+		}
+	} else_if = {
+		limit = { 
+			religion_group = lizardmen_denominations # Old Ones Worship
+		}
+		country_event = { 
+		    id = solar_mandate_events.18
+		}
+	} else_if = {
+		limit = { 
+			religion_group = eastern_denominations # Yin Yan
+		}
+		country_event = { 
+		    id = solar_mandate_events.19
+		}
+	} else_if = {
+		limit = { 
+			religion_group = indish_denominations # Thousand Gods
+		}
+		country_event = { 
+		    id = solar_mandate_events.20
+		}
+	}
+}
+
+
+
+
+
+# on_new_monarch = {
+# 	if = { 
+# 		limit = {
+# 			NOT = { ruler_has_personality = immortal_personality }
+# 			OR = {
+# 				culture_group = asur_group
+# 				culture_group = druchii_group
+# 				culture_group = dwarf_group
+# 				culture_group = asrai_group
+# 				culture_group = lizardmen_group
+# 				culture_group = chaos_dwarf_group
+# 			}
+# 		}
+# 		add_ruler_personality = immortal_personality
+# 	}
+# }
+
+
+
+#on_culture_promoted = {
+#	every_owned_province = {
+#		remove_province_modifier = enslaved_lesser_races
+#	}
+#
+#	every_owned_province = {
+#		limit = {
+#			OR = {
+#				AND  = {
+#					NOT = { culture_group = ROOT }
+#					NOT = { accepted_culture = ROOT }
+#				}
+#				trade_goods = slaves
+#			}
+#			owner = { has_estate_privilege = estate_guild_enslave_lesser_races }
+#		}
+#		add_province_modifier = {
+#			name = enslaved_lesser_races
+#			duration = -1
+#		}
+#	}
+#}
+
+#on_culture_demoted = {
+#	every_owned_province = {
+#		remove_province_modifier = enslaved_lesser_races
+#	}
+#
+#	every_owned_province = {
+#		limit = {
+#			OR = {
+#				AND  = {
+#					NOT = { culture_group = ROOT }
+#					NOT = { accepted_culture = ROOT }
+#				}
+#				trade_goods = slaves
+#			}
+#			owner = { has_estate_privilege = estate_guild_enslave_lesser_races }
+#		}
+#		add_province_modifier = {
+#			name = enslaved_lesser_races
+#			duration = -1
+#		}
+#	}
+#}
+
+
+
+
+
+## Old Ones Annexed
+on_annexed = {
+
+	FROM = {
+		capital_scope = {
+			change_religion = ROOT
+			change_culture = ROOT
+			add_core = ROOT
+		}
+	}
+
+	if = {
+		limit = {
+			or = {
+				and = {
+					FROM = { TAG = X95 }
+					NOT = { has_country_flag = got_tech_from_X95_flag }
+				}
+				and = {
+					FROM = { TAG = X96 }
+					NOT = { has_country_flag = got_tech_from_X96_flag }
+				}
+				and = {
+					FROM = { TAG = X97 }
+					NOT = { has_country_flag = got_tech_from_X97_flag }
+				}
+				and = {
+					FROM = { TAG = X98}
+					NOT = { has_country_flag = got_tech_from_X98_flag }
+				}
+				and = {
+					FROM = { TAG = X99 }
+					NOT = { has_country_flag = got_tech_from_X99_flag }
+				}
+			}
+		}
+
+		if = {
+			limit = { FROM = { TAG = X95} }
+			set_country_flag = got_tech_from_X95_flag
+		} else_if = {
+			limit = { FROM = { TAG = X96} }
+			set_country_flag = got_tech_from_X96_flag
+		} else_if = {
+			limit = { FROM = { TAG = X97} }
+			set_country_flag = got_tech_from_X97_flag
+		} else_if = {
+			limit = { FROM = { TAG = X98} }
+			set_country_flag = got_tech_from_X98_flag
+		} else_if = {
+			limit = { FROM = { TAG = X99} }
+			set_country_flag = got_tech_from_X99_flag
+		}
+
+		country_event = { id = return_of_the_old_ones_events.10 }
+
+	}
+}
+
+
+# For edge cases - make sure this works!
+on_province_owner_change = {
+	if = {
+		limit = { development = 100 }
+		owner = {
+			ROOT = {
+				change_religion = PREV
+				change_culture = PREV
+				add_core = PREV
+			}
+		}
+	}
+}

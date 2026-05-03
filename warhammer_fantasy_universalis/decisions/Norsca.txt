@@ -1,0 +1,79 @@
+country_decisions = {
+	norsca_cleanse_chaos = {
+		major = yes
+		potential = {
+			OR = {
+                ai = no
+                is_year = 2550
+            }
+			religion = druidism
+			culture_group = norse_group
+
+            AND = {
+				has_global_flag = NORSCA_DESTROY_MONOLITH_1
+				has_global_flag = NORSCA_DESTROY_MONOLITH_2
+				has_global_flag = NORSCA_DESTROY_MONOLITH_3
+				has_global_flag = NORSCA_DESTROY_MONOLITH_4
+				has_global_flag = NORSCA_DESTROY_MONOLITH_5
+			}
+		}
+		allow = {
+            is_at_war = no
+            treasury = 1000
+            manpower = 80
+            adm_power = 200
+            dip_power = 200
+            mil_power = 200
+        }
+        effect = {
+            country_event = {
+                id = flavor_norscan_events.12
+            }
+        }
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	norsca_cleanse_monoliths = {
+		major = yes
+		potential = {
+			OR = {
+                ai = no
+                is_year = 2550
+            }
+			religion = druidism
+			culture_group = norse_group
+			NOT = { #Do not show if we have cleared all monoliths (NORSCA_CLEANSED_CHAOS_EVENT is gained after cleanse decision removes other flags)
+				OR = {
+					has_global_flag = NORSCA_CLEANSED_CHAOS_EVENT
+					AND = {
+						has_global_flag = NORSCA_DESTROY_MONOLITH_1
+						has_global_flag = NORSCA_DESTROY_MONOLITH_2
+						has_global_flag = NORSCA_DESTROY_MONOLITH_3
+						has_global_flag = NORSCA_DESTROY_MONOLITH_4
+						has_global_flag = NORSCA_DESTROY_MONOLITH_5
+					}
+				}
+			} 
+		}
+		allow = {
+            is_at_war = no
+            any_owned_province = {
+				OR = {
+					has_province_modifier = norsca_chaos_monolith
+					has_province_modifier = norsca_chaos_monolith_2
+					has_province_modifier = norsca_chaos_monolith_3
+				}
+				infantry_in_province = 20
+			}
+        }
+        effect = {
+            country_event = {
+                id = flavor_norscan_events.13
+            }
+        }
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}

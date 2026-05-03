@@ -1,0 +1,600 @@
+########################################
+# Events for Religious Leagues
+#
+# written by Martin Anward
+########################################
+
+namespace = religious_leagues
+
+####################################################################################
+# EMPEROR TRIUMPHANT EVENTS (Lock hre religion based on victor religion)
+####################################################################################
+# The Emperor Triumphant (Sigmarite)
+country_event = {
+	id = religious_leagues.1
+	title = "religious_leagues.1.t"
+	desc = "religious_leagues.1.d"
+	picture = RELIGIOUS_WARS_eventPicture
+	major = yes
+
+	is_triggered_only = yes
+	
+	trigger = {
+		has_dlc = "Art of War"
+		hre_religion = cult_of_sigmar
+	}
+	
+	immediate = {
+		hidden_effect = {
+			set_hre_religion_locked = yes
+		}
+	}
+
+	option = {
+		name = "religious_leagues.1.a"
+		tooltip = { 
+			set_hre_religion_locked = yes 
+		}
+	}
+}
+
+# The Emperor Triumphant (Taalite)
+country_event = {
+	id = religious_leagues.8
+	title = "religious_leagues.8.t"
+	desc = "religious_leagues.8.d"
+	picture = RELIGIOUS_WARS_eventPicture
+	major = yes
+
+	is_triggered_only = yes
+	
+	trigger = {
+		has_dlc = "Art of War"
+		hre_religion = cult_of_taal_religion
+	}
+	
+	immediate = {
+		hidden_effect = {
+			set_hre_religion_locked = yes
+		}
+	}
+
+	option = {
+		name = "religious_leagues.8.a"
+		tooltip = { 
+			set_hre_religion_locked = yes 
+		}
+	}
+}
+
+# The Emperor Triumphant (ulrican)
+country_event = {
+	id = religious_leagues.9
+	title = "religious_leagues.9.t"
+	desc = "religious_leagues.9.d"
+	picture = RELIGIOUS_WARS_eventPicture
+	major = yes
+
+	is_triggered_only = yes
+	
+	trigger = {
+		has_dlc = "Art of War"
+		hre_religion = cult_of_ulric_religion
+	}
+	
+	immediate = {
+		hidden_effect = {
+			set_hre_religion_locked = yes
+		}
+	}
+
+	option = {
+		name = "religious_leagues.9.a"
+		tooltip = { 
+			set_hre_religion_locked = yes 
+		}
+	}
+}
+
+####################################################################################
+# LEAGUE VICTORY EVENTS
+####################################################################################
+
+# Victory of the Cult of Sigma League
+country_event = {
+	id = religious_leagues.3
+	title = "religious_leagues.3.t"
+	desc = "religious_leagues.3.d"
+	picture = RELIGIOUS_WARS_eventPicture
+	major = yes
+
+	is_triggered_only = yes
+	
+	trigger = {
+		has_dlc = "Art of War"
+		OR = {
+			hre_religion = cult_of_taal_religion
+			hre_religion = cult_of_taal_religion
+		}
+		OR = {
+			NOT = { has_country_flag = hre_religion_changed }
+			had_country_flag = { flag = hre_religion_changed days = 30 }
+		}
+	}
+	
+	immediate = {
+		set_country_flag = hre_religion_changed
+		hidden_effect = {
+			set_hre_heretic_religion = cult_of_ulric_religion
+			set_hre_religion = cult_of_sigmar
+			set_hre_religion_locked = yes
+		}
+	}
+
+	option = {
+		name = "religious_leagues.3.a"
+		tooltip = { 
+			set_hre_heretic_religion = cult_of_ulric_religion
+			set_hre_religion = cult_of_sigmar
+			set_hre_religion_locked = yes
+		}
+	}
+}
+
+# Victory of the Ulrican League
+country_event = {
+	id = religious_leagues.2
+	title = "religious_leagues.2.t"
+	desc = "religious_leagues.2.d"
+	picture = RELIGIOUS_WARS_eventPicture
+	major = yes
+
+	is_triggered_only = yes
+	
+	trigger = {
+		has_dlc = "Art of War"
+		hre_religion = cult_of_sigmar
+		hre_heretic_religion = cult_of_ulric_religion
+		OR = {
+			NOT = { has_country_flag = hre_religion_changed }
+			had_country_flag = { flag = hre_religion_changed days = 30 }
+		}
+	}
+	
+	immediate = {
+		set_country_flag = hre_religion_changed
+		hidden_effect = {
+			#set to treaty first so we can set everything else without elections being called at the wrong time
+			set_hre_religion_treaty = yes
+			set_hre_heretic_religion = catholic
+			set_hre_religion = cult_of_ulric_religion
+
+			#now set it to locked once we've completed the tasks
+			set_hre_religion_locked = yes
+			
+		}
+	}
+
+	option = {
+		name = "religious_leagues.2.a"
+		tooltip = { 
+			set_hre_heretic_religion = catholic
+			set_hre_religion = cult_of_ulric_religion
+			set_hre_religion_locked = yes			
+		}
+
+		set_hre_religion = cult_of_ulric_religion
+	}
+
+}
+
+# Victory of the Taalite League
+country_event = {
+	id = religious_leagues.27
+	title = "religious_leagues.27.t"
+	desc = "religious_leagues.27.d"
+	picture = RELIGIOUS_WARS_eventPicture
+	major = yes
+
+	is_triggered_only = yes
+	
+	trigger = {
+		has_dlc = "Art of War"
+		hre_religion = cult_of_sigmar
+		hre_heretic_religion = cult_of_taal_religion
+		OR = {
+			NOT = { has_country_flag = hre_religion_changed }
+			had_country_flag = { flag = hre_religion_changed days = 30 }
+		}
+	}
+	
+	immediate = {
+		set_country_flag = hre_religion_changed
+		hidden_effect = {
+			#set to treaty first so we can set everything else without elections being called at the wrong time
+			set_hre_religion_treaty = yes
+			set_hre_heretic_religion = cult_of_sigmar
+			set_hre_religion = cult_of_taal_religion
+
+			#now set it to locked once we've completed the tasks
+			set_hre_religion_locked = yes
+		}
+	}
+
+	option = {
+		name = "religious_leagues.27.a"
+		tooltip = { 
+			set_hre_heretic_religion = cult_of_sigmar
+			set_hre_religion = cult_of_taal_religion
+			set_hre_religion_locked = yes			
+		}
+
+		# this should elect a new emperor
+		set_hre_religion = cult_of_taal_religion
+	}
+}
+
+####################################################################################
+# IMPERIAL DIET EVENTS (RELIGIOUS PEACE IN EMPIRE)
+####################################################################################
+
+# The Imperial Diet (Catholic)
+country_event = {
+	id = religious_leagues.6
+	title = "religious_leagues.6.t"
+	desc = "religious_leagues.6.d"
+	picture = RELIGIOUS_WARS_eventPicture
+	major = yes
+	fire_only_once = yes
+	
+	trigger = {
+		has_dlc = "Art of War"
+		is_emperor = yes
+		is_at_war = no
+		NOT = {
+			any_known_country = {
+				is_in_league_war = yes
+			}
+		}
+		has_regency = no
+		hre_religion_locked = no
+		#hre_religion_treaty = no
+		religion = cult_of_sigmar
+		OR = {
+			AND = {
+				hre_leagues_enabled = yes
+				had_global_flag = {
+					flag = evangelical_union_happened
+					days = 10950
+				}		
+				NOT = {
+					any_known_country = {
+						is_elector = yes
+						OR = {
+							religion = cult_of_sigmar
+							religion = cult_of_taal_religion
+							religion = cult_of_ulric_religion
+						}
+						is_league_enemy = ROOT
+						truce_with = ROOT
+					}		
+				}
+			}
+			AND = {
+				NOT = { has_global_flag = evangelical_union_happened }
+				is_year = 2725
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 60
+	}
+
+	option = {
+		name = "religious_leagues.6.a"
+		set_hre_religion_locked = yes
+	}
+}
+
+# The Imperial Diet (Lutheranist)
+country_event = {
+	id = religious_leagues.7
+	title = "religious_leagues.7.t"
+	desc = "religious_leagues.7.d"
+	picture = RELIGIOUS_WARS_eventPicture
+	major = yes
+	fire_only_once = yes
+	
+	trigger = {
+		has_dlc = "Art of War"
+		is_emperor = yes
+		is_at_war = no
+		NOT = {
+			any_known_country = {
+				is_in_league_war = yes
+			}
+		}		
+		has_regency = no	
+		hre_religion_locked = no
+		hre_religion_treaty = no
+		religion = cult_of_ulric_religion
+		OR = {
+			AND = {
+				hre_leagues_enabled = yes
+				had_global_flag = {
+					flag = evangelical_union_happened
+					days = 10950
+				}		
+				NOT = {
+					any_known_country = {
+						is_elector = yes
+						religion = cult_of_sigmar
+						is_league_enemy = ROOT
+						truce_with = ROOT
+					}		
+				}
+			}
+			AND = {
+				NOT = { has_global_flag = evangelical_union_happened }
+				is_year = 2725
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 60
+	}
+
+	option = {
+		name = "religious_leagues.7.a"
+		set_hre_religion_locked = yes
+	}
+}
+
+# The Imperial Diet (Calvinist)
+country_event = {
+	id = religious_leagues.45
+	title = "religious_leagues.45.t"
+	desc = "religious_leagues.45.d"
+	picture = RELIGIOUS_WARS_eventPicture
+	major = yes
+	fire_only_once = yes
+	
+	trigger = {
+		has_dlc = "Art of War"
+		is_emperor = yes
+		is_at_war = no
+		NOT = {
+			any_known_country = {
+				is_in_league_war = yes
+			}
+		}		
+		has_regency = no	
+		hre_religion_locked = no
+		hre_religion_treaty = no
+		religion = cult_of_taal_religion
+		OR = {
+			AND = {
+				hre_leagues_enabled = yes
+				had_global_flag = {
+					flag = evangelical_union_happened
+					days = 10950
+				}		
+				NOT = {
+					any_known_country = {
+						is_elector = yes
+						religion = cult_of_sigmar
+						is_league_enemy = ROOT
+						truce_with = ROOT
+					}		
+				}
+			}
+			AND = {
+				NOT = { has_global_flag = evangelical_union_happened }
+				is_year = 2725
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 60
+	}
+
+	option = {
+		name = "religious_leagues.45.a"
+		set_hre_religion_locked = yes
+	}
+}
+
+####################################################################################
+# MISC
+####################################################################################
+
+
+# The Evangelical Union (Enable leagues to form and decide them)
+country_event = {
+	id = religious_leagues.5
+	title = "religious_leagues.5.t"
+	desc = "religious_leagues.5.d"
+	picture = RELIGIOUS_WARS_eventPicture
+	major = yes
+	fire_only_once = yes
+	
+	trigger = {
+		has_dlc = "Art of War"
+		NOT = { has_global_flag = evangelical_union_happened }
+		hre_leagues_enabled = no
+		hre_religion_locked = no
+		#hre_religion_treaty = no
+		is_emperor = yes		
+		is_year = 2503
+		has_religious_tension = {amount = 90}
+		religion = cult_of_sigmar
+		#has_global_flag = counter_reformation
+		any_known_country = {
+			is_elector = yes
+			OR = {
+				religion = cult_of_taal_religion
+				religion = cult_of_ulric_religion
+			}
+			is_free_or_tributary_trigger = yes
+		}
+		NOT = { hre_reform_passed = erbkaisertum }
+		NOT = { has_global_flag = great_peasants_war_flag }
+	}
+	
+	mean_time_to_happen = {
+		months = 1		
+	}
+
+	immediate = {
+
+		#############################
+		# Get ulrican provinces #
+		#############################
+		while = {
+			limit = {
+				any_province = {
+					is_part_of_hre = yes
+					owner = {
+						is_part_of_hre = yes
+						religion = cult_of_ulric_religion
+					}
+					NOT = { has_province_flag = hre_post_leaguewar_cult_of_ulric_religion_owned }
+				}
+			}
+
+			1 = { #altdorf is the global variable substitute
+				change_variable = {
+					which = cult_of_ulric_religion_hre_member_provinces
+					value = 1
+				}
+			}
+
+			random_province = {
+				limit = {
+					is_part_of_hre = yes
+					owner = {
+						is_part_of_hre = yes
+						religion = cult_of_ulric_religion
+					}
+					NOT = { has_province_flag = hre_post_leaguewar_cult_of_ulric_religion_owned }
+				}
+				set_province_flag = hre_post_leaguewar_cult_of_ulric_religion_owned
+			}
+		}
+
+		every_province = {
+			limit = {
+				is_part_of_hre = yes
+			}
+			clr_province_flag = hre_post_leaguewar_cult_of_ulric_religion_owned
+		}
+
+		###########################
+		# Get taalite provinces #
+		###########################
+		while = {
+			limit = {
+				any_province = {
+					is_part_of_hre = yes
+					owner = {
+						is_part_of_hre = yes
+						religion = cult_of_taal_religion
+					}
+					NOT = { has_province_flag = hre_post_leaguewar_cult_of_taal_religion_owned }
+				}
+			}
+
+			1 = { #Stockholm is the global variable substitute
+				change_variable = {
+					which = cult_of_taal_religion_hre_member_provinces
+					value = 1
+				}
+			}
+
+			random_province = {
+				limit = {
+					is_part_of_hre = yes
+					owner = {
+						is_part_of_hre = yes
+						religion = cult_of_taal_religion
+					}
+					NOT = { has_province_flag = hre_post_leaguewar_cult_of_taal_religion_owned }
+				}
+				set_province_flag = hre_post_leaguewar_cult_of_taal_religion_owned
+			}
+		}
+
+		every_province = {
+			limit = {
+				is_part_of_hre = yes
+			}
+			clr_province_flag = hre_post_leaguewar_cult_of_taal_religion_owned
+		}
+		##################################
+		# Determine the heretic religion #
+		##################################
+		1 = {
+
+			#Compare Ulric to Ulric (1)
+			if = {
+                limit = {
+                    check_variable = {
+                        which = cult_of_taal_religion_hre_member_provinces
+                        which = cult_of_ulric_religion_hre_member_provinces
+                    }
+                }
+                set_hre_heretic_religion = cult_of_ulric_religion
+            }
+
+            #Compare all faiths to Taal (2)
+            else_if = {
+				limit = {
+                    check_variable = {
+                        which = cult_of_taal_religion_hre_member_provinces
+                        which = cult_of_ulric_religion_hre_member_provinces
+                    }
+                }
+                set_hre_heretic_religion = cult_of_taal_religion
+            }
+		}
+	}
+	#Enable religious leagues and indicate the new heretic league
+	option = {
+		name = "religious_leagues.5.a"
+		set_global_flag = evangelical_union_happened
+		
+		if = {
+			limit = {
+				hre_heretic_religion = cult_of_ulric_religion
+			}
+			custom_tooltip = cult_of_ulric_religion_league_tt
+		}
+
+		else_if = {
+			limit = {
+				hre_heretic_religion = cult_of_taal_religion
+			}
+			custom_tooltip = cult_of_taal_religion_league_tt
+		}
+
+		enable_hre_leagues = yes
+	}
+
+	#Clean up variables
+	after = {
+		1 = {
+			set_variable = {
+				which = cult_of_ulric_religion_hre_member_provinces
+				value = 0
+			}
+
+			set_variable = {
+				which = cult_of_taal_religion_hre_member_provinces
+				value = 0
+			}
+		}
+	}	
+}

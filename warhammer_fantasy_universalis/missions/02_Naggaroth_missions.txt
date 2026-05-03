@@ -1,0 +1,1670 @@
+#### Naggaroth
+
+
+##################################
+##### Naggaroth
+##################################
+
+
+war_naggaroth_missions_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = H12 }
+	}
+
+
+## The Black Crag, City of Shadows, Hag Graef is known for its enormous wealth. Let us assume direct control.
+	naggaroth_annex_hag_graef = { 
+		icon = mission_naggaroth_hag_graef
+		position = 3
+		required_missions = { naggaroth_from_the_brink }
+		provinces_to_highlight = {
+			owned_by = H16
+		}	
+		trigger = {
+			OR = {
+				AND = {
+					overlord_of = H16
+					H16 = { NOT = { liberty_desire = 1 } }
+				}
+				NOT = { exists = H16 }
+			}
+		}
+
+		effect = {
+			add_years_of_income = 1		
+		}
+	}
+
+## The forests of naggaroth are freezing, cursed places filled with monsters. Let us civilize these lands to stabilize our realm.
+	naggaroth_tame_the_forests = { 
+		icon = mission_naggaroth_evil_forest
+		position = 5
+		required_missions = { naggaroth_families_in_their_place }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { development = 5 }
+			OR = {
+				has_terrain = forest
+				has_terrain = woods
+			}
+			continent = north_america
+		}	
+		trigger = {
+			NOT = {
+				any_owned_province = {
+					OR = {
+						has_terrain = forest
+						has_terrain = woods
+					}
+					NOT = { development = 5 }
+					continent = north_america
+				}
+			}
+			development_in_provinces = {
+				value = 100
+				continent = north_america
+				NOT = { has_terrain = urban_terrain }
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_tamed_forests
+    			duration = -1  
+			}	
+		}
+	}
+
+## In order to better project power, we shall build immense monuments to ensure our rule is unquestioned.
+	naggaroth_great_monuments = { 
+		icon = mission_naggaroth_temple
+		position = 7
+		required_missions = { naggaroth_tame_the_forests }
+		provinces_to_highlight = {
+			has_discovered = ROOT
+			has_great_project = {
+				type = any
+				tier = 1
+			}
+			NOT = {
+				has_great_project = {
+					type = any
+					tier = 2
+				}
+			}
+		}	
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_great_project = {
+					type = any
+					tier = 2
+				}
+				value = 5
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_unassailable_monuments
+    			duration = -1  
+			}		
+		}
+	}
+
+
+	naggaroth_the_crown_unchallenged = { 
+		icon = mission_naggaroth_malekith
+		position = 9
+		required_missions = { naggaroth_deal_with_morathi }
+
+		trigger = {
+			crown_land_share = 75
+		}
+
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_complete_control_1
+    			duration = -1  
+			}	
+		}
+	}
+
+	naggaroth_the_crown_absolute = { 
+		icon = mission_naggaroth_malekith_2
+		position = 21
+		required_missions = { naggaroth_the_crown_unchallenged }
+		trigger = {
+			OR = {
+				absolutism = 50
+				has_government_power = {
+					mechanic_type = control_of_court_mechanic
+					power_type = control_of_court_power
+					value = 90
+				}
+			}
+		}
+
+		effect = {
+			remove_country_modifier = naggaroth_complete_control_1
+			add_country_modifier = { 
+    			name = naggaroth_complete_control_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+
+		}
+	}
+
+}
+
+war_naggaroth_missions_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = H12 }
+	}
+
+
+## With our subjects temporarily placated, we can begin the process of integration without fear of open rebellion.
+	naggaroth_from_the_brink = { 
+		icon = mission_naggaroth_throne
+		position = 2
+		required_missions = { naggaroth_build_the_capital }
+		provinces_to_highlight = {
+			owner = {
+				is_subject_of = ROOT
+				liberty_desire = 50
+			}
+		}	
+		trigger = {
+			all_subject_country = {
+				NOT = { liberty_desire = 50 }
+			}
+		}
+
+		effect = {	
+			add_country_modifier = { 
+    			name = naggaroth_direct_integration
+    			duration = -1  
+			}
+		}
+	}
+
+# Har Ganeth, also called the "City of Executioners," the "City of Khaine" or the "Fortress of Ice," is a cursed Dark Elven fortress-city of northern Naggaroth dedicated to the worship of Khaine, the Bloody-Handed God, the Elven god of war and murder. From here, we can conscript cold blooded killers
+	naggaroth_annex_har_ganeth = { 
+		icon = mission_naggaroth_har_ganeth
+		position = 3
+		required_missions = { naggaroth_from_the_brink }
+		provinces_to_highlight = {
+			owned_by = H15
+		}	
+		trigger = {
+			OR = {
+				AND = {
+					overlord_of = H15
+					H15 = { NOT = { liberty_desire = 1 } }
+				}
+				NOT = { exists = H15 }
+			}
+		}
+
+		effect = {
+			add_army_professionalism = 0.1
+		}
+	}
+
+## We have now taken care of the warring dark elf families, and learned a thing or two along the way.
+	naggaroth_families_in_their_place = { 
+		icon = mission_have_two_subjects
+		position = 4
+		required_missions = { naggaroth_annex_hag_graef naggaroth_annex_har_ganeth naggaroth_annex_clar_karond naggaroth_annex_karond_kar }
+		trigger = {
+			stability = 2
+			legitimacy_equivalent = 100
+		}
+
+		effect = {
+			remove_country_modifier = war_warring_families
+			add_country_modifier = { 
+    			name = naggaroth_we_know_how_to_deal_with_subjects
+    			duration = -1  
+			}	
+		}
+	}
+
+## With the rest of the families taken care of, we can now deal with the biggest threat of all: Morathi. With her sorceresses under our direct control, we will be far more powerful.
+	naggaroth_annex_ghrond = { 
+		icon = mission_naggaroth_ghrond
+		position = 6
+		required_missions = { naggaroth_families_in_their_place }
+		provinces_to_highlight = {
+			owned_by = H13
+		}	
+		trigger = {
+			OR = {
+				AND = {
+					overlord_of = H13
+					H13 = { NOT = { liberty_desire = 1 } }
+				}
+				NOT = { exists = H13 }
+			}
+		}
+
+		effect = {
+			change_innovativeness = 10	
+		}
+	}
+
+
+
+## The lands to on our western coast are shattered and broken into fragments. Our men must be hard and hardy to traverse them.
+	naggaroth_reach_the_west_coast = {
+		icon = mission_naggaroth_broken_lands
+		required_missions = { naggaroth_ready_the_army }
+		position = 10
+		provinces_to_highlight = {
+			region = broken_lands_region
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 1
+				region = broken_lands_region
+			}
+		}
+		effect = {
+			custom_tooltip = claim_broken_lands_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						region = broken_lands_region
+						is_city = yes
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+## Our men must be hardy to withstand the broken lands. Let us train them to be so.
+	naggaroth_conquer_the_broken_lands = {
+		icon = mission_naggaroth_broken_lands
+		required_missions = { naggaroth_reach_the_west_coast }
+		position = 12
+		provinces_to_highlight = {
+			NOT = { country_or_subject_holds = ROOT }
+			region = broken_lands_region
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 15
+				region = broken_lands_region
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_broken_lands_1
+    			duration = -1  
+			}
+		}
+	}
+
+# Our empire spreads across the great western sea. We must learn to move quickly and efficiency, or risk our ships disintegrating before us.
+	naggaroth_to_the_west = {
+		icon = mission_cathay_city
+		required_missions = { naggaroth_conquer_the_broken_lands }
+		position = 14
+		provinces_to_highlight = {
+			NOT = { country_or_subject_holds = ROOT }
+			continent = asia
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 3
+				continent = asia
+			}
+		}
+		effect = {
+			remove_country_modifier = naggaroth_broken_lands_1
+			add_country_modifier = { 
+    			name = naggaroth_broken_lands_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## We must rebuild our black arks.
+	naggaroth_rebuild_the_black_arks = {
+		icon = mission_naggaroth_black_ark
+		required_missions = { naggaroth_build_a_navy }
+		position = 16
+		trigger = {
+			num_of_heavy_ship = 15
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_black_arks
+    			duration = -1  
+			}
+		}
+	}
+
+## WE must build transports to prepare for an invasion of ulthuan
+	naggaroth_prepare_the_invasion = {
+		icon = mission_naggaroth_ships
+		required_missions = { naggaroth_rebuild_the_black_arks }
+		position = 17
+		trigger = {
+			num_of_transport = 15
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_transport_fleet
+    			duration = -1  
+			}
+		}
+	}
+
+# Our conquest of Ulthuan will be much easier if we can find allies
+	naggaroth_ally_on_ulthuan = { 
+		icon = mission_high_elf_culture
+		required_missions = { naggaroth_send_diplomats }
+		position = 18
+		provinces_to_highlight = {
+			superregion = ulthuan_superregion
+		}	
+		trigger = {
+			OR {
+				any_country = {
+					capital_scope = { superregion = ulthuan_superregion }
+					alliance_with = ROOT
+				}
+
+				num_of_provinces_owned_or_owned_by_subjects_with = {
+					value = 3
+					superregion = ulthuan_superregion
+				}
+			}
+		}
+
+		effect = {
+			every_ally = {
+				add_trust = {
+			    	who = ROOT
+			    	value = 25
+				}
+			}
+			every_subject_country = {
+				add_trust = {
+			    	who = ROOT
+			    	value = 25
+				}
+			}
+
+			every_country = {
+				limit = {
+					NOT = { alliance_with = ROOT }
+					capital_scope = { superregion = ulthuan_superregion }
+				}
+				capital_scope = { add_permanent_claim = ROOT }
+			}
+		}
+	}
+
+## We will defend our Ulthuan beachhead to the last man. This invasion is our chance for success.
+	naggaroth_a_powerful_beachhead = {
+		icon = mission_invade_island
+		required_missions = { naggaroth_foothold_on_ulthuan }
+		position = 20
+		provinces_to_highlight = {
+			superregion = ulthuan_superregion
+		}	
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 4
+				fort_level = 2
+				superregion = ulthuan_superregion
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_brutal_forts
+    			duration = -1  
+			}
+		}
+	}
+
+## To claim Ulthuan, we may first need to burn it down. We will rebuild it as well
+	naggaroth_purge_and_rebuild = {
+		icon = mission_naggaroth_burning_city
+		required_missions = { naggaroth_a_powerful_beachhead }
+		position = 21
+		provinces_to_highlight = {
+			superregion = ulthuan_superregion
+			owned_by = ROOT
+			OR = {
+				devastation = 1
+				NOT = { num_of_buildings_in_province = 1 }
+				NOT = { development = 5 }
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 30
+				NOT = { devastation = 1 }
+				num_of_buildings_in_province = 1
+				development = 5
+				superregion = ulthuan_superregion
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_rebuild_from_ashes
+    			duration = -1  
+			}
+		}
+	}
+
+}
+
+war_naggaroth_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = H12 }
+	}
+
+
+## Our subjects sneer at us from their cities. Naggarond must be raised higher than theirs. We shall build great works that all shall tremble before.
+	naggaroth_build_the_capital = {
+		icon = mission_naggaroth_naggarond
+		required_missions = {  }
+		position = 1
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+		}
+		trigger = {
+			OR = {
+				capital_scope = {
+					development = 30
+				}
+				hidden_trigger = {
+					AND = {
+						ai = yes
+						is_year = 2515
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_towering_monuments
+    			duration = -1  
+			}
+		}
+	}
+
+## Clar Karond, which means the "Tower of Doom" in the Dark Elven dialect of Druhir, also known as the "City of Ships,"[2a] serves as the Witch King Malekith's chief shipyard in Naggaroth, for it is here that the keels are laid for many thousands of Dark Elven raiding vessels. The City of Ships is also a major centre for the Druchii's Beastmasters.
+	naggaroth_annex_clar_karond = { 
+		icon = mission_naggaroth_clar_karond
+		position = 3
+		required_missions = { naggaroth_from_the_brink }
+		provinces_to_highlight = {
+			owned_by = H17
+		}	
+		trigger = {
+			OR = {
+				AND = {
+					overlord_of = H17
+					H17 = { NOT = { liberty_desire = 1 } }
+				}
+				NOT = { exists = H17 }
+			}
+		}
+
+		effect = {
+			add_navy_tradition = 20
+		}
+	}
+
+## Let us bring the church on side
+	naggaroth_deal_with_church = {
+		icon = mission_cytharai
+		required_missions = { naggaroth_bribery }
+		position = 4
+		trigger = {
+			OR = {
+				AND = {
+					estate_loyalty = {
+					    estate = estate_church
+					    loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_church
+						value = 1
+					}
+				}
+				NOT = {	
+					estate_influence = {
+					    estate = estate_church
+					    influence = 25
+					}
+				}
+				NOT = { has_estate = estate_church }
+			}
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+		}
+	}
+
+## We shall build them temples, but funded by state wealth. We know the secret ins and outs. The custodians shall be ours.
+	naggaroth_build_temples = {
+		icon = mission_naggaroth_temple
+		required_missions = { naggaroth_deal_with_church }
+		position = 5
+		provinces_to_highlight = {
+			owned_by = ROOT
+			has_tax_building_trigger = no
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+		 		has_tax_building_trigger = yes
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_state_churches
+    			duration = -1  
+			}
+		}
+	}
+
+
+	naggaroth_deal_with_mages = {
+		icon = mission_naggaroth_cult_of_pleasure
+		required_missions = { naggaroth_annex_ghrond naggaroth_night_of_knives }
+		position = 7
+		trigger = {
+			OR = {
+				AND = {
+					estate_loyalty = {
+					    estate = estate_mages
+					    loyalty = 75
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_mages
+						value = 2
+					}
+				}
+				NOT = {	
+					estate_influence = {
+					    estate = estate_mages
+					    influence = 20
+					}
+				}
+				NOT = { has_estate = estate_mages }
+			}
+		}
+		effect = {
+			country_event = { 
+			    id = dark_elf_events.200
+			}
+		}
+	}
+
+## We have robbed Morathi of her allies. Her city, her cult, her schemes - all gone. All that is left is for us to decide what to do with her. We must attain a position of unassailable strength before coming for her.
+	naggaroth_deal_with_morathi = {
+		icon = mission_naggaroth_morathi
+		required_missions = { naggaroth_deal_with_mages }
+		position = 8
+		trigger = {
+
+			if = {
+				limit = { has_dlc = "Cradle of Civilization" }
+				num_of_regiments_at_full_drill = 25
+			}
+
+			stability = 2
+			legitimacy_equivalent = 100
+			prestige = 50
+			if = {
+				limit = {
+					H13 = { has_ruler = "Morathi" }
+				}
+				OR = {
+					H13 = {
+						is_subject_of = ROOT
+						NOT = { liberty_desire = 25 }
+					}
+					NOT = { exists = H13 }
+				}
+			}
+		}
+		effect = {
+			country_event = { 
+			    id = dark_elf_events.201
+			}
+		}
+	}
+
+## Our armies stand ready for conquest.
+	naggaroth_ready_the_army = {
+		icon = mission_naggaroth_army
+		required_missions = {  }
+		position = 9
+		trigger = {
+			OR = {
+				army_size_percentage = 1
+				army_size = 50
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+		}
+	}
+
+## By setting up a network of fortresses, we can be more efficient in our management of them.
+	naggaroth_build_forts = {
+		icon = alpine_fortifications
+		required_missions = { naggaroth_ready_the_army }
+		position = 10
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { fort_level = 1 }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+		 		fort_level = 1
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_fort_network
+    			duration = -1  
+			}
+		}
+	}
+
+## The doom glades, while dangerous, hold naggaroth's most fertile lands.
+	naggaroth_reach_doom_glades = {
+		icon = mission_naggaroth_evil_forest
+		required_missions = { naggaroth_build_forts }
+		position = 11
+		provinces_to_highlight = {
+			region = doom_glades_region
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 1
+				region = doom_glades_region
+			}
+		}
+		effect = {
+			custom_tooltip = claim_doom_glades_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						region = doom_glades_region
+						is_city = yes
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+## WE have fought many enemies within the doom glades - wood elves, dark elves, high elves, and orcs. But we have feared none of them.
+	naggaroth_conquer_doom_glades = {
+		icon = mission_naggaroth_evil_forest
+		required_missions = { naggaroth_reach_doom_glades }
+		position = 12
+		provinces_to_highlight = {
+			region = doom_glades_region
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 15
+				region = doom_glades_region
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_doom_glades
+    			duration = -1  
+			}
+		}
+	}
+
+## Ulthuan is ours by right, but Naggaroth is ours by force. With all civilized lands conquered, it is time to conquer the uncivilized lands.
+	naggaroth_conquer_all_colonized_naggaroth = {
+		icon = mission_naggaroth_malekith_2
+		required_missions = { naggaroth_conquer_the_broken_lands naggaroth_conquer_doom_glades }
+		position = 13
+		provinces_to_highlight = {
+			continent = north_america
+			is_city = yes
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			NOT = {
+				any_province = {
+					is_city = yes
+					continent = north_america
+					NOT = { country_or_subject_holds = ROOT }
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_colonize_naggaroth
+    			duration = -1  
+			}
+		}
+	}
+
+## Our empire grows. In the jungles of Lustria, we fight a new foe, the Lizardmen. We are shall match their ferocity with our own.
+	naggaroth_foothold_on_lustria = {
+		icon = mission_lizardmen_culture
+		required_missions = { naggaroth_conquer_all_colonized_naggaroth }
+		position = 14
+		provinces_to_highlight = {
+			continent = south_america
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 5
+				continent = south_america
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_foothold_in_lustria
+    			duration = -1  
+			}
+		}
+	}
+
+## Ulthuan is our birthright, but it lies across the sea. We must build up a fleet to take it.
+	naggaroth_build_a_navy = {
+		icon = mission_naggaroth_ships
+		required_missions = {  }
+		position = 15
+		trigger = {
+			OR = {
+				navy_size = 50			
+				navy_size_percentage = 1.0	
+			}	
+		}
+		effect = {
+			add_navy_tradition = 25
+		}
+	}
+
+## If we can secure an ally, an asur willing to turn against his kin, then our landing will be infinitely easier. But who will take the bait.
+	naggaroth_send_diplomats = {
+		icon = mission_naggaroth_powerful_guy
+		required_missions = { naggaroth_build_a_navy }
+		position = 17
+		trigger = {
+			OR = {
+				AND = {
+					diplomatic_reputation = 3
+					num_of_diplomats = 4
+				}
+				any_country = {
+					capital_scope = { superregion = ulthuan_superregion } 
+					has_opinion = {
+						who = ROOT
+						value = 0
+					}
+				}
+				num_of_provinces_owned_or_owned_by_subjects_with = {
+					value = 1
+					superregion = ulthuan_superregion
+				}
+
+			}
+		}
+		effect = {
+			every_country = {
+				limit = { capital_scope = { superregion = ulthuan_superregion } }
+				add_opinion = {
+				    who = ROOT
+				    modifier = war_naggaroth_diplomatic_outreach
+				}
+			}
+		}
+	}
+
+
+# Our Conquest Begins! Our troops are inspired by landing on our birthright.
+	naggaroth_foothold_on_ulthuan = {
+		icon = mission_naggaroth_soldier
+		required_missions = { naggaroth_send_diplomats }
+		position = 19
+		provinces_to_highlight = {
+			superregion = ulthuan_superregion
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 5
+				superregion = ulthuan_superregion
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_ulthuan_conquest_temp
+    			duration = 9125
+			}
+		}
+	}
+
+## AS we take more land, it becomes clear that we will not be stopped.
+	naggaroth_expand_ulthuan_conquests = {
+		icon = mission_naggaroth_soldier_2
+		required_missions = { naggaroth_foothold_on_ulthuan }
+		position = 20
+		provinces_to_highlight = {
+			superregion = ulthuan_superregion
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 30
+				superregion = ulthuan_superregion
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_ulthuan_conquest_perm_1
+    			duration = -1  
+			}
+		}
+	}
+
+## We have regained our birthright!
+	naggaroth_conquer_all_ulthuan = {
+		icon = mission_naggaroth_malekith
+		required_missions = { naggaroth_expand_ulthuan_conquests }
+		position = 21
+		provinces_to_highlight = {
+			superregion = ulthuan_superregion
+			is_city = yes
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			NOT = {
+				any_province = {
+					superregion = ulthuan_superregion
+					NOT = { country_or_subject_holds = ROOT }
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = naggaroth_ulthuan_conquest_perm_1
+			add_country_modifier = { 
+    			name = naggaroth_ulthuan_conquest_perm_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## We have achieved our every aim! We are the phoenix king reborn!
+	naggaroth_phoenix_king_reborn = {
+		icon = mission_high_elf_culture
+		position = 22
+		required_missions = { naggaroth_the_crown_absolute naggaroth_conquer_all_ulthuan naggaroth_elves_revitalized }
+		provinces_to_highlight = {
+			has_province_modifier = location_of_the_phoenix_crown
+		}
+		trigger = {
+			any_owned_province = {
+				has_province_modifier = location_of_the_phoenix_crown
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_phoenix_king_reborn
+    			duration = -1  
+			}
+			custom_tooltip = claim_all_world_tooltip
+			hidden_effect = {
+				every_province = {
+					limit = { is_wasteland = no }
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+}
+
+war_naggaroth_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = H12 }
+	}
+
+
+## Tower of Despair, also known as Slaver's Gate, is a naval powerhouse and slave trading nation. Let us take their expertise.
+	naggaroth_annex_karond_kar = { 
+		icon = mission_naggaroth_karond_kar
+		position = 3
+		required_missions = { naggaroth_from_the_brink }
+		provinces_to_highlight = {
+			owned_by = H14
+		}	
+		trigger = {
+			OR = {
+				AND = {
+					overlord_of = H14
+					H14 = { NOT = { liberty_desire = 1 } }
+				}
+				NOT = { exists = H14 }
+			}
+		}
+
+		effect = {
+			add_mercantilism = 5
+		}
+	}
+
+## Let us trick the nobles into thinking that we are a friend
+	naggaroth_deal_with_nobles = {
+		icon = mission_naggaroth_soldier
+		required_missions = { naggaroth_bribery }
+		position = 4
+		trigger = {
+			OR = {
+				AND = {
+					estate_loyalty = {
+					    estate = estate_nobles
+					    loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_nobles
+						value = 1
+					}
+				}
+				NOT = {	
+					estate_influence = {
+					    estate = estate_nobles
+					    influence = 25
+					}
+				}
+				NOT = { has_estate = estate_nobles }
+			}
+		}
+		effect = {
+			add_yearly_manpower = 2.5
+		}
+	}
+
+## WE shall build them barracks, but funded by state wealth. We know the secret ins and outs. The custodians shall be ours.
+	naggaroth_build_barracks = {
+		icon = mission_naggaroth_soldier_2
+		required_missions = { naggaroth_deal_with_nobles }
+		position = 5
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = {
+				OR = {
+			 		has_building = barracks
+			 		has_building = training_fields
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+			 		has_building = barracks
+			 		has_building = training_fields
+				}
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_state_barracks
+    			duration = -1  
+			}
+		}
+	}
+
+# Our trained elite came in the night. We dragged away dissidents and murderd them in their beds. The estates have learned a valuable lesson. We have dominance here.
+	naggaroth_night_of_knives = {
+		icon = mission_naggaroth_malekith_2
+		required_missions = { naggaroth_build_temples naggaroth_build_barracks naggaroth_build_markets }
+		position = 6
+		trigger = {
+			if = {
+				limit = { has_dlc = "Cradle of Civilization" }
+				num_of_regiments_at_full_drill = 7
+			} else = {
+				army_professionalism = 0.25
+			}
+		}
+		effect = {
+			remove_country_modifier = war_court_of_knives
+			add_country_modifier = { 
+    			name = naggaroth_court_of_terror
+    			duration = -1  
+			}
+		}
+
+	}
+
+## There are dispersed dark elves on Naggaroth. TO maintain our legitimacy, they cannot be allowed autonomy.
+	naggaroth_reign_in_the_renegade_druchii = {
+		icon = mission_naggaroth_dark_elf_killer
+		required_missions = { naggaroth_ready_the_army }
+		position = 10
+		provinces_to_highlight = {
+			AND = {
+				NOT = {
+					owner = {
+						OR = {
+							alliance_with = ROOT
+							is_subject_of = ROOT
+							ROOT = {
+								has_won_war_against = {
+									who = PREV
+									max_years_since = 50
+								}
+							}
+						}
+					}
+				}
+
+				OR = {
+					owned_by = H23
+					owned_by = H22
+					owned_by = H20
+				}
+			}
+		}
+		trigger = {
+			H23 = {
+				OR = {
+					exists = no
+					alliance_with = ROOT
+					is_subject_of = ROOT
+					ROOT = {
+						has_won_war_against = {
+							who = PREV
+							max_years_since = 50
+						}
+					}
+				}
+			}
+			H22 = {
+				OR = {
+					exists = no
+					alliance_with = ROOT
+					is_subject_of = ROOT
+					ROOT = {
+						has_won_war_against = {
+							who = PREV
+							max_years_since = 50
+						}
+					}
+				}
+			}
+			H20 = {
+				OR = {
+					exists = no
+					alliance_with = ROOT
+					is_subject_of = ROOT
+					ROOT = {
+						has_won_war_against = {
+							who = PREV
+							max_years_since = 50
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_unified_dark_elves_1
+    			duration = -1  
+			}
+		}
+	}
+
+## We have fully dealt with the other dark elves.
+	naggaroth_fate_of_the_renegade_druchii = {
+		icon = mission_naggaroth_soldier
+		required_missions = { naggaroth_reign_in_the_renegade_druchii }
+		position = 11
+		provinces_to_highlight = {
+			NOT = { owner = { is_subject_of = ROOT } }
+			OR = {
+				owned_by = H23
+				owned_by = H22
+				owned_by = H20
+			}
+		}
+		trigger = {
+			H23 = {
+				OR = {
+					exists = no
+					is_subject_of = ROOT
+				}
+			}
+			H22 = {
+				OR = {
+					exists = no
+					is_subject_of = ROOT
+				}
+			}
+			H20 = {
+				OR = {
+					exists = no
+					is_subject_of = ROOT
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = naggaroth_unified_dark_elves_1
+			add_country_modifier = { 
+    			name = naggaroth_unified_dark_elves_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+
+		}
+	}
+
+## As a unified people, we can start claiming the old world. We must maintain a strong naval web to maintain communications.
+	naggaroth_to_the_east = {
+		icon = mission_pf_map_table
+		required_missions = { naggaroth_conquer_all_colonized_naggaroth }
+		position = 14
+		provinces_to_highlight = {
+			NOT = { country_or_subject_holds = ROOT }
+			OR = {
+				continent = europe
+				continent = africa
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 3
+				OR = {
+					continent = europe
+					continent = africa
+				}
+				
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_eyes_on_the_old_world
+    			duration = -1  
+			}
+		}
+	}
+
+## Once our ships are ready, let us raid!
+	naggaroth_build_the_corsair_fleets = {
+		icon = mission_naggaroth_corsair
+		required_missions = { naggaroth_build_a_navy }
+		position = 16
+		trigger = {
+			num_of_light_ship = 15
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_corsair_fleet_1
+    			duration = -1  
+			}
+		}
+	}
+
+## Our navies are expert pirates
+	naggaroth_coastal_raiders = {
+		icon = mission_naggaroth_corsair_2
+		required_missions = { naggaroth_build_the_corsair_fleets }
+		position = 17
+		trigger = {
+			navy_tradition = 75
+		}
+		effect = {
+			remove_country_modifier = naggaroth_corsair_fleet_1
+			add_country_modifier = { 
+    			name = naggaroth_corsair_fleet_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## The heretics of Ulthuan must be converted. But they must understand that we all follow the same gods.
+	naggaroth_convert_the_heretics = {
+		icon = mission_cytharai
+		required_missions = { naggaroth_send_diplomats }
+		position = 18
+		trigger = {
+			num_of_missionaries = 4
+		}
+		effect = {
+			custom_tooltip = improved_implant_cult_tt
+			add_country_modifier = { 
+    			name = naggaroth_show_them_the_dark
+    			duration = -1  
+			}
+		}
+	}
+
+## we must dominate trade in our own lands, and make sure it does not escape
+	naggaroth_dominate_ulthuan_trade = {
+		icon = mission_sow_culture
+		required_missions = { naggaroth_foothold_on_ulthuan }
+		position = 20
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1879
+				province_id = 1965
+				province_id = 1869
+				province_id = 451
+			}
+			NOT = {
+				trade_share = {
+					country = ROOT
+					share = 51
+				}
+			}
+		}
+		trigger = {
+			1879 = {
+				trade_share = {
+					country = ROOT
+					share = 51
+				}
+			}
+			1965 = {
+				trade_share = {
+					country = ROOT
+					share = 51
+				}
+			}
+			1869 = {
+				trade_share = {
+					country = ROOT
+					share = 51
+				}
+			}
+			451 = {
+				trade_share = {
+					country = ROOT
+					share = 51
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_more_traders
+    			duration = -1  
+			}
+		}
+	}
+
+
+}
+
+
+war_naggaroth_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = H12 }
+	}
+
+## In order to take on the estates, we must lul them into a false sense of security.
+	naggaroth_estate_sense_of_security = { 
+		icon = mission_dark_elf_culture
+		position = 2
+		required_missions = { naggaroth_build_the_capital }
+		trigger = {
+			stability = 2
+			OR = {
+				estate_loyalty = {
+				    estate = estate_burghers
+				    loyalty = 60
+				}
+				NOT = { has_estate = estate_burghers }
+				hidden_trigger = { ai = yes }
+			}
+			OR = {
+				estate_loyalty = {
+				    estate = estate_nobles
+				    loyalty = 60
+				}
+				NOT = { has_estate = estate_nobles }
+				hidden_trigger = { ai = yes }
+			}
+			OR = {
+				estate_loyalty = {
+				    estate = estate_church
+				    loyalty = 60
+				}
+				NOT = { has_estate = estate_church }
+				hidden_trigger = { ai = yes }
+			}
+		}
+
+		effect = {
+			add_legitimacy = 25
+			add_republican_tradition = 10
+			add_devotion = 25
+			add_horde_unity = 25
+			add_meritocracy = 25
+		}
+	}
+
+## Some money will help get our people in the right places.
+	naggaroth_bribery = { 
+		icon = dominant_economy
+		position = 2
+		required_missions = { naggaroth_estate_sense_of_security }
+		trigger = {
+			treasury = 250
+		}
+
+		effect = {
+			add_treasury = -250
+			add_country_modifier = { 
+    			name = naggaroth_estates_bribed
+    			duration = 9125
+			}
+		}
+	}
+
+## The Guilds have have money - let's get on their good side.
+	naggaroth_deal_with_guilds = {
+		icon = mission_rb_inland_india
+		required_missions = { naggaroth_bribery }
+		position = 4
+		trigger = {
+			OR = {
+				AND = {
+					estate_loyalty = {
+					    estate = estate_burghers
+					    loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_burghers
+						value = 1
+					}
+				}
+				NOT = {	
+					estate_influence = {
+					    estate = estate_burghers
+					    influence = 25
+					}
+				}
+				NOT = { has_estate = estate_burghers }
+			}
+		}
+		effect = {
+			add_years_of_income = 1
+		}
+	}
+
+## WE shall build them markets, but funded by state wealth. We know the secret ins and outs. The custodians shall be ours.
+	naggaroth_build_markets = {
+		icon = mission_early_game_buildings
+		required_missions = { naggaroth_deal_with_guilds }
+		position = 5
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = {
+				OR = {
+			 		has_building = marketplace
+			 		has_building = trade_depot
+			 		has_building = stock_exchange
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+			 		has_building = marketplace
+			 		has_building = trade_depot
+			 		has_building = stock_exchange
+				}
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_state_markets
+    			duration = -1  
+			}
+		}
+	}
+
+### Our society is built off of slaves
+	naggaroth_slaves_1 = { 
+		icon = mission_naggaroth_slavery
+		position = 7
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = slaves
+			has_discovered = ROOT
+		}	
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = slaves
+				amount = 10
+			}
+		}
+
+		effect = {
+			custom_tooltip = claim_all_slaves_everywhere_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						trade_goods = slaves
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+### With so many slaves, we must devise new ways of extracting value from them. Our guidmasters have some ideas...
+	naggaroth_slaves_2 = { 
+		icon = mission_naggaroth_slavery
+		required_missions = { naggaroth_slaves_1 }
+		provinces_to_highlight = {
+			trade_goods = slaves
+			has_discovered = ROOT
+		}	
+		trigger = {
+			OR = {
+				trade_goods_produced_amount = {
+					trade_goods = slaves
+					amount = 20
+				}
+			}
+		}
+
+		effect = {
+
+			add_years_of_income = 2.5
+			
+		}
+	}
+
+## Monopoly on slaves - we control the slave market, and can control slave output to better control the price. Our slaves are bred and trained to be worth more than any others.
+	naggaroth_slaves_3 = { 
+		icon = mission_naggaroth_slavery
+		required_missions = { naggaroth_slaves_2 }
+		provinces_to_highlight = {
+			trade_goods = slave
+			has_discovered = ROOT
+		}	
+		trigger = {
+			trading_part = {
+				trade_goods = slaves
+				value = 0.3
+			}
+		}
+
+		effect = {
+			change_price = {
+			    trade_goods = slaves
+			    value = 0.5
+			    duration = -1
+			}
+		}
+	}
+
+# The chaos wastes to our north are barely worth holding, but we can't afford chaos on our doorstep
+	naggaroth_enter_the_chaos_wastes = {
+		icon = mission_naggaroth_chaos_wastes_1
+		required_missions = { naggaroth_ready_the_army }
+		position = 10
+		provinces_to_highlight = {
+			continent = chaos_wastes
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 3
+				continent = chaos_wastes
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_bulwark_against_chaos_1
+    			duration = -1  
+			}
+		}
+	}
+
+# The chaos wastes to our north are barely worth holding, but we can't afford chaos on our doorstep
+	naggaroth_conquer_the_chaos_wastes = {
+		icon = mission_naggaroth_chaos_wastes_2
+		required_missions = { naggaroth_enter_the_chaos_wastes }
+		position = 12
+		provinces_to_highlight = {
+			NOT = { country_or_subject_holds = ROOT }
+			continent = chaos_wastes
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 15
+				continent = chaos_wastes
+			}
+		}
+		effect = {
+			remove_country_modifier = naggaroth_bulwark_against_chaos_1
+			add_country_modifier = { 
+    			name = naggaroth_bulwark_against_chaos_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+# Chas is an infection. Let us deal with it permanent.
+	naggaroth_purge_chaos = {
+		icon = mission_naggaroth_chaos_wastes_3
+		required_missions = { naggaroth_conquer_the_chaos_wastes }
+		position = 12
+		provinces_to_highlight = {
+			owner = {
+				religion_group = ruinous_powers_denominations
+				is_neighbor_of = ROOT
+			}
+		}
+		trigger = {
+			OR = {
+				religion_group = ruinous_powers_denominations
+				AND = {
+					all_owned_province = { NOT = { religion_group = ruinous_powers_denominations } }
+					all_neighbor_country = { NOT = { religion_group = ruinous_powers_denominations } }
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = naggaroth_bulwark_against_chaos_2
+			add_country_modifier = { 
+    			name = naggaroth_bulwark_against_chaos_3
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## Ulthuan is ours by right, but Naggaroth is ours by force.
+	naggaroth_conquer_all_naggaroth = {
+		icon = mission_naggaroth_malekith_3
+		required_missions = { naggaroth_conquer_all_colonized_naggaroth }
+		position = 14
+		provinces_to_highlight = {
+			continent = north_america
+#			is_city = yes
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			NOT = {
+				any_province = {
+#					is_city = yes
+					continent = north_america
+					NOT = { country_or_subject_holds = ROOT }
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_grow_our_homeland
+    			duration = -1  
+			}
+		}
+	}
+
+## Our army is unbreakable, immortal, and the best in the world.
+	naggaroth_elves_revitalized = {
+		icon = mission_naggaroth_malekith_3
+		required_missions = { naggaroth_conquer_all_naggaroth }
+		position = 21
+		trigger = {
+			army_size = 150
+			navy_size = 150
+		}
+		effect = {
+			add_country_modifier = { 
+    			name = naggaroth_unassailable_army
+    			duration = -1  
+			}
+		}
+	}
+
+
+}

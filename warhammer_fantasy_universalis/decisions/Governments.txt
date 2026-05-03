@@ -1,0 +1,381 @@
+country_decisions = {	
+	formalize_separation_of_powers = {
+		potential = {
+			OR = {
+				has_parliament = yes
+				has_reform = parliamentary_reform
+			}
+			NOT = { has_country_modifier = separation_of_powers }
+		}
+		allow = {
+			stability = 2
+			advisor = statesman
+			is_at_war = no
+		}
+		effect = {
+			add_country_modifier = {
+				name = "separation_of_powers"
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	go_cult_of_reason = {
+		potential = {
+			is_revolutionary_republic_trigger = yes
+			NOT = {
+				has_country_modifier = cult_of_reason
+			}
+		}
+		allow = {
+			NOT = { stability = -1 }
+		}
+		effect = {
+			add_country_modifier = {
+				name = "cult_of_reason"
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	elevate_bishopric = {
+		major = yes
+		potential = {
+			government = theocracy
+			is_part_of_hre = yes
+			NOT = { government_rank = 2 }
+			NOT = { has_reform = monastic_order_reform }
+		}
+		allow = {
+			is_subject = no
+			is_elector = yes
+			OR = {
+				NOT = { religion = catholic }
+				papal_influence = 25
+			}
+		}
+		effect = {
+			set_government_rank = 2
+			add_papal_influence = -25
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	force_reelection = {
+		major = yes
+		potential = {
+			has_government_attribute = can_force_election
+		}
+		allow = {
+			republican_tradition = 55
+			custom_trigger_tooltip = {
+				tooltip = force_reelection_tt
+				OR = {
+					NOT = { has_country_flag = forced_reelection_flag }
+					had_country_flag = {
+						flag = forced_reelection_flag
+						days = 5475
+					}
+				}
+			}
+		}
+		effect = {
+			add_republican_tradition = -5
+			clr_country_flag = forced_reelection_flag
+			set_country_flag = forced_reelection_flag
+			set_country_flag = increased_election_cost
+			if = {
+				limit = { NOT = { has_government_attribute = is_pirate_republic_reform } } 
+				country_event = {
+					id = 700
+				}
+			}
+			else = {
+				country_event = {
+					id = pirates.1
+				}
+			}
+			custom_tooltip = force_reelection_ct
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	force_issue_through = {
+		major = yes
+		potential = {
+			has_government_attribute = can_force_issue_through
+			has_parliament = yes
+		}
+		allow = {
+			has_active_debate = yes
+			custom_trigger_tooltip = {
+				tooltip = decision_once_every_twenty_years
+				OR = {
+					NOT = { has_country_flag = forced_issue_flag }
+					had_country_flag = {
+						flag = forced_issue_flag
+						days = 7300
+					}
+				}
+			}
+			if = {
+				limit = { uses_devotion = yes }
+				devotion = 10
+			}
+			else_if = {
+				limit = { uses_republican_tradition = yes }
+				republican_tradition = 5
+			}
+			else_if = {
+				limit = { uses_meritocracy = yes }
+				meritocracy = 10
+			}
+			else_if = {
+				limit = { uses_horde_unity = yes }
+				horde_unity = 10
+			}
+			else = {
+				legitimacy = 10
+			}
+		}
+		effect = {
+			end_current_debate = yes
+			add_legitimacy_equivalent = {
+				amount = -10
+				republican_tradition = -5
+			}
+			hidden_effect = {
+				clr_country_flag = forced_issue_flag
+				set_country_flag = forced_issue_flag
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	promote_art = {
+		major = yes
+		potential = {
+			has_dlc = "King of Kings"
+			has_government_mechanic = persian_influence_mechanic
+			NOT = { has_country_modifier = promoting_art }
+		}
+		allow = {
+			OR = {
+				artist = 1
+				philosopher = 1
+			}
+		}
+		effect = {
+			custom_tooltip = promote_art_tt
+			add_country_modifier = {
+				name = promoting_art
+				duration = -1
+			}
+			hidden_effect = {
+				country_event = {
+					id = promoting_art_events.1
+				}
+				set_variable = {
+					which = art_progress
+					value = 0
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 0
+				OR = {
+					personality = ai_militarist
+					overextension_percentage = 0.01
+				}
+			}
+			modifier = {
+				factor = 10
+				OR = {
+					personality = ai_capitalist
+					personality = ai_diplomat
+				}
+			}
+			modifier = {
+				factor = 3
+				personality = ai_balanced
+			}
+		}
+	}
+	
+	stop_promoting_art = {
+		major = yes
+		potential = {
+			has_dlc = "King of Kings"
+			has_government_mechanic = persian_influence_mechanic
+			has_country_modifier = promoting_art
+		}
+		allow = {
+			always = yes
+		}
+		effect = {
+			custom_tooltip = stop_promoting_art_tt
+			remove_country_modifier = promoting_art
+			remove_country_modifier = promoting_architecture
+			remove_country_modifier = promoting_textiles
+			remove_country_modifier = promoting_painting
+			hidden_effect = {
+				set_variable = {
+					which = art_progress
+					value = 0
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0
+				NOT = { personality = ai_militarist }
+				NOT = { overextension_percentage = 0.01 }
+			}
+		}
+	}
+
+	state_of_conquerors = {
+		potential = {
+			has_government_attribute = legacy_of_timur_decision
+		}
+		allow = {
+			adm_power_cost = 50
+			NOT = { has_country_modifier = legacy_of_timur_modifier }
+		}
+		effect = {
+			adm_power_cost = 50
+			add_country_modifier = {
+				name = legacy_of_timur_modifier
+				duration = 7300
+			}
+		}
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = 0
+				NOT = { personality = ai_militarist }
+			}
+		}
+	}
+
+	# grand_vizier_selection = {
+	# 	potential = {
+	# 		has_unlocked_decision = { type = grand_vizier_selection }
+	# 	}
+	# 	allow = {
+	# 		adm_power_cost = 25
+	# 		OR = {
+	# 			has_estate_privilege = estate_church_independent_inquisition
+	# 			has_estate_privilege = estate_burghers_commercial_board_of_advice
+	# 			has_estate_privilege = estate_nobles_advisors
+	# 		}
+	# 		custom_trigger_tooltip = {
+	# 			tooltip = grand_vizier_selection_at
+	# 			NOT = { has_country_flag = selecting_grand_vizier }
+	# 		}
+	# 		custom_trigger_tooltip = {
+	# 			tooltip = grand_vizier_selection_bt
+	# 			NOT = { has_country_modifier = grand_vizier_philosopher }
+	# 			NOT = { has_country_modifier = grand_vizier_natural_scientist }
+	# 			NOT = { has_country_modifier = grand_vizier_artist }
+	# 			NOT = { has_country_modifier = grand_vizier_treasurer }
+	# 			NOT = { has_country_modifier = grand_vizier_theologian }
+	# 			NOT = { has_country_modifier = grand_vizier_master_of_mint }
+	# 			NOT = { has_country_modifier = grand_vizier_inquisitor }
+	# 			NOT = { has_country_modifier = grand_vizier_statesman }
+	# 			NOT = { has_country_modifier = grand_vizier_naval_reformer }
+	# 			NOT = { has_country_modifier = grand_vizier_trader }
+	# 			NOT = { has_country_modifier = grand_vizier_spymaster }
+	# 			NOT = { has_country_modifier = grand_vizier_colonial_governor }
+	# 			NOT = { has_country_modifier = grand_vizier_diplomat }
+	# 			NOT = { has_country_modifier = grand_vizier_navigator }
+	# 			NOT = { has_country_modifier = grand_vizier_army_reformer }
+	# 			NOT = { has_country_modifier = grand_vizier_army_organiser }
+	# 			NOT = { has_country_modifier = grand_vizier_commandant }
+	# 			NOT = { has_country_modifier = grand_vizier_quartermaster }
+	# 			NOT = { has_country_modifier = grand_vizier_recruitmaster }
+	# 			NOT = { has_country_modifier = grand_vizier_fortification_expert }
+	# 			NOT = { has_country_modifier = grand_vizier_grand_captain }
+	# 		}
+	# 	}
+	# 	effect = {
+	# 		adm_power_cost = 50
+	# 		dip_power_cost = 50
+	# 		mil_power_cost = 50
+	# 		custom_tooltip = grand_vizier_selection_tt
+	# 		hidden_effect = {
+	# 			country_event = {
+	# 				id = estate_privileges_and_agendas_events.8
+	# 			}	
+	# 		}
+	# 	}
+	# 	ai_will_do = {
+	# 		factor = 100
+	# 	}
+	# }
+
+	#embrace_passive_conversion_methods = {
+	#	potential = {
+	#		has_dlc = "King of Kings"
+	#		has_government_mechanic = the_three_royal_fires_mechanic
+	#		NOT = { has_country_modifier = embraced_passive_conversion_methods }
+	#	}
+	#	allow = {
+	#		is_at_war = no
+	#	}
+	#	effect = {
+	#		custom_tooltip = embrace_passive_conversion_methods_tt
+	#		add_country_modifier = {
+	#			name = embraced_passive_conversion_methods
+	#			duration = -1
+	#			desc = UNTIL_REVOKED
+	#		}
+	#	}
+	#	ai_will_do = {
+	#		factor = 0
+	#	}
+	#	ai_importance = 0
+	#}
+	#
+	#revoke_passive_conversion_methods = {
+	#	potential = {
+	#		ai = no	#AI never picks it anyway
+	#		has_country_modifier = embraced_passive_conversion_methods
+	#	}
+	#	allow = {
+	#		is_at_war = no
+	#	}
+	#	effect = {
+	#		remove_country_modifier = embraced_passive_conversion_methods
+	#		clr_country_flag = can_place_center_of_reformation
+	#		custom_tooltip = revoke_passive_conversion_methods_tt
+	#		hidden_effect = {
+	#			every_owned_province = {
+	#				limit = {
+	#					is_reformation_center = yes
+	#				}
+	#				remove_reform_center = zoroastrian
+	#			}
+	#		}
+	#	}
+	#	ai_will_do = {
+	#		factor = 0
+	#	}
+	#	ai_importance = 0
+	#}
+}

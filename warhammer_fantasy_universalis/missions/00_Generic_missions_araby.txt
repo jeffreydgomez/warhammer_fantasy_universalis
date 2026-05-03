@@ -1,0 +1,346 @@
+##################################
+##### ARABY CULTURE GROUP
+##################################
+### Need one to add crusade, warscore against non religion, colonist. Certain number of calvary for improved cavalry ration & power? Call them civilizing mission
+gen_araby_missions = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = arabyan_group
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_mission_priority_4 = no
+	}
+	gen_araby_please_nobility = {
+		icon = mission_araby_culture
+		required_missions = {
+		}
+		trigger = {
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = araby_add_missionary_1
+				duration = -1
+			}
+		}
+	}
+	gen_araby_cavalry = {
+		icon = mission_araby_culture
+		required_missions = {
+			gen_araby_please_nobility
+		}
+		trigger = {
+			num_of_cavalry = 10
+		}
+		effect = {
+			add_country_modifier = {
+				name = araby_cavalry_fraction
+				duration = -1
+			}
+		}
+	}
+	gen_araby_war_with_infidel = {
+		icon = mission_araby_culture
+		required_missions = {
+			gen_araby_cavalry
+		}
+		trigger = {
+			at_war_with_religious_enemy = yes
+
+			tooltip = obj_force_converted_tooltip
+			has_country_flag = force_converted
+		}
+		effect = {
+			add_country_modifier = {
+				name = araby_holy_war
+				duration = -1
+			}
+		}
+	}
+	gen_araby_war_expand_faith = {
+		icon = mission_araby_culture
+		required_missions = {
+			gen_araby_war_with_infidel
+		}
+		provinces_to_highlight = {
+			NOT = {
+				region = sudron_region
+			}
+			NOT = {
+				region = gulf_of_medes_region
+			}
+			NOT = {
+				region = araby_region
+			}
+			NOT = { owned_by = ROOT }
+			is_sea = no
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				NOT = {
+					region = sudron_region
+				}
+				NOT = {
+					region = gulf_of_medes_region
+				}
+				NOT = {
+					region = araby_region
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = araby_holy_war_2
+				duration = -1
+			}
+		}
+	}
+	gen_araby_build_docks = {
+		icon = mission_araby_culture
+		required_missions = {
+		}
+		position = 6
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					has_building = dock
+					has_building = drydock
+				}
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = araby_expand_abroad
+				duration = -1
+			}
+		}
+	}
+	gen_araby_expand_overseas = {
+		icon = mission_araby_culture
+		required_missions = {
+			gen_araby_build_docks
+		}
+		trigger = {
+			num_of_continents = 3
+		}
+		effect = {
+			add_country_modifier = {
+				name = araby_add_missionary_2
+				duration = -1
+			}
+		}
+	}
+	gen_araby_center_of_trade = {
+		icon = mission_araby_culture
+		required_missions = {
+			gen_araby_expand_overseas
+		}
+		trigger = {
+			num_of_light_ship = 25
+		}
+		effect = {
+			add_country_modifier = {
+				name = araby_trade_hub
+				duration = -1
+			}
+		}
+	}
+}
+
+gen_araby_ultimate_missions = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = arabyan_group
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_mission_priority_4 = no
+	}
+	gen_araby_ultimate_mission = {
+		icon = mission_araby_culture
+		required_missions = {
+		}
+		position = 9
+		trigger = {
+			is_great_power = yes
+			calc_true_if = {
+				all_country = {
+					religion = ROOT
+					is_great_power = yes
+				}
+				amount = 4
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = araby_ultimate_reward
+				duration = -1
+			}
+		}
+	}
+}
+
+##################################
+##### ONE FAITH RELIGION
+##################################
+gen_one_faith_missions = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		religion = the_one_faith
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_mission_priority_4 = no
+	}
+	gen_one_faith_happy_priest = {
+		icon = mission_araby_religion
+		required_missions = {
+		}
+		trigger = {
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = araby_happy_church
+				duration = -1
+			}
+		}
+	}
+	gen_one_faith_places_of_worship = {
+		icon = mission_araby_religion
+		required_missions = {
+			gen_one_faith_happy_priest
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+				value = 5
+			}
+		}
+		effect = {
+			change_innovativeness = 10
+		}
+	}
+	gen_one_faith_place_of_study = {
+		icon = mission_araby_religion
+		required_missions = {
+			gen_one_faith_places_of_worship
+		}
+		trigger = {
+			capital_scope = {
+				development = 30
+			}
+		}
+		effect = {
+			capital_scope = {
+				add_permanent_province_modifier = {
+					name = araby_place_of_study
+					duration = -1
+				}
+			}
+		}
+	}
+	gen_one_faith_places_of_law = {
+		icon = mission_araby_religion
+		required_missions = {
+			gen_one_faith_place_of_study
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					has_building = courthouse
+					has_building = town_hall
+				}
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = araby_place_of_law
+				duration = -1
+			}
+		}
+	}
+	gen_one_faith_places_of_innovation = {
+		icon = mission_araby_religion
+		required_missions = {
+			gen_one_faith_places_of_law
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_building = university
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = araby_place_of_innovation
+				duration = -1
+			}
+		}
+	}
+	gen_one_faith_charitable = {
+		icon = mission_araby_religion
+		required_missions = {
+		}
+		trigger = {
+			years_of_income = 2
+		}
+		effect = {
+			add_years_of_income = -2
+			every_neighbor_country = {
+				add_years_of_income = 0.5
+			}
+			add_country_modifier = {
+				name = araby_charitable
+				duration = -1
+			}
+		}
+	}
+	gen_one_faith_defender_of_faith = {
+		icon = mission_araby_religion
+		required_missions = {
+			gen_one_faith_charitable
+		}
+		trigger = {
+			is_defender_of_faith = yes
+			prestige = 99
+			religious_unity = 1
+		}
+		effect = {
+			add_country_modifier = {
+				name = araby_historical_defender
+				duration = -1
+			}
+		}
+	}
+}

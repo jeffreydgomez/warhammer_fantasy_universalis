@@ -1,0 +1,116 @@
+### Add your mission tree requirements to the appropriate place. Take everything that is a priority number lower than yours, and add it as "no" to your potential. So if you have a mission_priority_2, then add "war_mission_priority_1 = no" to your potential. Add it to any racial challenge missions as well.
+
+# Unique Tags
+war_mission_priority_1 = {
+	OR = {
+		is_or_was_tag = { tag = A74 } # Barrow Legion
+		is_or_was_tag = { tag = A29 } # Kislev
+		is_or_was_tag = { tag = H12 } # Naggaroth
+		is_or_was_tag = { tag = B16 } # Sires of Mourkain
+		is_or_was_tag = { tag = Z97 } # Strygos
+		is_or_was_tag = { tag = A12 } # Westerland
+	}
+}
+
+
+## Generally, culture or culture + location
+war_mission_priority_2 = {
+	OR = {
+		culture_group = asrai_group
+		AND = {
+			culture_group = asur_group
+			any_owned_province = {
+				superregion = ulthuan_superregion
+			}
+		}
+		AND = {
+			culture_group = bretonnian_group
+			capital_scope = { continent = europe }
+		}
+		OR = {
+			culture_group = cathayan_cg
+			tag = I35 # Monkey King
+		}
+		culture_group = chaos_dwarf_group
+		culture_group = dwarf_group
+		OR = {
+			culture_group = greenskins_group
+			culture_group = hobgoblin_group
+		}
+		AND = {
+			culture_group = lizardmen_group
+			religion = old_ones
+		}
+		AND = {
+			culture = dragon_isles_lizardmen
+			capital_scope = { region = dragon_isles_region }
+		}
+		AND = {
+			culture_group = norse_group
+			capital_scope = { region = norsca_region }
+		}
+		AND = {
+			culture_group = ogre_group
+			capital_scope = { continent = asia }
+		}
+		AND = {
+			culture_group = skaven_group
+			religion = horned_rat
+		}
+		AND = {
+			culture_group = nehekharan_group
+			capital_scope = { continent = africa }
+		}
+		culture_group = asrai_group
+		AND = {
+			OR = {
+				culture_group = estalian_group
+				culture_group = tilean_group
+			}
+			capital_scope = { continent = europe }
+		}
+		AND = {
+			culture_group = arabyan_group
+			capital_scope = { continent = africa }
+		}
+	}
+}
+
+
+
+# Generally, religion
+war_mission_priority_3 = {
+	OR = {
+	
+		OR = {
+			religion = khornate_religion
+			religion = nurglite_religion
+			religion = chaos_undivided_religion
+			religion = tzeentchian_religion
+			religion = slaaneshi_religion
+		}
+
+		is_part_of_hre = yes
+
+		OR = {
+			has_reform = vampire_coast_reform
+			has_reform = dread_fleet_reform
+		}
+
+	}
+}
+
+
+## Next tier people
+war_mission_priority_4 = {
+	OR = {
+		any_owned_province = {
+			region = border_princes_region
+		}
+		ind_capital_on_subcontinent = yes
+		AND = {
+			culture_group = norse_group
+			NOT = { capital_scope = { region = norsca_region } }
+		}
+	}
+}

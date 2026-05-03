@@ -1,0 +1,567 @@
+
+#Warhammer
+
+#Tier 1
+verezzo_republic= {
+	icon = "trading_city"
+	allow_normal_conversion = no
+	
+	potential = {
+		OR = {
+			has_reform = verezzo_republic
+			have_had_reform = verezzo_republic
+		}
+	}
+	trigger = {
+		OR = {
+			has_reform = verezzo_republic
+			have_had_reform = verezzo_republic
+		}
+	}
+	
+	duration = 3
+	has_term_election = yes
+	lock_level_when_selected = yes
+	boost_income = yes
+	custom_attributes = {
+		enables_plutocratic_idea_group = no
+		enables_aristocratic_idea_group = yes
+		locked_government_type = yes
+		is_merchant_republic = yes
+	}
+	government_abilities = { 
+		internal_external_mechanic
+	}
+
+	modifiers = {
+		max_absolutism = -30
+		merchants = 1
+		may_recruit_female_generals = yes
+		female_advisor_chance = 0.5
+	}
+	
+
+	conditional = {
+		allow = {
+			has_dlc = "Res Publica"
+			NOT = { has_dlc = "Mare Nostrum" }
+		}
+		can_use_trade_post = yes
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Mare Nostrum"
+			NOT = { has_dlc = "Res Publica" }
+		}
+		can_form_trade_league = yes
+		trade_city_reform = trading_city
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Res Publica"
+			has_dlc = "Mare Nostrum"
+		}
+		can_use_trade_post = yes
+		can_form_trade_league = yes
+		trade_city_reform = trading_city
+	}
+	custom_attributes = {
+		enables_plutocratic_idea_group = yes
+		enables_aristocratic_idea_group = no
+		is_merchant_republic = yes
+		elections_increase_factions_influence = yes
+	}
+
+}
+
+remas_merchants_reform = {
+	icon = "trading_city"
+	allow_normal_conversion = yes
+	modifiers = {
+		max_absolutism = -20
+		merchants = 1
+		yearly_corruption = -0.1
+		may_recruit_female_generals = yes
+		female_advisor_chance = 0.5
+	}
+
+	potential = {
+		OR = {
+			has_reform = remas_merchants_reform
+			have_had_reform = remas_merchants_reform
+		}
+	}
+	boost_income = yes
+	factions = {
+		mr_aristocrats
+		mr_traders
+		mr_guilds
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Res Publica"
+			NOT = { has_dlc = "Mare Nostrum" }
+		}
+		can_use_trade_post = yes
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Mare Nostrum"
+			NOT = { has_dlc = "Res Publica" }
+		}
+		can_form_trade_league = yes
+		trade_city_reform = trading_city
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Res Publica"
+			has_dlc = "Mare Nostrum"
+		}
+		can_use_trade_post = yes
+		can_form_trade_league = yes
+		trade_city_reform = trading_city
+	}
+	custom_attributes = {
+		enables_plutocratic_idea_group = yes
+		enables_aristocratic_idea_group = no
+		lottery_election = yes
+		election_on_death = yes
+		is_merchant_republic = yes
+		elections_increase_factions_influence = yes
+		bonus_stats_for_elected_ruler = yes
+	}
+	duration = 4 #The lore says 1 but balance
+	has_term_election = yes
+}
+
+
+marienburg_republic_reform = {
+	icon = "politician"
+	allow_convert = no
+	allow_normal_conversion = no
+	modifiers = {
+		merchants = 1
+		burghers_loyalty_modifier = 0.10 #They literally rule
+		burghers_influence_modifier = 0.10
+		naval_morale = 0.1
+		naval_forcelimit_modifier = 0.1
+	}
+	valid_for_nation_designer = no
+	nation_designer_cost = 40
+
+
+	lock_level_when_selected = yes
+	potential = {
+		or = {
+			tag = A12
+			was_tag = A12
+		}
+	}
+	trigger = {
+		or ={
+			tag = A12
+			was_tag = A12
+		}
+
+	}
+	boost_income = yes
+	duration = 4 #The lore says 1 but balance
+
+	conditional = {
+		allow = {
+			has_dlc = "Res Publica"
+			has_dlc = "Mare Nostrum"
+		}
+		can_use_trade_post = yes
+	}
+
+	custom_attributes = {
+		enables_plutocratic_idea_group = yes
+		enables_aristocratic_idea_group = no
+		is_merchant_republic = yes
+		has_parliament = yes #Stadsraad
+	}
+	ai = {
+		factor = 1 #generic
+	}
+	
+}
+
+
+high_elven_republic = {
+	icon = "high_elf_warrior"
+	allow_normal_conversion = yes
+	potential = {
+		culture_group = asur_group
+	}
+	lock_level_when_selected = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 15
+	duration = 20
+
+	start_territory_to_estates = 0.3
+	modifiers = {
+		governing_capacity = 50
+		global_unrest = -1
+		max_absolutism = -30
+		nobles_influence_modifier = -0.1
+	}
+	government_abilities = { 
+		internal_external_mechanic
+	}
+	custom_attributes = {
+		enables_plutocratic_idea_group = yes
+		enables_aristocratic_idea_group = yes
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Common Sense"
+		}
+		has_parliament = yes
+	}
+}
+
+
+league_of_ostermark_reform = {
+	allow_normal_conversion = no
+	icon = "peasant_republic"
+	potential = {
+		OR = {
+			have_had_reform = league_of_ostermark_reform
+			has_reform = league_of_ostermark_reform
+		}
+	}
+	valid_for_nation_designer = no
+	nation_designer_cost = 20
+
+	royal_marriage = yes
+	is_eligible_for_hre_emperor = yes
+
+	modifiers = {
+		army_tradition = 0.5
+		land_morale = 0.05
+		nobles_influence_modifier = 0.05
+		max_absolutism = -10
+	}
+	custom_attributes = {
+		enables_plutocratic_idea_group = no
+		enables_aristocratic_idea_group = yes
+
+	}
+	duration = 10
+}
+
+mercenary_company_reform = {
+	allow_normal_conversion = no
+	icon = "black_army_reform"
+	potential = {
+		has_reform = mercenary_company_reform
+	}
+	valid_for_nation_designer = yes
+	nation_designer_cost = 25
+	has_term_election = no
+	modifiers = {
+		max_absolutism = 30
+		governing_capacity = -100
+		land_forcelimit_modifier = 0.20
+		naval_forcelimit_modifier = -0.20
+	}
+
+	custom_attributes = {
+		generals_become_rulers = yes
+		locked_government_type = yes
+		cannot_become_dictatorship = yes
+	}
+}
+
+military_garrison_reform = {
+	allow_normal_conversion = no
+	icon = "black_army_reform"
+	potential = {
+		has_reform = military_garrison_reform
+	}
+	valid_for_nation_designer = yes
+	nation_designer_cost = 25
+	has_term_election = no
+	modifiers = {
+		max_absolutism = 30
+		governing_capacity = -100
+		land_forcelimit_modifier = 0.20
+		naval_forcelimit_modifier = -0.20
+	}
+
+	custom_attributes = {
+		generals_become_rulers = yes
+		locked_government_type = yes
+		cannot_become_dictatorship = yes
+	}
+}
+
+
+dread_fleet_reform = {
+	icon = "pirate_republic"
+	allow_normal_conversion = no
+	lock_level_when_selected = no
+	modifiers = {
+		republican_tradition = -1
+		naval_forcelimit_modifier = 0.5
+		global_sailors_modifier = 0.5
+		privateer_efficiency = 0.25
+		may_perform_slave_raid_on_same_religion = yes
+		allowed_marine_fraction = 0.5
+		naval_morale = 0.1
+		trade_efficiency = 0.1
+		range = 2
+		fire_damage = 0.1
+		regiment_disembark_speed = 0.5
+
+
+		has_man_of_war = yes
+		allowed_man_of_war_fraction = 0.1
+
+		province_warscore_cost = 1.0
+		state_governing_cost = 1.0
+
+		may_explore = yes
+	}
+	trigger = {
+		owns = 3190
+		OR = {
+			has_country_modifier = undead_administration
+			has_reform = dread_fleet_reform
+		}
+	}
+	valid_for_nation_designer = no
+	nation_designer_cost = 60
+	can_form_trade_league = no
+
+	removed_effect = {
+		clr_country_flag = pirate_mutineer_council
+	}
+
+	has_term_election = no
+	
+	potential = {
+		OR = {
+			OR = {
+				owns = 3190
+				has_reform = dread_fleet_reform
+			}
+			has_country_modifier = undead_administration
+		}
+		OR = {
+			has_dlc = "Lions of the North"
+			has_dlc = "Golden Century"
+		}
+	}
+	
+	factions_frame = 9
+	factions = {
+		pr_buccaneers
+		pr_smugglers
+		pr_captains
+	}
+
+	effect = {
+ 		hidden_effect = {
+ 			war_reset_racial_modifiers = yes
+ 		}
+ 	}
+ 	removed_effect = {
+		hidden_effect = {
+ 			war_reset_racial_modifiers = yes
+ 		} 
+ 	}
+	
+	
+	custom_attributes = {
+#		locked_government_type = yes
+		force_admiral_leader = yes
+		is_pirate_republic_reform = yes
+		elections_increase_factions_influence = yes
+		cannot_become_dictatorship = yes
+	}
+	
+}
+
+vampire_coast_reform = {
+	icon = "pirate_republic"
+	allow_normal_conversion = no
+	lock_level_when_selected = no
+	modifiers = {
+		republican_tradition = -1
+		naval_forcelimit_modifier = 0.5
+		global_sailors_modifier = 0.5
+		privateer_efficiency = 0.25
+		may_perform_slave_raid_on_same_religion = yes
+		allowed_marine_fraction = 0.5
+		may_explore = yes
+		trade_efficiency = 0.1
+		range = 1
+		fire_damage = 0.1
+		regiment_disembark_speed = 0.5
+
+		has_man_of_war = yes
+		allowed_man_of_war_fraction = 0.1
+
+		province_warscore_cost = 1.0
+		state_governing_cost = 1.0
+
+	}
+	trigger = {
+		OR = {
+			has_reform = vampire_coast_reform
+			AND = {
+				has_country_modifier = undead_administration
+				num_of_ports = 1
+			}
+		}
+	}
+	valid_for_nation_designer = yes
+	nation_designer_cost = 40
+	can_form_trade_league = no
+	
+	has_term_election = no
+
+	removed_effect = {
+		clr_country_flag = pirate_mutineer_council
+	}
+
+	effect = {
+ 		hidden_effect = {
+ 			war_reset_racial_modifiers = yes
+ 		}
+ 	}
+ 	removed_effect = {
+		hidden_effect = {
+ 			war_reset_racial_modifiers = yes
+ 		} 
+ 	}
+
+	potential = {
+		OR = {
+			has_reform = vampire_coast_reform
+			has_country_modifier = undead_administration
+			num_of_ports = 1
+		}
+		OR = {
+			has_dlc = "Lions of the North"
+			has_dlc = "Golden Century"
+		}
+	}
+	
+	factions_frame = 9
+	factions = {
+		pr_buccaneers
+		pr_smugglers
+		pr_captains
+	}
+	
+	
+	custom_attributes = {
+#		locked_government_type = yes
+		force_admiral_leader = yes
+		is_pirate_republic_reform = yes
+		elections_increase_factions_influence = yes
+		cannot_become_dictatorship = yes
+	}
+	
+}
+
+nehekharan_reformed_republic = {
+	icon = "nehekhara"
+	potential = {
+		has_country_flag = nehekhara_reformed_government
+		OR = {
+			culture_group = nehekharan_group
+			religion = nehekharan_pantheon
+		}
+	}
+	valid_for_nation_designer = yes
+	nation_designer_cost = 50
+	lock_level_when_selected = no
+	duration = 10
+
+	modifiers = {
+		trade_efficiency = 0.1
+		development_cost = -0.075
+		liberty_desire_from_subject_development = -0.2
+		burghers_loyalty_modifier = 0.1
+		burghers_influence_modifier = 0.1
+		republican_tradition = -0.05
+	}
+	government_abilities = { 
+		internal_external_mechanic
+	}
+	custom_attributes = {
+		enables_plutocratic_idea_group = yes
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Common Sense"
+		}
+		has_parliament = yes
+	}
+}
+
+
+trade_republic_reform = {
+	icon = "elven_ship"
+	allow_normal_conversion = yes
+	legacy_equivalent = despotic_monarchy
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		OR  {
+			culture_group = estalian_group
+			culture_group = tilean_group
+		}
+	}
+	modifiers = {
+		global_trade_power = 0.1
+		navy_tradition_decay = -0.01
+		mercenary_discipline = 0.05
+		global_unrest = 2
+		may_recruit_female_generals = yes
+		female_advisor_chance = 0.5
+	}
+	ai = {
+		factor = 0.5 #generic
+	}
+}
+
+
+
+araby_trade_republic = {
+	icon = "muslim"
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			religion = the_one_faith
+			culture_group = arabyan_group
+		}
+	}
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	nation_designer_trigger = {
+		OR = {
+			religion = the_one_faith
+			culture_group = arabyan_group
+		}
+	}
+	modifiers = {
+		global_ship_trade_power = 0.3
+		caravan_power = 0.3
+		mercenary_manpower = 0.5
+		may_perform_slave_raid = yes
+	}
+
+	conditional = {
+		government_abilities = {
+			internal_external_mechanic
+		}
+	}
+	ai = {
+		factor = 1
+	}
+}

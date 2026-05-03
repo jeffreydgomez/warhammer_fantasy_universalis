@@ -1,0 +1,378 @@
+namespace = flavor_verezzo
+
+#Elections
+country_event = {
+    id = flavor_verezzo.1
+    title =  flavor_verezzo.1.t
+    desc =  flavor_verezzo.1.d
+    picture = ELECTION_REPUBLICAN_eventPicture
+    
+    is_triggered_only = yes
+    
+    trigger = {
+        has_reform = verezzo_republic
+        NOT = { has_country_flag = in_verezzo_election }
+    }
+    
+    immediate = {
+        hidden_effect = {
+            set_country_flag = in_verezzo_election
+        }
+    }
+	
+	after = {
+		hidden_effect = {
+            clr_country_flag = in_verezzo_election
+        }
+	}
+	
+	#Keep Current Ruler
+	option = {
+		name = flavor_verezzo.1.a
+		ai_chance = { 
+			factor = 60
+			modifier = {
+				factor = 0
+				NOT = { republican_tradition = 25 }
+			}	
+			modifier = {
+				factor = 0.5
+				NOT = { republican_tradition = 50 }
+			}				
+			modifier = {
+				factor = 0.5
+				NOT = { republican_tradition = 75 }
+			}	
+			modifier = {
+				factor = 2.0
+				republican_tradition = 90
+			}			
+		}
+		custom_tooltip = remains_ruler
+		change_adm = 1
+		change_dip = 1
+		change_mil = 1
+		if = {
+			limit = {
+				is_tribal = no 
+				government = republic
+				NOT = { republican_tradition = 20 }				
+				NOT = { is_revolutionary_republic_trigger = yes }
+				has_dlc = "Res Publica"
+			}
+			add_government_reform = presidential_despot_reform	
+		}
+		add_scaled_republican_tradition = -10
+		random_list = {
+			10 = {
+				add_adm_power = 50
+			}
+			10 = {
+				add_dip_power = 50
+			}
+			10 = {
+				add_mil_power = 50
+			}
+		}
+	}
+	
+	#green - Mixed Candidate
+	option = {
+		trigger = { NOT = { has_ruler_flag = verezzo_green } }
+		name = flavor_verezzo.1.b
+		if = {
+			limit = { republic_with_female_rulers_trigger = yes }
+			define_ruler = {
+				max_random_mil = 3
+				max_random_adm = 3
+				max_random_dip = 3
+				change_adm = 1
+				change_dip = 1
+				change_mil = 1
+				random_gender = yes # Allows random gender for republics
+			}
+		}
+		else = {
+			define_ruler = {
+				max_random_mil = 3
+				max_random_adm = 3
+				max_random_dip = 3
+				change_adm = 1
+				change_dip = 1
+				change_mil = 1
+			}
+		}
+		hidden_effect = {
+			clr_ruler_flag = verezzo_yellow
+			clr_ruler_flag = verezzo_red
+			clr_ruler_flag = verezzo_blue
+			set_ruler_flag = verezzo_green
+		}
+	}
+	
+	#Red - Military Candidate
+	option = {
+		trigger = { NOT = { has_ruler_flag = verezzo_red } }
+		name = flavor_verezzo.1.c
+		if = {
+			limit = { republic_with_female_rulers_trigger = yes }
+			define_ruler = {
+				max_random_mil = 3
+				max_random_adm = 2
+				max_random_dip = 1
+				change_adm = 2
+				change_dip = 1
+				change_mil = 2
+				random_gender = yes # Allows random gender for republics
+			}
+		}
+		else = {
+			define_ruler = {
+				max_random_mil = 3
+				max_random_adm = 2
+				max_random_dip = 1
+				change_adm = 2
+				change_dip = 1
+				change_mil = 2
+			}
+		}
+		hidden_effect = {
+			clr_ruler_flag = verezzo_yellow
+			set_ruler_flag = verezzo_red
+			clr_ruler_flag = verezzo_blue
+			clr_ruler_flag = verezzo_green
+		}
+	}
+	
+	#yellow - Administrative Candidate
+	option = {
+		trigger = { NOT = { has_ruler_flag = verezzo_yellow } }
+		name = flavor_roilsard.12.e
+		if = {
+			limit = { republic_with_female_rulers_trigger = yes }
+			define_ruler = {
+				max_random_mil = 1
+				max_random_adm = 3
+				max_random_dip = 2
+				change_adm = 2
+				change_dip = 2
+				change_mil = 1
+				random_gender = yes # Allows random gender for republics
+			}
+		}
+		else = {
+			define_ruler = {
+				max_random_mil = 1
+				max_random_adm = 3
+				max_random_dip = 2
+				change_adm = 2
+				change_dip = 2
+				change_mil = 1
+			}
+		}
+		hidden_effect = {
+			set_ruler_flag = verezzo_yellow
+			clr_ruler_flag = verezzo_red
+			clr_ruler_flag = verezzo_blue
+			clr_ruler_flag = verezzo_green
+		}
+	}
+	
+	#blue - Diplomatic Candidate
+	option = {
+		trigger = { NOT = { has_ruler_flag = verezzo_blue } }
+		name = flavor_roilsard.12.f
+		if = {
+			limit = { republic_with_female_rulers_trigger = yes }
+			define_ruler = {
+				max_random_mil = 2
+				max_random_adm = 1
+				max_random_dip = 3
+				change_adm = 1
+				change_dip = 2
+				change_mil = 2
+				random_gender = yes # Allows random gender for republics
+			}
+		}
+		else = {
+			define_ruler = {
+				max_random_mil = 2
+				max_random_adm = 1
+				max_random_dip = 3
+				change_adm = 1
+				change_dip = 2
+				change_mil = 2
+			}
+		}
+		hidden_effect = {
+			clr_ruler_flag = verezzo_yellow
+			clr_ruler_flag = verezzo_red
+			set_ruler_flag = verezzo_blue
+			clr_ruler_flag = verezzo_green
+		}
+	}
+}
+
+#Death elections
+country_event = {
+    id = flavor_verezzo.2
+    title =  flavor_verezzo.2.t
+    desc =  flavor_verezzo.2.d
+    picture = ELECTION_REPUBLICAN_eventPicture
+    
+    is_triggered_only = yes
+    
+    trigger = {
+        has_reform = verezzo_republic
+        NOT = { has_country_flag = verezzo_republic }
+    }
+    
+    immediate = {
+        hidden_effect = {
+            set_country_flag = in_verezzo_election
+        }
+    }
+	
+	after = {
+		hidden_effect = {
+            clr_country_flag = in_verezzo_election
+        }
+	}
+	
+		#green - Mixed Candidate
+		option = {
+			trigger = { NOT = { has_ruler_flag = verezzo_green } }
+			name = flavor_verezzo.1.b
+			if = {
+				limit = { republic_with_female_rulers_trigger = yes }
+				define_ruler = {
+					max_random_mil = 3
+					max_random_adm = 3
+					max_random_dip = 3
+					change_adm = 1
+					change_dip = 1
+					change_mil = 1
+					random_gender = yes # Allows random gender for republics
+				}
+			}
+			else = {
+				define_ruler = {
+					max_random_mil = 3
+					max_random_adm = 3
+					max_random_dip = 3
+					change_adm = 1
+					change_dip = 1
+					change_mil = 1
+				}
+			}
+			hidden_effect = {
+				clr_ruler_flag = verezzo_yellow
+				clr_ruler_flag = verezzo_red
+				clr_ruler_flag = verezzo_blue
+				set_ruler_flag = verezzo_green
+			}
+		}
+		
+		#Red - Military Candidate
+		option = {
+			trigger = { NOT = { has_ruler_flag = verezzo_red } }
+			name = flavor_verezzo.1.c
+			if = {
+				limit = { republic_with_female_rulers_trigger = yes }
+				define_ruler = {
+					max_random_mil = 3
+					max_random_adm = 2
+					max_random_dip = 1
+					change_adm = 2
+					change_dip = 1
+					change_mil = 2
+					random_gender = yes # Allows random gender for republics
+				}
+			}
+			else = {
+				define_ruler = {
+					max_random_mil = 3
+					max_random_adm = 2
+					max_random_dip = 1
+					change_adm = 2
+					change_dip = 1
+					change_mil = 2
+				}
+			}
+			hidden_effect = {
+				clr_ruler_flag = verezzo_yellow
+				set_ruler_flag = verezzo_red
+				clr_ruler_flag = verezzo_blue
+				clr_ruler_flag = verezzo_green
+			}
+		}
+		
+		#yellow - Administrative Candidate
+		option = {
+			trigger = { NOT = { has_ruler_flag = verezzo_yellow } }
+			name = flavor_verezzo.1.e
+			if = {
+				limit = { republic_with_female_rulers_trigger = yes }
+				define_ruler = {
+					max_random_mil = 1
+					max_random_adm = 3
+					max_random_dip = 2
+					change_adm = 2
+					change_dip = 2
+					change_mil = 1
+					random_gender = yes # Allows random gender for republics
+				}
+			}
+			else = {
+				define_ruler = {
+					max_random_mil = 1
+					max_random_adm = 3
+					max_random_dip = 2
+					change_adm = 2
+					change_dip = 2
+					change_mil = 1
+				}
+			}
+			hidden_effect = {
+				set_ruler_flag = verezzo_yellow
+				clr_ruler_flag = verezzo_red
+				clr_ruler_flag = verezzo_blue
+				clr_ruler_flag = verezzo_green
+			}
+		}
+		
+		#blue - Diplomatic Candidate
+		option = {
+			trigger = { NOT = { has_ruler_flag = verezzo_blue } }
+			name = flavor_verezzo.1.f
+			if = {
+				limit = { republic_with_female_rulers_trigger = yes }
+				define_ruler = {
+					max_random_mil = 2
+					max_random_adm = 1
+					max_random_dip = 3
+					change_adm = 1
+					change_dip = 2
+					change_mil = 2
+					random_gender = yes # Allows random gender for republics
+				}
+			}
+			else = {
+				define_ruler = {
+					max_random_mil = 2
+					max_random_adm = 1
+					max_random_dip = 3
+					change_adm = 1
+					change_dip = 2
+					change_mil = 2
+				}
+			}
+			hidden_effect = {
+				clr_ruler_flag = verezzo_yellow
+				clr_ruler_flag = verezzo_red
+				set_ruler_flag = verezzo_blue
+				clr_ruler_flag = verezzo_green
+			}
+		}
+	
+}

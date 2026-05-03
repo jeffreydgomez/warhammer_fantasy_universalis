@@ -1,0 +1,1931 @@
+namespace = magic
+#Magic Menu
+country_event = {
+	id = magic.0
+	title = magic.0.t
+	picture = MAGIC_MENU_eventPicture
+	desc = magic.0.d
+	is_triggered_only = yes
+	immediate = {
+	}
+	#Go Back Top of List
+	option = {
+		name = magic.0.z
+		ai_chance = {
+			factor = 50
+		}
+		magic_close_single_menu = yes
+	}
+	#Select Lore of Light
+	option = {
+		name = magic.0.a
+		ai_chance = {
+			factor = 50
+		}
+		hidden_effect = {
+			country_event = {
+				id = magic.1000
+			}
+		}
+	}
+	#Select Lore of Metal
+	option = {
+		name = magic.0.b
+		ai_chance = {
+			factor = 50
+		}
+		hidden_effect = {
+			country_event = {
+				id = magic.2000
+			}
+		}
+	}
+	#Select Lore of Life
+	option = {
+		name = magic.0.c
+		ai_chance = {
+			factor = 50
+		}
+		hidden_effect = {
+			country_event = {
+				id = magic.3000
+			}
+		}
+	}
+	#Select Lore of Heavens
+	option = {
+		name = magic.0.e
+		ai_chance = {
+			factor = 50
+		}
+		hidden_effect = {
+			country_event = {
+				id = magic.4000
+			}
+		}
+	}
+	#Select Lore of Shadows
+	option = {
+		name = magic.0.f
+		ai_chance = {
+			factor = 50
+		}
+		hidden_effect = {
+			country_event = {
+				id = magic.5000
+			}
+		}
+	}
+	#Select Lore of Death
+	option = {
+		name = magic.0.g
+		ai_chance = {
+			factor = 50
+		}
+		hidden_effect = {
+			country_event = {
+				id = magic.6000
+			}
+		}
+	}
+	#Select Lore of Fires
+	option = {
+		name = magic.0.h
+		ai_chance = {
+			factor = 50
+		}
+		hidden_effect = {
+			country_event = {
+				id = magic.7000
+			}
+		}
+	}
+	#Select Lore of Beats
+	option = {
+		name = magic.0.i
+		ai_chance = {
+			factor = 50
+		}
+		hidden_effect = {
+			country_event = {
+				id = magic.8000
+			}
+		}
+	}
+	#Go back bottom of list
+	option = {
+		name = magic.0.z
+		ai_chance = {
+			factor = 50
+		}
+		magic_close_single_menu = yes
+	}
+}
+
+############################################################################################################################
+####################
+##Lore of Light
+##1000-1999 Reserved
+####################
+############################################################################################################################
+#Select Spell from lore of Metal
+country_event = {
+	id = magic.1000
+	title = magic.1000.t
+	picture = MAGIC_MENU_eventPicture
+	desc = magic.1000.d
+	is_triggered_only = yes
+	immediate = {
+	}
+	# Go Back
+	option = {
+		name = magic.1000.z
+		ai_chance = {
+			factor = 50
+		}
+		hidden_effect = {
+			country_event = {
+				id = magic.0
+			}
+		}
+	}
+}
+
+############################################################################################################################
+####################
+##Lore of Metal
+##2000-2999 Reserved
+####################
+############################################################################################################################
+#Select Spell from lore of Metal
+country_event = {
+	id = magic.2000
+	title = magic.2000.t
+	picture = MAGIC_MENU_eventPicture
+	desc = magic.2000.d
+	is_triggered_only = yes
+	immediate = {
+	}
+	# Go Back
+	option = {
+		name = magic.2000.z
+		ai_chance = {
+			factor = 50
+		}
+		hidden_effect = {
+			country_event = {
+				id = magic.0
+			}
+		}
+	}
+	###################
+	# 1 Glittering Robe
+	###################
+	#available
+	option = {
+		name = magic.2000.a
+		trigger = {
+			has_country_flag = lore_of_metal_1
+			has_government_power = {
+				mechanic_type = magic_mechanic
+				power_type = winds_of_magic
+				value = 25
+			}
+			not = {
+				has_country_modifier = magic_glittering_robe_1
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 1.5
+				is_at_war = yes
+			}
+		}
+		add_government_power = {
+			mechanic_type = magic_mechanic
+			power_type = winds_of_magic
+			value = -25
+		}
+		hidden_effect = {
+		}
+		custom_tooltip = magic_glittering_robe_desc_tt
+		add_country_modifier = {
+			name = magic_glittering_robe_1
+			duration = 365
+		}
+		magic_close_single_menu = yes
+	}
+	#Un-available
+	option = {
+		name = magic.2000.az
+		trigger = {
+			ai = no
+			Or = {
+				not = {
+					has_country_flag = lore_of_metal_1
+				}
+				not = {
+					has_government_power = {
+						mechanic_type = magic_mechanic
+						power_type = winds_of_magic
+						value = 25
+					}
+				}
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+		if = {
+			limit = {
+				or = {
+					has_country_modifier = magic_glittering_robe_1
+				}
+			}
+			custom_tooltip = magic_glittering_robe_cooldown_tt
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = lore_of_metal_1
+				}
+			}
+			custom_tooltip = magic_need_higher_lore_of_metal_tt
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_government_power = {
+						mechanic_type = magic_mechanic
+						power_type = winds_of_magic
+						value = 25
+					}
+				}
+			}
+			custom_tooltip = magic_need_25_wom_tt
+		}
+		magic_close_single_menu = yes
+	}
+	###################
+	# 2 searing doom
+	###################
+	#available
+	option = {
+		name = magic.2000.b
+		trigger = {
+			has_country_flag = lore_of_metal_1
+			has_government_power = {
+				mechanic_type = magic_mechanic
+				power_type = winds_of_magic
+				value = 25
+			}
+			not = {
+				has_country_modifier = magic_searing_doom_1
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 1.5
+				is_at_war = yes
+			}
+		}
+		add_government_power = {
+			mechanic_type = magic_mechanic
+			power_type = winds_of_magic
+			value = -25
+		}
+		hidden_effect = {
+		}
+		custom_tooltip = magic_searing_doom_desc_tt
+		add_country_modifier = {
+			name = magic_searing_doom_1
+			duration = 365
+		}
+		magic_close_single_menu = yes
+	}
+	#Un-available
+	option = {
+		name = magic.2000.bz
+		trigger = {
+			ai = no
+			Or = {
+				not = {
+					has_country_flag = lore_of_metal_1
+				}
+				not = {
+					has_government_power = {
+						mechanic_type = magic_mechanic
+						power_type = winds_of_magic
+						value = 25
+					}
+				}
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+		if = {
+			limit = {
+				or = {
+					has_country_modifier = magic_searing_doom_1
+				}
+			}
+			custom_tooltip = magic_searing_doom_cooldown_tt
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = lore_of_metal_1
+				}
+			}
+			custom_tooltip = magic_need_higher_lore_of_metal_tt
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_government_power = {
+						mechanic_type = magic_mechanic
+						power_type = winds_of_magic
+						value = 25
+					}
+				}
+			}
+			custom_tooltip = magic_need_25_wom_tt
+		}
+		magic_close_single_menu = yes
+	}
+}
+
+# 3 - Casting Plague of rust
+country_event = {
+	id = magic.2001
+	title = magic.2001.t
+	desc = magic.2001.d
+	picture = FARMING_eventPicture
+	is_triggered_only = yes
+	immediate = {
+	}
+	#proced
+	option = {
+		name = magic.2001.a
+		add_government_power = {
+			mechanic_type = magic_mechanic
+			power_type = winds_of_magic
+			value = -25
+		}
+		event_target:spell_target_province = {
+			owner = {
+				country_event = {
+					id = magic.2002
+				}
+			}
+		}
+	}
+	#nothanks
+	option = {
+		name = magic.goback
+	}
+	after = {
+		clr_country_flag = cast_menu_open
+	}
+}
+
+#Notification Event for plague of rust
+country_event = {
+	id = magic.2002
+	title = magic.2002.t
+	desc = magic.2002.d
+	picture = FARMING_eventPicture
+	is_triggered_only = yes
+	immediate = {
+	}
+	#Attempt to Resist Spell
+	option = {
+		name = magic.2002.a
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			or = {
+				has_magic_resistance = yes
+				has_government_power = {
+					mechanic_type = magic_mechanic
+					power_type = winds_of_magic
+					value = 10
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_government_power = {
+					mechanic_type = magic_mechanic
+					power_type = winds_of_magic
+					value = 10
+				}
+			}
+			add_government_power = {
+				mechanic_type = magic_mechanic
+				power_type = winds_of_magic
+				value = -10
+			}
+		}
+		random_list = {
+			20 = {
+				country_event = {
+					id = magic.2003
+				}
+			}
+			80 = {
+				country_event = {
+					id = magic.2004
+				}
+			}
+		}
+	}
+	#Alas!
+	option = {
+		name = magic.2002.b
+		random_list = {
+			80 = {
+				country_event = {
+					id = magic.2003
+				}
+			}
+			20 = {
+				country_event = {
+					id = magic.2004
+				}
+			}
+		}
+	}
+}
+
+# Plague of Rust - Success
+country_event = {
+	id = magic.2003
+	title = magic.2003.t
+	desc = magic.2003.d
+	picture = SIEGE_eventPicture
+	goto = spell_target_province
+	is_triggered_only = yes
+	#dam
+	option = {
+		name = magic.2003.a
+		ai_chance = {
+			factor = 100
+		}
+		#Spell
+		add_country_modifier = {
+			name = magic_plague_of_rust_1
+			duration = 365
+		}
+		prev = {
+			country_event = {
+				id = magic.2005
+			}
+		}
+	}
+	after = {
+	}
+}
+
+# Plague of Rust - Fail (Fizzles)
+country_event = {
+	id = magic.2004
+	title = magic.2004.t
+	desc = magic.2004.d
+	picture = SIEGE_eventPicture
+	goto = spell_target_province
+	is_triggered_only = yes
+	#Nice
+	option = {
+		name = magic.2004.a
+		ai_chance = {
+			factor = 100
+		}
+		prev = {
+			country_event = {
+				id = magic.2006
+			}
+		}
+	}
+}
+
+# Plague of Rust - Success Notification
+country_event = {
+	id = magic.2005
+	title = magic.2005.t
+	desc = magic.2005.d
+	picture = SIEGE_eventPicture
+	goto = spell_target_province
+	is_triggered_only = yes
+	#epic
+	option = {
+		name = magic.2005.a
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+
+# Plague of Rust - Fail Notification
+country_event = {
+	id = magic.2006
+	title = magic.2006.t
+	desc = magic.2006.d
+	picture = SIEGE_eventPicture
+	goto = spell_target_province
+	is_triggered_only = yes
+	#:(
+	option = {
+		name = magic.2006.a
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+
+#####################################################################################
+####################
+##Lore of life
+##3000-3999 Reserved
+####################
+#Select Spell from lore of Life
+country_event = {
+	id = magic.3000
+	title = magic.3000.t
+	picture = MAGIC_MENU_eventPicture
+	desc = magic.3000.d
+	is_triggered_only = yes
+	immediate = {
+	}
+	# Go Back
+	option = {
+		name = magic.3000.z
+		ai_chance = {
+			factor = 50
+		}
+		hidden_effect = {
+			country_event = {
+				id = magic.0
+			}
+		}
+	}
+	##################
+	# 3 - Regrowth
+	##################
+	#available
+	option = {
+		name = magic.3000.e
+		trigger = {
+			has_country_flag = lore_of_life_1
+			has_government_power = {
+				mechanic_type = magic_mechanic
+				power_type = winds_of_magic
+				value = 30
+			}
+			not = {
+				has_country_modifier = magic_regrowth_1
+			}
+		}
+		ai_chance = {
+			factor = 50
+		}
+		add_government_power = {
+			mechanic_type = magic_mechanic
+			power_type = winds_of_magic
+			value = -30
+		}
+		add_yearly_manpower = 1
+		add_country_modifier = {
+			name = magic_regrowth_1
+			duration = 1825
+		}
+		custom_tooltip = magic_regrowth_desc_tt
+		magic_close_single_menu = yes
+	}
+	#Un-available
+	option = {
+		name = magic.3000.ez
+		trigger = {
+			ai = no
+			Or = {
+				not = {
+					has_country_flag = lore_of_life_1
+				}
+				not = {
+					has_government_power = {
+						mechanic_type = magic_mechanic
+						power_type = winds_of_magic
+						value = 30
+					}
+				}
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+		if = {
+			limit = {
+				has_country_modifier = magic_regrowth_1
+			}
+			custom_tooltip = magic_regrowth_cooldown_tt
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = lore_of_life_1
+				}
+			}
+			custom_tooltip = magic_need_higher_lore_of_life_tt
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_government_power = {
+						mechanic_type = magic_mechanic
+						power_type = winds_of_magic
+						value = 30
+					}
+				}
+			}
+			custom_tooltip = magic_need_30_wom_tt
+		}
+		magic_close_single_menu = yes
+	}
+	##################
+	# 4 - Flesh to Stone
+	##################
+	#available
+	option = {
+		name = magic.3000.f
+		trigger = {
+			has_country_flag = lore_of_life_1
+			has_government_power = {
+				mechanic_type = magic_mechanic
+				power_type = winds_of_magic
+				value = 30
+			}
+			not = {
+				has_country_modifier = magic_flesh_to_stone_1
+			}
+		}
+		ai_chance = {
+			factor = 50
+		}
+		add_government_power = {
+			mechanic_type = magic_mechanic
+			power_type = winds_of_magic
+			value = -30
+		}
+		add_country_modifier = {
+			name = magic_flesh_to_stone_1
+			duration = 365
+		}
+		custom_tooltip = magic_flesh_to_stone_desc_tt
+		magic_close_single_menu = yes
+	}
+	#Un-available
+	option = {
+		name = magic.3000.fz
+		trigger = {
+			ai = no
+			Or = {
+				not = {
+					has_country_flag = lore_of_life_1
+				}
+				not = {
+					has_government_power = {
+						mechanic_type = magic_mechanic
+						power_type = winds_of_magic
+						value = 30
+					}
+				}
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+		if = {
+			limit = {
+				has_country_modifier = magic_flesh_to_stone_1
+			}
+			custom_tooltip = magic_flesh_to_stone_1_cooldown_tt
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = lore_of_life_1
+				}
+			}
+			custom_tooltip = magic_need_higher_lore_of_life_tt
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_government_power = {
+						mechanic_type = magic_mechanic
+						power_type = winds_of_magic
+						value = 30
+					}
+				}
+			}
+			custom_tooltip = magic_need_30_wom_tt
+		}
+		magic_close_single_menu = yes
+	}
+	after = {
+	}
+}
+
+############################################################################################################################
+####################
+##Lore of Heavens
+##4000-4999 Reserved
+####################
+############################################################################################################################
+#Select Spell from lore of Heavens
+country_event = {
+	id = magic.4000
+	title = magic.4000.t
+	picture = MAGIC_MENU_eventPicture
+	desc = magic.4000.d
+	is_triggered_only = yes
+	immediate = {
+	}
+	# Go Back
+	option = {
+		name = magic.2000.z
+		ai_chance = {
+			factor = 50
+		}
+		hidden_effect = {
+			country_event = {
+				id = magic.0
+			}
+		}
+	}
+}
+
+# 1 - Comet
+country_event = {
+	id = magic.4001
+	title = magic.4001.t
+	desc = magic.4001.d
+	picture = FARMING_eventPicture
+	is_triggered_only = yes
+	immediate = {
+	}
+	#proced
+	option = {
+		name = magic.4001.a
+		add_government_power = {
+			mechanic_type = magic_mechanic
+			power_type = winds_of_magic
+			value = -50
+		}
+		event_target:spell_target_province = {
+			owner = {
+				country_event = {
+					id = 5060
+				}
+			}
+		}
+	}
+	#nothanks
+	option = {
+		name = magic.goback
+	}
+	after = {
+		clr_country_flag = cast_menu_open
+	}
+}
+
+############################################################################################################################
+####################
+##Lore of Shadows
+##5000-5999 Reserved
+####################
+############################################################################################################################
+#Select Spell from lore of Shadows
+country_event = {
+	id = magic.5000
+	title = magic.5000.t
+	picture = MAGIC_MENU_eventPicture
+	desc = magic.5000.d
+	is_triggered_only = yes
+	immediate = {
+	}
+	# Go Back
+	option = {
+		name = magic.5000.z
+		ai_chance = {
+			factor = 50
+		}
+		hidden_effect = {
+			country_event = {
+				id = magic.0
+			}
+		}
+	}
+	##################
+	# 1 - mind razor
+	##################
+	#available
+	option = {
+		name = magic.5000.a
+		trigger = {
+			has_country_flag = lore_of_shadows_1
+			has_government_power = {
+				mechanic_type = magic_mechanic
+				power_type = winds_of_magic
+				value = 40
+			}
+			not = {
+				has_country_modifier = magic_okkam_mindrazor_1
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 1.5
+				is_at_war = yes
+			}
+		}
+		add_government_power = {
+			mechanic_type = magic_mechanic
+			power_type = winds_of_magic
+			value = -40
+		}
+		hidden_effect = {
+		}
+		custom_tooltip = magic_okkam_mindrazor_desc_tt
+		add_country_modifier = {
+			name = magic_okkam_mindrazor_1
+			duration = 365
+		}
+		magic_close_single_menu = yes
+	}
+	#Un-available
+	option = {
+		name = magic.5000.az
+		trigger = {
+			ai = no
+			Or = {
+				not = {
+					has_country_flag = lore_of_shadow_1
+				}
+				not = {
+					has_government_power = {
+						mechanic_type = magic_mechanic
+						power_type = winds_of_magic
+						value = 40
+					}
+				}
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+		if = {
+			limit = {
+				has_country_modifier = magic_okkam_mindrazor_1
+			}
+			custom_tooltip = magic_okkam_mindrazor_1_cooldown_tt
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = lore_of_shadows_1
+				}
+			}
+			custom_tooltip = magic_need_higher_lore_of_shadows_tt
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_government_power = {
+						mechanic_type = magic_mechanic
+						power_type = winds_of_magic
+						value = 40
+					}
+				}
+			}
+			custom_tooltip = magic_need_40_wom_tt
+		}
+		magic_close_single_menu = yes
+	}
+	##################
+	# 2 - Smoke and Mirros
+	##################
+	#available
+	option = {
+		name = magic.5000.b
+		trigger = {
+			has_country_flag = lore_of_shadows_1
+			has_government_power = {
+				mechanic_type = magic_mechanic
+				power_type = winds_of_magic
+				value = 20
+			}
+			not = {
+				has_country_modifier = magic_smoke_and_mirrors_1
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 1.5
+				is_at_war = yes
+			}
+		}
+		add_government_power = {
+			mechanic_type = magic_mechanic
+			power_type = winds_of_magic
+			value = -20
+		}
+		add_country_modifier = {
+			name = magic_smoke_and_mirrors_1
+			duration = 365
+		}
+		custom_tooltip = magic_smoke_and_mirrors_1_desc_tt
+		magic_close_single_menu = yes
+	}
+	#Un-available
+	option = {
+		name = magic.5000.az
+		trigger = {
+			ai = no
+			Or = {
+				not = {
+					has_country_flag = lore_of_shadow_1
+				}
+				not = {
+					has_government_power = {
+						mechanic_type = magic_mechanic
+						power_type = winds_of_magic
+						value = 20
+					}
+				}
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+		if = {
+			limit = {
+				has_country_modifier = magic_smoke_and_mirrors_1
+			}
+			custom_tooltip = magic_smoke_and_mirrors_1_cooldown_tt
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = lore_of_shadows_1
+				}
+			}
+			custom_tooltip = magic_need_higher_lore_of_shadows_tt
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_government_power = {
+						mechanic_type = magic_mechanic
+						power_type = winds_of_magic
+						value = 20
+					}
+				}
+			}
+			custom_tooltip = magic_need_20_wom_tt
+		}
+		magic_close_single_menu = yes
+	}
+}
+
+################################
+# Into the Shadows
+################################
+#Shadow undiscover
+country_event = {
+	id = magic.5001
+	title = magic.5001.t
+	desc = magic.5001.d
+	picture = DIPLOMACY_eventPicture
+	is_triggered_only = yes
+	#hidden = yes
+	immediate = {
+		set_country_flag = was_target_by_undiscovery_flag
+		every_province = {
+			limit = {
+				event_target:fog_epicenter_target = {
+					NOT = {
+						province_distance = {
+							who = PREV
+							distance = 50
+						}
+					}
+				}
+			}
+			undiscover_country = ROOT
+		}
+		country_event = {
+			id = magic.5002
+			days = 365
+		}
+	}
+	option = {
+		#
+		name = magic.5001.a
+		custom_tooltip = tooltip_magic_fog_start
+	}
+}
+
+#Shadow Discover
+country_event = {
+	id = magic.5002
+	title = magic.5002.t
+	desc = magic.5002.desc
+	picture = DIPLOMACY_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		every_province = {
+			limit = {
+				event_target:fog_epicenter_target = {
+					NOT = {
+						province_distance = {
+							who = PREV
+							distance = 50
+						}
+					}
+				}
+			}
+			discover_country = ROOT
+		}
+	}
+	#ok
+	option = {
+		name = magic.5002.a
+	}
+}
+
+#####################################################################################
+####################
+##Lore of Death
+##6000-6999 Reserved
+####################
+country_event = {
+	id = magic.6000
+	title = magic.6000.t
+	picture = MAGIC_MENU_eventPicture
+	desc = magic.6000.d
+	is_triggered_only = yes
+	immediate = {
+	}
+	# Go Back
+	option = {
+		name = magic.1000.z
+		ai_chance = {
+			factor = 50
+		}
+		hidden_effect = {
+			country_event = {
+				id = magic.0
+			}
+		}
+	}
+	# 1 - Spirit Leach
+	# Kill Enemy General 			   
+	# available
+	option = {
+		name = magic.6000.a
+		trigger = {
+			has_country_flag = lore_of_death_1
+			any_province = {
+				unit_has_leader = yes
+				unit_in_battle = yes
+				num_of_units_in_province = {
+					who = ROOT
+					amount = 1
+				}
+			}
+			has_government_power = {
+				mechanic_type = magic_mechanic
+				power_type = winds_of_magic
+				value = 35
+			}
+		}
+		ai_chance = {
+			factor = 50
+		}
+		add_government_power = {
+			mechanic_type = magic_mechanic
+			power_type = winds_of_magic
+			value = -35
+		}
+		country_event = {
+			id = magic.6001
+		}
+		custom_tooltip = magic_spirit_leach_tt
+	}
+	#spirit leach unaviable
+	option = {
+		name = magic.6000.az
+		trigger = {
+			ai = no
+			Or = {
+				not = {
+					has_country_flag = lore_of_death_1
+				}
+				not = {
+					has_government_power = {
+						mechanic_type = magic_mechanic
+						power_type = winds_of_magic
+						value = 35
+					}
+				}
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+		#Higher Level Required
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = lore_of_death_1
+				}
+			}
+			custom_tooltip = magic_need_higher_lore_of_death_tt
+		}
+		#More Winds Required
+		if = {
+			limit = {
+				NOT = {
+					has_government_power = {
+						mechanic_type = magic_mechanic
+						power_type = winds_of_magic
+						value = 35
+					}
+				}
+			}
+			custom_tooltip = magic_need_35_wom_tt
+		}
+		magic_close_single_menu = yes
+	}
+}
+
+# 1 - Casting Spirit Leach
+country_event = {
+	id = magic.6001
+	title = magic.6001.t
+	desc = magic.6001.d
+	picture = FARMING_eventPicture
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			every_province = {
+				limit = {
+					unit_has_leader = yes
+					unit_in_battle = yes
+					num_of_units_in_province = {
+						who = ROOT
+						amount = 1
+					}
+				}
+				save_event_target_as = target_of_spirit_leach_1
+			}
+		}
+	}
+	option = {
+		name = magic.6001.a
+		random_country = {
+			limit = {
+				war_with = ROOT
+				event_target:target_of_spirit_leach_1 = {
+					units_in_province = PREV
+				}
+			}
+			kill_leader = {
+				type = general
+			}
+			country_event = {
+				id = magic.6002
+			}
+		}
+	}
+	after = {
+		magic_close_single_menu = yes
+	}
+}
+
+#Notification Event for target
+country_event = {
+	id = magic.6002
+	title = magic.6002.t
+	desc = magic.6002.d
+	picture = FARMING_eventPicture
+	is_triggered_only = yes
+	immediate = {
+	}
+	#Alas!
+	option = {
+		name = magic.6002.a
+	}
+}
+
+#####################################################################################
+####################
+##Lore of fire
+##7000-7999 Reserved
+####################
+#Select Spell from lore of fire
+country_event = {
+	id = magic.7000
+	title = magic.7000.t
+	picture = MAGIC_MENU_eventPicture
+	desc = magic.7000.d
+	is_triggered_only = yes
+	immediate = {
+	}
+	# Go Back
+	option = {
+		name = magic.7000.z
+		ai_chance = {
+			factor = 50
+		}
+		hidden_effect = {
+			country_event = {
+				id = magic.0
+			}
+		}
+	}
+	##################
+	# 1 - War Magic
+	##################
+	#available
+	option = {
+		name = magic.7000.a
+		trigger = {
+			has_country_flag = lore_of_fire_1
+			has_government_power = {
+				mechanic_type = magic_mechanic
+				power_type = winds_of_magic
+				value = 30
+			}
+			not = {
+				has_country_modifier = magic_fire_power_1
+			}
+		}
+		ai_chance = {
+			factor = 50
+		}
+		add_government_power = {
+			mechanic_type = magic_mechanic
+			power_type = winds_of_magic
+			value = -30
+		}
+		add_yearly_manpower = 1
+		add_country_modifier = {
+			name = magic_fire_power_1
+			duration = 365
+		}
+		custom_tooltip = magic_fire_power_desc_tt
+		magic_close_single_menu = yes
+	}
+	#Un-available
+	option = {
+		name = magic.7000.az
+		trigger = {
+			ai = no
+			Or = {
+				not = {
+					has_country_flag = lore_of_fire_1
+				}
+				not = {
+					has_government_power = {
+						mechanic_type = magic_mechanic
+						power_type = winds_of_magic
+						value = 30
+					}
+				}
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+		#Cooldown
+		if = {
+			limit = {
+				has_country_modifier = magic_fire_power_1
+			}
+			custom_tooltip = magic_fire_power_cooldown_tt
+		}
+		#Higher Level Required
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = lore_of_fire_1
+				}
+			}
+			custom_tooltip = magic_need_higher_lore_of_fire_tt
+		}
+		#More Winds Required
+		if = {
+			limit = {
+				NOT = {
+					has_government_power = {
+						mechanic_type = magic_mechanic
+						power_type = winds_of_magic
+						value = 30
+					}
+				}
+			}
+			custom_tooltip = magic_need_30_wom_tt
+		}
+		magic_close_single_menu = yes
+	}
+}
+
+###
+#Fire ball
+####
+country_event = {
+	id = magic.7001
+	title = magic.7001.t
+	desc = magic.7001.d
+	picture = COMET_SIGHTED_eventPicture
+	goto = spell_target_province
+	is_triggered_only = yes
+	# anway I started blasting
+	option = {
+		name = magic.7001.a
+		ai_chance = {
+			factor = 90
+		}
+		#Costs
+		add_government_power = {
+			mechanic_type = magic_mechanic
+			power_type = winds_of_magic
+			value = -25
+		}
+		magic_casted_spell = yes
+		#Success/Fail
+		#fire 3
+		if = {
+			limit = {
+				#Fire 3
+				event_target:spell_target_province = {
+					fort_level = 1
+					NOT = {
+						fort_level = 4
+					}
+				}
+				has_country_flag = lore_of_fire_3
+			}
+			random_list = {
+				90 = {
+					country_event = {
+						id = magic.7002
+					}
+				}
+				10 = {
+					country_event = {
+						id = magic.7003
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				#Fire 3
+				event_target:spell_target_province = {
+					fort_level = 4
+					NOT = {
+						fort_level = 6
+					}
+				}
+				has_country_flag = lore_of_fire_3
+			}
+			random_list = {
+				80 = {
+					country_event = {
+						id = magic.7002
+					}
+				}
+				20 = {
+					country_event = {
+						id = magic.7003
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				#Fire 3
+				event_target:spell_target_province = {
+					fort_level = 6
+					NOT = {
+						fort_level = 8
+					}
+				}
+				has_country_flag = lore_of_fire_3
+			}
+			random_list = {
+				70 = {
+					country_event = {
+						id = magic.7002
+					}
+				}
+				30 = {
+					country_event = {
+						id = magic.7003
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				#Fire 3
+				event_target:spell_target_province = {
+					fort_level = 8
+				}
+				has_country_flag = lore_of_fire_3
+			}
+			random_list = {
+				60 = {
+					country_event = {
+						id = magic.7002
+					}
+				}
+				40 = {
+					country_event = {
+						id = magic.7003
+					}
+				}
+			}
+		}
+		#fire 2
+		else_if = {
+			limit = {
+				#Fire 3
+				event_target:spell_target_province = {
+					fort_level = 1
+					NOT = {
+						fort_level = 4
+					}
+				}
+				has_country_flag = lore_of_fire_2
+			}
+			random_list = {
+				80 = {
+					country_event = {
+						id = magic.7002
+					}
+				}
+				20 = {
+					country_event = {
+						id = magic.7003
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				#Fire 3
+				event_target:spell_target_province = {
+					fort_level = 4
+					NOT = {
+						fort_level = 6
+					}
+				}
+				has_country_flag = lore_of_fire_2
+			}
+			random_list = {
+				70 = {
+					country_event = {
+						id = magic.7002
+					}
+				}
+				30 = {
+					country_event = {
+						id = magic.7003
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				#Fire 3
+				event_target:spell_target_province = {
+					fort_level = 6
+					NOT = {
+						fort_level = 8
+					}
+				}
+				has_country_flag = lore_of_fire_2
+			}
+			random_list = {
+				60 = {
+					country_event = {
+						id = magic.7002
+					}
+				}
+				40 = {
+					country_event = {
+						id = magic.7003
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				#Fire 3
+				event_target:spell_target_province = {
+					fort_level = 8
+				}
+				has_country_flag = lore_of_fire_2
+			}
+			random_list = {
+				50 = {
+					country_event = {
+						id = magic.7002
+					}
+				}
+				50 = {
+					country_event = {
+						id = magic.7003
+					}
+				}
+			}
+		}
+		#fire 1
+		else_if = {
+			limit = {
+				#Fire 3
+				event_target:spell_target_province = {
+					fort_level = 1
+					NOT = {
+						fort_level = 4
+					}
+				}
+				has_country_flag = lore_of_fire_1
+			}
+			random_list = {
+				70 = {
+					country_event = {
+						id = magic.7002
+					}
+				}
+				30 = {
+					country_event = {
+						id = magic.7003
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				#Fire 3
+				event_target:spell_target_province = {
+					fort_level = 4
+					NOT = {
+						fort_level = 6
+					}
+				}
+				has_country_flag = lore_of_fire_1
+			}
+			random_list = {
+				60 = {
+					country_event = {
+						id = magic.7002
+					}
+				}
+				40 = {
+					country_event = {
+						id = magic.7003
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				#Fire 3
+				event_target:spell_target_province = {
+					fort_level = 6
+					NOT = {
+						fort_level = 8
+					}
+				}
+				has_country_flag = lore_of_fire_1
+			}
+			random_list = {
+				50 = {
+					country_event = {
+						id = magic.7002
+					}
+				}
+				50 = {
+					country_event = {
+						id = magic.7003
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				#Fire 3
+				event_target:spell_target_province = {
+					fort_level = 8
+				}
+				has_country_flag = lore_of_fire_1
+			}
+			random_list = {
+				40 = {
+					country_event = {
+						id = magic.7002
+					}
+				}
+				60 = {
+					country_event = {
+						id = magic.7003
+					}
+				}
+			}
+		}
+		else = {
+			random_list = {
+				30 = {
+					country_event = {
+						id = magic.7002
+					}
+				}
+				70 = {
+					country_event = {
+						id = magic.7003
+					}
+				}
+			}
+		}
+	}
+	option = {
+		#Option B: Go back
+		name = magic_siege.goback
+		ai_chance = {
+			factor = 10
+		}
+	}
+}
+
+# fire 1: Greater Fireball - Success
+country_event = {
+	id = magic.7002
+	title = magic.7002.t
+	desc = magic.7002.d
+	picture = SIEGE_eventPicture
+	goto = spell_target_province
+	is_triggered_only = yes
+	option = {
+		name = magic.7002.a
+		ai_chance = {
+			factor = 100
+		}
+		#Spell
+		event_target:spell_target_province = {
+			change_siege = 1
+		}
+	}
+	after = {
+	}
+}
+
+# fire 1: Greater Fireball - Fail (Misses)
+country_event = {
+	id = magic.7003
+	title = magic.7003.t
+	desc = magic.7003.d
+	picture = SIEGE_eventPicture
+	goto = spell_target_province
+	is_triggered_only = yes
+	#Force Fail
+	option = {
+		name = magic.7003.a
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+
+###
+#Fire storm
+####
+country_event = {
+	id = magic.7010
+	title = magic.7010.t
+	desc = magic.7010.d
+	picture = COMET_SIGHTED_eventPicture
+	goto = spell_target_province
+	is_triggered_only = yes
+	# Cast firestorm
+	option = {
+		name = magic.7010.a
+		ai_chance = {
+			factor = 90
+		}
+		#Costs
+		add_government_power = {
+			mechanic_type = magic_mechanic
+			power_type = winds_of_magic
+			value = -50
+		}
+		magic_casted_spell = yes
+		#Success/Fail
+		#Success/Fail
+		if = {
+			limit = {
+				event_target:spell_target_province = {
+					fort_level = 1
+					NOT = {
+						fort_level = 4
+					}
+				}
+			}
+			random_list = {
+				90 = {
+					root = {
+						country_event = {
+							id = magic.7011
+						}
+					}
+				}
+				10 = {
+					root = {
+						country_event = {
+							id = magic.7012
+						}
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				event_target:spell_target_province = {
+					fort_level = 4
+					NOT = {
+						fort_level = 6
+					}
+				}
+			}
+			random_list = {
+				80 = {
+					country_event = {
+						id = magic.7011
+					}
+				}
+				20 = {
+					country_event = {
+						id = magic.7012
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				event_target:spell_target_province = {
+					fort_level = 6
+					NOT = {
+						fort_level = 8
+					}
+				}
+			}
+			random_list = {
+				70 = {
+					country_event = {
+						id = magic.7011
+					}
+				}
+				30 = {
+					country_event = {
+						id = magic.7012
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				event_target:spell_target_province = {
+					fort_level = 8
+				}
+			}
+			random_list = {
+				60 = {
+					country_event = {
+						id = magic.7011
+					}
+				}
+				40 = {
+					country_event = {
+						id = magic.7012
+					}
+				}
+			}
+		}
+	}
+	option = {
+		#Option B: Go back
+		name = magic.goback
+		ai_chance = {
+			factor = 10
+		}
+	}
+}
+
+# Firestorm - Success
+country_event = {
+	id = magic.7011
+	title = magic.7011.t
+	desc = magic.7011.d
+	picture = SIEGE_eventPicture
+	goto = spell_target_province
+	is_triggered_only = yes
+	option = {
+		name = magic.7011.a
+		ai_chance = {
+			factor = 100
+		}
+		#Spell
+		event_target:spell_target_province = {
+			change_siege = 10
+			add_devastation = 75
+			if = {
+				limit = {
+					base_manpower = 2
+				}
+				add_base_manpower = -1
+			}
+			if = {
+				limit = {
+					base_production = 2
+				}
+				add_base_production = -1
+			}
+			if = {
+				limit = {
+					base_tax = 2
+				}
+				add_base_tax = -1
+			}
+		}
+	}
+	after = {
+	}
+}
+
+# Firestorm - Fail (Misses)
+country_event = {
+	id = magic.7012
+	title = magic.7012.t
+	desc = magic.7012.d
+	picture = SIEGE_eventPicture
+	goto = spell_target_province
+	is_triggered_only = yes
+	#Force Fail
+	option = {
+		name = magic.7012.a
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+
+############################################################################################################################
+####################
+##Lore of Beats
+##8000-8999 Reserved
+####################
+############################################################################################################################
+#Select Spell from lore of Metal
+country_event = {
+	id = magic.8000
+	title = magic.8000.t
+	picture = MAGIC_MENU_eventPicture
+	desc = magic.8000.d
+	is_triggered_only = yes
+	immediate = {
+	}
+	# Go Back
+	option = {
+		name = magic.8000.z
+		ai_chance = {
+			factor = 50
+		}
+		hidden_effect = {
+			country_event = {
+				id = magic.0
+			}
+		}
+	}
+}
+

@@ -1,0 +1,599 @@
+#### Terrain & Race Bonus Transfer
+on_province_owner_change = {
+	remove_province_modifier = lizardfolk_mild_winter
+	remove_province_modifier = lizardfolk_normal_winter
+	remove_province_modifier = lizardfolk_severe_winter
+	remove_province_modifier = lizardfolk_arctic
+	remove_province_modifier = wood_elves_magical_forest
+	remove_province_modifier = wood_elves_non_forest
+	remove_province_modifier = undergrounder_underground
+	remove_province_modifier = undergrounder_above_ground
+	remove_province_modifier = surface_dweller_underground
+	remove_province_modifier = fimir_marsh_modifier
+	
+	remove_province_modifier = lizardmen_temple_city_1
+	remove_province_modifier = lizardmen_temple_city_2
+	remove_province_modifier = lizardmen_temple_city_3
+	remove_province_modifier = lizardmen_temple_city_4
+	remove_province_modifier = lizardmen_temple_city_5
+	remove_province_modifier = lizardmen_temple_city_6
+	remove_province_modifier = lizardmen_temple_city_7
+
+	remove_province_modifier = pirate_coast_haven
+
+
+	## Pirate Coast
+	if = {
+		limit = {
+			owner = {
+				OR = { 
+					has_reform = vampire_coast_reform
+					has_reform = dread_fleet_reform
+				}
+			}
+			province_has_center_of_trade_of_level = 1
+			has_port = yes
+		}
+		add_permanent_province_modifier = {
+			name = pirate_coast_haven
+			duration = -1
+		}
+	}
+
+
+	## Lizardfolk
+	if = {
+		limit = {
+			owner = {
+				has_country_modifier = lizardmen_administration
+				NOT = {
+					has_country_modifier = undead_administration
+				}
+			}
+			has_climate = mild_winter
+		}
+		add_permanent_province_modifier = {
+			name = lizardfolk_mild_winter
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_modifier = lizardmen_administration
+				NOT = {
+					has_country_modifier = undead_administration
+				}
+			}
+			has_climate = normal_winter
+		}
+		add_permanent_province_modifier = {
+			name = lizardfolk_normal_winter
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_modifier = lizardmen_administration
+				NOT = {
+					has_country_modifier = undead_administration
+				}
+			}
+			has_climate = severe_winter
+		}
+		add_permanent_province_modifier = {
+			name = lizardfolk_severe_winter
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_modifier = lizardmen_administration
+				NOT = {
+					has_country_modifier = undead_administration
+				}
+			}
+			has_climate = arctic
+		}
+		add_permanent_province_modifier = {
+			name = lizardfolk_arctic
+			duration = -1
+		}
+	}
+	### Wood Elves
+	if = {
+		limit = {
+			owner = {
+				technology_group = tech_wood_elf
+				NOT = {
+					has_country_modifier = undead_administration
+				}
+			}
+			has_terrain = magical_forest_terrain
+		}
+		add_permanent_province_modifier = {
+			name = wood_elves_magical_forest
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				technology_group = tech_wood_elf
+				NOT = {
+					has_country_modifier = undead_administration
+				}
+			}
+			NOT = {
+				has_terrain = magical_forest_terrain
+			}
+			NOT = {
+				has_terrain = forest
+			}
+			NOT = {
+				has_terrain = jungle
+			}
+			NOT = {
+				has_terrain = woods
+			}
+		}
+		add_permanent_province_modifier = {
+			name = wood_elves_non_forest
+			duration = -1
+		}
+	}
+	### Fimir
+	if = {
+		limit = {
+			owner = {
+				has_country_modifier = fimir_military
+				NOT = {
+					has_country_modifier = undead_administration
+				}
+			}
+			has_terrain = marsh
+		}
+		add_permanent_province_modifier = {
+			name = fimir_marsh_modifier
+			duration = -1
+		}
+	}
+	### Dwarves and Skaven
+	if = {
+		limit = {
+			OR = {
+				owner = {
+					has_country_modifier = dwarven_administration
+				}
+				owner = {
+					has_country_modifier = skaven_administration
+				}
+			}
+			OR = {
+				#has_terrain = subterranean_city_terrain
+				#has_terrain = subterranean_terrain
+				has_terrain = dwarf_karak
+				has_terrain = underway
+				has_terrain = great_maze
+				has_terrain = cavern
+				has_terrain = warren_city
+			}
+			owner = { NOT = { has_country_modifier = vermintide } }
+			owner = { NOT = { has_country_modifier = undead_administration } }
+			owner = { NOT = { culture_group = chaos_dwarf_group } }
+			owner = { NOT = { has_reform = naval_dwarf_reform } }
+		}
+		add_permanent_province_modifier = {
+			name = undergrounder_underground
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				owner = {
+					has_country_modifier = dwarven_administration
+				}
+				owner = {
+					has_country_modifier = skaven_administration
+				}
+			}
+
+			#NOT = { has_terrain = subterranean_city_terrain }
+			#NOT = { has_terrain = subterranean_terrain }
+			NOT = { has_terrain = dwarf_karak }
+			NOT = { has_terrain = underway }
+			NOT = { has_terrain = great_maze }
+			NOT = { has_terrain = cavern }
+			NOT = { has_terrain = warren_city }
+			NOT = { has_terrain = urban_terrain }
+
+			owner = { NOT = { has_country_modifier = vermintide } }
+			owner = { NOT = { has_country_modifier = undead_administration } }
+			owner = { NOT = { culture_group = chaos_dwarf_group } }
+			owner = { NOT = { has_reform = naval_dwarf_reform } }
+		}	
+		add_permanent_province_modifier = { 
+		    name = undergrounder_above_ground
+		    duration = -1  
+		}
+	}
+	### Surface Dweller
+	if = {
+		limit = {
+			owner = {
+				NOT = {
+					has_country_modifier = skaven_administration
+				}
+			}
+			owner = {
+				NOT = {
+					has_country_modifier = orcish_administration
+				}
+			}
+			owner = {
+				NOT = {
+					has_country_modifier = undead_administration
+				}
+			}
+			owner = {
+				NOT = {
+					has_country_modifier = dwarven_administration
+				}
+			}
+			OR = {
+				#has_terrain = subterranean_city_terrain
+				#has_terrain = subterranean_terrain
+				has_terrain = dwarf_karak
+				has_terrain = underway
+				has_terrain = great_maze
+				has_terrain = cavern
+				has_terrain = warren_city
+			}
+		}
+		add_permanent_province_modifier = {
+			name = surface_dweller_underground
+			duration = -1
+		}
+	}
+
+### Enslaved Populace
+
+	if = {
+		limit = {
+			OR = {
+				owner = { NOT = { culture_group = ROOT } }
+				trade_goods = slaves
+			}
+			owner = { has_estate_privilege = estate_guild_enslave_lesser_races }
+		}
+		add_province_modifier = {
+			name = enslaved_lesser_races
+			duration = -1
+		}
+	}
+
+	if = {
+		limit = {
+			OR = {
+				owner = { NOT = { culture_group = ROOT } }
+				trade_goods = slaves
+			}
+			owner = { has_estate_privilege = estate_guild_industrial_enslavement }
+		}
+		add_province_modifier = {
+			name = industrial_enslavement
+			duration = -1
+		}
+	}
+
+## Purge 
+
+## Purge Lesser Rsces
+	if = {
+		limit = {
+			owner = {
+				NOT = { culture_group = ROOT }
+				NOT = { accepted_culture = ROOT }
+				NOT = { religion_group = ROOT }
+				has_estate_privilege = estate_church_purge_lesser_races
+			}
+		}
+
+		every_country = {
+			limit = { religion = ROOT }
+			add_opinion = {
+				who = ROOT
+				modifier = aggressive_expansion
+				multiplier = 0.5
+			}
+		}
+
+		every_country = {
+			limit = { religion_group = ROOT }
+			add_opinion = {
+				who = ROOT
+				modifier = aggressive_expansion
+				multiplier = 0.5
+			}
+		}
+
+		every_country = {
+			limit = { culture = ROOT }
+			add_opinion = {
+				who = ROOT
+				modifier = aggressive_expansion
+				multiplier = 0.5
+			}
+		}
+
+		every_country = {
+			limit = { culture_group = ROOT }
+			add_opinion = {
+				who = ROOT
+				modifier = aggressive_expansion
+				multiplier = 0.5
+			}
+		}
+
+		if = {
+			limit = { base_tax = 5 }
+			add_base_tax = -4
+		} else = {
+			set_base_tax = 1
+		}
+		
+
+		if = {
+			limit = { base_production = 5 }
+			add_base_production  = -4
+		} else = {
+			set_base_production  = 1
+		}
+
+		if = {
+			limit = { base_manpower = 5 }
+			add_base_manpower = -4
+		} else = {
+			set_base_manpower = 1
+		}
+		
+		add_devastation = 100
+		owner = {
+			ROOT = {
+				change_religion = PREV
+				change_culture = PREV
+			}
+		}
+		add_nationalism = -50
+	}
+
+## Purge Evil Rsces
+	if = {
+		limit = {
+			owner = {
+				NOT = { culture_group = ROOT }
+				NOT = { accepted_culture = ROOT }
+				NOT = { religion_group = ROOT }
+				has_estate_privilege = estate_church_purge_evil_races
+			}
+			OR = {
+				culture_group = greenskins_group
+				culture_group = skaven_group
+				culture_group = beastmen_group
+				culture_group = fimir_group
+			}
+		}
+
+		every_country = {
+			limit = { religion = ROOT }
+			add_opinion = {
+				who = ROOT
+				modifier = aggressive_expansion
+				multiplier = 0.5
+			}
+		}
+
+		every_country = {
+			limit = { religion_group = ROOT }
+			add_opinion = {
+				who = ROOT
+				modifier = aggressive_expansion
+				multiplier = 0.5
+			}
+		}
+
+		every_country = {
+			limit = { culture = ROOT }
+			add_opinion = {
+				who = ROOT
+				modifier = aggressive_expansion
+				multiplier = 0.5
+			}
+		}
+
+		every_country = {
+			limit = { culture_group = ROOT }
+			add_opinion = {
+				who = ROOT
+				modifier = aggressive_expansion
+				multiplier = 0.5
+			}
+		}
+
+
+
+		if = {
+			limit = { base_tax = 5 }
+			add_base_tax = -4
+		} else = {
+			set_base_tax = 1
+		}
+		
+
+		if = {
+			limit = { base_production = 5 }
+			add_base_production  = -4
+		} else = {
+			set_base_production  = 1
+		}
+
+		if = {
+			limit = { base_manpower = 5 }
+			add_base_manpower = -4
+		} else = {
+			set_base_manpower = 1
+		}
+
+		add_devastation = 100
+		owner = {
+			ROOT = {
+				change_religion = PREV
+				change_culture = PREV
+			}
+		}
+		add_nationalism = -50
+	}
+
+
+
+## Industrial Infrastructure & railway
+
+	if = {
+		limit = {
+			num_of_times_expanded_infrastructure = 1
+			owner = { has_estate_privilege = estate_guild_industrial_infrastructure }
+		}
+		add_province_modifier = {
+			name = industrial_infrastructure
+			duration = -1
+		}
+		add_province_modifier = {
+			name = war_rail_system
+			duration = -1
+		}
+		every_neighbor_province = {
+			limit = {
+				owned_by = ROOT
+			}
+			add_province_modifier = {
+				name = war_rail_system
+				duration = -1
+			}
+		}
+	}
+
+## Railway for conquering adjacent to expanded
+
+	if = {
+		limit = {
+			owner = { has_estate_privilege = estate_guild_industrial_infrastructure }
+			any_neighbor_province = {
+				owned_by = ROOT
+				num_of_times_expanded_infrastructure = 1
+			}
+		}
+		add_province_modifier = {
+			name = war_rail_system
+			duration = -1
+		}
+	}
+
+
+### Lizardfolk Temples
+
+	if = {
+		limit = {
+			has_terrain = temple_city_terrain
+			owner = { has_country_flag = geo_web_flag_7 }
+		}
+		add_province_modifier = {
+			name = lizardmen_temple_city_7
+			duration = -1
+		}
+	} else_if = {
+		limit = {
+			has_terrain = temple_city_terrain
+			owner = { has_country_flag = geo_web_flag_6 }
+		}
+		add_province_modifier = {
+			name = lizardmen_temple_city_6
+			duration = -1
+		}
+
+	} else_if = {
+		limit = {
+			has_terrain = temple_city_terrain
+			owner = { has_country_flag = geo_web_flag_5 }
+		}
+		add_province_modifier = {
+			name = lizardmen_temple_city_5
+			duration = -1
+		}
+
+	} else_if = {
+		limit = {
+			has_terrain = temple_city_terrain
+			owner = { has_country_flag = geo_web_flag_4 }
+		}
+		add_province_modifier = {
+			name = lizardmen_temple_city_4
+			duration = -1
+		}
+
+	} else_if = {
+		limit = {
+			has_terrain = temple_city_terrain
+			owner = { has_country_flag = geo_web_flag_3 }
+		}
+		add_province_modifier = {
+			name = lizardmen_temple_city_3
+			duration = -1
+		}
+
+	} else_if = {
+		limit = {
+			has_terrain = temple_city_terrain
+			owner = { has_country_flag = geo_web_flag_2 }
+		}
+		add_province_modifier = {
+			name = lizardmen_temple_city_2
+			duration = -1
+		}
+
+	} else_if = {
+		limit = {
+			has_terrain = temple_city_terrain
+			owner = { has_country_flag = geo_web_flag_1 }
+		}
+		add_province_modifier = {
+			name = lizardmen_temple_city_1
+			duration = -1
+		}
+	}
+
+
+
+
+
+
+}
+
+# on_new_monarch = {
+# 	if = { 
+# 		limit = {
+# 			NOT = { ruler_has_personality = immortal_personality }
+# 			OR = {
+# 				culture_group = asur_group
+# 				culture_group = druchii_group
+# 				culture_group = dwarf_group
+# 				culture_group = asrai_group
+# 				culture_group = lizardmen_group
+# 				culture_group = chaos_dwarf_group
+# 			}
+# 		}
+# 		add_ruler_personality = immortal_personality
+# 	}
+# }

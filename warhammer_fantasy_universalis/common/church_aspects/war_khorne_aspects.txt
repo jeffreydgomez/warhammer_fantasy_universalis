@@ -1,0 +1,85 @@
+
+champion_of_khorne_aspect = {
+	sprite = "GFX_champion_of_khorne"
+	cost = 50
+	
+	effect = {
+		create_general = { tradition = 50 }
+	}
+	
+	ai_will_do = {
+		factor = 8
+		modifier = {
+			factor = 0
+			num_of_generals = 2
+		}
+	}
+}
+
+drawn_to_destruction_aspect = {
+	sprite = "GFX_drawn_to_destruction"
+	cost = 200
+	
+	trigger = {
+		NOT = { manpower_percentage = 1 }
+	}
+	
+	effect = {
+		country_event = { id =  religion_khorne_event.1 }
+	}
+	
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = 0
+			OR = {
+				AND = {
+					manpower_percentage = 0.1
+					army_size_percentage = 0.1
+				}
+				NOT = { is_at_war = yes }
+			}
+		}
+	}
+}
+
+
+skulls_for_the_skull_throne_aspect = {
+	sprite = "GFX_skulls_for_the_skull_throne"
+	cost = 100
+
+	effect = {
+		country_event = { id = religion_khorne_event.2 }
+	}
+	
+		
+	ai_will_do = {
+		factor = 1000
+		modifier = {
+			factor = 0
+			NOT = {
+				any_province = {
+					unit_in_battle = yes
+					num_of_units_in_province = {
+						amount = 6
+					}
+					num_of_units_in_province = {
+						who = ROOT
+						amount = 3
+					}
+				}
+			}
+		}
+	}
+}
+
+
+blade_of_khorne_aspect  = {
+	sprite = "GFX_blade_of_khorne"
+	cost = 100
+
+	effect = {
+		country_event = { id = religion_khorne_event.3 }
+	}
+
+}

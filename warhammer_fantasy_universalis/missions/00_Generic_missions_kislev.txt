@@ -1,0 +1,389 @@
+##################################
+##### KISLEV CULTURE GROUP
+##################################
+
+
+
+gen_kislev_missions = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = kislevite_group
+		not = {
+			tag = B38
+		}
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_mission_priority_4 = no
+	}
+
+### The Boyars lend their winged hussars to the state
+	gen_kislev_please_nobility = {
+		icon = mission_kislev_culture
+		required_missions = { }
+		trigger = {
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = kislev_hussars_1
+				duration = -1
+			}
+		}
+	}
+
+### Our winged hussars are unmatched
+	gen_kislev_cavalry = {
+		icon = mission_kislev_culture
+		required_missions = { gen_kislev_please_nobility }
+		trigger = {
+			num_of_cavalry = 10
+		}
+		effect = {
+			add_country_modifier = {
+				name = kislev_hussars_2
+				duration = -1
+			}
+		}
+	}
+
+### Like times of old, we are taking to mounted warfare
+	gen_kislev_cavalry_2 = {
+		icon = mission_kislev_culture
+		required_missions = { gen_kislev_cavalry }
+		trigger = {
+			num_of_cavalry = 20
+		}
+		effect = {
+			add_country_modifier = {
+				name = kislev_hussars_3
+				duration = -1
+			}
+		}
+	}
+
+### Kisleve is a bastion against the forces of chaos. We need forts.
+	gen_kislev_prepare_the_defenses = {
+		icon = mission_kislev_culture
+		required_missions = { }
+		position = 5
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 6
+				fort_level = 2
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = kislev_cheap_forts
+				duration = -1
+			}
+		}
+	}
+
+### We need to reclaim our lands to the east
+	gen_kislev_reclaim_wheatlands = {
+		icon = mission_kislev_culture
+		required_missions = { }
+		provinces_to_highlight = {
+            region = wheatlands_region
+            NOT = { owned_by = ROOT }
+        }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				region = wheatlands_region
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = kislev_wheatlands_taken
+				duration = -1
+			}
+		}
+	}
+
+### The realms of men must help us again. We stand together against darkness.
+
+	gen_kislev_friend_to_the_south = {
+		icon = mission_kislev_culture
+		required_missions = {  }
+		provinces_to_highlight = {
+            owner = {
+				OR = {
+					is_emperor = yes
+					AND = {
+						is_part_of_hre = yes
+						army_size = ROOT
+					}
+				}
+            }
+        }
+		trigger = {
+			any_ally = {
+				OR = {
+					is_emperor = yes
+					AND = {
+						is_part_of_hre = yes
+						army_size = ROOT
+					}
+				}
+				trust = { who = ROOT value = 75 }
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = kislev_friends_with_heretics
+				duration = -1
+			}
+		}
+	}
+
+### In order to contend with the norsca, we need to build up our fleets.
+	gen_kislev_build_navy = {
+		icon = mission_kislev_culture
+		required_missions = { }
+		position = 6
+		trigger = {
+			navy_size = 30
+		}
+		effect = {
+			add_country_modifier = {
+				name = kislev_naval_enthusiasm
+				duration = -1
+			}
+			custom_tooltip = claim_norsca_tt
+			hidden_effect = {
+				every_province = {
+					limit = { region = norsca_region }
+					 add_claim = ROOT
+				}
+			}
+		}
+	}
+
+
+}
+
+
+
+#### We have rid the world of Chaos!
+gen_kislev_ultimate_missions = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = kislevite_group
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_mission_priority_4 = no
+	}
+	gen_kislev_ultimate_mission = {
+		icon = mission_kislev_culture
+		required_missions = { }
+		position = 9
+		provinces_to_highlight = {
+            owner = {
+            	religion_group = ruinous_powers_denominations
+            }
+        }
+		trigger = {
+
+			is_great_power = yes
+
+			all_country = {
+				NOT = { religion_group = ruinous_powers_denominations }
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = kislev_ultimate_reward
+				duration = -1
+			}
+		}
+	}
+}
+
+##################################
+##### ORTHODOXY RELIGION
+##################################
+gen_orthodoxy_missions = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		OR = {
+			religion = kislev_old_faith
+			religion = ursun
+		}
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_mission_priority_4 = no
+	}
+
+
+### Our missionaries are inspired!
+	gen_orthodoxy_happy_priest = {
+		icon = mission_kislev_religion
+		required_missions = {
+		}
+		trigger = {
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = kislev_missionaries_1
+				duration = -1
+			}
+			add_patriarch_authority = 0.05
+		}
+	}
+
+
+### Unite Under Ursus
+	gen_orthodoxy_religious_unity = {
+		icon = mission_kislev_religion
+		required_missions = { }
+		position = 3
+		trigger = {
+			religious_unity = 1.05
+		}
+		provinces_to_highlight = {
+			owned_by = ROOT
+          	NOT = { religion = ROOT }
+        }
+		effect = {
+			add_country_modifier = {
+				name = kislev_better_religious_unity
+				duration = -1
+			}
+			add_patriarch_authority = 0.05
+		}
+	}
+
+
+### Ursus takes the war to chaos
+	gen_orthodoxy_war_with_chaos = {
+		icon = mission_kislev_religion
+		required_missions = { gen_orthodoxy_religious_unity }
+		trigger = {
+			any_war_enemy_country = {
+				religion_group = ruinous_powers_denominations
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = kislev_holy_war
+				duration = -1
+			}
+			add_patriarch_authority = 0.05
+		}
+	}
+
+### Ursus takes the war to chaos
+	gen_orthodoxy_push_back_norsca = {
+		icon = mission_kislev_religion
+		required_missions = { gen_orthodoxy_war_with_chaos }
+		provinces_to_highlight = {
+          	NOT = { owned_by = ROOT }
+          	region = norsca_region
+        }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 15
+				region = norsca_region
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = kislev_holy_war_2
+				duration = -1
+			}
+			add_patriarch_authority = 0.05
+		}
+
+	}
+
+
+
+
+### Ice Witches solidify hold on government
+	gen_orthodoxy_crownland = {
+		icon = mission_kislev_religion
+		required_missions = {  }
+		trigger = {
+			crown_land_share = 50
+		}
+		effect = {
+			add_country_modifier = {
+				name = kislev_tolerance_own
+				duration = -1
+			}
+			add_patriarch_authority = 0.05
+		}
+	}
+
+
+### Ice Witches have build up the capital
+
+	gen_orthodoxy_ice_palaces = {
+		icon = mission_kislev_religion
+		required_missions = { gen_orthodoxy_crownland }
+		provinces_to_highlight = {
+          	is_capital_of = ROOT
+        }
+		trigger = {
+			capital_scope = {
+				development = 30
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = kislev_brutal_winter_1
+				duration = -1
+			}
+			add_patriarch_authority = 0.05
+		}
+	}
+
+### Ice Witches build places to study the lore of winter.
+	gen_orthodoxy_winter_magic_study = {
+		icon = mission_kislev_religion
+		required_missions = { gen_orthodoxy_ice_palaces }
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_building = university
+				value = 5
+			}
+		}
+		effect = {
+			remove_country_modifier = kislev_brutal_winter_1
+			add_country_modifier = {
+				name = kislev_brutal_winter_2
+				duration = -1
+			}
+			add_patriarch_authority = 0.05
+		}
+	}
+}

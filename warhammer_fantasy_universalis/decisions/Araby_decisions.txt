@@ -1,0 +1,220 @@
+country_decisions = {
+	araby_nation = {
+		major = yes
+		potential = {
+			culture_group = arabyan_group
+			OR = {
+				ai = no
+				num_of_cities = 60
+			}
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = {
+				has_country_flag = formed_araby_flag
+			}
+			NOT = {
+				exists = Z98
+			}
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					or = { 
+						region = araby_region
+						region = sudron_region
+					}
+					root = {
+						NOT = {
+							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+								value = 60
+								or = { 
+									region = araby_region
+									region = sudron_region
+								}
+								is_core = root
+							}
+						}
+						owns_or_non_sovereign_subject_of = 974						#al-haikk
+						owns_or_non_sovereign_subject_of = 988						#martek
+						owns_or_non_sovereign_subject_of = 4168						#copher
+						owns_or_non_sovereign_subject_of = 1746						#lashiek
+						owns_or_non_sovereign_subject_of = 1007						#palace of the wizard caliph
+
+					}
+				}
+				province_id = 974				#al-haikk
+				province_id = 988				#martek
+				province_id = 4168				#copher
+				province_id = 1746				#lashiek
+				province_id = 1007				#palace of the wizard caliph
+			}
+			OR = {
+				NOT = {
+					owned_by = ROOT
+				}
+				NOT = {
+					is_core = ROOT
+				}
+			}
+		}
+		allow = {
+#			is_free_or_tributary_trigger = yes
+			is_at_war = no
+			owns_or_subject_of = 974			#al-haikk
+			owns_or_subject_of = 988			#martek
+			owns_or_subject_of = 4168			#copher
+			owns_or_subject_of = 1746			#lashiek
+			owns_or_subject_of = 1007			#palace of the wizard caliph
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 60
+				or = { 
+					region = araby_region
+					region = sudron_region
+				}
+				is_core = root
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					is_part_of_hre = yes
+					is_elector = no
+					is_emperor = no
+				}
+				emperor = {
+					add_opinion = {
+						who = root
+						modifier = opinion_left_empire
+					}
+				}
+				set_in_empire = no
+				emperor = {
+					country_event = {
+						id = hre_event.5
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						government_rank = 3
+					}
+				}
+				hidden_effect = {
+					set_in_empire = no
+				}
+				set_government_rank = 3
+			}
+			change_tag = Z98
+			on_change_tag_effect = yes
+			#this is so that a tier 1 reform is always selected, preventing the user from just never selecting one and enjoying loads of absolutism
+			araby_region = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+					}
+				}
+				add_permanent_claim = Z98
+			}
+			sudron_region = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+					}
+				}
+				add_permanent_claim = Z98
+			}
+			add_prestige = 25
+			if = {
+				limit = {
+					has_custom_ideas = no
+				}
+				country_event = {
+					id = ideagroups.1
+				}
+				#Swap Ideas
+			}
+			# swap_non_generic_missions = yes
+			set_country_flag = formed_araby_flag
+			country_event = { id = war_formable_nations.29 }
+		}
+		ai_will_do = {
+			factor = 400
+		}
+	}
+
+	claim_solar_mandate = {
+		major = yes
+		potential = {
+			religion_group = arabyn_denominations
+			hidden_trigger = {
+				OR = {
+					ai = no
+					AND = {
+						is_great_power = yes
+						prestige = 95
+						legitimacy_equivalent = 100
+					}
+				}
+
+			}
+			all_countries_including_self = {
+				is_emperor_of_china = no
+			}
+		}
+		allow = {
+			is_great_power = yes
+			prestige = 95
+			legitimacy_equivalent = 100
+			religion_group = arabyn_denominations
+		}
+		effect = {
+			custom_tooltip = claim_solar_mandate_effect_tt
+			hidden_effect = {
+				dismantle_empire_of_china = no
+				set_emperor_of_china = ROOT
+			}
+			set_government_rank = 3
+		}
+
+		ai_will_do = { factor = 100 }
+		ai_importance = 100
+	}
+
+
+	destroy_solar_mandate = {
+		major = yes
+		potential = {
+			is_emperor_of_china = yes
+		}
+		allow = {
+			is_emperor_of_china = yes
+		}
+		effect = {
+			hidden_effect = {
+				dismantle_empire_of_china = yes
+			}
+			custom_tooltip = destroy_solar_mandate_effect_tt
+			add_prestige = -100
+			add_stability = -2
+			add_legitimacy = -50
+			add_devotion = -50
+			add_republican_tradition = -15
+			add_meritocracy = -50
+		}
+
+		ai_will_do = { factor = 0 }
+		ai_importance = 0
+	}
+
+
+
+}

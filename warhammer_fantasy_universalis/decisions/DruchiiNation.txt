@@ -1,0 +1,126 @@
+country_decisions = {
+	druchii_nation = {
+		major = yes
+		potential = {
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = {
+				has_country_flag = formed_naggaroth_flag
+			}
+			NOT = {
+				tag = PAP
+			}
+			NOT = {
+				exists = H12
+			}
+			culture_group = druchii_group
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					superregion = dark_elven_naggaroth_superregion
+					root = {
+						NOT = {
+							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+								value = 60
+								superregion = dark_elven_naggaroth_superregion
+								is_core = root
+							}
+						}
+						owns_or_non_sovereign_subject_of = 2593
+						owns_or_non_sovereign_subject_of = 1982
+						owns_or_non_sovereign_subject_of = 2009						#Naggrund
+						owns_or_non_sovereign_subject_of = 2586
+						owns_or_non_sovereign_subject_of = 2591
+						owns_or_non_sovereign_subject_of = 2566
+					}
+				}
+				province_id = 2593				# �le-de-H12nce
+				province_id = 1982				# Orl�annais
+				province_id = 2009				# Champagne
+				province_id = 2586
+				province_id = 2591
+				province_id = 2566
+			}
+			OR = {
+				NOT = {
+					owned_by = ROOT
+				}
+				NOT = {
+					is_core = ROOT
+				}
+			}
+		}
+		allow = {
+			is_at_war = no
+#			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			NOT = {
+				exists = H12
+			}
+			owns_or_non_sovereign_subject_of = 2593
+			owns_or_non_sovereign_subject_of = 1982
+			owns_or_non_sovereign_subject_of = 2009			#Naggrund
+			owns_or_non_sovereign_subject_of = 2586
+			owns_or_non_sovereign_subject_of = 2591
+			owns_or_non_sovereign_subject_of = 2566
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 60
+				superregion = dark_elven_naggaroth_superregion
+				is_core = root
+			}
+		}
+		effect = {
+			183 = {
+				#Paris
+				move_capital_effect = yes
+			}
+			change_tag = H12
+			swap_non_generic_missions = yes
+			on_change_tag_effect = yes
+			remove_non_electors_emperors_from_empire_effect = yes
+			if = {
+				limit = {
+					NOT = {
+						government_rank = 3
+					}
+				}
+				set_government_rank = 3
+			}
+			dark_elven_naggaroth_superregion = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+					}
+				}
+				add_permanent_claim = H12
+			}
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			add_prestige = 25
+			if = {
+				limit = {
+					has_custom_ideas = no
+				}
+				country_event = {
+					id = ideagroups.1
+				}				#Swap Ideas
+			}
+			set_country_flag = formed_naggaroth_flag
+			country_event = { id = war_formable_nations.21 }
+		}
+		ai_will_do = {
+			factor = 400
+		}
+	}
+}

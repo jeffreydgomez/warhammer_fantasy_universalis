@@ -1,0 +1,56 @@
+namespace = religion_slaaneshi_events
+# Spawns COR for slaaneshi
+country_event = {
+	id = religion_slaaneshi_events.1
+	title = religion_slaaneshi_events.1.t
+	desc = religion_slaaneshi_events.1.d
+	picture = SLAANESH_PARTY_eventPicture
+
+	major = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { has_reform = papacy_reform }
+		capital_scope = {
+			continent = europe
+		}
+		any_owned_province = {
+			can_have_center_of_reformation_trigger = {
+				RELIGION = slaaneshi_religion
+			}
+		}
+	}
+	option = {
+		name = religion_slaaneshi_events.1.a
+		random_owned_province = {
+			limit = {
+				can_have_center_of_reformation_trigger = {
+					RELIGION = slaaneshi_religion
+				}
+			}
+			change_religion = slaaneshi_religion
+			add_reform_center = slaaneshi_religion
+			add_permanent_province_modifier = {
+				name = "religious_zeal_at_conv"
+				duration = 9000
+			}
+			if = {
+				limit = {
+					NOT = { is_capital = yes }
+				}
+				root = {
+					capital_scope = {
+						change_religion = slaaneshi_religion
+						add_permanent_province_modifier = {
+							name = "religious_zeal_at_conv"
+							duration = 9000
+						}
+					}
+				}
+			}
+		}
+		set_country_flag = "slaanesh_reformation" 
+	}
+}
+

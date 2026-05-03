@@ -1,0 +1,139 @@
+country_decisions = {
+
+		war_claim_the_royarch = {
+			major = yes
+			potential = {
+				ai = no
+				culture_group = bretonnian_group
+				NOT = { has_reform = bretonnian_royarch_reform }
+				NOT = { any_country = { has_reform = bretonnian_royarch_reform } }
+				NOT = { has_global_flag = formed_bretonnia }
+			}
+			allow = {
+				NOT = {
+					any_country = { has_reform = bretonnian_royarch_reform }
+				}
+				314 = { owned_by = ROOT }
+			}
+			effect = {
+				add_government_reform = bretonnian_royarch_reform
+			}
+
+			ai_will_do = { factor = 0 }
+			ai_importance = 0
+		}
+
+
+	militarily_bretonnian_nation = {
+		major = yes
+		
+		potential = {
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = {
+				tag = A74
+			}
+			has_global_flag = bretonnian_kingdom_dismantled
+			NOT = { has_country_flag = formed_bretonnia }
+			NOT = { has_global_flag = formed_bretonnia }
+			NOT = { exists = A98 }
+			culture_group = bretonnian_group
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 30
+				}
+			}
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					region = bretonnia_region
+					root = {
+						NOT = {
+							num_of_owned_provinces_with = {
+								value = 40
+								region = bretonnia_region
+								is_core = root
+							}
+						}
+					}
+				}
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		
+		allow = {
+#			is_free_or_tributary_trigger = yes
+			is_at_war = no
+			num_of_owned_provinces_with = {
+				value = 40
+				region = bretonnia_region
+				is_core = root
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					is_part_of_hre = yes
+					is_elector = no
+					is_emperor = no
+				}
+				emperor = {
+					add_opinion = {
+						who = root
+						modifier = opinion_left_empire
+					}
+				}
+				set_in_empire = no
+				emperor = {
+					country_event = { id = hre_event.5 }
+				}
+			}
+			if = {
+				limit = {
+					NOT = { government_rank = 3 }
+				}
+				hidden_effect = {
+					set_in_empire = no
+				}
+				set_government_rank = 3
+			}
+			change_tag = A98
+			on_change_tag_effect = yes
+			bretonnia_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_core  = A98
+			}
+			add_prestige = 25
+			if = {
+				limit = { has_custom_ideas = no }
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			# swap_non_generic_missions = yes
+			set_country_flag = formed_bretonnia
+			country_event = { id = war_formable_nations.27 }
+		}
+		
+		ai_will_do = {
+			factor = 400
+		}
+	}
+	
+}

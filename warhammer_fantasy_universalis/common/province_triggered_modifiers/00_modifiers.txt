@@ -1,0 +1,142 @@
+# Province Triggered modifiers are here.
+# These are added to provinces through the add_province_triggered_modifier effect
+#
+# Effects are fully scriptable here.
+
+
+###########################################
+# Just random test modifier
+###########################################
+test_modifier = {
+	potential = {
+		always = yes
+	}
+
+	trigger = {
+		owner = {
+			stability = 0
+		}
+	}
+
+	local_build_cost = 0.05	
+	
+	#Province scope
+	on_activation = {
+	
+	}
+	
+	on_deactivation = {
+	
+	}
+	
+}
+
+religious_center = {
+	potential = {
+	}
+	
+	#viewer = {
+	#}
+	
+	trigger = {
+		if = {
+			limit = {
+				province_id = 2 # Altdorf
+			}
+			religion = cult_of_sigmar
+		}
+		else_if = {
+			limit = {
+				province_id = 116 # Middenheim
+			}
+			religion = cult_of_sigmar
+		}
+		else_if = {
+			limit = {
+				province_id = 162 # Talabheim
+			}
+			religion = cult_of_sigmar
+		}
+		else_if = {
+			limit = {
+				province_id = 553 # Magaritta
+			}
+			religion = myrmidia
+		}
+		else_if = {
+			limit = {
+				province_id = 590 #Remas
+			}
+			religion = myrmidia
+		}
+	}
+
+	local_missionary_strength = -0.05
+	
+	#Province scope
+	on_activation = {
+	
+	}
+	
+	on_deactivation = {
+	
+	}
+}
+
+# Perpetual Diet
+perpetual_diet = {
+	potential = {
+	}
+	
+	trigger = {
+		owner = {
+			is_part_of_hre = yes
+		}
+		controller = {
+			OR = {
+				is_part_of_hre = yes
+				NOT = { war_with = emperor }
+			}
+		}
+	}
+
+	prestige = 0.5
+	local_development_cost = -0.05
+	is_imperial_modifier = yes
+
+	on_activation = {
+		emperor = {
+			remove_country_modifier = diet_occupied
+		}
+	}
+	
+	on_deactivation = {
+		emperor = {
+			add_country_modifier = { name = diet_occupied duration = -1 }
+		}
+	}
+}
+
+krantor_crane = {
+	potential = {
+		normal_or_historical_nations = yes
+	}
+	trigger = {
+		owner = {
+			estate_loyalty = { 
+				estate = estate_burghers 
+				loyalty = 50 
+			}
+		}
+		if = { 
+			limit = { has_dlc = "Mandate of Heaven" }
+			NOT = { devastation = 5 } 
+		}
+	}
+	province_trade_power_value = 5 
+	trade_efficiency = 0.1
+	
+}
+
+#Province modifiers, which have become monuments
+

@@ -1,0 +1,936 @@
+# INSTRUCTIONS:
+#
+# condition				A diplomatic action can have any number of condition blocks, each with its own
+#						tooltip, potential and allow section
+#
+# 	tooltip					Sets a custom text string similar to the hardcoded limits
+# 							If no tooltip is scripted, the tooltip for the actual trigger will be shown
+#							Note that the custom tooltip is only shown if the allow trigger is NOT met
+#
+# 	potential				Determines if the trigger is applicable or not
+# 	allow					Determines if the action is valid or not
+#
+# effect				A diplomatic action can only have one effect block
+
+# ROOT					actor
+# FROM					target
+
+########################################
+# DIPLOMATIC ACTIONS
+########################################
+# royal_marriage
+# declarewar
+# requestpeace
+# support_independence_action
+# allianceaction
+# embargoaction
+# annexationaction
+# integrationaction
+# vassalaction
+# guaranteeaction
+# warningaction
+# threaten_war
+# milaccess
+# fleet_access
+# offer_fleet_access
+# offermilaccess
+# insultaction
+# giftaction
+# claimaction
+# callaction
+# offerloan
+# warsubsidy
+# sellprov
+# imperial_relations_action
+# imperial_realm_war_action
+# religious_unity_action
+# grant_electorate
+# remove_electorate
+# grant_freecity
+# remove_freecity
+# demand_unlawful_territory_action
+# call_crusade_action
+# excommunicate_action
+# enforce_peace
+# improve_relation
+# fabricate_claim
+# justify_trade_conflict
+# transfer_trade_power
+# infiltrate_administration
+# sabotage_reputation
+# support_rebels
+# sow_discontent
+# agitate_for_liberty
+# form_coalition
+# request_to_join_federation
+# invite_to_federation
+# support_heir
+# break_marriage
+# designate_march
+# ask_for_march
+# sell_ships_action
+# abandon_union
+# takeondebt
+# influence_nation
+# claim_states
+# steer_trade
+# stealmap
+# spy_network
+# invite_to_trade_league
+# request_to_join_trade_league
+# sharemap
+# intervene_in_war
+# break_alliance
+# tributary_state_action
+# ask_for_tributary_state_action
+# knowledge_sharing
+
+
+demote_dominion_action = {
+
+	category = influence
+
+	require_acceptance = no
+
+	alert_index = 15
+
+	alert_tooltip = tooltip_demote_dominion_alert_tooltip
+
+	is_visible = {
+		FROM = {
+			is_subject_of_type_with_overlord = {
+				who = ROOT
+				type = dominion
+			}
+			is_subject_of = ROOT
+		}
+	}
+
+	is_allowed = {
+
+		FROM = {
+			has_opinion = {
+				who = ROOT
+				value = 190
+			}
+		
+			trust = {
+				who = ROOT
+				value = 90
+			}
+
+			owes_favors = { 
+    	    	who = ROOT 
+         		value = 50
+			}
+
+			NOT = { liberty_desire = 25 }
+			is_at_war = no
+		}
+
+		NOT = { truce_with = FROM }
+
+		ROOT = { is_at_war = no }
+
+	}
+
+    on_accept = {
+    	vassalize = FROM
+    	add_truce_with = FROM
+
+    	every_subject_country = {
+			add_trust = {
+			    	who = ROOT
+			    	value = -25
+			    	mutual = yes
+			}
+		}
+
+#		add_favors = {
+#			who = FROM
+#			amount = -50
+#		}
+    }
+
+    ai_will_do = {
+        always = yes
+    }
+}
+
+
+offer_dominion_action = {
+
+	category = influence
+
+	require_acceptance = yes
+
+	alert_index = 15
+
+	alert_tooltip = tooltip_offer_dominion_alert_tooltip
+
+	is_visible = {
+		FROM = {
+			NOT = { is_subject = yes}
+			NOT = { num_of_subjects = 1 }
+			OR = {
+				religion = ROOT
+				culture_group = ROOT
+			}
+		}
+	}
+
+	is_allowed = {
+		
+		ROOT = { total_development = FROM }
+		FROM = { alliance_with = ROOT }
+		FROM = {
+			has_opinion = {
+				who = ROOT
+				value = 100
+			}
+		}
+		FROM = {
+			owes_favors = { 
+    	    	who = ROOT 
+         		value = 90
+			}
+		}
+		FROM = {
+			trust = { 
+				who = ROOT
+				value = 90
+			}
+		}
+		FROM = { is_at_war = no }
+		ROOT = { is_at_war = no }
+		NOT = { truce_with = FROM }
+
+	}
+
+	ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+
+		add_entry = {
+			name = IN_HRE_OFFER
+			limit = { FROM = { is_part_of_hre = yes } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -250 }
+		}
+
+		add_entry = {
+			name = TOO_BIG_OFFER
+			limit = { FROM = { total_development = ROOT } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+
+		add_entry = {
+			name = OFFER_DIF_CULTURE
+			limit = { NOT = { FROM = { primary_culture = ROOT } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -15 }
+		}
+
+		add_entry = {
+			name = OFFER_DIF_TECH_GROUP
+			limit = { NOT = { FROM = { technology_group = ROOT } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -50 }
+		}
+
+		add_entry = {
+			name = OFFER_DIF_RELIGION
+			limit = { NOT = { FROM = { religion = ROOT } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -15 }
+		}
+
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = AI_DIPLOMATIC_REPUTATION
+			export_to_variable = {
+				variable_name = ai_value
+				value = trigger_value:diplomatic_reputation
+			}
+			#1 rep = 3
+			multiply_variable = {
+				which = ai_value
+				value = 5
+			}
+		}
+
+		add_entry = {
+			name = OUR_PRESTIGE_OFFER
+			export_to_variable = {
+				variable_name = ai_value
+				value = prestige
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 0.25
+			}
+		}
+
+		add_entry = {
+			name = THEIR_PRESTIGE_OFFER
+			export_to_variable = {
+				variable_name = ai_value
+				value = prestige
+				who = FROM
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -0.25
+			}
+		}
+
+
+
+		add_entry = {
+			name = AI_TOTAL_DEVELOPMENT
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = FROM
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = -0.15
+			}
+		}
+
+		add_entry = {
+			name = OUR_TOTAL_DEVELOPMENT
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = ROOT
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = 0.10
+			}
+		}
+
+		add_entry = {
+			name = DIPLO_HAS_AI_HAS_OWN_SUBJECTS_TT
+			limit = {
+				FROM = { num_of_subjects = 1 }
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -1000
+			}
+		}
+		add_entry = {
+			name = attitude_neutral_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_neutral } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -20 }
+		}
+		add_entry = {
+			name = attitude_rivalry_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_rivalry } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_hostile_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_hostile } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_friendly_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_friendly } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+		add_entry = {
+			name = attitude_threatened_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_threatened } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+		add_entry = {
+			name = attitude_outraged_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_outraged } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_domineering_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_domineering } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = DIPLO_BORDER_DISTANCE_TT
+			export_to_variable = {
+				variable_name = ai_value
+				value = border_distance
+				who = FROM
+				with = ROOT
+			}
+			#2 units = -1
+			multiply_variable = {
+				which = ai_value
+				value = -0.25
+			}
+		}
+	}
+
+    on_accept = {
+
+		create_subject = {
+		    subject_type = dominion
+		    subject = FROM
+		}
+		add_truce_with = FROM
+
+    	add_favors = {
+			who = FROM
+			amount = -100
+		}
+
+
+    	FROM = {
+			add_trust = {
+			   	who = ROOT
+			  	value = -50
+			   	mutual = yes
+			}
+
+    	}
+    }
+
+    ai_will_do = {
+        always = yes
+    }
+}
+
+war_diplo_convert_to_religion = {
+
+	category = influence
+
+	require_acceptance = yes
+
+	alert_index = 15
+
+	alert_tooltip = tooltip_offer_dominion_alert_tooltip
+
+	is_visible = {
+		OR = {
+			religion = cytharai
+			religion = vampiric
+			religion = nagash_worship
+			has_country_flag = war_allow_diplo_convert
+		}
+		NOT = { religion = FROM }
+	}
+
+	is_allowed = {
+		
+		OR = {
+			FROM = { alliance_with = ROOT }
+			FROM = { is_subject_of = ROOT }
+		}
+		FROM = {
+			has_opinion = {
+				who = ROOT
+				value = 100
+			}
+		}
+		FROM = {
+			owes_favors = { 
+    	    	who = ROOT 
+         		value = 90
+			}
+		
+			trust = {
+				who = ROOT
+				value = 90
+			}
+		}
+		FROM = { is_at_war = no }
+		ROOT = { is_at_war = no }
+
+	}
+
+	ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+
+		add_entry = {
+			name = BASE_CONVERT_RESIST
+			limit = { always = yes }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -25 }
+		}
+
+		add_entry = {
+			name = MANY_MISSIONARIES
+			limit = { num_of_missionaries = 4 }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 20 }
+		}
+
+		add_entry = {
+			name = THEY_HAVE_MANY_MISSIONARIES
+			limit = { FROM  = { num_of_missionaries = 4 } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -20 }
+		}
+
+		add_entry = {
+			name = SPREAD_VAMPRISM_MODIFIER_1
+			limit = { has_country_modifier = vampire_spread_vamprisim }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+
+		add_entry = {
+			name = SPREAD_VAMPRISM_MODIFIER_2
+			limit = { has_country_modifier = vampire_spread_vamprisim_2 }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+
+		add_entry = {
+			name = CAPITAL_RELIGION
+			limit = { FROM = { capital_scope = { religion = ROOT } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 40 }
+		}
+
+		add_entry = {
+			name = BAD_UNITY
+			limit = { FROM = { NOT = { religious_unity = 0.80 } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 20 }
+		}
+
+		add_entry = {
+			name = REALLY_BAD_UNITY
+			limit = { FROM = { NOT = { religious_unity = 0.50 } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 20 }
+		}
+
+		add_entry = {
+			name = WE_ARE_MARRIED
+			limit = { FROM = { marriage_with = ROOT } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+
+		add_entry = {
+			name = TOO_BIG_OFFER
+			limit = { FROM = { total_development = ROOT } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -15 }
+		}
+
+		add_entry = {
+			name = OFFER_DIF_CULTURE
+			limit = { NOT = { FROM = { primary_culture = ROOT } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -25 }
+		}
+
+		add_entry = {
+			name = OFFER_DIF_TECH_GROUP
+			limit = { NOT = { FROM = { technology_group = ROOT } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -25 }
+		}
+
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = AI_DIPLOMATIC_REPUTATION
+			export_to_variable = {
+				variable_name = ai_value
+				value = trigger_value:diplomatic_reputation
+			}
+			#1 rep = 3
+			multiply_variable = {
+				which = ai_value
+				value = 10
+			}
+		}
+
+		add_entry = {
+			name = OUR_PRESTIGE_OFFER
+			export_to_variable = {
+				variable_name = ai_value
+				value = prestige
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 0.25
+			}
+		}
+
+		add_entry = {
+			name = THEIR_PRESTIGE_OFFER
+			export_to_variable = {
+				variable_name = ai_value
+				value = prestige
+				who = FROM
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -0.25
+			}
+		}
+
+
+
+		add_entry = {
+			name = AI_TOTAL_DEVELOPMENT
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = FROM
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = -0.15
+			}
+		}
+
+		add_entry = {
+			name = OUR_TOTAL_DEVELOPMENT
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = ROOT
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = 0.10
+			}
+		}
+
+
+		add_entry = {
+			name = DIPLO_HAS_AI_HAS_OWN_SUBJECTS_TT
+			limit = {
+				FROM = { num_of_subjects = 1 }
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -30
+			}
+		}
+		add_entry = {
+			name = attitude_neutral_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_neutral } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -20 }
+		}
+		add_entry = {
+			name = attitude_rivalry_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_rivalry } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_hostile_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_hostile } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_friendly_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_friendly } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+		add_entry = {
+			name = attitude_threatened_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_threatened } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+		add_entry = {
+			name = attitude_outraged_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_outraged } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_domineering_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_domineering } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = DIPLO_BORDER_DISTANCE_TT
+			export_to_variable = {
+				variable_name = ai_value
+				value = border_distance
+				who = FROM
+				with = ROOT
+			}
+			#2 units = -1
+			multiply_variable = {
+				which = ai_value
+				value = -0.25
+			}
+		}
+	}
+
+    on_accept = {
+
+    	set_country_flag = force_converted
+
+    	change_variable = {
+	        which = warhammer_countries_converted
+	        value = 1
+	    }
+
+    	FROM = {
+    		change_religion = ROOT
+
+    		set_dynasty = ROOT
+
+    		force_converted = yes
+
+    		add_opinion = {
+			    who = ROOT
+			    modifier = showed_us_the_truth
+			}
+
+			capital_scope = {
+				change_religion = ROOT
+				every_neighbor_province = {
+					limit = { owned_by = FROM }
+					change_religion = ROOT
+				}
+			}
+
+    	}
+
+    	add_favors = {
+			who = FROM
+			amount = -100
+		}
+
+
+    	FROM = {
+			add_trust = {
+			   	who = ROOT
+			  	value = -25
+			   	mutual = yes
+			}
+
+    	}
+    }
+
+    ai_will_do = {
+        always = yes
+    }
+}
+
+
+
+implant_cult = {
+
+	category = covert
+
+	require_acceptance = no
+
+	is_visible = {
+		FROM = {
+			any_owned_province = {
+				NOT = { religion = ROOT }
+				is_reformation_center = no
+				is_capital = no
+			}
+		}
+	}
+
+	is_allowed = {
+		if = {
+			limit = { full_idea_group = spy_ideas }
+			has_spy_network_in = {
+				who = FROM
+				value = 60
+			}
+		} else = {
+			has_spy_network_in = {
+				who = FROM
+				value = 75
+			}
+		}
+
+
+
+		OR = {
+			religion = vampiric
+			religion = nagash_worship
+    		religion_group = ruinous_powers_denominations
+    		FROM = { religion_group = root }
+		}
+	}
+
+    on_accept = {
+    	FROM = { 
+	    	random_owned_province = {
+	    		limit = {
+	    			NOT = { religion = ROOT }
+	    			is_reformation_center = no
+	    			is_capital = no
+	    		}
+	    		change_religion = ROOT
+	    		add_province_modifier = { 
+				    name = hidden_cult
+				    duration = 730
+				}
+	    	}
+    	}
+
+    	if = {
+    		limit = {
+    			OR = {
+    				has_country_modifier = naggaroth_show_them_the_dark
+    				mission_completed = empire_decide_on_witch_hunters
+    				has_country_flag = implant_double_cults
+    			}
+    			religion_group = FROM
+    		}
+	    	FROM = { 
+		    	random_owned_province = {
+		    		limit = {
+		    			NOT = { religion = ROOT }
+		    			is_reformation_center = no
+		    			is_capital = no
+		    		}
+		    		change_religion = ROOT
+		    		add_province_modifier = { 
+					    name = hidden_cult
+					    duration = 730
+					}
+		    	}
+	    	}
+    	}
+
+		if = {
+			limit = { full_idea_group = spy_ideas }
+			add_spy_network_in = {
+			    who = FROM
+			    value = -60
+			}
+		} else = {
+			add_spy_network_in = {
+			    who = FROM
+			    value = -75
+			}
+		}
+
+		if = {
+			limit = { 
+				has_warriors_of_chaos_mt_st = yes
+			}
+			change_variable = {
+				which = chaos_implant_cult_counter
+				value = 1
+			}
+		}
+
+    }
+
+    ai_will_do = {
+
+    	OR = {
+ 
+    		religion = vampiric
+			religion = nagash_worship
+    		religion_group = ruinous_powers_denominations
+ 
+	    	NOT = {
+	    		has_opinion = {
+					who = FROM
+					value = -100
+				}
+			}
+			AND = {
+				religion = cytharai
+		 		FROM = { religion = cadai }
+			}
+		}
+	}
+}
+
+
+

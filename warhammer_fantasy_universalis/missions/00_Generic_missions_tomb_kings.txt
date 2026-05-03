@@ -1,0 +1,643 @@
+
+##################################
+##### NEHEKHARA CULTURE GROUP
+##################################
+gen_nehekhara_missions = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = nehekharan_group
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_mission_priority_4 = no
+	}
+
+	### Access to the Sea
+	gen_nehekhara_missions_1 = {
+		icon = mission_tomb_king_culture
+		required_missions = {
+		}
+		trigger = {
+			naval_forcelimit = 20
+			navy_size_percentage = 1
+		}
+		effect = {
+			add_country_modifier = {
+				name = nehekharan_trade_empire
+				duration = -1
+			}
+		}
+	}
+	### Build Capital
+	gen_nehekhara_missions_2 = {
+		icon = mission_tomb_king_culture
+		required_missions = {
+		}
+		trigger = {
+			capital_scope = {
+				development = 30
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = nehekharan_monument_builders
+				duration = -1
+			}
+		}
+	}
+	### Rebuild Monument
+	gen_nehekhara_missions_3 = {
+		icon = mission_tomb_king_culture
+		required_missions = {
+			gen_nehekhara_missions_2
+		}
+		provinces_to_highlight = {
+			has_great_project = {
+				type = any
+				tier = 0
+			}
+		}
+		trigger = {
+			any_owned_province = {
+				has_great_project = {
+					type = any
+					tier = 3
+				}
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 50 }
+		}
+	}
+	### Retake Symbols of Power
+	gen_nehekhara_missions_4 = {
+		icon = mission_tomb_king_culture
+		required_missions = {
+			gen_nehekhara_missions_3
+		}
+		provinces_to_highlight = {
+			OR = {
+				has_great_project = {
+					type = valley_of_kings
+					tier = 0
+				}
+				has_great_project = {
+					type = tomb_of_settra
+					tier = 0
+				}
+				has_great_project = {
+					type = great_sphinx_of_numasis
+					tier = 0
+				}
+			}
+		}
+		trigger = {
+			any_owned_province = {
+				has_great_project = {
+					type = valley_of_kings
+					tier = 1
+				}
+			}
+			any_owned_province = {
+				has_great_project = {
+					type = tomb_of_settra
+					tier = 1
+				}
+			}
+			any_owned_province = {
+				has_great_project = {
+					type = great_sphinx_of_numasis
+					tier = 1
+				}
+			}
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+			if = {
+				limit = {
+					adm = 6
+				}
+				add_adm_power = 100
+			}
+			else = {
+				change_adm = 1
+			}
+			if = {
+				limit = {
+					dip = 6
+				}
+				add_dip_power = 100
+			}
+			else = {
+				change_dip = 1
+			}
+			if = {
+				limit = {
+					mil = 6
+				}
+				add_mil_power = 100
+			}
+			else = {
+				change_mil = 1
+			}
+		}
+	}
+	gen_nehekharan_establish_alien_vassals = {
+		icon = mission_tomb_king_culture
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { NOT = { has_country_modifier = undead_administration } }
+		}
+
+		trigger = {
+
+			hidden_trigger = {
+				num_of_subjects = 2
+			}
+
+			calc_true_if = {
+				all_country = {
+					NOT = { has_country_modifier = undead_administration }
+					is_subject_of = ROOT
+				}
+				amount = 2
+			}
+		}
+		effect = {
+			define_advisor = {
+				type = statesman
+				name = "Amentep the Golden Tongued"
+				skill = 3
+				cost_multiplier = 0.25
+			}
+		}
+	}
+	gen_nehekharan_please_nobility = {
+		icon = mission_tomb_king_culture
+		required_missions = {
+		}
+		position = 7
+		trigger = {
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+		effect = {
+			define_general = {
+				shock = 5
+				fire = 4
+				manuever = 5
+				siege = 3
+			}
+		}
+	}
+	### True Successor
+	gen_nehekhara_missions_5 = {
+		icon = mission_tomb_king_culture
+		required_missions = {
+			gen_nehekharan_please_nobility
+		}
+		trigger = {
+			prestige = 99
+			OR = {
+				legitimacy = 99
+				devotion = 99
+			}
+			army_size = 99
+		}
+		effect = {
+			add_country_modifier = {
+				name = true_successor
+				duration = -1
+			}
+		}
+	}
+}
+
+gen_nehekhara_ultimate_missions = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = nehekharan_group
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_mission_priority_4 = no
+	}
+	gen_nehekhara_ultimate_mission = {
+		icon = mission_tomb_king_culture
+		required_missions = {
+		}
+		position = 9
+		provinces_to_highlight = {
+
+			NOT = {
+				has_great_project = {
+					type = any
+					tier = 3
+				}
+			}
+
+			has_great_project = {
+				type = any
+				tier = 0
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_great_project = {
+					type = any
+					tier = 3
+				}
+				value = 11
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = nehekhara_ultimate_reward
+				duration = -1
+			}
+		}
+	}
+}
+
+##################################
+##### NEHEKHARA RELIGION
+##################################
+gen_nehekharan_pantheon_missions = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		OR = {
+			religion = nehekharan_pantheon
+			religion = nagash_worship
+		}
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_mission_priority_4 = no
+	}
+	### Retake Symbols of Religion
+	### Please the Mortuary Cults
+	gen_nehekharan_pantheon_missions_1 = {
+		icon = mission_tomb_king_religion
+		required_missions = {
+		}
+		trigger = {
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 1
+			}
+		}
+		effect = {
+			add_yearly_manpower = 5
+		}
+	}
+	### Construct Temples
+	gen_nehekharan_pantheon_missions_2 = {
+		icon = mission_tomb_king_religion
+		required_missions = {
+			gen_nehekharan_pantheon_missions_1
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+				value = 5
+			}
+		}
+		effect = {
+			add_splendor = 800
+		}
+	}
+	gen_nehekharan_pantheon_missions_3 = {
+		icon = mission_tomb_king_religion
+		required_missions = {
+			gen_nehekharan_pantheon_missions_2
+		}
+		provinces_to_highlight = {
+			OR = {
+				has_great_project = {
+					type = great_necropolis_of_khemri
+					tier = 0
+				}
+				has_great_project = {
+					type = mortuary_temple_of_quaph
+					tier = 0
+				}
+				has_great_project = {
+					type = oasis_of_the_gods
+					tier = 0
+				}
+			}
+		}
+		trigger = {
+			any_owned_province = {
+				has_great_project = {
+					type = great_necropolis_of_khemri
+					tier = 1
+				}
+			}
+			any_owned_province = {
+				has_great_project = {
+					type = mortuary_temple_of_quaph
+					tier = 1
+				}
+			}
+			any_owned_province = {
+				has_great_project = {
+					type = oasis_of_the_gods
+					tier = 1
+				}
+			}
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+			if = {
+				limit = {
+					adm = 6
+				}
+				add_adm_power = 100
+			}
+			else = {
+				change_adm = 1
+			}
+			if = {
+				limit = {
+					dip = 6
+				}
+				add_dip_power = 100
+			}
+			else = {
+				change_dip = 1
+			}
+			if = {
+				limit = {
+					mil = 6
+				}
+				add_mil_power = 100
+			}
+			else = {
+				change_mil = 1
+			}
+		}
+	}
+	### Unify Religion
+	gen_nehekharan_pantheon_missions_4 = {
+		icon = mission_tomb_king_religion
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					NOT = { owned_by = ROOT }
+					has_great_project = {
+						type = black_pyramid_of_nagash
+						tier = 0
+					}
+				}
+				AND = {
+					region = nehekhara_region
+					NOT = {
+						religion = ROOT
+					}
+				}
+			}
+		}
+		trigger = {
+			any_owned_province = {
+				has_great_project = {
+					type = black_pyramid_of_nagash
+					tier = 0
+				}
+			}
+			NOT = {
+				any_province = {
+					region = nehekhara_region
+					NOT = {
+						religion = ROOT
+					}
+				}
+			}
+
+		}
+		effect = {
+			add_country_modifier = {
+				name = nehekhara_religious_stability
+				duration = -1
+			}
+		}
+	}
+	### Expand Religion
+	gen_nehekharan_expand_religion = {
+		icon = mission_tomb_king_religion
+		required_missions = {
+			gen_nehekharan_pantheon_missions_4
+		}
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 102
+					NOT = {
+						religion = ROOT
+					}
+				}
+				AND = {
+					province_id = 270
+					NOT = {
+						religion = ROOT
+					}
+				}
+				AND = {
+					province_id = 4168
+					NOT = {
+						religion = ROOT
+					}
+				}
+				AND = {
+					province_id = 1115
+					NOT = {
+						religion = ROOT
+					}
+				}
+				AND = {
+					province_id = 4169
+					NOT = {
+						religion = ROOT
+					}
+				}
+			}
+		}
+		trigger = {
+			102 = {
+				religion = ROOT
+			}
+			270 = {
+				religion = ROOT
+			}
+			4168 = {
+				religion = ROOT
+			}
+			1115 = {
+				religion = ROOT
+			}
+			4169 = {
+				religion = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = nehekhara_religious_stability_2
+				duration = -1
+			}
+		}
+	}
+	### Perform the Dark Ritual
+	gen_nehekharan_pantheon_missions_5 = {
+		icon = mission_tomb_king_religion
+		required_missions = {
+		}
+		position = 7
+		trigger = {
+			adm_power = 500
+			dip_power = 500
+			mil_power = 500
+			any_owned_province = {
+				has_great_project = {
+					type = black_pyramid_of_nagash
+					tier = 3
+				}
+			}
+
+		}
+		effect = {
+			add_dip_power = -500
+			add_adm_power = -500
+			add_mil_power = -500
+			add_yearly_manpower = 5
+			if = {
+				limit = {
+					adm = 6
+				}
+				add_adm_power = 100
+			}
+			else = {
+				change_adm = 1
+			}
+			if = {
+				limit = {
+					dip = 6
+				}
+				add_dip_power = 100
+			}
+			else = {
+				change_dip = 1
+			}
+			if = {
+				limit = {
+					mil = 6
+				}
+				add_mil_power = 100
+			}
+			else = {
+				change_mil = 1
+			}
+			add_country_modifier = {
+				name = nagash_ritual
+				duration = 3650
+			}
+			871 = {
+				add_great_project_tier = {
+					type = black_pyramid_of_nagash
+					tier = -1
+				}
+			}
+		}
+	}
+	### Perfect the Dark Ritual
+	gen_nehekharan_craft_new_ritual = {
+		icon = mission_tomb_king_religion
+		required_missions = {
+			gen_nehekharan_pantheon_missions_5
+		}
+		trigger = {
+
+			adm_power = 900
+			dip_power = 900
+			mil_power = 900
+			
+			any_owned_province = {
+				has_great_project = {
+					type = black_pyramid_of_nagash
+					tier = 3
+				}
+			}
+
+		}
+		effect = {
+			add_dip_power = -800
+			add_adm_power = -800
+			add_mil_power = -800
+			add_yearly_manpower = 5
+			if = {
+				limit = {
+					adm = 6
+				}
+				add_adm_power = 100
+			}
+			else = {
+				change_adm = 1
+			}
+			if = {
+				limit = {
+					dip = 6
+				}
+				add_dip_power = 100
+			}
+			else = {
+				change_dip = 1
+			}
+			if = {
+				limit = {
+					mil = 6
+				}
+				add_mil_power = 100
+			}
+			else = {
+				change_mil = 1
+			}
+			hidden_effect = {
+				remove_country_modifier = nagash_ritual
+			}
+			add_country_modifier = {
+				name = nagash_ritual
+				duration = -1
+			}
+			871 = {
+				add_great_project_tier = {
+					type = black_pyramid_of_nagash
+					tier = -3
+				}
+			}
+		}
+	}
+}

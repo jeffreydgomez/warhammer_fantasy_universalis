@@ -1,0 +1,668 @@
+########################################
+# Sires of Mourkain Events
+########################################
+
+namespace = strygos_events
+normal_or_historical_nations = yes
+
+### Sires of Mourkain Intro Event
+# The old Legacy of Mourkain intro returns for Strygos.
+country_event = {
+	id = strygos_events.1000
+	title = strygos_events.1000.t
+	desc = strygos_events.1000.d
+	picture = VAMPIRE_eventPicture
+	# Event Weighing Value: +5
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = strigany_group
+		NOT = { has_country_flag = did_intro_event }
+	}
+
+	immediate = { set_country_flag = did_intro_event }
+
+# Restore Mourkain.
+	option = {
+		ai_chance = { factor = 100 }
+		name = strygos_events.1000.a
+		# Weighing Value: +5
+
+		add_army_tradition = 50
+		add_church_power = 200
+	}
+}
+
+### Sires of Mourkain Mission Events
+
+# Restored Strygos chooses how vampires, Strigany, ghouls, and the dead are counted beneath Mourkain.
+country_event = {
+	id = strygos_events.1001
+	title = strygos_events.1001.t
+	desc = strygos_events.1001.d
+	picture = VAMPIRE_eventPicture
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+# Charter the masked courts.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.1001.a
+		add_country_modifier = {
+			name = strygos_masked_charters_mod
+			duration = -1
+		}
+	}
+
+# Count every grave-name.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.1001.b
+		add_country_modifier = {
+			name = strygos_grave_census_mod
+			duration = -1
+		}
+	}
+
+# Make crypt law supreme.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.1001.c
+		add_country_modifier = {
+			name = strygos_crypt_law_mod
+			duration = -1
+		}
+	}
+}
+
+# Foreign courts recognize that Mourkain is no longer a ruin but a power to answer.
+country_event = {
+	id = strygos_events.1002
+	title = strygos_events.1002.t
+	desc = strygos_events.1002.d
+	picture = VAMPIRE_eventPicture
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+# Send coffin-sealed embassies.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.1002.a
+		add_country_modifier = {
+			name = strygos_embassy_coffins_mod
+			duration = -1
+		}
+	}
+
+# Proclaim midnight titles.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.1002.b
+		add_country_modifier = {
+			name = strygos_midnight_titles_mod
+			duration = -1
+		}
+	}
+
+# Let dread victories speak.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.1002.c
+		add_country_modifier = {
+			name = strygos_dread_renown_mod
+			duration = -1
+		}
+	}
+}
+
+# Black Gulf patrols become a choice between smugglers, fortified posts, and corpse-lantern escorts.
+country_event = {
+	id = strygos_events.1003
+	title = strygos_events.1003.t
+	desc = strygos_events.1003.d
+	picture = VAMPIRE_eventPicture
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+# License the smugglers.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.1003.a
+		add_country_modifier = {
+			name = strygos_black_gulf_smugglers_mod
+			duration = -1
+		}
+	}
+
+# Fortify charnel posts.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.1003.b
+		add_country_modifier = {
+			name = strygos_charnel_harbor_posts_mod
+			duration = -1
+		}
+	}
+
+# Escort by corpse-lantern.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.1003.c
+		add_country_modifier = {
+			name = strygos_corpse_lantern_escorts_mod
+			duration = -1
+		}
+	}
+}
+
+### Sires of Mourkain Random Events
+
+# A relic said to be tied to Kadon surfaces near a drowned tomb.
+country_event = {
+	id = strygos_events.1
+	title = strygos_events.1.t
+	desc = strygos_events.1.d
+	picture = VAMPIRE_eventPicture
+	# Event Weighing Value: -1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = strigany_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Study crown.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.1.a
+		# Weighing Value: 0
+
+		change_innovativeness = 1
+		add_adm_power = -50
+	}
+
+# Break it.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.1.b
+		# Weighing Value: -2
+
+		add_adm_power = -50
+		add_dip_power = -50
+	}
+}
+
+# A Strigany caravan returns with names of lost Strygos families.
+country_event = {
+	id = strygos_events.2
+	title = strygos_events.2.t
+	desc = strygos_events.2.d
+	picture = VAMPIRE_eventPicture
+	# Event Weighing Value: +1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = strigany_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Welcome kin.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.2.a
+		# Weighing Value: +2
+
+		add_dip_power = 50
+		add_yearly_manpower = 1
+	}
+
+# Record names.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.2.b
+		# Weighing Value: +1
+
+		add_adm_power = 50
+	}
+
+# Take tribute.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.2.c
+		# Weighing Value: 0
+
+		add_years_of_income = 0.5
+		add_dip_power = -50
+	}
+}
+
+# The ghoul courts imitate Mourkain nobility with dangerous seriousness.
+country_event = {
+	id = strygos_events.3
+	title = strygos_events.3.t
+	desc = strygos_events.3.d
+	picture = VAMPIRE_eventPicture
+	# Event Weighing Value: 0
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = strigany_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Name ranks.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.3.a
+		# Weighing Value: +1
+
+		add_legitimacy = 10
+		add_republican_tradition = 5
+		add_devotion = 10
+		add_horde_unity = 10
+		add_meritocracy = 10
+	}
+
+# Use rivalry.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.3.b
+		# Weighing Value: 0
+
+		add_mil_power = 50
+		add_years_of_income = -0.5
+	}
+
+# Mock them.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.3.c
+		# Weighing Value: -1
+
+		add_mil_power = -50
+	}
+}
+
+# Old Greenskin bones near Mourkain become a source of fear and power.
+country_event = {
+	id = strygos_events.4
+	title = strygos_events.4.t
+	desc = strygos_events.4.d
+	picture = VAMPIRE_eventPicture
+	# Event Weighing Value: +1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = strigany_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Raise bones.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.4.a
+		# Weighing Value: +2
+
+		add_mil_power = 50
+		add_yearly_manpower = 1
+	}
+
+# Bury hatred.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.4.b
+		# Weighing Value: +1
+
+		add_adm_power = 50
+	}
+
+# Let packs feed.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.4.c
+		# Weighing Value: 0
+
+		add_yearly_manpower = 1
+		add_dip_power = -50
+	}
+
+# Leave field.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.4.dd
+		# Weighing Value: 0
+
+		add_dip_power = 50
+		add_mil_power = -50
+	}
+}
+
+# A recovered tome preserves Kadon's notes in the margins.
+country_event = {
+	id = strygos_events.5
+	title = strygos_events.5.t
+	desc = strygos_events.5.d
+	picture = VAMPIRE_eventPicture
+	# Event Weighing Value: +2
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = strigany_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Master tome.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.5.a
+		# Weighing Value: +3
+
+		add_stability_or_adm_power = yes
+	}
+
+# Copy pages.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.5.b
+		# Weighing Value: +2
+
+		add_adm_power = 50
+		change_innovativeness = 1
+	}
+
+# Lock away.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.5.c
+		# Weighing Value: +1
+
+		add_adm_power = 50
+	}
+}
+
+# Strigoi hunger threatens the discipline of the restored court.
+country_event = {
+	id = strygos_events.6
+	title = strygos_events.6.t
+	desc = strygos_events.6.d
+	picture = VAMPIRE_eventPicture
+	# Event Weighing Value: -2
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = strigany_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Ration blood.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.6.a
+		# Weighing Value: -1
+
+		add_adm_power = -50
+	}
+
+# Find victims.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.6.b
+		# Weighing Value: -2
+
+		add_dip_power = -50
+		add_years_of_income = -0.5
+	}
+
+# Let feast.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.6.c
+		# Weighing Value: -3
+
+		add_stability = -1
+	}
+}
+
+# Smugglers on the Black Gulf offer supplies and lies.
+country_event = {
+	id = strygos_events.7
+	title = strygos_events.7.t
+	desc = strygos_events.7.d
+	picture = VAMPIRE_eventPicture
+	# Event Weighing Value: 0
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = strigany_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Use routes.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.7.a
+		# Weighing Value: +1
+
+		add_mercantilism = 1
+	}
+
+# Pay quietly.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.7.b
+		# Weighing Value: 0
+
+		add_years_of_income = -0.5
+		add_dip_power = 50
+	}
+
+# Seize cargo.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.7.c
+		# Weighing Value: 0
+
+		add_years_of_income = 0.5
+		add_dip_power = -50
+	}
+
+# Refuse risk.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.7.dd
+		# Weighing Value: -1
+
+		add_dip_power = -50
+	}
+}
+
+# Old palace stones become a symbol of restored legitimacy.
+country_event = {
+	id = strygos_events.8
+	title = strygos_events.8.t
+	desc = strygos_events.8.d
+	picture = VAMPIRE_eventPicture
+	# Event Weighing Value: +1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = strigany_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Raise stones.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.8.a
+		# Weighing Value: +2
+
+		add_legitimacy = 10
+		add_republican_tradition = 5
+		add_devotion = 10
+		add_horde_unity = 10
+		add_meritocracy = 10
+		add_adm_power = 50
+	}
+
+# Store stones.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.8.b
+		# Weighing Value: +1
+
+		add_adm_power = 50
+	}
+
+# Sell fragments.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.8.c
+		# Weighing Value: 0
+
+		add_years_of_income = 0.5
+		add_dip_power = -50
+	}
+}
+
+# A vision of Ushoran or his echo unsettles the court.
+country_event = {
+	id = strygos_events.9
+	title = strygos_events.9.t
+	desc = strygos_events.9.d
+	picture = VAMPIRE_eventPicture
+	# Event Weighing Value: -1
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = strigany_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Seek sign.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.9.a
+		# Weighing Value: 0
+
+		add_adm_power = 50
+		add_mil_power = -50
+	}
+
+# Deny vision.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.9.b
+		# Weighing Value: -1
+
+		add_dip_power = -50
+	}
+
+# Silence witnesses.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.9.c
+		# Weighing Value: -2
+
+		add_dip_power = -50
+		add_years_of_income = -0.5
+	}
+}
+
+# Rival necromancers argue over who commands the restored dead.
+country_event = {
+	id = strygos_events.10
+	title = strygos_events.10.t
+	desc = strygos_events.10.d
+	picture = VAMPIRE_eventPicture
+	# Event Weighing Value: 0
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = strigany_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Name master.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.10.a
+		# Weighing Value: +1
+
+		add_adm_power = 50
+	}
+
+# Split duties.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.10.b
+		# Weighing Value: 0
+
+		add_dip_power = 50
+		add_adm_power = -50
+	}
+
+# Tax both.
+	option = {
+		ai_chance = { factor = 50 }
+		name = strygos_events.10.c
+		# Weighing Value: 0
+
+		add_years_of_income = 0.5
+		add_dip_power = -50
+	}
+}

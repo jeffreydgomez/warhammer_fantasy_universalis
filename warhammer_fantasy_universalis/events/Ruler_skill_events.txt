@@ -1,0 +1,1073 @@
+#####################
+# RULER SKILL EVENTS
+#####################
+namespace = ruler_skill_events
+
+
+country_event = {
+    id = ruler_skill_events.X
+    title = ruler_skill_events.X.t
+    desc = ruler_skill_events.X.d
+    picture = WESTERNISATION_eventPicture
+
+    is_triggered_only = yes
+    trigger = {
+        is_lesser_in_union = no
+        has_regency = no
+    }
+    mean_time_to_happen = { days = 1 }
+
+    option = {
+        name = ruler_skill_events.X.a
+    }
+
+    option = {
+        name = ruler_skill_events.X.b
+    }
+
+    option = {
+        name = ruler_skill_events.X.c
+    }
+
+    option = {
+        name = ruler_skill_events.X.e
+    }
+}
+
+
+### Mysterious Tutor arrives, offering teachings. But his trainings are rigourous, to the detriment of other areas of state. However, he is strange and suspicious
+
+country_event = {
+    id = ruler_skill_events.1
+    title = ruler_skill_events.1.t
+    desc = ruler_skill_events.1.d
+    picture = indiangfx_ADVISOR_eventPicture
+
+    is_triggered_only = yes
+    trigger = {
+        is_lesser_in_union = no
+        has_regency = no
+    }
+
+
+    mean_time_to_happen = {
+        days = 1
+
+        modifier = {
+            factor = 0.8
+            adm = 4
+        }
+
+        modifier = {
+            factor = 0.8
+            dip = 4
+        }
+
+        modifier = {
+            factor = 0.8
+            mil = 4
+        }
+
+        modifier = {
+            factor = 0.7
+            adm = 6
+        }
+
+        modifier = {
+            factor = 0.7
+            dip = 6
+        }
+
+        modifier = {
+            factor = 0.7
+            mil = 6
+        }
+
+        modifier = {
+            factor = 1.1
+            NOT = { adm = 3 }
+        }
+
+        modifier = {
+            factor = 1.1
+            NOT = { adm = 1 }
+        }
+
+        modifier = {
+            factor = 1.1
+            NOT = { dip = 3 }
+        }
+
+        modifier = {
+            factor = 1.1
+            NOT = { dip = 1 }
+        }
+
+        modifier = {
+            factor = 1.1
+            NOT = { mil = 3 }
+        }
+
+        modifier = {
+            factor = 1.1
+            NOT = { mil = 1 }
+        }
+    }
+
+
+# I need help with administration
+    option = {
+        name = ruler_skill_events.1.a
+        trigger = { NOT = { adm = 6} }
+        ai_chance = { factor = 0 }
+        
+
+        change_adm = 1
+        add_dip_power = -75
+        add_mil_power = -75
+
+
+        random = { 
+		    chance = 10
+		    set_ruler_religion = chaos_undivided_religion
+		    capital_scope = { change_religion = chaos_undivided_religion }
+		}
+
+    }
+
+#I need help with diplomacy
+    option = {
+        name = ruler_skill_events.1.b
+        trigger = { NOT = { dip = 6} }
+        ai_chance = { factor = 0 }
+
+        change_dip = 1
+        add_adm_power = -75
+        add_mil_power = -75
+
+        random = { 
+		    chance = 10
+		    set_ruler_religion = chaos_undivided_religion
+		    capital_scope = { change_religion = chaos_undivided_religion }
+		}
+
+    }
+
+# I need help with military
+    option = {
+        name = ruler_skill_events.1.c
+        trigger = { NOT = { mil = 6} }
+        ai_chance = { factor = 0 }
+
+        change_mil = 1
+        add_adm_power = -75
+        add_dip_power = -75
+
+        random = { 
+		    chance = 10
+		    set_ruler_religion = chaos_undivided_religion
+		    capital_scope = { change_religion = chaos_undivided_religion }
+		}
+
+    }
+
+## Get out of here!
+    option = {
+        name = ruler_skill_events.1.e
+        ai_chance = { factor = 50 }
+        add_legitimacy = 5
+        add_devotion = 5
+        add_horde_unity = 5
+        add_meritocracy = 5
+        add_republican_tradition = 2
+    }
+}
+
+
+## An Obsession. I need to produce something that will last the ages! It might kill me, and permanently damage my faculties, but I will stay up late nights and do whatever it takes to make it happen!
+
+country_event = {
+    id = ruler_skill_events.2
+    title = ruler_skill_events.2.t
+    desc = ruler_skill_events.2.d
+    picture = ENLIGHTENMENT_eventPicture
+
+    is_triggered_only = yes
+    trigger = {
+        is_lesser_in_union = no
+        has_regency = no
+    }
+    mean_time_to_happen = { days = 1 }
+
+# A masterpiece of scientific theory
+    option = {
+        name = ruler_skill_events.2.a
+        trigger = { adm = 3 }
+        ai_chance = { factor = 50 }
+
+		random_list = {
+			50 = {
+				change_adm = -1
+				add_adm_power = 150
+			}
+			50 = {
+				change_adm = -3
+				add_adm_tech = 1
+			}
+		}
+
+    }
+
+# An astounding work of art
+    option = {
+        name = ruler_skill_events.2.b
+        trigger = { dip = 3 }
+        ai_chance = { factor = 50 }
+
+		random_list = {
+			50 = {
+				change_dip = -1
+				add_dip_power = 150
+			}
+			50 = {
+				change_dip = -3
+				add_dip_tech = 1
+			}
+		}
+
+    }
+
+# A treatise on military theory
+    option = {
+        name = ruler_skill_events.2.c
+        trigger = { mil = 3 }
+        ai_chance = { factor = 50 }
+
+		random_list = {
+			50 = {
+				change_mil = -1
+				add_mil_power = 150
+			}
+			50 = {
+				change_mil = -3
+				add_mil_tech = 1
+			}
+		}
+
+    }
+
+## I'll find other ways to express myself! Dance!
+    option = {
+        name = ruler_skill_events.2.e
+        ai_chance = { factor = 50 }
+        add_legitimacy = -5
+        add_devotion = -5
+        add_horde_unity = -5
+        add_meritocracy = -5
+        add_republican_tradition = -2
+    }
+}
+
+
+
+### Changing interests. As I grow older, my interests change over time.
+
+country_event = {
+    id = ruler_skill_events.3
+    title = ruler_skill_events.3.t
+    desc = ruler_skill_events.3.d
+    picture = PROTESTANT_RELIGIOUS_DOUBTS_eventPicture
+
+    is_triggered_only = yes
+    trigger = {
+        is_lesser_in_union = no
+        has_regency = no
+    }
+    mean_time_to_happen = { days = 1 }
+
+
+# Now is the time for peace, not war
+    option = {
+        name = ruler_skill_events.3.a
+        trigger = {
+        	NOT = { adm = 6}
+        	mil = 1
+        }
+        ai_chance = { factor = 50 }
+
+        change_adm = 1
+        change_mil = -1
+
+    }
+
+# Who needs taxes when you have friends!
+    option = {
+        name = ruler_skill_events.3.b
+        trigger = {
+        	NOT = { dip = 6}
+        	adm = 1
+        }
+        ai_chance = { factor = 50 }
+
+        change_dip = 1
+        change_adm = -1
+
+    }
+
+# Now is the time for war, not diplomacy!
+    option = {
+        name = ruler_skill_events.3.c
+        trigger = {
+        	NOT = { mil = 6}
+        	dip = 1
+        }
+        ai_chance = { factor = 50 }
+
+        change_mil = 1
+        change_dip = -1
+
+    }
+
+## No need to change! I'm perfect just the way I am
+    option = {
+        name = ruler_skill_events.3.e
+        ai_chance = { factor = 50 }
+        add_prestige = 5
+    }
+}
+
+
+
+
+### Self-Improvement. I've set myself to the task of self-improvement
+
+country_event = {
+    id = ruler_skill_events.4
+    title = ruler_skill_events.4.t
+    desc = ruler_skill_events.4.d
+    picture = FAT_WARRIORS_eventPicture
+
+    is_triggered_only = yes
+    trigger = {
+        is_lesser_in_union = no
+        has_regency = no
+    }
+    mean_time_to_happen = {
+        days = 1
+
+        modifier = {
+            factor = 0.8
+            adm = 4
+        }
+
+        modifier = {
+            factor = 0.8
+            dip = 4
+        }
+
+        modifier = {
+            factor = 0.8
+            mil = 4
+        }
+
+        modifier = {
+            factor = 0.6
+            adm = 6
+        }
+
+        modifier = {
+            factor = 0.6
+            dip = 6
+        }
+
+        modifier = {
+            factor = 0.75
+            mil = 6
+        }
+
+        modifier = {
+            factor = 1.1
+            NOT = { adm = 3 }
+        }
+
+        modifier = {
+            factor = 1.1
+            NOT = { adm = 1 }
+        }
+
+        modifier = {
+            factor = 1.1
+            NOT = { dip = 3 }
+        }
+
+        modifier = {
+            factor = 1.1
+            NOT = { dip = 1 }
+        }
+
+        modifier = {
+            factor = 1.1
+            NOT = { mil = 3 }
+        }
+
+        modifier = {
+            factor = 1.1
+            NOT = { mil = 1 }
+        }
+    }
+
+
+# Hold a symposium on taxation
+    option = {
+        name = ruler_skill_events.4.a
+        trigger = { NOT = { adm = 6} }
+        ai_chance = { factor = 50 }
+
+        change_adm = 1
+        add_years_of_income = -2.0
+    }
+
+# Prostrate myself before the experts to learn their ways
+    option = {
+        name = ruler_skill_events.4.b
+        trigger = { NOT = { dip = 6} }
+        ai_chance = { factor = 50 }
+
+        change_dip = 1
+
+        add_prestige = -50
+
+    }
+
+# Let me borrow the army for some military exercises.
+    option = {
+        name = ruler_skill_events.4.c
+        trigger = { NOT = { mil = 6} }
+        ai_chance = { factor = 50 }
+
+        change_mil = 1
+        add_yearly_manpower = -0.5
+        add_army_tradition = -10
+        add_army_professionalism = -0.05
+
+    }
+
+## What was I thinking? I'll just treat myself.
+    option = {
+        name = ruler_skill_events.4.e
+        ai_chance = { factor = 50 }
+
+        add_legitimacy = 5
+        add_devotion = 5
+        add_horde_unity = 5
+        add_meritocracy = 5
+        add_republican_tradition = 2
+    }
+}
+
+
+### Going Mad with Stress. I need to let it out somehow. But how?
+
+country_event = {
+    id = ruler_skill_events.5
+    title = ruler_skill_events.5.t
+    desc = ruler_skill_events.5.d
+    picture = MYSTIC_IN_PRAYER_eventPicture
+
+    is_triggered_only = yes
+    trigger = {
+        is_lesser_in_union = no
+        has_regency = no
+    }
+    mean_time_to_happen = {
+        days = 1
+
+        modifier = {
+            factor = 1.1
+            adm = 4
+        }
+
+        modifier = {
+            factor = 1.1
+            dip = 4
+        }
+
+        modifier = {
+            factor = 1.1
+            mil = 4
+        }
+
+        modifier = {
+            factor = 1.1
+            adm = 6
+        }
+
+        modifier = {
+            factor = 1.1
+            dip = 6
+        }
+
+        modifier = {
+            factor = 1.1
+            mil = 6
+        }
+
+        modifier = {
+            factor = 0.75
+            NOT = { adm = 3 }
+        }
+
+        modifier = {
+            factor = 0.5
+            NOT = { adm = 1 }
+        }
+
+        modifier = {
+            factor = 0.75
+            NOT = { dip = 3 }
+        }
+
+        modifier = {
+            factor = 0.5
+            NOT = { dip = 1 }
+        }
+
+        modifier = {
+            factor = 0.75
+            NOT = { mil = 3 }
+        }
+
+        modifier = {
+            factor = 0.5
+            NOT = { mil = 1 }
+        }
+    }
+
+
+# Burn the books that I don't like!
+    option = {
+        name = ruler_skill_events.5.a
+        trigger = { adm = 1 }
+        ai_chance = { factor = 50 }
+
+        change_adm = -1
+
+    }
+
+# Write naughty letters to our allies
+    option = {
+        name = ruler_skill_events.5.b
+        trigger = { dip = 1 }
+        ai_chance = { factor = 50 }
+
+        change_dip = -1
+
+    }
+
+# Play chess with real soldiers
+    option = {
+        name = ruler_skill_events.5.c
+        trigger = { mil = 1 }
+        ai_chance = { factor = 50 }
+
+        change_mil = -1
+
+    }
+
+## I know! I'll streak around the palace naked!
+    option = {
+        name = ruler_skill_events.5.e
+        ai_chance = { factor = 0 }
+        add_prestige = -75
+    }
+}
+
+
+### Brilliant Idea? - I have a brilliant new idea! And I am adjusting my policies accordingly. My advisors all tell me this is a terrible idea, but what do they know? They are only paid professionals, experts in their fields. (Tongue in cheek, it is a bad idea)
+
+country_event = {
+    id = ruler_skill_events.6
+    title = ruler_skill_events.6.t
+    desc = ruler_skill_events.6.d
+    picture = FAT_WARRIORS_eventPicture
+
+    is_triggered_only = yes
+    trigger = {
+        is_lesser_in_union = no
+        has_regency = no
+    }
+    mean_time_to_happen = {
+        days = 1
+
+        modifier = {
+            factor = 1.1
+            adm = 4
+        }
+
+        modifier = {
+            factor = 1.1
+            dip = 4
+        }
+
+        modifier = {
+            factor = 1.1
+            mil = 4
+        }
+
+        modifier = {
+            factor = 1.1
+            adm = 6
+        }
+
+        modifier = {
+            factor = 1.1
+            dip = 6
+        }
+
+        modifier = {
+            factor = 1.1
+            mil = 6
+        }
+
+        modifier = {
+            factor = 0.75
+            NOT = { adm = 3 }
+        }
+
+        modifier = {
+            factor = 0.75
+            NOT = { adm = 1 }
+        }
+
+        modifier = {
+            factor = 0.75
+            NOT = { dip = 3 }
+        }
+
+        modifier = {
+            factor = 0.75
+            NOT = { dip = 1 }
+        }
+
+        modifier = {
+            factor = 0.75
+            NOT = { mil = 3 }
+        }
+
+        modifier = {
+            factor = 0.75
+            NOT = { mil = 1 }
+        }
+    }
+
+
+# I should squeeze the people
+    option = {
+        name = ruler_skill_events.6.a
+        trigger = { adm = 1 }
+        ai_chance = { factor = 50 }
+
+        change_adm = -1
+        add_years_of_income = 1.0
+    }
+
+# More dances!
+    option = {
+        name = ruler_skill_events.6.b
+        trigger = { dip = 1 }
+        ai_chance = { factor = 50 }
+
+        change_dip = -1
+
+        add_prestige = 50
+
+    }
+
+# More military excersizes!
+    option = {
+        name = ruler_skill_events.6.c
+        trigger = { mil = 1 }
+        ai_chance = { factor = 50 }
+
+        change_mil = -1
+        add_yearly_manpower = 0.5
+        add_army_tradition = 10
+        add_army_professionalism = 0.05
+
+    }
+
+## Maybe my advisors are right. Reverse course!
+    option = {
+        name = ruler_skill_events.6.e
+        ai_chance = { factor = 50 }
+
+        add_legitimacy = -15
+        add_devotion = -15
+        add_horde_unity = -15
+        add_meritocracy = -15
+        add_republican_tradition = -5
+        add_prestige = -25
+    }
+}
+
+### Hubris - I'm the greatest there ever was! Just look at my stellar stats. But it's intimidating those around me.
+
+country_event = {
+    id = ruler_skill_events.7
+    title = ruler_skill_events.7.t
+    desc = ruler_skill_events.7.d
+    picture = MYSTIC_IN_PRAYER_eventPicture
+
+    is_triggered_only = yes
+    trigger = {
+        is_lesser_in_union = no
+        has_regency = no
+    }
+    mean_time_to_happen = {
+        days = 1
+
+        modifier = {
+            factor = 1.2
+            adm = 5
+        }
+
+        modifier = {
+            factor = 1.2
+            dip = 5
+        }
+
+        modifier = {
+            factor = 1.2
+            mil = 5
+        }
+
+        modifier = {
+            factor = 1.2
+            adm = 6
+        }
+
+        modifier = {
+            factor = 1.2
+            dip = 6
+        }
+
+        modifier = {
+            factor = 1.2
+            mil = 6
+        }
+
+        modifier = {
+            factor = 0.5
+            NOT = { adm = 4 }
+        }
+
+        modifier = {
+            factor = 0.5
+            NOT = { adm = 2 }
+        }
+
+        modifier = {
+            factor = 0.5
+            NOT = { dip = 4 }
+        }
+
+        modifier = {
+            factor = 0.5
+            NOT = { dip = 2 }
+        }
+
+        modifier = {
+            factor = 0.5
+            NOT = { mil = 4 }
+        }
+
+        modifier = {
+            factor = 0.5
+            NOT = { mil = 2 }
+        }
+    }
+
+
+# I'll let my administrators do more
+    option = {
+        name = ruler_skill_events.7.a
+        trigger = { adm = 1 }
+        ai_chance = { factor = 50 }
+
+        change_adm = -1
+        add_legitimacy = 20
+        add_republican_tradition = 10
+        add_devotion = 20
+        add_horde_unity = 20
+        add_meritocracy = 20
+
+    }
+
+# Our allies won't be intimidated by my silver tongue
+    option = {
+        name = ruler_skill_events.7.b
+        trigger = { dip = 1 }
+        ai_chance = { factor = 50 }
+
+        change_dip = -1
+        add_prestige = 25
+
+    }
+
+# I'll let my generals take over
+    option = {
+        name = ruler_skill_events.7.c
+        trigger = { mil = 1 }
+        ai_chance = { factor = 50 }
+
+        change_mil = -1
+        add_army_tradition = 15
+
+    }
+
+## Nonsense! I'm the best!
+    option = {
+        name = ruler_skill_events.7.e
+        ai_chance = { factor = 0 }
+        add_legitimacy = -20
+        add_republican_tradition = -10
+        add_devotion = -20
+        add_horde_unity = -20
+        add_meritocracy = -20
+    }
+}
+
+## Existential crisis. Who am I why am I here? I look deep inside myself, and I'm not sure I like what I see.
+country_event = {
+    id = ruler_skill_events.8
+    title = ruler_skill_events.8.t
+    desc = ruler_skill_events.8.desc
+    picture = MYSTIC_IN_PRAYER_eventPicture
+
+    is_triggered_only = yes
+    trigger = {
+        is_lesser_in_union = no
+        has_regency = no
+    }
+    mean_time_to_happen = { days = 1 }
+
+# Keep it together. Don't look into the void...
+    option = {
+        name = ruler_skill_events.8.a
+    }
+
+# It's time for a new me!
+    option = {
+        name = ruler_skill_events.8.b
+        clear_non_racial_ruler_personalities = yes
+        hidden_effect = {
+            clear_saved_ruler_personalities = yes
+        }
+    }
+
+
+# My spouse is more qualified. She should take command.
+    option = {
+        name = ruler_skill_events.8.c
+        trigger = { has_consort = yes }
+        change_consort_regent_to_ruler = yes
+        add_legitimacy = -15
+        hidden_effect = {
+            clr_country_flag = has_saved_immortal_ruler
+            clear_saved_name = immortal_ruler_name
+            clear_saved_ruler_personalities = yes
+        }
+    }
+
+
+# I'm leaving! Put my heir in command!
+    option = {
+        name = ruler_skill_events.8.d
+        trigger = { has_heir = yes }
+        exile_ruler_as = { name = my_exiled_ruler }
+        add_legitimacy = -15
+        hidden_effect = {
+            clr_country_flag = has_saved_immortal_ruler
+            clear_saved_name = immortal_ruler_name
+            clear_saved_ruler_personalities = yes
+        }
+    }
+}
+
+
+
+## Tedium of Immortality. I have an infinite life ahead of me. I'm awash with ennui, and losing interest in ruling.
+
+country_event = {
+    id = ruler_skill_events.9
+    title = ruler_skill_events.9.t
+    desc = ruler_skill_events.9.d
+    picture = MYSTIC_IN_PRAYER_eventPicture
+
+    is_triggered_only = yes
+    trigger = {
+        is_lesser_in_union = no
+        has_regency = no
+        ruler_has_personality = immortal_personality
+    }
+    mean_time_to_happen = {
+        days = 1
+
+        modifier = {
+            factor = 1.2
+            adm = 4
+        }
+
+        modifier = {
+            factor = 1.2
+            dip = 4
+        }
+
+        modifier = {
+            factor = 1.2
+            mil = 4
+        }
+
+        modifier = {
+            factor = 1.2
+            adm = 6
+        }
+
+        modifier = {
+            factor = 1.2
+            dip = 6
+        }
+
+        modifier = {
+            factor = 1.2
+            mil = 6
+        }
+
+        modifier = {
+            factor = 0.9
+            NOT = { adm = 3 }
+        }
+
+        modifier = {
+            factor = 0.5
+            NOT = { adm = 1 }
+        }
+
+        modifier = {
+            factor = 0.9
+            NOT = { dip = 3 }
+        }
+
+        modifier = {
+            factor = 0.5
+            NOT = { dip = 1 }
+        }
+
+        modifier = {
+            factor = 0.9
+            NOT = { mil = 3 }
+        }
+
+        modifier = {
+            factor = 0.5
+            NOT = { mil = 1 }
+        }
+    }
+
+
+# I'm not interested in administration
+    option = {
+        name = ruler_skill_events.9.a
+        trigger = { adm = 1 }
+        ai_chance = { factor = 50 }
+
+        change_adm = -1
+
+    }
+
+# I'm not interested in diplomacy
+    option = {
+        name = ruler_skill_events.9.b
+        trigger = { dip = 1 }
+        ai_chance = { factor = 50 }
+
+        change_dip = -1
+
+    }
+
+# I'm not interested in military
+    option = {
+        name = ruler_skill_events.9.c
+        trigger = { mil = 1 }
+        ai_chance = { factor = 50 }
+
+        change_mil = -1
+
+    }
+
+## I can fight this! Let experts from around the empire inspire me!
+    option = {
+        name = ruler_skill_events.9.e
+        ai_chance = { factor = 0 }
+        add_adm_power = -50
+        add_dip_power = -50
+        add_mil_power = -50
+    }
+}
+
+
+## Changing times - I am immortal, and that means that things change. I may have once been on top of my game, but the game has changed.
+
+country_event = {
+    id = ruler_skill_events.10
+    title = ruler_skill_events.10.t
+    desc = ruler_skill_events.10.d
+    picture = MYSTIC_IN_PRAYER_eventPicture
+
+    is_triggered_only = yes
+    trigger = {
+        is_lesser_in_union = no
+        has_regency = no
+        ruler_has_personality = immortal_personality
+        OR = {
+            adm = 6
+            dip = 6
+            mil = 6
+        }
+    }
+    mean_time_to_happen = {
+        days = 1
+
+    }
+
+
+# I can't keep up with modern administration
+    option = {
+        name = ruler_skill_events.10.a
+        trigger = { adm = 6 }
+        ai_chance = { factor = 50 }
+
+        change_adm = -1
+
+    }
+
+# I'm can't keep up with modern diplomacy
+    option = {
+        name = ruler_skill_events.10.b
+        trigger = { dip = 6 }
+        ai_chance = { factor = 50 }
+
+        change_dip = -1
+
+    }
+
+# I can't keep up with modern military tacttics
+    option = {
+        name = ruler_skill_events.10.c
+        trigger = { mil = 6 }
+        ai_chance = { factor = 50 }
+
+        change_mil = -1
+
+    }
+}

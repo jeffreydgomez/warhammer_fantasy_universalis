@@ -1,0 +1,486 @@
+## Ogres and Maw
+
+##################################
+##### OGRE CULTURE GROUP
+##################################
+
+## Own the passes, Have centers of Trade at level 3, Rent out condeterii, Unite the tribes
+
+gen_ogre_missions = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = ogre_group
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_mission_priority_4 = no
+	}
+
+	gen_ogre_please_nobility = { 
+		icon = mission_ogre_culture
+		required_missions = {  } 
+		trigger = {
+			estate_loyalty = {
+			    estate = estate_nobles
+			    loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+
+		effect = {
+			add_years_of_income = 1.0
+			add_yearly_manpower = 1.0
+		}
+	}
+
+	gen_ogre_unite_tribes = { 
+		icon = mission_ogre_culture
+		required_missions = { gen_ogre_please_nobility } 
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 25
+				superregion = mountains_of_mourn_superregion
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+ 				name = ogre_claimant
+				duration = -1
+			}
+		}
+	}
+
+	gen_ogre_mercenaries = { 
+		icon = mission_ogre_culture
+		required_missions = {  } 
+		trigger = {
+			any_country = {
+				ROOT = { is_renting_condottieri_to = PREV }
+			}
+		}
+
+		effect = {
+			add_years_of_income = 1.0
+			add_yearly_manpower = 1.0
+		}
+	}
+
+
+	gen_ogre_ivory_pass = { 
+		icon = mission_ogre_culture
+		required_missions = {  } 
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4272
+				province_id = 2812
+				province_id = 2813
+				province_id = 2814
+				province_id = 2808
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			owns = 4272
+			owns = 2812
+			owns = 2813
+			owns = 2814
+			owns = 2808
+		}
+
+		effect = {
+			add_country_modifier = { 
+ 				name = ogre_trade_1
+				duration = -1
+			}
+		}
+	}
+
+	gen_ogre_silk_pass = { 
+		icon = mission_ogre_culture
+		required_missions = {  }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2818
+				province_id = 2817
+				province_id = 2802
+				province_id = 2796
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			owns = 2818
+			owns = 2817
+			owns = 2802
+			owns = 2796
+		}
+
+		effect = {
+			add_country_modifier = { 
+ 				name = ogre_trade_2
+				duration = -1
+			}
+		}
+	}
+
+	gen_ogre_north_pass = { 
+		icon = mission_ogre_culture
+		required_missions = {  }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2753
+				province_id = 2759
+				province_id = 2750
+				province_id = 2754
+				province_id = 2751
+				province_id = 2752
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			owns = 2753
+			owns = 2749
+			owns = 2750
+			OR = {
+				owns = 2752
+				AND = {
+					owns = 2754
+					owns = 2751
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+ 				name = ogre_trade_3
+				duration = -1
+			}
+		}
+	}
+
+
+	gen_ogre_dominate_ivory_road = { 
+		icon = mission_ogre_culture
+		required_missions = { gen_ogre_ivory_pass gen_ogre_silk_pass gen_ogre_north_pass} 
+		provinces_to_highlight = {
+			province_has_center_of_trade_of_level = 1
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					province_has_center_of_trade_of_level = 3 
+				}
+				value = 5 
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+ 				name = gen_ogre_dominate_ivory_road
+				duration = -1
+			}
+		}
+	}
+}
+
+
+gen_ogre_ultimate_missions = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		culture_group = ogre_group
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_mission_priority_4 = no
+	}
+
+	gen_ogre_ultimate = { 
+		icon = mission_ogre_culture
+		required_missions = { }
+		position = 9
+		provinces_to_highlight = {
+			province_has_center_of_trade_of_level = 1
+		}
+		trigger = {
+			num_of_centers_of_trade = 25
+		}
+
+		effect = {
+			add_country_modifier = { 
+ 				name = ogres_dominate_trade
+				duration = -1
+			}
+		}
+	}
+}
+
+##################################
+##### MAW RELIGION
+##################################
+
+
+gen_maw_missions = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		religion = the_great_maw_religion
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_mission_priority_4 = no
+	}
+
+
+
+	gen_maw_grain = { 
+		icon = mission_ogre_religion
+		required_missions = {  } 
+		provinces_to_highlight = {
+			trade_goods = grain
+		}
+		trigger = {
+			OR = {
+				development_in_provinces = {
+					value = 35
+					owned_by = ROOT 
+					trade_goods = grain 
+				}
+				num_of_owned_provinces_with = {
+					trade_goods = grain
+					value = 5
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+ 				name = maw_grain
+				duration = -1
+			}	
+		}
+	}
+
+	gen_maw_alcohol = { 
+		icon = mission_ogre_religion
+		required_missions = {  } 
+		provinces_to_highlight = {
+			OR = {
+				trade_goods = beer
+				trade_goods = wine
+			}
+		}
+		trigger = {
+			OR = {
+				development_in_provinces = {
+					value = 35
+					owned_by = ROOT 
+					OR = {
+						trade_goods = beer
+						trade_goods = wine
+					}	
+				}
+				num_of_owned_provinces_with = {
+					OR = {
+						trade_goods = beer
+						trade_goods = wine
+					}
+					value = 5
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+ 				name = maw_alcohol
+				duration = -1
+			}	
+		}
+	}
+
+	gen_maw_fish = { 
+		icon = mission_ogre_religion
+		required_missions = {  } 
+		provinces_to_highlight = {
+			trade_goods = fish
+		}
+		trigger = {
+			OR = {
+				development_in_provinces = {
+					value = 35
+					owned_by = ROOT 
+					trade_goods = fish 
+				}
+				num_of_owned_provinces_with = {
+					trade_goods = fish
+					value = 5
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+ 				name = maw_fish
+				duration = -1
+			}
+		}
+	}
+
+	gen_maw_spices = { 
+		icon = mission_ogre_religion
+		required_missions = {  }
+		provinces_to_highlight = {
+			OR = {
+				trade_goods = salt
+				trade_goods = spices
+				trade_goods = sugar
+				trade_goods = cloves
+			}
+		}
+		trigger = {
+			OR = {
+				development_in_provinces = {
+					value = 35
+					owned_by = ROOT 
+					OR = {
+						trade_goods = salt
+						trade_goods = spices
+						trade_goods = sugar
+						trade_goods = cloves
+					}	
+				}
+				num_of_owned_provinces_with = {
+					OR = {
+						trade_goods = salt
+						trade_goods = spices
+						trade_goods = sugar
+						trade_goods = cloves
+					}
+					value = 5
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+ 				name = maw_spices
+				duration = -1
+			}
+		}
+	}
+
+		gen_maw_drinks = { 
+		icon = mission_ogre_religion
+		required_missions = {  }
+		provinces_to_highlight = {
+			OR = {
+				trade_goods = cocoa
+				trade_goods = tea
+				trade_goods = coffee
+			}
+		}
+		trigger = {
+			OR = {
+				development_in_provinces = {
+					value = 35
+					owned_by = ROOT 
+					OR = {
+						trade_goods = cocoa
+						trade_goods = tea
+						trade_goods = coffee
+					}	
+				}
+				num_of_owned_provinces_with = {
+					OR = {
+						trade_goods = cocoa
+						trade_goods = tea
+						trade_goods = coffee
+					}
+					value = 5
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+ 				name = maw_drinks
+				duration = -1
+			}
+		}
+	}
+
+	gen_maw_meat = { 
+		icon = mission_ogre_religion
+		required_missions = {  }
+		provinces_to_highlight = {
+			OR = {
+				trade_goods = livestock
+				trade_goods = wool
+			}
+		}
+		trigger = {
+			OR = {
+				development_in_provinces = {
+					value = 35
+					owned_by = ROOT 
+					OR = {
+						trade_goods = livestock
+						trade_goods = wool
+					}
+				}
+				num_of_owned_provinces_with = {
+					OR = {
+						trade_goods = livestock
+						trade_goods = wool
+					}
+					value = 5
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+ 				name = maw_meat
+				duration = -1
+			}
+		}
+	}
+
+
+
+
+	gen_maw_great_feast = { 
+		icon = mission_ogre_religion
+		required_missions = { gen_maw_meat gen_maw_drinks gen_maw_spices gen_maw_fish gen_maw_alcohol gen_maw_grain } 
+		trigger = {
+			estate_loyalty = {
+			    estate = estate_church
+			    loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 1
+			}
+		}
+
+		effect = {
+### Also allows for the throwing the great feast decision
+			add_country_modifier = { 
+ 				name = great_feast_stuff
+				duration = -1
+			}
+		}
+	}
+
+}

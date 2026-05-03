@@ -1,0 +1,116 @@
+
+country_decisions = {
+
+	war_claim_the_council = {
+		major = yes
+		potential = {
+			religion = horned_rat
+			papal_controller = { exists = no }
+		}
+		allow = {
+			169 = { owned_by = ROOT }
+		}
+		effect = {
+			set_papal_controller = ROOT
+		}
+
+		ai_will_do = { factor = 400 }
+		ai_importance = 400
+	}
+
+
+	form_under_empire = {
+		major = yes
+		potential = {
+			culture_group = skaven_group
+			NOT = { tag = U98 } ##Under-Empire
+			NOT = { exists = U98 }
+			OR = {
+				ai = no
+				NOT = { exists = U98 }
+			}
+			is_colonial_nation = no
+			normal_or_historical_nations = yes
+			OR = {
+				ai = no
+				num_of_cities = 75
+			}
+		}
+		provinces_to_highlight = {
+			continent =  underempire
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		allow = {
+			culture_group = skaven_group
+			is_at_war = no
+#			is_free_or_tributary_trigger = yes
+			is_tribal = no
+			NOT = { exists = U98 }
+
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 130
+				continent = underempire
+			}
+			owns = 169
+		}
+		effect = {
+			change_tag = U98
+			hidden_effect = { restore_country_name = yes }
+			# swap_non_generic_missions = yes
+			country_event = { id = ideagroups.1 }
+			
+			country_event = { id = threat_to_the_world_events.1 }
+
+			set_government_rank = 3
+	
+			add_country_modifier = { name = centralization_modifier duration = 7300 }
+			add_prestige = 100
+			country_event = { id = war_formable_nations.28 }
+		}
+		ai_will_do = { factor = 400 }
+		ai_importance = 400
+	}
+
+
+	begin_vermintide = {
+		major = yes
+		potential = {
+			culture_group = skaven_group
+			NOT = { has_country_modifier = vermintide }
+
+		}
+		provinces_to_highlight = {
+			continent =  underempire
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		allow = {
+			is_at_war = no
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				NOT = { continent = underempire }
+			}
+
+		}
+		effect = {
+
+			add_stability = -1
+
+			custom_tooltip = vermintide_tt
+
+			add_country_modifier = {
+				name = vermintide
+				duration = -1
+			}
+
+			hidden_effect = {
+				war_reset_racial_modifiers = yes
+			}
+		}
+
+		ai_will_do = { factor = 400 }
+		ai_importance = 400
+	}
+
+
+	
+}

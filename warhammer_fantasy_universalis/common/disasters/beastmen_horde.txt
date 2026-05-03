@@ -1,0 +1,79 @@
+
+beastmen_horde = {
+	potential = {
+		has_country_flag = fallen_disaster_start
+		NOT = { has_country_flag = beastmen_horde_happened }
+		NOT = { has_spawned_rebels = beastmen_horde_rebels }
+		has_any_disaster = no
+		is_subject = no
+	}
+
+	
+	
+	can_start = {
+		always = yes
+	}
+	
+	
+	can_stop = {
+        always = no
+	}
+	
+	progress = {
+		modifier = {
+			factor = 20
+			custom_trigger_tooltip = {
+				tooltip = something_is_going_up_tooltip
+				always = yes
+			}
+		}
+	}
+	
+	
+	
+	can_end = {
+		custom_trigger_tooltip = { #Own all old Hold
+			tooltip = no_old_hold_tooltip
+			NOT = {
+				any_owned_province = {
+					has_province_modifier = old_waystone
+					NOT = { controlled_by = ROOT }
+				}
+			}
+		}
+		if = {
+			limit = { any_owned_province = { has_province_modifier = blood_grounds } } #Destroy all old gate
+			custom_trigger_tooltip = {
+				tooltip = no_old_gate_tooltip
+				OR = {
+					all_owned_province = { NOT = { has_province_modifier = blood_grounds } }
+					ai = yes
+				}
+			}
+		}
+		NOT = { has_spawned_rebels = beastmen_horde_rebels } #No rebel alive
+	}
+	
+
+	modifier = {
+		global_unrest = 3
+		global_colonial_growth = -100
+		global_trade_goods_size_modifier = -0.2
+	}
+	
+	
+	on_start = disaster_beastmen_horde.5
+	on_end = disaster_beastmen_horde.3
+	
+	on_monthly = {
+		events = {
+		}
+		random_events = { 
+			1000 = 0
+			100 = disaster_beastmen_horde.7
+			200 = disaster_beastmen_horde.8
+		
+		}
+	}
+}
+

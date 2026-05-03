@@ -1,0 +1,405 @@
+custom_button = {
+	name = spellbook_inferface_button	#Must match a scripted guiButtonType in a .gui file
+	potential = {
+	always = no
+		NOT = {
+			has_country_flag = magic_spellbook_menu_enabled_flag
+		}
+	}
+	#Determines when the button is visible
+	trigger = {
+	}
+	#Determines when the button is clickable
+	effect = {
+		FROM = {
+			set_country_flag = magic_spellbook_menu_enabled_flag
+		}
+	}
+}
+
+#Close
+custom_button = {
+	name = spellbook_close_button
+	potential = {
+		FROM = {
+			has_country_flag = magic_spellbook_menu_enabled_flag
+		}
+	}
+	trigger = {
+	}
+	effect = {
+		FROM = {
+			clr_country_flag = magic_spellbook_menu_enabled_flag
+		}
+	}
+}
+
+custom_button = {
+	name = spellbook_back_button
+	potential = {
+		FROM = {
+			has_country_flag = magic_spellbook_menu_enabled_flag
+		}
+	}
+	trigger = {
+	}
+	effect = {
+		FROM = {
+			clr_country_flag = magic_spellbook_menu_enabled_flag
+		}
+	}
+}
+
+custom_icon = {
+	name = spellbook_menu_bg
+	potential = {
+		FROM = {
+			has_country_flag = magic_spellbook_menu_enabled_flag
+		}
+	}
+}
+
+##############
+# Lore of Life
+##############
+#Vital Blessing
+custom_button = {
+	name = spellbook_vital_blessing_button
+	potential = {
+		FROM = {
+			has_country_flag = magic_spellbook_menu_enabled_flag
+		}
+		owned_by = from
+	}
+	trigger = {
+		has_farm_trade_goods = yes
+		from = {
+			has_government_power = {
+				mechanic_type = magic_mechanic
+				power_type = winds_of_magic
+				value = 25
+			}
+		}
+		not = {
+			has_province_modifier = magic_lore_of_life_vital_growth_1
+		}
+		from = {
+			has_country_flag = lore_of_life_1
+		}
+	}
+	effect = {
+		add_government_power = {
+			mechanic_type = magic_mechanic
+			power_type = winds_of_magic
+			value = -25
+		}
+		add_province_modifier = {
+			name = magic_lore_of_life_vital_growth_1
+			duration = 1825
+		}
+	}
+	tooltip = vital_blessing_tt
+}
+
+#Awakening of the woods
+custom_button = {
+	name = spellbook_awakening_of_the_woods_button
+	potential = {
+		FROM = {
+			has_country_flag = magic_spellbook_menu_enabled_flag
+		}
+	}
+	trigger = {
+		OR = {
+			has_terrain = woods
+			has_terrain = jungle
+			has_terrain = magical_forest_terrain
+			has_terrain = forest
+		}
+		from = {
+			has_government_power = {
+				mechanic_type = magic_mechanic
+				power_type = winds_of_magic
+				value = 25
+			}
+		}
+		not = {
+			has_province_modifier = magic_awakening_of_the_woods_1
+		}
+	}
+	effect = {
+		add_government_power = {
+			mechanic_type = magic_mechanic
+			power_type = winds_of_magic
+			value = -25
+		}
+		add_province_modifier = {
+			name = magic_awakening_of_the_woods_1
+			duration = 365
+		}
+	}
+	tooltip = awakening_of_the_woods_tt
+}
+
+#Restore Devastation
+custom_button = {
+	name = spellbook_lifebloom_button
+	potential = {
+		FROM = {
+			has_country_flag = magic_spellbook_menu_enabled_flag
+		}
+		owned_by = from
+	}
+	trigger = {
+		devastation = 1
+		from = {
+			has_government_power = {
+				mechanic_type = magic_mechanic
+				power_type = winds_of_magic
+				value = 25
+			}
+		}
+	}
+	effect = {
+		add_government_power = {
+			mechanic_type = magic_mechanic
+			power_type = winds_of_magic
+			value = -25
+		}
+		add_devastation = -100
+	}
+	tooltip = restore_devastation_tt
+}
+
+##############
+# Lore of shadows
+##############
+#Into the shadows
+custom_button = {
+	name = spellbook_into_the_shadows_button
+	potential = {
+		FROM = {
+			has_country_flag = magic_spellbook_menu_enabled_flag
+		}
+		owned_by = from
+	}
+	trigger = {
+		from = {
+			is_at_war = yes
+		}
+		from = {
+			has_government_power = {
+				mechanic_type = magic_mechanic
+				power_type = winds_of_magic
+				value = 25
+			}
+		}
+		from = {
+			has_country_flag = lore_of_shadows_1
+		}
+		# all_owned_province = {
+		# 	not = {
+		# 		has_province_modifier = magic_into_the_shadows_target_modifier
+		# 	}
+		# }
+	}
+	effect = {
+		hidden_effect = {
+			save_event_target_as = fog_epicenter_target
+			add_province_modifier = {
+				name = magic_into_the_shadows_target_modifier
+				duration = 365
+				hidden = yes
+			}
+			every_country = {
+				limit = {
+					war_with = ROOT
+				}
+				country_event = {
+					id = magic.2003
+				}
+			}
+		}
+		custom_tooltip = magic_into_the_shadows_desc_tt
+	}
+	tooltip = magic_into_the_shadows_desc_tt
+}
+
+##############
+# Lore of fire
+##############
+#Fire ball
+custom_button = {
+	name = spellbook_fireball_button
+	potential = {
+		FROM = {
+			has_country_flag = magic_spellbook_menu_enabled_flag
+		}
+	}
+	trigger = {
+		fort_level = 1
+		sieged_by = from
+		unit_has_leader = yes
+		num_of_units_in_province = {
+			who = from
+			amount = 1
+		}
+		from = {
+			has_government_power = {
+				mechanic_type = magic_mechanic
+				power_type = winds_of_magic
+				value = 25
+			}
+		}
+		from = {
+			has_country_flag = lore_of_fire_1
+		}
+	}
+	effect = {
+		hidden_effect = {
+			save_event_target_as = spell_target_province
+		}
+		from = {
+			country_event = {
+				id = magic.7001
+			}
+		}
+	}
+	tooltip = magic_fireball_desc_tt
+}
+
+#Fire storm
+custom_button = {
+	name = spellbook_firestorm_button
+	potential = {
+		FROM = {
+			has_country_flag = magic_spellbook_menu_enabled_flag
+		}
+	}
+	trigger = {
+		fort_level = 1
+		sieged_by = from
+		unit_has_leader = yes
+		num_of_units_in_province = {
+			who = from
+			amount = 1
+		}
+		from = {
+			has_government_power = {
+				mechanic_type = magic_mechanic
+				power_type = winds_of_magic
+				value = 50
+			}
+		}
+		from = {
+			has_country_flag = lore_of_fire_1
+		}
+	}
+	effect = {
+		hidden_effect = {
+			save_event_target_as = spell_target_province
+		}
+		from = {
+			country_event = {
+				id = magic.7010
+			}
+		}
+	}
+	tooltip = magic_firestorm_desc_tt
+}
+
+##############
+# Lore of Metal
+##############
+#Plague of Rust
+custom_button = {
+	name = spellbook_plague_of_rust_button
+	potential = {
+		FROM = {
+			has_country_flag = magic_spellbook_menu_enabled_flag
+		}
+	}
+	trigger = {
+		from = {
+			war_with = root	
+		}
+		from = {
+			not = {
+				has_country_flag = cast_menu_open
+			}
+		}
+		from = {
+			has_government_power = {
+				mechanic_type = magic_mechanic
+				power_type = winds_of_magic
+				value = 25
+			}
+		}
+		from = {
+			has_country_flag = lore_of_metal_1
+		}
+		root = {
+			not = {
+				has_country_modifier = magic_plague_of_rust_1
+			}
+		}
+	}
+	effect = {
+		hidden_effect = {
+			save_event_target_as = spell_target_province
+		}
+		set_country_flag = cast_menu_open
+		from = {
+			country_event = {
+				id = magic.2001
+			}
+		}
+	}
+	tooltip = magic_plague_of_rust_desc_tt
+}
+
+##############
+# Lore of Heavens
+##############
+#Comet Sighted
+custom_button = {
+	name = spellbook_comet_of_casandora_button
+	potential = {
+		FROM = {
+			has_country_flag = magic_spellbook_menu_enabled_flag
+		}
+	}
+	trigger = {
+		from = {
+			war_with = root	
+		}
+		from = {
+			not = {
+				has_country_flag = cast_menu_open
+			}
+		}
+		from = {
+			has_government_power = {
+				mechanic_type = magic_mechanic
+				power_type = winds_of_magic
+				value = 50
+			}
+		}
+		from = {
+			has_country_flag = lore_of_heavens_1
+		}
+	}
+	effect = {
+		hidden_effect = {
+			save_event_target_as = spell_target_province
+		}
+		set_country_flag = cast_menu_open
+		from = {
+			country_event = {
+				id = magic.4001
+			}
+		}
+	}
+	tooltip = magic_comet_of_casandora_desc_tt
+}
+

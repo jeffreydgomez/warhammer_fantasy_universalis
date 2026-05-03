@@ -1,0 +1,1112 @@
+########################################
+# Events for Araby
+########################################
+
+namespace = araby_events
+normal_or_historical_nations = yes
+
+
+## Template
+country_event = { 
+	id = araby_events.X
+	title = araby_events.X.t 
+	desc = araby_events.X.d 
+	picture = ARABY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = arabyan_group
+		religion = the_one_faith
+		# is_emperor_of_china = yes # for prophet of the sun
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# FIRST OPTION
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.X.option_1 
+
+		add_mandate = 10 # Just for the Prophet of the sun
+
+		add_country_modifier = { 
+		    name = XXX
+		    duration = 3650
+		}
+
+	}
+
+# SECOND OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.X.option_2
+
+
+	}
+
+# THIRD OPTION
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.X.option_3
+	}
+}
+
+
+## A Djinn has gotten lose in our capital! It broke free from its bindings and is now demanding wealth. What should we do?
+country_event = { 
+	id = araby_events.1
+	title = araby_events.1.t 
+	desc = araby_events.1.d 
+	picture = ARABY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = arabyan_group
+			religion = the_one_faith
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		capital_scope = {
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# No way! Let it wreak it's havok
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.1.option_1 
+
+		event_target:event_target = {
+			add_devastation = 50
+		}
+
+		add_mandate = -10
+
+	}
+
+# Pay it off
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.1.option_2
+
+		add_treasury = -150
+
+		add_mandate = -5
+
+	}
+
+# Fight it!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.1.option_3
+		trigger = { manpower = 10 }
+
+		add_manpower = -5
+
+		random = { 
+		    chance = 50 
+
+		    event_target:event_target = {
+				add_devastation = 25
+			}
+
+			add_mandate = -10
+		}
+	}
+
+# We're soooo sorry!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.1.option_4
+
+		add_prestige = -25
+
+		random = { 
+		    chance = 50 
+
+		    event_target:event_target = {
+				add_devastation = 50
+			}
+
+			add_mandate = -20
+		}
+	}
+}
+
+
+
+## A new preacher has emerged, calling himself the true Prophet of the Sun. What should we do?
+country_event = { 
+	id = araby_events.2
+	title = araby_events.2.t 
+	desc = araby_events.2.d 
+	picture = ARABY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = arabyan_group
+			religion = the_one_faith
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Destroy him!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.2.option_1 
+
+		event_target:event_target = {
+
+			spawn_rebels = {
+	    		type = pretender_rebels
+	    		size = 2
+	    	}
+
+		}
+
+		add_mandate = -5
+
+	}
+
+# Disregard such nonsense. It will pass.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.2.option_2
+
+		add_stability = -1
+
+		add_mandate = -5
+
+	}
+}
+
+
+
+
+
+## A Djinn has come to us willingly, and wants to serve in the army.
+country_event = { 
+	id = araby_events.3
+	title = araby_events.3.t 
+	desc = araby_events.3.d 
+	picture = ARABY_eventPicture
+
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = arabyan_group
+			religion = the_one_faith
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		capital_scope = {
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# We'd love to have you!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.3.option_1
+
+		event_target:event_target = {
+			cossack_infantry = ROOT
+		}
+
+		add_mandate = 5
+
+	}
+
+# You'd make a better general.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.3.option_2
+
+		create_general = { tradition = 75 }
+
+		add_mandate = 5
+
+	}
+
+
+# Trick and Bind him
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.3.option_3
+
+		add_prestige = -25
+		change_innovativeness = 1
+
+		add_mandate = -5
+	}
+}
+
+
+## We've bound a Djinn of stone and rock. But how best to use him.
+country_event = { 
+	id = araby_events.4
+	title = araby_events.4.t 
+	desc = araby_events.4.d 
+	picture = ARABY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = arabyan_group
+			religion = the_one_faith
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# In building great works.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.4.option_1 
+
+		add_country_modifier = { 
+		    name = war_cheaper_buildings
+		    duration = 3650
+		}
+
+	}
+
+# In cultivating the land
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.4.option_2
+
+		add_country_modifier = { 
+		    name = war_cheaper_dev
+		    duration = 3650
+		}
+
+	}
+
+# Bind him to the earth here, where he will help it grow.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.4.option_3
+
+		event_target:event_target = {
+			add_random_development = 3
+		}
+	}
+}
+
+
+
+## A massive caravan seeks to pass through your lands. How should we proceed?
+country_event = { 
+	id = araby_events.5
+	title = araby_events.5.t 
+	desc = araby_events.5.d 
+	picture = ARABY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = arabyan_group
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Of course! All trade is free in our land.
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.5.option_1 
+
+		add_mercantilism = 2
+
+		add_mandate = 5 # Just for the Prophet of the sun
+
+	}
+
+# Just a little tarrif should do
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.5.option_2
+
+		add_years_of_income = 0.25
+
+	}
+
+# Caravan? All I see are a bunch of empty bags...
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.5.option_3
+
+		add_years_of_income = 1.0
+		add_prestige = -10
+
+		add_mercantilism = -2
+
+		add_mandate = -10
+	}
+}
+
+
+
+## Our advisors say we must not fall behind the rest of the world. We must understand what is out there.
+country_event = { 
+	id = araby_events.6
+	title = araby_events.6.t 
+	desc = araby_events.6.d 
+	picture = ARABY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		OR = {
+			culture_group = arabyan_group
+			religion = the_one_faith
+		}
+		naval_forcelimit = 1
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Good idea
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.6.option_1 
+
+		add_country_modifier = { 
+		    name = war_naval_exploration
+		    duration = 3650
+		}
+
+	}
+
+# Internal Focus is where it's at!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.6.option_2
+
+		add_country_modifier = { 
+		    name = war_reduced_unrest
+		    duration = 3650
+		}
+	}
+
+# There are other ways to learn their secrets...
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.6.option_3
+
+		add_country_modifier = { 
+		    name = war_better_spies
+		    duration = 3650
+		}
+	}
+}
+
+
+
+## Our scholars debate the nature of foriegn gods. Are they demons? Different faces of the One true god?
+country_event = { 
+	id = araby_events.7
+	title = araby_events.7.t 
+	desc = araby_events.7.d 
+	picture = ARABY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		religion = the_one_faith
+		NOT = { religious_unity = 0.90 }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Demons! Drive them out!
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.7.option_1 
+
+		add_mandate = 5
+
+		add_country_modifier = { 
+		    name = war_witch_hunts
+		    duration = 3650
+		}
+
+	}
+
+# Simply different faces of the one true god.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.7.option_2
+
+		add_country_modifier = { 
+		    name = war_better_religious_unity
+		    duration = 3650
+		}
+
+
+	}
+
+# This xenophillic research could help our international relations
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.7.option_3
+
+
+		add_country_modifier = { 
+		    name = war_better_dip_rep
+		    duration = 3650
+		}
+	}
+}
+
+
+
+## Djinn Offers Teaching
+country_event = { 
+	id = araby_events.8
+	title = araby_events.8.t 
+	desc = araby_events.8.d 
+	picture = ARABY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = arabyan_group
+		religion = the_one_faith
+		# is_emperor_of_china = yes # for prophet of the sun
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				always = yes
+			}
+			save_event_target_as = event_target
+		}
+	}
+
+	goto = event_target
+
+# Listen to his teachings
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.8.option_1 
+
+		change_innovativeness = 1
+
+		event_target:event_target = {
+			change_religion = chaos_undivided_religion
+		}
+		add_mandate = -10
+
+
+	}
+
+# No thanks
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.8.option_2
+
+	}
+
+# We have demons in our midst!
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.8.option_3
+
+		add_country_modifier = { 
+		    name = war_witch_hunts
+		    duration = 3650
+		}
+
+		add_mandate = 5
+	}
+}
+
+
+
+## Taxation or Charity? Sacred Taxation is a part of our culture. But do we increase taxes? Or apply the charity back to the people themselves?
+country_event = { 
+	id = araby_events.9
+	title = araby_events.9.t 
+	desc = araby_events.9.d 
+	picture = ARABY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		culture_group = arabyan_group
+		religion = the_one_faith
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+	}
+
+# Demand increased taxation
+
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.9.option_1 
+
+		add_country_modifier = { 
+		    name = war_increased_taxes
+		    duration = 3650
+		}
+
+		add_legitimacy = -15
+		add_republican_tradition = -5
+		add_devotion = -15
+		add_horde_unity = -15
+		add_meritocracy = -15
+		add_mandate = -5
+
+
+	}
+
+# We shall give their taxes back to them
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.9.option_2
+
+		add_country_modifier = { 
+		    name = war_decreased_taxes
+		    duration = 3650
+		}
+
+		add_legitimacy = 15
+		add_republican_tradition = 5
+		add_devotion = 15
+		add_horde_unity = 15
+		add_meritocracy = 15
+		add_mandate = 5
+	}
+
+}
+
+## Mission events
+
+
+	## Now that we have gathered the estates, we must solidify our right to help adjudicate our beliefs. We must become the pre-eminent nation of our faith. In doing so, eo we appeal to the estates, or the common people?
+country_event = { 
+	id = araby_events.100
+	title = araby_events.100.t 
+	desc = araby_events.100.d 
+	picture = ARABY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Our religion values the opinions of the elites.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.100.option_1 
+
+		add_country_modifier = { 
+			name = araby_elites_determine_doctrine
+			duration = -1  
+		}
+
+	}
+
+# Our religion draws legitimacy from the common man.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.100.option_2
+
+		add_country_modifier = { 
+			name = araby_the_common_man
+			duration = -1  
+		}
+	}
+}
+
+# The Prophet of the Sun must often wield the sword to bring peace to the world. But many wonder: what is the role of the army, and conquest, in our religion? Must the sword always be used? Or can we spread the word through softer means?
+country_event = { 
+	id = araby_events.101
+	title = araby_events.101.t 
+	desc = araby_events.101.d 
+	picture = ARABY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# War is swift and efficient for spreading our gospel.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.101.option_1 
+
+		add_country_modifier = { 
+			name = araby_spread_through_war
+			duration = -1  
+		}
+
+	}
+
+# Our missionaries must go before us
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.101.option_2
+
+		add_country_modifier = { 
+			name = araby_spread_through_peace
+			duration = -1  
+		}
+		set_country_flag = war_allow_diplo_convert
+		custom_tooltip = war_allow_diplo_convert_tt
+
+	}
+}
+
+
+	# Zakat, or charity, is a core pillar of our religion. Let us take the time to invest in our least affluent citizens. But the question remains - will we, as a government, give Zakat? Or should we merely encourage Zakat among our citizens?
+country_event = { 
+	id = araby_events.102
+	title = araby_events.102.t 
+	desc = araby_events.102.d 
+	picture = ARABY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Let us increase the charitable tax.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.102.option_1 
+
+		add_country_modifier = { 
+			name = araby_increase_tax
+			duration = -1  
+		}
+
+	}
+
+# No - our government should focus on charity as well.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.102.option_2
+
+		add_country_modifier = { 
+			name = araby_charitable_government
+			duration = -1  
+		}
+	}
+}
+
+
+## Such rapid growth, both of our faithful and of our teachings, has lead to the possibilty of schism. We must head this off immediately to prevent any issues. Once we have calmed the dissenting voices refer then, to our newly created texts. How do we deal with other opinions?
+country_event = { 
+	id = araby_events.103
+	title = araby_events.103.t 
+	desc = araby_events.103.d 
+	picture = ARABY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Let us welcome other opinions
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.103.option_1 
+
+		add_country_modifier = { 
+			name = araby_tolerance_of_others
+			duration = -1  
+		}
+
+	}
+
+# No - we must remain rigid in our theology
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.103.option_2
+
+		add_country_modifier = { 
+			name = araby_tolerance_of_own
+			duration = -1  
+		}
+	}
+}
+
+
+
+## While not a true political organization, individual Djinn Binders do wield a great amount of power. Let us consult them on how the Djinn fit into our new theology.
+country_event = { 
+	id = araby_events.104
+	title = araby_events.104.t 
+	desc = araby_events.104.d 
+	picture = ARABY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Djinn are demons, and their binding should be heavily regulated
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.104.option_1 
+
+		add_country_modifier = { 
+			name = araby_regulate_djinn_binding
+			duration = -1  
+		}
+
+	}
+
+# Djinn use should be focused on the waves, far away from corruptable citizens.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.104.option_2
+
+		add_country_modifier = { 
+			name = araby_djinn_in_the_navy
+			duration = -1  
+		}
+	}
+
+# Keep the Djinn bound to great fortresses, away from citizens
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.104.option_3
+
+		add_country_modifier = { 
+			name = araby_djinn_in_the_forts
+			duration = -1  
+		}
+	}
+
+
+# Djinn are creatures with souls. Let them earn their freedom in the army.
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.104.option_4
+
+		add_country_modifier = { 
+			name = araby_djinn_in_the_army
+			duration = -1  
+		}
+	}
+
+# Djinn are creatures with souls. let them work alongside our mages and artificers
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.104.option_5
+
+		add_country_modifier = { 
+			name = araby_djinn_citizens
+			duration = -1  
+		}
+	}
+
+}
+
+
+
+
+	# Our religion lacks a holy text. Let us be the first to create it, and we must have the resources to distribute it. But do we take a radical approach? Or appeach to stability?
+country_event = { 
+	id = araby_events.105
+	title = araby_events.105.t 
+	desc = araby_events.105.d 
+	picture = ARABY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Radical Reform
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.105.option_1 
+
+		add_country_modifier = { 
+			name = araby_radical_reform
+			duration = -1  
+		}
+
+	}
+
+# Let us remain more traditional
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.105.option_2
+
+		add_country_modifier = { 
+			name = araby_the_safer_route
+			duration = -1  
+		}
+	}
+}
+
+
+
+## On convert event
+	# We have converted to the one faith, and Djinn Binders have arrived with the missionaries. Which s hool should we choose?
+country_event = { 
+	id = araby_events.200
+	title = araby_events.200.t 
+	desc = araby_events.200.d 
+	picture = ARABY_eventPicture
+	
+	fire_only_once = no
+	is_triggered_only = yes
+		
+	trigger = {
+		always = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Diwanis Binders - adm_tech_cost_modifier = -0.05
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.200.option_1 
+
+		set_religious_school = {
+		    group = arabyn_denominations
+		    school = hanafi_school
+		}
+	}
+
+# Khafiyun Binders - ae_impact = -0.1
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.200.option_2
+
+		set_religious_school = {
+		    group = arabyn_denominations
+		    school = hanbali_school
+		}
+	}
+
+# Mi'marun Binders - development_cost = -0.1
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.200.option_3
+
+		set_religious_school = {
+		    group = arabyn_denominations
+		    school = maliki_school
+		}
+	}
+
+# Rihani Binders - merchants = 1
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.200.option_4
+
+		set_religious_school = {
+		    group = arabyn_denominations
+		    school = shafii_school
+		}
+	}
+
+# Shamsiyyun Binders - Legitimacy = 1
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.200.option_5
+
+		set_religious_school = {
+		    group = arabyn_denominations
+		    school = ismaili_school
+		}
+	}
+
+# Mujannidun Binders - shock_damage = 0.1
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.200.option_6
+
+		set_religious_school = {
+		    group = arabyn_denominations
+		    school = jafari_school
+		}
+	}
+
+# Hurrasun Binders - shock_damage_received = -0.1
+	option = { 
+		ai_chance = { factor = 50 }
+		name = araby_events.200.option_7
+
+		set_religious_school = {
+		    group = arabyn_denominations
+		    school = zaidi_school
+		}
+	}
+}
+
+
+#### INTRO EVENTS
+
+### Araby Intro.
+# A new religion is born! For millenia, Araby has worshipped demons, Nehekharan gods, and Djinn. But now, the Sun God Ptra has sent Anmar Fakir, the Prophet of the Sun, to bring us the truth. There is only one god, who rules over all. 
+# Over the past 30 years, prophet Fakir has charged across Araby, unifying it through diplomacy and force. And yet, as he reaches he life there is still so much left to do. The One Faith must be spread across the world, to deliver us all from demons.
+# The Prophet of the Sun carries the Solar Mandate from the one god. As long as people believe in his power, the Sun Prophet carries power and prestige, and is capable of making great reforms. But if people believe he has lost his mandate, then his rule will fall apart.
+# There is one other important teaching of the Sun God. The next Prophet may come from anywhere. All creatures, from Skaven to Ogres to Brettonnians are capable of speaking his truth. Not only may any individual claim the solar mantle, but this is proof that the entire world is eager to learn the one truth. Let us begin.
+
+country_event = { 
+	id = araby_events.1000
+	title = araby_events.1000.t 
+	desc = araby_events.1000.d 
+	picture = ARABY_eventPicture
+	
+#	fire_only_once = yes
+	is_triggered_only = yes
+
+	trigger = {
+		culture_group = arabyan_group
+		NOT= { has_country_flag = did_intro_event }
+	}
+
+	immediate = { set_country_flag = did_intro_event }
+
+	option = { 
+		ai_chance = { factor = 100 }
+		name = araby_events.1000.a 
+		trigger = { }
+		add_mercantilism = 5
+
+		add_country_modifier = { 
+		    name = war_religious_fervor
+		    duration = 9125
+		}
+	}
+}

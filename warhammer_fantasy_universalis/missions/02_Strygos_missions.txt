@@ -1,0 +1,1215 @@
+##################################
+##### SIRES OF MOURKAIN / STRYGOS
+##################################
+
+strygos_missions_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = B16 } # Sires of Mourkain
+	}
+
+	# The Strygosi court is a bargain between vampires, Strigany, ghouls, and the dead. We must make enough neighbors fear or trust our word.
+	strygos_crypt_oaths = {
+		icon = mission_vampire_goblet
+		required_missions = { }
+		position = 1
+		trigger = {
+			num_of_allies = 2
+			stability = 1
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_crypt_oaths_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Ghoul kings and Strigany elders remember too many broken crowns. We must make the loudest claimants bow to Mourkain.
+	strygos_ghoul_crowns_bent = {
+		icon = mission_vampire_cards
+		required_missions = { }
+		position = 3
+		trigger = {
+			prestige = 75
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_ghoul_crowns_bent_mod
+				duration = -1
+			}
+		}
+	}
+
+
+	# The Palace of Mourkain is a throne rebuilt from proof. We must hold the ruin and raise it beyond its first broken tier.
+	strygos_palace_of_mourkain = {
+		icon = mission_nagash_young
+		required_missions = { strygos_seats_of_the_old_empire }
+		position = 5
+		provinces_to_highlight = {
+			region = badlands_region
+			province_id = 177
+		}
+		trigger = {
+			177 = {
+				owned_by = ROOT
+				has_great_project = {
+					type = palace_of_mourkain
+					tier = 2
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_palace_of_mourkain_mod
+				duration = -1
+			}
+		}
+	}
+
+
+	# Kadon's heirs cannot spread the night while their own rite-keepers quarrel. We must make the church estate loyal and useful.
+	strygos_kadonite_rite_keepers = {
+		icon = mission_vampire_religion
+		required_missions = {  }
+		position = 6
+		trigger = {
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_kadonite_rite_keepers_mod
+				duration = -1
+			}
+			custom_tooltip = empire_double_cults_tt
+			hidden_effect = { set_country_flag = implant_double_cults }
+		}
+	}
+
+	# One neighboring court under the same night proves the old cult can cross borders. We must make a neighbor share our religion.
+	strygos_neighbor_under_night = {
+		icon = mission_blood_moon
+		required_missions = { strygos_kadonite_rite_keepers }
+		position = 7
+		provinces_to_highlight = {
+			owner = {
+				NOT = { religion = ROOT }
+				any_neighbor_country = {
+					TAG = ROOT
+				}
+			}
+		}
+		trigger = {
+			any_neighbor_country = {
+				religion = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_neighbor_under_night_mod
+				duration = -1
+			}
+		}
+	}
+
+	# A single convert can be dismissed as terror. Four neighboring courts show the night has become a diplomatic weather.
+	strygos_four_courts_of_night = {
+		icon = mission_vampire_ritual
+		required_missions = { strygos_neighbor_under_night }
+		position = 8
+		provinces_to_highlight = {
+			owner = {
+				NOT = { religion = ROOT }
+				any_neighbor_country = {
+					TAG = ROOT
+				}
+			}
+		}
+		trigger = {
+			calc_true_if = {
+				amount = 4
+				all_neighbor_country = {
+					is_neighbor_of = ROOT
+					religion = ROOT
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_four_courts_of_night_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The great courts still call us carrion kings. We must send envoys who make fear sound like policy.
+	strygos_nocturnal_envoys = {
+		icon = mission_high_elf_allies
+		required_missions = { strygos_passes_made_stone }
+		position = 9
+		trigger = {
+			diplomatic_reputation = 4
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_nocturnal_envoys_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Border Princes sit north of Mourkain's restored shadow. We must control ten footholds there, directly or through dependents.
+	strygos_ten_thrones_north = {
+		icon = mission_sow_culture
+		required_missions = { }
+		position = 12
+		provinces_to_highlight = {
+			region = border_princes_region
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				region = border_princes_region
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = strygos_claims_border_princes_tt
+			hidden_effect = {
+				border_princes_region = {
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+	# Ten northern thrones are leverage. Twenty-five make every prince speak of Strygos before drawing a map.
+	strygos_twenty_five_north = {
+		icon = mission_myrmidia
+		required_missions = { strygos_ten_thrones_north }
+		position = 13
+		provinces_to_highlight = {
+			region = border_princes_region
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 25
+				region = border_princes_region
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_twenty_five_north_mod
+				duration = -1
+			}
+		}
+	}
+}
+
+strygos_missions_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = B16 } # Sires of Mourkain
+	}
+
+	# A dead army still needs captains, stores, and a command habit. We must muster to our limit.
+	strygos_dead_muster = {
+		icon = mission_build_up_to_force_limit
+		required_missions = { strygos_crypt_oaths strygos_raised_cairns }
+		position = 2
+		trigger = {
+			army_size_percentage = 1
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_dead_muster_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The old seats of Strygos cannot remain stories told in exile. We must hold enough of them to make Mourkain's claim legible.
+	strygos_seats_of_the_old_empire = {
+		icon = mission_dwarf_king
+		required_missions = { strygos_ghoul_crowns_bent strygos_strigany_rolls }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				province_id = 177
+				province_id = 690
+				province_id = 691
+				province_id = 705
+				province_id = 710
+				province_id = 715
+				province_id = 453
+			}
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			calc_true_if = {
+				amount = 3
+				177 = { owner = { OR = { tag = ROOT is_subject_of = ROOT } } } # Mourkain
+				690 = { owner = { OR = { tag = ROOT is_subject_of = ROOT } } } # Iron Pit
+				691 = { owner = { OR = { tag = ROOT is_subject_of = ROOT } } } # Black Crags
+				705 = { owner = { OR = { tag = ROOT is_subject_of = ROOT } } } # Gorlag Rock
+				710 = { owner = { OR = { tag = ROOT is_subject_of = ROOT } } } # Zoggrok
+				715 = { owner = { OR = { tag = ROOT is_subject_of = ROOT } } } # Da Big Crater
+				453 = { owner = { OR = { tag = ROOT is_subject_of = ROOT } } } # Pillar of Bone
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_seats_of_the_old_empire_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Ghoul feuds can be settled by title or by slaughter. We must make crypt courts cheaper than private hunger.
+	strygos_crypt_courts = {
+		icon = mission_araby_talking
+		required_missions = { strygos_strygos_reborn }
+		position = 7
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 5
+				OR = {
+					has_building = courthouse
+					has_building = town_hall
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_crypt_courts_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Fortified roads beat royal memories. We must turn the Badlands passes into stone habits.
+	strygos_passes_made_stone = {
+		icon = mission_dwarf_snowy_fortress
+		required_missions = { strygos_crypt_courts strygos_stable_dominion }
+		position = 8
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 7
+				fort_level = 2
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_passes_made_stone_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Recognition is safer when giants need our friendship or remember our victories. We must bind two great powers to our cause.
+	strygos_pacts_among_giants = {
+		icon = mission_alliances
+		required_missions = { strygos_nocturnal_envoys }
+		position = 10
+		provinces_to_highlight = {
+			owner = {
+				is_great_power = yes
+				NOT = {
+					alliance_with = ROOT
+					trust = { who = ROOT value = 100 }
+				}
+				NOT = {
+					ROOT = {
+						has_won_war_against = {
+							who = prev
+							max_years_since = 25
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			calc_true_if = {
+				amount = 2
+				all_country = {
+					is_great_power = yes
+					OR = {
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+						}
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_pacts_among_giants_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Necromancy must become a discipline rather than a knife fight in the dark. We must build a university where infrastructure can sustain it.
+	strygos_university_of_necromancy = {
+		icon = mission_early_modern_university
+		required_missions = { strygos_pacts_among_giants }
+		position = 11
+		trigger = {
+			any_owned_province = {
+				region = badlands_region
+				has_building = university
+				num_of_times_expanded_infrastructure = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_university_of_necromancy_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Underway and undercity paths are no longer distant horrors. We must hold ten stations below.
+	strygos_ten_warrens_below = {
+		icon = mission_skaven_conquest
+		required_missions = { }
+		position = 12
+		provinces_to_highlight = {
+			continent = underempire
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				continent = underempire
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = strygos_claims_underempire_tt
+			hidden_effect = {
+				every_province = {
+					limit = { continent = underempire }
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+	# Ten warrens are a map. Twenty-five are an underground frontier.
+	strygos_twenty_five_below = {
+		icon = mission_skaven_conquest
+		required_missions = { strygos_ten_warrens_below }
+		position = 13
+		provinces_to_highlight = {
+			continent = underempire
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 25
+				continent = underempire
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_twenty_five_below_mod
+				duration = -1
+			}
+		}
+	}
+}
+
+strygos_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = B16 } # Sires of Mourkain
+	}
+
+	# Loose cairns invite every raider to test us. We must raise early forts before the dead realm grows too quickly.
+	strygos_raised_cairns = {
+		icon = mission_greenskins_fort
+		required_missions = { }
+		position = 1
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 2
+				region = badlands_region
+				fort_level = 2
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_raised_cairns_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Strigany are not only exiles. We must record their names, settle their caravans, and make them a people again.
+	strygos_strigany_rolls = {
+		icon = mission_caravan
+		required_missions = { strygos_dead_muster strygos_night_sanctuaries }
+		position = 3
+		trigger = {
+			grown_by_development = 50
+			num_of_cities = 8
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_strigany_rolls_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Roads and riverbeds meet at hard points. We must fortify enough crossings that raiders find no easy road.
+	strygos_fortress_crossings = {
+		icon = mission_dwarf_snowy_fortress
+		required_missions = { strygos_strigany_rolls strygos_break_the_waaagh }
+		position = 4
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 5
+				OR = {
+					has_building = barracks
+					has_building = training_fields
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_fortress_crossings_mod
+				duration = -1
+			}
+		}
+	}
+
+	# A realm of tomb-claims needs the nerve to print a larger map. We must hold enough Badlands to claim the rest.
+	strygos_claim_strygosi_thrones = {
+		icon = mission_empire
+		required_missions = { strygos_seats_of_the_old_empire strygos_fortress_crossings }
+		position = 5
+		provinces_to_highlight = {
+			region = badlands_region
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			is_at_war = no
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 15
+				region = badlands_region
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = strygos_claims_badlands_tt
+			hidden_effect = {
+				badlands_region = {
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+	# The situation is too haunted for scattered lairs. We must restore Strygos or hold enough of its heartland to make the name unavoidable.
+	strygos_strygos_reborn = {
+		icon = mission_nagash
+		required_missions = { strygos_claim_strygosi_thrones strygos_crypt_companies }
+		position = 6
+		trigger = {
+			OR = {
+				tag = Z97
+				num_of_owned_provinces_with = {
+					value = 25
+					region = badlands_region
+				}
+			}
+		}
+		effect = {
+			country_event = { id = strygos_events.1001 }
+		}
+	}
+
+	# Peace in the dead empire is not quiet. We must make rebellion and feeding feuds rarer than court petitions.
+	strygos_stable_dominion = {
+		icon = mission_sow_culture
+		required_missions = { strygos_strygos_reborn }
+		position = 7
+		trigger = {
+			NOT = { average_unrest = 0 }
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_stable_dominion_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The realm can no longer rely on grave luck and hungry packs. We must build a professional army with a memory longer than one feeding.
+	strygos_modern_dead_muster = {
+		icon = mission_build_up_to_force_limit
+		required_missions = { strygos_passes_made_stone strygos_grave_manufactories }
+		position = 9
+		trigger = {
+			OR = {
+				army_professionalism = 0.25
+				has_country_modifier = war_modern_army
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_modern_dead_muster_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The world must stop treating us as a corpse twitching in the Badlands. We must be named among the great.
+	strygos_great_power_recognized = {
+		icon = mission_empire
+		required_missions = { strygos_pacts_among_giants strygos_defeat_crowned_giant }
+		position = 11
+		trigger = {
+			is_great_power = yes
+			prestige = 75
+			legitimacy_equivalent = 95
+			diplomatic_reputation = 5
+			army_size = 100
+			navy_size = 50
+		}
+		effect = {
+			country_event = { id = strygos_events.1002 }
+		}
+	}
+
+	# The Empire will respect Mourkain by ballots or by standards. We must hold ten Imperial provinces or win an elector's vote.
+	strygos_votes_or_standards = {
+		icon = mission_empire_culture
+		required_missions = { }
+		position = 12
+		provinces_to_highlight = {
+			OR = {
+				region = central_empire_region
+				region = southern_empire_region
+			}
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			OR = {
+				num_of_provinces_owned_or_owned_by_subjects_with = {
+					value = 10
+					OR = {
+						region = central_empire_region
+						region = southern_empire_region
+					}
+				}
+				any_country = {
+					is_elector = yes
+					preferred_emperor = ROOT
+				}
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = strygos_claims_empire_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						OR = {
+							region = central_empire_region
+							region = southern_empire_region
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+	# A vote is influence; twenty-five provinces are a western frontier of our own.
+	strygos_imperial_foothold = {
+		icon = mission_monarch_in_throne_room
+		required_missions = { strygos_votes_or_standards }
+		position = 13
+		provinces_to_highlight = {
+			OR = {
+				region = northern_empire_region
+				region = central_empire_region
+				region = southern_empire_region
+			}
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			OR = {
+				num_of_provinces_owned_or_owned_by_subjects_with = {
+					value = 25
+					OR = {
+						region = northern_empire_region
+						region = central_empire_region
+						region = southern_empire_region
+					}
+				}
+				is_emperor = yes
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_imperial_foothold_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Five horizons now answer Mourkain's seal. We must bind every distant frontier into one system.
+	strygos_five_horizons = {
+		icon = mission_high_elf_old_world_map
+		required_missions = { strygos_twenty_five_north strygos_twenty_five_below strygos_imperial_foothold strygos_eastern_stations strygos_nehekharan_dominion }
+		position = 14
+		trigger = {
+			navy_size = 75
+			has_flagship = yes
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_five_horizons_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Ultimate choice implemented: Empire of Mourkain. Other candidates were Ushoran's Second Dream, Crown of the Badlands, and The Night-Bound Horizons.
+	strygos_empire_of_mourkain = {
+		icon = mission_empire
+		required_missions = { }
+		position = 15
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					region = badlands_region
+					NOT = { owned_by = ROOT }
+					NOT = { owned_by_subject_of = ROOT }
+				}
+				owner = {
+					is_great_power = yes
+					NOT = {
+						alliance_with = ROOT
+						trust = { who = ROOT value = 100 }
+					}
+					NOT = {
+						ROOT = {
+							has_won_war_against = {
+								who = prev
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			is_great_power = yes
+			badlands_region = {
+				type = all
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = beat_or_ally_all_great_powers_tt
+				NOT = {
+					any_country = {
+						is_great_power = yes
+						NOT = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+						}
+						NOT = {
+							ROOT = {
+								has_won_war_against = {
+									who = prev
+									max_years_since = 25
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_empire_of_mourkain_mod
+				duration = -1
+			}
+		}
+	}
+}
+
+strygos_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = B16 } # Sires of Mourkain
+	}
+
+	# Shrines, ossuaries, and guarded sanctuaries give the frightened somewhere to kneel. We must make havens the dead empire can trust.
+	strygos_night_sanctuaries = {
+		icon = mission_empire_religion
+		required_missions = { strygos_raised_cairns strygos_toll_road_charters }
+		position = 2
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 3
+				region = badlands_region
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_night_sanctuaries_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Greenskin vengeance destroyed old Strygos once. We must defeat or displace the Waaagh threat around Mourkain.
+	strygos_break_the_waaagh = {
+		icon = mission_greenskins_boar
+		required_missions = { strygos_night_sanctuaries }
+		position = 3
+		provinces_to_highlight = {
+			owner = {
+				is_neighbor_of = ROOT
+				has_country_modifier = orcish_military
+				NOT = {
+					alliance_with = ROOT
+				}
+				NOT = {
+					ROOT = {
+						has_won_war_against = {
+							who = prev
+							max_years_since = 50
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			NOT = {
+				any_neighbor_country = {
+					has_country_modifier = orcish_military
+					NOT = {
+						OR = {
+							alliance_with = ROOT
+							ROOT = {
+								has_won_war_against = {
+									who = PREV
+									max_years_since = 50
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_break_the_waaagh_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Greenskin camps teach Mourkain to remember fire. We must raise enough of them that the next Waaagh looks elsewhere.
+	strygos_waaagh_camps_raised = {
+		icon = mission_greenskins_flag
+		required_missions = { strygos_break_the_waaagh }
+		position = 4
+		provinces_to_highlight = {
+			region = badlands_region
+			owner = {
+				has_country_modifier = orcish_military
+			}
+		}
+		trigger = {
+			OR = {
+				has_country_modifier = orcish_military
+				NOT = {
+					any_province = {
+						region = badlands_region
+						owner = {
+							has_country_modifier = orcish_military
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_waaagh_camps_raised_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Necromancers, ghoul packs, and sellswords all demand pay of some kind. We must make the companies answer contracts instead of hunger.
+	strygos_crypt_companies = {
+		icon = mission_naggaroth_soldier
+		required_missions = { strygos_fortress_crossings }
+		position = 5
+		trigger = {
+			monthly_income = 25
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_crypt_companies_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Black Gulf cannot remain another living shore. We must build ships fit to guard the corpse-road.
+	strygos_black_gulf_shipyards = {
+		icon = mission_high_elf_docks
+		required_missions = { strygos_strygos_reborn strygos_black_fire_tollhouse }
+		position = 7
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 5
+				OR = {
+					has_building = dock
+					has_building = drydock
+					has_building = shipyard
+					has_building = grand_shipyard
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_black_gulf_shipyards_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Outsiders think factories cannot survive among ghouls and tomb winds. We must prove the dead empire can keep furnaces and schedules moving.
+	strygos_grave_manufactories = {
+		icon = mission_have_manufactories
+		required_missions = { strygos_stable_dominion strygos_black_gulf_shipyards }
+		position = 8
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 5
+				OR = {
+					has_building = mills
+					has_building = farm_estate
+					has_building = tradecompany
+					has_building = plantations
+					has_building = textile
+					has_building = weapons
+					has_building = wharf
+					has_building = furnace
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_grave_manufactories_mod
+				duration = -1
+			}
+		}
+	}
+
+	# A great power's defeat is worth more than a hundred veiled petitions. We must beat one in war.
+	strygos_defeat_crowned_giant = {
+		icon = mission_greenskins_flag
+		required_missions = { strygos_modern_dead_muster strygos_black_gulf_patrols }
+		position = 10
+		trigger = {
+			power_projection = 40
+			any_country = {
+				is_great_power = yes
+				ROOT = {
+					has_won_war_against = {
+						who = PREV
+						max_years_since = 25
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_defeat_crowned_giant_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Dark Lands are no longer rumor beyond ash and caravan smoke. We must hold ten stations there.
+	strygos_caravans_to_the_dark_lands = {
+		icon = mission_hashut_religion
+		required_missions = { }
+		position = 12
+		provinces_to_highlight = {
+			superregion = darklands_superregion
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				superregion = darklands_superregion
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = strygos_claims_darklands_tt
+			hidden_effect = {
+				every_province = {
+					limit = { superregion = darklands_superregion }
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+	# Ten stations are a caravan story. Twenty-five are a road system fit for undead tribute.
+	strygos_eastern_stations = {
+		icon = mission_chaos_dwarf_industry
+		required_missions = { strygos_caravans_to_the_dark_lands }
+		position = 13
+		provinces_to_highlight = {
+			superregion = darklands_superregion
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 25
+				superregion = darklands_superregion
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_eastern_stations_mod
+				duration = -1
+			}
+		}
+	}
+}
+
+strygos_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = B16 } # Sires of Mourkain
+	}
+
+	# Roads need coin before they need old titles. We must turn tolls and markets into a frontier purse.
+	strygos_toll_road_charters = {
+		icon = mission_caravan
+		required_missions = { }
+		position = 1
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 2
+				OR = {
+					has_building = marketplace
+					has_building = trade_depot
+					has_building = stock_exchange
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_toll_road_charters_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Toll roads need real market anchors. We must upgrade the crossroads that make Strygos profitable.
+	strygos_market_crossroads = {
+		icon = mission_caravan
+		required_missions = { strygos_toll_road_charters }
+		position = 3
+		provinces_to_highlight = {
+			region = badlands_region
+			province_has_center_of_trade_of_level = 1
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 2
+				province_has_center_of_trade_of_level = 2
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_market_crossroads_mod
+				duration = -1
+			}
+		}
+	}
+
+
+
+	# Barak Varr's road is a ledger written in grudges. We must hold the gate and keep its great harbor working.
+	strygos_black_fire_tollhouse = {
+		icon = mission_dwarf_hoard
+		required_missions = {  }
+		position = 6
+		provinces_to_highlight = {
+			province_id = 754
+		}
+		trigger = {
+			754 = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+				has_great_project = {
+					type = barak_varr
+					tier = 1
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_black_fire_tollhouse_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Black Gulf rewards captains who can keep trade ships moving and questions unasked. We must put enough light hulls on the water to matter.
+	strygos_black_gulf_patrols = {
+		icon = mission_high_elf_docks_2
+		required_missions = { strygos_black_fire_tollhouse }
+		position = 9
+		trigger = {
+			num_of_light_ship = 25
+		}
+		effect = {
+			country_event = { id = strygos_events.1003 }
+		}
+	}
+
+	# Escorts are only useful if they command the routes that feed them. We must dominate the trade node around Mourkain.
+	strygos_command_the_home_node = {
+		icon = mission_dominate_home_trade_node
+		required_missions = { strygos_black_gulf_patrols }
+		position = 11
+		provinces_to_highlight = {
+			province_id = 177
+		}
+		trigger = {
+			177 = {
+				trade_share = {
+					country = ROOT
+					share = 80
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_command_the_home_node_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Nehekhara remembers kings older than Ushoran. We must hold ten provinces there and show that Mourkain can face the tombs.
+	strygos_ten_tombs_south = {
+		icon = mission_high_elf_southlands_map
+		required_missions = { }
+		position = 12
+		provinces_to_highlight = {
+			region = nehekhara_region
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				region = nehekhara_region
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = strygos_claims_nehekhara_tt
+			hidden_effect = {
+				every_province = {
+					limit = { region = nehekhara_region }
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+	# Ten tombs are outposts. Twenty-five make the southern frontier recognize Mourkain's seal.
+	strygos_nehekharan_dominion = {
+		icon = mission_high_elf_southlands_map
+		required_missions = { strygos_ten_tombs_south }
+		position = 13
+		provinces_to_highlight = {
+			region = nehekhara_region
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 25
+				region = nehekhara_region
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = strygos_nehekharan_dominion_mod
+				duration = -1
+			}
+		}
+	}
+}
