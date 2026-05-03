@@ -37,7 +37,7 @@ borderlands_missions_1 = {
 		required_missions = { }
 		position = 3
 		trigger = {
-			prestige = 50
+			prestige = 75
 		}
 		effect = {
 			add_country_modifier = {
@@ -50,8 +50,11 @@ borderlands_missions_1 = {
 	# Black Fire Pass makes every tollbooth a border policy. We must make the pass roads pay for their own guards.
 	borderlands_black_fire_tollhouses = {
 		icon = mission_caravan
-		required_missions = { borderlands_claim_border_thrones }
-		position = 6
+		required_missions = { borderlands_named_princes_seats }
+		position = 5
+		provinces_to_highlight = {
+			province_id = 57
+		}
 		trigger = {
 			57 = {
 				owned_by = ROOT
@@ -60,12 +63,7 @@ borderlands_missions_1 = {
 					has_building = trade_depot
 					has_building = stock_exchange
 				}
-				OR = {
-					has_building = fort_15th
-					has_building = fort_16th
-					has_building = fort_17th
-					has_building = fort_18th
-				}
+				fort_level = 2
 			}
 		}
 		effect = {
@@ -80,7 +78,7 @@ borderlands_missions_1 = {
 	borderlands_great_power_envoys = {
 		icon = mission_high_elf_allies
 		required_missions = { borderlands_passes_made_stone }
-		position = 10
+		position = 9
 		trigger = {
 			diplomatic_reputation = 4
 		}
@@ -96,7 +94,12 @@ borderlands_missions_1 = {
 	borderlands_ten_roads_into_tilea = {
 		icon = mission_sow_culture
 		required_missions = { }
-		position = 15
+		position = 12
+		provinces_to_highlight = {
+			region = tilea_region
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				value = 10
@@ -118,7 +121,12 @@ borderlands_missions_1 = {
 	borderlands_twenty_five_in_tilea = {
 		icon = mission_myrmidia
 		required_missions = { borderlands_ten_roads_into_tilea }
-		position = 16
+		position = 13
+		provinces_to_highlight = {
+			region = tilea_region
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				value = 25
@@ -167,6 +175,19 @@ borderlands_missions_2 = {
 		icon = mission_dwarf_king
 		required_missions = { borderlands_petty_crowns_bent borderlands_refugee_rolls }
 		position = 4
+		provinces_to_highlight = {
+			OR = {
+				province_id = 616
+				province_id = 629
+				province_id = 642
+				province_id = 826
+				province_id = 872
+				province_id = 633
+				province_id = 751
+			}
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
 		trigger = {
 			calc_true_if = {
 				amount = 3
@@ -187,38 +208,15 @@ borderlands_missions_2 = {
 		}
 	}
 
-	# A realm of claims needs the nerve to print a larger map. We must hold enough marches to claim the rest.
-	borderlands_claim_border_thrones = {
-		icon = mission_empire
-		required_missions = { borderlands_named_princes_seats borderlands_fortress_crossings }
-		position = 5
-		trigger = {
-			is_at_war = no
-			num_of_provinces_owned_or_owned_by_subjects_with = {
-				value = 15
-				region = border_princes_region
-			}
-		}
-		effect = {
-			add_prestige_or_monarch_power = { amount = 25 }
-			custom_tooltip = borderlands_claims_border_princes_tt
-			hidden_effect = {
-				border_princes_region = {
-					add_permanent_claim = ROOT
-				}
-			}
-		}
-	}
 
 	# Old feuds can be settled by judges or by fires. We must make arbitration cheaper than private war.
 	borderlands_courts_arbitration = {
 		icon = mission_araby_talking
 		required_missions = { borderlands_border_princes_confederacy }
-		position = 8
+		position = 7
 		trigger = {
 			num_of_owned_provinces_with = {
 				value = 5
-				region = border_princes_region
 				OR = {
 					has_building = courthouse
 					has_building = town_hall
@@ -237,11 +235,10 @@ borderlands_missions_2 = {
 	borderlands_passes_made_stone = {
 		icon = mission_dwarf_snowy_fortress
 		required_missions = { borderlands_courts_arbitration borderlands_stable_frontier }
-		position = 9
+		position = 8
 		trigger = {
 			num_of_owned_provinces_with = {
 				value = 7
-				region = border_princes_region
 				fort_level = 2
 			}
 		}
@@ -257,14 +254,41 @@ borderlands_missions_2 = {
 	borderlands_allies_among_giants = {
 		icon = mission_alliances
 		required_missions = { borderlands_great_power_envoys }
-		position = 11
+		position = 10
+		provinces_to_highlight = {
+			owner = {
+				is_great_power = yes
+				NOT = {
+					alliance_with = ROOT
+					trust = { who = ROOT value = 100 }
+				}
+				NOT = {
+					ROOT = {
+						has_won_war_against = {
+							who = prev
+							max_years_since = 25
+						}
+					}
+				}
+			}
+		}
 		trigger = {
 			calc_true_if = {
 				amount = 2
 				all_country = {
 					is_great_power = yes
-					alliance_with = ROOT
-					trust = { who = ROOT value = 100 }
+					OR = {
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+						}
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
 				}
 			}
 		}
@@ -280,7 +304,7 @@ borderlands_missions_2 = {
 	borderlands_university_march = {
 		icon = mission_early_modern_university
 		required_missions = { borderlands_allies_among_giants }
-		position = 12
+		position = 11
 		trigger = {
 			any_owned_province = {
 				region = border_princes_region
@@ -300,7 +324,12 @@ borderlands_missions_2 = {
 	borderlands_ten_warrens_below = {
 		icon = mission_skaven_conquest
 		required_missions = { }
-		position = 15
+		position = 12
+		provinces_to_highlight = {
+			continent = underempire
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				value = 10
@@ -323,7 +352,12 @@ borderlands_missions_2 = {
 	borderlands_twenty_five_below = {
 		icon = mission_skaven_conquest
 		required_missions = { borderlands_ten_warrens_below }
-		position = 16
+		position = 13
+		provinces_to_highlight = {
+			continent = underempire
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				value = 25
@@ -333,23 +367,6 @@ borderlands_missions_2 = {
 		effect = {
 			add_country_modifier = {
 				name = borderlands_twenty_five_below_mod
-				duration = -1
-			}
-		}
-	}
-
-	# Western claims must stop looking like raids. We must make Tilea, the Under-Empire, and Imperial politics answer one policy.
-	borderlands_western_claims_ratified = {
-		icon = mission_empire
-		required_missions = { borderlands_twenty_five_in_tilea borderlands_twenty_five_below borderlands_imperial_foothold }
-		position = 17
-		trigger = {
-			is_great_power = yes
-			diplomatic_reputation = 3
-		}
-		effect = {
-			add_country_modifier = {
-				name = borderlands_western_claims_ratified_mod
 				duration = -1
 			}
 		}
@@ -377,12 +394,7 @@ borderlands_missions_3 = {
 			num_of_owned_provinces_with = {
 				value = 2
 				region = border_princes_region
-				OR = {
-					has_building = fort_15th
-					has_building = fort_16th
-					has_building = fort_17th
-					has_building = fort_18th
-				}
+				fort_level = 2
 			}
 		}
 		effect = {
@@ -418,7 +430,6 @@ borderlands_missions_3 = {
 		trigger = {
 			num_of_owned_provinces_with = {
 				value = 5
-				region = border_princes_region
 				OR = {
 					has_building = barracks
 					has_building = training_fields
@@ -433,41 +444,48 @@ borderlands_missions_3 = {
 		}
 	}
 
-	# Greenskin camps teach the frontier to sleep lightly. We must burn enough of them that the next raid looks elsewhere.
-	borderlands_orc_camps_burned = {
-		icon = mission_greenskins_flag
-		required_missions = { borderlands_claim_border_thrones }
-		position = 6
+
+	# A realm of claims needs the nerve to print a larger map. We must hold enough marches to claim the rest.
+	borderlands_claim_border_thrones = {
+		icon = mission_empire
+		required_missions = { borderlands_named_princes_seats borderlands_fortress_crossings }
+		position = 5
+		provinces_to_highlight = {
+			region = border_princes_region
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
 		trigger = {
-			OR = {
-				has_country_modifier = orcish_military
-				NOT = {
-					any_province = {
-						region = border_princes_region
-						owner = {
-							has_country_modifier = orcish_military
-						}
-					}
-				}
+			is_at_war = no
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 15
+				region = border_princes_region
 			}
 		}
 		effect = {
-			add_country_modifier = {
-				name = borderlands_orc_camps_burned_mod
-				duration = -1
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = borderlands_claims_border_princes_tt
+			hidden_effect = {
+				border_princes_region = {
+					add_permanent_claim = ROOT
+				}
 			}
 		}
 	}
 
+
 	# The Border Princes Confederacy must turn exile, coin, and petty crowns into a common shield.
 	borderlands_border_princes_confederacy = {
 		icon = mission_empire
-		required_missions = { borderlands_orc_camps_burned borderlands_companies_under_contract }
-		position = 7
+		required_missions = { borderlands_claim_border_thrones borderlands_companies_under_contract }
+		position = 6
 		trigger = {
 			OR = {
 				tag = A77
-				has_country_flag = formed_border_prince_confederacy_flag
+				num_of_owned_provinces_with = {
+					value = 25
+					region = border_princes_region
+				}
 			}
 		}
 		effect = {
@@ -482,7 +500,7 @@ borderlands_missions_3 = {
 	borderlands_stable_frontier = {
 		icon = mission_sow_culture
 		required_missions = { borderlands_border_princes_confederacy }
-		position = 8
+		position = 7
 		trigger = {
 			NOT = { average_unrest = 0 }
 		}
@@ -498,9 +516,8 @@ borderlands_missions_3 = {
 	borderlands_modern_muster = {
 		icon = mission_build_up_to_force_limit
 		required_missions = { borderlands_passes_made_stone borderlands_manufactories_order }
-		position = 10
+		position = 9
 		trigger = {
-			army_size_percentage = 1
 			OR = {
 				army_professionalism = 0.25
 				has_country_modifier = war_modern_army
@@ -518,10 +535,11 @@ borderlands_missions_3 = {
 	borderlands_great_power_recognized = {
 		icon = mission_empire
 		required_missions = { borderlands_allies_among_giants borderlands_defeat_crowned_giant }
-		position = 12
+		position = 11
 		trigger = {
 			is_great_power = yes
 			prestige = 75
+			legitimacy_equivalent = 95
 			diplomatic_reputation = 5
 			army_size = 100
 			navy_size = 50
@@ -535,13 +553,20 @@ borderlands_missions_3 = {
 	borderlands_votes_or_standards = {
 		icon = mission_empire_culture
 		required_missions = { }
-		position = 15
+		position = 12
+		provinces_to_highlight = {
+			OR = {
+				region = central_empire_region
+				region = southern_empire_region
+			}
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
 		trigger = {
 			OR = {
 				num_of_provinces_owned_or_owned_by_subjects_with = {
 					value = 10
 					OR = {
-						region = northern_empire_region
 						region = central_empire_region
 						region = southern_empire_region
 					}
@@ -559,7 +584,6 @@ borderlands_missions_3 = {
 				every_province = {
 					limit = {
 						OR = {
-							region = northern_empire_region
 							region = central_empire_region
 							region = southern_empire_region
 						}
@@ -572,9 +596,18 @@ borderlands_missions_3 = {
 
 	# A vote is influence; twenty-five provinces are a western frontier of our own.
 	borderlands_imperial_foothold = {
-		icon = mission_empire
+		icon = mission_monarch_in_throne_room
 		required_missions = { borderlands_votes_or_standards }
-		position = 16
+		position = 13
+		provinces_to_highlight = {
+			OR = {
+				region = northern_empire_region
+				region = central_empire_region
+				region = southern_empire_region
+			}
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
 		trigger = {
 			OR = {
 				num_of_provinces_owned_or_owned_by_subjects_with = {
@@ -585,12 +618,7 @@ borderlands_missions_3 = {
 						region = southern_empire_region
 					}
 				}
-				calc_true_if = {
-					amount = 3
-					all_elector = {
-						preferred_emperor = ROOT
-					}
-				}
+				is_emperor = yes
 			}
 		}
 		effect = {
@@ -601,15 +629,14 @@ borderlands_missions_3 = {
 		}
 	}
 
-	# Five horizons now answer our contracts. We must prove that distant claims form one system.
+	# Five horizons now answer our contracts. We must bind every distant frontier into one system.
 	borderlands_five_horizons = {
 		icon = mission_high_elf_old_world_map
-		required_missions = { borderlands_western_claims_ratified borderlands_eastern_claims_ratified }
-		position = 18
+		required_missions = { borderlands_twenty_five_in_tilea borderlands_twenty_five_below borderlands_imperial_foothold borderlands_eastern_stations borderlands_southlands_dominion }
+		position = 14
 		trigger = {
-			is_great_power = yes
-			navy_size = 50
-			num_of_continents = 4
+			navy_size = 75
+			has_flagship = yes
 		}
 		effect = {
 			add_country_modifier = {
@@ -622,8 +649,8 @@ borderlands_missions_3 = {
 	# Ultimate choice implemented: Empire From No-One's Land. Other candidates were Congress of Petty Crowns, Black Gulf Imperium, and Shield of the Badlands.
 	borderlands_empire_from_no_ones_land = {
 		icon = mission_empire
-		required_missions = { borderlands_five_horizons }
-		position = 19
+		required_missions = { }
+		position = 15
 		provinces_to_highlight = {
 			owner = {
 				is_great_power = yes
@@ -644,8 +671,8 @@ borderlands_missions_3 = {
 		trigger = {
 			is_great_power = yes
 			custom_trigger_tooltip = {
+				tooltip = beat_or_ally_all_great_powers_tt
 				NOT = {
-					tooltip = beat_or_ally_all_great_powers_tt
 					any_country = {
 						is_great_power = yes
 						NOT = {
@@ -713,21 +740,36 @@ borderlands_missions_4 = {
 		icon = mission_greenskins_boar
 		required_missions = { borderlands_safe_havens }
 		position = 3
-		trigger = {
-			OR = {
-				num_of_provinces_owned_or_owned_by_subjects_with = {
-					value = 3
-					culture = border_orc
+		provinces_to_highlight = {
+			owner = {
+				is_neighbor_of = ROOT
+				has_country_modifier = orcish_military
+				NOT = {
+					trust = { who = ROOT value = 100 }
 				}
-				any_country = {
-					OR = {
-						culture_group = greenskins_group
-						culture_group = hobgoblin_group
-					}
+				NOT = {
 					ROOT = {
 						has_won_war_against = {
-							who = PREV
+							who = prev
 							max_years_since = 25
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			NOT = {
+				any_neighbor_country = {
+					has_country_modifier = orcish_military
+					NOT = {
+						OR = {
+							trust = { who = ROOT value = 100 }
+							ROOT = {
+								has_won_war_against = {
+									who = PREV
+									max_years_since = 25
+								}
+							}
 						}
 					}
 				}
@@ -741,14 +783,45 @@ borderlands_missions_4 = {
 		}
 	}
 
+	# Greenskin camps teach the frontier to sleep lightly. We must burn enough of them that the next raid looks elsewhere.
+	borderlands_orc_camps_burned = {
+		icon = mission_greenskins_flag
+		required_missions = { borderlands_break_raiders }
+		position = 4
+		provinces_to_highlight = {
+			region = border_princes_region
+			owner = {
+				has_country_modifier = orcish_military
+			}
+		}
+		trigger = {
+			OR = {
+				has_country_modifier = orcish_military
+				NOT = {
+					any_province = {
+						region = border_princes_region
+						owner = {
+							has_country_modifier = orcish_military
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = borderlands_orc_camps_burned_mod
+				duration = -1
+			}
+		}
+	}
+
 	# Sellswords built half these crowns. We must make the companies answer contracts instead of whims.
 	borderlands_companies_under_contract = {
 		icon = mission_naggaroth_soldier
-		required_missions = { }
-		position = 6
+		required_missions = { borderlands_fortress_crossings }
+		position = 5
 		trigger = {
-			army_size_percentage = 1
-			monthly_income = 20
+			monthly_income = 25
 		}
 		effect = {
 			add_country_modifier = {
@@ -762,12 +835,10 @@ borderlands_missions_4 = {
 	borderlands_black_gulf_shipyards = {
 		icon = mission_high_elf_docks
 		required_missions = { borderlands_border_princes_confederacy borderlands_barak_varr_ledger }
-		position = 8
+		position = 7
 		trigger = {
-			num_of_light_ship = 10
 			num_of_owned_provinces_with = {
-				value = 2
-				has_port = yes
+				value = 5
 				OR = {
 					has_building = dock
 					has_building = drydock
@@ -786,9 +857,9 @@ borderlands_missions_4 = {
 
 	# Outsiders think factories cannot survive in the Borderlands. We must prove that even this frontier can keep furnaces, schedules, and wages moving.
 	borderlands_manufactories_order = {
-		icon = mission_chaos_dwarf_factory
+		icon = mission_have_manufactories
 		required_missions = { borderlands_stable_frontier borderlands_black_gulf_shipyards }
-		position = 9
+		position = 8
 		trigger = {
 			num_of_owned_provinces_with = {
 				value = 5
@@ -816,7 +887,7 @@ borderlands_missions_4 = {
 	borderlands_defeat_crowned_giant = {
 		icon = mission_greenskins_flag
 		required_missions = { borderlands_modern_muster borderlands_trading_post_barak_varr }
-		position = 11
+		position = 10
 		trigger = {
 			power_projection = 40
 			any_country = {
@@ -824,7 +895,7 @@ borderlands_missions_4 = {
 				ROOT = {
 					has_won_war_against = {
 						who = PREV
-						max_years_since = 50
+						max_years_since = 25
 					}
 				}
 			}
@@ -839,21 +910,26 @@ borderlands_missions_4 = {
 
 	# The Far East is no longer rumor beyond caravan smoke. We must hold ten stations there.
 	borderlands_caravan_far_east = {
-		icon = mission_high_elf_naggaroth_map
+		icon = mission_hashut_religion
 		required_missions = { }
-		position = 15
+		position = 12
+		provinces_to_highlight = {
+			superregion = darklands_superregion
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				value = 10
-				superregion = warhammer_far_east_superregion
+				superregion = darklands_superregion
 			}
 		}
 		effect = {
 			add_prestige_or_monarch_power = { amount = 25 }
-			custom_tooltip = borderlands_claims_far_east_tt
+			custom_tooltip = borderlands_claims_darklands_tt
 			hidden_effect = {
 				every_province = {
-					limit = { superregion = warhammer_far_east_superregion }
+					limit = { superregion = darklands_superregion }
 					add_permanent_claim = ROOT
 				}
 			}
@@ -862,35 +938,23 @@ borderlands_missions_4 = {
 
 	# Ten stations are a caravan story. Twenty-five are a road system.
 	borderlands_eastern_stations = {
-		icon = mission_high_elf_old_world_map
+		icon = mission_chaos_dwarf_industry
 		required_missions = { borderlands_caravan_far_east }
-		position = 16
+		position = 13
+		provinces_to_highlight = {
+			superregion = darklands_superregion
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				value = 25
-				superregion = warhammer_far_east_superregion
+				superregion = darklands_superregion
 			}
 		}
 		effect = {
 			add_country_modifier = {
 				name = borderlands_eastern_stations_mod
-				duration = -1
-			}
-		}
-	}
-
-	# Eastern and southern claims must become permanent routes. We must make far ambitions look administrative.
-	borderlands_eastern_claims_ratified = {
-		icon = mission_high_elf_old_world_map
-		required_missions = { borderlands_imperial_foothold borderlands_eastern_stations borderlands_southlands_dominion }
-		position = 17
-		trigger = {
-			is_great_power = yes
-			navy_size = 40
-		}
-		effect = {
-			add_country_modifier = {
-				name = borderlands_eastern_claims_ratified_mod
 				duration = -1
 			}
 		}
@@ -937,13 +1001,14 @@ borderlands_missions_5 = {
 		icon = mission_caravan
 		required_missions = { borderlands_toll_road_charters }
 		position = 3
+		provinces_to_highlight = {
+			region = border_princes_region
+			province_has_center_of_trade_of_level = 1
+		}
 		trigger = {
 			num_of_owned_provinces_with = {
 				value = 2
-				OR = {
-					province_has_center_of_trade_of_level = 2
-					province_has_center_of_trade_of_level = 3
-				}
+				province_has_center_of_trade_of_level = 2
 			}
 		}
 		effect = {
@@ -958,23 +1023,19 @@ borderlands_missions_5 = {
 	borderlands_barak_varr_ledger = {
 		icon = mission_dwarf_hoard
 		required_missions = { }
-		position = 7
+		position = 6
+		provinces_to_highlight = {
+			province_id = 754
+		}
 		trigger = {
 			754 = {
-				owned_by = ROOT
 				OR = {
-					has_great_project = {
-						type = barak_varr
-						tier = 1
-					}
-					has_great_project = {
-						type = barak_varr
-						tier = 2
-					}
-					has_great_project = {
-						type = barak_varr
-						tier = 3
-					}
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+				has_great_project = {
+					type = barak_varr
+					tier = 1
 				}
 			}
 		}
@@ -989,10 +1050,10 @@ borderlands_missions_5 = {
 	# The Black Gulf rewards captains who can keep trade ships moving. We must put enough light hulls on the water to matter.
 	borderlands_trading_post_barak_varr = {
 		icon = mission_high_elf_docks_2
-		required_missions = { borderlands_manufactories_order }
-		position = 10
+		required_missions = { borderlands_barak_varr_ledger }
+		position = 9
 		trigger = {
-			num_of_light_ship = 20
+			num_of_light_ship = 25
 		}
 		effect = {
 			country_event = { id = borderlands_events.1003 }
@@ -1004,8 +1065,11 @@ borderlands_missions_5 = {
 		icon = mission_dominate_home_trade_node
 		required_missions = { borderlands_trading_post_barak_varr }
 		position = 11
+		provinces_to_highlight = {
+			province_id = 754
+		}
 		trigger = {
-			home_trade_node = {
+			754 = {
 				trade_share = {
 					country = ROOT
 					share = 80
@@ -1024,19 +1088,24 @@ borderlands_missions_5 = {
 	borderlands_southlands_marches = {
 		icon = mission_high_elf_southlands_map
 		required_missions = { }
-		position = 15
+		position = 12
+		provinces_to_highlight = {
+			region = badlands_region
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				value = 10
-				continent = africa
+				region = badlands_region
 			}
 		}
 		effect = {
 			add_prestige_or_monarch_power = { amount = 25 }
-			custom_tooltip = borderlands_claims_southlands_tt
+			custom_tooltip = borderlands_claims_badlands_tt
 			hidden_effect = {
 				every_province = {
-					limit = { continent = africa }
+					limit = { region = badlands_region }
 					add_permanent_claim = ROOT
 				}
 			}
@@ -1047,11 +1116,16 @@ borderlands_missions_5 = {
 	borderlands_southlands_dominion = {
 		icon = mission_high_elf_southlands_map
 		required_missions = { borderlands_southlands_marches }
-		position = 16
+		position = 13
+		provinces_to_highlight = {
+			region = badlands_region
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				value = 25
-				continent = africa
+				region = badlands_region
 			}
 		}
 		effect = {
