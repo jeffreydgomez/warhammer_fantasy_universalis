@@ -8,11 +8,7 @@ strygos_missions_1 = {
 	has_country_shield = no
 	ai = yes
 	potential = {
-		OR = {
-			is_or_was_tag = { tag = B16 } # Sires of Mourkain
-			is_or_was_tag = { tag = Z97 } # Strygos
-		}
-		NOT = { map_setup = map_setup_random }
+		is_or_was_tag = { tag = B16 } # Sires of Mourkain
 	}
 
 	# The Strygosi court is a bargain between vampires, Strigany, ghouls, and the dead. We must make enough neighbors fear or trust our word.
@@ -53,17 +49,14 @@ strygos_missions_1 = {
 	strygos_palace_of_mourkain = {
 		icon = mission_nagash_young
 		required_missions = { strygos_seats_of_the_old_empire }
-		position = 6
+		position = 5
 		provinces_to_highlight = {
 			region = badlands_region
 			province_id = 177
 		}
 		trigger = {
 			177 = {
-				OR = {
-					owned_by = ROOT
-					owned_by_subject_of = ROOT
-				}
+				owned_by = ROOT
 				has_great_project = {
 					type = palace_of_mourkain
 					tier = 2
@@ -109,6 +102,14 @@ strygos_missions_1 = {
 		icon = mission_blood_moon
 		required_missions = { strygos_kadonite_rite_keepers }
 		position = 7
+		provinces_to_highlight = {
+			owner = {
+				NOT = { religion = ROOT }
+				any_neighbor_country = {
+					TAG = ROOT
+				}
+			}
+		}
 		trigger = {
 			any_neighbor_country = {
 				religion = ROOT
@@ -127,10 +128,18 @@ strygos_missions_1 = {
 		icon = mission_vampire_ritual
 		required_missions = { strygos_neighbor_under_night }
 		position = 8
+		provinces_to_highlight = {
+			owner = {
+				NOT = { religion = ROOT }
+				any_neighbor_country = {
+					TAG = ROOT
+				}
+			}
+		}
 		trigger = {
 			calc_true_if = {
 				amount = 4
-				all_country = {
+				all_neighbor_country = {
 					is_neighbor_of = ROOT
 					religion = ROOT
 				}
@@ -218,11 +227,7 @@ strygos_missions_2 = {
 	has_country_shield = no
 	ai = yes
 	potential = {
-		OR = {
-			is_or_was_tag = { tag = B16 } # Sires of Mourkain
-			is_or_was_tag = { tag = Z97 } # Strygos
-		}
-		NOT = { map_setup = map_setup_random }
+		is_or_was_tag = { tag = B16 } # Sires of Mourkain
 	}
 
 	# A dead army still needs captains, stores, and a command habit. We must muster to our limit.
@@ -449,11 +454,7 @@ strygos_missions_3 = {
 	has_country_shield = no
 	ai = yes
 	potential = {
-		OR = {
-			is_or_was_tag = { tag = B16 } # Sires of Mourkain
-			is_or_was_tag = { tag = Z97 } # Strygos
-		}
-		NOT = { map_setup = map_setup_random }
+		is_or_was_tag = { tag = B16 } # Sires of Mourkain
 	}
 
 	# Loose cairns invite every raider to test us. We must raise early forts before the dead realm grows too quickly.
@@ -786,11 +787,7 @@ strygos_missions_4 = {
 	has_country_shield = no
 	ai = yes
 	potential = {
-		OR = {
-			is_or_was_tag = { tag = B16 } # Sires of Mourkain
-			is_or_was_tag = { tag = Z97 } # Strygos
-		}
-		NOT = { map_setup = map_setup_random }
+		is_or_was_tag = { tag = B16 } # Sires of Mourkain
 	}
 
 	# Shrines, ossuaries, and guarded sanctuaries give the frightened somewhere to kneel. We must make havens the dead empire can trust.
@@ -832,7 +829,7 @@ strygos_missions_4 = {
 					ROOT = {
 						has_won_war_against = {
 							who = prev
-							max_years_since = 25
+							max_years_since = 50
 						}
 					}
 				}
@@ -848,7 +845,7 @@ strygos_missions_4 = {
 							ROOT = {
 								has_won_war_against = {
 									who = PREV
-									max_years_since = 25
+									max_years_since = 50
 								}
 							}
 						}
@@ -1048,11 +1045,7 @@ strygos_missions_5 = {
 	has_country_shield = no
 	ai = yes
 	potential = {
-		OR = {
-			is_or_was_tag = { tag = B16 } # Sires of Mourkain
-			is_or_was_tag = { tag = Z97 } # Strygos
-		}
-		NOT = { map_setup = map_setup_random }
+		is_or_was_tag = { tag = B16 } # Sires of Mourkain
 	}
 
 	# Roads need coin before they need old titles. We must turn tolls and markets into a frontier purse.
@@ -1103,23 +1096,24 @@ strygos_missions_5 = {
 
 
 
-	# Black Fire Pass makes every tollbooth a test of northern reach. We must make the pass roads pay for undead guards.
+	# Barak Varr's road is a ledger written in grudges. We must hold the gate and keep its great harbor working.
 	strygos_black_fire_tollhouse = {
-		icon = mission_caravan
+		icon = mission_dwarf_hoard
 		required_missions = {  }
 		position = 6
 		provinces_to_highlight = {
-			province_id = 57
+			province_id = 754
 		}
 		trigger = {
-			57 = {
-				owned_by = ROOT
+			754 = {
 				OR = {
-					has_building = marketplace
-					has_building = trade_depot
-					has_building = stock_exchange
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
 				}
-				fort_level = 2
+				has_great_project = {
+					type = barak_varr
+					tier = 1
+				}
 			}
 		}
 		effect = {
