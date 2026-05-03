@@ -29,6 +29,7 @@
 - Mission trees should tell a story and feel like a series of historical events that took place as the nation progressed.
 - Mission icons should be drawn from images defined in `interface/war_missions.gfx`. Use the image name as the best guess for what the art depicts.
 - Mission trees use 5 columns and usually 15-20 rows. Each mission has a `slot` column from the tree block and a `position` row in the mission entry. Mission positions are 1-indexed in-game, so the first visible row should use `position = 1`, not `position = 2`. No two visible missions in the same tree should occupy the same column and row.
+- Mission tree blocks should use `generic = yes`, even when the tree is unique to a specific tag. Do not use `generic = no`, because it can prevent the country from also receiving compatible generic mission groups.
 - Keep mission tables visually readable: about one third of cells should be blank, every row should have at least one blank cell, and no column should usually have more than three consecutive missions without a blank break.
 - Keep prerequisite lines simple. A mission should require another mission only if the required mission is directly above it in the same column with no intervening missions, or if the required mission is on the previous row and one column to the left or right.
 - Prefer mission concepts whose prerequisites make narrative and mechanical sense. Avoid arbitrary prerequisite links made only for table shape.
