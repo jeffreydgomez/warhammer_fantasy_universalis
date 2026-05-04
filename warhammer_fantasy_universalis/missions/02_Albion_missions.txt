@@ -1,0 +1,1057 @@
+##################################
+##### ALBION MISSIONS
+##################################
+
+albion_missions_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		capital_scope = { region = albion_region }
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+	}
+
+	# Belenii hillfires are warnings before they are banners. We must make the western clans answer one signal.
+	albion_hillfires_belenii = {
+		icon = mission_druid_sunrise
+		required_missions = { albion_truthsayers_moon_oaths }
+		position = 3
+		provinces_to_highlight = {
+			area = belenii_area
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 4
+				area = belenii_area
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_hillfires_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Boreni know where a marsh path becomes a trap. We must make their wet roads serve the whole island.
+	albion_marsh_paths_boreni = {
+		icon = mission_druid_tree
+		required_missions = { albion_hillfires_belenii }
+		position = 4
+		provinces_to_highlight = {
+			area = boreni_area
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 3
+				area = boreni_area
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_marsh_paths_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Trogland is not empty country. We must prove the fens can warn us before Fimir or darker things arrive.
+	albion_trogland_warnings = {
+		icon = mission_druid_sickle
+		required_missions = { albion_rain_moot_estates }
+		position = 6
+		provinces_to_highlight = {
+			area = trogland_area
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 3
+				area = trogland_area
+			}
+			NOT = { has_rebel_army = yes }
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_trogland_warnings_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Citadel of Lead is a wound in Albion's memory. We must bind it with walls, watchfires, and law.
+	albion_seal_citadel_lead = {
+		icon = mission_lightning_storm
+		required_missions = { albion_trogland_warnings }
+		position = 7
+		provinces_to_highlight = {
+			province_id = 4369
+		}
+		trigger = {
+			4369 = {
+				owned_by = ROOT
+				fort_level = 2
+				OR = {
+					has_fort_building_trigger = yes
+					has_courthouse_building_trigger = yes
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_citadel_sealed_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The first foreign shore must learn that Albion's old ways cross water. We must plant cairns in Norscan spray.
+	albion_landfall_norsca = {
+		icon = mission_druid_conquest
+		required_missions = { albion_mist_road_armada }
+		position = 11
+		provinces_to_highlight = {
+			region = norsca_region
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			any_owned_province = {
+				region = norsca_region
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_norsca_landfall_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The fjords teach hard lessons about storms and knives. We must raise cairns where raiders once counted us prey.
+	albion_cairns_fjords = {
+		icon = mission_druid_stones
+		required_missions = { albion_landfall_norsca }
+		position = 12
+		provinces_to_highlight = {
+			region = norsca_region
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 5
+				region = norsca_region
+			}
+			army_size_percentage = 0.75
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_fjord_cairns_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Norscan harbors fed the ships that found Albion through the fog. We must break their certainty at the waterline.
+	albion_break_raider_harbors = {
+		icon = mission_druid_sickle
+		required_missions = { albion_cairns_fjords }
+		position = 13
+		provinces_to_highlight = {
+			region = norsca_region
+			has_port = yes
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 8
+				region = norsca_region
+				has_port = yes
+			}
+			navy_tradition = 25
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_raider_harbors_broken_mod
+				duration = -1
+			}
+		}
+	}
+}
+
+albion_missions_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		capital_scope = { region = albion_region }
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+	}
+
+	# Truthsayers cannot bind a realm if the moonlit oaths are treated as ornament. We must make the sacred estate useful.
+	albion_truthsayers_moon_oaths = {
+		icon = mission_druid_moon
+		required_missions = { albion_gather_mist_moot }
+		position = 2
+		trigger = {
+			OR = {
+				AND = {
+					estate_loyalty = {
+						estate = estate_church
+						loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_church
+						value = 1
+					}
+				}
+				NOT = { has_estate = estate_church }
+			}
+			religious_unity = 0.80
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_moon_oaths_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The rain-moot is a bargain between priests, chiefs, and traders. We must make two estates answer the same summons.
+	albion_rain_moot_estates = {
+		icon = mission_druid_ritual
+		required_missions = { albion_marsh_paths_boreni }
+		position = 5
+		trigger = {
+			calc_true_if = {
+				amount = 2
+				OR = {
+					NOT = { has_estate = estate_church }
+					estate_loyalty = {
+						estate = estate_church
+						loyalty = 60
+					}
+				}
+				OR = {
+					NOT = { has_estate = estate_nobles }
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 60
+					}
+				}
+				OR = {
+					NOT = { has_estate = estate_burghers }
+					estate_loyalty = {
+						estate = estate_burghers
+						loyalty = 60
+					}
+				}
+			}
+			crown_land_share = 35
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_rain_moot_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Outsiders call Albion backward because they do not understand what survived here. We must make old legitimacy visible.
+	albion_legitimacy_old_ways = {
+		icon = mission_druid_leader
+		required_missions = { albion_trogland_warnings }
+		position = 7
+		trigger = {
+			legitimacy_equivalent = 85
+			prestige = 50
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_old_ways_legitimacy_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The clans still remember separate hearths. We must marry their rites beneath moonlight until kinship becomes policy.
+	albion_moonlit_marriage_clans = {
+		icon = mission_druid_moon
+		required_missions = { albion_crown_beneath_moon }
+		position = 9
+		trigger = {
+			religious_unity = 1.0
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_moonlit_marriage_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Old World thinks stone circles cannot travel. We must build a hearth on its coast and let the locals learn otherwise.
+	albion_hearthfires_old_world = {
+		icon = mission_druid_conquest
+		required_missions = { albion_mist_road_armada }
+		position = 11
+		provinces_to_highlight = {
+			continent = europe
+			NOT = { region = albion_region }
+			NOT = { region = norsca_region }
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			any_owned_province = {
+				continent = europe
+				NOT = { region = albion_region }
+				NOT = { region = norsca_region }
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_old_world_hearthfires_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Men trust halls, ledgers, and garrisons. We must put cairn-law inside forms they already understand.
+	albion_cairn_halls_men = {
+		icon = mission_druid_stones
+		required_missions = { albion_hearthfires_old_world }
+		position = 12
+		provinces_to_highlight = {
+			continent = europe
+			NOT = { region = albion_region }
+			NOT = { region = norsca_region }
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 5
+				continent = europe
+				NOT = { region = albion_region }
+				NOT = { region = norsca_region }
+			}
+			num_of_owned_provinces_with = {
+				value = 2
+				continent = europe
+				NOT = { region = albion_region }
+				has_courthouse_building_trigger = yes
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_cairn_halls_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The world of men respects thunder once it has broken gates. We must show them the rain can besiege.
+	albion_teach_fear_rain = {
+		icon = mission_lightning_storm
+		required_missions = { albion_cairn_halls_men }
+		position = 13
+		provinces_to_highlight = {
+			continent = europe
+			NOT = { region = albion_region }
+			NOT = { region = norsca_region }
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 12
+				continent = europe
+				NOT = { region = albion_region }
+				NOT = { region = norsca_region }
+			}
+			OR = {
+				army_professionalism = 0.30
+				has_country_modifier = war_modern_army
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_fear_the_rain_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Old World has measured our customs and found them dangerous. We must turn that lesson into supply.
+	albion_sea_claws_old_world_proved = {
+		icon = mission_druid_conquest
+		required_missions = { albion_teach_fear_rain }
+		position = 14
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 4
+				continent = europe
+				NOT = { region = albion_region }
+				NOT = { region = norsca_region }
+				OR = {
+					has_fort_building_trigger = yes
+					has_manpower_building_trigger = yes
+				}
+			}
+			army_size_percentage = 1.0
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_sea_claws_old_world_mod
+				duration = -1
+			}
+		}
+	}
+}
+
+albion_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		capital_scope = { region = albion_region }
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+	}
+
+	# Albion is found by fog, not maps. We must gather chiefs, druids, and captains before outsiders gather us.
+	albion_gather_mist_moot = {
+		icon = mission_druid_leader
+		required_missions = { }
+		position = 1
+		trigger = {
+			stability = 1
+			OR = {
+				num_of_allies = 1
+				num_of_subjects = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_mist_moot_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Mud tracks and memory cannot hold a realm alone. We must raise cairn-roads that old feet and new armies can trust.
+	albion_raise_cairn_roads = {
+		icon = mission_druid_stones
+		required_missions = { albion_gather_mist_moot }
+		position = 3
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 2
+				region = albion_region
+				has_trade_building_trigger = yes
+			}
+			development_in_provinces = {
+				value = 45
+				region = albion_region
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_cairn_roads_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Great Ogham does not sleep; it waits for rulers worth answering. We must wake it without letting it own us.
+	albion_great_ogham_wakes = {
+		icon = mission_druid_stones
+		required_missions = { albion_raise_cairn_roads }
+		position = 5
+		provinces_to_highlight = {
+			province_id = 1082
+		}
+		trigger = {
+			1082 = {
+				owned_by = ROOT
+				has_great_project = {
+					type = the_great_ogham
+					tier = 2
+				}
+			}
+		}
+		effect = {
+			country_event = {
+				id = albion_events.1101
+			}
+		}
+	}
+
+	# The island is one body of rain, stone, and oath. We must crown it beneath the moon and claim every coast that laughed.
+	albion_crown_beneath_moon = {
+		icon = mission_druid_moon
+		required_missions = { albion_legitimacy_old_ways }
+		position = 8
+		provinces_to_highlight = {
+			region = albion_region
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+		}
+		trigger = {
+			OR = {
+				is_or_was_tag = { tag = B13 }
+				NOT = {
+					any_province = {
+						region = albion_region
+						is_city = yes
+						NOT = {
+							OR = {
+								owned_by = ROOT
+								owned_by_subject_of = ROOT
+							}
+						}
+					}
+				}
+			}
+			is_at_war = no
+		}
+		effect = {
+			custom_tooltip = albion_claims_on_coasts_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						continent = europe
+						has_port = yes
+						is_city = yes
+					}
+					add_permanent_claim = ROOT
+				}
+				every_province = {
+					limit = {
+						superregion = ulthuan_superregion
+						has_port = yes
+						is_city = yes
+					}
+					add_permanent_claim = ROOT
+				}
+				every_province = {
+					limit = {
+						continent = north_america
+						has_port = yes
+						is_city = yes
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			country_event = {
+				id = albion_events.1102
+			}
+		}
+	}
+
+	# The sea need not make us modern. We must make old waymarks work on moving water.
+	albion_old_ways_take_sea = {
+		icon = mission_druid_ship
+		required_missions = { albion_crown_beneath_moon }
+		position = 9
+		trigger = {
+			has_flagship = yes
+			navy_tradition = 40
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_old_ways_take_sea_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The mist-road armada is not a modern navy; it is a moving stone circle. We must carry enough warriors to matter.
+	albion_mist_road_armada = {
+		icon = mission_druid_ship
+		required_missions = { albion_old_ways_take_sea }
+		position = 10
+		trigger = {
+			navy_size = 50
+			num_of_transport = 25
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_mist_road_armada_mod
+				duration = -1
+			}
+			create_explorer = { tradition = 40 }
+		}
+	}
+
+	# The world has learned to name Albion. We must make that name a warning no court can simplify.
+	albion_world_remembers = {
+		icon = mission_lightning_storm
+		required_missions = { albion_sea_claws_old_world_proved albion_elven_coasts_proved }
+		position = 15
+		provinces_to_highlight = {
+			owner = {
+				is_great_power = yes
+				NOT = {
+					alliance_with = ROOT
+					trust = { who = ROOT value = 100 }
+				}
+				NOT = {
+					ROOT = {
+						has_won_war_against = {
+							who = prev
+							max_years_since = 25
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			is_great_power = yes
+			custom_trigger_tooltip = {
+				tooltip = beat_or_ally_all_great_powers_tt
+				NOT = {
+					any_country = {
+						is_great_power = yes
+						NOT = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+						}
+						NOT = {
+							ROOT = {
+								has_won_war_against = {
+									who = prev
+									max_years_since = 25
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			country_event = {
+				id = albion_events.1103
+			}
+		}
+	}
+}
+
+albion_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		capital_scope = { region = albion_region }
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+	}
+
+	# Clan speakers can make old grudges useful or fatal. We must teach the fires to carry one law.
+	albion_clan_speakers_fires = {
+		icon = mission_druid_leader
+		required_missions = { albion_gather_mist_moot }
+		position = 2
+		trigger = {
+			OR = {
+				AND = {
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 65
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_nobles
+						value = 1
+					}
+				}
+				NOT = { has_estate = estate_nobles }
+			}
+			legitimacy_equivalent = 70
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_clan_speakers_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Broken circles make broken memories. We must repair enough sacred places that even non-druids fear to neglect them.
+	albion_stone_circles_repaired = {
+		icon = mission_druid_ritual
+		required_missions = { albion_clan_speakers_fires }
+		position = 4
+		provinces_to_highlight = {
+			owned_by = ROOT
+			region = albion_region
+			has_tax_building_trigger = no
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 3
+				region = albion_region
+				has_tax_building_trigger = yes
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_stone_circles_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Albion's parishes are wet, poor, and stubborn. We must make moorland settlement strong without sanding off its old edges.
+	albion_develop_moor_parishes = {
+		icon = mission_druid_tree
+		required_missions = { albion_stone_circles_repaired }
+		position = 6
+		provinces_to_highlight = {
+			owned_by = ROOT
+			region = albion_region
+			NOT = { development = 6 }
+		}
+		trigger = {
+			development_in_provinces = {
+				value = 85
+				region = albion_region
+			}
+			NOT = {
+				any_owned_province = {
+					region = albion_region
+					NOT = { development = 5 }
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_moor_parishes_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Cairns can be courts if every oath is witnessed and remembered. We must give old law a place to sit.
+	albion_cairns_as_courts = {
+		icon = mission_druid_stones
+		required_missions = { albion_develop_moor_parishes }
+		position = 8
+		provinces_to_highlight = {
+			owned_by = ROOT
+			region = albion_region
+			has_courthouse_building_trigger = no
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 4
+				region = albion_region
+				has_courthouse_building_trigger = yes
+			}
+			crown_land_share = 50
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_cairn_courts_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Restoring the Great Ogham must mean more than gold on stone. We must make the whole island hear it clearly.
+	albion_great_ogham_restored = {
+		icon = mission_druid_stones
+		required_missions = { albion_cairns_as_courts }
+		position = 9
+		provinces_to_highlight = {
+			province_id = 1082
+		}
+		trigger = {
+			1082 = {
+				owned_by = ROOT
+				has_great_project = {
+					type = the_great_ogham
+					tier = 3
+				}
+			}
+			stability = 2
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_ogham_restored_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Ulthuan's white shores are used to prettier envoys. We must land with grey stones and make beauty irrelevant.
+	albion_white_shores_grey_stones = {
+		icon = mission_druid_conquest
+		required_missions = { albion_mist_road_armada }
+		position = 11
+		provinces_to_highlight = {
+			superregion = ulthuan_superregion
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			any_owned_province = {
+				superregion = ulthuan_superregion
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_white_shores_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Lothern's world is built of towers, treaties, and sea pride. We must raise obelisks where the Asur can see them.
+	albion_obelisks_before_lothern = {
+		icon = mission_druid_stones
+		required_missions = { albion_white_shores_grey_stones }
+		position = 12
+		provinces_to_highlight = {
+			superregion = ulthuan_superregion
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 5
+				superregion = ulthuan_superregion
+			}
+			num_of_owned_provinces_with = {
+				value = 1
+				superregion = ulthuan_superregion
+				has_tax_building_trigger = yes
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_lothern_obelisks_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Inner Sea has seen Phoenix Kings and Druchii raids. We must make it see moonlit Albionese sails.
+	albion_moon_inner_sea = {
+		icon = mission_druid_moon
+		required_missions = { albion_obelisks_before_lothern }
+		position = 13
+		provinces_to_highlight = {
+			superregion = ulthuan_superregion
+			province_has_center_of_trade_of_level = 2
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 2
+				superregion = ulthuan_superregion
+				province_has_center_of_trade_of_level = 2
+			}
+			home_trade_node = {
+				trade_share = {
+					country = ROOT
+					share = 50
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_inner_sea_moon_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Ulthuan's courtiers agree that Albion should have stayed primitive. We must make their own coast prove them wrong.
+	albion_elven_coasts_proved = {
+		icon = mission_druid_ship
+		required_missions = { albion_moon_inner_sea }
+		position = 14
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 4
+				superregion = ulthuan_superregion
+				has_shipyard_building_trigger = yes
+			}
+			navy_tradition = 75
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_elven_coasts_proved_mod
+				duration = -1
+			}
+		}
+	}
+}
+
+albion_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		capital_scope = { region = albion_region }
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+	}
+
+	# Peatwood boats are not elegant, but they know shallow fog. We must make them numerous enough to matter.
+	albion_peatwood_keels = {
+		icon = mission_druid_ship
+		required_missions = { albion_clan_speakers_fires }
+		position = 3
+		trigger = {
+			num_of_light_ship = 5
+			num_of_transport = 5
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_peatwood_keels_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Salt, hides, and peat-smoke pay for more than feasts. We must make Albion's harbors trade without becoming foreign.
+	albion_salt_hide_harbors = {
+		icon = mission_druid_ship
+		required_missions = { albion_peatwood_keels }
+		position = 5
+		trigger = {
+			home_trade_node = {
+				trade_share = {
+					country = ROOT
+					share = 35
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_salt_hide_harbors_mod
+				duration = -1
+			}
+		}
+	}
+
+	# A mist-fleet must be more than boats in fog. We must muster heavy keels and crews that trust the old pilots.
+	albion_mist_fleet_muster = {
+		icon = mission_druid_ship
+		required_missions = { albion_salt_hide_harbors }
+		position = 7
+		trigger = {
+			navy_size_percentage = 0.90
+			num_of_heavy_ship = 3
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_mist_fleet_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Naggaroth is a black coast of iron pride and colder cruelty. We must land there with older stones than their hate.
+	albion_black_coast_landing = {
+		icon = mission_druid_conquest
+		required_missions = { albion_mist_road_armada }
+		position = 11
+		provinces_to_highlight = {
+			continent = north_america
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			any_owned_province = {
+				continent = north_america
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_black_coast_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Witchwood and the cold forests do not welcome strangers. We must raise cairns that remember every path home.
+	albion_cairns_witchwood = {
+		icon = mission_druid_tree
+		required_missions = { albion_black_coast_landing }
+		position = 12
+		provinces_to_highlight = {
+			continent = north_america
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 5
+				continent = north_america
+			}
+			num_of_owned_provinces_with = {
+				value = 2
+				continent = north_america
+				OR = {
+					has_building = barracks
+					has_building = training_fields
+					has_building = regimental_camp
+					has_building = conscription_center
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_witchwood_cairns_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Naggaroth respects strongholds more than speeches. We must make cold hearths that cannot be dragged away in chains.
+	albion_cold_hearth_strongholds = {
+		icon = mission_druid_stones
+		required_missions = { albion_cairns_witchwood }
+		position = 13
+		provinces_to_highlight = {
+			continent = north_america
+			NOT = { country_or_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 3
+				continent = north_america
+				fort_level = 2
+			}
+			manpower_percentage = 0.75
+		}
+		effect = {
+			add_country_modifier = {
+				name = albion_cold_hearth_strongholds_mod
+				duration = -1
+			}
+		}
+	}
+}

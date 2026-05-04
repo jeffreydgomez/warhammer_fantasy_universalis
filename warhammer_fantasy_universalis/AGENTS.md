@@ -42,11 +42,11 @@
 
 ## Dragon Isles Mission Trees
 
-- Dragon Isles mission trees should emphasize semi-feral Lizardmen trapped between living dragons and a strict fantasy-Japanese shogunate code. Their story should move from fractured, near-feral island clans toward a unified realm that earns dragon respect, works with dragons as trusted partners, and relaxes the harshest parts of shogunal society while preserving its useful rituals, hierarchy, and discipline.
+- Dragon Isles mission trees should emphasize semi-feral, uncivilized Lizardmen trapped between brutal living dragons, blood-clan politics, obsidian rites, and Mesoamerican-inspired step-altars, skull racks, gem tribute, and heart-blood sacrifice. Their story should move from fractured island clans and altar rivalries toward a unified blood-gong realm that survives dragon hunger, bargains with dragons from strength, and turns fear, sacrifice, and clan discipline into harsh state power.
 - Dragon Isles trees should assume the Dragon Isles are unified by about the midpoint. Later missions should build from that unity toward outside ambition, especially influence along the River Ruin and inroads into Ind.
 - Dragon Isles mission descriptions should usually frame the beat as "the situation is Y, so we must X."
 - Dragon Isles mission objectives should use varied trigger families. Most missions should use only 2-3 trigger checks, and building requirements should avoid repeating the same building type unless the repetition is narratively important.
-- Prefer the Dragon Isles-specific mission icons in `interface/war_missions.gfx` for dragon pacts, volcanic rites, shogunate gates, and gem tribute when those beats appear.
+- Prefer the Dragon Isles-specific mission icons in `interface/war_missions.gfx` for dragon pacts, volcanic rites, blood-altars, obsidian gates, and gem tribute when those beats appear.
 
 ## Events
 

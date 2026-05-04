@@ -595,6 +595,62 @@ on_battle_won_unit = {
 			}
 		}
 	}
+	if = {
+		limit = {
+			unit_owner = {
+				has_government_mechanic = blood_gathering_mechanic
+			}
+		}
+		unit_owner = {
+			set_variable = {
+				which = blood_kill
+				which = land_units_killed
+			}
+			if = {
+				limit = {
+					NOT = { has_country_flag = azt_blood_cap_flag }
+					check_variable = {
+						which = blood_kill
+						value = 200001
+					}
+				}
+				set_variable = {
+					which = blood_kill
+					value = 200000
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = azt_blood_cap_flag
+					check_variable = {
+						which = blood_kill
+						value = 400001
+					}
+				}
+				set_variable = {
+					which = blood_kill
+					value = 400000
+				}
+			}
+			while = {
+				limit = {
+					check_variable = {
+						which = blood_kill
+						value = 1000
+					}
+				}
+				change_variable = {
+					which = blood_kill
+					value = -1000
+				}
+				add_government_power = { 
+					mechanic_type = blood_gathering_mechanic 
+					power_type = blood
+					value = 1.0
+				}
+			}
+		}
+	}
 }
 
 # #Unit Scope OnAction for Battle Lost

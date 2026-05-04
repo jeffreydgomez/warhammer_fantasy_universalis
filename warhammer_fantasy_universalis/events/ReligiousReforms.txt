@@ -11,13 +11,16 @@ country_event = {
 	id = religious_reforms.1
 	title = religious_reforms.1.t
 	desc = religious_reforms.1.d
-	picture = ANGRY_MOB_eventPicture
+	picture = ANGRY_DRAGON_eventPicture
 
 	is_triggered_only = yes
 	
 	trigger = {
-		has_dlc = "El Dorado"
-		religion = dragon_cult # nahuatl
+		or = {
+			has_dlc = "El Dorado"
+			has_dlc = "Winds of Change"
+		}
+		religion = dragon_cult
 	}
 	
 	mean_time_to_happen = {
@@ -27,32 +30,52 @@ country_event = {
 	immediate = {
 		hidden_effect = {
 			add_stability = -1
-			every_subject_country = {
-				add_truce_with = ROOT
-				ROOT = {
-					add_truce_with = PREV
-				}
+			add_doom = 50
+			add_country_modifier = {
+				name = azt_recent_reform
+				duration = 3650
 			}
-			release_all_subjects = yes 
-			add_doom = 25 
+			change_variable = {
+				which = NahuatlReformCounter
+				value = 1
+			}
 		}
 	}
-	
+
+## Our subjects may not stand for this.
 	option = {
+		trigger = { num_of_subjects = 3  }
 		name = religious_reforms.1.a
-		tooltip = {
-			add_stability = -1
-			every_subject_country = {
-				add_truce_with = ROOT
-				ROOT = {
-					add_truce_with = PREV
+		every_subject_country = {
+			if = {
+				limit = {
+					liberty_desire = 50
 				}
+				set_country_flag = azt_break_subjects_free
 			}
-			release_all_subjects = yes
-			add_doom = 25
+			else = {
+				add_liberty_desire = 40
+			}
+		}
+		every_subject_country = {
+			limit = {
+				has_country_flag = azt_break_subjects_free
+			}
+			ROOT = { free_vassal = PREV }
+			clr_country_flag = azt_break_subjects_free
+		}
+	}
+
+# Dragon, direct your fury on us.
+	option = {
+		name = religious_reforms.1.b
+		trigger = { num_of_cities = 6 }
+		every_owned_province = {
+			add_devastation = 50
 		}
 	}
 }
+
 
 # Inti reform
 country_event = {
