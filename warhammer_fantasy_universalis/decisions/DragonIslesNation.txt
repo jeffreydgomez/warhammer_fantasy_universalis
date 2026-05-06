@@ -19,46 +19,19 @@ country_decisions = {
 		}
 		allow = {
 			NOT = { exists = Z95 }
-#			is_free_or_tributary_trigger = yes
 			is_at_war = no
+			owns = 4261
 			calc_true_if = {
 				all_owned_province = {
 					superregion = dragon_isles_superregion
 				}
 				amount = 25
 			}
-			owns = 4261
 		}
 		effect = {
-			remove_government_reform = shogunate
 			on_change_tag_effect = yes
 			set_government_rank = 3
-			every_subject_country = {
-				limit = {
-					has_reform = daimyo
-					NOT = { liberty_desire = 50 }
-				}
-				ROOT = {
-					inherit = PREV
-				}
-				remove_government_reform = daimyo
-			}
-			hidden_effect = {
-				every_subject_country = {
-					limit = {
-						has_reform = daimyo
-					}
-					ROOT = {
-						vassalize = PREV
-					}
-					remove_government_reform = daimyo
-				}
-			}
 			change_tag = Z95
-			if = {
-				limit = { ai = no }
-				on_change_tag_effect = yes
-			}
 			restore_country_name = yes
 			set_country_flag = formed_dragon_isles_flag
 			country_event = { id = war_formable_nations.32 }
@@ -78,7 +51,39 @@ country_decisions = {
 				limit = { has_custom_ideas = no }
 				country_event = { id = ideagroups.1 } #Swap Ideas
 			}
-			 
+			if = {
+				limit = {
+					OR = {
+						religion = dragon_cult
+						religion = druidism
+					}
+					is_religion_reformed = no
+				}
+				add_prestige = 25
+			} else_if = {
+				limit = { government = monarchy }
+				add_government_reform = dragon_god_king_monarchy
+			} else_if = {
+				limit = { government = theocracy }
+				add_government_reform = dragon_god_king_theocracy
+			}
+			hidden_effect = {
+				custom_tooltip = permanent_claims_on_nearby_ports_tt
+				every_province = {
+					limit = {
+						OR = {
+							region = gnoblar_country_region
+							region = southern_wastes_region
+							region = lahmia_region
+							region = kingdom_of_the_beasts_region
+							region = western_ind_region
+						}
+						has_port = yes
+					}
+					add_permanent_claim = ROOT
+				}
+
+			}
 		}
 		ai_will_do = {
 			factor = 100
@@ -88,4 +93,79 @@ country_decisions = {
 			}
 		}
 	}
+
+
+	unreformed_buy_galley = {
+		potential = {
+			ai = no
+			OR = {
+				religion = dragon_cult
+				religion = druidism
+			}
+			is_religion_reformed = no
+		}
+		allow = {
+			OR = {
+				religion = dragon_cult
+				religion = druidism
+			}
+			is_religion_reformed = no
+
+			treasury = 25
+			any_owned_province = {
+
+			}
+		}
+		effect = {
+			add_treasury = -25
+			random_owned_province = {
+				limit = {
+					has_port = yes
+					controlled_by = ROOT				
+				}
+				galley = ROOT
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+
+	unreformed_buy_light_ship = {
+		potential = {
+			ai = no
+			OR = {
+				religion = dragon_cult
+				religion = druidism
+			}
+			is_religion_reformed = no
+		}
+		allow = {
+			OR = {
+				religion = dragon_cult
+				religion = druidism
+			}
+			is_religion_reformed = no
+
+			treasury = 50
+			any_owned_province = {
+
+			}
+		}
+		effect = {
+			add_treasury = -50
+			random_owned_province = {
+				limit = {
+					has_port = yes
+					controlled_by = ROOT				
+				}
+				light_ship = ROOT
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
 }

@@ -532,3 +532,88 @@ dragon_cult_theocracy = {
 	}
 }
 
+
+
+reformed_dragon_cult_theocracy = {
+	icon = "dragon_with_flame"
+	allow_normal_conversion = no
+	potential = {
+		NOT = { TAG = Z95 }
+		religion = dragon_cult
+		is_religion_reformed = yes
+	}
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	nation_designer_trigger = {
+		religion = dragon_cult
+	}
+	modifiers = {
+		fire_damage = 0.1
+		land_morale = 0.1
+		warscore_cost_vs_other_religion = -0.15
+		devotion = -0.5
+	}
+
+	conditional = {
+		government_abilities = {
+			blood_gathering_mechanic
+		}
+	}	
+
+	ai = {
+		factor = 1
+	}
+}
+
+
+
+
+
+## Our ruler is worshipped as a dragon
+dragon_god_king_theocracy = {
+	icon = "dragon_with_flame"
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			religion = dragon_cult
+			capital_scope = {superregion = dragon_isles_superregion }
+		}
+	}
+	valid_for_nation_designer = no
+	nation_designer_cost = 50
+	trigger = {
+		or = {
+			TAG = Z95
+			AND = {
+				government_rank = 3
+				religion = dragon_cult
+			}
+		}
+	}
+	fixed_rank = 3
+
+	government_abilities = { 
+		internal_external_mechanic
+	}
+
+	modifiers = {
+		land_morale = 0.1
+		global_regiment_cost = -0.1
+		global_ship_cost = -0.1
+		max_absolutism = 25
+
+		legitimacy = 1
+		devotion = 1
+		horde_unity = 1
+		meritocracy = 1
+		republican_tradition = 0.35
+
+		governing_capacity_modifier = -0.15
+	}
+
+	custom_attributes = {
+		locked_government_type = yes
+	}
+}
+
+
