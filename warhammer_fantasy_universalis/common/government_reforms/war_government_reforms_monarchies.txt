@@ -376,7 +376,7 @@ midnight_aristocracy_reform = {
 		max_absolutism = 25
 	}
 	government_abilities = { 
-		control_of_court_mechanic
+		corpse_stores_mechanic
 	}
 	custom_attributes = {
 	}
@@ -484,9 +484,7 @@ cathay_splinter_state = {
 		warscore_cost_vs_other_religion = 0.25
 		ae_impact = 0.25
 	}
-	government_abilities = { 
-		internal_external_mechanic
-	}
+	government_abilities = { war_refinement_mechanic }
 	heir = yes
 	rulers_can_be_generals = yes
 	allow_normal_conversion = no
@@ -509,9 +507,7 @@ monkey_court = {
 	nation_designer_trigger = {
 		tag = I35
 	}
-	government_abilities = { 
-		control_of_court_mechanic
-	}
+	government_abilities = { war_refinement_mechanic }
 	lock_level_when_selected = yes
 	modifiers = {
 		diplomats = 2
@@ -673,7 +669,7 @@ vampire_monarchy_reform = {
 		has_country_modifier = undead_military
 	}
 	government_abilities = { 
-		internal_external_mechanic
+		corpse_stores_mechanic
 	}
 	modifiers = {
 		global_tax_modifier = 0.1
@@ -687,7 +683,7 @@ vampire_monarchy_reform = {
 
 
 elightened_beastmen_reform = {
-	icon = "tigermen"
+	icon = "beastmen"
 	allow_normal_conversion = yes
 	legacy_equivalent = despotic_monarchy
 	valid_for_nation_designer = yes
@@ -725,6 +721,9 @@ skaven_monarch_reform = {
 		fire_damage = 0.1
 		global_unrest = 2
 	}
+	government_abilities = {
+		flexible_industry_mechanic
+	}
 	ai = {
 		factor = 1.0 #generic
 	}
@@ -747,6 +746,9 @@ ogre_monarch_reform = {
 		shock_damage = 0.1
 		production_efficiency = -0.1
 	}
+	government_abilities = { 
+		food_stores_mechanic
+	}
 	ai = {
 		factor = 1.0 #generic
 	}
@@ -766,9 +768,7 @@ silver_court_reform = {
 			culture_group = druchii_group
 		}
 	}
-	government_abilities = { 
-		control_of_court_mechanic
-	}
+	government_abilities = { war_refinement_mechanic }
 	modifiers = {
 		diplomatic_reputation = 1
 		prestige_decay = -0.01
@@ -912,6 +912,9 @@ trade_kingdom_reform = {
 	}
 	ai = {
 		factor = 1.0 #generic
+	}
+	government_abilities = {
+		war_productivity_mechanic
 	}
 }
 
@@ -1073,8 +1076,7 @@ korean_monarchy = {
 		OR = {
 			culture_group = asur_group
 			culture_group = druchii_group
-		}
-		
+		}	
 	}
 
 	trigger = {
@@ -1247,6 +1249,9 @@ norscan_kingdom_reform = { #Exodus Kingdom
 	ai = {
 		factor = 0.5 #generic
 	}
+	government_abilities = {
+		war_power_struggle_mechanic
+	}
 	custom_attributes = {
 		locked_government_type = yes
 	}
@@ -1281,6 +1286,9 @@ norscan_high_kingdom_reform = { #Norsca Exclusive High Kingdom
 	}
 	ai = {
 		factor = 0.5 #generic
+	}
+	government_abilities = {
+		war_power_struggle_mechanic
 	}
 	custom_attributes = {
 		locked_government_type = yes
@@ -1320,6 +1328,9 @@ norscan_global_empire_reform = { # Secret Reform, Only Possible if Norscan Minor
 	}
 	ai = {
 		factor = 0.5 #generic
+	}
+	government_abilities = {
+		war_power_struggle_mechanic
 	}
 	custom_attributes = {
 		locked_government_type = yes
@@ -1382,11 +1393,9 @@ dragon_cult_monarchy = {
 		global_unrest = 1
 	}
 
-	conditional = {
-		government_abilities = {
-			blood_gathering_mechanic
-		}
-	}	
+	government_abilities = {
+		blood_gathering_mechanic
+	}
 
 	ai = {
 		factor = 1
@@ -1411,6 +1420,9 @@ reformed_dragon_cult_monarchy = {
 		fire_damage = 0.1
 		movement_speed = 0.1
 		global_unrest = -1
+	}
+	government_abilities = {
+		war_power_struggle_mechanic
 	}
 
 	ai = {
@@ -1471,7 +1483,7 @@ dragon_god_king_monarchy = {
 
 
 druid_monarchy = {
-	icon = "man_on_podium"
+	icon = "war_standing_stones_reform"
 	allow_normal_conversion = yes
 	potential = {
 		religion = druidism
@@ -1487,10 +1499,1467 @@ druid_monarchy = {
 		global_prosperity_growth = 2.0
 		administrative_efficiency = -0.05
 	}
+	government_abilities = {
+		war_power_struggle_mechanic
+	}
 
 	ai = {
 		factor = 1
 	}
 }
 
+# Warhammer accessibility tier 1 reforms
+# Gap-fill tier 1 reforms for Warhammer religions and culture groups.
+# Balance target per reform: +25 Weighing Value in bonuses and -10 Weighing Value in penalties.
 
+# Concept: Grail Monarchy
+war_lady_of_the_lake_monarchy_reform = {
+	icon = "war_holy_grail"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = lady_of_the_lake
+	}
+	nation_designer_trigger = {
+		religion = lady_of_the_lake
+	}
+	modifiers = {
+		# Positive WV: 25
+		global_tax_modifier = 0.1
+		tolerance_own = 2
+		heir_chance = 1
+		# Penalty WV: -10
+		global_regiment_cost = 0.1
+	}
+
+	government_abilities = {
+		control_of_court_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Myrmidian Monarchy
+war_myrmidia_monarchy_reform = {
+	icon = "myrmidia"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = myrmidia
+	}
+	nation_designer_trigger = {
+		religion = myrmidia
+	}
+	modifiers = {
+		# Positive WV: 25
+		land_morale = 0.1
+		diplomatic_reputation = 2
+		free_land_leader_pool = 3
+		# Penalty WV: -10
+		stability_cost_modifier = 0.15
+	}
+
+	government_abilities = {
+		war_power_struggle_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Great Orthodoxy Monarchy
+war_ursun_monarchy_reform = {
+	icon = "ursun"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = ursun
+	}
+	nation_designer_trigger = {
+		religion = ursun
+	}
+	modifiers = {
+		# Positive WV: 25
+		global_missionary_strength = 0.02
+		religious_unity = 0.15
+		global_garrison_growth = 0.2
+		# Penalty WV: -10
+		global_trade_power = -0.1
+	}
+
+	government_abilities = {
+		internal_external_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Sigmarite Monarchy
+war_cult_of_sigmar_monarchy_reform = {
+	icon = "sigmar"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = cult_of_sigmar
+	}
+	nation_designer_trigger = {
+		religion = cult_of_sigmar
+	}
+	modifiers = {
+		# Positive WV: 25
+		land_morale = 0.1
+		global_missionary_strength = 0.02
+		free_land_leader_pool = 3
+		# Penalty WV: -10
+		tolerance_heretic = -3
+	}
+
+	government_abilities = {
+		control_of_court_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Ulrican Monarchy
+war_cult_of_ulric_religion_monarchy_reform = {
+	icon = "ulric"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = cult_of_ulric_religion
+	}
+	nation_designer_trigger = {
+		religion = cult_of_ulric_religion
+	}
+	modifiers = {
+		# Positive WV: 25
+		tolerance_own = 2
+		land_morale = 0.1
+		free_land_leader_pool = 3
+		# Penalty WV: -10
+		diplomatic_reputation = -2
+	}
+
+	government_abilities = {
+		control_of_court_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Taalite Monarchy
+war_cult_of_taal_religion_monarchy_reform = {
+	icon = "taal"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = cult_of_taal_religion
+	}
+	nation_designer_trigger = {
+		religion = cult_of_taal_religion
+	}
+	modifiers = {
+		# Positive WV: 25
+		idea_cost = -0.1
+		manpower_recovery_speed = 0.1
+		global_monthly_devastation = -0.25
+		# Penalty WV: -10
+		global_trade_power = -0.1
+	}
+
+	government_abilities = {
+		internal_external_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Imperial Pantheon Monarchy
+war_old_world_cults_religion_monarchy_reform = {
+	icon = "king"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = old_world_cults_religion
+	}
+	nation_designer_trigger = {
+		religion = old_world_cults_religion
+	}
+	modifiers = {
+		# Positive WV: 25
+		global_unrest = -2
+		tolerance_heretic = 3
+		promote_culture_cost = -0.75
+		# Penalty WV: -10
+		religious_unity = -0.15
+	}
+
+	government_abilities = {
+		internal_external_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Khornate Monarchy
+war_khornate_religion_monarchy_reform = {
+	icon = "chaos_king"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = khornate_religion
+	}
+	nation_designer_trigger = {
+		religion = khornate_religion
+	}
+	modifiers = {
+		# Positive WV: 25
+		shock_damage = 0.1
+		army_tradition_decay = -0.01
+		free_land_leader_pool = 3
+		# Penalty WV: -10
+		improve_relation_modifier = -0.2
+	}
+	government_abilities = {
+		war_power_struggle_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Nurglite Monarchy
+war_nurglite_religion_monarchy_reform = {
+	icon = "chaos_king"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = nurglite_religion
+	}
+	nation_designer_trigger = {
+		religion = nurglite_religion
+	}
+	modifiers = {
+		# Positive WV: 25
+		hostile_attrition = 1
+		land_attrition = -0.15
+		global_garrison_growth = 0.2
+		# Penalty WV: -10
+		global_tax_modifier = -0.1
+	}
+
+	government_abilities = {
+		internal_external_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Tzeentchian Monarchy
+war_tzeentchian_religion_monarchy_reform = {
+	icon = "chaos_king"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = tzeentchian_religion
+	}
+	nation_designer_trigger = {
+		religion = tzeentchian_religion
+	}
+	modifiers = {
+		# Positive WV: 25
+		idea_cost = -0.1
+		technology_cost = -0.05
+		rebel_support_efficiency = 1
+		# Penalty WV: -10
+		stability_cost_modifier = 0.15
+	}
+
+	government_abilities = {
+		war_power_struggle_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Slaaneshi Monarchy
+war_slaaneshi_religion_monarchy_reform = {
+	icon = "chaos_king"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = slaaneshi_religion
+	}
+	nation_designer_trigger = {
+		religion = slaaneshi_religion
+	}
+	modifiers = {
+		# Positive WV: 25
+		manpower_recovery_speed = 0.1
+		movement_speed = 0.15
+		free_leader_pool = 2
+		# Penalty WV: -10
+		discipline = -0.05
+	}
+
+	government_abilities = {
+		war_power_struggle_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Chaos Undivided Monarchy
+war_chaos_undivided_religion_monarchy_reform = {
+	icon = "chaos_king"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = chaos_undivided_religion
+	}
+	nation_designer_trigger = {
+		religion = chaos_undivided_religion
+	}
+	modifiers = {
+		# Positive WV: 25
+		tolerance_heretic = 3
+		global_missionary_strength = 0.02
+		power_projection_from_insults = 2
+		# Penalty WV: -10
+		religious_unity = -0.15
+	}
+	government_abilities = {
+		war_power_struggle_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Hashut Monarchy
+war_hashut_monarchy_reform = {
+	icon = "hashut"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = hashut
+	}
+	nation_designer_trigger = {
+		religion = hashut
+	}
+	modifiers = {
+		# Positive WV: 25
+		production_efficiency = 0.1
+		discipline = 0.05
+		build_time = -0.5
+		# Penalty WV: -10
+		global_unrest = 2
+	}
+
+	government_abilities = {
+		flexible_industry_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Hobgoblin Shamanism Monarchy
+war_hobgoblin_religion_monarchy_reform = {
+	icon = "hobgoblin"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = hobgoblin_religion
+	}
+	nation_designer_trigger = {
+		religion = hobgoblin_religion
+	}
+	modifiers = {
+		# Positive WV: 25
+		cav_to_inf_ratio = 0.25
+		global_regiment_cost = -0.1
+		fabricate_claims_cost = -0.75
+		# Penalty WV: -10
+		diplomatic_reputation = -2
+	}
+
+	government_abilities = {
+		war_power_struggle_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: The Great Maw Monarchy
+war_the_great_maw_religion_monarchy_reform = {
+	icon = "great_maw"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = the_great_maw_religion
+	}
+	nation_designer_trigger = {
+		religion = the_great_maw_religion
+	}
+	modifiers = {
+		# Positive WV: 25
+		land_morale = 0.1
+		global_unrest = -2
+		global_regiment_recruit_speed = -0.75
+		# Penalty WV: -10
+		global_tax_modifier = -0.1
+	}
+	government_abilities = { 
+		food_stores_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: The Asrai Pantheon Monarchy
+war_asrai_cadai_monarchy_reform = {
+	icon = "wood_elf"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = asrai_cadai
+	}
+	nation_designer_trigger = {
+		religion = asrai_cadai
+	}
+	modifiers = {
+		# Positive WV: 25
+		manpower_in_own_culture_provinces = 0.2
+		hostile_attrition = 1
+		global_monthly_devastation = -0.25
+		# Penalty WV: -10
+		global_trade_power = -0.1
+	}
+
+	government_abilities = {
+		internal_external_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: The Cytharai Monarchy
+war_cytharai_monarchy_reform = {
+	icon = "dark_elf_ritual"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = cytharai
+	}
+	nation_designer_trigger = {
+		religion = cytharai
+	}
+	modifiers = {
+		# Positive WV: 25
+		morale_damage = 0.1
+		land_morale = 0.1
+		rebel_support_efficiency = 1
+		# Penalty WV: -10
+		global_unrest = 2
+	}
+
+	government_abilities = {
+		war_power_struggle_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: The Cadai Monarchy
+war_cadai_monarchy_reform = {
+	icon = "high_elf_warrior"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = cadai
+	}
+	nation_designer_trigger = {
+		religion = cadai
+	}
+	modifiers = {
+		# Positive WV: 25
+		trade_efficiency = 0.1
+		naval_morale = 0.1
+		global_prosperity_growth = 0.75
+		# Penalty WV: -10
+		global_manpower_modifier = -0.15
+	}
+
+	government_abilities = {
+		control_of_court_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Ancestor Gods Monarchy
+war_ancestor_gods_monarchy_reform = {
+	icon = "dwarf"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = ancestor_gods
+	}
+	nation_designer_trigger = {
+		religion = ancestor_gods
+	}
+	modifiers = {
+		# Positive WV: 25
+		stability_cost_modifier = -0.15
+		tolerance_own = 2
+		build_time = -0.5
+		# Penalty WV: -10
+		technology_cost = 0.05
+	}
+
+	government_abilities = {
+		flexible_industry_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: The Old Faiths Monarchy
+war_kislev_old_faith_monarchy_reform = {
+	icon = "war_standing_stones_reform"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = kislev_old_faith
+	}
+	nation_designer_trigger = {
+		religion = kislev_old_faith
+	}
+	modifiers = {
+		# Positive WV: 25
+		global_unrest = -2
+		stability_cost_modifier = -0.15
+		global_monthly_devastation = -0.25
+		# Penalty WV: -10
+		global_trade_power = -0.1
+	}
+
+	government_abilities = {
+		war_power_struggle_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: The One Faith Monarchy
+war_the_one_faith_monarchy_reform = {
+	icon = "one_faith"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = the_one_faith
+	}
+	nation_designer_trigger = {
+		religion = the_one_faith
+	}
+	modifiers = {
+		# Positive WV: 25
+		innovativeness_gain = 0.5
+		global_trade_power = 0.1
+		promote_culture_cost = -0.75
+		# Penalty WV: -10
+		tolerance_heathen = -3
+	}
+
+	government_abilities = {
+		internal_external_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Nehekharan Monarchy
+war_nehekharan_pantheon_monarchy_reform = {
+	icon = "nehekhara"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = nehekharan_pantheon
+	}
+	nation_designer_trigger = {
+		religion = nehekharan_pantheon
+	}
+	modifiers = {
+		# Positive WV: 25
+		tolerance_own = 2
+		all_estate_loyalty_equilibrium = 0.075
+		great_project_upgrade_time = -0.75
+		# Penalty WV: -10
+		global_manpower_modifier = -0.15
+	}
+
+	government_abilities = {
+		control_of_court_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Nagashi Monarchy
+war_nagash_worship_monarchy_reform = {
+	icon = "nagash"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = nagash_worship
+	}
+	nation_designer_trigger = {
+		religion = nagash_worship
+	}
+	modifiers = {
+		# Positive WV: 25
+		hostile_attrition = 1
+		missionaries = 1
+		global_regiment_recruit_speed = -0.75
+		# Penalty WV: -10
+		diplomatic_reputation = -2
+	}
+
+	government_abilities = {
+		corpse_stores_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Horned Rat Monarchy
+war_horned_rat_monarchy_reform = {
+	icon = "grey_seer"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = horned_rat
+	}
+	nation_designer_trigger = {
+		religion = horned_rat
+	}
+	modifiers = {
+		# Positive WV: 25
+		tolerance_own = 2
+		global_unrest = -2
+		rebel_support_efficiency = 1
+		# Penalty WV: -10
+		global_spy_defence = -1
+	}
+
+	government_abilities = {
+		war_power_struggle_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Old Ones Monarchy
+war_old_ones_monarchy_reform = {
+	icon = "king"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = old_ones
+	}
+	nation_designer_trigger = {
+		religion = old_ones
+	}
+	modifiers = {
+		# Positive WV: 25
+		tolerance_own = 2
+		innovativeness_gain = 0.5
+		great_project_upgrade_time = -0.75
+		# Penalty WV: -10
+		technology_cost = 0.05
+	}
+
+	government_abilities = {
+		internal_external_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Koa'Tzlanism Monarchy
+war_enlightened_path_monarchy_reform = {
+	icon = "king"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = enlightened_path
+	}
+	nation_designer_trigger = {
+		religion = enlightened_path
+	}
+	modifiers = {
+		# Positive WV: 25
+		global_trade_goods_size_modifier = 0.1
+		stability_cost_modifier = -0.15
+		global_prosperity_growth = 0.75
+		# Penalty WV: -10
+		land_morale = -0.1
+	}
+
+	government_abilities = {
+		internal_external_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Harmony Monarchy
+war_yin_yang_monarchy_reform = {
+	icon = "yin_yang"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = yin_yang
+	}
+	nation_designer_trigger = {
+		religion = yin_yang
+	}
+	modifiers = {
+		# Positive WV: 25
+		tolerance_own = 2
+		global_tax_modifier = 0.1
+		autonomy_change_time = -0.5
+		# Penalty WV: -10
+		stability_cost_modifier = 0.15
+	}
+
+	government_abilities = {
+		control_of_court_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: The Thousand Gods Monarchy
+war_the_thousand_gods_monarchy_reform = {
+	icon = "thousand_gods"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		religion = the_thousand_gods
+	}
+	nation_designer_trigger = {
+		religion = the_thousand_gods
+	}
+	modifiers = {
+		# Positive WV: 25
+		global_trade_power = 0.1
+		tolerance_heathen = 3
+		promote_culture_cost = -0.75
+		# Penalty WV: -10
+		religious_unity = -0.15
+	}
+
+	government_abilities = {
+		embrace_diversity_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Imperial Monarchy
+war_imperial_group_monarchy_reform = {
+	icon = "king"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		culture_group = imperial_group
+	}
+	nation_designer_trigger = {
+		culture_group = imperial_group
+	}
+	modifiers = {
+		# Positive WV: 25
+		production_efficiency = 0.1
+		land_morale = 0.1
+		autonomy_change_time = -0.5
+		# Penalty WV: -10
+		global_unrest = 2
+	}
+
+	government_abilities = {
+		flexible_industry_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Kislevite Monarchy
+war_kislevite_group_monarchy_reform = {
+	icon = "king"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		culture_group = kislevite_group
+	}
+	nation_designer_trigger = {
+		culture_group = kislevite_group
+	}
+	modifiers = {
+		# Positive WV: 25
+		global_unrest = -2
+		manpower_recovery_speed = 0.1
+		global_garrison_growth = 0.2
+		# Penalty WV: -10
+		global_trade_power = -0.1
+	}
+
+	government_abilities = {
+		control_of_court_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Beasts of Chaos Monarchy
+war_beastmen_group_monarchy_reform = {
+	icon = "beastmen"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		culture_group = beastmen_group
+	}
+	nation_designer_trigger = {
+		culture_group = beastmen_group
+	}
+	modifiers = {
+		# Positive WV: 25
+		movement_speed = 0.15
+		land_morale = 0.1
+		power_projection_from_insults = 2
+		# Penalty WV: -10
+		global_tax_modifier = -0.1
+	}
+	government_abilities = {
+		war_power_struggle_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Fimir Monarchy
+war_fimir_group_monarchy_reform = {
+	icon = "fimir"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		culture_group = fimir_group
+	}
+	nation_designer_trigger = {
+		culture_group = fimir_group
+	}
+	modifiers = {
+		# Positive WV: 25
+		hostile_attrition = 1
+		shock_damage_received = -0.1
+		fabricate_claims_cost = -0.75
+		# Penalty WV: -10
+		diplomatic_reputation = -2
+	}
+
+	government_abilities = {
+		war_power_struggle_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Chaos Dwarf Monarchy
+war_chaos_dwarf_group_monarchy_reform = {
+	icon = "hashut"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		culture_group = chaos_dwarf_group
+	}
+	nation_designer_trigger = {
+		culture_group = chaos_dwarf_group
+	}
+	modifiers = {
+		# Positive WV: 25
+		production_efficiency = 0.1
+		fire_damage = 0.1
+		build_time = -0.5
+		# Penalty WV: -10
+		global_unrest = 2
+	}
+
+	government_abilities = {
+		flexible_industry_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Albionise Monarchy
+war_albionise_group_monarchy_reform = {
+	icon = "war_standing_stones_reform"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		culture_group = albionise_group
+	}
+	nation_designer_trigger = {
+		culture_group = albionise_group
+	}
+	modifiers = {
+		# Positive WV: 25
+		hostile_attrition = 1
+		development_cost = -0.075
+		global_monthly_devastation = -0.25
+		# Penalty WV: -10
+		technology_cost = 0.05
+	}
+
+	government_abilities = {
+		internal_external_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Strigany Monarchy
+war_strigany_group_monarchy_reform = {
+	icon = "vampire_eyepatch"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		culture_group = strigany_group
+	}
+	nation_designer_trigger = {
+		culture_group = strigany_group
+	}
+	modifiers = {
+		# Positive WV: 25
+		movement_speed = 0.15
+		improve_relation_modifier = 0.2
+		promote_culture_cost = -0.75
+		# Penalty WV: -10
+		diplomatic_reputation = -2
+	}
+
+	government_abilities = {
+		war_power_struggle_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Arabyans Monarchy
+war_arabyan_group_monarchy_reform = {
+	icon = "one_faith"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		culture_group = arabyan_group
+	}
+	nation_designer_trigger = {
+		culture_group = arabyan_group
+	}
+	modifiers = {
+		# Positive WV: 25
+		global_trade_power = 0.1
+		cav_to_inf_ratio = 0.25
+		fabricate_claims_cost = -0.75
+		# Penalty WV: -10
+		stability_cost_modifier = 0.15
+	}
+
+	government_abilities = {
+		internal_external_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Hung Monarchy
+war_hung_group_monarchy_reform = {
+	icon = "attila"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		culture_group = hung_group
+	}
+	nation_designer_trigger = {
+		culture_group = hung_group
+	}
+	modifiers = {
+		# Positive WV: 25
+		cavalry_power = 0.15
+		land_forcelimit_modifier = 0.15
+		power_projection_from_insults = 2
+		# Penalty WV: -10
+		improve_relation_modifier = -0.2
+	}
+	government_abilities = {
+		war_power_struggle_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Kurgan Monarchy
+war_kurgan_group_monarchy_reform = {
+	icon = "attila"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		culture_group = kurgan_group
+	}
+	nation_designer_trigger = {
+		culture_group = kurgan_group
+	}
+	modifiers = {
+		# Positive WV: 25
+		manpower_recovery_speed = 0.1
+		shock_damage = 0.1
+		power_projection_from_insults = 2
+		# Penalty WV: -10
+		improve_relation_modifier = -0.2
+	}
+	government_abilities = {
+		war_power_struggle_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Darklands Human Monarchy
+war_darkland_human_group_monarchy_reform = {
+	icon = "attila"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		culture_group = darkland_human_group
+	}
+	nation_designer_trigger = {
+		culture_group = darkland_human_group
+	}
+	modifiers = {
+		# Positive WV: 25
+		global_trade_power = 0.1
+		diplomatic_reputation = 2
+		build_time = -0.5
+		# Penalty WV: -10
+		global_unrest = 2
+	}
+
+	government_abilities = {
+		war_power_struggle_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Amazon Monarchy
+war_amazon_group_monarchy_reform = {
+	icon = "tribal_council"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		culture_group = amazon_group
+	}
+	nation_designer_trigger = {
+		culture_group = amazon_group
+	}
+	modifiers = {
+		# Positive WV: 25
+		infantry_power = 0.1
+		hostile_attrition = 1
+		free_land_leader_pool = 3
+		# Penalty WV: -10
+		diplomatic_reputation = -2
+	}
+
+	government_abilities = {
+		internal_external_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Lizardmen Monarchy
+war_lizardmen_group_monarchy_reform = {
+	icon = "lizardmen"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		culture_group = lizardmen_group
+	}
+	nation_designer_trigger = {
+		culture_group = lizardmen_group
+	}
+	modifiers = {
+		# Positive WV: 25
+		innovativeness_gain = 0.5
+		tolerance_own = 2
+		great_project_upgrade_time = -0.75
+		# Penalty WV: -10
+		diplomatic_reputation = -2
+	}
+
+	government_abilities = {
+		internal_external_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Snakefolk Monarchy
+war_snakefolk_cg_monarchy_reform = {
+	icon = "snakefolk"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		culture_group = snakefolk_cg
+	}
+	nation_designer_trigger = {
+		culture_group = snakefolk_cg
+	}
+	modifiers = {
+		# Positive WV: 25
+		spy_offence = 0.3
+		hostile_attrition = 1
+		rebel_support_efficiency = 1
+		# Penalty WV: -10
+		global_unrest = 2
+	}
+
+	government_abilities = {
+		war_power_struggle_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Indish Monarchy
+war_indish_cg_monarchy_reform = {
+	icon = "ind"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		culture_group = indish_cg
+	}
+	nation_designer_trigger = {
+		culture_group = indish_cg
+	}
+	modifiers = {
+		# Positive WV: 25
+		num_accepted_cultures = 2
+		global_trade_power = 0.1
+		promote_culture_cost = -0.75
+		# Penalty WV: -10
+		religious_unity = -0.15
+	}
+
+	government_abilities = {
+		embrace_diversity_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Eastern Beastfolk Monarchy
+war_eastern_beastfolk_cg_monarchy_reform = {
+	icon = "tigermen"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		culture_group = eastern_beastfolk_cg
+	}
+	nation_designer_trigger = {
+		culture_group = eastern_beastfolk_cg
+	}
+	modifiers = {
+		# Positive WV: 25
+		movement_speed = 0.15
+		shock_damage = 0.1
+		free_land_leader_pool = 3
+		# Penalty WV: -10
+		diplomatic_reputation = -2
+	}
+	government_abilities = {
+		war_power_struggle_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Nipponese Monarchy
+war_nipponese_cg_monarchy_reform = {
+	icon = "king"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		culture_group = nipponese_cg
+	}
+	nation_designer_trigger = {
+		culture_group = nipponese_cg
+	}
+	modifiers = {
+		# Positive WV: 25
+		discipline = 0.05
+		global_spy_defence = 1
+		claim_duration = 1
+		# Penalty WV: -10
+		diplomatic_upkeep = -2
+	}
+
+	government_abilities = {
+		control_of_court_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Vampire Coastmen Monarchy
+war_vampire_coast_cg_monarchy_reform = {
+	icon = "vampire"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		culture_group = vampire_coast_cg
+	}
+	nation_designer_trigger = {
+		culture_group = vampire_coast_cg
+	}
+	modifiers = {
+		# Positive WV: 25
+		naval_morale = 0.1
+		privateer_efficiency = 0.3
+		admiral_cost = -0.5
+		# Penalty WV: -10
+		global_tax_modifier = -0.1
+	}
+
+	government_abilities = {
+		war_power_struggle_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Old Ones Monarchy
+war_old_ones_culture_group_monarchy_reform = {
+	icon = "king"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		culture_group = old_ones_culture_group
+	}
+	nation_designer_trigger = {
+		culture_group = old_ones_culture_group
+	}
+	modifiers = {
+		# Positive WV: 25
+		innovativeness_gain = 0.5
+		global_institution_spread = 0.5
+		great_project_upgrade_time = -0.75
+		# Penalty WV: -10
+		technology_cost = 0.05
+	}
+
+	government_abilities = {
+		internal_external_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+
+# End Warhammer accessibility tier 1 reforms
+
+
+war_economic_powerhouse_monarchy = {
+	icon = "gold"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		always = yes
+	}
+	nation_designer_trigger = {
+		always = yes
+	}
+	modifiers = {
+
+		global_trade_goods_size_modifier = 0.1
+		development_cost = -0.10
+		build_cost = -0.1
+
+		monthly_war_productivity_power = 0.2
+
+		governing_capacity_modifier = -0.33
+	}
+
+	government_abilities = {
+		war_productivity_mechanic
+	}
+	ai = {
+		factor = 0
+	}
+}
+
+
+war_cultural_powerhouse_monarchy = {
+	icon = "refinement"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		always = yes
+	}
+	nation_designer_trigger = {
+		always = yes
+	}
+	modifiers = {
+
+		diplomatic_reputation = 2
+		global_trade_power = 0.1
+		prestige = 2
+		diplomatic_upkeep = 4
+
+		monthly_war_refinement_power = 0.2
+
+		governing_capacity_modifier = -0.33
+	}
+
+	government_abilities = {
+		war_refinement_mechanic
+	}
+	ai = {
+		factor = 0
+	}
+}
+
+
+war_military_powerhouse_monarchy = {
+	icon = "solder_fighting"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		always = yes
+	}
+	nation_designer_trigger = {
+		always = yes
+	}
+	modifiers = {
+		discipline = 0.05
+		manpower_recovery_speed = 0.1
+		land_maintenance_modifier = -0.10
+
+		monthly_militarized_society = 0.2
+
+		governing_capacity_modifier = -0.33
+	}
+
+	government_abilities = {
+		war_militarization_mechanic
+	}
+	ai = {
+		factor = 0
+	}
+}

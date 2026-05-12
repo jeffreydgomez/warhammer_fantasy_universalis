@@ -1,0 +1,150 @@
+food_stores_mechanic = {
+    alert_icon_gfx = GFX_alerticons
+    alert_icon_index = 53
+
+    available = {
+        always = yes
+    }
+
+    ## Uses some triggered modifiers
+
+    powers = {
+        food_stores_power = {
+            max = 100
+            min = 0
+
+#           gui = control_of_court_mech_gui
+            
+            default = 25
+
+            reset_on_new_ruler = no
+
+#           base_monthly_growth = -0.5
+
+#           monarch_power = adm
+
+            range_modifier = {
+                start_value = 0
+                end_value = 1
+                modifier = {
+
+                    land_morale = -0.1
+                    global_unrest = 2
+                    all_estate_loyalty_equilibrium = -0.10
+
+                    legitimacy = -1
+                    devotion = -1
+                    horde_unity = -1
+                    meritocracy = -1
+                    republican_tradition = -0.33
+                }
+            }
+
+            scaled_modifier = {
+                start_value = 1
+                end_value = 100
+                modifier = {
+
+                    land_morale = 0.1
+                    global_unrest = -2
+                    all_estate_loyalty_equilibrium = 0.10
+
+                    legitimacy = 2
+                    devotion = 2
+                    horde_unity = 2
+                    meritocracy = 2
+                    republican_tradition = 0.66
+                }
+            }
+        }
+    }
+
+
+    interactions = {
+
+        throw_a_feast_interaction = {
+            icon = GFX_war_throw_a_feast_interaction
+            cost_type = food_stores_power
+            cost = 10
+            cooldown_years = 5
+            trigger = {
+            }
+            effect = {
+                add_prestige_or_monarch_power = { amount = 25 }
+                add_legitimacy = 10
+                add_republican_tradition = 5
+                add_devotion = 10
+                add_horde_unity = 10
+                add_meritocracy = 10
+            }
+
+            ai_chance = {
+                factor = 0
+            }
+
+        }
+
+        add_to_the_food_stores_interaction = {
+            icon = GFX_war_add_to_the_food_stores_interaction
+            cooldown_years = 5
+            trigger = {
+                years_of_income = 2.0
+
+            }
+            effect = {            
+                add_years_of_income = -2.0
+                add_government_power = {
+                    mechanic_type = food_stores_mechanic
+                    power_type = food_stores_power
+                    value = 25
+                }
+            }
+
+            ai_chance = {
+                factor = 0
+                modifier = {
+                    factor = 0
+                    NOT = { manpower_percentage = 0.95 }
+                }
+                modifier = {
+                    factor = 0
+                    is_at_war = no
+                }
+            }
+        }
+
+        steal_from_the_food_stores_interaction = {
+            icon = GFX_war_steal_from_the_food_stores_interaction
+            cost_type = food_stores_power
+            cost = 25
+            cooldown_years = 5
+            trigger = {
+
+            }
+            effect = {
+                add_years_of_income = 1.0
+            }
+
+            ai_chance = {
+                factor = 1
+                modifier = {
+                    factor = 0
+                    NOT = {
+                        has_government_power = {
+                            mechanic_type = food_stores_mechanic
+                            power_type = food_stores_power
+                            value = 75
+                        }
+                    }
+                }
+                modifier = {
+                    factor = 0
+                    is_at_war = no
+                }
+            }
+
+
+        }
+    }
+
+}

@@ -74,27 +74,59 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = cathayan_cg
-				religion = yin_yang
+				any_neighbor_country = {
+					culture_group = cathayan_cg
+					religion = yin_yang
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = cathayan_cg
+					religion = yin_yang
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = cathayan_cg
+					religion = yin_yang			
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
+
 
 		event_target:neighbor_country = {
 			capital_scope = { save_event_target_as = neighbor_capital }
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = cathayan_cg
+					religion = yin_yang
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -107,6 +139,15 @@ country_event = {
 
 		add_prestige = 5
 
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # Take them in
@@ -122,6 +163,15 @@ country_event = {
 			add_base_tax = 1
 			add_base_production = 1
 			add_base_manpower = 1
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }
@@ -155,13 +205,28 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = tilean_group
-				religion = myrmidia
+				any_neighbor_country = {
+					culture_group = tilean_group
+					religion = myrmidia
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = tilean_group
+					religion = myrmidia
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = tilean_group
+					religion = myrmidia
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -169,13 +234,28 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = tilean_group
+					religion = myrmidia
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -191,6 +271,15 @@ country_event = {
 		reverse_add_opinion = {
 		    who = event_target:neighbor_country
 		    modifier = war_poor_relations
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
 		}
 	}
 
@@ -220,6 +309,15 @@ country_event = {
 		reverse_add_opinion = {
 		    who = event_target:neighbor_country
 		    modifier = war_poor_relations
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }
@@ -253,13 +351,28 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = kislevite_group
-				religion = ursun
+				any_neighbor_country = {
+					culture_group = kislevite_group
+					religion = ursun
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = kislevite_group
+					religion = ursun
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = kislevite_group
+					religion = ursun
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -267,13 +380,28 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = kislevite_group
+					religion = ursun
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -297,6 +425,15 @@ country_event = {
 		    who = event_target:neighbor_country
 		    modifier = war_good_relations
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # We can always use skilled merchants such as yourselves. Why not join us?
@@ -310,6 +447,15 @@ country_event = {
 			change_culture = sudevarian
 
 			add_base_manpower = 3
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }
@@ -339,12 +485,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = estalian_group
+				any_neighbor_country = {
+					culture_group = estalian_group
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = estalian_group
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = estalian_group
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -352,13 +511,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = estalian_group
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -388,6 +561,15 @@ country_event = {
 			add_base_production = 1
 			add_base_manpower = 1
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 }
 
@@ -416,12 +598,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = norse_group
+				any_neighbor_country = {
+					culture_group = norse_group
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = norse_group
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = norse_group
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -429,13 +624,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = norse_group
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -458,6 +667,15 @@ country_event = {
 
 		add_manpower = -3
 		add_prestige = 10
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # Take them in. They are still people, after all
@@ -473,6 +691,15 @@ country_event = {
 			add_base_tax = 1
 			add_base_production = 1
 			add_base_manpower = 1
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }
@@ -503,12 +730,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = albionise_group
+				any_neighbor_country = {
+					culture_group = albionise_group
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = albionise_group
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = albionise_group
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -516,13 +756,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = albionise_group
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -551,6 +805,15 @@ country_event = {
 			add_base_tax = 1
 			add_base_production = 1
 			add_base_manpower = 1
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }
@@ -583,13 +846,28 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = arabyan_group
-				religion = the_one_faith
+				any_neighbor_country = {
+					culture_group = arabyan_group
+					religion = the_one_faith
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = arabyan_group
+					religion = the_one_faith
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = arabyan_group
+					religion = the_one_faith
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -597,13 +875,28 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = arabyan_group
+					religion = the_one_faith
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -616,6 +909,15 @@ country_event = {
 
 		add_prestige = 5
 
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # Very well, on the condition you teach us your ways of war
@@ -629,6 +931,15 @@ country_event = {
 		event_target:target_province = {
 			change_religion = the_one_faith
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 
 # Very well, on the condition you teach us of numerancy
@@ -641,6 +952,15 @@ country_event = {
 
 		event_target:target_province = {
 			change_religion = the_one_faith
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 
@@ -658,6 +978,15 @@ country_event = {
 			add_base_tax = 1
 			add_base_production = 1
 			add_base_manpower = 1
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 
@@ -710,12 +1039,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = imperial_group
+				any_neighbor_country = {
+					culture_group = imperial_group
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = imperial_group
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = imperial_group
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -723,13 +1065,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = imperial_group
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -754,6 +1110,15 @@ country_event = {
 		    who = event_target:neighbor_country
 		    modifier = war_good_relations
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # We'll take you in, and help you smuggle in your best soldiers in an exclave.
@@ -773,6 +1138,15 @@ country_event = {
 		reverse_add_opinion = {
 		    who = event_target:neighbor_country
 		    modifier = war_poor_relations
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }
@@ -802,12 +1176,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = hung_group
+				any_neighbor_country = {
+					culture_group = hung_group
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = hung_group
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = hung_group
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -815,13 +1202,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = hung_group
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -833,6 +1234,15 @@ country_event = {
 		name = neighbor_events.8.option_1
 
 		add_treasury = -50
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 
@@ -843,6 +1253,15 @@ country_event = {
 		trigger = { manpower = 5 }
 
 		add_manpower = -5
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # Hire them to fight for us
@@ -872,6 +1291,15 @@ country_event = {
 			add_base_tax = 1
 			add_base_manpower = 2
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 }
 
@@ -899,12 +1327,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = kurgan_group
+				any_neighbor_country = {
+					culture_group = kurgan_group
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = kurgan_group
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = kurgan_group
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -912,13 +1353,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = kurgan_group
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -930,6 +1385,15 @@ country_event = {
 		name = neighbor_events.9.option_1
 
 		add_treasury = -50
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 
@@ -940,6 +1404,15 @@ country_event = {
 		trigger = { manpower = 5 }
 
 		add_manpower = -5
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # Hire them to fight for us
@@ -969,6 +1442,15 @@ country_event = {
 			add_base_tax = 1
 			add_base_manpower = 2
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 }
 
@@ -997,12 +1479,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = darkland_human_group
+				any_neighbor_country = {
+					culture_group = darkland_human_group
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = darkland_human_group
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = darkland_human_group
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -1010,13 +1505,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = darkland_human_group
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -1039,6 +1548,15 @@ country_event = {
 
 		add_manpower = -3
 		add_prestige = 10
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # Take them in. They are still people, after all
@@ -1052,6 +1570,15 @@ country_event = {
 
 			add_base_tax = 1
 			add_base_manpower = 1
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }
@@ -1082,12 +1609,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = amazon_group
+				any_neighbor_country = {
+					culture_group = amazon_group
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = amazon_group
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = amazon_group
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -1095,13 +1635,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = amazon_group
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -1124,6 +1678,15 @@ country_event = {
 
 		add_manpower = -3
 		add_prestige = 10
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # Take them in. They are still people, after all
@@ -1139,6 +1702,15 @@ country_event = {
 			add_base_tax = 1
 			add_base_production = 1
 			add_base_manpower = 1
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }
@@ -1167,12 +1739,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = cathayan_cg
+				any_neighbor_country = {
+					culture_group = cathayan_cg
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = cathayan_cg
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = cathayan_cg
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -1180,13 +1765,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = cathayan_cg
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -1222,6 +1821,15 @@ country_event = {
 		    modifier = war_good_relations
 		}
 
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # Set up a school! We'll get some other scholars out of that country too.
@@ -1240,6 +1848,15 @@ country_event = {
 		reverse_add_opinion = {
 		    who = event_target:neighbor_country
 		    modifier = war_poor_relations
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }
@@ -1270,12 +1887,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = indish_cg
+				any_neighbor_country = {
+					culture_group = indish_cg
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = indish_cg
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = indish_cg
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -1283,13 +1913,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = indish_cg
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -1305,6 +1949,15 @@ country_event = {
 		reverse_add_opinion = {
 		    who = event_target:neighbor_country
 		    modifier = war_poor_relations
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
 		}
 	}
 
@@ -1335,6 +1988,15 @@ country_event = {
 		    who = event_target:neighbor_country
 		    modifier = war_poor_relations
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 }
 
@@ -1362,12 +2024,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = bretonnian_group
+				any_neighbor_country = {
+					culture_group = bretonnian_group
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = bretonnian_group
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = bretonnian_group
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -1375,13 +2050,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = bretonnian_group
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -1428,6 +2117,15 @@ country_event = {
 		    loyalty = -20
 		}
 
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 
 # Kidnap him and take his riches!
@@ -1442,6 +2140,15 @@ country_event = {
 		reverse_add_opinion = {
 		    who = event_target:neighbor_country
 		    modifier = war_poor_relations
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
 		}
 	}
 }
@@ -1476,13 +2183,28 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = nehekharan_group
-				religion = nehekharan_pantheon
+				any_neighbor_country = {
+					culture_group = nehekharan_group
+					religion = nehekharan_pantheon
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = nehekharan_group
+					religion = nehekharan_pantheon
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = nehekharan_group
+					religion = nehekharan_pantheon
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -1490,13 +2212,28 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = nehekharan_group
+					religion = nehekharan_pantheon
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -1525,6 +2262,15 @@ country_event = {
 
 		add_prestige = 10
 
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # Steal their things
@@ -1539,6 +2285,15 @@ country_event = {
 		    modifier = war_poor_relations
 		}
 
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # Allow them to set up a permanent delegation
@@ -1552,6 +2307,15 @@ country_event = {
 			change_culture = nehekharan_culture
 
 			add_base_tax = 3
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }
@@ -1583,12 +2347,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				religion = vampiric
+				any_neighbor_country = {
+					religion = vampiric
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					religion = vampiric
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					religion = vampiric
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -1596,13 +2373,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					religion = vampiric
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -1641,6 +2432,15 @@ country_event = {
 
 		event_target:target_province = {
 			change_religion = vampiric
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 
@@ -1683,14 +2483,28 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = vampire_coast_cg
-				religion = vampiric
-				NOT = { war_with = ROOT }
+				any_neighbor_country = {
+					culture_group = vampire_coast_cg
+					religion = vampiric
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = vampire_coast_cg
+					religion = vampiric
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = vampire_coast_cg
+					religion = vampiric
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -1698,13 +2512,28 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = vampire_coast_cg
+					religion = vampiric
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -1718,6 +2547,15 @@ country_event = {
 
 		add_prestige = 5
 
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 
@@ -1734,6 +2572,15 @@ country_event = {
 		}
 
 
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 
 # Come in! Take a load off! Bring your whole crew!
@@ -1753,6 +2600,15 @@ country_event = {
 
 			add_base_production = 1
 			add_base_manpower = 1
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }
@@ -1787,27 +2643,59 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = greenskins_group
-				religion = gork_n_mork_religion
+				any_neighbor_country = {
+					culture_group = greenskins_group
+					religion = gork_n_mork_religion
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = greenskins_group
+					religion = gork_n_mork_religion
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = greenskins_group
+					religion = gork_n_mork_religion
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
 			capital_scope = { save_event_target_as = neighbor_capital }
+
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = greenskins_group
+					religion = gork_n_mork_religion
 				}
 			}
-			save_event_target_as = target_province
-			add_devastation = 15
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+				add_devastation = 15
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+				add_devastation = 15
+			}
 		}
 	}
 
@@ -1827,6 +2715,15 @@ country_event = {
 
 			add_base_manpower = 2
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 
 # Entreat their leader to take them back
@@ -1838,6 +2735,15 @@ country_event = {
 
 		add_prestige = -5
 
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # You are good fighters! Into the army! You can set up shop here.
@@ -1855,6 +2761,15 @@ country_event = {
 			change_religion = gork_n_mork_religion
 			change_culture = common_orc
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 
 # Fight them Off
@@ -1869,6 +2784,15 @@ country_event = {
 			    size = 1
 			}
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # Pay them off
@@ -1877,6 +2801,15 @@ country_event = {
 		name = neighbor_events.18.option_5
 
 		add_years_of_income = -0.5
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 }
 
@@ -1909,27 +2842,59 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = hobgoblin_group
-				religion = hobgoblin_religion
+				any_neighbor_country = {
+					culture_group = hobgoblin_group
+					religion = hobgoblin_religion
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = hobgoblin_group
+					religion = hobgoblin_religion
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = hobgoblin_group
+					religion = hobgoblin_religion
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
 			capital_scope = { save_event_target_as = neighbor_capital }
+
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = hobgoblin_group
+					religion = hobgoblin_religion
 				}
 			}
-			save_event_target_as = target_province
-			add_devastation = 15
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+				add_devastation = 15
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+				add_devastation = 15
+			}
 		}
 	}
 
@@ -1949,6 +2914,15 @@ country_event = {
 
 			add_base_manpower = 2
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 
 # Entreat their leader to take them back
@@ -1960,6 +2934,15 @@ country_event = {
 
 		add_prestige = -5
 
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # You are good fighters! Into the army! You can set up shop here.
@@ -1977,6 +2960,15 @@ country_event = {
 			change_religion = hobgoblin_religion
 			change_culture = steppe_hobgoblin
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 
 # Fight them Off
@@ -1990,6 +2982,15 @@ country_event = {
 			    size = 1
 			}
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # Pay them off
@@ -1998,6 +2999,15 @@ country_event = {
 		name = neighbor_events.19.option_5
 
 		add_years_of_income = -0.5
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 }
 
@@ -2028,12 +3038,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = asrai_group
+				any_neighbor_country = {
+					culture_group = asrai_group
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = asrai_group
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = asrai_group
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -2041,13 +3064,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = asrai_group
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -2104,6 +3141,15 @@ country_event = {
 		    who = event_target:neighbor_country
 		    modifier = war_poor_relations
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 }
 
@@ -2134,12 +3180,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = asur_group
+				any_neighbor_country = {
+					culture_group = asur_group
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = asur_group
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = asur_group
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -2147,13 +3206,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = asur_group
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -2178,6 +3251,15 @@ country_event = {
 		reverse_add_opinion = {
 		    who = event_target:neighbor_country
 		    modifier = war_poor_relations
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
 		}
 	}
 
@@ -2204,6 +3286,15 @@ country_event = {
 		    who = event_target:neighbor_country
 		    modifier = war_good_relations
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 
 # Such excellent diplomats! Want to work for us?
@@ -2228,6 +3319,15 @@ country_event = {
 		reverse_add_opinion = {
 		    who = event_target:neighbor_country
 		    modifier = war_poor_relations
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }
@@ -2259,11 +3359,25 @@ country_event = {
 	}
 
 	immediate = {
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = druchii_group
+				any_neighbor_country = {
+					culture_group = druchii_group
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = druchii_group
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = druchii_group
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -2271,13 +3385,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = druchii_group
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -2298,6 +3426,15 @@ country_event = {
 			}
 		}
 
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # Just let them have it, we can't deal with this right now.
@@ -2335,6 +3472,15 @@ country_event = {
 			change_culture = naggarondi
 			add_base_manpower = 1
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 }
 
@@ -2364,25 +3510,53 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = beastmen_group
+				any_neighbor_country = {
+					culture_group = beastmen_group
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = beastmen_group
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = beastmen_group
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
 			capital_scope = { save_event_target_as = neighbor_capital }
+
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = beastmen_group
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -2402,6 +3576,15 @@ country_event = {
 
 			add_base_manpower = 2
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 
 # Entreat their leader to take them back
@@ -2413,6 +3596,15 @@ country_event = {
 
 		add_prestige = -5
 
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # You are good fighters! Into the army! You can set up shop here.
@@ -2430,6 +3622,15 @@ country_event = {
 			change_religion = chaos_undivided_religion
 			change_culture = beastmen
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 
 # Fight them Off
@@ -2444,6 +3645,15 @@ country_event = {
 			    size = 1
 			}
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # Pay them off
@@ -2452,6 +3662,15 @@ country_event = {
 		name = neighbor_events.23.option_5
 
 		add_years_of_income = -0.5
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 }
 
@@ -2483,12 +3702,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = eastern_beastfolk_cg
+				any_neighbor_country = {
+					culture_group = eastern_beastfolk_cg
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = eastern_beastfolk_cg
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = eastern_beastfolk_cg
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -2496,13 +3728,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = eastern_beastfolk_cg
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -2518,6 +3764,15 @@ country_event = {
 		reverse_add_opinion = {
 		    who = event_target:neighbor_country
 		    modifier = war_poor_relations
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
 		}
 	}
 
@@ -2547,6 +3802,15 @@ country_event = {
 		reverse_add_opinion = {
 		    who = event_target:neighbor_country
 		    modifier = war_poor_relations
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }
@@ -2578,11 +3842,25 @@ country_event = {
 	}
 
 	immediate = {
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = snakefolk_cg
+				any_neighbor_country = {
+					culture_group = snakefolk_cg
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = snakefolk_cg
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = snakefolk_cg
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -2590,13 +3868,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = snakefolk_cg
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -2617,6 +3909,15 @@ country_event = {
 			}
 		}
 
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # Just let them have it, we can't deal with this right now.
@@ -2654,6 +3955,15 @@ country_event = {
 			change_culture = khureshi_snakefolk
 			add_base_manpower = 1
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 }
 
@@ -2685,11 +3995,25 @@ country_event = {
 	}
 
 	immediate = {
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = fimir_group
+				any_neighbor_country = {
+					culture_group = fimir_group
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = fimir_group
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = fimir_group
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -2697,13 +4021,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = fimir_group
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -2721,6 +4059,15 @@ country_event = {
 			spawn_rebels = {
 			    type = raiding_party_rebels
 			    size = 1
+			}
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
 			}
 		}
 	}
@@ -2760,6 +4107,15 @@ country_event = {
 			change_culture = fimir_culture
 			add_base_manpower = 1
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 }
 
@@ -2791,13 +4147,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = dwarf_group
-				NOT = { war_with = ROOT }
+				any_neighbor_country = {
+					culture_group = dwarf_group
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = dwarf_group
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = dwarf_group
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -2805,13 +4173,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = dwarf_group
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -2869,6 +4251,15 @@ country_event = {
 		    who = event_target:neighbor_country
 		    modifier = war_poor_relations
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # Offer to set up a mining company in the province, run by dwarves, with shared profits
@@ -2884,6 +4275,15 @@ country_event = {
 			add_local_autonomy = 15
 
 			add_base_production = 3
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }
@@ -2915,12 +4315,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = chaos_dwarf_group
+				any_neighbor_country = {
+					culture_group = chaos_dwarf_group
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = chaos_dwarf_group
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = chaos_dwarf_group
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -2928,13 +4341,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = chaos_dwarf_group
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -2952,6 +4379,15 @@ country_event = {
 		    modifier = war_poor_relations
 		}
 
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # Accept the charter
@@ -2967,6 +4403,15 @@ country_event = {
 
 			add_base_production = 3
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 
 # No you see, the contract should be written like this...
@@ -2980,6 +4425,15 @@ country_event = {
 		event_target:target_province = {
 			change_culture = chaos_dwarf
 			add_base_production = 3
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }
@@ -3012,12 +4466,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = ogre_group
+				any_neighbor_country = {
+					culture_group = ogre_group
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = ogre_group
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = ogre_group
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -3025,13 +4492,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = ogre_group
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 
 		add_years_of_income = -0.5
@@ -3049,6 +4530,15 @@ country_event = {
 		reverse_add_opinion = {
 		    who = event_target:neighbor_country
 		    modifier = war_poor_relations
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
 		}
 	}
 
@@ -3078,6 +4568,15 @@ country_event = {
 		reverse_add_opinion = {
 		    who = event_target:neighbor_country
 		    modifier = war_poor_relations
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }
@@ -3109,25 +4608,53 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = skaven_group
+				any_neighbor_country = {
+					culture_group = skaven_group
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = skaven_group
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = skaven_group
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
 			capital_scope = { save_event_target_as = neighbor_capital }
+
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = skaven_group
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -3157,6 +4684,15 @@ country_event = {
 
 		add_prestige = -15
 
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # We could use some meat shields. Want to join our army?
@@ -3184,6 +4720,15 @@ country_event = {
 			spawn_rebels = {
 			    type = raiding_party_rebels
 			    size = 1
+			}
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
 			}
 		}
 	}
@@ -3228,13 +4773,28 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				culture_group = lizardmen_group
-				religion = old_ones
+				any_neighbor_country = {
+					culture_group = lizardmen_group
+					religion = old_ones
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					culture_group = lizardmen_group
+					religion = old_ones
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					culture_group = lizardmen_group
+					religion = old_ones
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -3242,13 +4802,28 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					culture_group = lizardmen_group
+					religion = old_ones
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -3263,6 +4838,15 @@ country_event = {
 
 		add_prestige = 5
 
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # Get out of here!
@@ -3277,6 +4861,15 @@ country_event = {
 			    size = 1
 			}
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 
@@ -3288,6 +4881,15 @@ country_event = {
 
 		event_target:target_province = {
 			change_religion = old_ones
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 
@@ -3305,6 +4907,15 @@ country_event = {
 
 			add_building = cathedral
 
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }
@@ -3337,12 +4948,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				religion = khornate_religion
+				any_neighbor_country = {
+					religion = khornate_religion
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					religion = khornate_religion
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					religion = khornate_religion
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -3350,13 +4974,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					religion = khornate_religion
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -3370,6 +5008,15 @@ country_event = {
 		add_country_modifier = { 
 		    name = war_witch_hunts
 		    duration = 3650
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
 		}
 	}
 
@@ -3397,6 +5044,15 @@ country_event = {
 		    name = war_khorne_blessing
 		    duration = 3650
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 
 # I'll personally look into this!
@@ -3414,6 +5070,15 @@ country_event = {
 		add_country_modifier = { 
 		    name = war_khorne_blessing
 		    duration = 7300
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }
@@ -3445,12 +5110,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				religion = nurglite_religion
+				any_neighbor_country = {
+					religion = nurglite_religion
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					religion = nurglite_religion
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					religion = nurglite_religion
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -3458,13 +5136,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					religion = nurglite_religion
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -3478,6 +5170,15 @@ country_event = {
 		add_country_modifier = { 
 		    name = war_witch_hunts
 		    duration = 3650
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
 		}
 	}
 
@@ -3505,6 +5206,15 @@ country_event = {
 		    name = war_nurgle_blessing
 		    duration = 3650
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 
 # I'll personally look into this!
@@ -3522,6 +5232,15 @@ country_event = {
 		add_country_modifier = { 
 		    name = war_nurgle_blessing
 		    duration = 7300
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }
@@ -3553,12 +5272,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				religion = tzeentchian_religion
+				any_neighbor_country = {
+					religion = tzeentchian_religion
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					religion = tzeentchian_religion
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					religion = tzeentchian_religion
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -3566,13 +5298,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					religion = tzeentchian_religion
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -3586,6 +5332,15 @@ country_event = {
 		add_country_modifier = { 
 		    name = war_witch_hunts
 		    duration = 3650
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
 		}
 	}
 
@@ -3613,6 +5368,15 @@ country_event = {
 		    name = war_tzeentch_blessing
 		    duration = 3650
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 
 # I'll personally look into this!
@@ -3630,6 +5394,15 @@ country_event = {
 		add_country_modifier = { 
 		    name = war_tzeentch_blessing
 		    duration = 7300
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }
@@ -3661,12 +5434,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				religion = slaaneshi_religion
+				any_neighbor_country = {
+					religion = slaaneshi_religion
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					religion = slaaneshi_religion
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					religion = slaaneshi_religion
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -3674,13 +5460,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					religion = slaaneshi_religion
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -3694,6 +5494,15 @@ country_event = {
 		add_country_modifier = { 
 		    name = war_witch_hunts
 		    duration = 3650
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
 		}
 	}
 
@@ -3721,6 +5530,15 @@ country_event = {
 		    name = war_slaanesh_blessing
 		    duration = 3650
 		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
+		}
 	}
 
 # I'll personally look into this!
@@ -3738,6 +5556,15 @@ country_event = {
 		add_country_modifier = { 
 		    name = war_slaanesh_blessing
 		    duration = 7300
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }
@@ -3770,12 +5597,25 @@ country_event = {
 	}
 
 	immediate = {
-
-		random_neighbor_country = {
+		if = {
 			limit = {
-				religion = nagash_worship
+				any_neighbor_country = {
+					religion = nagash_worship
+				}
 			}
-			save_event_target_as = neighbor_country
+			random_neighbor_country = {
+				limit = {
+					religion = nagash_worship
+				}
+				save_event_target_as = neighbor_country
+			}
+		} else = {
+			random_country = {
+				limit = {
+					religion = nagash_worship
+				}
+				save_event_target_as = neighbor_country
+			}
 		}
 
 		event_target:neighbor_country = {
@@ -3783,13 +5623,27 @@ country_event = {
 
 		}
 
-		random_owned_province = {
-			limit = { 
-				any_neighbor_province = { 
-					owned_by = event_target:neighbor_country
+		if = {
+			limit = {
+				any_neighbor_country = {
+					religion = nagash_worship
 				}
 			}
-			save_event_target_as = target_province
+			random_owned_province = {
+				limit = { 
+					any_neighbor_province = { 
+						owned_by = event_target:neighbor_country
+					}
+				}
+				save_event_target_as = target_province
+			}
+		} else = {
+			random_owned_province = {
+				limit = { 
+					is_capital = no
+				}
+				save_event_target_as = target_province
+			}
 		}
 	}
 
@@ -3818,6 +5672,15 @@ country_event = {
 
 		add_prestige = 10
 
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # Steal their things
@@ -3832,6 +5695,15 @@ country_event = {
 		    modifier = war_poor_relations
 		}
 
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = -1
+			}
+		}
 	}
 
 # Allow them to set up a permanent delegation
@@ -3843,6 +5715,15 @@ country_event = {
 		event_target:target_province = {
 			change_religion = nagash_worship
 			add_base_tax = 2
+		}
+
+		if = {
+			limit = { has_government_mechanic = embrace_diversity_mechanic }
+			add_government_power = {
+				mechanic_type = embrace_diversity_mechanic
+				power_type = embrace_diversity_power
+				value = 1
+			}
 		}
 	}
 }

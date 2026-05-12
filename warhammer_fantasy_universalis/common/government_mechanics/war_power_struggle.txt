@@ -1,0 +1,162 @@
+war_power_struggle_mechanic = {
+    alert_icon_gfx = GFX_alerticons
+    alert_icon_index = 53
+
+    available = {
+        always = yes
+    }
+
+    
+    ## Some may call us uncivilized, but we believe in survival of the fittest. A society in constant turbulence sees the strongest individuals rise to the top. We reject the trappings of civilized order, preferring instead a primal power struggle.
+    ## Each province at 100% autonomy increases it by 0.1 a month.
+    ## Each point of unrest in a province increase it by 0.01 a month.
+    ## Each point of positive stability decreases it by 1 a month. Each point of negative stability increases it by 1 a month.
+    ## Each point of absolutism decreases it by 0.1 a month.
+    ## Building a building decreases it by 5
+
+    powers = {
+        war_power_struggle_power = {
+            max = 100
+            min = 0
+
+#           gui = control_of_court_mech_gui
+            
+            default = 25
+
+            reset_on_new_ruler = no
+
+#           base_monthly_growth = -0.5
+
+            range_modifier = {
+                start_value = 75
+                end_value = 100
+                modifier = {
+
+                    monarch_admin_power = 1
+                    monarch_diplomatic_power = 1
+                    monarch_military_power = 1
+
+                }
+            }
+
+            scaled_modifier = {
+                start_value = 1
+                end_value = 100
+                modifier = {
+
+                    advisor_cost = -0.33
+                    leader_cost = -0.33
+                    admiral_cost = -0.33
+                    placed_merchant_power = 33
+
+                    monthly_war_power_struggle_power = -5.0
+
+#                    global_regiment_cost = -0.15
+#                    monarch_lifespan = -0.25
+
+                }
+            }
+        }
+    }
+
+
+    interactions = {
+
+        test_the_monarch_interaction = {
+            icon = GFX_war_test_the_monarch_interaction
+            cooldown_years = 10
+            trigger = {
+            }
+            effect = {
+                add_government_power = {
+                    mechanic_type = war_power_struggle_mechanic
+                    power_type = war_power_struggle_power
+                    value = 20
+                }
+
+                random_list = {
+                    25 = {
+                        kill_ruler = yes
+                    }
+                    25 = {
+                        change_adm = 1
+                    }
+                    25 = {
+                        change_dip = 1
+                    }
+                    25 = {
+                        change_mil = 1
+                    }
+                }
+            }
+
+            ai_chance = {
+                factor = 0
+            }
+
+        }
+
+        test_the_heir_interaction = {
+            icon = GFX_war_test_the_heir_interaction
+            cooldown_years = 10
+            trigger = {
+                has_heir = yes
+                heir_age = 6
+            }
+            effect = {            
+                add_government_power = {
+                    mechanic_type = war_power_struggle_mechanic
+                    power_type = war_power_struggle_power
+                    value = 10
+                }
+
+                random_list = {
+                    25 = {
+                        kill_heir = {}
+                    }
+                    25 = {
+                        change_heir_adm = 1
+                    }
+                    25 = {
+                        change_heir_dip = 1
+                    }
+                    25 = {
+                        change_heir_mil = 1
+                    }
+                }
+            }
+
+            ai_chance = {
+                factor = 0
+            }
+        }
+
+        encourage_a_coup_interaction = {
+            icon = GFX_war_encourage_a_coup_interaction
+            cooldown_years = 10
+            trigger = {
+
+            }
+            effect = {
+                capital_scope = {
+                    add_devastation = 25
+                    add_local_autonomy = 25
+                    spawn_rebels = {
+                        type = pretender_rebels
+                        size = 2
+                    }
+                }
+
+                add_government_power = {
+                    mechanic_type = war_power_struggle_mechanic
+                    power_type = war_power_struggle_power
+                    value = 25
+                }
+            }
+
+            ai_chance = {
+                factor = 0
+            }
+        }
+    }
+}

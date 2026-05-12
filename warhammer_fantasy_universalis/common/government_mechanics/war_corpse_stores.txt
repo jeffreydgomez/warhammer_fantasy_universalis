@@ -1,0 +1,137 @@
+corpse_stores_mechanic = {
+    alert_icon_gfx = GFX_alerticons
+    alert_icon_index = 53
+
+    available = {
+        always = yes
+    }
+
+
+    powers = {
+        corpse_stores_power = {
+            max = 100
+            min = 0
+
+#            gui = control_of_court_mech_gui
+            
+            reset_on_new_ruler = no
+
+#            base_monthly_growth = -0.5
+
+#            monarch_power = adm
+
+            scaled_modifier = {
+                start_value = 0
+                end_value = 100
+                modifier = {
+
+                }
+            }
+
+        }
+    }
+
+
+    interactions = {
+
+        raise_the_dead_interaction = {
+            icon = GFX_war_raise_the_dead_interaction
+            cost_type = corpse_stores_power
+            cost = 10
+            cooldown_years = 1
+            trigger = {
+                capital_scope = {
+                    owned_by = ROOT
+                    controlled_by = ROOT
+                }
+            }
+            effect = {
+                capital_scope = {
+                    infantry = ROOT
+                    infantry = ROOT
+                    infantry = ROOT
+                    infantry = ROOT
+                    infantry = ROOT
+                    infantry = ROOT
+                    infantry = ROOT
+                    infantry = ROOT
+                    infantry = ROOT
+                    infantry = ROOT
+                }
+            }
+
+            ai_chance = {
+                factor = 1
+                modifier = {
+                    factor = 0
+                    is_at_war = no
+                }
+                modifier = {
+                    factor = 0
+                    manpower = 1
+                }
+            }
+
+        }
+
+        add_to_the_pile_interaction = {
+            icon = GFX_war_add_to_the_corpse_pile_interaction
+            cost_type = corpse_stores_power
+#           cost = 0
+            cooldown_years = 15
+            trigger = {
+                manpower = 20
+            }
+            effect = {            
+                add_manpower = -20
+                add_government_power = {
+                    mechanic_type = corpse_stores_mechanic
+                    power_type = corpse_stores_power
+                    value = 10
+                }
+            }
+
+            ai_chance = {
+                factor = 1
+                modifier = {
+                    factor = 0
+                    NOT = { manpower_percentage = 0.95 }
+                }
+                modifier = {
+                    factor = 0
+                    is_at_war = no
+                }
+            }
+        }
+
+        corpse_experiments_interaction = {
+            icon = GFX_war_corpse_experiments_interaction
+            cost_type = corpse_stores_power
+            cost = 75
+            cooldown_years = 15
+            trigger = {
+
+            }
+            effect = {
+
+                change_innovativeness = 1
+               
+            }
+
+            ai_chance = {
+                factor = 1
+                modifier = {
+                    factor = 0
+                    NOT = { manpower_percentage = 0.95 }
+                }
+                modifier = {
+                    factor = 0
+                    is_at_war = no
+                }
+            }
+
+
+        }
+    }
+
+}

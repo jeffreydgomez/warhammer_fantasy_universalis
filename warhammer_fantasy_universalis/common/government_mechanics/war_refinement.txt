@@ -1,0 +1,145 @@
+## Our society values culture, refinement, and fine things over the brutalities of war or the dullness of economics.
+
+
+
+war_refinement_mechanic = {
+	alert_icon_gfx = GFX_alerticons_government_mechanics
+	alert_icon_index = 10
+	available = {
+		always = yes
+	}
+
+	powers = {
+		war_refinement_power = {
+			max = 100
+			base_monthly_growth = 0
+			scaled_modifier = {
+				modifier = {
+					diplomatic_reputation = 4
+					global_trade_power = 0.2
+					prestige = 4
+
+					discipline = -0.05
+					global_trade_goods_size_modifier = -0.1
+
+					monthly_war_refinement_power = -0.5
+				}
+			}
+		}
+	}
+	
+	interactions = {
+		boost_refinement = {
+			gui = militarization_gov_mech
+			cost_type = war_refinement_power
+			center = no
+			trigger = {
+				dip_power_cost = 50
+				not = {
+					has_government_power = {
+						mechanic_type = war_refinement_mechanic
+						power_type = war_refinement_power
+						value = 100
+					}
+				}
+			}
+			effect = { 
+				dip_power_cost = 50
+				add_government_power = {
+					mechanic_type = war_refinement_mechanic
+					power_type = war_refinement_power
+					value = 10
+				}
+			}
+			cooldown_years = 0
+			ai_chance = {
+				factor = 10
+				modifier = {
+					factor = 0
+					has_government_power = {
+						mechanic_type = war_refinement_mechanic
+						power_type = war_refinement_power
+						value = 90
+					}
+				}
+				modifier = {
+					factor = 0
+					neighbors_tech_discount = 0.05
+				}
+				modifier = {
+					factor = 0
+					not = { dip_power_cost = 500 }
+				}
+			}
+		}
+
+		war_host_exposition = {
+			gui = militarization_gov_mech
+			cost_type = war_refinement_power
+			center = no
+			trigger = {
+				not = {
+					has_government_power = {
+						mechanic_type = war_refinement_mechanic
+						power_type = war_refinement_power
+						value = 100
+					}
+				}
+			}
+			effect = {
+				add_treasury = -250
+				every_country = {
+				    limit = {
+				        has_opinion = {
+							who = ROOT
+							value = 150
+						}
+				    }
+				    add_trust = {
+					    who = ROOT
+					    value = 10
+					    mutual = yes
+					}
+				    ROOT = {
+						add_government_power = {
+							mechanic_type = war_refinement_mechanic
+							power_type = war_refinement_power
+							value = 10
+						}
+
+				    }
+				}
+
+			}
+			cooldown_years = 20
+			ai_chance = {
+				factor = 0
+
+			}
+		}
+
+
+		war_exploit_reputation = {
+			gui = militarization_gov_mech
+			center = no
+			cost_type = war_productivity_power
+            cost = 25
+			effect = {
+				add_years_of_income = 1.0
+				add_government_power = {
+					mechanic_type = war_refinement_mechanic
+					power_type = war_refinement_power
+					value = -25
+				}
+			}
+			cooldown_years = 20
+			ai_chance = {
+				factor = 0
+
+			}
+		}
+
+
+
+	}
+}

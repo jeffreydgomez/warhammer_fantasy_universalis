@@ -1,0 +1,139 @@
+## Our society values glory and combat over the the dullness of economics or culture.
+
+
+war_militarization_mechanic = {
+	alert_icon_gfx = GFX_alerticons_government_mechanics
+	alert_icon_index = 10
+	available = {
+		always = yes
+	}
+
+	powers = {
+		militarized_society = {
+			max = 100
+			base_monthly_growth = 0
+			scaled_modifier = {
+				modifier = {
+					discipline = 0.10
+					manpower_recovery_speed = 0.20
+					land_maintenance_modifier = -0.20
+
+					prestige = -2
+					global_trade_goods_size_modifier = -0.1
+
+					monthly_militarized_society = -0.5
+				}
+			}
+		}
+	}
+	
+	interactions = {
+		boost_militarization = {
+			gui = militarization_gov_mech
+			cost_type = militarized_society
+			center = no
+			trigger = {
+				mil_power_cost = 50
+				not = {
+					has_government_power = {
+						mechanic_type = militarization_mechanic
+						power_type = militarized_society
+						value = 100
+					}
+				}
+			}
+			effect = { 
+				mil_power_cost = 50
+				add_government_power = {
+					mechanic_type = militarization_mechanic
+					power_type = militarized_society
+					value = 10
+				}
+			}
+			cooldown_years = 0
+			ai_chance = {
+				factor = 10
+				modifier = {
+					factor = 0
+					has_government_power = {
+						mechanic_type = militarization_mechanic
+						power_type = militarized_society
+						value = 90
+					}
+				}
+				modifier = {
+					factor = 0
+					neighbors_tech_discount = 0.05
+				}
+				modifier = {
+					factor = 0
+					not = { mil_power_cost = 500 }
+				}
+				modifier = {
+					factor = 10
+					is_at_war = yes
+				}
+			}
+		}
+
+	interactions = {
+		march_divided_fight_united = {
+			gui = prussian_militarization_gov_mech_3_interaction
+			icon = GFX_prussian_militarization_march_divided_fight_united
+			cost_type = militarized_society
+            cost = 20
+			effect = { 
+				add_country_modifier = {
+					name = pru_thunderous_advance_modifier
+					duration = 1825
+				}
+			}
+			cooldown_years = 5
+			ai_chance = {
+				factor = 0
+				modifier = {
+					factor = 10
+					not = {
+						has_government_power = {
+							mechanic_type = militarization_mechanic
+							power_type = militarized_society
+							value = 90
+						}
+					}
+					mil_power = 500
+				}
+			}
+		}
+		
+		rewrite_military_manual = {
+			gui = prussian_militarization_gov_mech_3_interaction
+			icon = GFX_prussian_militarization_rewrite_military_manual
+			cost_type = militarized_society
+            cost = 20
+			effect = { 
+				add_country_modifier = {
+					name = pru_rewrite_military_manual_modifier
+					duration = 1825
+				}
+			}
+			cooldown_years = 5
+			ai_chance = {
+				factor = 0
+				modifier = {
+					factor = 10
+					not = {
+						has_government_power = {
+							mechanic_type = militarization_mechanic
+							power_type = militarized_society
+							value = 90
+						}
+					}
+					mil_power = 500
+				}
+			}
+		}
+
+
+
+	}
+}

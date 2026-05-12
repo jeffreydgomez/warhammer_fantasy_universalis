@@ -604,6 +604,186 @@ country_event = {
 		}
 
 	}
+	}
+
+### Once each year, Ogre chiefs drag tribute to the central food pile and the Butchers tally what the realm can actually feed.
+country_event = {
+	id = ogre_events.9
+	title = ogre_events.9.t
+	desc = ogre_events.9.d
+	picture = OGRE_eventPicture
+
+	fire_only_once = no
+
+	trigger = {
+		has_government_mechanic = food_stores_mechanic
+	}
+
+	mean_time_to_happen = {
+		months = 12
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_variable = { which = ogre_food_stores_tribute_increase value = 0 }
+			set_variable = { which = ogre_food_stores_army_decrease value = 0 }
+			set_variable = { which = ogre_food_stores_city_decrease value = 0 }
+			set_variable = { which = ogre_food_stores_total_change value = 0 }
+			set_variable = { which = ogre_food_stores_province_value value = 0 }
+			set_variable = { which = ogre_food_stores_remaining_change value = 0 }
+
+			every_owned_province = {
+				limit = {
+					controlled_by = ROOT
+					OR = {
+						trade_goods = livestock
+						trade_goods = fish
+						trade_goods = grain
+						trade_goods = beer
+						trade_goods = wool
+						trade_goods = fungi
+						trade_goods = fur
+						trade_goods = slaves
+					}
+				}
+				ROOT = {
+					export_to_variable = {
+						which = ogre_food_stores_province_value
+						value = trigger_value:base_production
+						who = PREV
+					}
+					change_variable = {
+						which = ogre_food_stores_tribute_increase
+						which = ogre_food_stores_province_value
+					}
+				}
+			}
+
+			export_to_variable = {
+				which = ogre_food_stores_army_decrease
+				value = army_size
+			}
+			every_owned_province = {
+				limit = { is_city = yes }
+				ROOT = { change_variable = { which = ogre_food_stores_city_decrease value = 1 } }
+			}
+
+			set_variable = { which = ogre_food_stores_total_change which = ogre_food_stores_tribute_increase }
+			subtract_variable = { which = ogre_food_stores_total_change which = ogre_food_stores_army_decrease }
+			subtract_variable = { which = ogre_food_stores_total_change which = ogre_food_stores_city_decrease }
+
+			round_variable = { which = ogre_food_stores_tribute_increase value = -1 }
+			round_variable = { which = ogre_food_stores_army_decrease value = -1 }
+			round_variable = { which = ogre_food_stores_city_decrease value = -1 }
+			round_variable = { which = ogre_food_stores_total_change value = -1 }
+
+			set_variable = { which = ogre_food_stores_remaining_change which = ogre_food_stores_total_change }
+
+			while = {
+				limit = { check_variable = { which = ogre_food_stores_remaining_change value = 100 } }
+				add_government_power = {
+					mechanic_type = food_stores_mechanic
+					power_type = food_stores_power
+					value = 100
+				}
+				subtract_variable = { which = ogre_food_stores_remaining_change value = 100 }
+			}
+			while = {
+				limit = { check_variable = { which = ogre_food_stores_remaining_change value = 10 } }
+				add_government_power = {
+					mechanic_type = food_stores_mechanic
+					power_type = food_stores_power
+					value = 10
+				}
+				subtract_variable = { which = ogre_food_stores_remaining_change value = 10 }
+			}
+			while = {
+				limit = { check_variable = { which = ogre_food_stores_remaining_change value = 1 } }
+				add_government_power = {
+					mechanic_type = food_stores_mechanic
+					power_type = food_stores_power
+					value = 1
+				}
+				subtract_variable = { which = ogre_food_stores_remaining_change value = 1 }
+			}
+			while = {
+				limit = {
+					NOT = { check_variable = { which = ogre_food_stores_remaining_change value = -99 } }
+					has_government_power = {
+						mechanic_type = food_stores_mechanic
+						power_type = food_stores_power
+						value = 100
+					}
+				}
+				add_government_power = {
+					mechanic_type = food_stores_mechanic
+					power_type = food_stores_power
+					value = -100
+				}
+				change_variable = { which = ogre_food_stores_remaining_change value = 100 }
+			}
+			while = {
+				limit = {
+					NOT = { check_variable = { which = ogre_food_stores_remaining_change value = -9 } }
+					has_government_power = {
+						mechanic_type = food_stores_mechanic
+						power_type = food_stores_power
+						value = 10
+					}
+				}
+				add_government_power = {
+					mechanic_type = food_stores_mechanic
+					power_type = food_stores_power
+					value = -10
+				}
+				change_variable = { which = ogre_food_stores_remaining_change value = 10 }
+			}
+			while = {
+				limit = {
+					NOT = { check_variable = { which = ogre_food_stores_remaining_change value = 0 } }
+					has_government_power = {
+						mechanic_type = food_stores_mechanic
+						power_type = food_stores_power
+						value = 1
+					}
+				}
+				add_government_power = {
+					mechanic_type = food_stores_mechanic
+					power_type = food_stores_power
+					value = -1
+				}
+				change_variable = { which = ogre_food_stores_remaining_change value = 1 }
+			}
+
+			if = {
+				limit = {
+					NOT = { check_variable = { which = ogre_food_stores_remaining_change value = 0 } }
+				}
+				set_government_power = {
+					mechanic_type = food_stores_mechanic
+					power_type = food_stores_power
+					value = 0
+				}
+			}
+
+			set_variable = { which = ogre_food_stores_province_value value = 0 }
+			set_variable = { which = ogre_food_stores_remaining_change value = 0 }
+		}
+	}
+
+# Accept a surplus or balanced yearly tally of the central food pile.
+	option = {
+		trigger = { check_variable = { which = ogre_food_stores_total_change value = 0 } }
+		ai_chance = { factor = 100 }
+		name = ogre_events.9.option_1
+	}
+
+# Accept a hungry yearly tally of the central food pile.
+	option = {
+		trigger = { NOT = { check_variable = { which = ogre_food_stores_total_change value = 0 } } }
+		ai_chance = { factor = 100 }
+		name = ogre_events.9.option_2
+	}
 }
 
 ### Ogre Starting Event
@@ -634,4 +814,3 @@ country_event = {
 
 	}
 }
-

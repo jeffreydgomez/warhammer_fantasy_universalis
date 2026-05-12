@@ -1,0 +1,172 @@
+embrace_diversity_mechanic = {
+    alert_icon_gfx = GFX_alerticons
+    alert_icon_index = 53
+
+    available = {
+        always = yes
+    }
+
+    ## It should go from 0 - 100 in about 20 years in perfect conditions. That means about +1 a month, with an anti-scaling
+
+    powers = {
+        embrace_diversity_power = {
+            max = 100
+            min = 0
+
+#           gui = control_of_court_mech_gui
+            
+            reset_on_new_ruler = no
+
+#           base_monthly_growth = -0.5
+
+#           monarch_power = adm
+
+            scaled_modifier = {
+                start_value = 0
+                end_value = 100
+                modifier = {
+
+                    technology_cost = -0.25
+                    idea_cost = -0.25
+
+                    global_trade_power = 0.25
+
+                    reform_progress_growth = 0.25
+
+                    global_institution_spread = 0.25
+                    embracement_cost = -0.25
+
+                    relation_with_other_culture = 25
+                    relation_with_heathens = 25
+                }
+            }
+
+        }
+    }
+
+
+    interactions = {
+
+        invite_foreigners_interaction = {
+            icon = GFX_war_invite_foreigners_interaction
+            cooldown_years = 10
+#           cost_type = embrace_diversity_power
+#           cost = 0
+            trigger = {
+
+            }
+            effect = {
+                custom_tooltip = invite_foreigners_interaction_tt
+                hidden_effect = {
+                    random_list = {
+                        100 = { country_event = { id = neighbor_events.1 } }
+                        100 = { country_event = { id = neighbor_events.2 } }
+                        100 = { country_event = { id = neighbor_events.3 } }
+                        100 = { country_event = { id = neighbor_events.4 } }
+                        100 = { country_event = { id = neighbor_events.5 } }
+                        100 = { country_event = { id = neighbor_events.6 } }
+                        100 = { country_event = { id = neighbor_events.7 } }
+                        100 = { country_event = { id = neighbor_events.8 } }
+                        100 = { country_event = { id = neighbor_events.9 } }
+                        100 = { country_event = { id = neighbor_events.10 } }
+                        100 = { country_event = { id = neighbor_events.11 } }
+                        100 = { country_event = { id = neighbor_events.12 } }
+                        100 = { country_event = { id = neighbor_events.13 } }
+                        100 = { country_event = { id = neighbor_events.14 } }
+                        100 = { country_event = { id = neighbor_events.15 } }
+                        100 = { country_event = { id = neighbor_events.16 } }
+                        100 = { country_event = { id = neighbor_events.17 } }
+                        100 = { country_event = { id = neighbor_events.18 } }
+                        100 = { country_event = { id = neighbor_events.19 } }
+                        100 = { country_event = { id = neighbor_events.20 } }
+                        100 = { country_event = { id = neighbor_events.21 } }
+                        100 = { country_event = { id = neighbor_events.22 } }
+                        100 = { country_event = { id = neighbor_events.23 } }
+                        100 = { country_event = { id = neighbor_events.24 } }
+                        100 = { country_event = { id = neighbor_events.25 } }
+                        100 = { country_event = { id = neighbor_events.26 } }
+                        100 = { country_event = { id = neighbor_events.27 } }
+                        100 = { country_event = { id = neighbor_events.28 } }
+                        100 = { country_event = { id = neighbor_events.29 } }
+                        100 = { country_event = { id = neighbor_events.30 } }
+                        100 = { country_event = { id = neighbor_events.31 } }
+                        100 = { country_event = { id = neighbor_events.32 } }
+                        100 = { country_event = { id = neighbor_events.33 } }
+                        100 = { country_event = { id = neighbor_events.34 } }
+                        100 = { country_event = { id = neighbor_events.35 } }
+                        100 = { country_event = { id = neighbor_events.36 } }
+                    }
+                }
+            }
+        }
+
+        festival_of_ideas_interaction = {
+            icon = GFX_war_festival_of_ideas_interaction
+            cooldown_years = 10
+#           cost_type = embrace_diversity_power
+#           cost = 0
+            trigger = {
+
+            }
+            effect = {
+                custom_tooltip = festival_of_ideas_interaction_tt
+                hidden_effect = {
+                    every_neighbor_country = {
+                        limit = {
+                            has_opinion = {
+                                who = ROOT
+                                value = 1
+                            }
+                            NOT = { technology_group = ROOT }
+                        }
+                        ROOT = {
+                            add_dip_power = -25
+                            change_innovativeness = 0.1
+                        }
+                        add_trust = {
+                            who = ROOT
+                            value = 5
+                            mutual = yes
+                        }
+                        add_opinion = {
+                            who = ROOT
+                            modifier = embrace_diversity_festival_of_ideas_opinion
+                        }
+                    }
+                }
+            }
+        }
+
+        squeeze_foreigners_interaction = {
+            icon = GFX_war_squeeze_foreigners_interaction
+            cooldown_years = 10
+            cost_type = embrace_diversity_power
+            cost = 1
+            trigger = {
+
+            }
+            effect = {
+                custom_tooltip = squeeze_foreigners_interaction_tt
+                add_years_of_owned_provinces_production_income = {
+                    years = 1
+                    trigger = {
+                        NOT = { culture_group = ROOT }
+                    }
+                }
+                add_years_of_owned_provinces_manpower = {
+                    years = 1
+                    trigger = {
+                        NOT = { culture_group = ROOT }
+                    }
+                }
+                add_years_of_owned_provinces_sailors = {
+                    years = 1
+                    trigger = {
+                        NOT = { culture_group = ROOT }
+                    }
+                }
+            }
+        }
+    }
+
+}

@@ -1,0 +1,1190 @@
+##################################
+##### BARAK VARR
+##################################
+
+barak_varr_missions_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = B14 } # Barak Varr
+	}
+
+	# Barak Varr survives by oaths as much as stone. We must make enough neighbors answer the sea-gate's calls.
+	barak_varr_border_oaths = {
+		icon = mission_alliances
+		required_missions = { }
+		position = 1
+		trigger = {
+			num_of_allies = 2
+			stability = 1
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_frontier_oaths
+				duration = -1
+			}
+		}
+	}
+
+	# Petty crowns litter the marches outside our gates. We must make the loudest claimants accept Dawi authority.
+	barak_varr_petty_crowns_bent = {
+		icon = mission_empire_culture
+		required_missions = { }
+		position = 3
+		trigger = {
+			prestige = 75
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_petty_crowns_bent_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Black Fire Pass feeds the roads to our harbor. We must make the pass tolls pay for guards and grudges alike.
+	barak_varr_black_fire_tollhouses = {
+		icon = mission_caravan
+		required_missions = { barak_varr_named_princes_seats }
+		position = 5
+		provinces_to_highlight = {
+			province_id = 57
+		}
+		trigger = {
+			57 = {
+				owned_by = ROOT
+				OR = {
+					has_building = marketplace
+					has_building = trade_depot
+					has_building = stock_exchange
+				}
+				fort_level = 2
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_black_fire_tollhouses_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Black Fire tolls prove the road can be guarded. We must now secure the iron that makes gates, chains, and guns.
+	barak_varr_claim_iron_veins = {
+		icon = mission_dwarf_miner
+		required_missions = { barak_varr_black_fire_tollhouses }
+		position = 6
+		provinces_to_highlight = {
+			trade_goods = iron
+			has_discovered = ROOT
+		}
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = iron
+				amount = 10
+			}
+		}
+		effect = {
+			custom_tooltip = barak_varr_claim_all_iron_tt
+			hidden_effect = {
+				every_province = {
+					limit = { trade_goods = iron }
+					add_permanent_claim = ROOT
+				}
+			}
+			country_event = { id = dwarf_events.20 }
+		}
+	}
+
+	# Iron in Dawi hands becomes tools, cannon hoops, harbor chains, and plates fit for the Black Gulf.
+	barak_varr_sea_gate_steel = {
+		icon = mission_dwarf_forge
+		required_missions = { barak_varr_claim_iron_veins }
+		position = 7
+		provinces_to_highlight = {
+			trade_goods = iron
+			has_discovered = ROOT
+		}
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = iron
+				amount = 20
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_sea_gate_steel_mod
+				duration = -1
+			}
+			country_event = { id = dwarf_events.20 }
+		}
+	}
+
+	# An iron monopoly lets Barak Varr decide which rivals can afford gates, chains, and hull plates.
+	barak_varr_monopoly_of_steel = {
+		icon = mission_dwarf_hoard
+		required_missions = { barak_varr_sea_gate_steel }
+		position = 8
+		provinces_to_highlight = {
+			trade_goods = iron
+			has_discovered = ROOT
+		}
+		trigger = {
+			trading_part = {
+				trade_goods = iron
+				value = 0.3
+			}
+		}
+		effect = {
+			change_price = {
+				trade_goods = iron
+				value = 0.25
+				duration = -1
+			}
+			country_event = { id = dwarf_events.20 }
+		}
+	}
+
+	# The old holds still weigh us by stone and oath. We must send envoys who can prove the sea-gate has not softened.
+	barak_varr_great_power_envoys = {
+		icon = mission_dwarf_king
+		required_missions = { barak_varr_monopoly_of_steel barak_varr_passes_made_stone }
+		position = 9
+		trigger = {
+			diplomatic_reputation = 4
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_great_power_envoys_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Tilea watches the marches with purse and dagger. We must control ten footholds there, directly or through dependents.
+	barak_varr_ten_roads_into_tilea = {
+		icon = mission_sow_culture
+		required_missions = { }
+		position = 12
+		provinces_to_highlight = {
+			region = tilea_region
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				region = tilea_region
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = barak_varr_claims_tilea_tt
+			hidden_effect = {
+				tilea_region = {
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+	# Ten footholds are leverage. Twenty-five make every Tilean contract account for us.
+	barak_varr_twenty_five_in_tilea = {
+		icon = mission_myrmidia
+		required_missions = { barak_varr_ten_roads_into_tilea }
+		position = 13
+		provinces_to_highlight = {
+			region = tilea_region
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 25
+				region = tilea_region
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_twenty_five_in_tilea_mod
+				duration = -1
+			}
+		}
+	}
+}
+
+barak_varr_missions_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = B14 } # Barak Varr
+	}
+
+	# A frontier army must be ready before the next feud hires it away. We must muster to our limit.
+	barak_varr_frontier_muster = {
+		icon = mission_build_up_to_force_limit
+		required_missions = { barak_varr_border_oaths barak_varr_raised_palisades }
+		position = 2
+		trigger = {
+			army_size_percentage = 1
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_frontier_muster_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The famous seats of the marches cannot remain independent legends. We must hold enough of their capitals to speak for the region.
+	barak_varr_named_princes_seats = {
+		icon = mission_dwarf_king
+		required_missions = { barak_varr_petty_crowns_bent barak_varr_refugee_rolls }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				province_id = 616
+				province_id = 629
+				province_id = 642
+				province_id = 826
+				province_id = 872
+				province_id = 633
+				province_id = 751
+			}
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			calc_true_if = {
+				amount = 3
+				616 = { owner = { OR = { tag = ROOT is_subject_of = ROOT } } } # Monte Castello
+				629 = { owner = { OR = { tag = ROOT is_subject_of = ROOT } } } # Argalis
+				642 = { owner = { OR = { tag = ROOT is_subject_of = ROOT } } } # Wyrmglen
+				826 = { owner = { OR = { tag = ROOT is_subject_of = ROOT } } } # Eagle Confederacy
+				872 = { owner = { OR = { tag = ROOT is_subject_of = ROOT } } } # Akendorf
+				633 = { owner = { OR = { tag = ROOT is_subject_of = ROOT } } } # Gashnagia
+				751 = { owner = { OR = { tag = ROOT is_subject_of = ROOT } } } # Lakoras
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_named_princes_seats_mod
+				duration = -1
+			}
+		}
+	}
+
+
+	# Old feuds can be settled by judges or by fires. We must make arbitration cheaper than private war.
+	barak_varr_courts_arbitration = {
+		icon = mission_araby_talking
+		required_missions = { barak_varr_border_princes_confederacy }
+		position = 7
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 5
+				OR = {
+					has_building = courthouse
+					has_building = town_hall
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_courts_arbitration_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Fortified roads beat brave speeches. We must turn the frontier passes into stone habits.
+	barak_varr_passes_made_stone = {
+		icon = mission_dwarf_snowy_fortress
+		required_missions = { barak_varr_courts_arbitration barak_varr_stable_frontier }
+		position = 8
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 7
+				fort_level = 2
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_passes_made_stone_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Recognition is safer when giants need our friendship. We must bind two trusted great powers to our cause.
+	barak_varr_allies_among_giants = {
+		icon = mission_alliances
+		required_missions = { barak_varr_great_power_envoys }
+		position = 10
+		provinces_to_highlight = {
+			owner = {
+				is_great_power = yes
+				NOT = {
+					alliance_with = ROOT
+					trust = { who = ROOT value = 100 }
+				}
+				NOT = {
+					ROOT = {
+						has_won_war_against = {
+							who = prev
+							max_years_since = 25
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			calc_true_if = {
+				amount = 2
+				all_country = {
+					is_great_power = yes
+					OR = {
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+						}
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_allies_among_giants_mod
+				duration = -1
+			}
+		}
+	}
+
+	# A frontier university is not genteel decoration. We must build one where infrastructure proves the state can support it.
+	barak_varr_university_march = {
+		icon = mission_early_modern_university
+		required_missions = { barak_varr_allies_among_giants }
+		position = 11
+		trigger = {
+			any_owned_province = {
+				region = border_princes_region
+				has_building = university
+				num_of_times_expanded_infrastructure = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_university_march_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Underway and undercity paths are no longer distant horrors. We must hold ten stations below.
+	barak_varr_ten_warrens_below = {
+		icon = mission_skaven_conquest
+		required_missions = { }
+		position = 12
+		provinces_to_highlight = {
+			continent = underempire
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				continent = underempire
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = barak_varr_claims_underempire_tt
+			hidden_effect = {
+				every_province = {
+					limit = { continent = underempire }
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+	# Ten warrens are a map. Twenty-five are an underground frontier.
+	barak_varr_twenty_five_below = {
+		icon = mission_skaven_conquest
+		required_missions = { barak_varr_ten_warrens_below }
+		position = 13
+		provinces_to_highlight = {
+			continent = underempire
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 25
+				continent = underempire
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_twenty_five_below_mod
+				duration = -1
+			}
+		}
+	}
+}
+
+barak_varr_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = B14 } # Barak Varr
+	}
+
+	# Loose walls invite every raider to test us. We must raise early forts before ambition outruns shelter.
+	barak_varr_raised_palisades = {
+		icon = mission_greenskins_fort
+		required_missions = { }
+		position = 1
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 2
+				region = border_princes_region
+				fort_level = 2
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_raised_palisades_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Every newcomer is either a burden or a future taxpayer. We must record the useful and settle them.
+	barak_varr_refugee_rolls = {
+		icon = mission_caravan
+		required_missions = { barak_varr_frontier_muster barak_varr_safe_havens }
+		position = 3
+		trigger = {
+			grown_by_development = 50
+			num_of_cities = 8
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_refugee_rolls_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Roads and rivers meet at hard points. We must fortify enough crossings that raiders find no easy road.
+	barak_varr_fortress_crossings = {
+		icon = mission_dwarf_snowy_fortress
+		required_missions = { barak_varr_refugee_rolls barak_varr_break_raiders }
+		position = 4
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 5
+				OR = {
+					has_building = barracks
+					has_building = training_fields
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_fortress_crossings_mod
+				duration = -1
+			}
+		}
+	}
+
+
+	# A realm of claims needs the nerve to print a larger map. We must hold enough marches to claim the rest.
+	barak_varr_claim_border_thrones = {
+		icon = mission_empire
+		required_missions = { barak_varr_named_princes_seats barak_varr_fortress_crossings }
+		position = 5
+		provinces_to_highlight = {
+			region = border_princes_region
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			is_at_war = no
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 15
+				region = border_princes_region
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = barak_varr_claims_border_princes_tt
+			hidden_effect = {
+				border_princes_region = {
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+
+	# The sea-gate compact must turn clans, roads, merchants, and marcher towns into a common shield.
+	barak_varr_border_princes_confederacy = {
+		icon = mission_dwarf_king
+		required_missions = { barak_varr_claim_border_thrones barak_varr_companies_under_contract }
+		position = 6
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 25
+				region = border_princes_region
+			}
+		}
+		effect = {
+			country_event = { id = barak_varr_events.1001 }
+		}
+	}
+
+	# Peace in the marches is not quiet. We must make rebellion and private feuds rarer than court petitions.
+	barak_varr_stable_frontier = {
+		icon = mission_sow_culture
+		required_missions = { barak_varr_border_princes_confederacy }
+		position = 7
+		trigger = {
+			NOT = { average_unrest = 0 }
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_stable_frontier_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The realm can no longer rely on lucky captains. We must build a professional army with a memory longer than one contract.
+	barak_varr_modern_muster = {
+		icon = mission_build_up_to_force_limit
+		required_missions = { barak_varr_passes_made_stone barak_varr_manufactories_order }
+		position = 9
+		trigger = {
+			OR = {
+				army_professionalism = 0.25
+				has_country_modifier = war_modern_army
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_modern_muster_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The world must stop treating us as a buffer and start treating us as a power. We must be named among the great.
+	barak_varr_great_power_recognized = {
+		icon = mission_empire
+		required_missions = { barak_varr_allies_among_giants barak_varr_defeat_crowned_giant }
+		position = 11
+		trigger = {
+			is_great_power = yes
+			prestige = 75
+			legitimacy_equivalent = 95
+			diplomatic_reputation = 5
+			army_size = 100
+			navy_size = 50
+		}
+		effect = {
+			country_event = { id = barak_varr_events.1002 }
+		}
+	}
+
+	# The Empire will respect us by ballots or by standards. We must hold ten Imperial provinces or win an elector's vote.
+	barak_varr_votes_or_standards = {
+		icon = mission_empire_culture
+		required_missions = { }
+		position = 12
+		provinces_to_highlight = {
+			OR = {
+				region = central_empire_region
+				region = southern_empire_region
+			}
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			OR = {
+				num_of_provinces_owned_or_owned_by_subjects_with = {
+					value = 10
+					OR = {
+						region = central_empire_region
+						region = southern_empire_region
+					}
+				}
+				any_country = {
+					is_elector = yes
+					preferred_emperor = ROOT
+				}
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = barak_varr_claims_empire_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						OR = {
+							region = central_empire_region
+							region = southern_empire_region
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+	# A vote is influence; twenty-five provinces are a western frontier of our own.
+	barak_varr_imperial_foothold = {
+		icon = mission_monarch_in_throne_room
+		required_missions = { barak_varr_votes_or_standards }
+		position = 13
+		provinces_to_highlight = {
+			OR = {
+				region = northern_empire_region
+				region = central_empire_region
+				region = southern_empire_region
+			}
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			OR = {
+				num_of_provinces_owned_or_owned_by_subjects_with = {
+					value = 25
+					OR = {
+						region = northern_empire_region
+						region = central_empire_region
+						region = southern_empire_region
+					}
+				}
+				is_emperor = yes
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_imperial_foothold_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Five horizons now answer our contracts. We must bind every distant frontier into one system.
+	barak_varr_five_horizons = {
+		icon = mission_high_elf_old_world_map
+		required_missions = { barak_varr_twenty_five_in_tilea barak_varr_twenty_five_below barak_varr_imperial_foothold barak_varr_eastern_stations barak_varr_southlands_dominion }
+		position = 14
+		trigger = {
+			navy_size = 75
+			has_flagship = yes
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_five_horizons_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Ultimate choice implemented: Hold of Stone and Sail. Other candidates were Sea-Gate Imperium, Ledger of Five Horizons, and Shield of the Black Gulf.
+	barak_varr_empire_from_no_ones_land = {
+		icon = mission_dwarf_king
+		required_missions = { }
+		position = 15
+		provinces_to_highlight = {
+			owner = {
+				is_great_power = yes
+				NOT = {
+					alliance_with = ROOT
+					trust = { who = ROOT value = 100 }
+				}
+				NOT = {
+					ROOT = {
+						has_won_war_against = {
+							who = prev
+							max_years_since = 25
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			is_great_power = yes
+			custom_trigger_tooltip = {
+				tooltip = beat_or_ally_all_great_powers_tt
+				NOT = {
+					any_country = {
+						is_great_power = yes
+						NOT = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+						}
+						NOT = {
+							ROOT = {
+								has_won_war_against = {
+									who = prev
+									max_years_since = 25
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_empire_from_no_ones_land_mod
+				duration = -1
+			}
+		}
+	}
+}
+
+barak_varr_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = B14 } # Barak Varr
+	}
+
+	# Shrines and guarded sanctuaries give the frightened somewhere to run. We must make havens the frontier can trust.
+	barak_varr_safe_havens = {
+		icon = mission_empire_religion
+		required_missions = { barak_varr_raised_palisades barak_varr_toll_road_charters }
+		position = 2
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 3
+				region = border_princes_region
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_safe_havens_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Raiders thrive when princes argue. We must defeat or displace the Greenskin threat around the marches.
+	barak_varr_break_raiders = {
+		icon = mission_greenskins_boar
+		required_missions = { barak_varr_safe_havens }
+		position = 3
+		provinces_to_highlight = {
+			owner = {
+				is_neighbor_of = ROOT
+				has_country_modifier = orcish_military
+				NOT = {
+					trust = { who = ROOT value = 100 }
+				}
+				NOT = {
+					ROOT = {
+						has_won_war_against = {
+							who = prev
+							max_years_since = 25
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			NOT = {
+				any_neighbor_country = {
+					has_country_modifier = orcish_military
+					NOT = {
+						OR = {
+							trust = { who = ROOT value = 100 }
+							ROOT = {
+								has_won_war_against = {
+									who = PREV
+									max_years_since = 25
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_break_raiders_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Greenskin camps teach the frontier to sleep lightly. We must burn enough of them that the next raid looks elsewhere.
+	barak_varr_orc_camps_burned = {
+		icon = mission_greenskins_flag
+		required_missions = { barak_varr_break_raiders }
+		position = 4
+		provinces_to_highlight = {
+			region = border_princes_region
+			owner = {
+				has_country_modifier = orcish_military
+			}
+		}
+		trigger = {
+			OR = {
+				has_country_modifier = orcish_military
+				NOT = {
+					any_province = {
+						region = border_princes_region
+						owner = {
+							has_country_modifier = orcish_military
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_orc_camps_burned_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Sellswords built half these crowns. We must make the companies answer contracts instead of whims.
+	barak_varr_companies_under_contract = {
+		icon = mission_naggaroth_soldier
+		required_missions = { barak_varr_fortress_crossings }
+		position = 5
+		trigger = {
+			monthly_income = 25
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_companies_under_contract_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Black Gulf cannot remain another distant shore. We must build ships fit to guard trade.
+	barak_varr_black_gulf_shipyards = {
+		icon = mission_high_elf_docks
+		required_missions = { barak_varr_border_princes_confederacy barak_varr_great_sea_gate_ledger }
+		position = 7
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 5
+				OR = {
+					has_building = dock
+					has_building = drydock
+					has_building = shipyard
+					has_building = grand_shipyard
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_black_gulf_shipyards_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Outsiders think factories cannot survive around Barak Varr. We must prove that the sea-gate can keep furnaces, schedules, and wages moving.
+	barak_varr_manufactories_order = {
+		icon = mission_have_manufactories
+		required_missions = { barak_varr_stable_frontier barak_varr_black_gulf_shipyards }
+		position = 8
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 5
+				OR = {
+					has_building = mills
+					has_building = farm_estate
+					has_building = tradecompany
+					has_building = plantations
+					has_building = textile
+					has_building = weapons
+					has_building = wharf
+					has_building = furnace
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_manufactories_order_mod
+				duration = -1
+			}
+		}
+	}
+
+	# A great power's defeat is worth more than a hundred petitions. We must beat one in war.
+	barak_varr_defeat_crowned_giant = {
+		icon = mission_greenskins_flag
+		required_missions = { barak_varr_modern_muster barak_varr_black_gulf_patrols }
+		position = 10
+		trigger = {
+			power_projection = 40
+			any_country = {
+				is_great_power = yes
+				ROOT = {
+					has_won_war_against = {
+						who = PREV
+						max_years_since = 25
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_defeat_crowned_giant_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Dark Lands are old kinship turned to ash and industry. We must hold ten stations there.
+	barak_varr_caravan_far_east = {
+		icon = mission_chaos_dwarf_industry
+		required_missions = { }
+		position = 12
+		provinces_to_highlight = {
+			superregion = darklands_superregion
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				superregion = darklands_superregion
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = barak_varr_claims_darklands_tt
+			hidden_effect = {
+				every_province = {
+					limit = { superregion = darklands_superregion }
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+	# Ten stations are footholds. Twenty-five are a road system watched from the sea-gate.
+	barak_varr_eastern_stations = {
+		icon = mission_chaos_dwarf_industry
+		required_missions = { barak_varr_caravan_far_east }
+		position = 13
+		provinces_to_highlight = {
+			superregion = darklands_superregion
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 25
+				superregion = darklands_superregion
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_eastern_stations_mod
+				duration = -1
+			}
+		}
+	}
+}
+
+barak_varr_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = B14 } # Barak Varr
+	}
+
+	# Roads need coin before they need poetry. We must turn tolls and markets into a frontier purse.
+	barak_varr_toll_road_charters = {
+		icon = mission_caravan
+		required_missions = { }
+		position = 1
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 2
+				OR = {
+					has_building = marketplace
+					has_building = trade_depot
+					has_building = stock_exchange
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_toll_road_charters_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Toll roads need real market anchors. We must upgrade the crossroads that make the frontier's charters profitable.
+	barak_varr_market_crossroads = {
+		icon = mission_caravan
+		required_missions = { barak_varr_toll_road_charters }
+		position = 3
+		provinces_to_highlight = {
+			region = border_princes_region
+			province_has_center_of_trade_of_level = 1
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 2
+				province_has_center_of_trade_of_level = 2
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_market_crossroads_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Barak Varr's road is a ledger written in grudges. We must hold the gate and keep its great harbor working.
+	barak_varr_great_sea_gate_ledger = {
+		icon = mission_dwarf_hoard
+		required_missions = { }
+		position = 6
+		provinces_to_highlight = {
+			province_id = 754
+		}
+		trigger = {
+			754 = {
+				owned_by = ROOT
+				has_great_project = {
+					type = barak_varr
+					tier = 3
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_great_sea_gate_ledger_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Black Gulf rewards captains who can keep trade ships moving. We must put enough light hulls on the water to matter.
+	barak_varr_black_gulf_patrols = {
+		icon = mission_high_elf_docks_2
+		required_missions = { barak_varr_great_sea_gate_ledger }
+		position = 9
+		trigger = {
+			num_of_light_ship = 25
+		}
+		effect = {
+			country_event = { id = barak_varr_events.1003 }
+		}
+	}
+
+	# Escorts are only useful if they command the routes that feed them. We must dominate our home trade node.
+	barak_varr_home_node_dominance = {
+		icon = mission_dominate_home_trade_node
+		required_missions = { barak_varr_black_gulf_patrols }
+		position = 11
+		provinces_to_highlight = {
+			province_id = 754
+		}
+		trigger = {
+			754 = {
+				trade_share = {
+					country = ROOT
+					share = 80
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_home_node_dominance_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Badlands turn frontier skill into harsher empire. We must hold ten provinces there.
+	barak_varr_southlands_marches = {
+		icon = mission_high_elf_southlands_map
+		required_missions = { }
+		position = 12
+		provinces_to_highlight = {
+			region = badlands_region
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				region = badlands_region
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = barak_varr_claims_badlands_tt
+			hidden_effect = {
+				every_province = {
+					limit = { region = badlands_region }
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+	# Ten marches are outposts. Twenty-five make the southern frontier recognize our seal.
+	barak_varr_southlands_dominion = {
+		icon = mission_high_elf_southlands_map
+		required_missions = { barak_varr_southlands_marches }
+		position = 13
+		provinces_to_highlight = {
+			region = badlands_region
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 25
+				region = badlands_region
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = barak_varr_southlands_dominion_mod
+				duration = -1
+			}
+		}
+	}
+}
