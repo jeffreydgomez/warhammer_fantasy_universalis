@@ -1,4 +1,5 @@
 ## Our society values glory and combat over the the dullness of economics or culture.
+## Increasing power by 10 is worth 1 Weighting
 
 
 war_militarization_mechanic = {
@@ -9,7 +10,7 @@ war_militarization_mechanic = {
 	}
 
 	powers = {
-		militarized_society = {
+		war_militarization_power = {
 			max = 100
 			base_monthly_growth = 0
 			scaled_modifier = {
@@ -21,66 +22,44 @@ war_militarization_mechanic = {
 					prestige = -2
 					global_trade_goods_size_modifier = -0.1
 
-					monthly_militarized_society = -0.5
+					monthly_war_militarization_power = -0.5
 				}
 			}
 		}
 	}
 	
 	interactions = {
-		boost_militarization = {
-			gui = militarization_gov_mech
-			cost_type = militarized_society
+		war_boost_militarization = {
+			icon = GFX_war_boost_militarization_interaction
+			cost_type = war_militarization_power
 			center = no
 			trigger = {
 				mil_power_cost = 50
-				not = {
-					has_government_power = {
-						mechanic_type = militarization_mechanic
-						power_type = militarized_society
-						value = 100
+					not = {
+						has_government_power = {
+							mechanic_type = war_militarization_mechanic
+							power_type = war_militarization_power
+							value = 100
+						}
 					}
-				}
 			}
 			effect = { 
 				mil_power_cost = 50
 				add_government_power = {
-					mechanic_type = militarization_mechanic
-					power_type = militarized_society
+					mechanic_type = war_militarization_mechanic
+					power_type = war_militarization_power
 					value = 10
 				}
 			}
 			cooldown_years = 0
 			ai_chance = {
-				factor = 10
-				modifier = {
-					factor = 0
-					has_government_power = {
-						mechanic_type = militarization_mechanic
-						power_type = militarized_society
-						value = 90
-					}
-				}
-				modifier = {
-					factor = 0
-					neighbors_tech_discount = 0.05
-				}
-				modifier = {
-					factor = 0
-					not = { mil_power_cost = 500 }
-				}
-				modifier = {
-					factor = 10
-					is_at_war = yes
-				}
+                factor = 0
 			}
 		}
 
-	interactions = {
-		march_divided_fight_united = {
-			gui = prussian_militarization_gov_mech_3_interaction
-			icon = GFX_prussian_militarization_march_divided_fight_united
-			cost_type = militarized_society
+		war_march_divided_fight_united = {
+			icon = GFX_war_march_divided_fight_united_interaction
+			cost_type = war_militarization_power
             cost = 20
 			effect = { 
 				add_country_modifier = {
@@ -95,8 +74,8 @@ war_militarization_mechanic = {
 					factor = 10
 					not = {
 						has_government_power = {
-							mechanic_type = militarization_mechanic
-							power_type = militarized_society
+							mechanic_type = war_militarization_mechanic
+							power_type = war_militarization_power
 							value = 90
 						}
 					}
@@ -105,10 +84,9 @@ war_militarization_mechanic = {
 			}
 		}
 		
-		rewrite_military_manual = {
-			gui = prussian_militarization_gov_mech_3_interaction
-			icon = GFX_prussian_militarization_rewrite_military_manual
-			cost_type = militarized_society
+		war_rewrite_military_manual = {
+			icon = GFX_war_rewrite_military_manual_interaction
+			cost_type = war_militarization_power
             cost = 20
 			effect = { 
 				add_country_modifier = {
@@ -118,22 +96,8 @@ war_militarization_mechanic = {
 			}
 			cooldown_years = 5
 			ai_chance = {
-				factor = 0
-				modifier = {
-					factor = 10
-					not = {
-						has_government_power = {
-							mechanic_type = militarization_mechanic
-							power_type = militarized_society
-							value = 90
-						}
-					}
-					mil_power = 500
-				}
-			}
+                factor = 0
+            }
 		}
-
-
-
 	}
 }

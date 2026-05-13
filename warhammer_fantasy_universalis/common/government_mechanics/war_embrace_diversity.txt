@@ -1,6 +1,8 @@
+## Increasing embrace_diversity_power by 1 is worth 1 Weighting
+
 embrace_diversity_mechanic = {
     alert_icon_gfx = GFX_alerticons
-    alert_icon_index = 53
+    alert_icon_index = 79
 
     available = {
         always = yes
@@ -50,7 +52,7 @@ embrace_diversity_mechanic = {
         invite_foreigners_interaction = {
             icon = GFX_war_invite_foreigners_interaction
             cooldown_years = 10
-#           cost_type = embrace_diversity_power
+           cost_type = embrace_diversity_power
 #           cost = 0
             trigger = {
 
@@ -58,6 +60,7 @@ embrace_diversity_mechanic = {
             effect = {
                 custom_tooltip = invite_foreigners_interaction_tt
                 hidden_effect = {
+                    set_country_flag = accept_all_neighbor_events
                     random_list = {
                         100 = { country_event = { id = neighbor_events.1 } }
                         100 = { country_event = { id = neighbor_events.2 } }
@@ -96,14 +99,18 @@ embrace_diversity_mechanic = {
                         100 = { country_event = { id = neighbor_events.35 } }
                         100 = { country_event = { id = neighbor_events.36 } }
                     }
+                    clr_country_flag = accept_all_neighbor_events
                 }
+            }
+            ai_chance = {
+                factor = 0
             }
         }
 
         festival_of_ideas_interaction = {
             icon = GFX_war_festival_of_ideas_interaction
             cooldown_years = 10
-#           cost_type = embrace_diversity_power
+           cost_type = embrace_diversity_power
 #           cost = 0
             trigger = {
 
@@ -135,36 +142,32 @@ embrace_diversity_mechanic = {
                     }
                 }
             }
+            ai_chance = {
+                factor = 0
+            }
         }
 
-        squeeze_foreigners_interaction = {
+        get_foreign_ideas_interaction = {
             icon = GFX_war_squeeze_foreigners_interaction
-            cooldown_years = 10
+            cooldown_years = 5
             cost_type = embrace_diversity_power
             cost = 1
             trigger = {
-
+                is_lacking_institutions = yes
+                any_owned_province = {
+                    province_has_center_of_trade_of_level = 1
+                }
             }
             effect = {
-                custom_tooltip = squeeze_foreigners_interaction_tt
-                add_years_of_owned_provinces_production_income = {
-                    years = 1
-                    trigger = {
-                        NOT = { culture_group = ROOT }
+                every_owned_province = {
+                    limit = { 
+                        province_has_center_of_trade_of_level = 1
                     }
+                    add_next_institution_embracement = 25
                 }
-                add_years_of_owned_provinces_manpower = {
-                    years = 1
-                    trigger = {
-                        NOT = { culture_group = ROOT }
-                    }
-                }
-                add_years_of_owned_provinces_sailors = {
-                    years = 1
-                    trigger = {
-                        NOT = { culture_group = ROOT }
-                    }
-                }
+            }
+            ai_chance = {
+                factor = 0
             }
         }
     }

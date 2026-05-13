@@ -85,7 +85,7 @@ on_battle_lost_country = {
 				religion = khornate_religion
 			}
 		}
-		add_church_power = 1		#khorne cares not where the blood flows so long as it flows
+		add_church_power = 1
 	}
 }
 
@@ -1007,6 +1007,56 @@ on_culture_demoted = {
 			mechanic_type = embrace_diversity_mechanic
 			power_type = embrace_diversity_power
 			value = -5
+		}
+	}
+}
+
+
+
+### For Corpse Stores
+## This will only work if on_battle_won_country triggers before on_battle_lost_province
+
+on_battle_won_country = {
+	set_variable = {
+		which = war_units_killed_in_last_battle_winner
+		which = land_units_killed
+	}
+	change_variable = {
+		which = war_units_killed_in_last_battle_winner
+		which = land_units_lost
+	}
+}
+
+on_battle_lost_province = {
+	if = {
+		limit = {
+			owner = {
+				has_government_mechanic = corpse_stores_mechanic
+			}
+		}
+
+		while = {
+			limit = {
+				FROM = {
+					check_variable = {
+						which = war_units_killed_in_last_battle_winner
+						value = 1000
+					}
+				}
+			}
+			FROM = {
+				change_variable = {
+					which = war_units_killed_in_last_battle_winner
+					value = -1000
+				}
+			}
+			owner = {
+				add_government_power = { 
+					mechanic_type = corpse_stores_mechanic 
+					power_type = corpse_stores_power
+					value = 0.5
+				}
+			}
 		}
 	}
 }

@@ -1,10 +1,11 @@
 ## Our society values culture, refinement, and fine things over the brutalities of war or the dullness of economics.
+## Increasing power by 10 is worth 1 Weighting
 
 
 
 war_refinement_mechanic = {
 	alert_icon_gfx = GFX_alerticons_government_mechanics
-	alert_icon_index = 10
+	alert_icon_index = 79
 	available = {
 		always = yes
 	}
@@ -30,7 +31,7 @@ war_refinement_mechanic = {
 	
 	interactions = {
 		boost_refinement = {
-			gui = militarization_gov_mech
+			icon = GFX_war_boost_refinement_interaction
 			cost_type = war_refinement_power
 			center = no
 			trigger = {
@@ -53,28 +54,12 @@ war_refinement_mechanic = {
 			}
 			cooldown_years = 0
 			ai_chance = {
-				factor = 10
-				modifier = {
-					factor = 0
-					has_government_power = {
-						mechanic_type = war_refinement_mechanic
-						power_type = war_refinement_power
-						value = 90
-					}
-				}
-				modifier = {
-					factor = 0
-					neighbors_tech_discount = 0.05
-				}
-				modifier = {
-					factor = 0
-					not = { dip_power_cost = 500 }
-				}
-			}
+                factor = 0
+            }
 		}
 
 		war_host_exposition = {
-			gui = militarization_gov_mech
+			icon = GFX_war_host_exposition_interaction
 			cost_type = war_refinement_power
 			center = no
 			trigger = {
@@ -120,17 +105,12 @@ war_refinement_mechanic = {
 
 
 		war_exploit_reputation = {
-			gui = militarization_gov_mech
+			icon = GFX_war_exploit_reputation_interaction
 			center = no
-			cost_type = war_productivity_power
+			cost_type = war_refinement_power
             cost = 25
 			effect = {
-				add_years_of_income = 1.0
-				add_government_power = {
-					mechanic_type = war_refinement_mechanic
-					power_type = war_refinement_power
-					value = -25
-				}
+				add_years_of_income = 1.5
 			}
 			cooldown_years = 20
 			ai_chance = {

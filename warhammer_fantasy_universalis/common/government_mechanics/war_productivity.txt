@@ -1,9 +1,10 @@
 ## Our society values wealth, and the accumilation of goods more than cultural or military factors.
+## Increasing power by 10 is worth 1 Weighting
 
 
 war_productivity_mechanic = {
 	alert_icon_gfx = GFX_alerticons_government_mechanics
-	alert_icon_index = 10
+	alert_icon_index = 79
 	available = {
 		always = yes
 	}
@@ -29,9 +30,10 @@ war_productivity_mechanic = {
 	
 	interactions = {
 		boost_productivity = {
-			gui = militarization_gov_mech
+			icon = GFX_war_boost_productivity_interaction
 			cost_type = war_productivity_power
-			center = no
+			cooldown_years = 0
+
 			trigger = {
 				adm_power_cost = 50
 				not = {
@@ -50,32 +52,16 @@ war_productivity_mechanic = {
 					value = 10
 				}
 			}
-			cooldown_years = 0
 			ai_chance = {
-				factor = 10
-				modifier = {
-					factor = 0
-					has_government_power = {
-						mechanic_type = war_productivity_mechanic
-						power_type = war_productivity_power
-						value = 90
-					}
-				}
-				modifier = {
-					factor = 0
-					neighbors_tech_discount = 0.05
-				}
-				modifier = {
-					factor = 0
-					not = { amd_power_cost = 500 }
-				}
-			}
+                factor = 0
+            }
 		}
 
 		war_solicit_investments = {
-			gui = militarization_gov_mech
-			cost_type = war_refinement_power
-			center = no
+			icon = GFX_war_solicit_investments_interaction
+			cost_type = war_productivity_power
+			cooldown_years = 20
+
 			trigger = {
 				not = {
 					has_government_power = {
@@ -104,7 +90,6 @@ war_productivity_mechanic = {
 					value = 15
 				}
 			}
-			cooldown_years = 20
 			ai_chance = {
 				factor = 0
 
@@ -112,20 +97,17 @@ war_productivity_mechanic = {
 		}
 
 
-		war_building_spreed = {
-			gui = militarization_gov_mech
-			center = no
+		war_encourage_construction = {
+			icon = GFX_war_encourage_construction_interaction
 			cost_type = war_productivity_power
             cost = 25
+            cooldown_years = 20
 			effect = {
-				# 5 year bonus to building cost.
-				add_government_power = {
-					mechanic_type = war_productivity_mechanic
-					power_type = war_productivity_power
-					value = -25
+				add_country_modifier = { 
+				    name = war_encourage_construction_modifier
+				    duration = 365
 				}
 			}
-			cooldown_years = 20
 			ai_chance = {
 				factor = 0
 
