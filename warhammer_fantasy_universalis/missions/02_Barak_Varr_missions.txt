@@ -816,18 +816,28 @@ barak_varr_missions_4 = {
 			}
 		}
 		trigger = {
-			NOT = {
-				any_neighbor_country = {
-					has_country_modifier = orcish_military
-					NOT = {
-						OR = {
-							trust = { who = ROOT value = 100 }
-							ROOT = {
-								has_won_war_against = {
-									who = PREV
-									max_years_since = 25
+			OR = {
+				NOT = {
+					any_neighbor_country = {
+						has_country_modifier = orcish_military
+						NOT = {
+							OR = {
+								trust = { who = ROOT value = 100 }
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
 								}
 							}
+						}
+					}
+				}
+				NOT = {
+					any_province = {
+						region = border_princes_region
+						owner = {
+							has_country_modifier = orcish_military
 						}
 					}
 				}
