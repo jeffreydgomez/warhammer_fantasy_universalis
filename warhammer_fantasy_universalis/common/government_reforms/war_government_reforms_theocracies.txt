@@ -98,6 +98,9 @@ cult_of_sigmar_reform = {
 		discipline  = 0.05
 		global_missionary_strength = 0.02
 	}
+	government_abilities = {
+		war_militarization_mechanic
+	}
 	effect = {
 	}
 	removed_effect = {
@@ -129,6 +132,9 @@ cult_of_ulric_reform = {
 		production_efficiency = 0.1
 		land_morale = 0.05
 		global_missionary_strength = 0.02
+	}
+	government_abilities = {
+		war_militarization_mechanic
 	}
 	effect = {
 	}
@@ -301,7 +307,7 @@ sorcerers_conclave_reform = {
 	heirs_can_be_generals = yes
 	allow_normal_conversion = no
 	government_abilities = {
-		flexible_industry_mechanic
+		war_productivity_mechanic
 	}
 }
 
@@ -333,8 +339,8 @@ nehekharan_government_reform = {
 		global_institution_spread = -0.5
 		embracement_cost = 0.5
 	}
-	government_abilities = { 
-		internal_external_mechanic
+	government_abilities = {
+		war_productivity_mechanic
 	}
 	heir = no
 	rulers_can_be_generals = yes
@@ -369,8 +375,8 @@ nehekharan_reformed_theocracy = {
 		governing_capacity = 50
 		tolerance_own = 2
 	}
-	government_abilities = { 
-		internal_external_mechanic
+	government_abilities = {
+		war_productivity_mechanic
 	}
 	heir = no
 	rulers_can_be_generals = yes
@@ -487,7 +493,7 @@ araby_theocracy = {
 	}
 
 	government_abilities = {
-		internal_external_mechanic
+		war_refinement_mechanic
 	}
 	ai = {
 		factor = 1
@@ -665,7 +671,7 @@ war_lady_of_the_lake_theocracy_reform = {
 	}
 
 	government_abilities = {
-		control_of_court_mechanic
+		war_refinement_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -1207,7 +1213,7 @@ war_cadai_theocracy_reform = {
 	}
 
 	government_abilities = {
-		control_of_court_mechanic
+		war_refinement_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -1237,7 +1243,7 @@ war_ancestor_gods_theocracy_reform = {
 	}
 
 	government_abilities = {
-		flexible_industry_mechanic
+		internal_external_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -1424,6 +1430,37 @@ war_the_thousand_gods_theocracy_reform = {
 	}
 }
 
+# Concept: Halfling Theocracy
+# Balance Value: 0 (food_stores_mechanic handled separately)
+war_halfling_theocracy_reform = {
+	icon = "religious_leader"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		OR = {
+			primary_culture = halfling
+			has_reform = war_halfling_theocracy_reform
+			have_had_reform = war_halfling_theocracy_reform
+		}
+	}
+	nation_designer_trigger = {
+		primary_culture = halfling
+	}
+
+	government_abilities = {
+		food_stores_mechanic
+	}
+	effect = {
+		country_event = {
+			id = ogre_events.9
+		}
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
 # Concept: Imperial Theocracy
 # Balance Value: 15
 war_imperial_group_theocracy_reform = {
@@ -1567,7 +1604,7 @@ war_tilean_group_theocracy_reform = {
 	}
 
 	government_abilities = {
-		internal_external_mechanic
+		war_productivity_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -1597,7 +1634,7 @@ war_norse_group_theocracy_reform = {
 	}
 
 	government_abilities = {
-		war_power_struggle_mechanic
+		war_militarization_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -1656,7 +1693,7 @@ war_beastmen_group_theocracy_reform = {
 		diplomatic_reputation = -2
 	}
 	government_abilities = {
-		war_power_struggle_mechanic
+		war_militarization_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -1746,7 +1783,7 @@ war_fimir_group_theocracy_reform = {
 	}
 
 	government_abilities = {
-		war_power_struggle_mechanic
+		war_militarization_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -1865,7 +1902,7 @@ war_hung_group_theocracy_reform = {
 		diplomatic_reputation = -2
 	}
 	government_abilities = {
-		war_power_struggle_mechanic
+		war_militarization_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -1894,7 +1931,7 @@ war_kurgan_group_theocracy_reform = {
 		diplomatic_reputation = -2
 	}
 	government_abilities = {
-		war_power_struggle_mechanic
+		war_militarization_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -1952,8 +1989,8 @@ war_ogre_group_theocracy_reform = {
 		# Penalty WV: -10
 		production_efficiency = -0.1
 	}
-	government_abilities = { 
-		food_stores_mechanic
+	government_abilities = {
+		war_power_struggle_mechanic
 	}
 	effect = {
 		country_event = { 
@@ -1988,7 +2025,7 @@ war_amazon_group_theocracy_reform = {
 	}
 
 	government_abilities = {
-		internal_external_mechanic
+		war_power_struggle_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -2018,7 +2055,7 @@ war_hobgoblin_group_theocracy_reform = {
 	}
 
 	government_abilities = {
-		internal_external_mechanic
+		war_militarization_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -2197,7 +2234,7 @@ war_nipponese_cg_theocracy_reform = {
 	}
 
 	government_abilities = {
-		control_of_court_mechanic
+		war_militarization_mechanic
 	}
 	ai = {
 		factor = 0.5

@@ -18,6 +18,9 @@ bretonnian_dukedom_reform = {
 		nobles_influence_modifier = 0.05
 		cavalry_power = 0.10
 	}
+	government_abilities = {
+		control_of_court_mechanic
+	}
 	
 	conditional = {
 		allow = { 
@@ -654,8 +657,8 @@ nehekhara_reformed_monarchy = {
 		nobles_loyalty_modifier = 0.1
 		nobles_influence_modifier = 0.1
 	}
-	government_abilities = { 
-		internal_external_mechanic
+	government_abilities = {
+		war_productivity_mechanic
 	}
 	heir = yes
 	rulers_can_be_generals = yes
@@ -758,8 +761,8 @@ ogre_monarch_reform = {
 		shock_damage = 0.15
 		production_efficiency = -0.1
 	}
-	government_abilities = { 
-		food_stores_mechanic
+	government_abilities = {
+		war_power_struggle_mechanic
 	}
 	effect = {
 		country_event = { 
@@ -1282,7 +1285,7 @@ norscan_kingdom_reform = { #Exodus Kingdom
 		factor = 0.5 #generic
 	}
 	government_abilities = {
-		war_power_struggle_mechanic
+		war_militarization_mechanic
 	}
 	custom_attributes = {
 		locked_government_type = yes
@@ -1321,7 +1324,7 @@ norscan_high_kingdom_reform = { #Norsca Exclusive High Kingdom
 		factor = 0.5 #generic
 	}
 	government_abilities = {
-		war_power_struggle_mechanic
+		war_militarization_mechanic
 	}
 	custom_attributes = {
 		locked_government_type = yes
@@ -1364,7 +1367,7 @@ norscan_global_empire_reform = { # Secret Reform, Only Possible if Norscan Minor
 		factor = 0.5 #generic
 	}
 	government_abilities = {
-		war_power_struggle_mechanic
+		war_militarization_mechanic
 	}
 	custom_attributes = {
 		locked_government_type = yes
@@ -1572,7 +1575,7 @@ war_lady_of_the_lake_monarchy_reform = {
 	}
 
 	government_abilities = {
-		control_of_court_mechanic
+		war_refinement_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -1633,6 +1636,74 @@ war_ursun_monarchy_reform = {
 
 	government_abilities = {
 		internal_external_mechanic
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Chernozavtra Monarchy
+# Balance Value: 0 (food_stores_mechanic handled separately)
+chernozavtra_monarchy_reform = {
+	icon = "ursun"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = no
+	nation_designer_cost = 10
+	potential = {
+		OR = {
+			tag = B31
+			was_tag = B31
+			has_reform = chernozavtra_monarchy_reform
+			have_had_reform = chernozavtra_monarchy_reform
+		}
+	}
+	trigger = {
+		OR = {
+			tag = B31
+			was_tag = B31
+			has_reform = chernozavtra_monarchy_reform
+			have_had_reform = chernozavtra_monarchy_reform
+		}
+	}
+
+	government_abilities = {
+		food_stores_mechanic
+	}
+	effect = {
+		country_event = {
+			id = ogre_events.9
+		}
+	}
+	ai = {
+		factor = 0.5
+	}
+}
+
+# Concept: Halfling Monarchy
+# Balance Value: 0 (food_stores_mechanic handled separately)
+war_halfling_monarchy_reform = {
+	icon = "peasant_republic"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		OR = {
+			primary_culture = halfling
+			has_reform = war_halfling_monarchy_reform
+			have_had_reform = war_halfling_monarchy_reform
+		}
+	}
+	nation_designer_trigger = {
+		primary_culture = halfling
+	}
+
+	government_abilities = {
+		food_stores_mechanic
+	}
+	effect = {
+		country_event = {
+			id = ogre_events.9
+		}
 	}
 	ai = {
 		factor = 0.5
@@ -1930,7 +2001,7 @@ war_hashut_monarchy_reform = {
 	}
 
 	government_abilities = {
-		flexible_industry_mechanic
+		war_productivity_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -2084,7 +2155,7 @@ war_cadai_monarchy_reform = {
 	}
 
 	government_abilities = {
-		control_of_court_mechanic
+		war_refinement_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -2114,7 +2185,7 @@ war_ancestor_gods_monarchy_reform = {
 	}
 
 	government_abilities = {
-		flexible_industry_mechanic
+		internal_external_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -2473,7 +2544,7 @@ war_beastmen_group_monarchy_reform = {
 		global_tax_modifier = -0.1
 	}
 	government_abilities = {
-		war_power_struggle_mechanic
+		war_militarization_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -2503,7 +2574,7 @@ war_fimir_group_monarchy_reform = {
 	}
 
 	government_abilities = {
-		war_power_struggle_mechanic
+		war_militarization_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -2623,7 +2694,7 @@ war_arabyan_group_monarchy_reform = {
 	}
 
 	government_abilities = {
-		internal_external_mechanic
+		war_refinement_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -2652,7 +2723,7 @@ war_hung_group_monarchy_reform = {
 		improve_relation_modifier = -0.2
 	}
 	government_abilities = {
-		war_power_struggle_mechanic
+		war_militarization_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -2681,7 +2752,7 @@ war_kurgan_group_monarchy_reform = {
 		improve_relation_modifier = -0.2
 	}
 	government_abilities = {
-		war_power_struggle_mechanic
+		war_militarization_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -2741,7 +2812,7 @@ war_amazon_group_monarchy_reform = {
 	}
 
 	government_abilities = {
-		internal_external_mechanic
+		war_power_struggle_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -2890,7 +2961,7 @@ war_nipponese_cg_monarchy_reform = {
 	}
 
 	government_abilities = {
-		control_of_court_mechanic
+		war_militarization_mechanic
 	}
 	ai = {
 		factor = 0.5

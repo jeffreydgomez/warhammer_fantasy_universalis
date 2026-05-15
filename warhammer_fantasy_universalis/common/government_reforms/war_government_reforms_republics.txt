@@ -99,6 +99,9 @@ remas_merchants_reform = {
 		mr_traders
 		mr_guilds
 	}
+	government_abilities = {
+		war_productivity_mechanic
+	}
 	conditional = {
 		allow = {
 			has_dlc = "Res Publica"
@@ -249,12 +252,52 @@ league_of_ostermark_reform = {
 		nobles_influence_modifier = 0.05
 		max_absolutism = -10
 	}
+	government_abilities = {
+		internal_external_mechanic
+	}
 	custom_attributes = {
 		enables_plutocratic_idea_group = no
 		enables_aristocratic_idea_group = yes
 
 	}
 	duration = 10
+}
+
+# Concept: The Moot
+# Balance Value: 0 (food_stores_mechanic handled separately)
+the_moot_reform = {
+	icon = "peasant_republic"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	potential = {
+		OR = {
+			primary_culture = halfling
+			has_reform = the_moot_reform
+			have_had_reform = the_moot_reform
+		}
+	}
+	nation_designer_trigger = {
+		primary_culture = halfling
+	}
+
+	duration = 4
+	has_term_election = yes
+	custom_attributes = {
+		enables_plutocratic_idea_group = yes
+		enables_aristocratic_idea_group = no
+	}
+	government_abilities = {
+		food_stores_mechanic
+	}
+	effect = {
+		country_event = {
+			id = ogre_events.9
+		}
+	}
+	ai = {
+		factor = 0.5
+	}
 }
 
 # Balance Value: -16.67 (unscored by guide: max_absolutism)
@@ -278,6 +321,9 @@ mercenary_company_reform = {
 		locked_government_type = yes
 		cannot_become_dictatorship = yes
 	}
+	government_abilities = {
+		war_militarization_mechanic
+	}
 }
 
 # Balance Value: -16.67 (unscored by guide: max_absolutism)
@@ -300,6 +346,9 @@ military_garrison_reform = {
 		generals_become_rulers = yes
 		locked_government_type = yes
 		cannot_become_dictatorship = yes
+	}
+	government_abilities = {
+		war_militarization_mechanic
 	}
 }
 
@@ -506,8 +555,8 @@ nehekharan_reformed_republic = {
 		burghers_influence_modifier = 0.1
 		republican_tradition = -0.05
 	}
-	government_abilities = { 
-		internal_external_mechanic
+	government_abilities = {
+		war_productivity_mechanic
 	}
 	custom_attributes = {
 		enables_plutocratic_idea_group = yes
@@ -578,7 +627,7 @@ araby_trade_republic = {
 	}
 
 	government_abilities = {
-		war_productivity_mechanic
+		war_refinement_mechanic
 	}
 	ai = {
 		factor = 1
@@ -669,7 +718,7 @@ war_lady_of_the_lake_republic_reform = {
 	}
 
 	government_abilities = {
-		control_of_court_mechanic
+		war_refinement_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -1184,7 +1233,7 @@ war_hashut_republic_reform = {
 	}
 
 	government_abilities = {
-		flexible_industry_mechanic
+		war_productivity_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -1218,6 +1267,9 @@ war_gork_n_mork_religion_republic_reform = {
 		global_regiment_recruit_speed = -0.75
 		# Penalty WV: -10
 		global_trade_power = -0.1
+	}
+	government_abilities = {
+		orc_fightiness_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -1407,7 +1459,7 @@ war_cadai_republic_reform = {
 	}
 
 	government_abilities = {
-		control_of_court_mechanic
+		war_refinement_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -1444,7 +1496,7 @@ war_ancestor_gods_republic_reform = {
 	}
 
 	government_abilities = {
-		flexible_industry_mechanic
+		internal_external_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -1849,6 +1901,9 @@ war_greenskins_group_republic_reform = {
 		# Penalty WV: -10
 		global_trade_power = -0.1
 	}
+	government_abilities = {
+		orc_fightiness_mechanic
+	}
 	ai = {
 		factor = 0.5
 	}
@@ -1921,7 +1976,7 @@ war_norse_group_republic_reform = {
 	}
 
 	government_abilities = {
-		war_power_struggle_mechanic
+		war_militarization_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -1994,7 +2049,7 @@ war_beastmen_group_republic_reform = {
 		trade_efficiency = -0.1
 	}
 	government_abilities = {
-		war_power_struggle_mechanic
+		war_militarization_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -2068,7 +2123,7 @@ war_fimir_group_republic_reform = {
 	}
 
 	government_abilities = {
-		war_power_struggle_mechanic
+		war_militarization_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -2252,7 +2307,7 @@ war_hung_group_republic_reform = {
 		global_trade_power = -0.1
 	}
 	government_abilities = {
-		war_power_struggle_mechanic
+		war_militarization_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -2288,7 +2343,7 @@ war_kurgan_group_republic_reform = {
 		global_trade_power = -0.1
 	}
 	government_abilities = {
-		war_power_struggle_mechanic
+		war_militarization_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -2360,8 +2415,8 @@ war_ogre_group_republic_reform = {
 		# Penalty WV: -10
 		diplomatic_reputation = -2
 	}
-	government_abilities = { 
-		food_stores_mechanic
+	government_abilities = {
+		war_power_struggle_mechanic
 	}
 	effect = {
 		country_event = { 
@@ -2403,7 +2458,7 @@ war_amazon_group_republic_reform = {
 	}
 
 	government_abilities = {
-		internal_external_mechanic
+		war_power_struggle_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -2440,7 +2495,7 @@ war_hobgoblin_group_republic_reform = {
 	}
 
 	government_abilities = {
-		internal_external_mechanic
+		war_militarization_mechanic
 	}
 	ai = {
 		factor = 0.5
@@ -2698,7 +2753,7 @@ war_nipponese_cg_republic_reform = {
 	}
 
 	government_abilities = {
-		control_of_court_mechanic
+		war_militarization_mechanic
 	}
 	ai = {
 		factor = 0.5
