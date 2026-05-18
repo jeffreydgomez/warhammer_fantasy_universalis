@@ -1,0 +1,99 @@
+########################################
+# Loss of the Solar Mandate Disaster
+########################################
+
+namespace = solar_mandate_disaster
+normal_or_historical_nations = yes
+
+# The Solar Mandate loses public credibility as the Prophet's visible favor collapses.
+country_event = {
+	id = solar_mandate_disaster.1
+	title = solar_mandate_disaster.1.t
+	desc = solar_mandate_disaster.1.d
+	picture = SOLAR_MANDATE_eventPicture
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_disaster = loss_of_solar_mandate
+		is_emperor_of_china = yes
+	}
+
+	# Acknowledge the disaster.
+	option = {
+		name = solar_mandate_disaster.1.a
+	}
+}
+
+# The court must either preserve the Mandate through public suffering or admit that the claim has failed.
+country_event = {
+	id = solar_mandate_disaster.2
+	title = solar_mandate_disaster.2.t
+	desc = solar_mandate_disaster.2.d
+	picture = SOLAR_MANDATE_eventPicture
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_disaster = loss_of_solar_mandate
+		is_emperor_of_china = yes
+		NOT = { imperial_mandate = 50 }
+	}
+
+	# Preserve the Mandate through turmoil. Weighing Value: -3 from add_stability = -1.
+	option = {
+		name = solar_mandate_disaster.2.a
+		trigger = {
+			stability = -2
+		}
+		ai_chance = { factor = 0 }
+		add_stability = -1
+	}
+
+	# Abandon the Mandate. Weighing Value: not covered by the Balance Guide; mirrors the existing destroy_solar_mandate decision penalty package.
+	option = {
+		name = solar_mandate_disaster.2.b
+		ai_chance = { factor = 100 }
+		custom_tooltip = destroy_solar_mandate_effect_tt
+		hidden_effect = {
+			dismantle_empire_of_china = yes
+			war_broadcast_solar_mandate_destroyed_effect = yes
+		}
+		add_prestige = -100
+		add_stability = -2
+		add_legitimacy = -50
+		add_devotion = -50
+		add_republican_tradition = -15
+		add_meritocracy = -50
+	}
+}
+
+# The Solar Mandate crisis ends, either through restored favor or abandonment of the claim.
+country_event = {
+	id = solar_mandate_disaster.3
+	title = solar_mandate_disaster.3.t
+	desc = solar_mandate_disaster.3.d
+	picture = SOLAR_MANDATE_eventPicture
+
+	is_triggered_only = yes
+
+	# The crisis has ended.
+	option = {
+		name = solar_mandate_disaster.3.a
+	}
+}
+
+# Foreign courts learn that the Solar Mandate has been formally destroyed.
+country_event = {
+	id = solar_mandate_disaster.4
+	title = solar_mandate_disaster.4.t
+	desc = solar_mandate_disaster.4.d
+	picture = SOLAR_MANDATE_eventPicture
+
+	is_triggered_only = yes
+
+	# Mark the end of another country's Solar Mandate.
+	option = {
+		name = solar_mandate_disaster.4.a
+	}
+}

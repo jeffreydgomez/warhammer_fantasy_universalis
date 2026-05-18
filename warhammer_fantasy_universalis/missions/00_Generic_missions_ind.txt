@@ -1,409 +1,1800 @@
-
-### THESE ARE PLACEHOLDERS, FEEL FREE TO CHANGE
-
 ##################################
-##### IND AND KURESHI CULTURE GROUP
+##### IND
 ##################################
 
-
-### Need one to add crusade, warscore against non religion, colonist. Certain number of calvary for improved cavalry ration & power? Call them civilizing mission
-
-gen_indish_ultimate_missions = {
-	slot = 3
-	generic = yes
-	has_country_shield = no
-	ai = yes
-	potential = {
-		OR = {
-			culture_group = indish_cg
-			culture_group = snakefolk_cg
-			culture_group = nipponese_cg
-			culture_group = eastern_beastfolk_cg
-		}
-		war_mission_priority_1 = no
-		war_mission_priority_2 = no
-		war_mission_priority_3 = no
-		war_mission_priority_4 = no
-	}
-	
-	gen_indish_ultimate_mission = { 
-		icon = mission_ind_culture
-		required_missions = {
-		}
-		position = 9
-		provinces_to_highlight = {
-			owner = {
-				is_great_power = yes
-				NOT = {
-					alliance_with = ROOT
-					trust = { who = ROOT value = 100 }
-				}
-				NOT = {
-					ROOT = {
-						has_won_war_against = {
-							who = prev
-							max_years_since = 25
-						}
-					}
-				}
-			}
-		}
-
-		trigger = {
-			is_great_power = yes
-			custom_trigger_tooltip = {
-				NOT = {
-					tooltip = beat_or_ally_all_great_powers_tt
-					any_country = {
-						is_great_power = yes
-						NOT = {
-							alliance_with = ROOT
-							trust = { who = ROOT value = 100 }
-						}
-						NOT = {
-							ROOT = {
-								has_won_war_against = {
-									who = prev
-									max_years_since = 25
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-
-		effect = { 
-			add_country_modifier = { 
- 				name = indish_ultimate_reward
-				duration = -1
-			}
-		}
-	}
-}
-
-
-
-
-
-gen_ind_missions = {
+ind_missions_1 = {
 	slot = 1
 	generic = yes
 	has_country_shield = no
 	ai = yes
 	potential = {
-		OR = {
-			culture_group = indish_cg
-			culture_group = snakefolk_cg
-			culture_group = nipponese_cg
-			culture_group = eastern_beastfolk_cg
-		}
+		ind_capital_on_subcontinent = yes
 		war_mission_priority_1 = no
 		war_mission_priority_2 = no
 		war_mission_priority_3 = no
-		war_mission_priority_4 = no
 	}
 
-	gen_indish_please_nobility = { 
+	# Ind is a mandala of courts before it is a realm. We must teach neighboring rulers to answer our envoys.
+	ind_mandala_envoys = {
 		icon = mission_ind_culture
-		required_missions = {  } 
+		position = 1
+		required_missions = { }
+		trigger = {
+			num_of_allies = 2
+			any_ally = {
+				trust = { who = ROOT value = 60 }
+			}
+			diplomatic_reputation = 1
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_mandala_envoys_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Local Rajahs hold land, forts, and elephants by inherited custom. The crown must make those customs answer a central oath.
+	ind_rajah_hostages = {
+		icon = mission_empire_culture
+		position = 2
+		required_missions = { ind_mandala_envoys }
 		trigger = {
 			estate_loyalty = {
-			    estate = estate_nobles
-			    loyalty = 65
+				estate = estate_nobles
+				loyalty = 60
 			}
 			num_of_estate_agendas_completed = {
 				estate = estate_nobles
 				value = 1
 			}
 		}
+		effect = {
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 10
+			}
+			# Estate reward: noble fort and levy provinces accept lower local autonomy.
+			every_owned_province = {
+				limit = {
+					superregion = ind_superregion
+					OR = {
+						fort_level = 1
+						has_building = barracks
+						has_building = training_fields
+						has_building = regimental_camp
+						has_building = conscription_center
+					}
+				}
+				add_local_autonomy = -10
+			}
+		}
+	}
 
-		effect = { 
-			add_country_modifier = { 
- 				name = indish_add_missionary_1
+	# The elephant roads are rich, slow, and tempting. Forts must turn them from plunder paths into royal arteries.
+	ind_elephant_road_forts = {
+		icon = mission_greenskins_fort
+		position = 3
+		required_missions = { ind_rajah_hostages ind_jeweled_court_prestige }
+		provinces_to_highlight = {
+			superregion = ind_superregion
+			owned_by = ROOT
+			NOT = { fort_level = 2 }
+		}
+		trigger = {
+			army_size_percentage = 0.75
+			num_of_owned_provinces_with = {
+				superregion = ind_superregion
+				fort_level = 2
+				value = 2
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_elephant_road_forts_mod
 				duration = -1
 			}
 		}
 	}
 
-
-	gen_indish_cavalry = { 
-		icon = mission_ind_culture
-		required_missions = { gen_indish_please_nobility }
+	# The courts can no longer rely on ceremonial beasts alone. The elephant lines must become a dependable war host.
+	ind_elephant_muster = {
+		icon = mission_elephant_warrior
+		position = 5
+		required_missions = { ind_elephant_road_forts }
 		trigger = {
-			num_of_cavalry = 10
+			army_size_percentage = 0.9
+			num_of_cavalry = 8
+			OR = {
+				army_professionalism = 0.15
+				has_country_modifier = war_modern_army
+			}
 		}
-
-		effect = { 
-			add_country_modifier = { 
- 				name = indish_cavalry_fraction
+		effect = {
+			add_country_modifier = {
+				name = ind_elephant_muster_mod
 				duration = -1
 			}
 		}
 	}
 
-
-	gen_indish_war_with_infidel = { 
-		icon = mission_ind_culture
-		required_missions = { gen_indish_cavalry } 
+	# Surveyors and road clerks make the canopy visible where custom once hid it.
+	ind_canopy_road_survey = {
+		icon = mission_caravan
+		position = 7
+		required_missions = { ind_clove_contracts }
 		trigger = {
-
-			# Performance
-			hidden_trigger = {
+			total_development = 350
+			num_of_owned_provinces_with = {
+				superregion = ind_superregion
 				OR = {
-					ai = no
+					has_building = courthouse
+					has_building = town_hall
+				}
+				value = 6
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_canopy_road_survey_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Tigerfolk courts know the southern jungle roads. Ind must decide whether to bind them through honor or mastery.
+	ind_tiger_courts_south = {
+		icon = mission_tigerman_king
+		position = 9
+		required_missions = { ind_canopy_road_survey ind_tropical_wood_yards }
+		provinces_to_highlight = {
+			culture = tigerkin_c
+			OR = {
+				NOT = { owned_by = ROOT }
+				unrest = 1
+				local_autonomy = 15
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				culture = tigerkin_c
+				NOT = { unrest = 1 }
+				NOT = { local_autonomy = 15 }
+				value = 4
+			}
+			OR = {
+				accepted_culture = tigerkin_c
+				primary_culture = tigerkin_c
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_tiger_courts_south_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Tiger claws in royal service must be auxiliaries, not rumors paid in panic.
+	ind_tiger_claw_auxiliaries = {
+		icon = mission_tigermen
+		position = 10
+		required_missions = { ind_tiger_courts_south }
+		trigger = {
+			num_of_owned_provinces_with = {
+				culture = tigerkin_c
+				OR = {
+					has_building = barracks
+					has_building = training_fields
+				}
+				value = 3
+			}
+			OR = {
+				army_professionalism = 0.25
+				has_country_modifier = war_modern_army
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_tiger_claw_auxiliaries_mod
+				duration = -1
+			}
+		}
+	}
+
+	# A realm of so many peoples needs offices that can hear reports without flattening the land beneath them.
+	ind_imperial_canopy_bureau = {
+		icon = mission_ind_domes
+		position = 11
+		required_missions = { ind_tiger_claw_auxiliaries }
+		trigger = {
+			stability = 2
+			num_of_owned_provinces_with = {
+				superregion = ind_superregion
+				OR = {
+					has_building = courthouse
+					has_building = town_hall
+				}
+				value = 10
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_imperial_canopy_bureau_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Black smoke and green-hide raids test the new canopy before it can settle.
+	ind_black_smoke_green_hide = {
+		icon = mission_chaos_dwarf_defeat_greenskins
+		position = 13
+		required_missions = { ind_frontier_mandalas }
+		trigger = {
+			army_size_percentage = 1.0
+			num_of_owned_provinces_with = {
+				superregion = ind_superregion
+				fort_level = 2
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_black_smoke_green_hide_mod
+				duration = -1
+			}
+			darklands_superregion = {
+				limit = {
+					is_wasteland = no
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	# Orcs, Ogres, and black-smoke tyrants test the northern roads. Ind must prove the plunder trail ends at our forts.
+	ind_break_black_road_raids = {
+		icon = mission_chaos_dwarf_defeat_greenskins
+		position = 14
+		required_missions = { ind_black_smoke_green_hide }
+		provinces_to_highlight = {
+			superregion = ind_superregion
+			owned_by = ROOT
+			NOT = { fort_level = 2 }
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = ind_defeat_or_secure_darklands_tt
+				OR = {
 					AND = {
-						num_of_cities = 25
-						at_war_with_religious_enemy = yes
+						num_of_owned_provinces_with = {
+							superregion = ind_superregion
+							fort_level = 2
+							value = 7
+						}
+						army_size_percentage = 1.0
+					}
+					any_country = {
+						OR = {
+							culture_group = greenskins_group
+							culture_group = chaos_dwarf_group
+							capital_scope = { superregion = darklands_superregion }
+							capital_scope = { region = mountains_of_mourn_region }
+						}
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 50
+							}
+						}
 					}
 				}
 			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_black_road_raids_broken_mod
+				duration = -1
+			}
+			add_prestige_or_monarch_power = { amount = 25 }
+		}
+	}
 
-			any_country = {
-				NOT = { religion = ROOT }
-				ROOT = {
-					has_won_war_against = {
-						who = PREV
-						max_years_since = 10
-					}
+	# Crackhorn is a gate of stone, spice, and road-taxes. Its horns must sound for the united realm.
+	ind_crackhorn_gate = {
+		icon = mission_greenskins_fort
+		position = 17
+		required_missions = { }
+		provinces_to_highlight = {
+			province_id = 2294
+			OR = {
+				NOT = { owned_by = ROOT }
+				unrest = 1
+				local_autonomy = 1
+				NOT = { num_of_times_expanded_infrastructure = 1 }
+			}
+		}
+		trigger = {
+			2294 = {
+				owned_by = ROOT
+				NOT = { unrest = 1 }
+				NOT = { local_autonomy = 1 }
+				num_of_times_expanded_infrastructure = 1
+			}
+		}
+		effect = {
+			2294 = {
+				add_permanent_province_modifier = {
+					name = ind_crackhorn_gate_mod
+					duration = -1
 				}
 			}
 		}
-
-		effect = { 
-			add_country_modifier = { 
- 				name = indish_holy_war
-				duration = -1
-			}
-		}
 	}
 
-	gen_indish_war_expand_faith = { 
-		icon = mission_ind_culture
-		required_missions = { gen_indish_war_with_infidel } 
-		trigger = {
-			num_of_continents = 2
-		}
-
-		effect = { 
-			add_country_modifier = { 
- 				name = indish_holy_war_2
-				duration = -1
+	# Bodhimalai preserves holy scripts, mountain commentaries, and court law. Its scholars must write for all Ind.
+	ind_bodhimalai_scriptoria = {
+		icon = mission_ind_temple
+		position = 18
+		required_missions = { }
+		provinces_to_highlight = {
+			province_id = 4105
+			OR = {
+				NOT = { owned_by = ROOT }
+				unrest = 1
+				local_autonomy = 1
+				NOT = { num_of_times_expanded_infrastructure = 1 }
 			}
 		}
-	}
-
-	gen_indish_build_docks = { 
-		icon = mission_ind_culture
-		required_missions = {  }
-		position = 6
 		trigger = {
-			 OR = {
-			 	dock = 5
-			 	drydock = 5
-			 }
-
-		}
-
-		effect = { 
-			add_country_modifier = { 
- 				name = indish_expand_abroad
-				duration = -1
+			4105 = {
+				owned_by = ROOT
+				NOT = { unrest = 1 }
+				NOT = { local_autonomy = 1 }
+				num_of_times_expanded_infrastructure = 1
 			}
 		}
-	}
-
-	gen_indish_expand_overseas = { 
-		icon = mission_ind_culture
-		required_missions = { gen_indish_build_docks } 
-		trigger = {
-			num_of_continents = 3
-		}
-
-		effect = { 
-			add_country_modifier = { 
- 				name = indish_add_missionary_2
-				duration = -1
-			}
-		}
-	}
-
-
-	gen_indish_center_of_trade = { 
-		icon = mission_ind_culture
-		required_missions = { gen_indish_expand_overseas } 
-		trigger = {
-			num_of_light_ship = 25
-		}
-
-		effect = { 
-			add_country_modifier = { 
- 				name = indish_trade_hub
-				duration = -1
+		effect = {
+			4105 = {
+				add_permanent_province_modifier = {
+					name = ind_bodhimalai_scriptoria_mod
+					duration = -1
+				}
 			}
 		}
 	}
 }
 
-
-
-
-
-
-
-##################################
-##### Thousand Gods or Animism
-##################################
-
-
-gen_thousand_gods_missions = {
-	slot = 5
+ind_missions_2 = {
+	slot = 2
 	generic = yes
 	has_country_shield = no
 	ai = yes
 	potential = {
-		OR = {
-			religion = the_thousand_gods
-			religion = animism
-		}
+		ind_capital_on_subcontinent = yes
 		war_mission_priority_1 = no
 		war_mission_priority_2 = no
 		war_mission_priority_3 = no
-		war_mission_priority_4 = no
 	}
 
-	gen_thousand_gods_happy_priest = { 
-		icon = mission_ind_religion
-		required_missions = {  } 
+	# The spice guilds can enrich or choke the realm. Their ledgers must be made public enough for royal use.
+	ind_spice_guild_ledgers = {
+		icon = mission_ind_spices
+		position = 1
+		required_missions = { }
+		trigger = {
+			num_of_owned_provinces_with = {
+				superregion = ind_superregion
+				OR = {
+					trade_goods = spices
+					trade_goods = cloves
+				}
+				value = 2
+			}
+			num_of_owned_provinces_with = {
+				superregion = ind_superregion
+				has_building = marketplace
+				value = 2
+			}
+		}
+		effect = {
+			add_mercantilism = 2
+		}
+	}
+
+	# Road tolls are collected by custom, shrine, guild, and knife. The crown must make the spice road countable.
+	ind_spice_road_tollhouses = {
+		icon = mission_ind_spices
+		position = 2
+		required_missions = { ind_spice_guild_ledgers ind_mandala_envoys }
 		trigger = {
 			estate_loyalty = {
-			    estate = estate_church
-			    loyalty = 65
+				estate = estate_burghers
+				loyalty = 60
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_burghers
+				value = 1
+			}
+		}
+		effect = {
+			add_estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 10
+			}
+			# Estate reward: merchant towns and ports accept lower local autonomy.
+			every_owned_province = {
+				limit = {
+					superregion = ind_superregion
+					OR = {
+						has_port = yes
+						province_has_center_of_trade_of_level = 1
+						has_building = marketplace
+						has_building = trade_depot
+						has_building = stock_exchange
+					}
+				}
+				add_local_autonomy = -10
+			}
+			add_country_modifier = {
+				name = ind_spice_road_tollhouses_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Saffron, silk, dyes, and cloth pass through too many private hands. Royal workshops must bind luxury to capacity.
+	ind_saffron_silk_workshops = {
+		icon = mission_ind_spices
+		position = 3
+		required_missions = { ind_spice_road_tollhouses }
+		trigger = {
+			num_of_owned_provinces_with = {
+				superregion = ind_superregion
+				OR = {
+					trade_goods = cloth
+					trade_goods = silk
+					trade_goods = dyes
+					trade_goods = spices
+				}
+				OR = {
+					has_building = workshop
+					has_building = counting_house
+				}
+				value = 4
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_saffron_silk_workshops_mod
+				duration = -1
+			}
+		}
+	}
+
+	# A crowded land is only rich while its roads and granaries hold.
+	ind_granaries_caravanserais = {
+		icon = mission_caravan
+		position = 4
+		required_missions = { ind_saffron_silk_workshops }
+		trigger = {
+			num_of_owned_provinces_with = {
+				superregion = ind_superregion
+				OR = {
+					has_building = farm_estate
+					has_building = marketplace
+					has_building = workshop
+				}
+				value = 8
+			}
+			monthly_income = 25
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_granaries_caravanserais_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Clove contracts bind island groves, jungle roads, and court kitchens to the same public weights.
+	ind_clove_contracts = {
+		icon = mission_ind_spices
+		position = 6
+		required_missions = { ind_one_canopy_over_ind }
+		provinces_to_highlight = {
+			trade_goods = cloves
+			has_discovered = ROOT
+		}
+		trigger = {
+			trading_part = {
+				trade_goods = cloves
+				value = 0.05
+			}
+			mercantilism = 10
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_clove_contracts_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Spices cannot enrich one canopy while every port weighs them differently.
+	ind_spice_weight_standards = {
+		icon = mission_ind_spices
+		position = 7
+		required_missions = { ind_clove_contracts }
+		trigger = {
+			NOT = { corruption = 1 }
+			num_of_owned_provinces_with = {
+				superregion = ind_superregion
+				OR = {
+					trade_goods = cloves
+					trade_goods = spices
+				}
+				OR = {
+					has_building = marketplace
+					has_building = trade_depot
+					has_building = stock_exchange
+				}
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_spice_weight_standards_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Tropical wood is more than jungle wealth. It is hulls, wharves, temple beams, and state reach.
+	ind_tropical_wood_yards = {
+		icon = mission_ind_jungle
+		position = 8
+		required_missions = { ind_spice_weight_standards }
+		provinces_to_highlight = {
+			trade_goods = tropical_wood
+			has_discovered = ROOT
+		}
+		trigger = {
+			trading_part = {
+				trade_goods = tropical_wood
+				value = 0.05
+			}
+			num_of_owned_provinces_with = {
+				has_port = yes
+				OR = {
+					has_building = shipyard
+					has_building = grand_shipyard
+					has_building = dock
+					has_building = drydock
+				}
+				value = 3
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_tropical_wood_yards_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The spice wealth must mature from caravan profit into institutional finance.
+	ind_monsoon_exchange_houses = {
+		icon = mission_araby_gold
+		position = 9
+		required_missions = { ind_tropical_wood_yards }
+		trigger = {
+			monthly_income = 75
+			num_of_owned_provinces_with = {
+				superregion = ind_superregion
+				OR = {
+					has_building = trade_depot
+					has_building = stock_exchange
+				}
+				value = 4
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_monsoon_exchange_houses_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Clove groves and spice ports must report to factors who answer the canopy before the guild.
+	ind_clove_spice_factors = {
+		icon = mission_araby_bazaar
+		position = 10
+		required_missions = { ind_tiger_courts_south ind_monsoon_exchange_houses }
+		trigger = {
+			trading_bonus = {
+				trade_goods = spices
+				value = yes
+			}
+			trading_bonus = {
+				trade_goods = cloves
+				value = yes
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_clove_spice_factors_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Twelve trade courts translate the diversity of Ind into enforceable commercial law.
+	ind_twelve_trade_courts = {
+		icon = mission_araby_bazaar
+		position = 11
+		required_missions = { ind_tiger_claw_auxiliaries ind_clove_spice_factors }
+		trigger = {
+			num_of_trading_bonuses = 6
+			mercantilism = 25
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_twelve_trade_courts_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Dragons and River Ruin captains do not respect polite maps, so an admiralty must meet them at the toll-water.
+	ind_dragon_toll_admiralty = {
+		icon = mission_ind_jungle_ruins
+		position = 14
+		required_missions = { ind_black_smoke_green_hide }
+		trigger = {
+			navy_size_percentage = 1.0
+			num_of_light_ship = 12
+			num_of_owned_provinces_with = {
+				has_port = yes
+				OR = {
+					has_building = shipyard
+					has_building = grand_shipyard
+				}
+				value = 2
+			}
+		}
+		effect = {
+			country_event = { id = ind_events.101 }
+		}
+	}
+
+	# Once the Dragon Isles are watched, River Ruin merchants must pay in coin, gems, or fear.
+	ind_river_ruin_gatekeepers = {
+		icon = mission_ind_jungle_ruins
+		position = 15
+		required_missions = { ind_dragon_toll_admiralty }
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = ind_defeat_or_secure_dragon_isles_tt
+				OR = {
+					num_of_provinces_owned_or_owned_by_subjects_with = {
+						region = dragon_isles_region
+						value = 3
+					}
+					any_country = {
+						capital_scope = { region = dragon_isles_region }
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 50
+							}
+						}
+					}
+				}
+			}
+			num_of_light_ship = 20
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_river_ruin_gatekeepers_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Rajapur's spice court measures aroma, weight, oath, and tax in the same breath.
+	ind_rajapur_spice_court = {
+		icon = mission_ind_spices
+		position = 17
+		required_missions = { }
+		provinces_to_highlight = {
+			province_id = 4065
+			OR = {
+				NOT = { owned_by = ROOT }
+				unrest = 1
+				local_autonomy = 1
+				NOT = { num_of_times_expanded_infrastructure = 1 }
+			}
+		}
+		trigger = {
+			4065 = {
+				owned_by = ROOT
+				NOT = { unrest = 1 }
+				NOT = { local_autonomy = 1 }
+				num_of_times_expanded_infrastructure = 1
+			}
+		}
+		effect = {
+			4065 = {
+				add_permanent_province_modifier = {
+					name = ind_rajapur_spice_court_mod
+					duration = -1
+				}
+			}
+		}
+	}
+
+	# Dvaraka hears every western tide before the inland courts do. Its pilots must make the sea road a royal ledger.
+	ind_dvaraka_tide_ledger = {
+		icon = mission_ind_ship
+		position = 18
+		required_missions = { }
+		provinces_to_highlight = {
+			province_id = 4077
+			OR = {
+				NOT = { owned_by = ROOT }
+				unrest = 1
+				local_autonomy = 1
+				NOT = { num_of_times_expanded_infrastructure = 1 }
+			}
+		}
+		trigger = {
+			4077 = {
+				owned_by = ROOT
+				NOT = { unrest = 1 }
+				NOT = { local_autonomy = 1 }
+				num_of_times_expanded_infrastructure = 1
+			}
+		}
+		effect = {
+			4077 = {
+				add_permanent_province_modifier = {
+					name = ind_dvaraka_tide_ledger_mod
+					duration = -1
+				}
+			}
+		}
+	}
+}
+
+ind_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		ind_capital_on_subcontinent = yes
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+	}
+
+	# The jeweled courts are too proud to follow a shabby ruler. Prestige must be made into policy.
+	ind_jeweled_court_prestige = {
+		icon = mission_ind_ruler
+		position = 2
+		required_missions = { }
+		trigger = {
+			prestige = 25
+			employed_advisor = { category = ADM }
+			employed_advisor = { category = DIP }
+			employed_advisor = { category = MIL }
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_jeweled_court_prestige_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Custom is strong because law is weak. Provincial courts must make old bargains legible to the crown.
+	ind_provincial_courts = {
+		icon = mission_empire_culture
+		position = 3
+		required_missions = { ind_spice_road_tollhouses ind_lamp_oath_scholars }
+		trigger = {
+			num_of_owned_provinces_with = {
+				superregion = ind_superregion
+				OR = {
+					has_building = courthouse
+					has_building = town_hall
+				}
+				value = 4
+			}
+			stability = 1
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_provincial_courts_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The canopy cannot be declared from one throne. Enough towns and courts must already live inside it.
+	ind_first_canopy_claims = {
+		icon = mission_ind_domes
+		position = 4
+		required_missions = { ind_provincial_courts }
+		trigger = {
+			stability = 2
+			num_of_owned_provinces_with = {
+				superregion = ind_superregion
+				value = 25
+			}
+		}
+		effect = {
+			ind_superregion = {
+				limit = {
+					is_wasteland = no
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	# Ind has never lacked wealth or peoples; it has lacked one political imagination strong enough to hold them.
+	ind_one_canopy_over_ind = {
+		icon = mission_ind_domes
+		position = 5
+		required_missions = { ind_elephant_muster ind_first_canopy_claims ind_monsoon_admiralty }
+		trigger = {
+			OR = {
+				is_or_was_tag = { tag = I98 }
+				num_of_owned_provinces_with = {
+					superregion = ind_superregion
+					value = 45
+				}
+			}
+			stability = 2
+		}
+		effect = {
+			country_event = { id = ind_events.100 }
+		}
+	}
+
+	# The frontier mandalas turn Ind's new unity toward powers that once fed on its disunity.
+	ind_frontier_mandalas = {
+		icon = mission_ind_domes
+		position = 12
+		required_missions = { ind_one_canopy_over_ind }
+		trigger = {
+			army_size_percentage = 1.0
+			diplomatic_reputation = 2
+			num_of_owned_provinces_with = {
+				superregion = ind_superregion
+				fort_level = 2
+				value = 6
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_frontier_mandalas_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Cathay's empty throne still casts a long shadow. The eastern line must meet protocol with strength.
+	ind_envoys_empty_throne = {
+		icon = mission_cathay_flag
+		position = 13
+		required_missions = { ind_frontier_mandalas }
+		trigger = {
+			diplomatic_reputation = 3
+			any_country = {
+				capital_scope = { superregion = cathay_superregion }
+				has_opinion = {
+					who = ROOT
+					value = 50
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_envoys_empty_throne_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The passes held. Now Ind must decide whether its answer to Cathay is stone, etiquette, or market leverage.
+	ind_celestial_line_held = {
+		icon = mission_cathay_sentinel
+		position = 15
+		required_missions = { ind_river_ruin_gatekeepers ind_hold_eastern_passes }
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = ind_defeat_or_contain_cathay_tt
+				OR = {
+					AND = {
+						num_of_owned_provinces_with = {
+							region = eastern_ind_region
+							fort_level = 2
+							value = 4
+						}
+						army_size_percentage = 1.0
+					}
+					any_country = {
+						capital_scope = { superregion = cathay_superregion }
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 50
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			country_event = { id = ind_events.102 }
+		}
+	}
+
+	# Ind's diversity must become a commercial order broad enough that foreign ledgers obey its prices.
+	ind_markets_under_one_canopy = {
+		icon = mission_araby_bazaar
+		position = 16
+		required_missions = { ind_twelve_trade_courts ind_diversity_thrives ind_celestial_line_held }
+		trigger = {
+			num_of_trading_bonuses = 8
+			monthly_income = 125
+			home_trade_node = {
+				trade_share = {
+					country = ROOT
+					share = 75
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_markets_under_one_canopy_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The eight great urban mandalas have entered the canopy without losing their particular splendor.
+	ind_cities_under_one_canopy = {
+		icon = mission_ind_city
+		position = 19
+		required_missions = {
+			ind_crackhorn_gate
+			ind_rajapur_spice_court
+			ind_mrauk_u_glass_palaces
+			ind_pegu_river_mandala
+			ind_bodhimalai_scriptoria
+			ind_dvaraka_tide_ledger
+			ind_jaffna_pearl_dues
+			ind_malwa_plateau_court
+		}
+		trigger = {
+			stability = 3
+			NOT = { unrest = 1 }
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_cities_under_one_canopy_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Ultimate: twelve different trade banners answer the canopy.
+	ind_twelve_banners_commerce = {
+		icon = mission_ind_spices
+		position = 20
+		required_missions = { ind_cities_under_one_canopy }
+		trigger = {
+			num_of_trading_bonuses = 12
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_twelve_banners_commerce_mod
+				duration = -1
+			}
+			add_splendor = 800
+		}
+	}
+}
+
+ind_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		ind_capital_on_subcontinent = yes
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+	}
+
+	# Temples are treasuries, courts, employers, and theaters of the gods. Their accounts must serve the public rhythm.
+	ind_temple_account_keepers = {
+		icon = mission_ind_temple
+		position = 1
+		required_missions = { }
+		trigger = {
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 60
 			}
 			num_of_estate_agendas_completed = {
 				estate = estate_church
 				value = 1
 			}
 		}
+		effect = {
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+			# Estate reward: temple towns accept lower local autonomy.
+			every_owned_province = {
+				limit = {
+					superregion = ind_superregion
+					OR = {
+						has_building = temple
+						has_building = cathedral
+					}
+				}
+				add_local_autonomy = -10
+			}
+		}
+	}
 
-		effect = { 
-			add_country_modifier = { 
- 				name = indish_happy_church
+	# Lamp-oath scholars read stars, omens, contracts, and old jungle warnings. Their learning must be admitted to court.
+	ind_lamp_oath_scholars = {
+		icon = mission_ind_temple
+		position = 2
+		required_missions = { ind_temple_account_keepers }
+		trigger = {
+			OR = {
+				AND = {
+					has_estate = estate_mages
+					estate_loyalty = {
+						estate = estate_mages
+						loyalty = 60
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_mages
+						value = 1
+					}
+				}
+				AND = {
+					NOT = { has_estate = estate_mages }
+					OR = {
+						innovativeness = 5
+						has_country_modifier = war_modern_science
+					}
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = { has_estate = estate_mages }
+				add_estate_loyalty = {
+					estate = estate_mages
+					loyalty = 10
+				}
+			}
+			# Estate reward: scholarly and magical cities accept lower local autonomy.
+			every_owned_province = {
+				limit = {
+					superregion = ind_superregion
+					OR = {
+						development = 15
+						has_building = temple
+						has_building = workshop
+						has_building = university
+					}
+				}
+				add_local_autonomy = -10
+			}
+		}
+	}
+
+	# The sacred rivers bind pilgrims, ferries, markets, and cremation ghats. Disorder along them poisons the whole realm.
+	ind_sacred_rivers_pacified = {
+		icon = mission_ind_temple
+		position = 3
+		required_missions = { ind_lamp_oath_scholars }
+		trigger = {
+			stability = 2
+			num_of_owned_provinces_with = {
+				superregion = ind_superregion
+				NOT = { unrest = 1 }
+				OR = {
+					has_building = temple
+					has_building = marketplace
+					has_building = courthouse
+				}
+				value = 8
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_sacred_rivers_pacified_mod
 				duration = -1
 			}
 		}
 	}
 
-	gen_thousand_gods_places_of_worship = { 
-		icon = mission_ind_religion
-		required_missions = { gen_thousand_gods_happy_priest } 
+	# Ind's many tongues are not a weakness unless the state forces them to become one.
+	ind_many_tongues = {
+		icon = mission_sow_culture
+		position = 4
+		required_missions = { ind_sacred_rivers_pacified }
 		trigger = {
-			all_owned_province = {
+			num_accepted_cultures = 3
+			religious_unity = 0.9
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_many_tongues_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Thousand Gods need more than priests. Their jurists, astronomers, and physicians must have stone halls.
+	ind_universities_thousand_gods = {
+		icon = mission_ind_temple
+		position = 6
+		required_missions = { ind_one_canopy_over_ind }
+		trigger = {
+			num_of_owned_provinces_with = {
+				superregion = ind_superregion
+				has_building = university
+				value = 4
+			}
+			OR = {
+				innovativeness = 10
+				has_country_modifier = war_modern_science
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_universities_thousand_gods_mod
+				duration = -1
+			}
+		}
+	}
+
+	# A court of many customs must make diversity administrable without reducing it to a single tongue.
+	ind_court_many_customs = {
+		icon = mission_sow_culture
+		position = 7
+		required_missions = { ind_universities_thousand_gods }
+		trigger = {
+			num_accepted_cultures = 4
+			stability = 2
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_court_many_customs_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Exchange houses must turn seasonal risk into credit rather than panic.
+	ind_stock_exchanges_monsoon = {
+		icon = mission_araby_gold
+		position = 8
+		required_missions = { ind_court_many_customs }
+		trigger = {
+			num_of_owned_provinces_with = {
+				superregion = ind_superregion
+				has_building = stock_exchange
+				value = 3
+			}
+			monthly_income = 100
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_stock_exchanges_monsoon_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Guild oaths must bind private houses to the public order of the canopy.
+	ind_guild_oath_reforms = {
+		icon = mission_araby_bazaar
+		position = 9
+		required_missions = { ind_stock_exchanges_monsoon }
+		trigger = {
+			mercantilism = 20
+			estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 65
+			}
+			num_of_owned_provinces_with = {
+				superregion = ind_superregion
+				OR = {
+					has_building = trade_depot
+					has_building = stock_exchange
+				}
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_guild_oath_reforms_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Temple ports must endow shrines, piers, and ferry-rights without letting each port become a private kingdom.
+	ind_temple_port_endowments = {
+		icon = mission_ind_temple
+		position = 10
+		required_missions = { ind_guild_oath_reforms ind_tigerfolk_compact }
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_port = yes
 				OR = {
 					has_building = temple
 					has_building = cathedral
 				}
+				OR = {
+					has_building = dock
+					has_building = drydock
+					has_building = marketplace
+					has_building = trade_depot
+				}
+				value = 4
 			}
 		}
-
-		effect = { 
-			change_innovativeness = 10
+		effect = {
+			add_country_modifier = {
+				name = ind_temple_port_endowments_mod
+				duration = -1
+			}
 		}
 	}
 
-	gen_thousand_gods_place_of_study = { 
-		icon = mission_ind_religion
-		required_missions = { gen_thousand_gods_places_of_worship } 
+	# Diversity thrives when custom has room inside the canopy without becoming a rival throne.
+	ind_diversity_thrives = {
+		icon = mission_sow_culture
+		position = 11
+		required_missions = { ind_temple_port_endowments }
 		trigger = {
-			capital_scope = {
-				development = 35
+			num_accepted_cultures = 5
+			religious_unity = 0.95
+			NOT = { unrest = 1 }
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_diversity_thrives_mod
+				duration = -1
 			}
 		}
+	}
 
-		effect = { 
-			capital_scope = {
-				add_permanent_province_modifier = { 
- 				  	name = indish_place_of_study
-    				duration = -1  
+	# Eastern passes and jungle roads carry merchants in peace and armies in crisis.
+	ind_hold_eastern_passes = {
+		icon = mission_cathay_sentinel
+		position = 14
+		required_missions = { ind_envoys_empty_throne }
+		provinces_to_highlight = {
+			region = eastern_ind_region
+			owned_by = ROOT
+			NOT = { fort_level = 2 }
+		}
+		trigger = {
+			army_size_percentage = 1.0
+			num_of_owned_provinces_with = {
+				region = eastern_ind_region
+				fort_level = 2
+				value = 4
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_hold_eastern_passes_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Cathay must learn that Ind is not a spice garden awaiting protocol, but a peer, a wall, and a market.
+	ind_cathay_kept_at_treaty_distance = {
+		icon = mission_cathay_flag
+		position = 15
+		required_missions = { ind_hold_eastern_passes }
+		trigger = {
+			diplomatic_reputation = 4
+			custom_trigger_tooltip = {
+				tooltip = ind_defeat_or_contain_cathay_tt
+				OR = {
+					num_of_owned_provinces_with = {
+						region = eastern_ind_region
+						fort_level = 2
+						value = 5
+					}
+					any_country = {
+						capital_scope = { superregion = cathay_superregion }
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 50
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_cathay_treaty_distance_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Mrauk U is glass, river trade, elephant bells, and foreign tongues beneath palace roofs.
+	ind_mrauk_u_glass_palaces = {
+		icon = mission_ind_city
+		position = 17
+		required_missions = { }
+		provinces_to_highlight = {
+			province_id = 4093
+			OR = {
+				NOT = { owned_by = ROOT }
+				unrest = 1
+				local_autonomy = 1
+				NOT = { num_of_times_expanded_infrastructure = 1 }
+			}
+		}
+		trigger = {
+			4093 = {
+				owned_by = ROOT
+				NOT = { unrest = 1 }
+				NOT = { local_autonomy = 1 }
+				num_of_times_expanded_infrastructure = 1
+			}
+		}
+		effect = {
+			4093 = {
+				add_permanent_province_modifier = {
+					name = ind_mrauk_u_glass_palaces_mod
+					duration = -1
 				}
 			}
 		}
 	}
 
-	gen_thousand_gods_places_of_law = { 
-		icon = mission_ind_religion
-		required_missions = { gen_thousand_gods_place_of_study } 
+	# Jaffna's pearl dues depend on divers, clan elders, ferries, and shrines.
+	ind_jaffna_pearl_dues = {
+		icon = mission_ind_city
+		position = 18
+		required_missions = { }
+		provinces_to_highlight = {
+			province_id = 4116
+			OR = {
+				NOT = { owned_by = ROOT }
+				unrest = 1
+				local_autonomy = 1
+				NOT = { num_of_times_expanded_infrastructure = 1 }
+			}
+		}
 		trigger = {
-			all_owned_province = {
+			4116 = {
+				owned_by = ROOT
+				NOT = { unrest = 1 }
+				NOT = { local_autonomy = 1 }
+				num_of_times_expanded_infrastructure = 1
+			}
+		}
+		effect = {
+			4116 = {
+				add_permanent_province_modifier = {
+					name = ind_jaffna_pearl_dues_mod
+					duration = -1
+				}
+			}
+		}
+	}
+}
+
+ind_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		ind_capital_on_subcontinent = yes
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+	}
+
+	# The monsoon enriches those who respect it and drowns those who do not.
+	ind_monsoon_keels = {
+		icon = mission_ind_ship
+		position = 1
+		required_missions = { }
+		trigger = {
+			navy_size_percentage = 0.75
+			num_of_light_ship = 3
+			navy_tradition = 10
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_monsoon_keels_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Pilots, ferrymen, pearl boats, and spice captains know routes no court map records.
+	ind_licensed_monsoon_pilots = {
+		icon = mission_ind_ship
+		position = 2
+		required_missions = { ind_monsoon_keels }
+		trigger = {
+			navy_size_percentage = 0.9
+			num_of_owned_provinces_with = {
+				has_port = yes
 				OR = {
+					has_building = dock
+					has_building = drydock
+				}
+				value = 3
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_licensed_monsoon_pilots_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Spice ships invite raiders, private tolls, and foreign escorts. Patrols must make the coast feel watched.
+	ind_spice_sea_patrols = {
+		icon = mission_ind_spices
+		position = 3
+		required_missions = { ind_licensed_monsoon_pilots }
+		trigger = {
+			num_of_light_ship = 10
+			home_trade_node = {
+				trade_share = {
+					country = ROOT
+					share = 60
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_spice_sea_patrols_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Pilots can guide a coast, but admirals must defend a civilization.
+	ind_monsoon_admiralty = {
+		icon = mission_ind_ship
+		position = 5
+		required_missions = { ind_spice_sea_patrols }
+		trigger = {
+			navy_size_percentage = 1.0
+			num_of_light_ship = 15
+			navy_tradition = 25
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_monsoon_admiralty_mod
+				duration = -1
+			}
+		}
+	}
+
+	# A census of the thousand peoples records obligations without pretending everyone is the same.
+	ind_census_thousand_peoples = {
+		icon = mission_empire_culture
+		position = 8
+		required_missions = { ind_court_many_customs }
+		trigger = {
+			total_development = 500
+			num_accepted_cultures = 4
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_census_thousand_peoples_mod
+				duration = -1
+			}
+		}
+	}
+
+	# A compact with the Tigerfolk turns fear of the jungle courts into recognized obligations.
+	ind_tigerfolk_compact = {
+		icon = mission_tigerman_king
+		position = 9
+		required_missions = { ind_stock_exchanges_monsoon ind_census_thousand_peoples }
+		trigger = {
+			num_of_owned_provinces_with = {
+				culture = tigerkin_c
+				NOT = { unrest = 1 }
+				NOT = { local_autonomy = 10 }
+				value = 3
+			}
+			OR = {
+				accepted_culture = tigerkin_c
+				primary_culture = tigerkin_c
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_tigerfolk_compact_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Blood groves, old offerings, and tiger courts must be contained before rumor becomes rule.
+	ind_tame_blood_groves = {
+		icon = mission_ind_jungle
+		position = 10
+		required_missions = { ind_tigerfolk_compact }
+		trigger = {
+			num_of_owned_provinces_with = {
+				culture = tigerkin_c
+				OR = {
+					fort_level = 2
+					has_building = temple
+					has_building = courthouse
+				}
+				value = 4
+			}
+			army_tradition = 30
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_tame_blood_groves_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Royal weighing houses turn custom, scent, pearl, and coin into public measures.
+	ind_royal_weighing_houses = {
+		icon = mission_araby_gold
+		position = 11
+		required_missions = { ind_tame_blood_groves }
+		trigger = {
+			NOT = { corruption = 1 }
+			num_of_owned_provinces_with = {
+				superregion = ind_superregion
+				OR = {
+					has_building = marketplace
+					has_building = trade_depot
+					has_building = stock_exchange
+				}
+				value = 8
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_royal_weighing_houses_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Khuresh is a warning written in green ink, so the border posts must quarantine venom, rumor, and raiders alike.
+	ind_khureshi_quarantine_posts = {
+		icon = mission_ind_jungle
+		position = 13
+		required_missions = { ind_frontier_mandalas }
+		trigger = {
+			num_of_owned_provinces_with = {
+				region = eastern_ind_region
+				OR = {
+					fort_level = 2
 					has_building = courthouse
 					has_building = town_hall
 				}
+				value = 5
 			}
+			stability = 2
 		}
-
-		effect = { 
-			add_country_modifier = { 
- 				name = indish_place_of_law
-				duration = -1
-			}
-		}
-	}
-
-	gen_thousand_gods_places_of_innovation = { 
-		icon = mission_ind_religion
-		required_missions = { gen_thousand_gods_places_of_law } 
-		trigger = {
-			all_owned_province = {
-				has_building = university
-			}
-		}
-
-		effect = { 
-			add_country_modifier = { 
- 				name = indish_place_of_innovation
-				duration = -1
-			}
-		}
-	}
-
-	gen_thousand_gods_charitable = { 
-		icon = mission_ind_religion
-		required_missions = {  }
-		trigger = {
-			years_of_income = 2.0
-		}
-
 		effect = {
-
-		add_years_of_income = -2.0
-			every_neighbor_country = { add_years_of_income = 0.5 }
-
-
-			add_country_modifier = { 
- 				name = indish_charitable
+			add_country_modifier = {
+				name = ind_khureshi_quarantine_posts_mod
 				duration = -1
+			}
+			north_khuresh_region = {
+				limit = {
+					is_wasteland = no
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
 			}
 		}
 	}
 
-
-	gen_thousand_gods_defender_of_faith = { 
-		icon = mission_ind_religion
-		required_missions = { gen_thousand_gods_charitable }
+	# The serpent courts can be held beyond the border, broken in the jungle, or forced to treat from fear.
+	ind_coils_beyond_jungle = {
+		icon = mission_ind_jungle
+		position = 14
+		required_missions = { ind_khureshi_quarantine_posts }
 		trigger = {
-			is_defender_of_faith = yes
-			prestige = 99
-			religious_unity = 1.0
+			custom_trigger_tooltip = {
+				tooltip = ind_defeat_or_enter_khuresh_tt
+				OR = {
+					num_of_provinces_owned_or_owned_by_subjects_with = {
+						OR = {
+							region = north_khuresh_region
+							region = south_khuresh_region
+						}
+						value = 5
+					}
+					any_country = {
+						OR = {
+							primary_culture = khureshi_snakefolk
+							capital_scope = { region = north_khuresh_region }
+							capital_scope = { region = south_khuresh_region }
+						}
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 50
+							}
+						}
+					}
+				}
+			}
 		}
-
 		effect = {
-			add_country_modifier = { 
- 				name = indish_historical_defender
+			country_event = { id = ind_events.103 }
+		}
+	}
+
+	# Khuresh must never again decide whether Ind is prey.
+	ind_khuresh_answered = {
+		icon = mission_ind_jungle
+		position = 15
+		required_missions = { ind_coils_beyond_jungle }
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = ind_defeat_or_enter_khuresh_tt
+				OR = {
+					num_of_provinces_owned_or_owned_by_subjects_with = {
+						OR = {
+							region = north_khuresh_region
+							region = south_khuresh_region
+						}
+						value = 10
+					}
+					AND = {
+						army_size_percentage = 1.0
+						num_of_owned_provinces_with = {
+							region = eastern_ind_region
+							fort_level = 2
+							value = 6
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_khuresh_answered_mod
 				duration = -1
 			}
 		}
 	}
-	
 
+	# The frontier has taught expensive lessons. Veterans, barracks, and drill yards must keep them alive.
+	ind_veterans_frontier = {
+		icon = mission_elephant_warrior
+		position = 16
+		required_missions = { ind_khuresh_answered }
+		trigger = {
+			num_of_owned_provinces_with = {
+				superregion = ind_superregion
+				OR = {
+					has_building = barracks
+					has_building = training_fields
+				}
+				value = 8
+			}
+			OR = {
+				army_professionalism = 0.35
+				has_country_modifier = war_modern_army
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ind_veterans_frontier_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Pegu is a river mandala of ports, monks, guilds, and tolls.
+	ind_pegu_river_mandala = {
+		icon = mission_ind_city
+		position = 17
+		required_missions = { }
+		provinces_to_highlight = {
+			province_id = 4096
+			OR = {
+				NOT = { owned_by = ROOT }
+				unrest = 1
+				local_autonomy = 1
+				NOT = { num_of_times_expanded_infrastructure = 1 }
+			}
+		}
+		trigger = {
+			4096 = {
+				owned_by = ROOT
+				NOT = { unrest = 1 }
+				NOT = { local_autonomy = 1 }
+				num_of_times_expanded_infrastructure = 1
+			}
+		}
+		effect = {
+			4096 = {
+				add_permanent_province_modifier = {
+					name = ind_pegu_river_mandala_mod
+					duration = -1
+				}
+			}
+		}
+	}
+
+	# Malwa's plateau court turns height, poetry, law, and road command into authority.
+	ind_malwa_plateau_court = {
+		icon = mission_ind_city
+		position = 18
+		required_missions = { }
+		provinces_to_highlight = {
+			province_id = 4181
+			OR = {
+				NOT = { owned_by = ROOT }
+				unrest = 1
+				local_autonomy = 1
+				NOT = { num_of_times_expanded_infrastructure = 1 }
+			}
+		}
+		trigger = {
+			4181 = {
+				owned_by = ROOT
+				NOT = { unrest = 1 }
+				NOT = { local_autonomy = 1 }
+				num_of_times_expanded_infrastructure = 1
+			}
+		}
+		effect = {
+			4181 = {
+				add_permanent_province_modifier = {
+					name = ind_malwa_plateau_court_mod
+					duration = -1
+				}
+			}
+		}
+	}
 }

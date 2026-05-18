@@ -724,3 +724,213 @@ country_event = {
 		add_mercantilism = 1
 	}
 }
+
+### Ind Mission Events
+
+# A unified Ind must choose whether the new canopy is held by court law, local custom, or temple procession.
+country_event = {
+	id = ind_events.100
+	title = ind_events.100.t
+	desc = ind_events.100.d
+	picture = IND_eventPicture
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	trigger = {
+		capital_scope = { superregion = ind_superregion }
+	}
+
+# Bind the courts.
+	option = {
+		ai_chance = { factor = 40 }
+		name = ind_events.100.a
+
+		add_country_modifier = {
+			name = ind_one_canopy_centralized_mod
+			duration = -1
+		}
+	}
+
+# Honor the mandalas.
+	option = {
+		ai_chance = { factor = 35 }
+		name = ind_events.100.b
+
+		add_country_modifier = {
+			name = ind_one_canopy_mandala_mod
+			duration = -1
+		}
+	}
+
+# Process with the gods.
+	option = {
+		ai_chance = { factor = 25 }
+		name = ind_events.100.c
+
+		add_country_modifier = {
+			name = ind_one_canopy_temple_mod
+			duration = -1
+		}
+	}
+}
+
+# The Dragon Isles and River Ruin routes force Ind to decide how fear, tribute, and naval command will be priced.
+country_event = {
+	id = ind_events.101
+	title = ind_events.101.t
+	desc = ind_events.101.d
+	picture = IND_eventPicture
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	trigger = {
+		capital_scope = { superregion = ind_superregion }
+	}
+
+# Drill the admiralty.
+	option = {
+		ai_chance = { factor = 40 }
+		name = ind_events.101.a
+
+		add_country_modifier = {
+			name = ind_dragon_toll_admiralty_mod
+			duration = -1
+		}
+	}
+
+# License the pilots.
+	option = {
+		ai_chance = { factor = 35 }
+		name = ind_events.101.b
+
+		add_country_modifier = {
+			name = ind_dragon_toll_pilots_mod
+			duration = -1
+		}
+	}
+
+# Price the tribute.
+	option = {
+		ai_chance = { factor = 25 }
+		name = ind_events.101.c
+
+		add_country_modifier = {
+			name = ind_dragon_toll_tribute_mod
+			duration = -1
+		}
+	}
+}
+
+# Cathay's empty throne tests whether Ind answers with stone, protocol, or market leverage.
+country_event = {
+	id = ind_events.102
+	title = ind_events.102.t
+	desc = ind_events.102.d
+	picture = IND_eventPicture
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	trigger = {
+		capital_scope = { superregion = ind_superregion }
+	}
+
+# Hold with fortresses.
+	option = {
+		ai_chance = { factor = 40 }
+		name = ind_events.102.a
+
+		add_country_modifier = {
+			name = ind_celestial_line_forts_mod
+			duration = -1
+		}
+	}
+
+# Answer with envoys.
+	option = {
+		ai_chance = { factor = 35 }
+		name = ind_events.102.b
+
+		add_country_modifier = {
+			name = ind_celestial_line_envoys_mod
+			duration = -1
+		}
+	}
+
+# Bind with markets.
+	option = {
+		ai_chance = { factor = 25 }
+		name = ind_events.102.c
+
+		add_country_modifier = {
+			name = ind_celestial_line_markets_mod
+			duration = -1
+		}
+	}
+}
+
+# Khuresh can be contained, invaded, or constrained by treaties that treat serpent courts as dangers instead of mysteries.
+country_event = {
+	id = ind_events.103
+	title = ind_events.103.t
+	desc = ind_events.103.d
+	picture = IND_eventPicture
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	trigger = {
+		capital_scope = { superregion = ind_superregion }
+	}
+
+# Wall the jungle.
+	option = {
+		ai_chance = { factor = 35 }
+		name = ind_events.103.a
+
+		add_country_modifier = {
+			name = ind_khuresh_wall_mod
+			duration = -1
+		}
+	}
+
+# Carry the war south.
+	option = {
+		ai_chance = { factor = 35 }
+		name = ind_events.103.b
+
+		add_country_modifier = {
+			name = ind_khuresh_jungle_war_mod
+			duration = -1
+		}
+		hidden_effect = {
+			north_khuresh_region = {
+				limit = {
+					is_wasteland = no
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			south_khuresh_region = {
+				limit = {
+					is_wasteland = no
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+# Treaty the serpents.
+	option = {
+		ai_chance = { factor = 30 }
+		name = ind_events.103.c
+
+		add_country_modifier = {
+			name = ind_khuresh_serpent_treaties_mod
+			duration = -1
+		}
+	}
+}
