@@ -1,3 +1,42 @@
+setup_ind_power_broker_privileges = {
+	if = {
+		limit = {
+			exists = yes
+			culture_group = indish_cg
+			NOT = { has_country_flag = ind_power_broker_privileges_setup }
+		}
+		set_country_flag = ind_power_broker_privileges_setup
+		if = {
+			limit = {
+				has_estate = estate_church
+				NOT = { has_estate_privilege = estate_church_holy_power_brokers }
+			}
+			set_estate_privilege = estate_church_holy_power_brokers
+		}
+		if = {
+			limit = {
+				has_estate = estate_nobles
+				NOT = { has_estate_privilege = estate_nobles_noble_power_brokers }
+			}
+			set_estate_privilege = estate_nobles_noble_power_brokers
+		}
+		if = {
+			limit = {
+				has_estate = estate_burghers
+				NOT = { has_estate_privilege = estate_burghers_merchant_power_brokers }
+			}
+			set_estate_privilege = estate_burghers_merchant_power_brokers
+		}
+		if = {
+			limit = {
+				has_estate = estate_mages
+				NOT = { has_estate_privilege = estate_mages_arcane_power_brokers }
+			}
+			set_estate_privilege = estate_mages_arcane_power_brokers
+		}
+	}
+}
+
 setup_vision = {
 	if = {
 		limit = {
@@ -2604,6 +2643,24 @@ setup_vision = {
 		}
 		albion_region = {
 			undiscover_country = ROOT
+		}
+	}
+	#Gyjaar Dead Fleet: Indish Vampire Coast raiders know the subcontinent, Cathay, and the sea roads between them.
+	if = {
+		limit = {
+			tag = V20
+		}
+		ind_superregion = {
+			discover_country = ROOT
+		}
+		cathay_superregion = {
+			discover_country = ROOT
+		}
+		sea_of_dread_region = {
+			discover_country = ROOT
+		}
+		jade_sea_region = {
+			discover_country = ROOT
 		}
 	}
 	#khuresh
