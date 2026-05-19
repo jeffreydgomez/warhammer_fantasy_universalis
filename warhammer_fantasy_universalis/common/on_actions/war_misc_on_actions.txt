@@ -919,6 +919,31 @@ on_mandate_of_heaven_gained = {
 
 
 
+on_province_owner_change = {
+	
+	if = {
+		limit = {
+			has_province_modifier = old_ones_landing_zone
+		}
+		remove_province_modifier = old_ones_landing_zone
+
+		owner = {
+			if = {
+				limit = { NOT = { adm_tech = 32 } }
+				add_adm_tech = 1
+			}
+			if = {
+				limit = { NOT = { dip_tech = 32 } }
+				add_dip_tech = 1
+			}
+			if = {
+				limit = { NOT = { mil_tech = 32 } }
+				add_mil_tech = 1
+			}
+		}
+	}
+}
+
 
 
 ## Old Ones Annexed
