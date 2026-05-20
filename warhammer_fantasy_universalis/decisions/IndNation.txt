@@ -10,12 +10,17 @@ country_decisions = {
 			NOT = {
 				exists = I99
 			}
-			culture_group = indish_cg
+			OR = {
+				culture_group = indish_cg
+				capital_scope = {
+					superregion = ind_superregion
+				}
+			}
 			OR = {
 				ai = no
 				AND = {
 					ai = yes
-					num_of_cities = 80
+					num_of_cities = 60
 				}
 			}
 			is_colonial_nation = no
@@ -28,38 +33,17 @@ country_decisions = {
 			}
 		}
 		provinces_to_highlight = {
-			OR = {
-				AND = {
-					superregion = ind_superregion
-					root = {
-						NOT = {
-							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-								value = 100
-								superregion = ind_superregion
-								is_core = root
-							}
-						}				
-
-					}
-				}
-	
-			}
-			OR = {
-				NOT = {
-					owned_by = ROOT
-				}
-				NOT = {
-					is_core = ROOT
-				}
+			superregion = ind_superregion
+			NOT = {
+				owned_by = ROOT
 			}
 		}
 		allow = {
 #			is_free_or_tributary_trigger = yes
 			is_at_war = no
-			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-				value = 100
+			num_of_owned_provinces_with = {
+				value = 60
 				superregion = ind_superregion
-				is_core = root
 			}
 		}
 		effect = {
