@@ -1,0 +1,1065 @@
+########################################
+# Player-requested regional unifications
+########################################
+
+war_regional_unification_delete_owned_armies = {
+	every_owned_province = {
+		kill_units = {
+			who = owner
+			type = infantry
+			amount = 1000
+		}
+		kill_units = {
+			who = owner
+			type = cavalry
+			amount = 1000
+		}
+		kill_units = {
+			who = owner
+			type = artillery
+			amount = 1000
+		}
+	}
+}
+
+war_regional_unification_add_unexpected_modifier = {
+	add_country_modifier = {
+		name = war_unexpected_unification
+		duration = 3650
+	}
+}
+
+war_regional_unification_prepare_pending_inherit = {
+	every_subject_country = {
+		grant_independence = yes
+	}
+	if = {
+		limit = { is_subject = yes }
+		grant_independence = yes
+	}
+	war_regional_unification_delete_owned_armies = yes
+}
+
+war_regional_unification_inherit_pending_countries = {
+	while = {
+		limit = {
+			any_country = { has_country_flag = war_regional_unification_pending_inherit }
+		}
+		random_country = {
+			limit = { has_country_flag = war_regional_unification_pending_inherit }
+			clr_country_flag = war_regional_unification_pending_inherit
+			war_regional_unification_prepare_pending_inherit = yes
+			event_target:war_regional_unification_target = { inherit = PREV }
+		}
+	}
+}
+
+war_regional_unification_integrate_imperial_neighbors = {
+	if = {
+		limit = {
+			any_neighbor_country = { culture_group = imperial_group }
+		}
+		war_regional_unification_add_unexpected_modifier = yes
+		every_neighbor_country = {
+			limit = { culture_group = imperial_group }
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		war_regional_unification_inherit_pending_countries = yes
+	}
+}
+
+war_regional_unification_integrate_estalian_neighbors = {
+	if = {
+		limit = {
+			any_neighbor_country = { culture_group = estalian_group }
+		}
+		war_regional_unification_add_unexpected_modifier = yes
+		every_neighbor_country = {
+			limit = { culture_group = estalian_group }
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		war_regional_unification_inherit_pending_countries = yes
+	}
+}
+
+war_regional_unification_integrate_bretonnian_neighbors = {
+	if = {
+		limit = {
+			any_neighbor_country = { culture_group = bretonnian_group }
+		}
+		war_regional_unification_add_unexpected_modifier = yes
+		every_neighbor_country = {
+			limit = { culture_group = bretonnian_group }
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		war_regional_unification_inherit_pending_countries = yes
+	}
+}
+
+war_regional_unification_integrate_tilean_neighbors = {
+	if = {
+		limit = {
+			any_neighbor_country = { culture_group = tilean_group }
+		}
+		war_regional_unification_add_unexpected_modifier = yes
+		every_neighbor_country = {
+			limit = { culture_group = tilean_group }
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		war_regional_unification_inherit_pending_countries = yes
+	}
+}
+
+war_regional_unification_integrate_norse_neighbors = {
+	if = {
+		limit = {
+			any_neighbor_country = { culture_group = norse_group }
+		}
+		war_regional_unification_add_unexpected_modifier = yes
+		every_neighbor_country = {
+			limit = { culture_group = norse_group }
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		war_regional_unification_inherit_pending_countries = yes
+	}
+}
+
+war_regional_unification_integrate_albionise_neighbors = {
+	if = {
+		limit = {
+			any_neighbor_country = { culture_group = albionise_group }
+		}
+		war_regional_unification_add_unexpected_modifier = yes
+		every_neighbor_country = {
+			limit = { culture_group = albionise_group }
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		war_regional_unification_inherit_pending_countries = yes
+	}
+}
+
+war_regional_unification_integrate_arabyan_neighbors = {
+	if = {
+		limit = {
+			any_neighbor_country = { culture_group = arabyan_group }
+		}
+		war_regional_unification_add_unexpected_modifier = yes
+		every_neighbor_country = {
+			limit = { culture_group = arabyan_group }
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		war_regional_unification_inherit_pending_countries = yes
+	}
+}
+
+war_regional_unification_integrate_kurgan_neighbors = {
+	if = {
+		limit = {
+			any_neighbor_country = {
+				culture_group = kurgan_group
+				num_of_cities = 2
+			}
+		}
+		war_regional_unification_add_unexpected_modifier = yes
+		every_neighbor_country = {
+			limit = {
+				culture_group = kurgan_group
+				num_of_cities = 2
+			}
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		war_regional_unification_inherit_pending_countries = yes
+	}
+}
+
+war_regional_unification_integrate_cathayan_neighbors = {
+	if = {
+		limit = {
+			any_neighbor_country = { culture_group = cathayan_cg }
+		}
+		war_regional_unification_add_unexpected_modifier = yes
+		every_neighbor_country = {
+			limit = { culture_group = cathayan_cg }
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		war_regional_unification_inherit_pending_countries = yes
+	}
+}
+
+war_regional_unification_integrate_indish_neighbors = {
+	if = {
+		limit = {
+			any_neighbor_country = { culture_group = indish_cg }
+		}
+		war_regional_unification_add_unexpected_modifier = yes
+		every_neighbor_country = {
+			limit = { culture_group = indish_cg }
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		war_regional_unification_inherit_pending_countries = yes
+	}
+}
+
+war_regional_unification_integrate_nipponese_neighbors = {
+	if = {
+		limit = {
+			any_neighbor_country = { culture_group = nipponese_cg }
+		}
+		war_regional_unification_add_unexpected_modifier = yes
+		every_neighbor_country = {
+			limit = { culture_group = nipponese_cg }
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		war_regional_unification_inherit_pending_countries = yes
+	}
+}
+
+war_regional_unification_integrate_nehekharan_neighbors = {
+	if = {
+		limit = {
+			any_neighbor_country = { culture_group = nehekharan_group }
+		}
+		war_regional_unification_add_unexpected_modifier = yes
+		every_neighbor_country = {
+			limit = { culture_group = nehekharan_group }
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		war_regional_unification_inherit_pending_countries = yes
+	}
+}
+
+war_regional_unification_integrate_greenskin_neighbors = {
+	if = {
+		limit = {
+			any_neighbor_country = { culture_group = greenskins_group }
+		}
+		war_regional_unification_add_unexpected_modifier = yes
+		every_neighbor_country = {
+			limit = { culture_group = greenskins_group }
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		war_regional_unification_inherit_pending_countries = yes
+	}
+}
+
+war_regional_unification_integrate_asur_neighbors = {
+	if = {
+		limit = {
+			any_neighbor_country = { culture_group = asur_group }
+		}
+		war_regional_unification_add_unexpected_modifier = yes
+		every_neighbor_country = {
+			limit = { culture_group = asur_group }
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		war_regional_unification_inherit_pending_countries = yes
+	}
+}
+
+war_regional_unification_integrate_druchii_neighbors = {
+	if = {
+		limit = {
+			any_neighbor_country = { culture_group = druchii_group }
+		}
+		war_regional_unification_add_unexpected_modifier = yes
+		every_neighbor_country = {
+			limit = { culture_group = druchii_group }
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		war_regional_unification_inherit_pending_countries = yes
+	}
+}
+
+war_regional_unification_integrate_snakefolk_neighbors = {
+	if = {
+		limit = {
+			any_neighbor_country = { culture_group = snakefolk_cg }
+		}
+		war_regional_unification_add_unexpected_modifier = yes
+		every_neighbor_country = {
+			limit = { culture_group = snakefolk_cg }
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		war_regional_unification_inherit_pending_countries = yes
+	}
+}
+
+war_regional_unification_integrate_dwarf_neighbors = {
+	if = {
+		limit = {
+			any_neighbor_country = { culture_group = dwarf_group }
+		}
+		war_regional_unification_add_unexpected_modifier = yes
+		every_neighbor_country = {
+			limit = { culture_group = dwarf_group }
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		war_regional_unification_inherit_pending_countries = yes
+	}
+}
+
+war_regional_unification_integrate_ogre_neighbors = {
+	if = {
+		limit = {
+			any_neighbor_country = { culture_group = ogre_group }
+		}
+		war_regional_unification_add_unexpected_modifier = yes
+		every_neighbor_country = {
+			limit = { culture_group = ogre_group }
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		war_regional_unification_inherit_pending_countries = yes
+	}
+}
+
+war_regional_unification_integrate_skaven_neighbors = {
+	if = {
+		limit = {
+			any_neighbor_country = { culture_group = skaven_group }
+		}
+		war_regional_unification_add_unexpected_modifier = yes
+		every_neighbor_country = {
+			limit = { culture_group = skaven_group }
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		war_regional_unification_inherit_pending_countries = yes
+	}
+}
+
+war_regional_unification_integrate_lustrian_lizardmen_neighbors = {
+	if = {
+		limit = {
+			OR = {
+				any_neighbor_country = {
+					culture_group = lizardmen_group
+					NOT = { culture = dragon_isles_lizardmen }
+				}
+				AND = {
+					exists = V06
+					NOT = { tag = V06 }
+				}
+				AND = {
+					exists = V08
+					NOT = { tag = V08 }
+				}
+				AND = {
+					exists = V14
+					NOT = { tag = V14 }
+				}
+			}
+		}
+		war_regional_unification_add_unexpected_modifier = yes
+		every_neighbor_country = {
+			limit = {
+				culture_group = lizardmen_group
+				NOT = { culture = dragon_isles_lizardmen }
+			}
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		if = {
+			limit = {
+				exists = V06
+				NOT = { tag = V06 }
+				V06 = { culture_group = lizardmen_group }
+			}
+			V06 = { set_country_flag = war_regional_unification_pending_inherit }
+		}
+		if = {
+			limit = {
+				exists = V08
+				NOT = { tag = V08 }
+				V08 = { culture_group = lizardmen_group }
+			}
+			V08 = { set_country_flag = war_regional_unification_pending_inherit }
+		}
+		if = {
+			limit = {
+				exists = V14
+				NOT = { tag = V14 }
+				V14 = { culture_group = lizardmen_group }
+			}
+			V14 = { set_country_flag = war_regional_unification_pending_inherit }
+		}
+		war_regional_unification_inherit_pending_countries = yes
+	}
+}
+
+war_regional_unification_integrate_dragon_isles_lizardmen_neighbors = {
+	if = {
+		limit = {
+			any_neighbor_country = {
+				culture_group = lizardmen_group
+				culture = dragon_isles_lizardmen
+				capital_scope = { region = dragon_isles_region }
+			}
+		}
+		war_regional_unification_add_unexpected_modifier = yes
+		every_neighbor_country = {
+			limit = {
+				culture_group = lizardmen_group
+				culture = dragon_isles_lizardmen
+				capital_scope = { region = dragon_isles_region }
+			}
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		war_regional_unification_inherit_pending_countries = yes
+	}
+}
+
+war_regional_unification_select_imperial_target = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				culture_group = imperial_group
+			}
+		}
+		random_country = {
+			limit = {
+				ai = no
+				culture_group = imperial_group
+			}
+			save_event_target_as = war_regional_unification_target
+		}
+	}
+	else_if = {
+		limit = { exists = A01 }
+		A01 = { save_event_target_as = war_regional_unification_target }
+	}
+}
+
+war_regional_unification_select_estalian_target = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				culture_group = estalian_group
+			}
+		}
+		random_country = {
+			limit = {
+				ai = no
+				culture_group = estalian_group
+			}
+			save_event_target_as = war_regional_unification_target
+		}
+	}
+	else_if = {
+		limit = { exists = A41 }
+		A41 = { save_event_target_as = war_regional_unification_target }
+	}
+}
+
+war_regional_unification_select_bretonnian_target = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				culture_group = bretonnian_group
+			}
+		}
+		random_country = {
+			limit = {
+				ai = no
+				culture_group = bretonnian_group
+			}
+			save_event_target_as = war_regional_unification_target
+		}
+	}
+	else_if = {
+		limit = { exists = A15 }
+		A15 = { save_event_target_as = war_regional_unification_target }
+	}
+}
+
+war_regional_unification_select_tilean_target = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				culture_group = tilean_group
+			}
+		}
+		random_country = {
+			limit = {
+				ai = no
+				culture_group = tilean_group
+			}
+			save_event_target_as = war_regional_unification_target
+		}
+	}
+	else_if = {
+		limit = { exists = A50 }
+		A50 = { save_event_target_as = war_regional_unification_target }
+	}
+}
+
+war_regional_unification_select_norse_target = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				culture_group = norse_group
+			}
+		}
+		random_country = {
+			limit = {
+				ai = no
+				culture_group = norse_group
+			}
+			save_event_target_as = war_regional_unification_target
+		}
+	}
+	else_if = {
+		limit = { exists = A30 }
+		A30 = { save_event_target_as = war_regional_unification_target }
+	}
+}
+
+war_regional_unification_select_albionise_target = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				culture_group = albionise_group
+			}
+		}
+		random_country = {
+			limit = {
+				ai = no
+				culture_group = albionise_group
+			}
+			save_event_target_as = war_regional_unification_target
+		}
+	}
+	else_if = {
+		limit = { exists = B09 }
+		B09 = { save_event_target_as = war_regional_unification_target }
+	}
+}
+
+war_regional_unification_select_arabyan_target = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				culture_group = arabyan_group
+			}
+		}
+		random_country = {
+			limit = {
+				ai = no
+				culture_group = arabyan_group
+			}
+			save_event_target_as = war_regional_unification_target
+		}
+	}
+	else_if = {
+		limit = { exists = Z14 }
+		Z14 = { save_event_target_as = war_regional_unification_target }
+	}
+}
+
+war_regional_unification_select_kurgan_target = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				culture_group = kurgan_group
+			}
+		}
+		random_country = {
+			limit = {
+				ai = no
+				culture_group = kurgan_group
+			}
+			save_event_target_as = war_regional_unification_target
+		}
+	}
+	else_if = {
+		limit = { exists = B46 }
+		B46 = { save_event_target_as = war_regional_unification_target }
+	}
+}
+
+war_regional_unification_select_cathayan_target = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				culture_group = cathayan_cg
+			}
+		}
+		random_country = {
+			limit = {
+				ai = no
+				culture_group = cathayan_cg
+			}
+			save_event_target_as = war_regional_unification_target
+		}
+	}
+	else_if = {
+		limit = { exists = I25 }
+		I25 = { save_event_target_as = war_regional_unification_target }
+	}
+}
+
+war_regional_unification_select_indish_target = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				culture_group = indish_cg
+			}
+		}
+		random_country = {
+			limit = {
+				ai = no
+				culture_group = indish_cg
+			}
+			save_event_target_as = war_regional_unification_target
+		}
+	}
+	else_if = {
+		limit = { exists = Z52 }
+		Z52 = { save_event_target_as = war_regional_unification_target }
+	}
+}
+
+war_regional_unification_select_nipponese_target = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				culture_group = nipponese_cg
+			}
+		}
+		random_country = {
+			limit = {
+				ai = no
+				culture_group = nipponese_cg
+			}
+			save_event_target_as = war_regional_unification_target
+		}
+	}
+	else_if = {
+		limit = { exists = Z96 }
+		Z96 = { save_event_target_as = war_regional_unification_target }
+	}
+}
+
+war_regional_unification_select_nehekharan_target = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				culture_group = nehekharan_group
+			}
+		}
+		random_country = {
+			limit = {
+				ai = no
+				culture_group = nehekharan_group
+			}
+			save_event_target_as = war_regional_unification_target
+		}
+	}
+	else_if = {
+		limit = { exists = Z01 }
+		Z01 = { save_event_target_as = war_regional_unification_target }
+	}
+}
+
+war_regional_unification_select_greenskin_target = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				culture_group = greenskins_group
+			}
+		}
+		random_country = {
+			limit = {
+				ai = no
+				culture_group = greenskins_group
+			}
+			save_event_target_as = war_regional_unification_target
+		}
+	}
+	else_if = {
+		limit = { exists = G24 }
+		G24 = { save_event_target_as = war_regional_unification_target }
+	}
+}
+
+war_regional_unification_select_asur_target = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				culture_group = asur_group
+			}
+		}
+		random_country = {
+			limit = {
+				ai = no
+				culture_group = asur_group
+			}
+			save_event_target_as = war_regional_unification_target
+		}
+	}
+	else_if = {
+		limit = { exists = H06 }
+		H06 = { save_event_target_as = war_regional_unification_target }
+	}
+}
+
+war_regional_unification_select_druchii_target = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				culture_group = druchii_group
+			}
+		}
+		random_country = {
+			limit = {
+				ai = no
+				culture_group = druchii_group
+			}
+			save_event_target_as = war_regional_unification_target
+		}
+	}
+	else_if = {
+		limit = { exists = H12 }
+		H12 = { save_event_target_as = war_regional_unification_target }
+	}
+}
+
+war_regional_unification_select_snakefolk_target = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				culture_group = snakefolk_cg
+			}
+		}
+		random_country = {
+			limit = {
+				ai = no
+				culture_group = snakefolk_cg
+			}
+			save_event_target_as = war_regional_unification_target
+		}
+	}
+	else_if = {
+		limit = { exists = Z69 }
+		Z69 = { save_event_target_as = war_regional_unification_target }
+	}
+}
+
+war_regional_unification_select_dwarf_target = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				culture_group = dwarf_group
+			}
+		}
+		random_country = {
+			limit = {
+				ai = no
+				culture_group = dwarf_group
+			}
+			save_event_target_as = war_regional_unification_target
+		}
+	}
+	else_if = {
+		limit = { exists = U04 }
+		U04 = { save_event_target_as = war_regional_unification_target }
+	}
+}
+
+war_regional_unification_select_ogre_target = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				culture_group = ogre_group
+			}
+		}
+		random_country = {
+			limit = {
+				ai = no
+				culture_group = ogre_group
+			}
+			save_event_target_as = war_regional_unification_target
+		}
+	}
+	else_if = {
+		limit = { exists = I01 }
+		I01 = { save_event_target_as = war_regional_unification_target }
+	}
+}
+
+war_regional_unification_select_skaven_target = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				culture_group = skaven_group
+			}
+		}
+		random_country = {
+			limit = {
+				ai = no
+				culture_group = skaven_group
+			}
+			save_event_target_as = war_regional_unification_target
+		}
+	}
+	else_if = {
+		limit = { exists = U25 }
+		U25 = { save_event_target_as = war_regional_unification_target }
+	}
+}
+
+war_regional_unification_select_lustrian_lizardmen_target = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				culture_group = lizardmen_group
+				NOT = { culture = dragon_isles_lizardmen }
+			}
+		}
+		random_country = {
+			limit = {
+				ai = no
+				culture_group = lizardmen_group
+				NOT = { culture = dragon_isles_lizardmen }
+			}
+			save_event_target_as = war_regional_unification_target
+		}
+	}
+	else_if = {
+		limit = { exists = V03 }
+		V03 = { save_event_target_as = war_regional_unification_target }
+	}
+}
+
+war_regional_unification_select_dragon_isles_lizardmen_target = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				culture = dragon_isles_lizardmen
+				capital_scope = { region = dragon_isles_region }
+			}
+		}
+		random_country = {
+			limit = {
+				ai = no
+				culture = dragon_isles_lizardmen
+				capital_scope = { region = dragon_isles_region }
+			}
+			save_event_target_as = war_regional_unification_target
+		}
+	}
+	else_if = {
+		limit = { exists = I49 }
+		I49 = { save_event_target_as = war_regional_unification_target }
+	}
+}
+
+war_regional_unification_run_imperial = {
+	if = {
+		limit = { war_regional_unification_imperial_available = yes }
+		war_regional_unification_select_imperial_target = yes
+		event_target:war_regional_unification_target = { war_regional_unification_integrate_imperial_neighbors = yes }
+	}
+}
+
+war_regional_unification_run_estalian = {
+	if = {
+		limit = { war_regional_unification_estalian_available = yes }
+		war_regional_unification_select_estalian_target = yes
+		event_target:war_regional_unification_target = { war_regional_unification_integrate_estalian_neighbors = yes }
+	}
+}
+
+war_regional_unification_run_bretonnian = {
+	if = {
+		limit = { war_regional_unification_bretonnian_available = yes }
+		war_regional_unification_select_bretonnian_target = yes
+		event_target:war_regional_unification_target = { war_regional_unification_integrate_bretonnian_neighbors = yes }
+	}
+}
+
+war_regional_unification_run_tilean = {
+	if = {
+		limit = { war_regional_unification_tilean_available = yes }
+		war_regional_unification_select_tilean_target = yes
+		event_target:war_regional_unification_target = { war_regional_unification_integrate_tilean_neighbors = yes }
+	}
+}
+
+war_regional_unification_run_norse = {
+	if = {
+		limit = { war_regional_unification_norse_available = yes }
+		war_regional_unification_select_norse_target = yes
+		event_target:war_regional_unification_target = { war_regional_unification_integrate_norse_neighbors = yes }
+	}
+}
+
+war_regional_unification_run_albionise = {
+	if = {
+		limit = { war_regional_unification_albionise_available = yes }
+		war_regional_unification_select_albionise_target = yes
+		event_target:war_regional_unification_target = { war_regional_unification_integrate_albionise_neighbors = yes }
+	}
+}
+
+war_regional_unification_run_arabyan = {
+	if = {
+		limit = { war_regional_unification_arabyan_available = yes }
+		war_regional_unification_select_arabyan_target = yes
+		event_target:war_regional_unification_target = { war_regional_unification_integrate_arabyan_neighbors = yes }
+	}
+}
+
+war_regional_unification_run_kurgan = {
+	if = {
+		limit = { war_regional_unification_kurgan_available = yes }
+		war_regional_unification_select_kurgan_target = yes
+		event_target:war_regional_unification_target = { war_regional_unification_integrate_kurgan_neighbors = yes }
+	}
+}
+
+war_regional_unification_run_cathayan = {
+	if = {
+		limit = { war_regional_unification_cathayan_available = yes }
+		war_regional_unification_select_cathayan_target = yes
+		event_target:war_regional_unification_target = { war_regional_unification_integrate_cathayan_neighbors = yes }
+	}
+}
+
+war_regional_unification_run_indish = {
+	if = {
+		limit = { war_regional_unification_indish_available = yes }
+		war_regional_unification_select_indish_target = yes
+		event_target:war_regional_unification_target = { war_regional_unification_integrate_indish_neighbors = yes }
+	}
+}
+
+war_regional_unification_run_nipponese = {
+	if = {
+		limit = { war_regional_unification_nipponese_available = yes }
+		war_regional_unification_select_nipponese_target = yes
+		event_target:war_regional_unification_target = { war_regional_unification_integrate_nipponese_neighbors = yes }
+	}
+}
+
+war_regional_unification_run_nehekharan = {
+	if = {
+		limit = { war_regional_unification_nehekharan_available = yes }
+		war_regional_unification_select_nehekharan_target = yes
+		event_target:war_regional_unification_target = { war_regional_unification_integrate_nehekharan_neighbors = yes }
+	}
+}
+
+war_regional_unification_run_greenskin = {
+	if = {
+		limit = { war_regional_unification_greenskin_available = yes }
+		war_regional_unification_select_greenskin_target = yes
+		event_target:war_regional_unification_target = { war_regional_unification_integrate_greenskin_neighbors = yes }
+	}
+}
+
+war_regional_unification_run_asur = {
+	if = {
+		limit = { war_regional_unification_asur_available = yes }
+		war_regional_unification_select_asur_target = yes
+		event_target:war_regional_unification_target = { war_regional_unification_integrate_asur_neighbors = yes }
+	}
+}
+
+war_regional_unification_run_druchii = {
+	if = {
+		limit = { war_regional_unification_druchii_available = yes }
+		war_regional_unification_select_druchii_target = yes
+		event_target:war_regional_unification_target = { war_regional_unification_integrate_druchii_neighbors = yes }
+	}
+}
+
+war_regional_unification_run_snakefolk = {
+	if = {
+		limit = { war_regional_unification_snakefolk_available = yes }
+		war_regional_unification_select_snakefolk_target = yes
+		event_target:war_regional_unification_target = { war_regional_unification_integrate_snakefolk_neighbors = yes }
+	}
+}
+
+war_regional_unification_run_dwarf = {
+	if = {
+		limit = { war_regional_unification_dwarf_available = yes }
+		war_regional_unification_select_dwarf_target = yes
+		event_target:war_regional_unification_target = { war_regional_unification_integrate_dwarf_neighbors = yes }
+	}
+}
+
+war_regional_unification_run_ogre = {
+	if = {
+		limit = { war_regional_unification_ogre_available = yes }
+		war_regional_unification_select_ogre_target = yes
+		event_target:war_regional_unification_target = { war_regional_unification_integrate_ogre_neighbors = yes }
+	}
+}
+
+war_regional_unification_run_skaven = {
+	if = {
+		limit = { war_regional_unification_skaven_available = yes }
+		war_regional_unification_select_skaven_target = yes
+		event_target:war_regional_unification_target = { war_regional_unification_integrate_skaven_neighbors = yes }
+	}
+}
+
+war_regional_unification_run_lustrian_lizardmen = {
+	if = {
+		limit = { war_regional_unification_lustrian_lizardmen_available = yes }
+		war_regional_unification_select_lustrian_lizardmen_target = yes
+		event_target:war_regional_unification_target = { war_regional_unification_integrate_lustrian_lizardmen_neighbors = yes }
+	}
+}
+
+war_regional_unification_run_dragon_isles_lizardmen = {
+	if = {
+		limit = { war_regional_unification_dragon_isles_lizardmen_available = yes }
+		war_regional_unification_select_dragon_isles_lizardmen_target = yes
+		event_target:war_regional_unification_target = { war_regional_unification_integrate_dragon_isles_lizardmen_neighbors = yes }
+	}
+}
+
+war_regional_unification_run_all_regions_once = {
+	war_regional_unification_run_imperial = yes
+	war_regional_unification_run_estalian = yes
+	war_regional_unification_run_bretonnian = yes
+	war_regional_unification_run_tilean = yes
+	war_regional_unification_run_norse = yes
+	war_regional_unification_run_albionise = yes
+	war_regional_unification_run_arabyan = yes
+	war_regional_unification_run_kurgan = yes
+	war_regional_unification_run_cathayan = yes
+	war_regional_unification_run_indish = yes
+	war_regional_unification_run_nipponese = yes
+	war_regional_unification_run_nehekharan = yes
+	war_regional_unification_run_greenskin = yes
+	war_regional_unification_run_asur = yes
+	war_regional_unification_run_druchii = yes
+	war_regional_unification_run_snakefolk = yes
+	war_regional_unification_run_dwarf = yes
+	war_regional_unification_run_ogre = yes
+	war_regional_unification_run_skaven = yes
+	war_regional_unification_run_lustrian_lizardmen = yes
+	war_regional_unification_run_dragon_isles_lizardmen = yes
+}
