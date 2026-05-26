@@ -345,8 +345,8 @@ country_event = {
 
 	trigger = {
 		any_active_trade_node = {
-			NOT = { owned_by = ROOT }
 			has_merchant = PREV
+			NOT = { owned_by = ROOT }
 			NOT = { 
 				has_trade_modifier = {
 					who = ROOT
@@ -595,6 +595,9 @@ country_event = {
 	trigger = {
 		NOT = { mercantilism = 50 }
 		num_of_merchants = 1
+		NOT = {
+			has_country_modifier = freetrade_modifier
+		}
 		any_active_trade_node = {
 			has_merchant = PREV
 			NOT = { 
@@ -603,9 +606,6 @@ country_event = {
 					name = merchant_recalled
 				}
 			}			
-		}
-		NOT = {
-			has_country_modifier = freetrade_modifier
 		}
 	}
 
@@ -656,13 +656,13 @@ country_event = {
 	
 	trigger = {
 		NOT = { mercantilism = 20 }
+		NOT = {
+			has_country_modifier = freetrade_modifier
+		}			
 		any_active_trade_node = {
 			is_sea = yes
 			has_merchant = PREV
 		}	
-		NOT = {
-			has_country_modifier = freetrade_modifier
-		}			
 	}
 
 	mean_time_to_happen = {

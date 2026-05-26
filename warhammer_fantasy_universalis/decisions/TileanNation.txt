@@ -28,26 +28,10 @@ country_decisions = {
 		
 		provinces_to_highlight = {
 			OR = {
-				AND = {
-					region = tilea_region
-					root = {
-						NOT = {
-							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-								value = 20
-								region = tilea_region
-								is_core = root
-							}
-						}
-						owns_or_non_sovereign_subject_of = 566	
-						owns_or_non_sovereign_subject_of = 579	
-						owns_or_non_sovereign_subject_of = 590
-						owns_or_non_sovereign_subject_of = 595
-						owns_or_non_sovereign_subject_of = 603	
-						owns_or_non_sovereign_subject_of = 608
-						owns_or_non_sovereign_subject_of = 625
-						owns_or_non_sovereign_subject_of = 562
-					}
-				}
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+			OR = {
 				province_id = 566	# Miragliano
 				province_id = 579	# trantio
 				province_id = 590	# remas
@@ -56,12 +40,28 @@ country_decisions = {
 				province_id = 608	# luccini
 				province_id = 625	# sartossa
 				province_id = 562	# tobaro
+				AND = {
+					region = tilea_region
+					root = {
+						owns_or_non_sovereign_subject_of = 566	
+						owns_or_non_sovereign_subject_of = 579	
+						owns_or_non_sovereign_subject_of = 590
+						owns_or_non_sovereign_subject_of = 595
+						owns_or_non_sovereign_subject_of = 603	
+						owns_or_non_sovereign_subject_of = 608
+						owns_or_non_sovereign_subject_of = 625
+						owns_or_non_sovereign_subject_of = 562
+						NOT = {
+							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+								value = 20
+								region = tilea_region
+								is_core = root
+							}
+						}
+					}
+				}
 				
 				
-			}
-			OR = {
-				NOT = { owned_by = ROOT }
-				NOT = { is_core = ROOT }
 			}
 		}
 		

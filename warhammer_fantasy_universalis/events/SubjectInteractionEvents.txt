@@ -23,12 +23,12 @@ country_event = {
 		government = monarchy
 		has_new_dynasty = yes
 		is_subject = yes
+		NOT = { num_of_rebel_armies = 1 }
 		overlord = {
 			dynasty = ROOT
 			NOT = { reverse_has_opinion_modifier = { who = ROOT modifier = opinion_sent_help } }
 			NOT = { reverse_has_opinion_modifier = { who = ROOT modifier = opinion_refused_send_help } }
 		}
-		NOT = { num_of_rebel_armies = 1 }
 	}
 	
 	mean_time_to_happen = {
@@ -162,6 +162,9 @@ country_event = {
 		has_dlc = "Common Sense"
 		num_of_subjects = 1
 		has_regency = no
+		NOT = {
+			has_country_modifier = si_incompetent_ruler_timer
+		}
 		any_subject_country = {
 			is_lesser_in_union = no
 			government = monarchy
@@ -173,9 +176,6 @@ country_event = {
 				dip = 3
 				mil = 3
 			}
-		}
-		NOT = {
-			has_country_modifier = si_incompetent_ruler_timer
 		}
 	}
 	
@@ -249,6 +249,7 @@ country_event = {
 		government = monarchy
 		NOT = { has_reform = celestial_empire }
 		NOT = { legitimacy_or_horde_unity = 100 }
+		NOT = { has_country_modifier = si_competent_ruler_timer }
 		any_subject_country = {
 			government = monarchy
 			has_regency = no
@@ -260,7 +261,6 @@ country_event = {
 				mil = 3
 			}
 		}
-		NOT = { has_country_modifier = si_competent_ruler_timer }
 	}
 	
 	mean_time_to_happen = {
@@ -314,14 +314,14 @@ country_event = {
 			legitimacy = 50
 		}
 		any_subject_country = {
-			OR = {
-				is_vassal = yes
-				is_march = yes
-			}
 			government = monarchy
 			has_regency = no
 			has_new_dynasty = yes
 			dynasty = ROOT
+			OR = {
+				is_vassal = yes
+				is_march = yes
+			}
 		}
 	}
 	
@@ -973,12 +973,12 @@ country_event = {
 		has_dlc = "Common Sense"
 		num_of_subjects = 1
 		is_at_war = yes
+		NOT = {
+			has_country_modifier = si_scutage_unwilling_vassals
+		}
 		any_subject_country = {
 			is_at_war = no
 			has_scutage = yes
-		}
-		NOT = {
-			has_country_modifier = si_scutage_unwilling_vassals
 		}
 	}
 	
@@ -1012,12 +1012,12 @@ country_event = {
 			has_truce = yes
 			is_at_war = yes
 		}
+		NOT = {
+			has_country_modifier = si_scutage_unwilling_vassals
+		}
 		any_subject_country = {
 			is_at_war = no
 			has_scutage = yes
-		}
-		NOT = {
-			has_country_modifier = si_scutage_unwilling_vassals
 		}
 	}
 	
@@ -1158,13 +1158,13 @@ country_event = {
 	trigger = {
 		has_dlc = "Common Sense"
 		num_of_subjects = 1
+		NOT = {
+			has_country_modifier = si_squandering_loyalists_timer
+		}
 		any_subject_country = {
 			junior_union_with = ROOT
 			has_support_loyalists = yes
 			NOT = { has_country_modifier = si_squandering_loyalists_timer }
-		}
-		NOT = {
-			has_country_modifier = si_squandering_loyalists_timer
 		}
 	}
 	
@@ -1470,9 +1470,9 @@ country_event = {
 		any_subject_country = {
 			has_divert_trade = yes
 			NOT = {
+				has_country_modifier = si_enchanced_production
 				has_opinion_modifier = { who = ROOT modifier = opinion_export_good }
 				has_opinion_modifier = { who = ROOT modifier = opinion_export_bad }
-				has_country_modifier = si_enchanced_production
 			}
 		}
 	}
@@ -1522,9 +1522,9 @@ country_event = {
 		any_subject_country = {
 			has_divert_trade = yes
 			NOT = {
+				has_country_modifier = si_enchanced_production
 				has_opinion_modifier = { who = ROOT modifier = opinion_export_good }
 				has_opinion_modifier = { who = ROOT modifier = opinion_export_bad }
-				has_country_modifier = si_enchanced_production
 			}
 		}
 	}
@@ -1572,11 +1572,11 @@ country_event = {
 		any_subject_country = {
 			government = monarchy
 			OR = {
+				liberty_desire = 50
+				legitimacy_or_horde_unity = 75
 				NOT = {
 					has_opinion = { who = ROOT value = 0 }
 				}
-				liberty_desire = 50
-				legitimacy_or_horde_unity = 75
 			}
 			NOT = {
 				has_opinion_modifier = { who = ROOT modifier = opinion_low_legitimacy }
@@ -1594,11 +1594,11 @@ country_event = {
 				limit = {
 					government = monarchy
 					OR = {
+						liberty_desire = 50
+						legitimacy_or_horde_unity = 75
 						NOT = {
 							has_opinion = { who = ROOT value = 0 }
 						}
-						liberty_desire = 50
-						legitimacy_or_horde_unity = 75
 					}
 					NOT = {
 						has_opinion_modifier = { who = ROOT modifier = opinion_low_legitimacy }
@@ -1649,11 +1649,11 @@ country_event = {
 	trigger = {
 		has_dlc = "Common Sense"
 		num_of_subjects = 1
-		any_subject_country = {
-			is_bankrupt = yes
-		}
 		NOT = {
 			has_country_modifier = si_bankrupt_timer
+		}
+		any_subject_country = {
+			is_bankrupt = yes
 		}
 	}
 	
@@ -1727,14 +1727,14 @@ country_event = {
 			is_subject_other_than_tributary_trigger = yes
 			num_of_cities = 2
 			any_owned_province = {
-				any_neighbor_province = {
-					owned_by = ROOT
-				}
+				controlled_by = owner
 				OR = {
 					is_claim = ROOT
 					is_core = ROOT
 				}
-				controlled_by = owner
+				any_neighbor_province = {
+					owned_by = ROOT
+				}
 			}
 		}
 	}
@@ -1750,26 +1750,26 @@ country_event = {
 					is_subject_other_than_tributary_trigger = yes
 					num_of_cities = 2
 					any_owned_province = {
-						any_neighbor_province = {
-							owned_by = ROOT
-						}
 						OR = {
 							is_core = ROOT
 							is_claim = ROOT
+						}
+						any_neighbor_province = {
+							owned_by = ROOT
 						}
 					}
 				}
 				set_country_flag = si_core_flag
 				random_owned_province = {
 					limit = {
-						any_neighbor_province = {
-							owned_by = ROOT
-						}
 						OR = {
 							is_core = ROOT
 							is_claim = ROOT
 						}
 						controlled_by = owner
+						any_neighbor_province = {
+							owned_by = ROOT
+						}
 					}
 					set_province_flag = si_provincecore_flag
 					save_event_target_as = location_province
@@ -2205,13 +2205,13 @@ country_event = {
 				controlled_by = THIS
 				is_capital = no
 				OR = {
+					is_core = ROOT
 					AND = {
 						is_claim = ROOT
 						any_neighbor_province = {
 							owned_by = root
 						}
 					}
-					is_core = ROOT
 				}
 			}
 		}
@@ -2225,13 +2225,13 @@ country_event = {
 						controlled_by = THIS
 						is_capital = no
 						OR = {
+							is_core = ROOT
 							AND = {
 								is_claim = ROOT
 								any_neighbor_province = {
 									owned_by = root
 								}
 							}
-							is_core = ROOT
 						}
 					}
 					save_event_target_as = rightful_province

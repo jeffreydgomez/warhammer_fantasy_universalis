@@ -1084,14 +1084,14 @@ country_event = {
 				loyalty = 30
 			}
 		}
+		estate_territory = { 
+			estate = estate_church
+			territory = 10
+		}
 		any_owned_province = {
 			religion = root
 			is_capital = no
 			is_city = yes
-		}
-		estate_territory = { 
-			estate = estate_church
-			territory = 10
 		}
 	}
 	
@@ -1099,6 +1099,9 @@ country_event = {
 		hidden_effect = {
 			while = {
 				limit = {
+					check_reducing_estate_revolt_size_trigger = {
+						FLAG = peasant_clergy_revolt
+					}
 					NOT = { 
 						development_in_provinces = {
 							has_province_flag = peasant_clergy_revolt
@@ -1111,9 +1114,6 @@ country_event = {
 						is_capital = no
 						is_city = yes
 						NOT = { has_province_flag = peasant_clergy_revolt }
-					}
-					check_reducing_estate_revolt_size_trigger = {
-						FLAG = peasant_clergy_revolt
 					}
 				}
 				random_owned_province = {
@@ -1521,10 +1521,6 @@ country_event = {
 		has_estate = estate_church
 		has_estate = estate_nobles
 		NOT = { religion = confucianism }
-		any_owned_province = {
-			has_owner_religion = no
-			is_city = yes
-		}
 		NOT = {
 			has_estate_influence_modifier = {
 				estate = estate_church
@@ -1536,6 +1532,10 @@ country_event = {
 				estate = estate_church
 				modifier = EST_VAL_SYNCRETISM
 			}
+		}
+		any_owned_province = {
+			has_owner_religion = no
+			is_city = yes
 		}
 	}
 	

@@ -906,15 +906,15 @@ country_event = {
 		war_score = 10
 		is_lesser_in_union = no
 		is_monarch_leader = yes
+		is_at_war = yes
+		# Check that the nation has infantry guns at all
+		mil_tech = 9
 		any_army = {
 			is_ruler_commanding_unit = yes
 		}
-		is_at_war = yes
 		any_known_country = {
 			defensive_war_with = ROOT
 		}
-		# Check that the nation has infantry guns at all
-		mil_tech = 9
 	}
 
 	mean_time_to_happen = {
@@ -985,8 +985,8 @@ country_event = {
 			any_owned_province = {
 				sieged_by = ROOT
 				religion = ROOT
-				NOT = { religion = owner }
 				religion_group = owner
+				NOT = { religion = owner }
 				NOT = { is_religious_center_province = yes }
 				NOT = { has_province_modifier = religious_center}
 			}
@@ -1170,14 +1170,14 @@ province_event = {
 	trigger = {
 		NOT = { religion = owner }
 		controlled_by = owner
+		
+		NOT = { is_religious_center_province = yes }
+		NOT = { has_province_modifier = religious_center }
 		owner = {
 			any_war_enemy_country = {
 				religion = ROOT
 			}
 		}
-		
-		NOT = { is_religious_center_province = yes }
-		NOT = { has_province_modifier = religious_center }
 		any_neighbor_province = {
 			owned_by = ROOT
 			religion = owner
@@ -1240,11 +1240,11 @@ province_event = {
 	trigger = {
 		NOT = { religion = owner }
 		owner = {
+			NOT = { has_country_modifier = loyal_unbelievers }
+			NOT = { has_country_modifier = disloyal_unbelievers }
 			any_rival_country = {
 				religion = ROOT
 			}
-			NOT = { has_country_modifier = loyal_unbelievers }
-			NOT = { has_country_modifier = disloyal_unbelievers }
 		}
 	}
 
@@ -1300,12 +1300,12 @@ province_event = {
 		has_siege = no
 		controlled_by = owner
 		any_neighbor_province = {
+			religion = owner
+			controlled_by = owner
 			owner = {
 				offensive_war_with = ROOT
 				NOT = { religion = ROOT }
 			}
-			religion = owner
-			controlled_by = owner
 		}
 	}
 
@@ -2035,11 +2035,11 @@ province_event = {
 
 	trigger = {
 		has_cardinal = yes
+		NOT = { owner = { has_country_modifier = distrusts_heathens } }
 		any_neighbor_province = {
 			#NOT = { religion_group = christian }
 			owned_by = root
 		}
-		NOT = { owner = { has_country_modifier = distrusts_heathens } }
 	}
 
 	mean_time_to_happen = {

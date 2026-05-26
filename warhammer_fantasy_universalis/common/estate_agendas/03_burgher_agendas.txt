@@ -709,16 +709,16 @@ estate_burghers_access_sea = {
 						NOT = { is_subject_of = root }
 						NOT = { alliance_with = root }
 						NOT = { ROOT = { truce_with = prev } }
+						OR = {
+							is_part_of_hre = no
+							NOT = { hre_reform_passed = landfriede }
+							ROOT = { is_part_of_hre = no }
+						}
 						NOT = {
 							has_opinion = {
 								who = root
 								value = 50
 							}
-						}
-						OR = {
-							is_part_of_hre = no
-							NOT = { hre_reform_passed = landfriede }
-							ROOT = { is_part_of_hre = no }
 						}
 					}
 				}
@@ -731,16 +731,16 @@ estate_burghers_access_sea = {
 						NOT = { is_subject_of = root }
 						NOT = { alliance_with = root }
 						NOT = { ROOT = { truce_with = prev } }
+						OR = {
+							is_part_of_hre = no
+							NOT = { hre_reform_passed = landfriede }
+							ROOT = { is_part_of_hre = no }
+						}
 						NOT = {
 							has_opinion = {
 								who = root
 								value = 50
 							}
-						}
-						OR = {
-							is_part_of_hre = no
-							NOT = { hre_reform_passed = landfriede }
-							ROOT = { is_part_of_hre = no }
 						}
 					}
 				}
@@ -1328,17 +1328,6 @@ estate_burghers_colonise_X = {
 				range = root
 				is_city = no
 				is_wasteland = no
-				OR = {
-					has_port = yes
-					any_neighbor_province = {
-						OR = {
-							owned_by = root
-							owner = {
-								is_colonial_nation_of = root
-							}
-						}
-					}
-				}
 				has_discovered = root
 				area_for_scope_province = {
 					type = all
@@ -1353,6 +1342,17 @@ estate_burghers_colonise_X = {
 					NOT = { colonial_claim_by_anyone_of_religion = root }
 					is_religion_grant_colonial_claim = root
 				}
+				OR = {
+					has_port = yes
+					any_neighbor_province = {
+						OR = {
+							owned_by = root
+							owner = {
+								is_colonial_nation_of = root
+							}
+						}
+					}
+				}
 			}
 			save_event_target_as = agenda_province
 		}
@@ -1361,14 +1361,6 @@ estate_burghers_colonise_X = {
 				range = root
 				is_city = no
 				is_wasteland = no
-				any_neighbor_province = {
-					OR = {
-						owned_by = root
-						owner = {
-							is_colonial_nation_of = root
-						}
-					}
-				}
 				has_discovered = root
 				area_for_scope_province = {
 					type = all
@@ -1387,6 +1379,14 @@ estate_burghers_colonise_X = {
 				OR = {
 					NOT = { colonial_claim_by_anyone_of_religion = root }
 					is_religion_grant_colonial_claim = root
+				}
+				any_neighbor_province = {
+					OR = {
+						owned_by = root
+						owner = {
+							is_colonial_nation_of = root
+						}
+					}
 				}
 			}
 			save_event_target_as = agenda_province
@@ -2015,13 +2015,13 @@ estate_burghers_trade_post_in_india = {
 				NOT = {
 					any_owned_province = {
 						superregion = ind_superregion
+						has_port = yes
 						OR = {
 							trade_goods = spices
 							trade_goods = silk
 							trade_goods = incense
 							trade_goods = chinaware
 						}
-						has_port = yes
 					}
 				}
 			}
@@ -2140,13 +2140,13 @@ estate_burghers_trade_post_in_malacca = {
 				NOT = {
 					any_owned_province = {
 						superregion = warhammer_far_east_superregion
+						has_port = yes
 						OR = {
 							trade_goods = spices
 							trade_goods = cloves
 							trade_goods = incense
 							trade_goods = chinaware
 						}
-						has_port = yes
 					}
 				}
 			}
@@ -2271,13 +2271,13 @@ estate_burghers_trade_post_in_china = {
 				NOT = {
 					any_owned_province = {
 						superregion = cathay_superregion
+						has_port = yes
 						OR = {
 							trade_goods = spices
 							trade_goods = silk
 							trade_goods = incense
 							trade_goods = chinaware
 						}
-						has_port = yes
 					}
 				}
 			}
@@ -2347,14 +2347,14 @@ estate_burghers_silk_trade = {
 	}
 	provinces_to_highlight = {
 		trade_goods = silk
+		has_discovered = root
+		NOT = { owned_by = root }
 		OR = {
 			has_port = yes
 			any_neighbor_province = {
 				owned_by = root
 			}
 		}
-		has_discovered = root
-		NOT = { owned_by = root }
 	}
 	task_requirements = {
 		if = {
@@ -2429,14 +2429,14 @@ estate_burghers_spice_trade = {
 	}
 	provinces_to_highlight = {
 		trade_goods = spices
+		has_discovered = root
+		NOT = { owned_by = root }
 		OR = {
 			has_port = yes
 			any_neighbor_province = {
 				owned_by = root
 			}
 		}
-		has_discovered = root
-		NOT = { owned_by = root }
 	}
 	task_requirements = {
 		if = {
@@ -2515,14 +2515,14 @@ estate_burghers_tea_trade = {
 	}
 	provinces_to_highlight = {
 		trade_goods = tea
+		has_discovered = root
+		NOT = { owned_by = root }
 		OR = {
 			has_port = yes
 			any_neighbor_province = {
 				owned_by = root
 			}
 		}
-		has_discovered = root
-		NOT = { owned_by = root }
 	}
 	task_requirements = {
 		if = {

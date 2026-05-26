@@ -543,12 +543,12 @@ province_event = {
 	trigger = {
 		owner = { is_free_or_tributary_trigger = yes }
 		any_neighbor_province = {
+			has_discovered = ROOT
+			is_capital = no
 			NOT = { owned_by = ROOT }
 			NOT = { is_core = ROOT }
 			NOT = { is_claim = ROOT }
 			NOT = { owned_by = PAP }
-			has_discovered = ROOT
-			is_capital = no
 			owner = {
 				NOT = { is_subject_of = ROOT }
 			}
@@ -786,10 +786,10 @@ province_event = {
 		owner = { religion = ROOT }
 		owner = { is_subject  = no }
 		any_neighbor_province = {
+			religion = ROOT
 			NOT = { owned_by = ROOT }
 			NOT = { is_core = ROOT }
 			NOT = { is_claim = ROOT }
-			religion = ROOT
 			owner = {
 				religion_group = ROOT
 				NOT = { religion = ROOT }
@@ -897,10 +897,10 @@ province_event = {
 		owner = { culture_group = ROOT }
 		owner = { is_subject  = no }
 		any_neighbor_province = {
+			culture_group = ROOT
 			NOT = { owned_by = ROOT }
 			NOT = { is_core = ROOT }
 			NOT = { is_claim = ROOT }
-			culture_group = ROOT
 			owner = {
 				NOT = { primary_culture = ROOT }
 				NOT = { accepted_culture = ROOT }
@@ -1151,6 +1151,8 @@ province_event = {
 			is_at_war = no
 			is_emperor = no
 			stability = 2
+			is_lesser_in_union = no
+			is_subject = no
 			emperor = {
 				NOT = { truce_with = ROOT }
 				has_opinion = {
@@ -1158,8 +1160,6 @@ province_event = {
 					value = 50
 				}
 			}
-			is_lesser_in_union = no
-			is_subject = no
 		}
 	}
 
@@ -1202,13 +1202,13 @@ province_event = {
 		NOT = { controlled_by = owner }
 		NOT = { owner = { has_reform = steppe_horde } }
 		controller = { has_reform = steppe_horde }
+		owner = { war_exhaustion = 5 }
+		garrison = 1000
+		has_siege = no
 		any_neighbor_province = {
 			controlled_by = owner
 			owner = { has_reform = steppe_horde }
 		}
-		owner = { war_exhaustion = 5 }
-		garrison = 1000
-		has_siege = no
 		
 	}
 
@@ -1245,8 +1245,8 @@ province_event = {
 		NOT = { has_province_modifier = heresy }
 		religion = ROOT
 		any_neighbor_province = {
-			NOT = { religion = ROOT }
 			religion_group = ROOT
+			NOT = { religion = ROOT }
 		}
 	}
 

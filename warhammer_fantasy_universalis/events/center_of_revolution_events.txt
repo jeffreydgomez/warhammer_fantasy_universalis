@@ -845,6 +845,9 @@ country_event = {
 		has_institution = enlightenment
 		is_great_power = yes
 		is_free_or_tributary_trigger = yes
+		NOT = { has_country_flag = laissez_faire_flour_happened }
+		NOT = { has_global_flag = flour_wars_happened }
+		NOT = { has_global_flag = first_revolution_center_spawned }
 		num_of_owned_provinces_with = {
 			value = 2
 			trade_goods = grain
@@ -854,9 +857,6 @@ country_event = {
 			development = 30
 			enlightenment = 100
 		}
-		NOT = { has_country_flag = laissez_faire_flour_happened }
-		NOT = { has_global_flag = flour_wars_happened }
-		NOT = { has_global_flag = first_revolution_center_spawned }
 	}
 	is_triggered_only = yes
 	mean_time_to_happen = {
@@ -988,10 +988,6 @@ country_event = {
 		num_of_loans = 20
 		is_great_power = yes
 		is_free_or_tributary_trigger = yes
-		any_owned_province = {
-			development = 30
-			enlightenment = 100
-		}
 		NOT = { has_country_flag = revolutionary_sentiment_many_loans_happened }
 		NOT = { has_global_flag = first_revolution_center_spawned }
 		NOT = {
@@ -1003,6 +999,10 @@ country_event = {
 			}
 		}
 		NOT = { has_country_modifier = revolution_administrative_reforms }
+		any_owned_province = {
+			development = 30
+			enlightenment = 100
+		}
 	}
 	mean_time_to_happen = {
 		days = 1
@@ -1068,13 +1068,13 @@ country_event = {
 		is_great_power = yes
 		is_free_or_tributary_trigger = yes
 		absolutism = 75
+		NOT = { has_global_flag = necker_reforms_happened }
+		NOT = { has_global_flag = first_revolution_center_spawned }
+		NOT = { has_country_modifier = revolution_administrative_reforms }
 		any_owned_province = {
 			development = 30
 			enlightenment = 100
 		}
-		NOT = { has_global_flag = necker_reforms_happened }
-		NOT = { has_global_flag = first_revolution_center_spawned }
-		NOT = { has_country_modifier = revolution_administrative_reforms }
 	}
 	mean_time_to_happen = {
 		days = 1
@@ -1135,10 +1135,6 @@ country_event = {
 		absolutism = 75
 		is_great_power = yes
 		is_free_or_tributary_trigger = yes
-		any_owned_province = {
-			development = 30
-			enlightenment = 100
-		}
 		NOT = { has_country_flag = demands_of_the_3rd_estate_happened }
 		NOT = { has_global_flag = first_revolution_center_spawned }
 		NOT = {
@@ -1181,6 +1177,10 @@ country_event = {
 				which = burgher_income_proportion
 				value = 0.75
 			}
+		}
+		any_owned_province = {
+			development = 30
+			enlightenment = 100
 		}
 	}
 	mean_time_to_happen = {
@@ -1301,11 +1301,6 @@ country_event = {
 		trigger = {
 			NOT = { has_country_flag = last_revolutionary_country }
 			NOT = {
-				any_country = {
-					has_country_flag = last_revolutionary_country
-				}
-			}
-			NOT = {
 				AND = {
 					had_global_flag = {
 						flag = first_revolution_center_spawned
@@ -1313,6 +1308,11 @@ country_event = {
 					}
 					revolution_target_exists = no
 					NOT = { years_since_dismantle_revolution = 0 }
+				}
+			}
+			NOT = {
+				any_country = {
+					has_country_flag = last_revolutionary_country
 				}
 			}
 		}
@@ -1452,11 +1452,6 @@ country_event = {
 		trigger = {
 			NOT = { has_country_flag = last_revolutionary_country }
 			NOT = {
-				any_country = {
-					has_country_flag = last_revolutionary_country
-				}
-			}
-			NOT = {
 				AND = {
 					had_global_flag = {
 						flag = first_revolution_center_spawned
@@ -1464,6 +1459,11 @@ country_event = {
 					}
 					revolution_target_exists = no
 					NOT = { years_since_dismantle_revolution = 0 }
+				}
+			}
+			NOT = {
+				any_country = {
+					has_country_flag = last_revolutionary_country
 				}
 			}
 		}
@@ -1526,6 +1526,8 @@ country_event = {
 	trigger = {
 		has_dlc = "Emperor"
 		NOT = { has_country_flag = revolutionary_philosopher }
+		NOT = { is_revolutionary_republic_trigger = yes }
+		NOT = { has_reform = revolutionary_empire_reform }
 		OR = {
 			has_disaster = revolution
 			has_disaster = french_revolution
@@ -1534,18 +1536,16 @@ country_event = {
 			}
 		}
 		any_owned_province = {
+			has_building = university
+			has_revolution_in_province = no
 			OR = {
 				same_continent = event_target:revolution_center
 				region_for_scope_province = {
 					has_revolution_in_province = yes
 				}
 			}
-			has_building = university
-			has_revolution_in_province = no
 			NOT = { has_province_modifier = no_revolution_here_dummy }
 		}
-		NOT = { is_revolutionary_republic_trigger = yes }
-		NOT = { has_reform = revolutionary_empire_reform }
 	}
 	
 	is_triggered_only = yes
@@ -1564,15 +1564,15 @@ country_event = {
 			if = {
 				limit = {
 					any_owned_province = {
+						has_building = university
+						has_revolution_in_province = no
+						highest_supply_limit_in_area = yes
 						OR = {
 							same_continent = event_target:revolution_center
 							region_for_scope_province = {
 								has_revolution_in_province = yes
 							}
 						}
-						has_building = university
-						has_revolution_in_province = no
-						highest_supply_limit_in_area = yes
 						NOT = { has_province_modifier = no_revolution_here_dummy }
 					}
 				}
@@ -1679,17 +1679,12 @@ country_event = {
 		NOT = { has_country_flag = william_jones_event }
 		
 		revolution_target_exists = yes
+		NOT = { is_revolutionary_republic_trigger = yes }
+		NOT = { has_reform = revolutionary_empire_reform }
 		any_owned_province = {
 			has_revolution_in_province = yes
 		}
 		any_owned_province = {
-			OR = {
-				same_continent = event_target:revolution_center
-				region_for_scope_province = {
-					has_revolution_in_province = yes
-				}
-			}
-			NOT = { culture = root }
 			is_core = root
 			is_capital = no
 			development = 10
@@ -1697,13 +1692,20 @@ country_event = {
 			base_production = 2
 			base_manpower = 2
 			has_port = yes
+			has_revolution_in_province = no
+			OR = {
+				same_continent = event_target:revolution_center
+				region_for_scope_province = {
+					has_revolution_in_province = yes
+				}
+			}
+			NOT = { culture = root }
 			OR = {
 				unrest = 1
 				local_autonomy = 15
 				has_owner_accepted_culture = no
 			}
 			NOT = { has_province_modifier = no_revolution_here_dummy }
-			has_revolution_in_province = no
 		}
 		any_country = {
 			OR = {
@@ -1711,8 +1713,6 @@ country_event = {
 				is_former_colonial_nation = yes
 			}
 		}
-		NOT = { is_revolutionary_republic_trigger = yes }
-		NOT = { has_reform = revolutionary_empire_reform }
 	}
 	
 	is_triggered_only = yes
@@ -1756,13 +1756,6 @@ country_event = {
 				3 = {
 					trigger = {
 						any_owned_province = {
-							OR = {
-								same_continent = event_target:revolution_center
-								region_for_scope_province = {
-									has_revolution_in_province = yes
-								}
-							}
-							NOT = { culture = root }
 							is_core = root
 							is_capital = no
 							development = 15
@@ -1770,12 +1763,19 @@ country_event = {
 							base_production = 2
 							base_manpower = 2
 							has_port = yes
+							has_revolution_in_province = no
+							OR = {
+								same_continent = event_target:revolution_center
+								region_for_scope_province = {
+									has_revolution_in_province = yes
+								}
+							}
+							NOT = { culture = root }
 							OR = {
 								unrest = 1
 								local_autonomy = 15
 								has_owner_accepted_culture = no
 							}
-							has_revolution_in_province = no
 							NOT = { has_province_modifier = no_revolution_here_dummy }
 						}
 					}
@@ -1809,13 +1809,6 @@ country_event = {
 				4 = {
 					trigger = {
 						any_owned_province = {
-							OR = {
-								same_continent = event_target:revolution_center
-								region_for_scope_province = {
-									has_revolution_in_province = yes
-								}
-							}
-							NOT = { culture = root }
 							is_core = root
 							is_capital = no
 							development = 20
@@ -1823,12 +1816,19 @@ country_event = {
 							base_production = 2
 							base_manpower = 2
 							has_port = yes
+							has_revolution_in_province = no
+							OR = {
+								same_continent = event_target:revolution_center
+								region_for_scope_province = {
+									has_revolution_in_province = yes
+								}
+							}
+							NOT = { culture = root }
 							OR = {
 								unrest = 1
 								local_autonomy = 15
 								has_owner_accepted_culture = no
 							}
-							has_revolution_in_province = no
 							NOT = { has_province_modifier = no_revolution_here_dummy }
 						}
 					}
@@ -1971,10 +1971,12 @@ country_event = {
 		has_dlc = "Emperor"
 		has_global_flag = colonies_inspired_by_revolution
 		revolution_target_exists = yes
+		NOT = { is_revolutionary_republic_trigger = yes }
+		NOT = { has_reform = revolutionary_empire_reform }
 		any_subject_country = {
 			is_colonial_nation = yes
-			NOT = { has_country_flag = revolution_spreading_to_colony_event_flag }
 			liberty_desire = 30
+			NOT = { has_country_flag = revolution_spreading_to_colony_event_flag }
 		}
 		OR = {
 			capital_scope = {
@@ -1999,8 +2001,6 @@ country_event = {
 				has_revolution_in_province = yes
 			}
 		}
-		NOT = { is_revolutionary_republic_trigger = yes }
-		NOT = { has_reform = revolutionary_empire_reform }
 	}
 	
 	is_triggered_only = yes
@@ -2071,6 +2071,16 @@ country_event = {
 	trigger = {
 		has_dlc = "Emperor"
 		is_revolutionary = yes
+		is_bankrupt = no
+		OR = {
+			treasury = 500
+			AND = {
+				adm_power = 100
+				dip_power = 100
+				mil_power = 100
+			}
+		}
+		NOT = { has_country_modifier = recent_rt_spread_revolution_to_colonies_event_timer }
 		any_rival_country = {
 			is_revolutionary = no
 			any_subject_country = {
@@ -2082,16 +2092,6 @@ country_event = {
 		any_owned_province = {
 			has_port = yes
 		}
-		is_bankrupt = no
-		OR = {
-			treasury = 500
-			AND = {
-				adm_power = 100
-				dip_power = 100
-				mil_power = 100
-			}
-		}
-		NOT = { has_country_modifier = recent_rt_spread_revolution_to_colonies_event_timer }
 	}
 
 	mean_time_to_happen = {
@@ -2372,10 +2372,6 @@ country_event = {
 	
 	trigger = {
 		has_dlc = "Emperor"
-		any_owned_province = {
-			has_revolution_in_province = yes
-			is_center_of_revolution = no
-		}
 		revolution_target_exists = no
 		NOT = {
 			had_global_flag = {
@@ -2384,6 +2380,10 @@ country_event = {
 			}
 		}
 		is_revolutionary = no
+		any_owned_province = {
+			has_revolution_in_province = yes
+			is_center_of_revolution = no
+		}
 		NOT = { any_province = { is_center_of_revolution = yes } }
 	}
 	mean_time_to_happen = {
@@ -2443,11 +2443,11 @@ country_event = {
 	trigger = {
 		has_dlc = "Emperor"
 		revolution_target_exists = yes
+		is_revolutionary = no
 		any_owned_province = {
 			has_revolution_in_province = yes
 			is_center_of_revolution = no
 		}
-		is_revolutionary = no
 	}
 	is_triggered_only = yes
 
@@ -2705,6 +2705,9 @@ country_event = {
 		has_dlc = "Emperor"
 		is_revolutionary = no
 		revolution_target_exists = yes
+		is_subject = no
+		absolutism = 60
+		num_of_cities = 15
 		any_neighbor_country = {
 			is_revolutionary = yes
 			NOT = {
@@ -2725,9 +2728,6 @@ country_event = {
 			is_in_capital_area = yes
 			is_center_of_revolution = no
 		}
-		is_subject = no
-		absolutism = 60
-		num_of_cities = 15
 	}
 	is_triggered_only = yes
 

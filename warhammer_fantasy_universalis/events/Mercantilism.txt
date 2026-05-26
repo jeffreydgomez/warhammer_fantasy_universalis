@@ -9,6 +9,7 @@ country_event = {
 
 	trigger = {
 		NOT = { mercantilism = 100 }
+		NOT = { has_country_modifier = refused_food_import }
 		OR = {
 			has_country_modifier = famine
 			has_country_modifier = severe_famine
@@ -17,7 +18,6 @@ country_event = {
 				has_province_modifier = harvest_fails
 			}
 		}
-		NOT = { has_country_modifier = refused_food_import }
 	}
 
 	mean_time_to_happen = {
@@ -65,8 +65,8 @@ country_event = {
 		any_neighbor_country = {
 			NOT = { war_with = ROOT }
 			any_subject_country = {
-				NOT = { war_with = ROOT }
 				is_colonial_nation = yes
+				NOT = { war_with = ROOT }
 				capital_scope = {
 					OR = {
 						continent = north_america
@@ -178,14 +178,14 @@ country_event = {
 		}
 		any_neighbor_country = {
 			NOT = { war_with = ROOT }
-			any_owned_province = {
-				trade_goods = iron
-			}
 			NOT = {
 				has_opinion_modifier = {
 					who = ROOT
 					modifier = opinion_pleased
 				}
+			}
+			any_owned_province = {
+				trade_goods = iron
 			}
 		}
 	}
@@ -200,14 +200,14 @@ country_event = {
 		random_neighbor_country = {
 			limit = {
 				NOT = { war_with = ROOT }
-				any_owned_province = {
-					trade_goods = iron
-				}
 				NOT = {
 					has_opinion_modifier = {
 						who = ROOT
 						modifier = opinion_pleased
 					}
+				}
+				any_owned_province = {
+					trade_goods = iron
 				}
 			}
 			add_opinion = {
@@ -242,14 +242,14 @@ country_event = {
 		}
 		any_neighbor_country = {
 			NOT = { war_with = ROOT }
-			any_owned_province = {
-				trade_goods = naval_supplies
-			}
 			NOT = {
 				has_opinion_modifier = {
 					who = ROOT
 					modifier = opinion_pleased
 				}
+			}
+			any_owned_province = {
+				trade_goods = naval_supplies
 			}
 		}
 	}
@@ -264,14 +264,14 @@ country_event = {
 		random_neighbor_country = {
 			limit = {
 				NOT = { war_with = ROOT }
-				any_owned_province = {
-					trade_goods = naval_supplies
-				}
 				NOT = {
 					has_opinion_modifier = {
 						who = ROOT
 						modifier = opinion_pleased
 					}
+				}
+				any_owned_province = {
+					trade_goods = naval_supplies
 				}
 			}
 			add_opinion = {
@@ -385,10 +385,10 @@ country_event = {
 			is_colonial_nation = yes
 			any_neighbor_country = {
 				is_colonial_nation = yes
-				NOT = { war_with = PREV }
 				colonial_parent = {
 					NOT = { tag = ROOT }
 				}
+				NOT = { war_with = PREV }
 			}
 		}
 	}
@@ -404,10 +404,10 @@ country_event = {
 				is_colonial_nation = yes
 				any_neighbor_country = {
 					is_colonial_nation = yes
-					NOT = { war_with = PREV }
 					colonial_parent = {
 						NOT = { tag = ROOT }
 					}
+					NOT = { war_with = PREV }
 				}
 			}
 			add_liberty_desire = 10
@@ -540,6 +540,9 @@ country_event = {
 	trigger = {
 		NOT = { mercantilism = 100 }
 		NOT = { has_country_modifier = importing_tea }
+		#Flavour doesn't fit these two at all.
+		NOT = { government = tribal }
+		NOT = { government = native }
 		any_neighbor_country = {
 			trading_bonus = {
 				trade_goods = tea
@@ -547,9 +550,6 @@ country_event = {
 			}
 			NOT = { war_with = ROOT }
 		}
-		#Flavour doesn't fit these two at all.
-		NOT = { government = tribal }
-		NOT = { government = native }
 	}
 
 	mean_time_to_happen = {

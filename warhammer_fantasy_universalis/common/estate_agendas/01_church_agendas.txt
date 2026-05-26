@@ -672,14 +672,6 @@ estate_church_root_out_heresy = {
 				NOT = { marriage_with = root }
 				NOT = { war_with = root }
 				NOT = { ROOT = { truce_with = prev } }
-				ROOT = {
-					NOT = {
-						has_opinion = {
-							who = prev
-							value = 100
-						}
-					}
-				}
 				NOT = { army_size = root }
 				OR = {
 					NOT = { has_dlc = "Art of War" }
@@ -691,6 +683,14 @@ estate_church_root_out_heresy = {
 					is_part_of_hre = no
 					NOT = { hre_reform_passed = landfriede }
 					ROOT = { is_part_of_hre = no }
+				}
+				ROOT = {
+					NOT = {
+						has_opinion = {
+							who = prev
+							value = 100
+						}
+					}
 				}
 			}
 			save_event_target_as = agenda_country
@@ -1100,10 +1100,10 @@ estate_church_protect_brethren = {
 		random_owned_province = {
 			limit = {
 				any_neighbor_province = {
-					NOT = { owned_by = root }
 					is_city = yes
 					religion = root
 					has_discovered = root
+					NOT = { owned_by = root }
 					owner = {
 						is_free_or_tributary_trigger = yes
 						NOT = { religion = root }
@@ -1326,13 +1326,13 @@ estate_church_propagate_religion = {
 		}
 	}
 	provinces_to_highlight = {
-		any_trade_node_member_province = {
-			province_id = event_target:agenda_trade_node
-		}
 		is_city = yes
 		NOT = { religion_group = muslim }
 		NOT = { religion_group = christian }
 		NOT = { religion_group = jewish_group }
+		any_trade_node_member_province = {
+			province_id = event_target:agenda_trade_node
+		}
 	}
 	task_requirements = {
 		if = {
@@ -1450,6 +1450,11 @@ estate_church_relations_with_dotf = {
 				religion = root
 				NOT = { tag = root }
 				is_defender_of_faith = yes
+				NOT = { war_with = root }
+				NOT = { alliance_with = root }
+				NOT = { overlord_of = root }
+				NOT = { is_rival = root }
+				NOT = { ROOT = { is_rival = prev } }
 				NOT = {
 					has_opinion = {
 						who = root
@@ -1460,11 +1465,6 @@ estate_church_relations_with_dotf = {
 					who = root
 					value = -50
 				}
-				NOT = { war_with = root }
-				NOT = { alliance_with = root }
-				NOT = { overlord_of = root }
-				NOT = { is_rival = root }
-				NOT = { ROOT = { is_rival = prev } }
 				any_owned_province = {
 					has_discovered = root
 				}

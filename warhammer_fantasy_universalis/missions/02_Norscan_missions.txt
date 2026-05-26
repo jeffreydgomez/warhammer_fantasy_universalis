@@ -131,11 +131,11 @@ war_norsca_1 = {
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		trigger = {
+			tag = A88
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				region = norsca_region
 				value = 60
 			}
-			tag = A88
 		}
 		effect = {
 			hidden_effect = {
@@ -206,14 +206,14 @@ war_norsca_1 = {
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		trigger = {
-			num_of_provinces_owned_or_owned_by_subjects_with = {
-				province_group = johtunheim_gianthome_province
-				value = 30
-			}
 			owns_or_non_sovereign_subject_of = 1141
 			OR = {
 				B02 = { is_vassal = yes }
 				NOT = { exists = B02 }
+			}
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				province_group = johtunheim_gianthome_province
+				value = 30
 			}
 		}
 		effect = {
@@ -401,10 +401,6 @@ war_norsca_thralls_missions = {
 		icon = mission_african_gold
 		required_missions = { war_norsca_merchants_2 }
 		trigger = {
-			num_of_owned_provinces_with = {
-				has_province_modifier = norsca_thrall_market_1
-				value = 5
-			}
 			OR = {
 				trade_goods_produced_amount = {
 					trade_goods = slaves
@@ -414,6 +410,10 @@ war_norsca_thralls_missions = {
 					trade_goods = slaves
 					value = 0.30
 				}
+			}
+			num_of_owned_provinces_with = {
+				has_province_modifier = norsca_thrall_market_1
+				value = 5
 			}
 		}
 		effect = {
@@ -471,9 +471,9 @@ war_norsca_alliance_missions = {
 			hidden_effect = {
 				every_ally = {
 					limit = {
+						total_development = 150
 						has_opinion = { who = ROOT value = 150 }
 						trust = { who = ROOT value = 60 }
-						total_development = 150
 					}
 					ROOT = {
 						add_trust = { who = PREV value = 10 mutual = yes }
@@ -586,12 +586,12 @@ war_norsca_missions_2 = {
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		trigger = {
+			owns_or_non_sovereign_subject_of = 4369
+			NOT = { exists = B13 }
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				region = albion_region
 				value = 25
 			}
-			owns_or_non_sovereign_subject_of = 4369
-			NOT = { exists = B13 }
 
 		}
 		effect = {
@@ -1367,6 +1367,9 @@ war_norsca_religous_chaos_3 = {
 		}
 		trigger = {
 			not_in_mission_preview_mode = { key = WAR_NORSCA }
+			owns_or_non_sovereign_subject_of = 339
+			owns_or_non_sovereign_subject_of = 325
+			NOT = { exists = A29 }
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				OR = {
 					region = troll_country_region
@@ -1374,9 +1377,6 @@ war_norsca_religous_chaos_3 = {
 				}
 				value = 30
 			}
-			owns_or_non_sovereign_subject_of = 339
-			owns_or_non_sovereign_subject_of = 325
-			NOT = { exists = A29 }
 		}
 		effect = {
 			remove_country_modifier = norsca_chaos_holy_war
@@ -1996,13 +1996,6 @@ war_norsca_religous_chaos_4 = {
 		provinces_to_highlight = {  }
 		trigger = {
 			not_in_mission_preview_mode = { key = WAR_NORSCA }
-			OR = {
-				religious_unity = 0.90
-				num_of_provinces_owned_or_owned_by_subjects_with = {
-					religion = ROOT
-					value = 60
-				}
-			}
 			estate_loyalty = {
 				estate = estate_church
 				loyalty = 70
@@ -2010,6 +2003,13 @@ war_norsca_religous_chaos_4 = {
 			num_of_estate_agendas_completed = {
 				estate = estate_church
 				value = 3
+			}
+			OR = {
+				religious_unity = 0.90
+				num_of_provinces_owned_or_owned_by_subjects_with = {
+					religion = ROOT
+					value = 60
+				}
 			}
 		}
 		effect = {
@@ -2290,11 +2290,11 @@ war_norsca_razing_missions = {
 		trigger = {
 			hidden_trigger = { is_at_war = yes }
 			any_province = {
+				controlled_by = ROOT
+				development = 20
 				NOT = {
 					owned_by = ROOT
 				}
-				controlled_by = ROOT
-				development = 20
 			}
 		}
 		effect = {
@@ -2442,11 +2442,11 @@ war_norsca_razing_missions = {
 		trigger = {
 			hidden_trigger = { is_at_war = yes }
 			any_province = {
+				controlled_by = ROOT
+				development = 30
 				NOT = {
 					owned_by = ROOT
 				}
-				controlled_by = ROOT
-				development = 30
 			}
 		}
 		effect = {
@@ -2594,11 +2594,11 @@ war_norsca_razing_missions = {
 		trigger = {
 			hidden_trigger = { is_at_war = yes }
 			any_province = {
+				controlled_by = ROOT
+				development = 50
 				NOT = {
 					owned_by = ROOT
 				}
-				controlled_by = ROOT
-				development = 50
 			}
 		}
 		effect = {

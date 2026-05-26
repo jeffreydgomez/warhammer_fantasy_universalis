@@ -79,11 +79,11 @@ albion_missions_1 = {
 			NOT = { country_or_subject_holds = ROOT }
 		}
 		trigger = {
+			NOT = { has_rebel_army = yes }
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				value = 3
 				area = trogland_area
 			}
-			NOT = { has_rebel_army = yes }
 		}
 		effect = {
 			add_country_modifier = {
@@ -151,11 +151,11 @@ albion_missions_1 = {
 			NOT = { country_or_subject_holds = ROOT }
 		}
 		trigger = {
+			army_size_percentage = 0.75
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				value = 5
 				region = norsca_region
 			}
-			army_size_percentage = 0.75
 		}
 		effect = {
 			add_country_modifier = {
@@ -176,12 +176,12 @@ albion_missions_1 = {
 			NOT = { country_or_subject_holds = ROOT }
 		}
 		trigger = {
+			navy_tradition = 25
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				value = 8
 				region = norsca_region
 				has_port = yes
 			}
-			navy_tradition = 25
 		}
 		effect = {
 			add_country_modifier = {
@@ -377,15 +377,15 @@ albion_missions_2 = {
 			NOT = { country_or_subject_holds = ROOT }
 		}
 		trigger = {
+			OR = {
+				army_professionalism = 0.30
+				has_country_modifier = war_modern_army
+			}
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				value = 12
 				continent = europe
 				NOT = { region = albion_region }
 				NOT = { region = norsca_region }
-			}
-			OR = {
-				army_professionalism = 0.30
-				has_country_modifier = war_modern_army
 			}
 		}
 		effect = {
@@ -402,6 +402,7 @@ albion_missions_2 = {
 		required_missions = { albion_teach_fear_rain }
 		position = 14
 		trigger = {
+			army_size_percentage = 1.0
 			num_of_owned_provinces_with = {
 				value = 4
 				continent = europe
@@ -412,7 +413,6 @@ albion_missions_2 = {
 					has_manpower_building_trigger = yes
 				}
 			}
-			army_size_percentage = 1.0
 		}
 		effect = {
 			add_country_modifier = {
@@ -518,6 +518,7 @@ albion_missions_3 = {
 			}
 		}
 		trigger = {
+			is_at_war = no
 			OR = {
 				is_or_was_tag = { tag = B13 }
 				NOT = {
@@ -533,7 +534,6 @@ albion_missions_3 = {
 					}
 				}
 			}
-			is_at_war = no
 		}
 		effect = {
 			custom_tooltip = albion_claims_on_coasts_tt
@@ -641,16 +641,16 @@ albion_missions_3 = {
 			owner = {
 				is_great_power = yes
 				NOT = {
-					alliance_with = ROOT
-					trust = { who = ROOT value = 100 }
-				}
-				NOT = {
 					ROOT = {
 						has_won_war_against = {
 							who = prev
 							max_years_since = 25
 						}
 					}
+				}
+				NOT = {
+					alliance_with = ROOT
+					trust = { who = ROOT value = 100 }
 				}
 			}
 		}
@@ -662,16 +662,16 @@ albion_missions_3 = {
 					any_country = {
 						is_great_power = yes
 						NOT = {
-							alliance_with = ROOT
-							trust = { who = ROOT value = 100 }
-						}
-						NOT = {
 							ROOT = {
 								has_won_war_against = {
 									who = prev
 									max_years_since = 25
 								}
 							}
+						}
+						NOT = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
 						}
 					}
 				}
@@ -792,12 +792,12 @@ albion_missions_4 = {
 			has_courthouse_building_trigger = no
 		}
 		trigger = {
+			crown_land_share = 50
 			num_of_owned_provinces_with = {
 				value = 4
 				region = albion_region
 				has_courthouse_building_trigger = yes
 			}
-			crown_land_share = 50
 		}
 		effect = {
 			add_country_modifier = {
@@ -894,16 +894,16 @@ albion_missions_4 = {
 			NOT = { country_or_subject_holds = ROOT }
 		}
 		trigger = {
-			num_of_owned_provinces_with = {
-				value = 2
-				superregion = ulthuan_superregion
-				province_has_center_of_trade_of_level = 2
-			}
 			home_trade_node = {
 				trade_share = {
 					country = ROOT
 					share = 50
 				}
+			}
+			num_of_owned_provinces_with = {
+				value = 2
+				superregion = ulthuan_superregion
+				province_has_center_of_trade_of_level = 2
 			}
 		}
 		effect = {
@@ -920,12 +920,12 @@ albion_missions_4 = {
 		required_missions = { albion_moon_inner_sea }
 		position = 14
 		trigger = {
+			navy_tradition = 75
 			num_of_owned_provinces_with = {
 				value = 4
 				superregion = ulthuan_superregion
 				has_shipyard_building_trigger = yes
 			}
-			navy_tradition = 75
 		}
 		effect = {
 			add_country_modifier = {
@@ -1069,12 +1069,12 @@ albion_missions_5 = {
 			NOT = { country_or_subject_holds = ROOT }
 		}
 		trigger = {
+			manpower_percentage = 0.75
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				value = 3
 				continent = north_america
 				fort_level = 2
 			}
-			manpower_percentage = 0.75
 		}
 		effect = {
 			add_country_modifier = {

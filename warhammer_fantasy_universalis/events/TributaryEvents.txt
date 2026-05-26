@@ -231,6 +231,7 @@ country_event = {
 	trigger = {
 		has_dlc = "Mandate of Heaven"
 		can_be_overlord = tributary_state #Block when it doesn't make sense.
+		NOT = { has_country_modifier = influential_tributary_network }
 		OR = {
 			AND = {
 				government_rank = 2
@@ -252,7 +253,6 @@ country_event = {
 				}
 			}
 		}
-		NOT = { has_country_modifier = influential_tributary_network }
 	}
 
 	mean_time_to_happen = {
@@ -1762,6 +1762,10 @@ country_event = {
 	trigger = {
 		has_dlc = "Mandate of Heaven"
 		can_be_overlord = tributary_state #Block when it doesn't make sense.
+		OR = {
+			NOT = { has_country_flag = overlord_gave_military_mission }
+			had_country_flag = { flag = overlord_gave_military_mission days = 10950 } #30 years
+		}
 		any_subject_country = {
 			is_subject_of_type = tributary_state
 			NOT = { has_country_modifier = overlord_military_mission }
@@ -1769,10 +1773,6 @@ country_event = {
 				is_enemy = ROOT
 				defensive_war_with = PREV
 			}
-		}
-		OR = {
-			NOT = { has_country_flag = overlord_gave_military_mission }
-			had_country_flag = { flag = overlord_gave_military_mission days = 10950 } #30 years
 		}
 	}
 

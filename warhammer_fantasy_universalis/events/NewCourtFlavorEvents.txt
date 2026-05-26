@@ -158,9 +158,6 @@ country_event = {
 			}
 			if = {
 				limit = {
-					NOT = {
-						event_target:advisor_liaisons_target_country = { has_opinion = { who = root value = 25 } } #traitor chain makes no sense if they are friendly to you
-					}
 					OR = {
 						AND = { #need a second advisor as accuser
 							has_country_flag = advisor_events_adm
@@ -195,6 +192,9 @@ country_event = {
 								}
 							}
 						}
+					}
+					NOT = {
+						event_target:advisor_liaisons_target_country = { has_opinion = { who = root value = 25 } } #traitor chain makes no sense if they are friendly to you
 					}
 				}
 				random_list = {
@@ -1634,11 +1634,6 @@ country_event = {
 		OR = {
 			any_owned_province = {
 				is_capital = no
-				NOT = {
-					any_province_in_state = {
-						is_capital = yes
-					}
-				}
 				root = {
 					employed_advisor = {
 						category = ADM
@@ -1646,14 +1641,14 @@ country_event = {
 						religion = prev
 					}
 				}
-			}
-			any_owned_province = {
-				is_capital = no
 				NOT = {
 					any_province_in_state = {
 						is_capital = yes
 					}
 				}
+			}
+			any_owned_province = {
+				is_capital = no
 				root = {
 					employed_advisor = {
 						category = DIP
@@ -1661,19 +1656,24 @@ country_event = {
 						religion = prev
 					}
 				}
-			}
-			any_owned_province = {
-				is_capital = no
 				NOT = {
 					any_province_in_state = {
 						is_capital = yes
 					}
 				}
+			}
+			any_owned_province = {
+				is_capital = no
 				root = {
 					employed_advisor = {
 						category = MIL
 						culture = prev
 						religion = prev
+					}
+				}
+				NOT = {
+					any_province_in_state = {
+						is_capital = yes
 					}
 				}
 			}
@@ -1688,16 +1688,16 @@ country_event = {
 					trigger = {
 						any_owned_province = {
 							is_capital = no
-							NOT = {
-								any_province_in_state = {
-									is_capital = yes
-								}
-							}
 							root = {
 								employed_advisor = {
 									category = ADM
 									culture = prev
 									religion = prev
+								}
+							}
+							NOT = {
+								any_province_in_state = {
+									is_capital = yes
 								}
 							}
 						}
@@ -1705,16 +1705,16 @@ country_event = {
 					random_owned_province = {
 						limit = {
 							is_capital = no
-							NOT = {
-								any_province_in_state = {
-									is_capital = yes
-								}
-							}
 							root = {
 								employed_advisor = {
 									category = ADM
 									culture = prev
 									religion = prev
+								}
+							}
+							NOT = {
+								any_province_in_state = {
+									is_capital = yes
 								}
 							}
 						}
@@ -1731,16 +1731,16 @@ country_event = {
 					trigger = {
 						any_owned_province = {
 							is_capital = no
-							NOT = {
-								any_province_in_state = {
-									is_capital = yes
-								}
-							}
 							root = {
 								employed_advisor = {
 									category = DIP
 									culture = prev
 									religion = prev
+								}
+							}
+							NOT = {
+								any_province_in_state = {
+									is_capital = yes
 								}
 							}
 						}
@@ -1748,16 +1748,16 @@ country_event = {
 					random_owned_province = {
 						limit = {
 							is_capital = no
-							NOT = {
-								any_province_in_state = {
-									is_capital = yes
-								}
-							}
 							root = {
 								employed_advisor = {
 									category = DIP
 									culture = prev
 									religion = prev
+								}
+							}
+							NOT = {
+								any_province_in_state = {
+									is_capital = yes
 								}
 							}
 						}
@@ -1774,16 +1774,16 @@ country_event = {
 					trigger = {
 						any_owned_province = {
 							is_capital = no
-							NOT = {
-								any_province_in_state = {
-									is_capital = yes
-								}
-							}
 							root = {
 								employed_advisor = {
 									category = MIL
 									culture = prev
 									religion = prev
+								}
+							}
+							NOT = {
+								any_province_in_state = {
+									is_capital = yes
 								}
 							}
 						}
@@ -1791,16 +1791,16 @@ country_event = {
 					random_owned_province = {
 						limit = {
 							is_capital = no
-							NOT = {
-								any_province_in_state = {
-									is_capital = yes
-								}
-							}
 							root = {
 								employed_advisor = {
 									category = MIL
 									culture = prev
 									religion = prev
+								}
+							}
+							NOT = {
+								any_province_in_state = {
+									is_capital = yes
 								}
 							}
 						}
@@ -3322,6 +3322,7 @@ country_event = {
 			has_country_modifier = recent_exiled_advisor_timer
 		}
 		any_rival_country = {
+			religion_group = root
 			NOT = { 
 				has_country_modifier = recent_exiled_advisor_timer
 				war_with = root
@@ -3334,7 +3335,6 @@ country_event = {
 					modifier = opinion_took_in_exiles
 				}
 			}
-			religion_group = root
 		}
 	}
 
@@ -3350,6 +3350,7 @@ country_event = {
 		hidden_effect = {
 			random_rival_country = {
 				limit = {
+					religion_group = root
 					NOT = { 
 						has_country_modifier = recent_exiled_advisor_timer
 						war_with = root
@@ -3362,7 +3363,6 @@ country_event = {
 							modifier = opinion_took_in_exiles
 						}
 					}
-					religion_group = root
 				}
 				save_event_target_as = exile_country
 			}
@@ -3745,10 +3745,11 @@ country_event = {
 				religion = heretic
 			}
 			is_excommunicated = no
-			NOT = { overlord_of = root }
 	
 			is_colonial_nation = no
 			is_subject = no
+			has_regency = no
+			NOT = { overlord_of = root }
 			
 			NOT = { 
 				has_country_modifier = recent_papal_advisor_demand_timer
@@ -3758,7 +3759,6 @@ country_event = {
 			}
 	
 			NOT = { is_papal_controller = yes }
-			has_regency = no
 		}
 	}
 

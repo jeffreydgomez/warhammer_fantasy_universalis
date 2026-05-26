@@ -711,16 +711,16 @@ estate_vaisyas_access_sea = {
 						NOT = { is_subject_of = root }
 						NOT = { alliance_with = root }
 						NOT = { ROOT = { truce_with = prev } }
+						OR = {
+							is_part_of_hre = no
+							NOT = { hre_reform_passed = landfriede }
+							ROOT = { is_part_of_hre = no }
+						}
 						NOT = {
 							has_opinion = {
 								who = root
 								value = 50
 							}
-						}
-						OR = {
-							is_part_of_hre = no
-							NOT = { hre_reform_passed = landfriede }
-							ROOT = { is_part_of_hre = no }
 						}
 					}
 				}
@@ -733,16 +733,16 @@ estate_vaisyas_access_sea = {
 						NOT = { is_subject_of = root }
 						NOT = { alliance_with = root }
 						NOT = { ROOT = { truce_with = prev } }
+						OR = {
+							is_part_of_hre = no
+							NOT = { hre_reform_passed = landfriede }
+							ROOT = { is_part_of_hre = no }
+						}
 						NOT = {
 							has_opinion = {
 								who = root
 								value = 50
 							}
-						}
-						OR = {
-							is_part_of_hre = no
-							NOT = { hre_reform_passed = landfriede }
-							ROOT = { is_part_of_hre = no }
 						}
 					}
 				}
@@ -1313,17 +1313,6 @@ estate_vaisyas_colonise_X = {
 				range = root
 				is_city = no
 				is_wasteland = no
-				OR = {
-					has_port = yes
-					any_neighbor_province = {
-						OR = {
-							owned_by = root
-							owner = {
-								is_colonial_nation_of = root
-							}
-						}
-					}
-				}
 				has_discovered = root
 				area_for_scope_province = {
 					type = all
@@ -1338,6 +1327,17 @@ estate_vaisyas_colonise_X = {
 					NOT = { colonial_claim_by_anyone_of_religion = root }
 					is_religion_grant_colonial_claim = root
 				}
+				OR = {
+					has_port = yes
+					any_neighbor_province = {
+						OR = {
+							owned_by = root
+							owner = {
+								is_colonial_nation_of = root
+							}
+						}
+					}
+				}
 			}
 			save_event_target_as = agenda_province
 		}
@@ -1346,14 +1346,6 @@ estate_vaisyas_colonise_X = {
 				range = root
 				is_city = no
 				is_wasteland = no
-				any_neighbor_province = {
-					OR = {
-						owned_by = root
-						owner = {
-							is_colonial_nation_of = root
-						}
-					}
-				}
 				has_discovered = root
 				area_for_scope_province = {
 					type = all
@@ -1372,6 +1364,14 @@ estate_vaisyas_colonise_X = {
 				OR = {
 					NOT = { colonial_claim_by_anyone_of_religion = root }
 					is_religion_grant_colonial_claim = root
+				}
+				any_neighbor_province = {
+					OR = {
+						owned_by = root
+						owner = {
+							is_colonial_nation_of = root
+						}
+					}
 				}
 			}
 			save_event_target_as = agenda_province

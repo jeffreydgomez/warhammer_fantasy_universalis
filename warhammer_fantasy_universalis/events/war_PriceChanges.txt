@@ -249,16 +249,16 @@ country_event = {
 	major = yes
 
 	trigger = {
+		NOT = { has_global_flag = coffee_boom_happened }
 		OR = {
 			capital_scope = { continent = europe }
 			AND = {
+				dip_tech = 20
 				any_owned_province = {
 					continent =  europe
 				}
-				dip_tech = 20
 			}
 		}
-		NOT = { has_global_flag = coffee_boom_happened }
 		OR = {
 			any_owned_province = {
 #				region = malaya_region
@@ -303,10 +303,6 @@ country_event = {
 	trigger = {
 		is_great_power = yes
 		capital_scope = { continent = europe }
-		any_owned_province = {
-			trade_goods = wool
-			continent = europe
-		} 
 		OR = {
 			4065 = { 
 				trade_share = {
@@ -323,6 +319,10 @@ country_event = {
 		}
 		NOT = { has_country_flag = cotton_imports }
 		NOT = { has_global_flag = cotton_imports_global }
+		any_owned_province = {
+			trade_goods = wool
+			continent = europe
+		} 
 	}
 	
 	mean_time_to_happen = {
@@ -415,11 +415,12 @@ country_event = {
 	major = yes
 
 	trigger = {
+		NOT = { has_global_flag = tea_and_sugar_happened }
 		OR = {
 			capital_scope = { continent = europe }
 			AND = {
-				any_owned_province = { continent = europe }
 				dip_tech = 20
+				any_owned_province = { continent = europe }
 			}
 		}
 		OR = {
@@ -471,7 +472,6 @@ country_event = {
 				trade_goods = tea
 			}
 		}
-		NOT = { has_global_flag = tea_and_sugar_happened }
 	}
 	
 	mean_time_to_happen = {
@@ -997,6 +997,7 @@ country_event = {
 			capital_scope = { continent = europe }
 			is_colonial_nation = yes
 		}
+		NOT = { has_global_flag = felt_hats_happened }
 		OR = {
 			any_owned_province = {
 				trade_goods = fur
@@ -1007,7 +1008,6 @@ country_event = {
 				continent = new_world
 			}
 		}
-		NOT = { has_global_flag = felt_hats_happened }
 	}
 	mean_time_to_happen = {
 		months = 3
@@ -1160,12 +1160,12 @@ country_event = {
 		capital_scope = { continent = europe }
 		religion_group = old_world_denominations
 		spices = 3
+		NOT = { has_global_flag = decline_of_spices_happened }
 		any_known_country = {
-			capital_scope = { continent = europe }
 			religion_group = old_world_denominations
 			spices = 3
+			capital_scope = { continent = europe }
 		}
-		NOT = { has_global_flag = decline_of_spices_happened }
 	}
 	mean_time_to_happen = {
 		months = 60
@@ -1198,13 +1198,6 @@ country_event = {
 	major = yes
 
 	trigger = {
-		OR = {
-			capital_scope = { continent = europe }
-			AND = {
-				any_owned_province = { continent = europe }
-				dip_tech = 25
-			}
-		}
 		sugar = 5
 		dip_tech = 20
 		OR = {
@@ -1222,6 +1215,13 @@ country_event = {
 			}
 		}
 		NOT = { has_global_flag = popularization_of_sugar_happened }
+		OR = {
+			capital_scope = { continent = europe }
+			AND = {
+				dip_tech = 25
+				any_owned_province = { continent = europe }
+			}
+		}
 	}
 	mean_time_to_happen = {
 		months = 1
@@ -1515,17 +1515,17 @@ country_event = {
 	trigger = {
 		dip_tech = 16
 		colony = 1
+		NOT = { has_global_flag = hot_chocolate_happened }
 		any_subject_country = {
 			is_colonial_nation = yes
+			cocoa = 7
+			sugar = 1
 			OR = {
 				capital_scope = { continent = north_america }
 				capital_scope = { continent = south_america }
 				capital_scope = { continent = new_world }
 			}
-			cocoa = 7
-			sugar = 1
 		}
-		NOT = { has_global_flag = hot_chocolate_happened }
 	}
 	mean_time_to_happen = {
 		months = 1
@@ -1562,12 +1562,12 @@ country_event = {
 		NOT = { has_global_flag = popularization_of_tobacco_happened }
 		any_subject_country = {
 			is_colonial_nation = yes
+			tobacco = 4
 			OR = {
 				capital_scope = { continent = north_america }
 				capital_scope = { continent = south_america }
 				capital_scope = { continent = new_world }
 			}
-			tobacco = 4
 		}
 	}
 	mean_time_to_happen = {
@@ -2195,14 +2195,14 @@ country_event = {
 		prestige = 50
 		any_owned_province = {
 			renaissance = 100
-			OR = {
-				trade_goods = glass
-				trade_goods = gems
-			}
 			development = 15
 			is_state = yes
 			is_city = yes
 			province_without_special_goods_produced_trigger = yes
+			OR = {
+				trade_goods = glass
+				trade_goods = gems
+			}
 			NOT = { province_id = 112 } #Slated to get the modifier above
 		}
 	}
@@ -2623,11 +2623,11 @@ country_event = {
 			manufactories = 100
 			is_state = yes
 			is_capital = no
+			province_without_special_goods_produced_trigger = yes
 			OR = {
 				has_building = workshop
 				has_building = counting_house
 			}
-			province_without_special_goods_produced_trigger = yes
 		}
 	}
 	
@@ -2692,11 +2692,11 @@ country_event = {
 		has_country_flag = watt_steam_engine_flag #Set by Industrialization Events
 		has_country_flag = coke_blast_furnaces_flag #Set by Industrialization Events.
 		has_institution = enlightenment
+		coal = 10
 		any_owned_province = {
 			trade_goods = coal
 			has_building = furnace
 		}
-		coal = 10
 	}
 	
 	immediate = {

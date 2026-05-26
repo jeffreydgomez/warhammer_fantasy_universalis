@@ -135,6 +135,9 @@ province_event = {
 			trade_goods = fur
 			trade_goods = grain
 		}
+		NOT = { has_building = plantations }
+		NOT = { has_building = tradecompany }
+		num_free_building_slots = 1
 		owner = {
 			NOT = { has_country_flag = iron_discovered }
 			is_colonial_nation = yes
@@ -142,16 +145,13 @@ province_event = {
 				current_age = age_of_absolutism
 				current_age = age_of_revolutions
 			}
+			num_of_cities = 5
 			NOT = {
 				any_owned_province = {
 					trade_goods = iron
 				}
 			}
-			num_of_cities = 5
 		}
-		NOT = { has_building = plantations }
-		NOT = { has_building = tradecompany }
-		num_free_building_slots = 1
 	}
 	
 	mean_time_to_happen = {
@@ -204,6 +204,10 @@ province_event = {
 			trade_goods = fur
 			trade_goods = grain
 		}
+		
+		NOT = { has_building = plantations }
+		NOT = { has_building = tradecompany }
+		num_free_building_slots = 1
 		owner = {
 			NOT = { has_country_flag = domestic_wool_industry }
 			is_colonial_nation = yes
@@ -211,17 +215,13 @@ province_event = {
 				current_age = age_of_absolutism
 				current_age = age_of_revolutions
 			}
+			num_of_cities = 5
 			NOT = {
 				any_owned_province = {
 					trade_goods = wool
 				}
 			}
-			num_of_cities = 5
 		}
-		
-		NOT = { has_building = plantations }
-		NOT = { has_building = tradecompany }
-		num_free_building_slots = 1
 	}
 	
 	mean_time_to_happen = {
@@ -273,6 +273,10 @@ province_event = {
 			trade_goods = fur
 			trade_goods = grain
 		}
+		
+		NOT = { has_building = plantations }
+		NOT = { has_building = tradecompany }
+		num_free_building_slots = 1
 		owner = {
 			NOT = { has_country_flag = a_wharf_needed }
 			is_colonial_nation = yes
@@ -280,6 +284,7 @@ province_event = {
 				current_age = age_of_absolutism
 				current_age = age_of_revolutions
 			}
+			num_of_cities = 5
 			NOT = {
 				any_owned_province = {
 					OR = {
@@ -288,12 +293,7 @@ province_event = {
 					}
 				}
 			}
-			num_of_cities = 5
 		}
-		
-		NOT = { has_building = plantations }
-		NOT = { has_building = tradecompany }
-		num_free_building_slots = 1
 	}
 	
 	mean_time_to_happen = {
@@ -479,6 +479,7 @@ province_event = {
 		}
 		
 		any_neighbor_province = {
+			is_colony = no
 			NOT = { owned_by = ROOT }
 			owner = {
 				NOT = { has_country_flag = colonial_border_conflict }
@@ -492,7 +493,6 @@ province_event = {
 					}
 				}
 			}
-			is_colony = no
 		}
 	}
 	
@@ -516,6 +516,8 @@ province_event = {
 		}
 		random_neighbor_province = {
 			limit = {
+				NOT = { owned_by = ROOT }
+				is_colony = no
 				owner = {
 					NOT = { has_country_flag = colonial_border_conflict }
 					is_colonial_nation = yes
@@ -528,8 +530,6 @@ province_event = {
 						}
 					}
 				}
-				NOT = { owned_by = ROOT }
-				is_colony = no
 			}
 			province_event = { id = conquest_of_paradise.311 days = 3 tooltip = "militia_border_attack" }
 		}
@@ -885,11 +885,11 @@ country_event = {
 		NOT = { num_of_cities = 10 }
 		treasury = 600
 		any_owned_province = {
+			has_empty_adjacent_province = yes
 			OR = {
 				continent = north_america
 				continent = south_america
 			}
-			has_empty_adjacent_province = yes
 		}
 	}
 

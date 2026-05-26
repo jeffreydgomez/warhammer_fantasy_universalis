@@ -291,21 +291,21 @@ country_event = {
 	
 	trigger = {
 		has_estate = estate_burghers
-		any_owned_province = {
-			is_overseas = no
-			has_seat_in_parliament = no
-			OR = {
-				development = 10
-				province_has_center_of_trade_of_level = 1
-			}
-			is_capital = no
-			is_territory = no
-			is_city = yes
-		}
 		NOT = {
 			has_estate_influence_modifier = {
 				estate = estate_burghers
 				modifier = EST_VAL_BURGHERS_ADVANCE
+			}
+		}
+		any_owned_province = {
+			is_overseas = no
+			has_seat_in_parliament = no
+			is_capital = no
+			is_territory = no
+			is_city = yes
+			OR = {
+				development = 10
+				province_has_center_of_trade_of_level = 1
 			}
 		}
 	}
@@ -391,15 +391,6 @@ country_event = {
 			estate = estate_burghers
 			territory = 1
 		}
-		any_owned_province = {
-			OR = {
-				owner = { government = republic }
-				development = 10
-				province_trade_power = 5
-			}
-			is_capital = no
-			is_city = yes
-		}
 		NOT = {
 			has_estate_influence_modifier = {
 				estate = estate_burghers
@@ -410,6 +401,15 @@ country_event = {
 			has_estate_influence_modifier = {
 				estate = estate_burghers
 				modifier = EST_VAL_PRICE_MEDDLING
+			}
+		}
+		any_owned_province = {
+			is_capital = no
+			is_city = yes
+			OR = {
+				owner = { government = republic }
+				development = 10
+				province_trade_power = 5
 			}
 		}
 	}
@@ -428,6 +428,9 @@ country_event = {
 		hidden_effect = {
 			while = {
 				limit = {
+					check_reducing_estate_revolt_size_more_trigger = {
+						FLAG = bread_revolt_vs_burghers
+					}
 					NOT = { 
 						development_in_provinces = {
 							has_province_flag = bread_revolt_vs_burghers
@@ -436,17 +439,14 @@ country_event = {
 						}
 					}
 					any_owned_province = {
+						is_capital = no
+						is_city = yes
 						OR = {
 							owner = { government = republic }
 							development = 10
 							province_trade_power = 5
 						}
-						is_capital = no
-						is_city = yes
 						NOT = { has_province_flag = bread_revolt_vs_burghers }
-					}
-					check_reducing_estate_revolt_size_more_trigger = {
-						FLAG = bread_revolt_vs_burghers
 					}
 				}
 				random_owned_province = {
@@ -758,14 +758,6 @@ country_event = {
 			estate = estate_burghers
 			influence = 70
 		}
-		any_owned_province = {
-			OR = {
-				development = 15
-				province_trade_power = 8
-			}
-			is_city = yes
-			is_capital = no
-		}
 		NOT = {
 			has_estate_influence_modifier = {
 				estate = estate_burghers
@@ -776,6 +768,14 @@ country_event = {
 			has_estate_influence_modifier = {
 				estate = estate_burghers
 				modifier = EST_VAL_BURGHER_RIGHTS_REFUSED
+			}
+		}
+		any_owned_province = {
+			is_city = yes
+			is_capital = no
+			OR = {
+				development = 15
+				province_trade_power = 8
 			}
 		}
 	}
@@ -798,12 +798,12 @@ country_event = {
 						}
 					}
 					any_owned_province = {
+						is_capital = no
+						is_city = yes
 						OR = {
 							development = 15
 							province_trade_power = 8
 						}
-						is_capital = no
-						is_city = yes
 						NOT = { has_province_flag = extended_burgher_privileges }
 					}
 				}
@@ -1021,12 +1021,12 @@ country_event = {
 			}
 		}
 		any_owned_province = {
+			is_capital = no
 			OR = {
 				owner = { government = republic }
 				development = 10
 				province_trade_power = 5
 			}
-			is_capital = no
 		}
 	}
 	
@@ -1345,13 +1345,13 @@ country_event = {
 			}
 		}
 		any_owned_province = {
+			is_capital = no
+			is_city = yes
 			OR = {
 				owner = { government = republic }
 				development = 10
 				province_trade_power = 5
 			}
-			is_capital = no
-			is_city = yes
 		}
 	}
 	
@@ -1538,12 +1538,12 @@ country_event = {
 			}
 		}
 		any_owned_province = {
+			is_city = yes
 			OR = {
 				owner = { government = republic }
 				development = 10
 				province_trade_power = 5
 			}
-			is_city = yes
 		}
 	}
 	
@@ -1807,13 +1807,13 @@ country_event = {
 			territory = 10
 		}
 		any_owned_province = {
+			is_capital = no
+			is_city = yes
 			OR = {
 				owner = { government = republic }
 				development = 10
 				province_trade_power = 5
 			}
-			is_capital = no
-			is_city = yes
 		}
 	}
 	
@@ -1823,6 +1823,9 @@ country_event = {
 		hidden_effect = {
 			while = {
 				limit = {
+					check_reducing_estate_revolt_size_trigger = {
+						FLAG = city_protests
+					}
 					NOT = { 
 						development_in_provinces = {
 							has_province_flag = city_protests
@@ -1831,17 +1834,14 @@ country_event = {
 						}
 					}
 					any_owned_province = {
+						is_capital = no
+						is_city = yes
 						OR = {
 							owner = { government = republic }
 							development = 10
 							province_trade_power = 5
 						}
-						is_capital = no
-						is_city = yes
 						NOT = { has_province_flag = city_protests }
-					}
-					check_reducing_estate_revolt_size_trigger = {
-						FLAG = city_protests
 					}
 				}
 				random_owned_province = {

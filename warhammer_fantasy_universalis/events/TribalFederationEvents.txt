@@ -598,9 +598,9 @@ country_event = {
 		has_dlc = "Cradle of Civilization"
 		has_reform = tribal_federation
 		any_owned_province = {
-			NOT = { is_state_core = ROOT }
 			development = 10
 			is_capital = no
+			NOT = { is_state_core = ROOT }
 			NOT = { has_province_modifier = strong_local_clan }
 			NOT = { has_province_modifier = strong_national_clan }
 			NOT = { area = CAPITAL }
@@ -1007,6 +1007,17 @@ province_event = {
 	trigger = {
 		has_dlc = "Cradle of Civilization"
 		NOT = { controlled_by = owner }
+		owner = {
+			has_reform = tribal_federation
+			NOT = { has_ruler_flag = province_defected_to_tribe }
+			NOT = { 
+				has_government_power = {
+					mechanic_type = tribal_federation_mechanic
+					power_type = tribal_allegiance
+					value = 40
+				}
+			}
+		}
 		controller = {
 			has_reform = tribal_federation
 			has_government_power = {
@@ -1017,17 +1028,6 @@ province_event = {
 			any_owned_province = {
 				any_neighbor_province = {
 					province_id = ROOT
-				}
-			}
-		}
-		owner = {
-			has_reform = tribal_federation
-			NOT = { has_ruler_flag = province_defected_to_tribe }
-			NOT = { 
-				has_government_power = {
-					mechanic_type = tribal_federation_mechanic
-					power_type = tribal_allegiance
-					value = 40
 				}
 			}
 		}

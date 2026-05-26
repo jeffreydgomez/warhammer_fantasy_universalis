@@ -441,6 +441,14 @@ estate_cossacks_expand_into_x = {
 				NOT = { overlord_of = root }
 				NOT = { alliance_with = root }
 				NOT = { ROOT = { truce_with = prev } }
+				ROOT = {
+					knows_country = prev
+				}
+				OR = {
+					is_part_of_hre = no
+					NOT = { hre_reform_passed = landfriede }
+					ROOT = { is_part_of_hre = no }
+				}
 				NOT = { 
 					has_opinion = {
 						who = root
@@ -455,9 +463,6 @@ estate_cossacks_expand_into_x = {
 						}
 					}
 				}
-				ROOT = {
-					knows_country = prev
-				}
 				any_owned_province = {
 					OR = {
 						has_terrain = steppe
@@ -465,9 +470,6 @@ estate_cossacks_expand_into_x = {
 						culture_group = slavic
 						region = east_siberia_region
 						region = west_siberia_region
-					}
-					any_neighbor_province = {
-						owned_by = root
 					}
 					NOT = {
 						area_for_scope_province = {
@@ -477,11 +479,9 @@ estate_cossacks_expand_into_x = {
 							}
 						}
 					}
-				}
-				OR = {
-					is_part_of_hre = no
-					NOT = { hre_reform_passed = landfriede }
-					ROOT = { is_part_of_hre = no }
+					any_neighbor_province = {
+						owned_by = root
+					}
 				}
 			}
 			random_owned_province = {
@@ -493,13 +493,13 @@ estate_cossacks_expand_into_x = {
 						region = east_siberia_region
 						region = west_siberia_region
 					}
-					any_neighbor_province = {
-						owned_by = root
-					}
 					area_for_scope_province = {
 						type = all
 						NOT = { owned_by = root }
 						is_empty = no
+					}
+					any_neighbor_province = {
+						owned_by = root
 					}
 				}
 				save_event_target_as = agenda_province
@@ -724,6 +724,9 @@ estate_cossacks_complete_conquest_of_x = {
 				NOT = { overlord_of = root }
 				NOT = { alliance_with = root }
 				NOT = { ROOT = { truce_with = prev } }
+				ROOT = {
+					knows_country = prev
+				}
 				NOT = { 
 					has_opinion = {
 						who = root
@@ -738,20 +741,14 @@ estate_cossacks_complete_conquest_of_x = {
 						}
 					}
 				}
-				ROOT = {
-					knows_country = prev
-				}
 				any_owned_province = {
+					area_for_scope_province = {
+						owned_by = root
+					}
 					OR = {
 						has_terrain = steppe
 						culture_group = east_slavic
 						culture_group = slavic
-					}
-					any_neighbor_province = {
-						owned_by = root
-					}
-					area_for_scope_province = {
-						owned_by = root
 					}
 					NOT = {
 						area_for_scope_province = {
@@ -767,6 +764,9 @@ estate_cossacks_complete_conquest_of_x = {
 								}
 							}
 						}
+					}
+					any_neighbor_province = {
+						owned_by = root
 					}
 				}
 			}
@@ -777,9 +777,6 @@ estate_cossacks_complete_conquest_of_x = {
 						culture_group = east_slavic
 						culture_group = slavic
 					}
-					any_neighbor_province = {
-						owned_by = root
-					}
 					area_for_scope_province = {
 						owned_by = root
 					}
@@ -797,6 +794,9 @@ estate_cossacks_complete_conquest_of_x = {
 								}
 							}
 						}
+					}
+					any_neighbor_province = {
+						owned_by = root
 					}
 				}
 				save_event_target_as = agenda_province

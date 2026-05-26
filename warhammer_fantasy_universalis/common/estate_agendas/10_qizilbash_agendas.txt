@@ -365,6 +365,7 @@ estate_qizilbash_retake_core = {
 				NOT = { country_or_non_sovereign_subject_holds = root }
 				is_city = yes
 				NOT = { owner = { ROOT = { truce_with = prev } } }
+				NOT = { owner = { alliance_with = root } }
 				OR = {
 					AND = {
 						has_port = yes
@@ -378,7 +379,6 @@ estate_qizilbash_retake_core = {
 						owned_by = root
 					}
 				}
-				NOT = { owner = { alliance_with = root } }
 			}
 			save_event_target_as = agenda_province
 		}
@@ -865,6 +865,14 @@ estate_qizilbash_expand_into_x = {
 				NOT = { overlord_of = root }
 				NOT = { alliance_with = root }
 				NOT = { ROOT = { truce_with = prev } }
+				ROOT = {
+					knows_country = prev
+				}
+				OR = {
+					is_part_of_hre = no
+					NOT = { hre_reform_passed = landfriede }
+					ROOT = { is_part_of_hre = no }
+				}
 				NOT = { 
 					has_opinion = {
 						who = root
@@ -879,13 +887,7 @@ estate_qizilbash_expand_into_x = {
 						}
 					}
 				}
-				ROOT = {
-					knows_country = prev
-				}
 				any_owned_province = {
-					any_neighbor_province = {
-						owned_by = root
-					}
 					NOT = {
 						area_for_scope_province = {
 							OR = {
@@ -894,22 +896,20 @@ estate_qizilbash_expand_into_x = {
 							}
 						}
 					}
-				}
-				OR = {
-					is_part_of_hre = no
-					NOT = { hre_reform_passed = landfriede }
-					ROOT = { is_part_of_hre = no }
+					any_neighbor_province = {
+						owned_by = root
+					}
 				}
 			}
 			random_owned_province = {
 				limit = {
-					any_neighbor_province = {
-						owned_by = root
-					}
 					area_for_scope_province = {
 						type = all
 						NOT = { owned_by = root }
 						is_empty = no
+					}
+					any_neighbor_province = {
+						owned_by = root
 					}
 				}
 				save_event_target_as = agenda_province
@@ -1187,6 +1187,9 @@ estate_qizilbash_protect_our_culture = {
 			limit = {
 				any_neighbor_province = {
 					is_city = yes
+					has_owner_culture = no
+					has_owner_accepted_culture = no
+					has_discovered = root
 					OR = {
 						religion = root
 						religion = shiite
@@ -1199,9 +1202,6 @@ estate_qizilbash_protect_our_culture = {
 						culture = turkmeni
 						culture = turco_iranian
 					}
-					has_owner_culture = no
-					has_owner_accepted_culture = no
-					has_discovered = root
 					owner = {
 						is_free_or_tributary_trigger = yes
 						is_nomad = no

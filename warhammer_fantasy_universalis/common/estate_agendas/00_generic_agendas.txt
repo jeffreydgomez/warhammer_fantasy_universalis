@@ -2647,7 +2647,20 @@ estate_nobles_build_fort_building_in_y = {
 		}
 		random_owned_province = {
 			limit = {
+				NOT = { has_building = fort_18th }
 				OR = {
+					AND = {
+						has_building = fort_15th
+						ROOT = { mil_tech = 14 }
+					}
+					AND = {
+						has_building = fort_16th
+						ROOT = { mil_tech = 19 }
+					}
+					AND = {
+						has_building = fort_17th
+						ROOT = { mil_tech = 24 }
+					}
 					AND = {
 						NOT = { has_building = fort_15th }
 						NOT = { has_building = fort_16th }
@@ -2721,6 +2734,14 @@ estate_nobles_build_fort_building_in_y = {
 							}
 						}
 					}
+				}
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				NOT = { has_building = fort_18th }
+				OR = {
 					AND = {
 						has_building = fort_15th
 						ROOT = { mil_tech = 14 }
@@ -2733,49 +2754,41 @@ estate_nobles_build_fort_building_in_y = {
 						has_building = fort_17th
 						ROOT = { mil_tech = 24 }
 					}
-				}
-				NOT = { has_building = fort_18th }
-			}
-			save_event_target_as = agenda_province
-		}
-		random_owned_province = {
-			limit = {
-				OR = {
 					AND = {
 						NOT = { has_building = fort_15th }
 						NOT = { has_building = fort_16th }
 						NOT = { has_building = fort_17th }
 						NOT = { has_building = fort_18th }
 						num_free_building_slots = 1
-						any_neighbor_province = {
-							owner = {
-								OR = {
-									is_rival = root
-									root = { is_rival = prev }
-									AND = {
-										is_subject_other_than_tributary_trigger = yes
-										overlord = {
-											OR = {
-												is_rival = root
-												root = { is_rival = prev }
-											}
-										}
-									}
-								}
-							}
-						}
-						NOT = {
-							any_neighbor_province = {
-								owned_by = root
-								OR = {
-									has_building = fort_15th
-									has_building = fort_16th
-									has_building = fort_17th
-									has_building = fort_18th
-								}
-							}
-						}
 						has_terrain = hills
+						any_neighbor_province = {
+							owner = {
+								OR = {
+									is_rival = root
+									root = { is_rival = prev }
+									AND = {
+										is_subject_other_than_tributary_trigger = yes
+										overlord = {
+											OR = {
+												is_rival = root
+												root = { is_rival = prev }
+											}
+										}
+									}
+								}
+							}
+						}
+						NOT = {
+							any_neighbor_province = {
+								owned_by = root
+								OR = {
+									has_building = fort_15th
+									has_building = fort_16th
+									has_building = fort_17th
+									has_building = fort_18th
+								}
+							}
+						}
 					}
 					AND = {
 						NOT = { has_building = fort_15th }
@@ -2783,101 +2796,7 @@ estate_nobles_build_fort_building_in_y = {
 						NOT = { has_building = fort_17th }
 						NOT = { has_building = fort_18th }
 						num_free_building_slots = 1
-						any_neighbor_province = {
-							owned_by = root
-							any_neighbor_province = {
-								owner = {
-									OR = {
-										is_rival = root
-										root = { is_rival = prev }
-										AND = {
-											is_subject_other_than_tributary_trigger = yes
-											overlord = {
-												OR = {
-													is_rival = root
-													root = { is_rival = prev }
-												}
-											}
-										}
-									}
-								}
-								NOT = {
-									any_neighbor_province = {
-										owned_by = root
-										OR = {
-											has_building = fort_15th
-											has_building = fort_16th
-											has_building = fort_17th
-											has_building = fort_18th
-										}
-									}
-								}
-							}
-						}
 						has_terrain = hills
-					}
-					AND = {
-						has_building = fort_15th
-						ROOT = { mil_tech = 14 }
-					}
-					AND = {
-						has_building = fort_16th
-						ROOT = { mil_tech = 19 }
-					}
-					AND = {
-						has_building = fort_17th
-						ROOT = { mil_tech = 24 }
-					}
-				}
-				NOT = { has_building = fort_18th }
-			}
-			save_event_target_as = agenda_province
-		}
-		random_owned_province = {
-			limit = {
-				OR = {
-					AND = {
-						NOT = { has_building = fort_15th }
-						NOT = { has_building = fort_16th }
-						NOT = { has_building = fort_17th }
-						NOT = { has_building = fort_18th }
-						num_free_building_slots = 1
-						any_neighbor_province = {
-							owner = {
-								OR = {
-									is_rival = root
-									root = { is_rival = prev }
-									AND = {
-										is_subject_other_than_tributary_trigger = yes
-										overlord = {
-											OR = {
-												is_rival = root
-												root = { is_rival = prev }
-											}
-										}
-									}
-								}
-							}
-						}
-						NOT = {
-							any_neighbor_province = {
-								owned_by = root
-								OR = {
-									has_building = fort_15th
-									has_building = fort_16th
-									has_building = fort_17th
-									has_building = fort_18th
-								}
-							}
-						}
-						has_terrain = highlands
-					}
-					AND = {
-						NOT = { has_building = fort_15th }
-						NOT = { has_building = fort_16th }
-						NOT = { has_building = fort_17th }
-						NOT = { has_building = fort_18th }
-						num_free_building_slots = 1
 						any_neighbor_province = {
 							owned_by = root
 							any_neighbor_province = {
@@ -2909,8 +2828,15 @@ estate_nobles_build_fort_building_in_y = {
 								}
 							}
 						}
-						has_terrain = highlands
 					}
+				}
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				NOT = { has_building = fort_18th }
+				OR = {
 					AND = {
 						has_building = fort_15th
 						ROOT = { mil_tech = 14 }
@@ -2923,20 +2849,13 @@ estate_nobles_build_fort_building_in_y = {
 						has_building = fort_17th
 						ROOT = { mil_tech = 24 }
 					}
-				}
-				NOT = { has_building = fort_18th }
-			}
-			save_event_target_as = agenda_province
-		}
-		random_owned_province = {
-			limit = {
-				OR = {
 					AND = {
 						NOT = { has_building = fort_15th }
 						NOT = { has_building = fort_16th }
 						NOT = { has_building = fort_17th }
 						NOT = { has_building = fort_18th }
 						num_free_building_slots = 1
+						has_terrain = highlands
 						any_neighbor_province = {
 							owner = {
 								OR = {
@@ -2965,7 +2884,6 @@ estate_nobles_build_fort_building_in_y = {
 								}
 							}
 						}
-						has_terrain = mountain
 					}
 					AND = {
 						NOT = { has_building = fort_15th }
@@ -2973,6 +2891,7 @@ estate_nobles_build_fort_building_in_y = {
 						NOT = { has_building = fort_17th }
 						NOT = { has_building = fort_18th }
 						num_free_building_slots = 1
+						has_terrain = highlands
 						any_neighbor_province = {
 							owned_by = root
 							any_neighbor_province = {
@@ -3004,8 +2923,15 @@ estate_nobles_build_fort_building_in_y = {
 								}
 							}
 						}
-						has_terrain = mountain
 					}
+				}
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				NOT = { has_building = fort_18th }
+				OR = {
 					AND = {
 						has_building = fort_15th
 						ROOT = { mil_tech = 14 }
@@ -3018,8 +2944,82 @@ estate_nobles_build_fort_building_in_y = {
 						has_building = fort_17th
 						ROOT = { mil_tech = 24 }
 					}
+					AND = {
+						NOT = { has_building = fort_15th }
+						NOT = { has_building = fort_16th }
+						NOT = { has_building = fort_17th }
+						NOT = { has_building = fort_18th }
+						num_free_building_slots = 1
+						has_terrain = mountain
+						any_neighbor_province = {
+							owner = {
+								OR = {
+									is_rival = root
+									root = { is_rival = prev }
+									AND = {
+										is_subject_other_than_tributary_trigger = yes
+										overlord = {
+											OR = {
+												is_rival = root
+												root = { is_rival = prev }
+											}
+										}
+									}
+								}
+							}
+						}
+						NOT = {
+							any_neighbor_province = {
+								owned_by = root
+								OR = {
+									has_building = fort_15th
+									has_building = fort_16th
+									has_building = fort_17th
+									has_building = fort_18th
+								}
+							}
+						}
+					}
+					AND = {
+						NOT = { has_building = fort_15th }
+						NOT = { has_building = fort_16th }
+						NOT = { has_building = fort_17th }
+						NOT = { has_building = fort_18th }
+						num_free_building_slots = 1
+						has_terrain = mountain
+						any_neighbor_province = {
+							owned_by = root
+							any_neighbor_province = {
+								owner = {
+									OR = {
+										is_rival = root
+										root = { is_rival = prev }
+										AND = {
+											is_subject_other_than_tributary_trigger = yes
+											overlord = {
+												OR = {
+													is_rival = root
+													root = { is_rival = prev }
+												}
+											}
+										}
+									}
+								}
+								NOT = {
+									any_neighbor_province = {
+										owned_by = root
+										OR = {
+											has_building = fort_15th
+											has_building = fort_16th
+											has_building = fort_17th
+											has_building = fort_18th
+										}
+									}
+								}
+							}
+						}
+					}
 				}
-				NOT = { has_building = fort_18th }
 			}
 			save_event_target_as = agenda_province
 		}
@@ -3285,7 +3285,20 @@ estate_rajput_build_fort_building_in_y = {
 		}
 		random_owned_province = {
 			limit = {
+				NOT = { has_building = fort_18th }
 				OR = {
+					AND = {
+						has_building = fort_15th
+						ROOT = { mil_tech = 14 }
+					}
+					AND = {
+						has_building = fort_16th
+						ROOT = { mil_tech = 19 }
+					}
+					AND = {
+						has_building = fort_17th
+						ROOT = { mil_tech = 24 }
+					}
 					AND = {
 						NOT = { has_building = fort_15th }
 						NOT = { has_building = fort_16th }
@@ -3359,6 +3372,14 @@ estate_rajput_build_fort_building_in_y = {
 							}
 						}
 					}
+				}
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				NOT = { has_building = fort_18th }
+				OR = {
 					AND = {
 						has_building = fort_15th
 						ROOT = { mil_tech = 14 }
@@ -3371,49 +3392,41 @@ estate_rajput_build_fort_building_in_y = {
 						has_building = fort_17th
 						ROOT = { mil_tech = 24 }
 					}
-				}
-				NOT = { has_building = fort_18th }
-			}
-			save_event_target_as = agenda_province
-		}
-		random_owned_province = {
-			limit = {
-				OR = {
 					AND = {
 						NOT = { has_building = fort_15th }
 						NOT = { has_building = fort_16th }
 						NOT = { has_building = fort_17th }
 						NOT = { has_building = fort_18th }
 						num_free_building_slots = 1
-						any_neighbor_province = {
-							owner = {
-								OR = {
-									is_rival = root
-									root = { is_rival = prev }
-									AND = {
-										is_subject_other_than_tributary_trigger = yes
-										overlord = {
-											OR = {
-												is_rival = root
-												root = { is_rival = prev }
-											}
-										}
-									}
-								}
-							}
-						}
-						NOT = {
-							any_neighbor_province = {
-								owned_by = root
-								OR = {
-									has_building = fort_15th
-									has_building = fort_16th
-									has_building = fort_17th
-									has_building = fort_18th
-								}
-							}
-						}
 						has_terrain = hills
+						any_neighbor_province = {
+							owner = {
+								OR = {
+									is_rival = root
+									root = { is_rival = prev }
+									AND = {
+										is_subject_other_than_tributary_trigger = yes
+										overlord = {
+											OR = {
+												is_rival = root
+												root = { is_rival = prev }
+											}
+										}
+									}
+								}
+							}
+						}
+						NOT = {
+							any_neighbor_province = {
+								owned_by = root
+								OR = {
+									has_building = fort_15th
+									has_building = fort_16th
+									has_building = fort_17th
+									has_building = fort_18th
+								}
+							}
+						}
 					}
 					AND = {
 						NOT = { has_building = fort_15th }
@@ -3421,101 +3434,7 @@ estate_rajput_build_fort_building_in_y = {
 						NOT = { has_building = fort_17th }
 						NOT = { has_building = fort_18th }
 						num_free_building_slots = 1
-						any_neighbor_province = {
-							owned_by = root
-							any_neighbor_province = {
-								owner = {
-									OR = {
-										is_rival = root
-										root = { is_rival = prev }
-										AND = {
-											is_subject_other_than_tributary_trigger = yes
-											overlord = {
-												OR = {
-													is_rival = root
-													root = { is_rival = prev }
-												}
-											}
-										}
-									}
-								}
-								NOT = {
-									any_neighbor_province = {
-										owned_by = root
-										OR = {
-											has_building = fort_15th
-											has_building = fort_16th
-											has_building = fort_17th
-											has_building = fort_18th
-										}
-									}
-								}
-							}
-						}
 						has_terrain = hills
-					}
-					AND = {
-						has_building = fort_15th
-						ROOT = { mil_tech = 14 }
-					}
-					AND = {
-						has_building = fort_16th
-						ROOT = { mil_tech = 19 }
-					}
-					AND = {
-						has_building = fort_17th
-						ROOT = { mil_tech = 24 }
-					}
-				}
-				NOT = { has_building = fort_18th }
-			}
-			save_event_target_as = agenda_province
-		}
-		random_owned_province = {
-			limit = {
-				OR = {
-					AND = {
-						NOT = { has_building = fort_15th }
-						NOT = { has_building = fort_16th }
-						NOT = { has_building = fort_17th }
-						NOT = { has_building = fort_18th }
-						num_free_building_slots = 1
-						any_neighbor_province = {
-							owner = {
-								OR = {
-									is_rival = root
-									root = { is_rival = prev }
-									AND = {
-										is_subject_other_than_tributary_trigger = yes
-										overlord = {
-											OR = {
-												is_rival = root
-												root = { is_rival = prev }
-											}
-										}
-									}
-								}
-							}
-						}
-						NOT = {
-							any_neighbor_province = {
-								owned_by = root
-								OR = {
-									has_building = fort_15th
-									has_building = fort_16th
-									has_building = fort_17th
-									has_building = fort_18th
-								}
-							}
-						}
-						has_terrain = highlands
-					}
-					AND = {
-						NOT = { has_building = fort_15th }
-						NOT = { has_building = fort_16th }
-						NOT = { has_building = fort_17th }
-						NOT = { has_building = fort_18th }
-						num_free_building_slots = 1
 						any_neighbor_province = {
 							owned_by = root
 							any_neighbor_province = {
@@ -3547,8 +3466,15 @@ estate_rajput_build_fort_building_in_y = {
 								}
 							}
 						}
-						has_terrain = highlands
 					}
+				}
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				NOT = { has_building = fort_18th }
+				OR = {
 					AND = {
 						has_building = fort_15th
 						ROOT = { mil_tech = 14 }
@@ -3561,20 +3487,13 @@ estate_rajput_build_fort_building_in_y = {
 						has_building = fort_17th
 						ROOT = { mil_tech = 24 }
 					}
-				}
-				NOT = { has_building = fort_18th }
-			}
-			save_event_target_as = agenda_province
-		}
-		random_owned_province = {
-			limit = {
-				OR = {
 					AND = {
 						NOT = { has_building = fort_15th }
 						NOT = { has_building = fort_16th }
 						NOT = { has_building = fort_17th }
 						NOT = { has_building = fort_18th }
 						num_free_building_slots = 1
+						has_terrain = highlands
 						any_neighbor_province = {
 							owner = {
 								OR = {
@@ -3603,7 +3522,6 @@ estate_rajput_build_fort_building_in_y = {
 								}
 							}
 						}
-						has_terrain = mountain
 					}
 					AND = {
 						NOT = { has_building = fort_15th }
@@ -3611,6 +3529,7 @@ estate_rajput_build_fort_building_in_y = {
 						NOT = { has_building = fort_17th }
 						NOT = { has_building = fort_18th }
 						num_free_building_slots = 1
+						has_terrain = highlands
 						any_neighbor_province = {
 							owned_by = root
 							any_neighbor_province = {
@@ -3642,8 +3561,15 @@ estate_rajput_build_fort_building_in_y = {
 								}
 							}
 						}
-						has_terrain = mountain
 					}
+				}
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				NOT = { has_building = fort_18th }
+				OR = {
 					AND = {
 						has_building = fort_15th
 						ROOT = { mil_tech = 14 }
@@ -3656,8 +3582,82 @@ estate_rajput_build_fort_building_in_y = {
 						has_building = fort_17th
 						ROOT = { mil_tech = 24 }
 					}
+					AND = {
+						NOT = { has_building = fort_15th }
+						NOT = { has_building = fort_16th }
+						NOT = { has_building = fort_17th }
+						NOT = { has_building = fort_18th }
+						num_free_building_slots = 1
+						has_terrain = mountain
+						any_neighbor_province = {
+							owner = {
+								OR = {
+									is_rival = root
+									root = { is_rival = prev }
+									AND = {
+										is_subject_other_than_tributary_trigger = yes
+										overlord = {
+											OR = {
+												is_rival = root
+												root = { is_rival = prev }
+											}
+										}
+									}
+								}
+							}
+						}
+						NOT = {
+							any_neighbor_province = {
+								owned_by = root
+								OR = {
+									has_building = fort_15th
+									has_building = fort_16th
+									has_building = fort_17th
+									has_building = fort_18th
+								}
+							}
+						}
+					}
+					AND = {
+						NOT = { has_building = fort_15th }
+						NOT = { has_building = fort_16th }
+						NOT = { has_building = fort_17th }
+						NOT = { has_building = fort_18th }
+						num_free_building_slots = 1
+						has_terrain = mountain
+						any_neighbor_province = {
+							owned_by = root
+							any_neighbor_province = {
+								owner = {
+									OR = {
+										is_rival = root
+										root = { is_rival = prev }
+										AND = {
+											is_subject_other_than_tributary_trigger = yes
+											overlord = {
+												OR = {
+													is_rival = root
+													root = { is_rival = prev }
+												}
+											}
+										}
+									}
+								}
+								NOT = {
+									any_neighbor_province = {
+										owned_by = root
+										OR = {
+											has_building = fort_15th
+											has_building = fort_16th
+											has_building = fort_17th
+											has_building = fort_18th
+										}
+									}
+								}
+							}
+						}
+					}
 				}
-				NOT = { has_building = fort_18th }
 			}
 			save_event_target_as = agenda_province
 		}
@@ -3923,7 +3923,20 @@ estate_maratha_build_fort_building_in_y = {
 		}
 		random_owned_province = {
 			limit = {
+				NOT = { has_building = fort_18th }
 				OR = {
+					AND = {
+						has_building = fort_15th
+						ROOT = { mil_tech = 14 }
+					}
+					AND = {
+						has_building = fort_16th
+						ROOT = { mil_tech = 19 }
+					}
+					AND = {
+						has_building = fort_17th
+						ROOT = { mil_tech = 24 }
+					}
 					AND = {
 						NOT = { has_building = fort_15th }
 						NOT = { has_building = fort_16th }
@@ -3997,6 +4010,14 @@ estate_maratha_build_fort_building_in_y = {
 							}
 						}
 					}
+				}
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				NOT = { has_building = fort_18th }
+				OR = {
 					AND = {
 						has_building = fort_15th
 						ROOT = { mil_tech = 14 }
@@ -4009,49 +4030,41 @@ estate_maratha_build_fort_building_in_y = {
 						has_building = fort_17th
 						ROOT = { mil_tech = 24 }
 					}
-				}
-				NOT = { has_building = fort_18th }
-			}
-			save_event_target_as = agenda_province
-		}
-		random_owned_province = {
-			limit = {
-				OR = {
 					AND = {
 						NOT = { has_building = fort_15th }
 						NOT = { has_building = fort_16th }
 						NOT = { has_building = fort_17th }
 						NOT = { has_building = fort_18th }
 						num_free_building_slots = 1
-						any_neighbor_province = {
-							owner = {
-								OR = {
-									is_rival = root
-									root = { is_rival = prev }
-									AND = {
-										is_subject_other_than_tributary_trigger = yes
-										overlord = {
-											OR = {
-												is_rival = root
-												root = { is_rival = prev }
-											}
-										}
-									}
-								}
-							}
-						}
-						NOT = {
-							any_neighbor_province = {
-								owned_by = root
-								OR = {
-									has_building = fort_15th
-									has_building = fort_16th
-									has_building = fort_17th
-									has_building = fort_18th
-								}
-							}
-						}
 						has_terrain = hills
+						any_neighbor_province = {
+							owner = {
+								OR = {
+									is_rival = root
+									root = { is_rival = prev }
+									AND = {
+										is_subject_other_than_tributary_trigger = yes
+										overlord = {
+											OR = {
+												is_rival = root
+												root = { is_rival = prev }
+											}
+										}
+									}
+								}
+							}
+						}
+						NOT = {
+							any_neighbor_province = {
+								owned_by = root
+								OR = {
+									has_building = fort_15th
+									has_building = fort_16th
+									has_building = fort_17th
+									has_building = fort_18th
+								}
+							}
+						}
 					}
 					AND = {
 						NOT = { has_building = fort_15th }
@@ -4059,101 +4072,7 @@ estate_maratha_build_fort_building_in_y = {
 						NOT = { has_building = fort_17th }
 						NOT = { has_building = fort_18th }
 						num_free_building_slots = 1
-						any_neighbor_province = {
-							owned_by = root
-							any_neighbor_province = {
-								owner = {
-									OR = {
-										is_rival = root
-										root = { is_rival = prev }
-										AND = {
-											is_subject_other_than_tributary_trigger = yes
-											overlord = {
-												OR = {
-													is_rival = root
-													root = { is_rival = prev }
-												}
-											}
-										}
-									}
-								}
-								NOT = {
-									any_neighbor_province = {
-										owned_by = root
-										OR = {
-											has_building = fort_15th
-											has_building = fort_16th
-											has_building = fort_17th
-											has_building = fort_18th
-										}
-									}
-								}
-							}
-						}
 						has_terrain = hills
-					}
-					AND = {
-						has_building = fort_15th
-						ROOT = { mil_tech = 14 }
-					}
-					AND = {
-						has_building = fort_16th
-						ROOT = { mil_tech = 19 }
-					}
-					AND = {
-						has_building = fort_17th
-						ROOT = { mil_tech = 24 }
-					}
-				}
-				NOT = { has_building = fort_18th }
-			}
-			save_event_target_as = agenda_province
-		}
-		random_owned_province = {
-			limit = {
-				OR = {
-					AND = {
-						NOT = { has_building = fort_15th }
-						NOT = { has_building = fort_16th }
-						NOT = { has_building = fort_17th }
-						NOT = { has_building = fort_18th }
-						num_free_building_slots = 1
-						any_neighbor_province = {
-							owner = {
-								OR = {
-									is_rival = root
-									root = { is_rival = prev }
-									AND = {
-										is_subject_other_than_tributary_trigger = yes
-										overlord = {
-											OR = {
-												is_rival = root
-												root = { is_rival = prev }
-											}
-										}
-									}
-								}
-							}
-						}
-						NOT = {
-							any_neighbor_province = {
-								owned_by = root
-								OR = {
-									has_building = fort_15th
-									has_building = fort_16th
-									has_building = fort_17th
-									has_building = fort_18th
-								}
-							}
-						}
-						has_terrain = highlands
-					}
-					AND = {
-						NOT = { has_building = fort_15th }
-						NOT = { has_building = fort_16th }
-						NOT = { has_building = fort_17th }
-						NOT = { has_building = fort_18th }
-						num_free_building_slots = 1
 						any_neighbor_province = {
 							owned_by = root
 							any_neighbor_province = {
@@ -4185,8 +4104,15 @@ estate_maratha_build_fort_building_in_y = {
 								}
 							}
 						}
-						has_terrain = highlands
 					}
+				}
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				NOT = { has_building = fort_18th }
+				OR = {
 					AND = {
 						has_building = fort_15th
 						ROOT = { mil_tech = 14 }
@@ -4199,20 +4125,13 @@ estate_maratha_build_fort_building_in_y = {
 						has_building = fort_17th
 						ROOT = { mil_tech = 24 }
 					}
-				}
-				NOT = { has_building = fort_18th }
-			}
-			save_event_target_as = agenda_province
-		}
-		random_owned_province = {
-			limit = {
-				OR = {
 					AND = {
 						NOT = { has_building = fort_15th }
 						NOT = { has_building = fort_16th }
 						NOT = { has_building = fort_17th }
 						NOT = { has_building = fort_18th }
 						num_free_building_slots = 1
+						has_terrain = highlands
 						any_neighbor_province = {
 							owner = {
 								OR = {
@@ -4241,7 +4160,6 @@ estate_maratha_build_fort_building_in_y = {
 								}
 							}
 						}
-						has_terrain = mountain
 					}
 					AND = {
 						NOT = { has_building = fort_15th }
@@ -4249,6 +4167,7 @@ estate_maratha_build_fort_building_in_y = {
 						NOT = { has_building = fort_17th }
 						NOT = { has_building = fort_18th }
 						num_free_building_slots = 1
+						has_terrain = highlands
 						any_neighbor_province = {
 							owned_by = root
 							any_neighbor_province = {
@@ -4280,8 +4199,15 @@ estate_maratha_build_fort_building_in_y = {
 								}
 							}
 						}
-						has_terrain = mountain
 					}
+				}
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				NOT = { has_building = fort_18th }
+				OR = {
 					AND = {
 						has_building = fort_15th
 						ROOT = { mil_tech = 14 }
@@ -4294,8 +4220,82 @@ estate_maratha_build_fort_building_in_y = {
 						has_building = fort_17th
 						ROOT = { mil_tech = 24 }
 					}
+					AND = {
+						NOT = { has_building = fort_15th }
+						NOT = { has_building = fort_16th }
+						NOT = { has_building = fort_17th }
+						NOT = { has_building = fort_18th }
+						num_free_building_slots = 1
+						has_terrain = mountain
+						any_neighbor_province = {
+							owner = {
+								OR = {
+									is_rival = root
+									root = { is_rival = prev }
+									AND = {
+										is_subject_other_than_tributary_trigger = yes
+										overlord = {
+											OR = {
+												is_rival = root
+												root = { is_rival = prev }
+											}
+										}
+									}
+								}
+							}
+						}
+						NOT = {
+							any_neighbor_province = {
+								owned_by = root
+								OR = {
+									has_building = fort_15th
+									has_building = fort_16th
+									has_building = fort_17th
+									has_building = fort_18th
+								}
+							}
+						}
+					}
+					AND = {
+						NOT = { has_building = fort_15th }
+						NOT = { has_building = fort_16th }
+						NOT = { has_building = fort_17th }
+						NOT = { has_building = fort_18th }
+						num_free_building_slots = 1
+						has_terrain = mountain
+						any_neighbor_province = {
+							owned_by = root
+							any_neighbor_province = {
+								owner = {
+									OR = {
+										is_rival = root
+										root = { is_rival = prev }
+										AND = {
+											is_subject_other_than_tributary_trigger = yes
+											overlord = {
+												OR = {
+													is_rival = root
+													root = { is_rival = prev }
+												}
+											}
+										}
+									}
+								}
+								NOT = {
+									any_neighbor_province = {
+										owned_by = root
+										OR = {
+											has_building = fort_15th
+											has_building = fort_16th
+											has_building = fort_17th
+											has_building = fort_18th
+										}
+									}
+								}
+							}
+						}
+					}
 				}
-				NOT = { has_building = fort_18th }
 			}
 			save_event_target_as = agenda_province
 		}
@@ -4561,7 +4561,20 @@ estate_qizilbash_build_fort_building_in_y = {
 		}
 		random_owned_province = {
 			limit = {
+				NOT = { has_building = fort_18th }
 				OR = {
+					AND = {
+						has_building = fort_15th
+						ROOT = { mil_tech = 14 }
+					}
+					AND = {
+						has_building = fort_16th
+						ROOT = { mil_tech = 19 }
+					}
+					AND = {
+						has_building = fort_17th
+						ROOT = { mil_tech = 24 }
+					}
 					AND = {
 						NOT = { has_building = fort_15th }
 						NOT = { has_building = fort_16th }
@@ -4635,6 +4648,14 @@ estate_qizilbash_build_fort_building_in_y = {
 							}
 						}
 					}
+				}
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				NOT = { has_building = fort_18th }
+				OR = {
 					AND = {
 						has_building = fort_15th
 						ROOT = { mil_tech = 14 }
@@ -4647,49 +4668,41 @@ estate_qizilbash_build_fort_building_in_y = {
 						has_building = fort_17th
 						ROOT = { mil_tech = 24 }
 					}
-				}
-				NOT = { has_building = fort_18th }
-			}
-			save_event_target_as = agenda_province
-		}
-		random_owned_province = {
-			limit = {
-				OR = {
 					AND = {
 						NOT = { has_building = fort_15th }
 						NOT = { has_building = fort_16th }
 						NOT = { has_building = fort_17th }
 						NOT = { has_building = fort_18th }
 						num_free_building_slots = 1
-						any_neighbor_province = {
-							owner = {
-								OR = {
-									is_rival = root
-									root = { is_rival = prev }
-									AND = {
-										is_subject_other_than_tributary_trigger = yes
-										overlord = {
-											OR = {
-												is_rival = root
-												root = { is_rival = prev }
-											}
-										}
-									}
-								}
-							}
-						}
-						NOT = {
-							any_neighbor_province = {
-								owned_by = root
-								OR = {
-									has_building = fort_15th
-									has_building = fort_16th
-									has_building = fort_17th
-									has_building = fort_18th
-								}
-							}
-						}
 						has_terrain = hills
+						any_neighbor_province = {
+							owner = {
+								OR = {
+									is_rival = root
+									root = { is_rival = prev }
+									AND = {
+										is_subject_other_than_tributary_trigger = yes
+										overlord = {
+											OR = {
+												is_rival = root
+												root = { is_rival = prev }
+											}
+										}
+									}
+								}
+							}
+						}
+						NOT = {
+							any_neighbor_province = {
+								owned_by = root
+								OR = {
+									has_building = fort_15th
+									has_building = fort_16th
+									has_building = fort_17th
+									has_building = fort_18th
+								}
+							}
+						}
 					}
 					AND = {
 						NOT = { has_building = fort_15th }
@@ -4697,101 +4710,7 @@ estate_qizilbash_build_fort_building_in_y = {
 						NOT = { has_building = fort_17th }
 						NOT = { has_building = fort_18th }
 						num_free_building_slots = 1
-						any_neighbor_province = {
-							owned_by = root
-							any_neighbor_province = {
-								owner = {
-									OR = {
-										is_rival = root
-										root = { is_rival = prev }
-										AND = {
-											is_subject_other_than_tributary_trigger = yes
-											overlord = {
-												OR = {
-													is_rival = root
-													root = { is_rival = prev }
-												}
-											}
-										}
-									}
-								}
-								NOT = {
-									any_neighbor_province = {
-										owned_by = root
-										OR = {
-											has_building = fort_15th
-											has_building = fort_16th
-											has_building = fort_17th
-											has_building = fort_18th
-										}
-									}
-								}
-							}
-						}
 						has_terrain = hills
-					}
-					AND = {
-						has_building = fort_15th
-						ROOT = { mil_tech = 14 }
-					}
-					AND = {
-						has_building = fort_16th
-						ROOT = { mil_tech = 19 }
-					}
-					AND = {
-						has_building = fort_17th
-						ROOT = { mil_tech = 24 }
-					}
-				}
-				NOT = { has_building = fort_18th }
-			}
-			save_event_target_as = agenda_province
-		}
-		random_owned_province = {
-			limit = {
-				OR = {
-					AND = {
-						NOT = { has_building = fort_15th }
-						NOT = { has_building = fort_16th }
-						NOT = { has_building = fort_17th }
-						NOT = { has_building = fort_18th }
-						num_free_building_slots = 1
-						any_neighbor_province = {
-							owner = {
-								OR = {
-									is_rival = root
-									root = { is_rival = prev }
-									AND = {
-										is_subject_other_than_tributary_trigger = yes
-										overlord = {
-											OR = {
-												is_rival = root
-												root = { is_rival = prev }
-											}
-										}
-									}
-								}
-							}
-						}
-						NOT = {
-							any_neighbor_province = {
-								owned_by = root
-								OR = {
-									has_building = fort_15th
-									has_building = fort_16th
-									has_building = fort_17th
-									has_building = fort_18th
-								}
-							}
-						}
-						has_terrain = highlands
-					}
-					AND = {
-						NOT = { has_building = fort_15th }
-						NOT = { has_building = fort_16th }
-						NOT = { has_building = fort_17th }
-						NOT = { has_building = fort_18th }
-						num_free_building_slots = 1
 						any_neighbor_province = {
 							owned_by = root
 							any_neighbor_province = {
@@ -4823,8 +4742,15 @@ estate_qizilbash_build_fort_building_in_y = {
 								}
 							}
 						}
-						has_terrain = highlands
 					}
+				}
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				NOT = { has_building = fort_18th }
+				OR = {
 					AND = {
 						has_building = fort_15th
 						ROOT = { mil_tech = 14 }
@@ -4837,20 +4763,13 @@ estate_qizilbash_build_fort_building_in_y = {
 						has_building = fort_17th
 						ROOT = { mil_tech = 24 }
 					}
-				}
-				NOT = { has_building = fort_18th }
-			}
-			save_event_target_as = agenda_province
-		}
-		random_owned_province = {
-			limit = {
-				OR = {
 					AND = {
 						NOT = { has_building = fort_15th }
 						NOT = { has_building = fort_16th }
 						NOT = { has_building = fort_17th }
 						NOT = { has_building = fort_18th }
 						num_free_building_slots = 1
+						has_terrain = highlands
 						any_neighbor_province = {
 							owner = {
 								OR = {
@@ -4879,7 +4798,6 @@ estate_qizilbash_build_fort_building_in_y = {
 								}
 							}
 						}
-						has_terrain = mountain
 					}
 					AND = {
 						NOT = { has_building = fort_15th }
@@ -4887,6 +4805,7 @@ estate_qizilbash_build_fort_building_in_y = {
 						NOT = { has_building = fort_17th }
 						NOT = { has_building = fort_18th }
 						num_free_building_slots = 1
+						has_terrain = highlands
 						any_neighbor_province = {
 							owned_by = root
 							any_neighbor_province = {
@@ -4918,8 +4837,15 @@ estate_qizilbash_build_fort_building_in_y = {
 								}
 							}
 						}
-						has_terrain = mountain
 					}
+				}
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				NOT = { has_building = fort_18th }
+				OR = {
 					AND = {
 						has_building = fort_15th
 						ROOT = { mil_tech = 14 }
@@ -4932,8 +4858,82 @@ estate_qizilbash_build_fort_building_in_y = {
 						has_building = fort_17th
 						ROOT = { mil_tech = 24 }
 					}
+					AND = {
+						NOT = { has_building = fort_15th }
+						NOT = { has_building = fort_16th }
+						NOT = { has_building = fort_17th }
+						NOT = { has_building = fort_18th }
+						num_free_building_slots = 1
+						has_terrain = mountain
+						any_neighbor_province = {
+							owner = {
+								OR = {
+									is_rival = root
+									root = { is_rival = prev }
+									AND = {
+										is_subject_other_than_tributary_trigger = yes
+										overlord = {
+											OR = {
+												is_rival = root
+												root = { is_rival = prev }
+											}
+										}
+									}
+								}
+							}
+						}
+						NOT = {
+							any_neighbor_province = {
+								owned_by = root
+								OR = {
+									has_building = fort_15th
+									has_building = fort_16th
+									has_building = fort_17th
+									has_building = fort_18th
+								}
+							}
+						}
+					}
+					AND = {
+						NOT = { has_building = fort_15th }
+						NOT = { has_building = fort_16th }
+						NOT = { has_building = fort_17th }
+						NOT = { has_building = fort_18th }
+						num_free_building_slots = 1
+						has_terrain = mountain
+						any_neighbor_province = {
+							owned_by = root
+							any_neighbor_province = {
+								owner = {
+									OR = {
+										is_rival = root
+										root = { is_rival = prev }
+										AND = {
+											is_subject_other_than_tributary_trigger = yes
+											overlord = {
+												OR = {
+													is_rival = root
+													root = { is_rival = prev }
+												}
+											}
+										}
+									}
+								}
+								NOT = {
+									any_neighbor_province = {
+										owned_by = root
+										OR = {
+											has_building = fort_15th
+											has_building = fort_16th
+											has_building = fort_17th
+											has_building = fort_18th
+										}
+									}
+								}
+							}
+						}
+					}
 				}
-				NOT = { has_building = fort_18th }
 			}
 			save_event_target_as = agenda_province
 		}
@@ -11194,6 +11194,9 @@ estate_church_develop_x = {
 				trigger = {
 					any_owned_province = {
 						is_state_core = root
+						region_for_scope_province = {
+							is_capital_of = root
+						}
 						OR = {
 							AND = {
 								religion = root
@@ -11202,9 +11205,6 @@ estate_church_develop_x = {
 									has_owner_accepted_culture = yes
 								}
 							}
-						}
-						region_for_scope_province = {
-							is_capital_of = root
 						}
 					}
 				}
@@ -11375,6 +11375,9 @@ estate_brahmins_develop_x = {
 					trigger = {
 						any_owned_province = {
 							is_state_core = root
+							region_for_scope_province = {
+								is_capital_of = root
+							}
 							OR = {
 								AND = {
 									religion = root
@@ -11383,9 +11386,6 @@ estate_brahmins_develop_x = {
 										has_owner_accepted_culture = yes
 									}
 								}
-							}
-							region_for_scope_province = {
-								is_capital_of = root
 							}
 						}
 					}
@@ -11526,6 +11526,9 @@ estate_nobles_develop_x = {
 				trigger = {
 					any_owned_province = {
 						is_state_core = root
+						region_for_scope_province = {
+							is_capital_of = root
+						}
 						OR = {
 							AND = {
 								religion = root
@@ -11534,9 +11537,6 @@ estate_nobles_develop_x = {
 									has_owner_accepted_culture = yes
 								}
 							}
-						}
-						region_for_scope_province = {
-							is_capital_of = root
 						}
 					}
 				}
@@ -11673,6 +11673,9 @@ estate_rajput_develop_x = {
 				trigger = {
 					any_owned_province = {
 						is_state_core = root
+						region_for_scope_province = {
+							is_capital_of = root
+						}
 						OR = {
 							AND = {
 								religion = root
@@ -11681,9 +11684,6 @@ estate_rajput_develop_x = {
 									has_owner_accepted_culture = yes
 								}
 							}
-						}
-						region_for_scope_province = {
-							is_capital_of = root
 						}
 					}
 				}
@@ -11820,6 +11820,9 @@ estate_maratha_develop_x = {
 				trigger = {
 					any_owned_province = {
 						is_state_core = root
+						region_for_scope_province = {
+							is_capital_of = root
+						}
 						OR = {
 							AND = {
 								religion = root
@@ -11828,9 +11831,6 @@ estate_maratha_develop_x = {
 									has_owner_accepted_culture = yes
 								}
 							}
-						}
-						region_for_scope_province = {
-							is_capital_of = root
 						}
 					}
 				}
@@ -11970,6 +11970,9 @@ estate_burghers_develop_x = {
 				trigger = {
 					any_owned_province = {
 						is_state_core = root
+						region_for_scope_province = {
+							is_capital_of = root
+						}
 						OR = {
 							AND = {
 								religion = root
@@ -11978,9 +11981,6 @@ estate_burghers_develop_x = {
 									has_owner_accepted_culture = yes
 								}
 							}
-						}
-						region_for_scope_province = {
-							is_capital_of = root
 						}
 					}
 				}
@@ -12117,6 +12117,9 @@ estate_vaisyas_develop_x = {
 				trigger = {
 					any_owned_province = {
 						is_state_core = root
+						region_for_scope_province = {
+							is_capital_of = root
+						}
 						OR = {
 							AND = {
 								religion = root
@@ -12125,9 +12128,6 @@ estate_vaisyas_develop_x = {
 									has_owner_accepted_culture = yes
 								}
 							}
-						}
-						region_for_scope_province = {
-							is_capital_of = root
 						}
 					}
 				}
@@ -12291,6 +12291,9 @@ estate_nomadic_tribes_develop_x = {
 				trigger = {
 					any_owned_province = {
 						is_state_core = root
+						region_for_scope_province = {
+							is_capital_of = root
+						}
 						OR = {
 							AND = {
 								religion = root
@@ -12299,9 +12302,6 @@ estate_nomadic_tribes_develop_x = {
 									has_owner_accepted_culture = yes
 								}
 							}
-						}
-						region_for_scope_province = {
-							is_capital_of = root
 						}
 					}
 				}
@@ -12551,6 +12551,9 @@ estate_qizilbash_develop_x = {
 				trigger = {
 					any_owned_province = {
 						is_state_core = root
+						region_for_scope_province = {
+							is_capital_of = root
+						}
 						OR = {
 							AND = {
 								religion = root
@@ -12559,9 +12562,6 @@ estate_qizilbash_develop_x = {
 									has_owner_accepted_culture = yes
 								}
 							}
-						}
-						region_for_scope_province = {
-							is_capital_of = root
 						}
 					}
 				}
@@ -12596,14 +12596,14 @@ estate_qizilbash_develop_x = {
 				trigger = {
 					any_owned_province = {
 						is_state_core = root
+						region_for_scope_province = {
+							is_capital_of = root
+						}
 						OR = {
 							culture = turco_iranian
 							culture = azerbaijani
 							culture = turkish
 							culture = turkmeni
-						}
-						region_for_scope_province = {
-							is_capital_of = root
 						}
 					}
 				}

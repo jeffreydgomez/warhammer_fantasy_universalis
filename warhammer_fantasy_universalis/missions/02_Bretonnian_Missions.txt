@@ -39,11 +39,11 @@ bretonnian_1_virtue_missions = {
 		required_missions = {
 		}
 		trigger = {
+			religious_unity = 1.0
 			num_of_owned_provinces_with = {
 				value = 10
 				has_tax_building_trigger = yes
 			}
-			religious_unity = 1.0
 		}
 		effect = {
 			bretonnia_Increment_Virtue_Mission_Completed = yes
@@ -60,11 +60,11 @@ bretonnian_1_virtue_missions = {
 		required_missions = {
 		}
 		trigger = {
+			manpower_percentage = 0.75
 			num_of_owned_provinces_with = {
 				value = 5
 				has_fort_building_trigger = yes
 			}
-			manpower_percentage = 0.75
 		}
 		effect = {
 			bretonnia_Increment_Virtue_Mission_Completed = yes
@@ -841,11 +841,11 @@ bretonnian_2_missions = {
 					culture_group = ROOT
 					NOT = {
 						OR = {
+							liberty_desire = 30
 							has_opinion = {
 								who = ROOT
 								value = 125
 							}
-							liberty_desire = 30
 						}
 					}
 				}
@@ -853,20 +853,6 @@ bretonnian_2_missions = {
 		}
 		trigger = {
 			has_reform = bretonnian_royarch_reform
-			NOT = {
-				any_subject_country = {
-					culture_group = ROOT
-					OR = {
-						NOT = {
-							has_opinion = {
-								who = ROOT
-								value = 125
-							}
-						}
-						liberty_desire = 30
-					}
-				}
-			}
 			if = {
 				limit = {
 					has_estate = estate_nobles
@@ -874,6 +860,20 @@ bretonnian_2_missions = {
 				estate_loyalty = {
 					estate = estate_nobles
 					loyalty = 60
+				}
+			}
+			NOT = {
+				any_subject_country = {
+					culture_group = ROOT
+					OR = {
+						liberty_desire = 30
+						NOT = {
+							has_opinion = {
+								who = ROOT
+								value = 125
+							}
+						}
+					}
 				}
 			}
 		}

@@ -60,12 +60,12 @@ country_event = {
 		NOT = { has_reform = polish_elective_monarchy }
 	#	 
 		NOT = { has_government_attribute = has_harem_events }
+		has_government_attribute = heir
 		any_owned_province = {
 			num_free_building_slots = 1
 			NOT = { has_building = cathedral }
 			NOT = { has_building = temple }
 		}
-		has_government_attribute = heir
 	}
 	
 	mean_time_to_happen = {
@@ -253,8 +253,8 @@ country_event = {
 				government = monarchy
 				is_lesser_in_union = no
 				alliance_with = ROOT
-				NOT = { marriage_with = ROOT }
 				ai = yes
+				NOT = { marriage_with = ROOT }
 			}
 		}
 		event_target:bargaining_chip_country = {
@@ -1211,16 +1211,16 @@ country_event = {
 		any_country = {
 			religion_group = christian
 			government = monarchy
-			NOT = { has_reform = elective_monarchy }
-			NOT = { has_reform = polish_elective_monarchy }
-			NOT = { has_government_attribute = has_harem_events }
 			 
 			marriage_with = ROOT
-			NOT = { dynasty = ROOT }
 			has_heir = no
 			has_government_attribute = heir
 			has_states_general_mechanic = no
 			is_lesser_in_union = no
+			NOT = { has_reform = elective_monarchy }
+			NOT = { has_reform = polish_elective_monarchy }
+			NOT = { has_government_attribute = has_harem_events }
+			NOT = { dynasty = ROOT }
 		}
 	}
 	
@@ -1564,6 +1564,8 @@ country_event = {
 	picture = DIPLOMACY_eventPicture
 	
 	trigger = {
+		government = monarchy
+		is_lesser_in_union = no
 		any_known_country = {
 			has_country_modifier = sought_after_bachelor
 			is_lesser_in_union = no
@@ -1571,8 +1573,6 @@ country_event = {
 			religion_group = ROOT
 			NOT = { marriage_with = ROOT }
 		}
-		government = monarchy
-		is_lesser_in_union = no
 	}
 	
 	mean_time_to_happen = {
@@ -1696,12 +1696,12 @@ country_event = {
 		has_heir = yes
 		is_heir_leader = yes
 		heir_age = 20
-		any_known_country = {
-			truce_with = ROOT
-		}
 		is_at_war = no
 		is_lesser_in_union = no
 		war_exhaustion = 12
+		any_known_country = {
+			truce_with = ROOT
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -2083,13 +2083,13 @@ country_event = {
 		any_known_country = {
 			government = monarchy
 			religion_group = christian
-			NOT = { has_government_attribute = has_harem_events }
-			NOT = { has_reform = elective_monarchy }
-			NOT = { has_reform = polish_elective_monarchy }
 			has_regency = no
 			is_free_or_tributary_trigger = yes
 			num_of_cities = ROOT
 			is_female = no
+			NOT = { has_government_attribute = has_harem_events }
+			NOT = { has_reform = elective_monarchy }
+			NOT = { has_reform = polish_elective_monarchy }
 			NOT = { has_country_flag = dyn_woman_pretender_flag }
 			capital_scope = {
 				continent = europe
@@ -2229,25 +2229,14 @@ country_event = {
 		}
 		any_neighbor_country = {
 			government = monarchy
-			NOT = { has_government_attribute = has_harem_events }
-			NOT = { has_reform = elective_monarchy }
 			religion_group = christian
 			has_heir = no
 			ruler_age = 16
+			is_free_or_tributary_trigger = yes
+			NOT = { has_government_attribute = has_harem_events }
+			NOT = { has_reform = elective_monarchy }
 			NOT = {
 				ruler_age = 40
-			}
-			NOT = {
-				OR = {
-					has_opinion_modifier = {
-						who = ROOT
-						modifier = opinion_spurned_pu
-					}
-					reverse_has_opinion_modifier = {
-						who = ROOT
-						modifier = opinion_spurned_pu
-					}
-				}
 			}
 			OR = {
 				AND = {
@@ -2269,7 +2258,18 @@ country_event = {
 			}
 			has_opinion = { who = ROOT value = 75 }
 			reverse_has_opinion = { who = ROOT value = 75 }
-			is_free_or_tributary_trigger = yes
+			NOT = {
+				OR = {
+					has_opinion_modifier = {
+						who = ROOT
+						modifier = opinion_spurned_pu
+					}
+					reverse_has_opinion_modifier = {
+						who = ROOT
+						modifier = opinion_spurned_pu
+					}
+				}
+			}
 		}
 	}
 
@@ -2291,18 +2291,6 @@ country_event = {
 				NOT = {
 					ruler_age = 40
 				}
-				NOT = {
-					OR = {
-						has_opinion_modifier = {
-							who = ROOT
-							modifier = opinion_spurned_pu
-						}
-						reverse_has_opinion_modifier = {
-							who = ROOT
-							modifier = opinion_spurned_pu
-						}
-					}
-				}
 				OR = {
 					AND = {
 						is_female = no
@@ -2321,9 +2309,21 @@ country_event = {
 					dynasty = ROOT
 					culture_group = ROOT
 				}
+				is_free_or_tributary_trigger = yes
+				NOT = {
+					OR = {
+						has_opinion_modifier = {
+							who = ROOT
+							modifier = opinion_spurned_pu
+						}
+						reverse_has_opinion_modifier = {
+							who = ROOT
+							modifier = opinion_spurned_pu
+						}
+					}
+				}
 				has_opinion = { who = ROOT value = 75 }
 				reverse_has_opinion = { who = ROOT value = 75 }
-				is_free_or_tributary_trigger = yes
 			}
 			hidden_effect = {
 				save_event_target_as = nameless_neighbor_no_more

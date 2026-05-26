@@ -595,6 +595,7 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
+		war_exhaustion = 4
 		any_subject_country = {
 			is_colonial_nation_of = ROOT
 			OR = {
@@ -605,7 +606,6 @@ country_event = {
 				truce_with = ROOT
 			}
 		}
-		war_exhaustion = 4
 	}
 
 	mean_time_to_happen = {
@@ -1017,15 +1017,15 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
+		OR = {
+			NOT = { has_country_flag = tariffs_on_grain }
+			had_country_flag = { flag = tariffs_on_grain days = 7300 }
+		}
 		any_subject_country = {
 			is_colonial_nation_of = ROOT
 			any_owned_province = {
 				trade_goods = grain
 			}
-		}
-		OR = {
-			NOT = { has_country_flag = tariffs_on_grain }
-			had_country_flag = { flag = tariffs_on_grain days = 7300 }
 		}
 	}
 	
@@ -4922,12 +4922,12 @@ country_event = {
 	goto = absent_governor_province
 
 	trigger = {
+		has_dlc = "Leviathan"
+		is_colonial_nation = yes
 		any_owned_province = {
 			is_colony = yes
 			NOT = { has_province_flag = absent_governor }
 		}
-		has_dlc = "Leviathan"
-		is_colonial_nation = yes
 	}
 	
 	immediate = {

@@ -759,8 +759,8 @@ estate_nomadic_tribes_befriend_rival_of_rival = {
 		random_rival_country = {
 			limit = {
 				any_rival_country = {
-					NOT = { tag = root }
 					army_size = root
+					NOT = { tag = root }
 					root = { knows_country = prev }
 					NOT = { is_rival = root }
 					NOT = { ROOT = { is_rival = prev } }
@@ -949,18 +949,18 @@ estate_nomadic_tribes_relations_with_X = {
 					is_subject_of = root
 				}
 				NOT = { war_with = root }
-				NOT = { has_opinion = { who = root value = 50 } }
-				has_opinion = { who = root value = -50 }
 				religion_group = root
-				NOT = {
-					any_owned_province = {
-						is_core = root
-					}
-				}
 				NOT = {
 					border_distance = {
 						who = root
 						distance = 200
+					}
+				}
+				NOT = { has_opinion = { who = root value = 50 } }
+				has_opinion = { who = root value = -50 }
+				NOT = {
+					any_owned_province = {
+						is_core = root
 					}
 				}
 			}
@@ -980,18 +980,18 @@ estate_nomadic_tribes_relations_with_X = {
 					is_subject_of = root
 				}
 				NOT = { war_with = root }
-				NOT = { has_opinion = { who = root value = 50 } }
-				has_opinion = { who = root value = -50 }
 				religion_group = root
-				NOT = {
-					any_owned_province = {
-						is_core = root
-					}
-				}
 				NOT = {
 					border_distance = {
 						who = root
 						distance = 200
+					}
+				}
+				NOT = { has_opinion = { who = root value = 50 } }
+				has_opinion = { who = root value = -50 }
+				NOT = {
+					any_owned_province = {
+						is_core = root
 					}
 				}
 			}
@@ -1159,6 +1159,7 @@ estate_nomadic_tribes_retake_core = {
 				NOT = { country_or_non_sovereign_subject_holds = root }
 				is_city = yes
 				NOT = { owner = { ROOT = { truce_with = prev } } }
+				NOT = { owner = { alliance_with = root } }
 				OR = {
 					AND = {
 						has_port = yes
@@ -1172,7 +1173,6 @@ estate_nomadic_tribes_retake_core = {
 						owned_by = root
 					}
 				}
-				NOT = { owner = { alliance_with = root } }
 			}
 			save_event_target_as = agenda_province
 		}
@@ -1550,14 +1550,14 @@ estate_nomadic_tribes_protect_our_culture = {
 			limit = {
 				any_neighbor_province = {
 					is_city = yes
-					OR = {
-						religion = root
-						root = { secondary_religion = prev }
-					}
 					culture = root
 					has_owner_culture = no
 					has_owner_accepted_culture = no
 					has_discovered = root
+					OR = {
+						religion = root
+						root = { secondary_religion = prev }
+					}
 					owner = {
 						is_free_or_tributary_trigger = yes
 						is_nomad = no
@@ -1835,16 +1835,16 @@ estate_nomadic_tribes_vassalise_vulnerable_country = {
 				NOT = { overlord_of = root }
 				NOT = { alliance_with = root }
 				NOT = { ROOT = { truce_with = prev } }
+				OR = {
+					is_part_of_hre = no
+					NOT = { hre_reform_passed = landfriede }
+					ROOT = { is_part_of_hre = no }
+				}
 				NOT = {
 					has_opinion = {
 						who = root
 						value = 100
 					}
-				}
-				OR = {
-					is_part_of_hre = no
-					NOT = { hre_reform_passed = landfriede }
-					ROOT = { is_part_of_hre = no }
 				}
 				any_owned_province = {
 					NOT = { is_claim = root }
@@ -2042,6 +2042,14 @@ estate_nomadic_tribes_expand_into_x = {
 				NOT = { overlord_of = root }
 				NOT = { alliance_with = root }
 				NOT = { ROOT = { truce_with = prev } }
+				ROOT = {
+					knows_country = prev
+				}
+				OR = {
+					is_part_of_hre = no
+					NOT = { hre_reform_passed = landfriede }
+					ROOT = { is_part_of_hre = no }
+				}
 				NOT = { 
 					has_opinion = {
 						who = root
@@ -2056,13 +2064,7 @@ estate_nomadic_tribes_expand_into_x = {
 						}
 					}
 				}
-				ROOT = {
-					knows_country = prev
-				}
 				any_owned_province = {
-					any_neighbor_province = {
-						owned_by = root
-					}
 					NOT = {
 						area_for_scope_province = {
 							OR = {
@@ -2071,22 +2073,20 @@ estate_nomadic_tribes_expand_into_x = {
 							}
 						}
 					}
-				}
-				OR = {
-					is_part_of_hre = no
-					NOT = { hre_reform_passed = landfriede }
-					ROOT = { is_part_of_hre = no }
+					any_neighbor_province = {
+						owned_by = root
+					}
 				}
 			}
 			random_owned_province = {
 				limit = {
-					any_neighbor_province = {
-						owned_by = root
-					}
 					area_for_scope_province = {
 						type = all
 						NOT = { owned_by = root }
 						is_empty = no
+					}
+					any_neighbor_province = {
+						owned_by = root
 					}
 				}
 				save_event_target_as = agenda_province
@@ -2306,6 +2306,9 @@ estate_nomadic_tribes_complete_conquest_of_x = {
 				NOT = { overlord_of = root }
 				NOT = { alliance_with = root }
 				NOT = { ROOT = { truce_with = prev } }
+				ROOT = {
+					knows_country = prev
+				}
 				NOT = { 
 					has_opinion = {
 						who = root
@@ -2320,13 +2323,7 @@ estate_nomadic_tribes_complete_conquest_of_x = {
 						}
 					}
 				}
-				ROOT = {
-					knows_country = prev
-				}
 				any_owned_province = {
-					any_neighbor_province = {
-						owned_by = root
-					}
 					area_for_scope_province = {
 						owned_by = root
 					}
@@ -2344,14 +2341,14 @@ estate_nomadic_tribes_complete_conquest_of_x = {
 								}
 							}
 						}
+					}
+					any_neighbor_province = {
+						owned_by = root
 					}
 				}
 			}
 			random_owned_province = {
 				limit = {
-					any_neighbor_province = {
-						owned_by = root
-					}
 					area_for_scope_province = {
 						owned_by = root
 					}
@@ -2369,6 +2366,9 @@ estate_nomadic_tribes_complete_conquest_of_x = {
 								}
 							}
 						}
+					}
+					any_neighbor_province = {
+						owned_by = root
 					}
 				}
 				save_event_target_as = agenda_province

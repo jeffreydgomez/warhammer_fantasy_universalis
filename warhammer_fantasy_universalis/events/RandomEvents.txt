@@ -2515,6 +2515,7 @@ country_event = {
 
 	trigger = {
 		is_year = 1700
+		NOT = { has_country_modifier = trade_disaster }
 		OR = {
 			religion_group = christian
 			num_of_trade_companies = 1
@@ -2522,7 +2523,6 @@ country_event = {
 				is_colonial_nation_of = root
 			}
 		}
-		NOT = { has_country_modifier = trade_disaster }
 	}
 
 	mean_time_to_happen = {
@@ -3955,6 +3955,7 @@ country_event = {
 			random_known_country = {
 				limit = {
 					same_continent = root
+					mil_tech = 5
 					if = {
 						limit = {
 							has_dlc = "Cradle of Civilization"
@@ -3976,7 +3977,6 @@ country_event = {
 							}
 						}
 					}
-					mil_tech = 5
 				}
 				save_event_target_as = drill_instructor_country
 				root = {
@@ -4313,10 +4313,10 @@ country_event = {
 		religion_group = christian
 		has_estate = estate_nobles
 		any_owned_province = {
-			NOT = { is_colony = yes }
-			NOT = { is_overseas = yes }
 			is_capital = no
 			is_state_core = root
+			NOT = { is_colony = yes }
+			NOT = { is_overseas = yes }
 		}
 	}
 	mean_time_to_happen = {
@@ -4441,8 +4441,8 @@ country_event = {
 		NOT = { adm = 3 }
 		any_neighbor_country = {
 			is_neighbor_of = ROOT
-			NOT = { alliance_with = root }
 			is_free_or_tributary_trigger = yes
+			NOT = { alliance_with = root }
 		}
 	}
 
@@ -6137,16 +6137,16 @@ country_event = {
 	
 	trigger = {
 		num_of_cities = 30
-		any_owned_province = {
-			has_owner_culture = no
-			NOT = { local_autonomy = 0.5 }
-			is_city = yes
-			is_core = root
-		}
 		OR = {
 			has_estate = estate_nobles
 			has_estate = estate_rajput
 			has_estate = estate_maratha
+		}
+		any_owned_province = {
+			has_owner_culture = no
+			is_city = yes
+			is_core = root
+			NOT = { local_autonomy = 0.5 }
 		}
 	}
 
@@ -6318,13 +6318,13 @@ country_event = {
 	trigger = {
 		num_of_cities = 5
 		NOT = { has_country_modifier = serfdom_modifier }
+		NOT = { is_year = 1650 }
 		any_owned_province = {
-			NOT = { base_tax = 5 }
 			base_tax = 2
 			is_capital = no
 			is_in_capital_area = yes
+			NOT = { base_tax = 5 }
 		}
-		NOT = { is_year = 1650 }
 	}
 
 	mean_time_to_happen = {
@@ -6473,6 +6473,7 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
+		war_exhaustion = 5
 		any_enemy_country = {
 			OR = {
 				is_in_war = {
@@ -6485,7 +6486,6 @@ country_event = {
 				}
 			}
 		}
-		war_exhaustion = 5
 	}
 
 	immediate = {
@@ -8077,6 +8077,7 @@ country_event = {
 	trigger = {
 		has_idea = quest_for_the_new_world
 		capital_scope = { continent = europe }
+		NOT = { has_country_modifier = colonial_enthusiasm }
 		any_owned_province = {
 			is_colony = yes
 			OR = {
@@ -8085,7 +8086,6 @@ country_event = {
 				continent = new_world
 			}
 		}
-		NOT = { has_country_modifier = colonial_enthusiasm }
 	}
 	
 	mean_time_to_happen = {
@@ -8928,10 +8928,10 @@ country_event = {
 		NOT = { has_reform = celestial_empire }
 		is_lesser_in_union = no
 		NOT = { legitimacy_or_horde_unity = 80 }
+		NOT = { has_country_modifier = narrowminded_modifier }
 		any_owned_province = {
 			NOT = { controlled_by = owner }
 		}
-		NOT = { has_country_modifier = narrowminded_modifier }
 	}
 	
 	mean_time_to_happen = {
@@ -8989,6 +8989,8 @@ country_event = {
 		NOT = { has_global_flag = bible_printed }
 		advisor = theologian
 		any_owned_province = {
+			continent = europe
+			printing_press = 1
 			OR = {
 				religion = catholic
 				religion = reformed
@@ -8996,8 +8998,6 @@ country_event = {
 				religion = anglican
 				religion = hussite
 			}
-			continent = europe
-			printing_press = 1
 			NOT = { printing_press = 50 }
 		}
 	}
@@ -9201,6 +9201,9 @@ country_event = {
 	trigger = {
 		has_country_modifier = hire_privateers
 		num_of_ports = 3
+		NOT = {
+			gold = 1
+		}
 		any_rival_country = {
 			any_owned_province = {
 				is_in_capital_area = yes
@@ -9216,9 +9219,6 @@ country_event = {
 					}
 				}
 			}
-		}
-		NOT = {
-			gold = 1
 		}
 	}
 	
@@ -9355,12 +9355,12 @@ country_event = {
 		has_idea = quest_for_the_new_world
 		num_of_ports = 1
 		num_of_merchants = 2
-		any_active_trade_node = {
-			is_sea = yes
-		}
 		capital_scope = { continent = europe }
 		carribeans_region = {
 			NOT = { has_discovered = ROOT }
+		}
+		any_active_trade_node = {
+			is_sea = yes
 		}
 	}
 	
@@ -9418,8 +9418,8 @@ country_event = {
 		NOT = { has_institution = renaissance }
 		any_owned_province = {
 			renaissance = 1
-			NOT = { renaissance = 100 }
 			continent = europe
+			NOT = { renaissance = 100 }
 		}
 	}
 	
@@ -9605,6 +9605,7 @@ country_event = {
 		capital_scope = { continent = europe }
 		NOT = { adm = 3 }
 		num_of_cities = 2
+		government = monarchy
 		any_owned_province = {
 			is_capital = no
 			continent = europe 
@@ -9618,7 +9619,6 @@ country_event = {
 				}
 			}
 		}
-		government = monarchy
 	}
 	
 	mean_time_to_happen = {
@@ -10358,12 +10358,12 @@ country_event = {
 		NOT = { has_dlc = "Golden Century" }
 		naval_forcelimit = 90
 		num_of_ports = 1
+		primitives = no
 		any_owned_province = {
 			has_port = yes
 			is_core = ROOT
 			controlled_by = ROOT
 		}
-		primitives = no
 	}
 	
 	mean_time_to_happen = {
@@ -10573,15 +10573,15 @@ country_event = {
 	trigger = {
 		has_regency = no
 		is_at_war = yes
+		NOT = {
+			has_ruler_modifier = inside_man
+		}
 		any_war_enemy_country = {
 			war_with = ROOT
 			employed_advisor = {
 				type = fortification_expert
 				culture = root
 			}
-		}
-		NOT = {
-			has_ruler_modifier = inside_man
 		}
 	}
 
@@ -11210,10 +11210,10 @@ province_event = {
 		owner = {
 			primitives = no
 		}
+		NOT = { has_province_modifier = quarantined_influenza }
 		any_neighbor_province = {
 			has_province_modifier = influenza
 		}
-		NOT = { has_province_modifier = quarantined_influenza }
 	}
 	
 	mean_time_to_happen = {

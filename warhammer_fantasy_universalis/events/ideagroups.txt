@@ -624,9 +624,9 @@ country_event = {
 	trigger = {
 		has_idea_group = plutocracy_ideas
 		any_owned_province = {
-			NOT = { culture = ROOT }
 			is_city = yes
 			is_state_core = root
+			NOT = { culture = ROOT }
 		}
 	}
 
@@ -1771,12 +1771,12 @@ country_event = {
 		has_idea_group = religious_ideas
 		is_at_war = no
 		has_border_with_religious_enemy = yes
+		NOT = { had_recent_war = 5 }
 		any_neighbor_country = {
 			NOT = { religion = ROOT }
 			NOT = { truce_with = ROOT }
 			NOT = { ROOT = { truce_with = prev } }
 		}
-		NOT = { had_recent_war = 5 }
 	}	
 
 	mean_time_to_happen = {
@@ -2128,8 +2128,8 @@ country_event = {
 		any_owned_province = {
 			is_reformation_center = no
 			has_owner_religion = no
-			NOT = { religion_group = root }
 			has_missionary = no
+			NOT = { religion_group = root }
 		}
  	}
 
@@ -2319,10 +2319,10 @@ country_event = {
 	trigger = {
 		has_idea_group = spy_ideas
 		is_at_war = yes
+		ai = no #no use for it anyway.
 		any_rival_country = {
 			war_with = root
 		}
-		ai = no #no use for it anyway.
 	}
 
 	mean_time_to_happen = {
@@ -3572,11 +3572,11 @@ country_event = {
 		mil_tech = 2
 		any_owned_province = {
 			fort_level = 1
-			NOT = { has_province_modifier = local_fortress }
-			NOT = { has_province_modifier = fort_in_disrepair }
 			is_colony = no
 			is_core = ROOT
 			controlled_by = ROOT
+			NOT = { has_province_modifier = local_fortress }
+			NOT = { has_province_modifier = fort_in_disrepair }
 		}
 	}
 
@@ -5267,11 +5267,11 @@ country_event = {
 	
 	trigger = {
 		has_idea_group = exploration_ideas
+		NOT = { has_country_modifier = corrupt_viceroys }
+		NOT = { has_country_modifier = "excellent_administration" }
 		any_country = {
 			is_colonial_nation_of = ROOT
 		}
-		NOT = { has_country_modifier = corrupt_viceroys }
-		NOT = { has_country_modifier = "excellent_administration" }
 	}
 	
 	mean_time_to_happen = {
@@ -7725,14 +7725,14 @@ country_event = {
 	
 	trigger = {
 		has_idea_group = humanist_ideas
+		## Warhammer
+		NOT = { religion = hashut }
 		any_owned_province = {
 			has_owner_religion = no
 			is_reformation_center = no
-			NOT = { religion_group = root }
 			has_missionary = no
+			NOT = { religion_group = root }
 		}
-		## Warhammer
-		NOT = { religion = hashut }
 	}
 
 	mean_time_to_happen = {

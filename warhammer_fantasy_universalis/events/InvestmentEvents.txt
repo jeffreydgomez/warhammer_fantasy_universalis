@@ -113,6 +113,7 @@ country_event = {
     picture = 15_Trade_Company_eventPicture
     is_triggered_only = yes
     trigger = {
+		NOT = { has_country_modifier = fair_land_negotiations }
 		any_owned_province = {
 			is_owned_by_trade_company = yes
 			OR = {
@@ -144,7 +145,6 @@ country_event = {
 				}
 			}
 		}
-		NOT = { has_country_modifier = fair_land_negotiations }
     }
 	goto = land_purchase_province
 	
@@ -249,8 +249,18 @@ country_event = {
     is_triggered_only = yes
 	
     trigger = {
+		667 = { # Canton
+			has_discovered = ROOT
+			owner = {
+				culture_group = east_asian
+			}
+			NOT = {
+				owned_by = ROOT
+			}
+		}
 		any_owned_province = {
 			is_owned_by_trade_company = yes
+			trade_goods = spices
 			OR = {
 				region = west_india_region
 				region = bengal_region
@@ -265,20 +275,10 @@ country_event = {
 					investor = ROOT
 				}
 			}
-			trade_goods = spices
 		}
 		NOT = {
 			any_owned_province = {
 				has_province_modifier = opium_modifier
-			}
-		}
-		667 = { # Canton
-			has_discovered = ROOT
-			owner = {
-				culture_group = east_asian
-			}
-			NOT = {
-				owned_by = ROOT
 			}
 		}
     }
@@ -362,6 +362,9 @@ country_event = {
     picture = 16_Trade_Company_eventPicture
     is_triggered_only = yes
     trigger = {
+		NOT = {
+			has_country_modifier = honorable_company
+		}
 		any_owned_province = {
 			is_owned_by_trade_company = yes
 			OR = {
@@ -383,9 +386,6 @@ country_event = {
 			any_owned_province = {
 				has_province_modifier = company_and_personal_interests
 			}
-		}
-		NOT = {
-			has_country_modifier = honorable_company
 		}
     }
 
@@ -456,6 +456,7 @@ country_event = {
     picture = 17_Trade_Company_eventPicture
     is_triggered_only = yes
     trigger = {
+		NOT = { has_country_modifier = trade_company_rule }
 		any_owned_province = {
 			is_owned_by_trade_company = yes
 			has_trade_company_investment_in_area  = {
@@ -473,7 +474,6 @@ country_event = {
 				}
 			}
 		}
-		NOT = { has_country_modifier = trade_company_rule }
 	}
 	goto = company_rule_province
 	
@@ -523,9 +523,12 @@ country_event = {
     picture = 15_Trade_Company_eventPicture
     is_triggered_only = yes
     trigger = {
+		NOT = {
+			has_country_modifier = restricted_company_missionaries
+		}
 		any_owned_province = {
-			NOT = { religion_group = ROOT }
 			is_owned_by_trade_company = yes
+			NOT = { religion_group = ROOT }
 			OR = {
 				has_trade_company_investment_in_area  = {
 					investment = settlements
@@ -545,9 +548,6 @@ country_event = {
 			any_owned_province = {
 				has_province_modifier = company_missionary_activity
 			}
-		}
-		NOT = {
-			has_country_modifier = restricted_company_missionaries
 		}
     }
 
@@ -635,6 +635,12 @@ country_event = {
     picture = 16_Trade_Company_eventPicture
     is_triggered_only = yes
     trigger = {
+		NOT = {
+			has_country_modifier = minting_company_coins_cooldown
+		}
+		NOT = {
+			has_country_modifier = approprioated_currency
+		}
 		any_owned_province = {
 			is_owned_by_trade_company = yes
 			OR = {
@@ -667,12 +673,6 @@ country_event = {
 					}
 				}
 			}
-		}
-		NOT = {
-			has_country_modifier = minting_company_coins_cooldown
-		}
-		NOT = {
-			has_country_modifier = approprioated_currency
 		}
     }
 	goto = company_mint_province
@@ -883,6 +883,8 @@ country_event = {
     picture = 18_Trade_Company_eventPicture
     is_triggered_only = yes
     trigger = {
+		NOT = { has_country_modifier = rogue_traders_prosecuted }
+		NOT = { has_country_modifier = rogue_traders_cooldown }
 		any_owned_province = {
 			is_owned_by_trade_company = yes
 			has_port = yes
@@ -913,8 +915,6 @@ country_event = {
 				}	
 			}
 		}
-		NOT = { has_country_modifier = rogue_traders_prosecuted }
-		NOT = { has_country_modifier = rogue_traders_cooldown }
 	}
 	goto = monopoly_ignored_province
 	
@@ -1023,6 +1023,9 @@ country_event = {
     picture = 15_Trade_Company_eventPicture
     is_triggered_only = yes
     trigger = {
+		NOT = {
+			has_country_modifier = company_interference
+		}
 		any_owned_province = {
 			is_owned_by_trade_company = yes
 			OR = {
@@ -1077,9 +1080,6 @@ country_event = {
 					}
 				}	
 			}
-		}
-		NOT = {
-			has_country_modifier = company_interference
 		}
     }
 

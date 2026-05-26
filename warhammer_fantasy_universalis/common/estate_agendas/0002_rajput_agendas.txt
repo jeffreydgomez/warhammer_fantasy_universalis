@@ -182,6 +182,7 @@ estate_rajput_condottieri_rivals = {
 				any_country = {
 					war_with = prev
 					num_of_cities = 5
+					is_free_or_tributary_trigger = yes
 					NOT = {
 						border_distance = {
 							who = root
@@ -194,7 +195,6 @@ estate_rajput_condottieri_rivals = {
 						who = root
 						value = -50
 					}
-					is_free_or_tributary_trigger = yes
 				}
 			}
 			save_event_target_as = agenda_country
@@ -210,11 +210,11 @@ estate_rajput_condottieri_rivals = {
 					}
 					NOT = { is_rival = root }
 					NOT = { root = { is_rival = prev } }
+					is_free_or_tributary_trigger = yes
 					has_opinion = {
 						who = root
 						value = -50
 					}
-					is_free_or_tributary_trigger = yes
 				}
 				save_event_target_as = agenda_enemy_country
 			}
@@ -318,12 +318,12 @@ estate_rajput_support_independence = {
 					#NOT = { has_reform = daimyo }
 					is_subject_other_than_tributary_trigger = yes
 					liberty_desire = 50
+					ROOT = {
+						NOT = { is_supporting_independence_of = prev }
+					}
 					has_opinion = {
 						who = root
 						value = -100
-					}
-					ROOT = {
-						NOT = { is_supporting_independence_of = prev }
 					}
 				}
 			}
@@ -333,12 +333,12 @@ estate_rajput_support_independence = {
 				#	NOT = { has_reform = daimyo }
 					is_subject_other_than_tributary_trigger = yes
 					liberty_desire = 50
+					ROOT = {
+						NOT = { is_supporting_independence_of = prev }
+					}
 					has_opinion = {
 						who = root
 						value = -100
-					}
-					ROOT = {
-						NOT = { is_supporting_independence_of = prev }
 					}
 				}
 				save_event_target_as = agenda_country
@@ -482,6 +482,7 @@ estate_rajput_retake_core = {
 				NOT = { country_or_non_sovereign_subject_holds = root }
 				is_city = yes
 				NOT = { owner = { ROOT = { truce_with = prev } } }
+				NOT = { owner = { alliance_with = root } }
 				OR = {
 					AND = {
 						has_port = yes
@@ -495,7 +496,6 @@ estate_rajput_retake_core = {
 						owned_by = root
 					}
 				}
-				NOT = { owner = { alliance_with = root } }
 			}
 			save_event_target_as = agenda_province
 		}
@@ -1172,16 +1172,16 @@ estate_rajput_vassalise_vulnerable_country = {
 				NOT = { overlord_of = root }
 				NOT = { alliance_with = root }
 				NOT = { ROOT = { truce_with = prev } }
+				OR = {
+					is_part_of_hre = no
+					NOT = { hre_reform_passed = landfriede }
+					ROOT = { is_part_of_hre = no }
+				}
 				NOT = {
 					has_opinion = {
 						who = root
 						value = 100
 					}
-				}
-				OR = {
-					is_part_of_hre = no
-					NOT = { hre_reform_passed = landfriede }
-					ROOT = { is_part_of_hre = no }
 				}
 				any_owned_province = {
 					NOT = { is_claim = root }
@@ -1379,6 +1379,14 @@ estate_rajput_expand_into_x = {
 				NOT = { overlord_of = root }
 				NOT = { alliance_with = root }
 				NOT = { ROOT = { truce_with = prev } }
+				ROOT = {
+					knows_country = prev
+				}
+				OR = {
+					is_part_of_hre = no
+					NOT = { hre_reform_passed = landfriede }
+					ROOT = { is_part_of_hre = no }
+				}
 				NOT = { 
 					has_opinion = {
 						who = root
@@ -1393,13 +1401,7 @@ estate_rajput_expand_into_x = {
 						}
 					}
 				}
-				ROOT = {
-					knows_country = prev
-				}
 				any_owned_province = {
-					any_neighbor_province = {
-						owned_by = root
-					}
 					NOT = {
 						area_for_scope_province = {
 							OR = {
@@ -1408,22 +1410,20 @@ estate_rajput_expand_into_x = {
 							}
 						}
 					}
-				}
-				OR = {
-					is_part_of_hre = no
-					NOT = { hre_reform_passed = landfriede }
-					ROOT = { is_part_of_hre = no }
+					any_neighbor_province = {
+						owned_by = root
+					}
 				}
 			}
 			random_owned_province = {
 				limit = {
-					any_neighbor_province = {
-						owned_by = root
-					}
 					area_for_scope_province = {
 						type = all
 						NOT = { owned_by = root }
 						is_empty = no
+					}
+					any_neighbor_province = {
+						owned_by = root
 					}
 				}
 				save_event_target_as = agenda_province
@@ -1643,6 +1643,9 @@ estate_rajput_complete_conquest_of_x = {
 				NOT = { overlord_of = root }
 				NOT = { alliance_with = root }
 				NOT = { ROOT = { truce_with = prev } }
+				ROOT = {
+					knows_country = prev
+				}
 				NOT = { 
 					has_opinion = {
 						who = root
@@ -1657,13 +1660,7 @@ estate_rajput_complete_conquest_of_x = {
 						}
 					}
 				}
-				ROOT = {
-					knows_country = prev
-				}
 				any_owned_province = {
-					any_neighbor_province = {
-						owned_by = root
-					}
 					area_for_scope_province = {
 						owned_by = root
 					}
@@ -1681,14 +1678,14 @@ estate_rajput_complete_conquest_of_x = {
 								}
 							}
 						}
+					}
+					any_neighbor_province = {
+						owned_by = root
 					}
 				}
 			}
 			random_owned_province = {
 				limit = {
-					any_neighbor_province = {
-						owned_by = root
-					}
 					area_for_scope_province = {
 						owned_by = root
 					}
@@ -1706,6 +1703,9 @@ estate_rajput_complete_conquest_of_x = {
 								}
 							}
 						}
+					}
+					any_neighbor_province = {
+						owned_by = root
 					}
 				}
 				save_event_target_as = agenda_province

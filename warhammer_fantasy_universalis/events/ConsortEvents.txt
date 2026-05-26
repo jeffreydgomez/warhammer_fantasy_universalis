@@ -61,11 +61,6 @@ country_event = {
 			has_heir = no
 			NOT = { heir_claim = 50 }
 		}
-		any_owned_province = {
-			is_capital = no
-			is_state = yes
-			is_in_capital_area = yes
-		}
 		estate_influence = {
 			estate = estate_nobles
 			influence = 25 #Weaker than this and the Nobles won't make an offer.
@@ -73,6 +68,11 @@ country_event = {
 		estate_loyalty = {
 			estate = estate_nobles
 			loyalty = 40 #Less Loyal than this and the Nobles won't want to support you.
+		}
+		any_owned_province = {
+			is_capital = no
+			is_state = yes
+			is_in_capital_area = yes
 		}
 	}
 	
@@ -140,13 +140,13 @@ country_event = {
 		is_lesser_in_union = no
 		num_of_cities = 2
 		has_consort = yes
+		NOT = { has_government_attribute = has_harem_events } #Not from nobility
+		NOT = { has_ruler_flag = has_lowborn_consort }
 		any_owned_province = {
 			is_capital = no
 			is_core = ROOT
 			is_city = yes
 		}
-		NOT = { has_government_attribute = has_harem_events } #Not from nobility
-		NOT = { has_ruler_flag = has_lowborn_consort }
 		NOT = {
 			any_owned_province = {
 				has_province_modifier = domain_of_spouses_family
@@ -935,11 +935,11 @@ country_event = {
 		has_consort = yes
 		has_foreign_consort = yes
 		NOT = { has_government_attribute = has_harem_events }
+		NOT = { has_ruler_flag = approached_by_consorts_foreign_family }
 		any_country = {
 			has_given_consort_to = ROOT
 			exists = yes
 		}
-		NOT = { has_ruler_flag = approached_by_consorts_foreign_family }
 	}
 	
 	immediate = {
@@ -988,6 +988,7 @@ country_event = {
 		NOT = { religion = tengri_pagan_reformed }
 		NOT = { religion = confucianism }
 		NOT = { has_government_attribute = has_harem_events }
+		NOT = { has_consort_flag = the_people_dislike_infidel_consort }
 		any_country = {
 			has_given_consort_to = ROOT
 			NOT = { religion = ROOT }
@@ -995,7 +996,6 @@ country_event = {
 				consort_religion = prev
 			}
 		}
-		NOT = { has_consort_flag = the_people_dislike_infidel_consort }
 	}
 	
 	immediate = {
@@ -1046,6 +1046,9 @@ country_event = {
 		has_consort = yes
 		is_lesser_in_union = no
 		NOT = { has_government_attribute = has_harem_events }
+		has_mil_advisor = yes
+
+		NOT = { has_ruler_modifier = without_spouse_advice }
 		any_country = {
 			has_given_consort_to = ROOT
 			OR = {
@@ -1054,9 +1057,6 @@ country_event = {
 				is_enemy = ROOT
 			}
 		}
-		has_mil_advisor = yes
-
-		NOT = { has_ruler_modifier = without_spouse_advice }
 	}
 	
 	immediate = {
@@ -1588,13 +1588,6 @@ country_event = {
 		has_dlc = "Rights of Man"
 		NOT = { has_government_attribute = has_harem_events }
 		has_regency = no
-		any_country = {
-			marriage_with = ROOT
-			has_consort = yes 
-			has_consort_regency = no
-			has_foreign_consort = yes
-			is_origin_of_consort = ROOT
-		}
 
 		OR = {
 			NOT = { has_ruler_flag = asked_foreign_in_laws_for_help }
@@ -1604,6 +1597,13 @@ country_event = {
 			num_of_loans = 1
 			NOT = { treasury = 100 }
 			NOT = { manpower_percentage = 0.7 }
+		}
+		any_country = {
+			marriage_with = ROOT
+			has_consort = yes 
+			has_consort_regency = no
+			has_foreign_consort = yes
+			is_origin_of_consort = ROOT
 		}
 	}
 
@@ -2289,6 +2289,8 @@ country_event = {
 		is_lesser_in_union = no
 		NOT = { has_government_attribute = has_harem_events }
 		NOT = { has_country_modifier = heretic_royalty }
+		has_adm_advisor = yes
+		NOT = { has_consort_flag = the_people_dislike_infidel_consort }
 		any_owned_province = {
 			is_capital = no
 			has_owner_religion = yes
@@ -2299,8 +2301,6 @@ country_event = {
 			has_given_consort_to = ROOT
 			NOT = { religion = ROOT }
 		}
-		has_adm_advisor = yes
-		NOT = { has_consort_flag = the_people_dislike_infidel_consort }
 	}
 	
 	immediate = {
@@ -4442,8 +4442,8 @@ country_event = {
 		is_lesser_in_union = no
 		has_consort = yes
 		has_consort_regency = no
-		any_owned_province = { is_capital = no }
 		NOT = { has_ruler_modifier = consort_of_the_people } 
+		any_owned_province = { is_capital = no }
 	}
 
 	mean_time_to_happen = {
@@ -4961,12 +4961,6 @@ country_event = {
 		has_consort = yes
 		has_consort_regency = no
 		NOT = { has_government_attribute = has_harem_events }
-		NOT = {
-			any_owned_province = {
-				is_in_capital_area = yes
-				has_province_modifier = tyrannical_ruler
-			}
-		}
 	 	OR = {
 	 		AND = { # if male consort
 	 			has_female_consort = no
@@ -5020,6 +5014,12 @@ country_event = {
 				}
 			}
 	 	}
+		NOT = {
+			any_owned_province = {
+				is_in_capital_area = yes
+				has_province_modifier = tyrannical_ruler
+			}
+		}
 	}
 
 	mean_time_to_happen = { 

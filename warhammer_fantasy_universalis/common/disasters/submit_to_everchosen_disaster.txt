@@ -11,32 +11,25 @@ submit_to_everchosen = {
 	can_start = {
 
 		religion_group = ruinous_powers_denominations
+		is_subject = no
+		is_at_war = no
 		any_neighbor_country  = {
 			has_reform = everchosen_reform
 			total_development = ROOT
 		}
-		is_subject = no
-		is_at_war = no
 
 	}
 	can_stop = {
 		OR = {
 			NOT = { religion_group = ruinous_powers_denominations }
-			NOT = { any_neighbor_country  = { has_reform = everchosen_reform } }
 			is_subject = yes
+			NOT = { any_neighbor_country  = { has_reform = everchosen_reform } }
 		}
 	}
 	
 	progress = {
 
 
-		modifier = {
-			factor = 0.25
-			any_neighbor_country  = {
-				has_reform = everchosen_reform
-				total_development = ROOT
-			}
-		}
 
 		modifier = {
 			factor = 2.0
@@ -83,14 +76,21 @@ submit_to_everchosen = {
 			factor = 0.25
 			NOT = { religious_unity = 0.50 }
 		}
+		modifier = {
+			factor = 0.25
+			any_neighbor_country  = {
+				has_reform = everchosen_reform
+				total_development = ROOT
+			}
+		}
 
 	}
 
 	can_end = {
 		OR = {
-			NOT = { any_country = { has_reform = everchosen_reform } }
 			NOT = { religion_group = ruinous_powers_denominations}
 			is_subject = yes
+			NOT = { any_country = { has_reform = everchosen_reform } }
 		}
 	}
 

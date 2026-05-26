@@ -37,20 +37,20 @@ country_event = {
 				limit = {
 					ai = yes
 					is_subject_of_type = tributary_state
+					is_at_war = no		
 					has_opinion = {
 						who = ROOT
 						value = 190
 					}
-					is_at_war = no		
 				}
 				random_owned_province = {
 					limit = {
-						any_neighbor_province = {
-							owned_by = ROOT
-						}
 						OR = {
 							religion = ROOT
 							culture_group = ROOT
+						}
+						any_neighbor_province = {
+							owned_by = ROOT
 						}
 						NOT = {
 							any_neighbor_province = {
@@ -73,15 +73,15 @@ country_event = {
 					ai = yes
 					NOT = { is_subject = yes }
 					NOT = { has_subject_of_type = tributary_state }
+					NOT = { total_development = ROOT }
+					NOT = { army_size = ROOT }
 					OR = {
+						is_threat = ROOT
 						has_opinion = {
 							who = ROOT
 							value = 10
 						}
-						is_threat = ROOT
 					}
-					NOT = { total_development = ROOT }
-					NOT = { army_size = ROOT }
 				}
 				ROOT = {
 					create_subject = {

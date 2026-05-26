@@ -89,12 +89,12 @@ country_event = {
 				NOT = { region = ural_region }
 				NOT = { region = west_siberia_region }
 				NOT = { region = east_siberia_region }
+				is_sea = no
+				NOT = { has_discovered = ROOT }
 				any_neighbor_province = {
 					is_sea = no
 					has_discovered = ROOT
 				}
-				is_sea = no
-				NOT = { has_discovered = ROOT }
 			}
 			area = {
 				limit = {
@@ -509,10 +509,10 @@ country_event = {
 		num_of_cities = 2
 		government = monarchy
 		any_owned_province = {
-			NOT = { has_province_modifier = chastised_governor }
-			NOT = { has_province_modifier = defended_governor }
 			is_core = ROOT
 			is_state = yes
+			NOT = { has_province_modifier = chastised_governor }
+			NOT = { has_province_modifier = defended_governor }
 		}
 	}
 	
@@ -688,9 +688,6 @@ country_event = {
 	trigger = {
 		has_dlc = "Rights of Man"
 		ruler_has_personality_ancestor = { key = tolerant }
-		any_owned_province = {
-			has_owner_religion = no
-		}
 		NOT = { has_ruler_modifier = intolerant_tolerance }
 		NOT = { has_ruler_modifier = tolerance_backlash }
 		OR = {
@@ -750,6 +747,9 @@ country_event = {
 				religion = heathen
 				type = natural_scientist
 			}
+		}
+		any_owned_province = {
+			has_owner_religion = no
 		}
 	}
 	
@@ -1267,13 +1267,13 @@ country_event = {
 			random_neighbor_country = {
 				limit = {
 					NOT = { war_with = ROOT }
+					NOT = { has_country_flag = careful_diplomacy_flag }
 					NOT = {
 						has_opinion = {
 							who = ROOT
 							value = 0
 						}
 					}
-					NOT = { has_country_flag = careful_diplomacy_flag }
 				}
 				set_country_flag = careful_diplomacy_flag
 			}
@@ -1776,6 +1776,15 @@ country_event = {
 	trigger = {
 		has_dlc = "Rights of Man"
 		ruler_has_personality_ancestor = { key = zealot }
+		has_estate = estate_church
+		estate_loyalty = {
+			estate = estate_church
+			loyalty = 60
+		}
+		estate_influence = {
+			estate = estate_church
+			influence = 40
+		}
 		any_neighbor_country = {
 			is_enemy = ROOT
 			NOT = { religion = ROOT }
@@ -1785,15 +1794,6 @@ country_event = {
 					owned_by = ROOT
 				}
 			}
-		}
-		has_estate = estate_church
-		estate_loyalty = {
-			estate = estate_church
-			loyalty = 60
-		}
-		estate_influence = {
-			estate = estate_church
-			influence = 40
 		}
 	}
 	
@@ -2879,10 +2879,10 @@ country_event = {
 		ruler_has_personality = babbling_buffoon_personality
 		has_dlc = "Rights of Man"
 		any_known_country = {
-			NOT = { reverse_has_opinion = { who = ROOT value = 0 } }
 		 	NOT = { ROOT = { has_casus_belli = { type = cb_insult target = PREV } } }
 			NOT = { is_rival = ROOT }
 			NOT = { war_with = ROOT }	
+			NOT = { reverse_has_opinion = { who = ROOT value = 0 } }
 		}	
 	}
 	
@@ -2897,10 +2897,10 @@ country_event = {
 			#Finds a country which dislikes you but isn't your enemy
 			random_neighbor_country = {
 				limit = { 
-					NOT = { reverse_has_opinion = { who = ROOT value = 0 } }
 				 	NOT = { ROOT = { has_casus_belli = { type = cb_insult target = PREV } } }
 					NOT = { is_rival = ROOT }
 					NOT = { war_with = ROOT }	
+					NOT = { reverse_has_opinion = { who = ROOT value = 0 } }
 				}
 				save_event_target_as = angry_country
 
@@ -2910,10 +2910,10 @@ country_event = {
 				limit = { NOT = { has_saved_event_target = angry_country } }
 				random_known_country = {
 					limit = {
-						NOT = { reverse_has_opinion = { who = ROOT value = 0 } }
 					 	NOT = { ROOT = { has_casus_belli = { type = cb_insult target = PREV } } }
 						NOT = { is_rival = ROOT }
 						NOT = { war_with = ROOT }	
+						NOT = { reverse_has_opinion = { who = ROOT value = 0 } }
 					}
 					save_event_target_as = angry_country
 				}
@@ -3004,12 +3004,12 @@ country_event = {
 		OR = {
 			any_country = {
 				marriage_with = ROOT
-				reverse_has_opinion = { who = ROOT value = 15 }
 				religion_group = christian
+				reverse_has_opinion = { who = ROOT value = 15 }
 			}
 			any_neighbor_country = {
-				reverse_has_opinion = { who = ROOT value = 15 }
 				religion_group = christian
+				reverse_has_opinion = { who = ROOT value = 15 }
 			}
 		}
 		
@@ -3022,8 +3022,8 @@ country_event = {
 			random_country = {
 				limit = { 
 					marriage_with = ROOT
-					reverse_has_opinion = { who = ROOT value = 15 }
 					religion_group = christian
+					reverse_has_opinion = { who = ROOT value = 15 }
 				}
 				save_event_target_as = adoptive_country_1
 			}
@@ -3042,9 +3042,9 @@ country_event = {
 			random_country = {
 				limit = { 
 					marriage_with = ROOT
-					reverse_has_opinion = { who = ROOT value = 15 }
 					religion_group = christian
 					NOT = { event_target:adoptive_country_1 = { TAG = PREV } }
+					reverse_has_opinion = { who = ROOT value = 15 }
 				}
 				save_event_target_as = adoptive_country_2
 			}
@@ -3054,10 +3054,10 @@ country_event = {
 
 				random_neighbor_country = {
 					limit = { 
-						reverse_has_opinion = { who = ROOT value = 15 } 
 						religion_group = christian
 						NOT = { event_target:adoptive_country_1 = { TAG = PREV } }
 						government = monarchy 
+						reverse_has_opinion = { who = ROOT value = 15 } 
 					}
 					save_event_target_as = adoptive_country_2
 				}
@@ -3067,10 +3067,10 @@ country_event = {
 			random_country = {
 				limit = { 
 					marriage_with = ROOT
-					reverse_has_opinion = { who = ROOT value = 15 }
 					religion_group = christian
 					NOT = { event_target:adoptive_country_1 = { TAG = PREV } }
 					NOT = { event_target:adoptive_country_2 = { TAG = PREV } }
+					reverse_has_opinion = { who = ROOT value = 15 }
 				}
 				save_event_target_as = adoptive_country_3
 			}
@@ -3080,10 +3080,10 @@ country_event = {
 
 				random_neighbor_country = {
 					limit = { 
-						reverse_has_opinion = { who = ROOT value = 15 } 
 						religion_group = christian
 						NOT = { event_target:adoptive_country_1 = { TAG = PREV } }
 						NOT = { event_target:adoptive_country_2 = { TAG = PREV } }
+						reverse_has_opinion = { who = ROOT value = 15 } 
 					}
 					save_event_target_as = adoptive_country_3
 				}
@@ -3434,9 +3434,9 @@ country_event = {
 		ruler_has_personality = cruel_personality
 		has_dlc = "Rights of Man"
 		any_owned_province = {
-			NOT = { has_province_modifier = cruel_overlord }
 			is_state = yes
 			is_capital = no
+			NOT = { has_province_modifier = cruel_overlord }
 		}
 	}
 
@@ -3518,8 +3518,8 @@ country_event = {
 		ruler_has_personality = craven_personality
 		has_dlc = "Rights of Man"
 		any_known_country = {
-			NOT = { reverse_has_opinion = { who = ROOT value = 0 } }
 		 	NOT = { ROOT = { has_casus_belli = { type = cb_insult target = PREV } } }
+			NOT = { reverse_has_opinion = { who = ROOT value = 0 } }
 		}
 	}
 
@@ -3528,8 +3528,8 @@ country_event = {
 		hidden_effect = {
 			random_neighbor_country = {
 				limit = { 
-					NOT = { reverse_has_opinion = { who = ROOT value = 0 } }
 		 			NOT = { ROOT = { has_casus_belli = { type = cb_insult target = PREV } } }
+					NOT = { reverse_has_opinion = { who = ROOT value = 0 } }
 				}
 				save_event_target_as = assassination_nation
 			}
@@ -3538,8 +3538,8 @@ country_event = {
 				limit = { NOT = { has_saved_event_target = assassination_nation } }
 				random_known_country = {
 					limit = { 
-						NOT = { reverse_has_opinion = { who = ROOT value = 0 } }
 		 				NOT = { ROOT = { has_casus_belli = { type = cb_insult target = PREV } } }
+						NOT = { reverse_has_opinion = { who = ROOT value = 0 } }
 					}
 					save_event_target_as = assassination_nation
 				}
@@ -3575,13 +3575,13 @@ country_event = {
 		has_dlc = "Rights of Man"
 		ruler_has_personality = loose_lips_personality
 		any_neighbor_country = {
+			religion_group = ROOT
+			has_regency = no
 			NOT = { war_with = ROOT }
 			NOT = { alliance_with = ROOT }
 			NOT = { is_rival = ROOT }
 			NOT = { junior_union_with = ROOT }
 			NOT = { senior_union_with = ROOT }
-			religion_group = ROOT
-			has_regency = no
 		}
 	}
 

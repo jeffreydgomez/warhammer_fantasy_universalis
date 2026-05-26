@@ -1183,10 +1183,10 @@ country_event = {
 			feudalism = 100
 		}
 		any_owned_province = {
+			feudalism = 25
 			NOT = {
 				feudalism = 50
 			}
-			feudalism = 25
 		}
 	}
 	goto = feudalism_province
@@ -1255,11 +1255,11 @@ country_event = {
 		}
 		any_owned_province = {
 			is_capital = no
+			development = 10
+			base_manpower = 2
 			NOT = {
 				feudalism = 50
 			}
-			development = 10
-			base_manpower = 2
 		}
 	}
 	goto = urban_province
@@ -1443,13 +1443,13 @@ country_event = {
 		NOT = {
 			has_institution = feudalism
 		}
-		any_owned_province = {
-			feudalism = 100
-		}
 		NOT = {
 			capital_scope = {
 				feudalism = 75
 			}
+		}
+		any_owned_province = {
+			feudalism = 100
 		}
 	}
 	goto = capital
@@ -1509,13 +1509,13 @@ country_event = {
 		NOT = {
 			heir_age = 25
 		}
-		any_neighbor_country = {
-			has_institution = renaissance
-		}
 		NOT = {
 			capital_scope = {
 				renaissance = 100
 			}
+		}
+		any_neighbor_country = {
+			has_institution = renaissance
 		}
 	}
 	mean_time_to_happen = {
@@ -2133,6 +2133,12 @@ country_event = {
 			NOT = {
 				is_enemy = ROOT
 			}
+			NOT = {
+				has_country_modifier = the_abolish_slavery_act
+			}
+			NOT = {
+				has_reform = war_against_the_world_doctrine_reform
+			}
 			provinces_on_capital_continent_of = ROOT
 			ROOT = {
 				NOT = {
@@ -2143,12 +2149,6 @@ country_event = {
 				any_owned_province = {
 					has_province_modifier = slave_entrepot
 				}
-			}
-			NOT = {
-				has_country_modifier = the_abolish_slavery_act
-			}
-			NOT = {
-				has_reform = war_against_the_world_doctrine_reform
 			}
 		}
 		any_owned_province = {
@@ -2174,6 +2174,12 @@ country_event = {
 					NOT = {
 						is_enemy = ROOT
 					}
+					NOT = {
+						has_country_modifier = the_abolish_slavery_act
+					}
+					NOT = {
+						has_reform = war_against_the_world_doctrine_reform
+					}
 					provinces_on_capital_continent_of = ROOT
 					ROOT = {
 						NOT = {
@@ -2184,12 +2190,6 @@ country_event = {
 						any_owned_province = {
 							has_province_modifier = slave_entrepot
 						}
-					}
-					NOT = {
-						has_country_modifier = the_abolish_slavery_act
-					}
-					NOT = {
-						has_reform = war_against_the_world_doctrine_reform
 					}
 				}
 				save_event_target_as = slaver_country
@@ -2556,14 +2556,14 @@ country_event = {
 				has_province_modifier = state_censorship
 			}
 			any_neighbor_province = {
+				owned_by = ROOT
+				area = PREV
 				NOT = {
 					has_province_modifier = hostile_publications
 				}
 				NOT = {
 					has_province_modifier = state_censorship
 				}
-				owned_by = ROOT
-				area = PREV
 				NOT = {
 					printing_press = 100
 				}
@@ -2679,14 +2679,14 @@ country_event = {
 		NOT = {
 			heir_age = 30
 		}		#We can be a bit generous here.
-		any_neighbor_country = {
-			has_institution = global_trade
-			religion_group = ROOT
-		}
 		NOT = {
 			capital_scope = {
 				global_trade = 100
 			}
+		}
+		any_neighbor_country = {
+			has_institution = global_trade
+			religion_group = ROOT
 		}
 	}
 	mean_time_to_happen = {
@@ -2762,6 +2762,11 @@ country_event = {
 		NOT = {
 			heir_age = 30
 		}		#We can be a bit generous here.
+		NOT = {
+			capital_scope = {
+				global_trade = 100
+			}
+		}
 		any_known_country = {
 			has_institution = global_trade
 			capital_scope = {
@@ -2770,11 +2775,6 @@ country_event = {
 			OR = {
 				overlord_of = ROOT
 				alliance_with = ROOT
-			}
-		}
-		NOT = {
-			capital_scope = {
-				global_trade = 100
 			}
 		}
 	}
@@ -3206,14 +3206,14 @@ country_event = {
 		NOT = {
 			heir_age = 30
 		}		#We can be a bit generous here.
-		any_neighbor_country = {
-			has_institution = enlightenment
-			religion_group = ROOT
-		}
 		NOT = {
 			capital_scope = {
 				enlightenment = 100
 			}
+		}
+		any_neighbor_country = {
+			has_institution = enlightenment
+			religion_group = ROOT
 		}
 	}
 	mean_time_to_happen = {
@@ -3289,6 +3289,11 @@ country_event = {
 		NOT = {
 			heir_age = 30
 		}		#We can be a bit generous here.
+		NOT = {
+			capital_scope = {
+				enlightenment = 100
+			}
+		}
 		any_known_country = {
 			has_institution = enlightenment
 			capital_scope = {
@@ -3297,11 +3302,6 @@ country_event = {
 			OR = {
 				overlord_of = ROOT
 				alliance_with = ROOT
-			}
-		}
-		NOT = {
-			capital_scope = {
-				enlightenment = 100
 			}
 		}
 	}
@@ -3399,10 +3399,10 @@ country_event = {
 			}
 			any_trade_node_member_province = {
 				owned_by = ROOT
+				is_capital = yes
 				NOT = {
 					enlightenment = 100
 				}
-				is_capital = yes
 			}
 		}
 	}
@@ -3421,10 +3421,10 @@ country_event = {
 					}
 					any_trade_node_member_province = {
 						owned_by = ROOT
+						is_capital = yes
 						NOT = {
 							enlightenment = 100
 						}
-						is_capital = yes
 					}
 				}
 				random_trade_node_member_province = {
@@ -3537,17 +3537,17 @@ province_event = {
 				has_institution = enlightenment
 			}
 		}
+		OR = {
+			religion_group = muslim
+			religion_group = christian
+		}
+		religion_group = owner
 		any_neighbor_province = {
 			owned_by = ROOT
 			NOT = {
 				enlightenment = 100
 			}
 		}
-		OR = {
-			religion_group = muslim
-			religion_group = christian
-		}
-		religion_group = owner
 	}
 	mean_time_to_happen = {
 		months = 360
@@ -3633,16 +3633,16 @@ country_event = {
 			has_institution = industrialization
 		}
 		any_owned_province = {
+			base_production = 10
+			is_state = yes
+			has_manufactory_trigger = yes
 			NOT = {
 				industrialization = 100
 			}
-			base_production = 10
-			is_state = yes
 			OR = {
 				trade_goods = iron
 				trade_goods = cloth
 			}
-			has_manufactory_trigger = yes
 			OR = {
 				root = {
 					any_owned_province = {
@@ -3730,10 +3730,6 @@ country_event = {
 			}
 		}
 		any_owned_province = {
-			OR = {
-				has_building = trade_depot
-				has_building = plantations
-			}
 			is_state = yes
 			region_for_scope_province = {
 				owned_by = root
@@ -3744,6 +3740,10 @@ country_event = {
 				}
 				is_state = yes
 				base_production = 3
+			}
+			OR = {
+				has_building = trade_depot
+				has_building = plantations
 			}
 		}
 		any_neighbor_country = {

@@ -21,10 +21,10 @@ ind_missions_1 = {
 		required_missions = { }
 		trigger = {
 			num_of_allies = 2
+			diplomatic_reputation = 1
 			any_ally = {
 				trust = { who = ROOT value = 60 }
 			}
-			diplomatic_reputation = 1
 		}
 		effect = {
 			add_country_modifier = {
@@ -156,15 +156,15 @@ ind_missions_1 = {
 			}
 		}
 		trigger = {
+			OR = {
+				accepted_culture = tigerkin_c
+				primary_culture = tigerkin_c
+			}
 			num_of_owned_provinces_with = {
 				culture = tigerkin_c
 				NOT = { unrest = 1 }
 				NOT = { local_autonomy = 15 }
 				value = 4
-			}
-			OR = {
-				accepted_culture = tigerkin_c
-				primary_culture = tigerkin_c
 			}
 		}
 		effect = {
@@ -181,6 +181,10 @@ ind_missions_1 = {
 		position = 10
 		required_missions = { ind_tiger_courts_south }
 		trigger = {
+			OR = {
+				army_professionalism = 0.25
+				has_country_modifier = war_modern_army
+			}
 			num_of_owned_provinces_with = {
 				culture = tigerkin_c
 				OR = {
@@ -188,10 +192,6 @@ ind_missions_1 = {
 					has_building = training_fields
 				}
 				value = 3
-			}
-			OR = {
-				army_professionalism = 0.25
-				has_country_modifier = war_modern_army
 			}
 		}
 		effect = {
@@ -269,12 +269,12 @@ ind_missions_1 = {
 				tooltip = ind_defeat_or_secure_darklands_tt
 				OR = {
 					AND = {
+						army_size_percentage = 1.0
 						num_of_owned_provinces_with = {
 							superregion = ind_superregion
 							fort_level = 2
 							value = 7
 						}
-						army_size_percentage = 1.0
 					}
 					any_country = {
 						OR = {
@@ -480,6 +480,7 @@ ind_missions_2 = {
 		position = 4
 		required_missions = { ind_saffron_silk_workshops }
 		trigger = {
+			monthly_income = 25
 			num_of_owned_provinces_with = {
 				superregion = ind_superregion
 				OR = {
@@ -489,7 +490,6 @@ ind_missions_2 = {
 				}
 				value = 8
 			}
-			monthly_income = 25
 		}
 		effect = {
 			add_country_modifier = {
@@ -677,6 +677,7 @@ ind_missions_2 = {
 		position = 15
 		required_missions = { ind_dragon_toll_admiralty }
 		trigger = {
+			num_of_light_ship = 20
 			custom_trigger_tooltip = {
 				tooltip = ind_defeat_or_secure_dragon_isles_tt
 				OR = {
@@ -695,7 +696,6 @@ ind_missions_2 = {
 					}
 				}
 			}
-			num_of_light_ship = 20
 		}
 		effect = {
 			add_country_modifier = {
@@ -807,6 +807,7 @@ ind_missions_3 = {
 		position = 3
 		required_missions = { ind_spice_road_tollhouses ind_lamp_oath_scholars }
 		trigger = {
+			stability = 1
 			num_of_owned_provinces_with = {
 				superregion = ind_superregion
 				OR = {
@@ -815,7 +816,6 @@ ind_missions_3 = {
 				}
 				value = 4
 			}
-			stability = 1
 		}
 		effect = {
 			add_country_modifier = {
@@ -854,6 +854,7 @@ ind_missions_3 = {
 		position = 5
 		required_missions = { ind_elephant_muster ind_first_canopy_claims ind_monsoon_admiralty }
 		trigger = {
+			stability = 2
 			OR = {
 				is_or_was_tag = { tag = I98 }
 				num_of_owned_provinces_with = {
@@ -861,7 +862,6 @@ ind_missions_3 = {
 					value = 45
 				}
 			}
-			stability = 2
 		}
 		effect = {
 			country_event = { id = ind_events.100 }
@@ -923,12 +923,12 @@ ind_missions_3 = {
 				tooltip = ind_defeat_or_contain_cathay_tt
 				OR = {
 					AND = {
+						army_size_percentage = 1.0
 						num_of_owned_provinces_with = {
 							region = eastern_ind_region
 							fort_level = 2
 							value = 4
 						}
-						army_size_percentage = 1.0
 					}
 					any_country = {
 						capital_scope = { superregion = cathay_superregion }
@@ -1160,14 +1160,14 @@ ind_missions_4 = {
 		position = 6
 		required_missions = { ind_one_canopy_over_ind }
 		trigger = {
+			OR = {
+				innovativeness = 10
+				has_country_modifier = war_modern_science
+			}
 			num_of_owned_provinces_with = {
 				superregion = ind_superregion
 				has_building = university
 				value = 4
-			}
-			OR = {
-				innovativeness = 10
-				has_country_modifier = war_modern_science
 			}
 		}
 		effect = {
@@ -1201,12 +1201,12 @@ ind_missions_4 = {
 		position = 8
 		required_missions = { ind_court_many_customs }
 		trigger = {
+			monthly_income = 100
 			num_of_owned_provinces_with = {
 				superregion = ind_superregion
 				has_building = stock_exchange
 				value = 3
 			}
-			monthly_income = 100
 		}
 		effect = {
 			add_country_modifier = {
@@ -1534,15 +1534,15 @@ ind_missions_5 = {
 		position = 9
 		required_missions = { ind_stock_exchanges_monsoon ind_census_thousand_peoples }
 		trigger = {
+			OR = {
+				accepted_culture = tigerkin_c
+				primary_culture = tigerkin_c
+			}
 			num_of_owned_provinces_with = {
 				culture = tigerkin_c
 				NOT = { unrest = 1 }
 				NOT = { local_autonomy = 10 }
 				value = 3
-			}
-			OR = {
-				accepted_culture = tigerkin_c
-				primary_culture = tigerkin_c
 			}
 		}
 		effect = {
@@ -1559,6 +1559,7 @@ ind_missions_5 = {
 		position = 10
 		required_missions = { ind_tigerfolk_compact }
 		trigger = {
+			army_tradition = 30
 			num_of_owned_provinces_with = {
 				culture = tigerkin_c
 				OR = {
@@ -1568,7 +1569,6 @@ ind_missions_5 = {
 				}
 				value = 4
 			}
-			army_tradition = 30
 		}
 		effect = {
 			add_country_modifier = {
@@ -1609,6 +1609,7 @@ ind_missions_5 = {
 		position = 13
 		required_missions = { ind_frontier_mandalas }
 		trigger = {
+			stability = 2
 			num_of_owned_provinces_with = {
 				region = eastern_ind_region
 				OR = {
@@ -1618,7 +1619,6 @@ ind_missions_5 = {
 				}
 				value = 5
 			}
-			stability = 2
 		}
 		effect = {
 			add_country_modifier = {
@@ -1713,6 +1713,10 @@ ind_missions_5 = {
 		position = 16
 		required_missions = { ind_khuresh_answered }
 		trigger = {
+			OR = {
+				army_professionalism = 0.35
+				has_country_modifier = war_modern_army
+			}
 			num_of_owned_provinces_with = {
 				superregion = ind_superregion
 				OR = {
@@ -1720,10 +1724,6 @@ ind_missions_5 = {
 					has_building = training_fields
 				}
 				value = 8
-			}
-			OR = {
-				army_professionalism = 0.35
-				has_country_modifier = war_modern_army
 			}
 		}
 		effect = {
