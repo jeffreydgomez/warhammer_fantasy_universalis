@@ -3,23 +3,7 @@
 ########################################
 
 war_regional_unification_delete_owned_armies = {
-	every_owned_province = {
-		kill_units = {
-			who = owner
-			type = infantry
-			amount = 1000
-		}
-		kill_units = {
-			who = owner
-			type = cavalry
-			amount = 1000
-		}
-		kill_units = {
-			who = owner
-			type = artillery
-			amount = 1000
-		}
-	}
+	disband_all_units = yes
 }
 
 war_regional_unification_add_unexpected_modifier = {
@@ -287,11 +271,26 @@ war_regional_unification_integrate_snakefolk_neighbors = {
 war_regional_unification_integrate_dwarf_neighbors = {
 	if = {
 		limit = {
-			any_neighbor_country = { culture_group = dwarf_group }
+			OR = {
+				any_neighbor_country = { culture_group = dwarf_group }
+				any_country = {
+					culture_group = dwarf_group
+					capital_scope = { superregion = western_mountains_superregion }
+					NOT = { tag = event_target:war_regional_unification_target }
+				}
+			}
 		}
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
 			limit = { culture_group = dwarf_group }
+			set_country_flag = war_regional_unification_pending_inherit
+		}
+		every_country = {
+			limit = {
+				culture_group = dwarf_group
+				capital_scope = { superregion = western_mountains_superregion }
+				NOT = { tag = event_target:war_regional_unification_target }
+			}
 			set_country_flag = war_regional_unification_pending_inherit
 		}
 		war_regional_unification_inherit_pending_countries = yes

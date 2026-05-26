@@ -341,7 +341,14 @@ war_regional_unification_dwarf_available = {
 		any_country = {
 			ai = no
 			culture_group = dwarf_group
-			any_neighbor_country = { culture_group = dwarf_group }
+			OR = {
+				any_neighbor_country = { culture_group = dwarf_group }
+				any_country = {
+					culture_group = dwarf_group
+					capital_scope = { superregion = western_mountains_superregion }
+					NOT = { tag = PREV }
+				}
+			}
 		}
 		AND = {
 			NOT = {
@@ -351,7 +358,16 @@ war_regional_unification_dwarf_available = {
 				}
 			}
 			exists = U04
-			U04 = { any_neighbor_country = { culture_group = dwarf_group } }
+			U04 = {
+				OR = {
+					any_neighbor_country = { culture_group = dwarf_group }
+					any_country = {
+						culture_group = dwarf_group
+						capital_scope = { superregion = western_mountains_superregion }
+						NOT = { tag = U04 }
+					}
+				}
+			}
 		}
 	}
 }
