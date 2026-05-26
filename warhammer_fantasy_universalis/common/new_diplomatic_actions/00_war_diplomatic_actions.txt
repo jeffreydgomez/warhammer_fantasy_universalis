@@ -97,6 +97,7 @@ demote_dominion_action = {
 	alert_tooltip = tooltip_demote_dominion_alert_tooltip
 
 	is_visible = {
+		num_of_subjects = 1
 		FROM = {
 			is_subject_of_type_with_overlord = {
 				who = ROOT
@@ -181,8 +182,11 @@ offer_dominion_action = {
 
 	is_allowed = {
 		
-		ROOT = { total_development = FROM }
 		FROM = { alliance_with = ROOT }
+		ROOT = { total_development = FROM }
+		FROM = { is_at_war = no }
+		ROOT = { is_at_war = no }
+		NOT = { truce_with = FROM }
 		FROM = {
 			has_opinion = {
 				who = ROOT
@@ -201,9 +205,7 @@ offer_dominion_action = {
 				value = 90
 			}
 		}
-		FROM = { is_at_war = no }
-		ROOT = { is_at_war = no }
-		NOT = { truce_with = FROM }
+
 
 	}
 
@@ -811,6 +813,13 @@ implant_cult = {
 	require_acceptance = no
 
 	is_visible = {
+		OR = {
+			religion = vampiric
+			religion = nagash_worship
+    		religion_group = ruinous_powers_denominations
+    		FROM = { religion_group = root }
+		}
+
 		FROM = {
 			any_owned_province = {
 				NOT = { religion = ROOT }
@@ -833,8 +842,6 @@ implant_cult = {
 				value = 75
 			}
 		}
-
-
 
 		OR = {
 			religion = vampiric
