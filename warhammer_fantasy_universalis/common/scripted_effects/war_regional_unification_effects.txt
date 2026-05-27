@@ -9,7 +9,7 @@ war_regional_unification_delete_owned_armies = {
 war_regional_unification_add_unexpected_modifier = {
 	add_country_modifier = {
 		name = war_unexpected_unification
-		duration = 3650
+		duration = 7300
 	}
 }
 
@@ -25,12 +25,25 @@ war_regional_unification_prepare_pending_inherit = {
 }
 
 war_regional_unification_inherit_pending_countries = {
+	every_country = {
+		limit = {
+			ai = no
+			has_country_flag = war_regional_unification_pending_inherit
+		}
+		clr_country_flag = war_regional_unification_pending_inherit
+	}
 	while = {
 		limit = {
-			any_country = { has_country_flag = war_regional_unification_pending_inherit }
+			any_country = {
+				ai = yes
+				has_country_flag = war_regional_unification_pending_inherit
+			}
 		}
 		random_country = {
-			limit = { has_country_flag = war_regional_unification_pending_inherit }
+			limit = {
+				ai = yes
+				has_country_flag = war_regional_unification_pending_inherit
+			}
 			clr_country_flag = war_regional_unification_pending_inherit
 			war_regional_unification_prepare_pending_inherit = yes
 			event_target:war_regional_unification_target = { inherit = PREV }
@@ -38,14 +51,88 @@ war_regional_unification_inherit_pending_countries = {
 	}
 }
 
+war_regional_unification_mark_dwarf_grudge_targets = {
+	if = {
+		limit = {
+			exists = G38
+			G38 = { ai = yes }
+		}
+		G38 = { set_country_flag = war_regional_unification_pending_inherit }
+	}
+	if = {
+		limit = {
+			exists = U09
+			U09 = { ai = yes }
+		}
+		U09 = { set_country_flag = war_regional_unification_pending_inherit }
+	}
+	if = {
+		limit = {
+			exists = U11
+			U11 = { ai = yes }
+		}
+		U11 = { set_country_flag = war_regional_unification_pending_inherit }
+	}
+	if = {
+		limit = {
+			exists = U12
+			U12 = { ai = yes }
+		}
+		U12 = { set_country_flag = war_regional_unification_pending_inherit }
+	}
+	if = {
+		limit = {
+			exists = G01
+			G01 = { ai = yes }
+		}
+		G01 = { set_country_flag = war_regional_unification_pending_inherit }
+	}
+	if = {
+		limit = {
+			exists = U44
+			U44 = { ai = yes }
+		}
+		U44 = { set_country_flag = war_regional_unification_pending_inherit }
+	}
+	if = {
+		limit = {
+			exists = G47
+			G47 = { ai = yes }
+		}
+		G47 = { set_country_flag = war_regional_unification_pending_inherit }
+	}
+	if = {
+		limit = {
+			exists = U10
+			U10 = { ai = yes }
+		}
+		U10 = { set_country_flag = war_regional_unification_pending_inherit }
+	}
+	if = {
+		limit = {
+			exists = U49
+			U49 = { ai = yes }
+		}
+		U49 = { set_country_flag = war_regional_unification_pending_inherit }
+	}
+}
+
 war_regional_unification_integrate_imperial_neighbors = {
 	if = {
 		limit = {
-			any_neighbor_country = { culture_group = imperial_group }
+			any_neighbor_country = {
+				ai = yes
+				culture_group = imperial_group
+				NOT = { capital_scope = { region = border_princes_region } }
+			}
 		}
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
-			limit = { culture_group = imperial_group }
+			limit = {
+				ai = yes
+				culture_group = imperial_group
+				NOT = { capital_scope = { region = border_princes_region } }
+			}
 			set_country_flag = war_regional_unification_pending_inherit
 		}
 		war_regional_unification_inherit_pending_countries = yes
@@ -55,11 +142,11 @@ war_regional_unification_integrate_imperial_neighbors = {
 war_regional_unification_integrate_estalian_neighbors = {
 	if = {
 		limit = {
-			any_neighbor_country = { culture_group = estalian_group }
+			any_neighbor_country = { ai = yes culture_group = estalian_group }
 		}
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
-			limit = { culture_group = estalian_group }
+			limit = { ai = yes culture_group = estalian_group }
 			set_country_flag = war_regional_unification_pending_inherit
 		}
 		war_regional_unification_inherit_pending_countries = yes
@@ -69,11 +156,11 @@ war_regional_unification_integrate_estalian_neighbors = {
 war_regional_unification_integrate_bretonnian_neighbors = {
 	if = {
 		limit = {
-			any_neighbor_country = { culture_group = bretonnian_group }
+			any_neighbor_country = { ai = yes culture_group = bretonnian_group }
 		}
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
-			limit = { culture_group = bretonnian_group }
+			limit = { ai = yes culture_group = bretonnian_group }
 			set_country_flag = war_regional_unification_pending_inherit
 		}
 		war_regional_unification_inherit_pending_countries = yes
@@ -83,11 +170,11 @@ war_regional_unification_integrate_bretonnian_neighbors = {
 war_regional_unification_integrate_tilean_neighbors = {
 	if = {
 		limit = {
-			any_neighbor_country = { culture_group = tilean_group }
+			any_neighbor_country = { ai = yes culture_group = tilean_group }
 		}
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
-			limit = { culture_group = tilean_group }
+			limit = { ai = yes culture_group = tilean_group }
 			set_country_flag = war_regional_unification_pending_inherit
 		}
 		war_regional_unification_inherit_pending_countries = yes
@@ -97,11 +184,11 @@ war_regional_unification_integrate_tilean_neighbors = {
 war_regional_unification_integrate_norse_neighbors = {
 	if = {
 		limit = {
-			any_neighbor_country = { culture_group = norse_group }
+			any_neighbor_country = { ai = yes culture_group = norse_group }
 		}
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
-			limit = { culture_group = norse_group }
+			limit = { ai = yes culture_group = norse_group }
 			set_country_flag = war_regional_unification_pending_inherit
 		}
 		war_regional_unification_inherit_pending_countries = yes
@@ -111,11 +198,11 @@ war_regional_unification_integrate_norse_neighbors = {
 war_regional_unification_integrate_albionise_neighbors = {
 	if = {
 		limit = {
-			any_neighbor_country = { culture_group = albionise_group }
+			any_neighbor_country = { ai = yes culture_group = albionise_group }
 		}
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
-			limit = { culture_group = albionise_group }
+			limit = { ai = yes culture_group = albionise_group }
 			set_country_flag = war_regional_unification_pending_inherit
 		}
 		war_regional_unification_inherit_pending_countries = yes
@@ -125,11 +212,11 @@ war_regional_unification_integrate_albionise_neighbors = {
 war_regional_unification_integrate_arabyan_neighbors = {
 	if = {
 		limit = {
-			any_neighbor_country = { culture_group = arabyan_group }
+			any_neighbor_country = { ai = yes culture_group = arabyan_group }
 		}
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
-			limit = { culture_group = arabyan_group }
+			limit = { ai = yes culture_group = arabyan_group }
 			set_country_flag = war_regional_unification_pending_inherit
 		}
 		war_regional_unification_inherit_pending_countries = yes
@@ -140,6 +227,7 @@ war_regional_unification_integrate_kurgan_neighbors = {
 	if = {
 		limit = {
 			any_neighbor_country = {
+				ai = yes
 				culture_group = kurgan_group
 				num_of_cities = 2
 			}
@@ -147,6 +235,7 @@ war_regional_unification_integrate_kurgan_neighbors = {
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
 			limit = {
+				ai = yes
 				culture_group = kurgan_group
 				num_of_cities = 2
 			}
@@ -159,11 +248,11 @@ war_regional_unification_integrate_kurgan_neighbors = {
 war_regional_unification_integrate_cathayan_neighbors = {
 	if = {
 		limit = {
-			any_neighbor_country = { culture_group = cathayan_cg }
+			any_neighbor_country = { ai = yes culture_group = cathayan_cg }
 		}
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
-			limit = { culture_group = cathayan_cg }
+			limit = { ai = yes culture_group = cathayan_cg }
 			set_country_flag = war_regional_unification_pending_inherit
 		}
 		war_regional_unification_inherit_pending_countries = yes
@@ -173,11 +262,11 @@ war_regional_unification_integrate_cathayan_neighbors = {
 war_regional_unification_integrate_indish_neighbors = {
 	if = {
 		limit = {
-			any_neighbor_country = { culture_group = indish_cg }
+			any_neighbor_country = { ai = yes culture_group = indish_cg }
 		}
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
-			limit = { culture_group = indish_cg }
+			limit = { ai = yes culture_group = indish_cg }
 			set_country_flag = war_regional_unification_pending_inherit
 		}
 		war_regional_unification_inherit_pending_countries = yes
@@ -187,11 +276,11 @@ war_regional_unification_integrate_indish_neighbors = {
 war_regional_unification_integrate_nipponese_neighbors = {
 	if = {
 		limit = {
-			any_neighbor_country = { culture_group = nipponese_cg }
+			any_neighbor_country = { ai = yes culture_group = nipponese_cg }
 		}
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
-			limit = { culture_group = nipponese_cg }
+			limit = { ai = yes culture_group = nipponese_cg }
 			set_country_flag = war_regional_unification_pending_inherit
 		}
 		war_regional_unification_inherit_pending_countries = yes
@@ -201,11 +290,19 @@ war_regional_unification_integrate_nipponese_neighbors = {
 war_regional_unification_integrate_nehekharan_neighbors = {
 	if = {
 		limit = {
-			any_neighbor_country = { culture_group = nehekharan_group }
+			any_neighbor_country = {
+				ai = yes
+				culture_group = nehekharan_group
+				NOT = { culture = nagashi_culture }
+			}
 		}
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
-			limit = { culture_group = nehekharan_group }
+			limit = {
+				ai = yes
+				culture_group = nehekharan_group
+				NOT = { culture = nagashi_culture }
+			}
 			set_country_flag = war_regional_unification_pending_inherit
 		}
 		war_regional_unification_inherit_pending_countries = yes
@@ -215,11 +312,19 @@ war_regional_unification_integrate_nehekharan_neighbors = {
 war_regional_unification_integrate_greenskin_neighbors = {
 	if = {
 		limit = {
-			any_neighbor_country = { culture_group = greenskins_group }
+			any_neighbor_country = {
+				ai = yes
+				culture_group = greenskins_group
+				NOT = { tag = U38 }
+			}
 		}
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
-			limit = { culture_group = greenskins_group }
+			limit = {
+				ai = yes
+				culture_group = greenskins_group
+				NOT = { tag = U38 }
+			}
 			set_country_flag = war_regional_unification_pending_inherit
 		}
 		war_regional_unification_inherit_pending_countries = yes
@@ -229,11 +334,11 @@ war_regional_unification_integrate_greenskin_neighbors = {
 war_regional_unification_integrate_asur_neighbors = {
 	if = {
 		limit = {
-			any_neighbor_country = { culture_group = asur_group }
+			any_neighbor_country = { ai = yes culture_group = asur_group }
 		}
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
-			limit = { culture_group = asur_group }
+			limit = { ai = yes culture_group = asur_group }
 			set_country_flag = war_regional_unification_pending_inherit
 		}
 		war_regional_unification_inherit_pending_countries = yes
@@ -243,11 +348,11 @@ war_regional_unification_integrate_asur_neighbors = {
 war_regional_unification_integrate_druchii_neighbors = {
 	if = {
 		limit = {
-			any_neighbor_country = { culture_group = druchii_group }
+			any_neighbor_country = { ai = yes culture_group = druchii_group }
 		}
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
-			limit = { culture_group = druchii_group }
+			limit = { ai = yes culture_group = druchii_group }
 			set_country_flag = war_regional_unification_pending_inherit
 		}
 		war_regional_unification_inherit_pending_countries = yes
@@ -257,11 +362,11 @@ war_regional_unification_integrate_druchii_neighbors = {
 war_regional_unification_integrate_snakefolk_neighbors = {
 	if = {
 		limit = {
-			any_neighbor_country = { culture_group = snakefolk_cg }
+			any_neighbor_country = { ai = yes culture_group = snakefolk_cg }
 		}
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
-			limit = { culture_group = snakefolk_cg }
+			limit = { ai = yes culture_group = snakefolk_cg }
 			set_country_flag = war_regional_unification_pending_inherit
 		}
 		war_regional_unification_inherit_pending_countries = yes
@@ -272,27 +377,24 @@ war_regional_unification_integrate_dwarf_neighbors = {
 	if = {
 		limit = {
 			OR = {
-				any_neighbor_country = { culture_group = dwarf_group }
-				any_country = {
-					culture_group = dwarf_group
-					capital_scope = { superregion = western_mountains_superregion }
-					NOT = { tag = event_target:war_regional_unification_target }
-				}
+				any_neighbor_country = { ai = yes culture_group = dwarf_group }
+				AND = { exists = G38 G38 = { ai = yes } }
+				AND = { exists = U09 U09 = { ai = yes } }
+				AND = { exists = U11 U11 = { ai = yes } }
+				AND = { exists = U12 U12 = { ai = yes } }
+				AND = { exists = G01 G01 = { ai = yes } }
+				AND = { exists = U44 U44 = { ai = yes } }
+				AND = { exists = G47 G47 = { ai = yes } }
+				AND = { exists = U10 U10 = { ai = yes } }
+				AND = { exists = U49 U49 = { ai = yes } }
 			}
 		}
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
-			limit = { culture_group = dwarf_group }
+			limit = { ai = yes culture_group = dwarf_group }
 			set_country_flag = war_regional_unification_pending_inherit
 		}
-		every_country = {
-			limit = {
-				culture_group = dwarf_group
-				capital_scope = { superregion = western_mountains_superregion }
-				NOT = { tag = event_target:war_regional_unification_target }
-			}
-			set_country_flag = war_regional_unification_pending_inherit
-		}
+		war_regional_unification_mark_dwarf_grudge_targets = yes
 		war_regional_unification_inherit_pending_countries = yes
 	}
 }
@@ -300,11 +402,11 @@ war_regional_unification_integrate_dwarf_neighbors = {
 war_regional_unification_integrate_ogre_neighbors = {
 	if = {
 		limit = {
-			any_neighbor_country = { culture_group = ogre_group }
+			any_neighbor_country = { ai = yes culture_group = ogre_group }
 		}
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
-			limit = { culture_group = ogre_group }
+			limit = { ai = yes culture_group = ogre_group }
 			set_country_flag = war_regional_unification_pending_inherit
 		}
 		war_regional_unification_inherit_pending_countries = yes
@@ -314,11 +416,19 @@ war_regional_unification_integrate_ogre_neighbors = {
 war_regional_unification_integrate_skaven_neighbors = {
 	if = {
 		limit = {
-			any_neighbor_country = { culture_group = skaven_group }
+			any_neighbor_country = {
+				ai = yes
+				culture_group = skaven_group
+				NOT = { tag = U39 }
+			}
 		}
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
-			limit = { culture_group = skaven_group }
+			limit = {
+				ai = yes
+				culture_group = skaven_group
+				NOT = { tag = U39 }
+			}
 			set_country_flag = war_regional_unification_pending_inherit
 		}
 		war_regional_unification_inherit_pending_countries = yes
@@ -330,26 +440,40 @@ war_regional_unification_integrate_lustrian_lizardmen_neighbors = {
 		limit = {
 			OR = {
 				any_neighbor_country = {
+					ai = yes
 					culture_group = lizardmen_group
 					NOT = { culture = dragon_isles_lizardmen }
 				}
 				AND = {
 					exists = V06
 					NOT = { tag = V06 }
+					V06 = {
+						ai = yes
+						culture_group = lizardmen_group
+					}
 				}
 				AND = {
 					exists = V08
 					NOT = { tag = V08 }
+					V08 = {
+						ai = yes
+						culture_group = lizardmen_group
+					}
 				}
 				AND = {
 					exists = V14
 					NOT = { tag = V14 }
+					V14 = {
+						ai = yes
+						culture_group = lizardmen_group
+					}
 				}
 			}
 		}
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
 			limit = {
+				ai = yes
 				culture_group = lizardmen_group
 				NOT = { culture = dragon_isles_lizardmen }
 			}
@@ -359,7 +483,10 @@ war_regional_unification_integrate_lustrian_lizardmen_neighbors = {
 			limit = {
 				exists = V06
 				NOT = { tag = V06 }
-				V06 = { culture_group = lizardmen_group }
+				V06 = {
+					ai = yes
+					culture_group = lizardmen_group
+				}
 			}
 			V06 = { set_country_flag = war_regional_unification_pending_inherit }
 		}
@@ -367,7 +494,10 @@ war_regional_unification_integrate_lustrian_lizardmen_neighbors = {
 			limit = {
 				exists = V08
 				NOT = { tag = V08 }
-				V08 = { culture_group = lizardmen_group }
+				V08 = {
+					ai = yes
+					culture_group = lizardmen_group
+				}
 			}
 			V08 = { set_country_flag = war_regional_unification_pending_inherit }
 		}
@@ -375,7 +505,10 @@ war_regional_unification_integrate_lustrian_lizardmen_neighbors = {
 			limit = {
 				exists = V14
 				NOT = { tag = V14 }
-				V14 = { culture_group = lizardmen_group }
+				V14 = {
+					ai = yes
+					culture_group = lizardmen_group
+				}
 			}
 			V14 = { set_country_flag = war_regional_unification_pending_inherit }
 		}
@@ -387,6 +520,7 @@ war_regional_unification_integrate_dragon_isles_lizardmen_neighbors = {
 	if = {
 		limit = {
 			any_neighbor_country = {
+				ai = yes
 				culture_group = lizardmen_group
 				culture = dragon_isles_lizardmen
 				capital_scope = { region = dragon_isles_region }
@@ -395,6 +529,7 @@ war_regional_unification_integrate_dragon_isles_lizardmen_neighbors = {
 		war_regional_unification_add_unexpected_modifier = yes
 		every_neighbor_country = {
 			limit = {
+				ai = yes
 				culture_group = lizardmen_group
 				culture = dragon_isles_lizardmen
 				capital_scope = { region = dragon_isles_region }
@@ -407,28 +542,6 @@ war_regional_unification_integrate_dragon_isles_lizardmen_neighbors = {
 
 war_regional_unification_select_imperial_target = {
 	if = {
-		limit = {
-			ai = no
-			culture_group = imperial_group
-		}
-		save_event_target_as = war_regional_unification_target
-	}
-	else_if = {
-		limit = {
-			any_country = {
-				ai = no
-				culture_group = imperial_group
-			}
-		}
-		random_country = {
-			limit = {
-				ai = no
-				culture_group = imperial_group
-			}
-			save_event_target_as = war_regional_unification_target
-		}
-	}
-	else_if = {
 		limit = { exists = A01 }
 		A01 = { save_event_target_as = war_regional_unification_target }
 	}
@@ -436,28 +549,6 @@ war_regional_unification_select_imperial_target = {
 
 war_regional_unification_select_estalian_target = {
 	if = {
-		limit = {
-			ai = no
-			culture_group = estalian_group
-		}
-		save_event_target_as = war_regional_unification_target
-	}
-	else_if = {
-		limit = {
-			any_country = {
-				ai = no
-				culture_group = estalian_group
-			}
-		}
-		random_country = {
-			limit = {
-				ai = no
-				culture_group = estalian_group
-			}
-			save_event_target_as = war_regional_unification_target
-		}
-	}
-	else_if = {
 		limit = { exists = A41 }
 		A41 = { save_event_target_as = war_regional_unification_target }
 	}
@@ -465,28 +556,6 @@ war_regional_unification_select_estalian_target = {
 
 war_regional_unification_select_bretonnian_target = {
 	if = {
-		limit = {
-			ai = no
-			culture_group = bretonnian_group
-		}
-		save_event_target_as = war_regional_unification_target
-	}
-	else_if = {
-		limit = {
-			any_country = {
-				ai = no
-				culture_group = bretonnian_group
-			}
-		}
-		random_country = {
-			limit = {
-				ai = no
-				culture_group = bretonnian_group
-			}
-			save_event_target_as = war_regional_unification_target
-		}
-	}
-	else_if = {
 		limit = { exists = A15 }
 		A15 = { save_event_target_as = war_regional_unification_target }
 	}
@@ -494,28 +563,6 @@ war_regional_unification_select_bretonnian_target = {
 
 war_regional_unification_select_tilean_target = {
 	if = {
-		limit = {
-			ai = no
-			culture_group = tilean_group
-		}
-		save_event_target_as = war_regional_unification_target
-	}
-	else_if = {
-		limit = {
-			any_country = {
-				ai = no
-				culture_group = tilean_group
-			}
-		}
-		random_country = {
-			limit = {
-				ai = no
-				culture_group = tilean_group
-			}
-			save_event_target_as = war_regional_unification_target
-		}
-	}
-	else_if = {
 		limit = { exists = A50 }
 		A50 = { save_event_target_as = war_regional_unification_target }
 	}
@@ -523,28 +570,6 @@ war_regional_unification_select_tilean_target = {
 
 war_regional_unification_select_norse_target = {
 	if = {
-		limit = {
-			ai = no
-			culture_group = norse_group
-		}
-		save_event_target_as = war_regional_unification_target
-	}
-	else_if = {
-		limit = {
-			any_country = {
-				ai = no
-				culture_group = norse_group
-			}
-		}
-		random_country = {
-			limit = {
-				ai = no
-				culture_group = norse_group
-			}
-			save_event_target_as = war_regional_unification_target
-		}
-	}
-	else_if = {
 		limit = { exists = A30 }
 		A30 = { save_event_target_as = war_regional_unification_target }
 	}
@@ -552,28 +577,6 @@ war_regional_unification_select_norse_target = {
 
 war_regional_unification_select_albionise_target = {
 	if = {
-		limit = {
-			ai = no
-			culture_group = albionise_group
-		}
-		save_event_target_as = war_regional_unification_target
-	}
-	else_if = {
-		limit = {
-			any_country = {
-				ai = no
-				culture_group = albionise_group
-			}
-		}
-		random_country = {
-			limit = {
-				ai = no
-				culture_group = albionise_group
-			}
-			save_event_target_as = war_regional_unification_target
-		}
-	}
-	else_if = {
 		limit = { exists = B09 }
 		B09 = { save_event_target_as = war_regional_unification_target }
 	}
@@ -581,28 +584,6 @@ war_regional_unification_select_albionise_target = {
 
 war_regional_unification_select_arabyan_target = {
 	if = {
-		limit = {
-			ai = no
-			culture_group = arabyan_group
-		}
-		save_event_target_as = war_regional_unification_target
-	}
-	else_if = {
-		limit = {
-			any_country = {
-				ai = no
-				culture_group = arabyan_group
-			}
-		}
-		random_country = {
-			limit = {
-				ai = no
-				culture_group = arabyan_group
-			}
-			save_event_target_as = war_regional_unification_target
-		}
-	}
-	else_if = {
 		limit = { exists = Z14 }
 		Z14 = { save_event_target_as = war_regional_unification_target }
 	}
@@ -610,28 +591,6 @@ war_regional_unification_select_arabyan_target = {
 
 war_regional_unification_select_kurgan_target = {
 	if = {
-		limit = {
-			ai = no
-			culture_group = kurgan_group
-		}
-		save_event_target_as = war_regional_unification_target
-	}
-	else_if = {
-		limit = {
-			any_country = {
-				ai = no
-				culture_group = kurgan_group
-			}
-		}
-		random_country = {
-			limit = {
-				ai = no
-				culture_group = kurgan_group
-			}
-			save_event_target_as = war_regional_unification_target
-		}
-	}
-	else_if = {
 		limit = { exists = B46 }
 		B46 = { save_event_target_as = war_regional_unification_target }
 	}
@@ -639,28 +598,6 @@ war_regional_unification_select_kurgan_target = {
 
 war_regional_unification_select_cathayan_target = {
 	if = {
-		limit = {
-			ai = no
-			culture_group = cathayan_cg
-		}
-		save_event_target_as = war_regional_unification_target
-	}
-	else_if = {
-		limit = {
-			any_country = {
-				ai = no
-				culture_group = cathayan_cg
-			}
-		}
-		random_country = {
-			limit = {
-				ai = no
-				culture_group = cathayan_cg
-			}
-			save_event_target_as = war_regional_unification_target
-		}
-	}
-	else_if = {
 		limit = { exists = I25 }
 		I25 = { save_event_target_as = war_regional_unification_target }
 	}
@@ -668,28 +605,6 @@ war_regional_unification_select_cathayan_target = {
 
 war_regional_unification_select_indish_target = {
 	if = {
-		limit = {
-			ai = no
-			culture_group = indish_cg
-		}
-		save_event_target_as = war_regional_unification_target
-	}
-	else_if = {
-		limit = {
-			any_country = {
-				ai = no
-				culture_group = indish_cg
-			}
-		}
-		random_country = {
-			limit = {
-				ai = no
-				culture_group = indish_cg
-			}
-			save_event_target_as = war_regional_unification_target
-		}
-	}
-	else_if = {
 		limit = { exists = Z52 }
 		Z52 = { save_event_target_as = war_regional_unification_target }
 	}
@@ -697,28 +612,6 @@ war_regional_unification_select_indish_target = {
 
 war_regional_unification_select_nipponese_target = {
 	if = {
-		limit = {
-			ai = no
-			culture_group = nipponese_cg
-		}
-		save_event_target_as = war_regional_unification_target
-	}
-	else_if = {
-		limit = {
-			any_country = {
-				ai = no
-				culture_group = nipponese_cg
-			}
-		}
-		random_country = {
-			limit = {
-				ai = no
-				culture_group = nipponese_cg
-			}
-			save_event_target_as = war_regional_unification_target
-		}
-	}
-	else_if = {
 		limit = { exists = Z96 }
 		Z96 = { save_event_target_as = war_regional_unification_target }
 	}
@@ -726,28 +619,6 @@ war_regional_unification_select_nipponese_target = {
 
 war_regional_unification_select_nehekharan_target = {
 	if = {
-		limit = {
-			ai = no
-			culture_group = nehekharan_group
-		}
-		save_event_target_as = war_regional_unification_target
-	}
-	else_if = {
-		limit = {
-			any_country = {
-				ai = no
-				culture_group = nehekharan_group
-			}
-		}
-		random_country = {
-			limit = {
-				ai = no
-				culture_group = nehekharan_group
-			}
-			save_event_target_as = war_regional_unification_target
-		}
-	}
-	else_if = {
 		limit = { exists = Z01 }
 		Z01 = { save_event_target_as = war_regional_unification_target }
 	}
@@ -755,28 +626,6 @@ war_regional_unification_select_nehekharan_target = {
 
 war_regional_unification_select_greenskin_target = {
 	if = {
-		limit = {
-			ai = no
-			culture_group = greenskins_group
-		}
-		save_event_target_as = war_regional_unification_target
-	}
-	else_if = {
-		limit = {
-			any_country = {
-				ai = no
-				culture_group = greenskins_group
-			}
-		}
-		random_country = {
-			limit = {
-				ai = no
-				culture_group = greenskins_group
-			}
-			save_event_target_as = war_regional_unification_target
-		}
-	}
-	else_if = {
 		limit = { exists = G24 }
 		G24 = { save_event_target_as = war_regional_unification_target }
 	}
@@ -784,28 +633,6 @@ war_regional_unification_select_greenskin_target = {
 
 war_regional_unification_select_asur_target = {
 	if = {
-		limit = {
-			ai = no
-			culture_group = asur_group
-		}
-		save_event_target_as = war_regional_unification_target
-	}
-	else_if = {
-		limit = {
-			any_country = {
-				ai = no
-				culture_group = asur_group
-			}
-		}
-		random_country = {
-			limit = {
-				ai = no
-				culture_group = asur_group
-			}
-			save_event_target_as = war_regional_unification_target
-		}
-	}
-	else_if = {
 		limit = { exists = H06 }
 		H06 = { save_event_target_as = war_regional_unification_target }
 	}
@@ -813,28 +640,6 @@ war_regional_unification_select_asur_target = {
 
 war_regional_unification_select_druchii_target = {
 	if = {
-		limit = {
-			ai = no
-			culture_group = druchii_group
-		}
-		save_event_target_as = war_regional_unification_target
-	}
-	else_if = {
-		limit = {
-			any_country = {
-				ai = no
-				culture_group = druchii_group
-			}
-		}
-		random_country = {
-			limit = {
-				ai = no
-				culture_group = druchii_group
-			}
-			save_event_target_as = war_regional_unification_target
-		}
-	}
-	else_if = {
 		limit = { exists = H12 }
 		H12 = { save_event_target_as = war_regional_unification_target }
 	}
@@ -842,28 +647,6 @@ war_regional_unification_select_druchii_target = {
 
 war_regional_unification_select_snakefolk_target = {
 	if = {
-		limit = {
-			ai = no
-			culture_group = snakefolk_cg
-		}
-		save_event_target_as = war_regional_unification_target
-	}
-	else_if = {
-		limit = {
-			any_country = {
-				ai = no
-				culture_group = snakefolk_cg
-			}
-		}
-		random_country = {
-			limit = {
-				ai = no
-				culture_group = snakefolk_cg
-			}
-			save_event_target_as = war_regional_unification_target
-		}
-	}
-	else_if = {
 		limit = { exists = Z69 }
 		Z69 = { save_event_target_as = war_regional_unification_target }
 	}
@@ -871,28 +654,6 @@ war_regional_unification_select_snakefolk_target = {
 
 war_regional_unification_select_dwarf_target = {
 	if = {
-		limit = {
-			ai = no
-			culture_group = dwarf_group
-		}
-		save_event_target_as = war_regional_unification_target
-	}
-	else_if = {
-		limit = {
-			any_country = {
-				ai = no
-				culture_group = dwarf_group
-			}
-		}
-		random_country = {
-			limit = {
-				ai = no
-				culture_group = dwarf_group
-			}
-			save_event_target_as = war_regional_unification_target
-		}
-	}
-	else_if = {
 		limit = { exists = U04 }
 		U04 = { save_event_target_as = war_regional_unification_target }
 	}
@@ -900,28 +661,6 @@ war_regional_unification_select_dwarf_target = {
 
 war_regional_unification_select_ogre_target = {
 	if = {
-		limit = {
-			ai = no
-			culture_group = ogre_group
-		}
-		save_event_target_as = war_regional_unification_target
-	}
-	else_if = {
-		limit = {
-			any_country = {
-				ai = no
-				culture_group = ogre_group
-			}
-		}
-		random_country = {
-			limit = {
-				ai = no
-				culture_group = ogre_group
-			}
-			save_event_target_as = war_regional_unification_target
-		}
-	}
-	else_if = {
 		limit = { exists = I01 }
 		I01 = { save_event_target_as = war_regional_unification_target }
 	}
@@ -929,28 +668,6 @@ war_regional_unification_select_ogre_target = {
 
 war_regional_unification_select_skaven_target = {
 	if = {
-		limit = {
-			ai = no
-			culture_group = skaven_group
-		}
-		save_event_target_as = war_regional_unification_target
-	}
-	else_if = {
-		limit = {
-			any_country = {
-				ai = no
-				culture_group = skaven_group
-			}
-		}
-		random_country = {
-			limit = {
-				ai = no
-				culture_group = skaven_group
-			}
-			save_event_target_as = war_regional_unification_target
-		}
-	}
-	else_if = {
 		limit = { exists = U25 }
 		U25 = { save_event_target_as = war_regional_unification_target }
 	}
@@ -958,31 +675,6 @@ war_regional_unification_select_skaven_target = {
 
 war_regional_unification_select_lustrian_lizardmen_target = {
 	if = {
-		limit = {
-			ai = no
-			culture_group = lizardmen_group
-			NOT = { culture = dragon_isles_lizardmen }
-		}
-		save_event_target_as = war_regional_unification_target
-	}
-	else_if = {
-		limit = {
-			any_country = {
-				ai = no
-				culture_group = lizardmen_group
-				NOT = { culture = dragon_isles_lizardmen }
-			}
-		}
-		random_country = {
-			limit = {
-				ai = no
-				culture_group = lizardmen_group
-				NOT = { culture = dragon_isles_lizardmen }
-			}
-			save_event_target_as = war_regional_unification_target
-		}
-	}
-	else_if = {
 		limit = { exists = V03 }
 		V03 = { save_event_target_as = war_regional_unification_target }
 	}
@@ -990,31 +682,6 @@ war_regional_unification_select_lustrian_lizardmen_target = {
 
 war_regional_unification_select_dragon_isles_lizardmen_target = {
 	if = {
-		limit = {
-			ai = no
-			culture = dragon_isles_lizardmen
-			capital_scope = { region = dragon_isles_region }
-		}
-		save_event_target_as = war_regional_unification_target
-	}
-	else_if = {
-		limit = {
-			any_country = {
-				ai = no
-				culture = dragon_isles_lizardmen
-				capital_scope = { region = dragon_isles_region }
-			}
-		}
-		random_country = {
-			limit = {
-				ai = no
-				culture = dragon_isles_lizardmen
-				capital_scope = { region = dragon_isles_region }
-			}
-			save_event_target_as = war_regional_unification_target
-		}
-	}
-	else_if = {
 		limit = { exists = I49 }
 		I49 = { save_event_target_as = war_regional_unification_target }
 	}
