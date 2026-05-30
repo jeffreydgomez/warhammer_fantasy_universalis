@@ -1,0 +1,75 @@
+country_decisions = {
+	fimirizacht_nation = {
+		major = yes
+
+		potential = {
+			NOT = { tag = X06 }
+			primary_culture = fimir_culture
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_fimirizacht_flag }
+			NOT = { exists = X06 }
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+		}
+
+		provinces_to_highlight = {
+			is_city = yes
+			culture = fimir_culture
+			NOT = { owned_by = ROOT }
+		}
+
+		allow = {
+			is_at_war = no
+			custom_trigger_tooltip = {
+				tooltip = fimirizacht_formable.tooltip
+				calc_true_if = {
+					all_owned_province = {
+						is_city = yes
+						culture = fimir_culture
+					}
+					amount = 50
+				}
+			}
+		}
+
+		effect = {
+			add_prestige = 25
+			change_tag = X06
+			restore_country_name = yes
+			on_change_tag_effect = yes
+			set_government_rank = 3
+			set_country_flag = formed_fimirizacht_flag
+
+			custom_tooltip = fimirizacht_claims_on_fimir_culture_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						is_city = yes
+						culture = fimir_culture
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+
+			if = {
+				limit = { has_custom_ideas = no }
+				country_event = { id = ideagroups.1 } # Swap Ideas
+			}
+
+			clr_country_flag = did_intro_event
+			country_event = { id = war_unique_intro_events.552 }
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+}
