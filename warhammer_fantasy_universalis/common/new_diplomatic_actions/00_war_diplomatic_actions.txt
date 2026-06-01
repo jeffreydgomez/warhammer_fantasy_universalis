@@ -805,6 +805,69 @@ war_diplo_convert_to_religion = {
 }
 
 
+war_request_blood_kiss = {
+
+	category = influence
+
+	require_acceptance = yes
+
+	alert_index = 15
+
+	alert_tooltip = request_blood_kiss_alert_tooltip
+
+	is_visible = {
+		ai = no
+		NOT = { religion = vampiric }
+		FROM = { religion = vampiric }
+		NOT = { has_reform = everchosen_reform }
+	}
+
+	is_allowed = {
+		NOT = { war_with = FROM }
+	}
+
+	ai_acceptance = {
+		add_entry = {
+			name = REQUEST_BLOOD_KISS_AI_ACCEPTANCE
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 1000
+			}
+		}
+	}
+
+	on_accept = {
+
+		change_religion = FROM
+
+		force_converted = yes
+
+		set_dynasty = FROM
+
+		add_opinion = {
+			who = FROM
+			modifier = showed_us_the_truth
+		}
+
+		capital_scope = {
+			change_religion = FROM
+			every_neighbor_province = {
+				limit = { owned_by = ROOT }
+				change_religion = FROM
+			}
+		}
+	}
+
+	ai_will_do = {
+		always = no
+	}
+}
+
+
 
 implant_cult = {
 
@@ -938,6 +1001,5 @@ implant_cult = {
 		}
 	}
 }
-
 
 

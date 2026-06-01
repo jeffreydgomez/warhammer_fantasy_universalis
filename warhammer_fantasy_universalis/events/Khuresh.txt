@@ -883,3 +883,203 @@ country_event = {
 		}
 	}
 }
+
+### Khuresh Mission Events
+
+# The first united canopy must decide what kind of fear will hold Khuresh together.
+country_event = {
+	id = khuresh_events.101
+	title = khuresh_events.101.t
+	desc = khuresh_events.101.d
+	picture = SNAKEMEN_eventPicture
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		khuresh_capital_in_khuresh = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Bind the jungle through hostages and central commands.
+	option = {
+		ai_chance = { factor = 40 }
+		name = khuresh_events.101.a
+		add_country_modifier = {
+			name = khuresh_one_jungle_central_mod
+			duration = -1
+		}
+	}
+
+# Bind the jungle through public sacrifice and blood courts.
+	option = {
+		ai_chance = { factor = 30 }
+		name = khuresh_events.101.b
+		add_country_modifier = {
+			name = khuresh_one_jungle_blood_mod
+			duration = -1
+		}
+	}
+
+# Bind the jungle through masks, secrets, and veiled pacts.
+	option = {
+		ai_chance = { factor = 30 }
+		name = khuresh_events.101.c
+		add_country_modifier = {
+			name = khuresh_one_jungle_masks_mod
+			duration = -1
+		}
+	}
+}
+
+# The hidden grove has been marked, but the court must decide how openly to serve it.
+country_event = {
+	id = khuresh_events.102
+	title = khuresh_events.102.t
+	desc = khuresh_events.102.d
+	picture = SNAKEMEN_eventPicture
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		khuresh_capital_in_khuresh = yes
+		any_owned_province = {
+			has_province_modifier = khuresh_progenitor_root_sign
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Hide the grove behind false paths and death stories.
+	option = {
+		ai_chance = { factor = 35 }
+		name = khuresh_events.102.a
+		add_country_modifier = {
+			name = khuresh_grove_concealed_mod
+			duration = -1
+		}
+	}
+
+# Feed the grove until the roots answer.
+	option = {
+		ai_chance = { factor = 35 }
+		name = khuresh_events.102.b
+		add_country_modifier = {
+			name = khuresh_grove_fed_mod
+			duration = -1
+		}
+	}
+
+# Raise public stones so the realm knows where fear is anchored.
+	option = {
+		ai_chance = { factor = 30 }
+		name = khuresh_events.102.c
+		add_country_modifier = {
+			name = khuresh_grove_monumentalized_mod
+			duration = -1
+		}
+	}
+}
+
+# Skavenblight has been revealed as a wound in the world-root system.
+country_event = {
+	id = khuresh_events.103
+	title = khuresh_events.103.t
+	desc = khuresh_events.103.d
+	picture = SKAVEN_eventPicture
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		khuresh_capital_in_khuresh = yes
+		169 = {
+			OR = {
+				owned_by = ROOT
+				owned_by_subject_of = ROOT
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Burn the rot out with war and flame.
+	option = {
+		ai_chance = { factor = 35 }
+		name = khuresh_events.103.a
+		add_country_modifier = {
+			name = khuresh_root_wound_burn_mod
+			duration = -1
+		}
+	}
+
+# Bind the wound beneath root-law.
+	option = {
+		ai_chance = { factor = 35 }
+		name = khuresh_events.103.b
+		add_country_modifier = {
+			name = khuresh_root_wound_bind_mod
+			duration = -1
+		}
+	}
+
+# Tap the poison carefully and learn from it.
+	option = {
+		ai_chance = { factor = 30 }
+		name = khuresh_events.103.c
+		add_country_modifier = {
+			name = khuresh_root_wound_tap_mod
+			duration = -1
+		}
+	}
+}
+
+# The Oak of Ages has been cored, proving the Progenitor Tree has a living twin across the world.
+country_event = {
+	id = khuresh_events.104
+	title = khuresh_events.104.t
+	desc = khuresh_events.104.d
+	picture = WOODELF_eventPicture
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		khuresh_capital_in_khuresh = yes
+		662 = { owned_by = ROOT }
+		owns_core_province = 662
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+# Let the roots drink from conquered law.
+	option = {
+		ai_chance = { factor = 34 }
+		name = khuresh_events.104.a
+		add_adm_power = 50
+	}
+
+# Graft the twin canopies through oath and envoy.
+	option = {
+		ai_chance = { factor = 33 }
+		name = khuresh_events.104.b
+		add_dip_power = 50
+	}
+
+# Guard the twin roots with terror.
+	option = {
+		ai_chance = { factor = 33 }
+		name = khuresh_events.104.c
+		add_mil_power = 50
+	}
+}

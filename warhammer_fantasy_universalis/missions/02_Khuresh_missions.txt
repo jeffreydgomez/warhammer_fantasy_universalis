@@ -1,0 +1,1314 @@
+##################################
+##### KHURESH
+##################################
+
+khuresh_missions_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		khuresh_capital_in_khuresh = yes
+	}
+
+	# Ind's western jungles are rich and crowded. The trails must be mapped before they can be bled.
+	khuresh_map_indish_game_trails = {
+		icon = mission_ind_jungle
+		position = 2
+		required_missions = { khuresh_call_canopy_courts }
+		trigger = {
+			any_country = {
+				capital_scope = { superregion = ind_superregion }
+				has_spy_network_from = {
+					who = ROOT
+					value = 25
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_ind_game_trails_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Custom tolls, shrine knives, and jungle threats must become one counted predation.
+	khuresh_jungle_toll_knives = {
+		icon = mission_ind_spices
+		position = 3
+		required_missions = { khuresh_map_indish_game_trails }
+		trigger = {
+			home_trade_node = {
+				trade_share = {
+					country = ROOT
+					share = 25
+				}
+			}
+			treasury = 200
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_jungle_toll_knives_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The situation is that roads vanish into private threat, so we must make the venom roads answer public weights.
+	khuresh_venom_roads_counted = {
+		icon = mission_ind_spices
+		position = 5
+		required_missions = { khuresh_jungle_toll_knives }
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					region = north_khuresh_region
+					region = south_khuresh_region
+				}
+				OR = {
+					has_building = marketplace
+					has_building = trade_depot
+					has_building = stock_exchange
+				}
+				value = 4
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_venom_roads_counted_mod
+				duration = -1
+			}
+		}
+	}
+
+	# North Khuresh is too many hungers under one canopy. The first coil must close there.
+	khuresh_unite_north_canopy = {
+		icon = mission_lizardmen_jungle
+		position = 8
+		required_missions = { khuresh_venom_roads_counted khuresh_one_jungle_many_hungers }
+		provinces_to_highlight = {
+			region = north_khuresh_region
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				region = north_khuresh_region
+				value = 15
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_unite_north_canopy_mod
+				duration = -1
+			}
+		}
+	}
+
+	# South Khuresh is broken by swamps, warrens, and predator courts, so we must close the second coil.
+	khuresh_unite_south_canopy = {
+		icon = mission_lizardmen_jungle
+		position = 9
+		required_missions = { khuresh_unite_north_canopy }
+		provinces_to_highlight = {
+			region = south_khuresh_region
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				region = south_khuresh_region
+				value = 12
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_unite_south_canopy_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The western temples still think the jungle is a border, so we must teach Ind that borders can bite.
+	khuresh_indish_border_broken = {
+		icon = mission_ind_jungle_ruins
+		position = 11
+		required_missions = { khuresh_khuresh_coils_complete }
+		trigger = {
+			army_size = 40
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				superregion = ind_superregion
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_indish_border_broken_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Ind's wealth must stop moving as if the west owns the monsoon, so we must make its cities pay under green shadow.
+	khuresh_ind_bows_to_green = {
+		icon = mission_ind_temple
+		position = 13
+		required_missions = { khuresh_indish_border_broken }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				superregion = ind_superregion
+				value = 15
+			}
+			prestige = 50
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_ind_bows_green_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The situation is that temple blood, spice roads, and river cities still resist us, so we must turn them into tribute.
+	khuresh_indish_heart_blood_compact = {
+		icon = mission_ind_domes
+		position = 17
+		required_missions = { khuresh_ind_bows_to_green }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				superregion = ind_superregion
+				value = 30
+			}
+			monthly_income = 75
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_indish_heart_blood_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Ind, Cathay, and Nippon have all felt the root-shadow. The three frontiers must now coil inward.
+	khuresh_three_frontiers_coil_inward = {
+		icon = mission_lizardmen_old_ones_relics
+		position = 19
+		required_missions = { khuresh_indish_heart_blood_compact khuresh_feral_law_world_before }
+		trigger = {
+			is_great_power = yes
+			num_of_cities = 75
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_three_frontiers_mod
+				duration = -1
+			}
+		}
+	}
+}
+
+khuresh_missions_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		khuresh_capital_in_khuresh = yes
+	}
+
+	# Khuresh is not a court but a hunting ground of courts, so we must make the canopy answer one summons.
+	khuresh_call_canopy_courts = {
+		icon = mission_lizardmen_jungle
+		position = 1
+		required_missions = { }
+		trigger = {
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 60
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_canopy_courts_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Rival chiefs still mistake ceremony for independence, so their heirs must sleep beneath our vines.
+	khuresh_hostages_under_vines = {
+		icon = mission_empire_culture
+		position = 2
+		required_missions = { khuresh_call_canopy_courts }
+		trigger = {
+			legitimacy_equivalent = 75
+			crown_land_share = 40
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_hostages_vines_mod
+				duration = -1
+			}
+		}
+	}
+
+	# A realm of predators must still muster on command, so the blood-tithe must count warriors as well as tribute.
+	khuresh_blood_tithe_muster = {
+		icon = mission_beastfolk_fighter
+		position = 3
+		required_missions = { khuresh_hostages_under_vines }
+		trigger = {
+			army_size_percentage = 0.75
+			manpower = 5.0
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_blood_tithe_muster_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The interior is too wild for roads without teeth, so we must raise thorn-forts where the tracks cross.
+	khuresh_thorn_forts_interior = {
+		icon = mission_greenskins_fort
+		position = 5
+		required_missions = { khuresh_blood_tithe_muster }
+		provinces_to_highlight = {
+			OR = {
+				region = north_khuresh_region
+				region = south_khuresh_region
+			}
+			owned_by = ROOT
+			NOT = { fort_level = 2 }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					region = north_khuresh_region
+					region = south_khuresh_region
+				}
+				fort_level = 2
+				value = 2
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_thorn_forts_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The rival courts will not become peaceful, so we must turn their feuds into a feast we host.
+	khuresh_feast_rival_courts = {
+		icon = mission_ind_ruler
+		position = 6
+		required_missions = { khuresh_thorn_forts_interior khuresh_mark_hidden_grove }
+		trigger = {
+			stability = 1
+			treasury = 500
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_feast_rival_courts_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The situation is that every race of Khuresh hungers differently, so unity must be built from fear, bargain, and rite.
+	khuresh_one_jungle_many_hungers = {
+		icon = mission_lizardmen_jungle
+		position = 7
+		required_missions = { khuresh_feast_rival_courts khuresh_raise_root_shrine }
+		trigger = {
+			stability = 2
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				OR = {
+					region = north_khuresh_region
+					region = south_khuresh_region
+				}
+				value = 25
+			}
+		}
+		effect = {
+			country_event = { id = khuresh_events.101 }
+		}
+	}
+
+	# The coils have closed around jungle, coast, and hidden court. Khuresh must become more than a rumor.
+	khuresh_khuresh_coils_complete = {
+		icon = mission_lizardmen_jungle
+		position = 10
+		required_missions = { khuresh_unite_south_canopy khuresh_one_jungle_many_hungers }
+		trigger = {
+			OR = {
+				is_or_was_tag = { tag = Z94 }
+				num_of_provinces_owned_or_owned_by_subjects_with = {
+					OR = {
+						region = north_khuresh_region
+						region = south_khuresh_region
+					}
+					value = 35
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_coils_complete_mod
+				duration = -1
+			}
+			north_khuresh_region = {
+				limit = {
+					is_wasteland = no
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			south_khuresh_region = {
+				limit = {
+					is_wasteland = no
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	# The grove's sap must not remain a miracle without storehouses, channels, and appointed keepers.
+	khuresh_root_sap_reservoirs = {
+		icon = mission_treebase
+		position = 11
+		required_missions = { khuresh_khuresh_coils_complete khuresh_name_progenitor_tree }
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					region = north_khuresh_region
+					region = south_khuresh_region
+				}
+				OR = {
+					has_building = workshop
+					has_building = counting_house
+					has_building = mills
+					has_building = farm_estate
+					has_building = plantations
+				}
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_root_sap_reservoirs_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The under-roads are full of vermin, smugglers, and roots. We must seal what cannot be ruled.
+	khuresh_underroot_warrens_sealed = {
+		icon = mission_skaven_conquest
+		position = 15
+		required_missions = { khuresh_root_sap_reservoirs khuresh_world_root_cartographers }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				region = underempire_region
+				value = 8
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_underroot_warrens_mod
+				duration = -1
+			}
+			skavenblight_region = {
+				limit = {
+					is_wasteland = no
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	# The world-before was never gentle. Our law must be just as old, feral, and difficult to uproot.
+	khuresh_feral_law_world_before = {
+		icon = mission_druid_conquest
+		position = 18
+		required_missions = { khuresh_underroot_warrens_sealed }
+		trigger = {
+			stability = 3
+			num_of_cities = 60
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_feral_law_mod
+				duration = -1
+			}
+		}
+	}
+}
+
+khuresh_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		khuresh_capital_in_khuresh = yes
+	}
+
+	# The jungle speaks below speech. We must hear the first root-whisper before lesser gods drown it out.
+	khuresh_first_root_whisper = {
+		icon = mission_druid_tree
+		position = 1
+		required_missions = { }
+		trigger = {
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 60
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_first_root_whisper_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Dreams rise through bark, fang, and fever, so we must teach the court which visions are older than deceit.
+	khuresh_root_dream_interpreters = {
+		icon = mission_druid_ritual
+		position = 2
+		required_missions = { khuresh_first_root_whisper }
+		trigger = {
+			prestige = 25
+			employed_advisor = { category = ADM }
+			employed_advisor = { category = DIP }
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_root_dream_interpreters_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The signs are older than Old One plaques, so our scholars must stop mistaking younger ruins for the source.
+	khuresh_older_than_plaques = {
+		icon = mission_lizardmen_old_ones_relics
+		position = 4
+		required_missions = { khuresh_root_dream_interpreters }
+		trigger = {
+			OR = {
+				innovativeness = 5
+				has_country_modifier = war_modern_science
+			}
+			num_of_owned_provinces_with = {
+				OR = {
+					region = north_khuresh_region
+					region = south_khuresh_region
+				}
+				OR = {
+					has_building = temple
+					has_building = cathedral
+					has_building = university
+				}
+				value = 3
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_older_than_plaques_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Progenitor cannot be found by map alone. We must mark the grove where root-memory first breaks the soil.
+	khuresh_mark_hidden_grove = {
+		icon = mission_druid_tree
+		position = 5
+		required_missions = { khuresh_older_than_plaques }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			OR = {
+				region = north_khuresh_region
+				region = south_khuresh_region
+			}
+			is_prosperous = no
+		}
+		trigger = {
+			if = {
+				limit = { has_dlc = "Mandate of Heaven" }
+				OR = {
+					all_owned_province = {
+						OR = {
+							NOT = {
+								OR = {
+									region = north_khuresh_region
+									region = south_khuresh_region
+								}
+							}
+							is_prosperous = yes
+						}
+					}
+					num_of_owned_provinces_with = {
+						OR = {
+							region = north_khuresh_region
+							region = south_khuresh_region
+						}
+						is_prosperous = yes
+						value = 12
+					}
+				}
+			}
+			else = {
+				OR = {
+					all_owned_province = {
+						OR = {
+							NOT = {
+								OR = {
+									region = north_khuresh_region
+									region = south_khuresh_region
+								}
+							}
+							AND = {
+								NOT = { devastation = 1 }
+								development = 4
+							}
+						}
+					}
+					num_of_owned_provinces_with = {
+						OR = {
+							region = north_khuresh_region
+							region = south_khuresh_region
+						}
+						NOT = { devastation = 1 }
+						development = 4
+						value = 12
+					}
+				}
+			}
+		}
+		effect = {
+			random_owned_province = {
+				limit = {
+					OR = {
+						region = north_khuresh_region
+						region = south_khuresh_region
+					}
+					NOT = { has_province_modifier = khuresh_progenitor_root_sign }
+				}
+				add_permanent_province_modifier = {
+					name = khuresh_progenitor_root_sign
+					duration = -1
+				}
+				save_event_target_as = khuresh_progenitor_grove
+			}
+			country_event = { id = khuresh_events.102 }
+		}
+	}
+
+	# The grove is only a wound in the earth until altars, guardians, and offerings make it answer.
+	khuresh_raise_root_shrine = {
+		icon = mission_druid_stones
+		position = 6
+		required_missions = { khuresh_mark_hidden_grove }
+		provinces_to_highlight = {
+			has_province_modifier = khuresh_progenitor_root_sign
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_province_modifier = khuresh_progenitor_root_sign
+				development = 25
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+				value = 1
+			}
+		}
+		effect = {
+			random_owned_province = {
+				limit = {
+					has_province_modifier = khuresh_progenitor_root_sign
+				}
+				add_permanent_province_modifier = {
+					name = khuresh_root_shrine_site
+					duration = -1
+				}
+			}
+			add_country_modifier = {
+				name = khuresh_root_shrine_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The oldest soil does not wake for nothing. We must feed it power, blood, and patient terror.
+	khuresh_feed_oldest_soil = {
+		icon = mission_druid_ritual
+		position = 8
+		required_missions = { khuresh_raise_root_shrine }
+		trigger = {
+			adm_power = 150
+			dip_power = 150
+			mil_power = 150
+			manpower = 10.0
+		}
+		effect = {
+			add_adm_power = -150
+			add_dip_power = -150
+			add_mil_power = -150
+			add_manpower = -2.0
+			add_country_modifier = {
+				name = khuresh_oldest_soil_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The living rings remember ages before the stars were ordered. We must learn to read growth as history.
+	khuresh_read_living_rings = {
+		icon = mission_druid_tree
+		position = 9
+		required_missions = { khuresh_feed_oldest_soil }
+		trigger = {
+			OR = {
+				innovativeness = 15
+				has_country_modifier = war_modern_science
+			}
+			num_of_owned_provinces_with = {
+				has_province_modifier = khuresh_root_shrine_site
+				development = 30
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_living_rings_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The situation is that every omen has a younger name, so we must name the Progenitor Tree itself.
+	khuresh_name_progenitor_tree = {
+		icon = mission_treecenter
+		position = 10
+		required_missions = { khuresh_read_living_rings }
+		trigger = {
+			prestige = 50
+			num_of_owned_provinces_with = {
+				has_province_modifier = khuresh_root_shrine_site
+				development = 35
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_name_progenitor_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Stone altars must translate root-hunger into rites that every subject can fear.
+	khuresh_grove_stone_altars = {
+		icon = mission_druid_stones
+		position = 12
+		required_missions = { khuresh_root_sap_reservoirs }
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					region = north_khuresh_region
+					region = south_khuresh_region
+				}
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+				value = 8
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_grove_stone_altars_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The roots do not end in Khuresh. We must chart their impossible paths under sea, mountain, and empire.
+	khuresh_world_root_cartographers = {
+		icon = mission_druid_moon
+		position = 14
+		required_missions = { khuresh_grove_stone_altars }
+		trigger = {
+			num_of_continents = 3
+			dip_tech = 10
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_world_root_cartographers_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The western dreams speak of a twin beyond the world-root rot. We must prepare to follow them.
+	khuresh_twin_across_world = {
+		icon = mission_treeleft
+		position = 15
+		required_missions = { khuresh_world_root_cartographers }
+		trigger = {
+			prestige = 75
+			num_of_continents = 3
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_twin_world_mod
+				duration = -1
+			}
+			athel_loren_region = {
+				limit = {
+					is_wasteland = no
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	# A seed of the first canopy can only be taken from a grove made terrible enough to survive it.
+	khuresh_seed_first_canopy = {
+		icon = mission_treetop
+		position = 16
+		required_missions = { khuresh_twin_across_world }
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_province_modifier = khuresh_root_shrine_site
+				development = 50
+				OR = {
+					has_building = temple
+					has_building = cathedral
+					has_building = university
+				}
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_seed_first_canopy_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The root-system is real, but it is gnawed. We must trace the bite-marks under the world.
+	khuresh_gnawed_underroot = {
+		icon = mission_skaven_face
+		position = 18
+		required_missions = { khuresh_seed_first_canopy }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				superregion = skavenblight_superregion
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_gnawed_underroot_mod
+				duration = -1
+			}
+			skavenblight_region = {
+				limit = {
+					is_wasteland = no
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	# Skavenblight is not merely a city. It is the wound where vermin teeth found ancient root-flesh.
+	khuresh_skavenblight_root_wound = {
+		icon = mission_skaven_warpstone
+		position = 19
+		required_missions = { khuresh_gnawed_underroot khuresh_follow_vermin_tunnels }
+		provinces_to_highlight = {
+			province_id = 169
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+		}
+		trigger = {
+			169 = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+		}
+		effect = {
+			country_event = { id = khuresh_events.103 }
+		}
+	}
+
+	# Ultimate: the Progenitor's twin stands in Athel Loren. We must core the Oak of Ages and bind both sides of the first root.
+	khuresh_core_oak_of_ages = {
+		icon = mission_treecenter
+		position = 20
+		required_missions = { khuresh_skavenblight_root_wound khuresh_burn_rat_nest_below }
+		provinces_to_highlight = {
+			province_id = 662
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		trigger = {
+			662 = { owned_by = ROOT }
+			owns_core_province = 662
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_oak_ages_ultimate_mod
+				duration = -1
+			}
+			country_event = { id = khuresh_events.104 }
+		}
+	}
+}
+
+khuresh_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		khuresh_capital_in_khuresh = yes
+	}
+
+	# Cathay's road is watched by officials who think paper can restrain the jungle. We must watch them first.
+	khuresh_watch_jade_road = {
+		icon = mission_cathay_sentinel
+		position = 2
+		required_missions = { khuresh_first_root_whisper }
+		trigger = {
+			any_country = {
+				capital_scope = { superregion = cathay_superregion }
+				has_spy_network_from = {
+					who = ROOT
+					value = 25
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_watch_jade_road_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Jade envoys must learn that ceremony wrapped around predation is still predation.
+	khuresh_jade_envoys_fear = {
+		icon = mission_cathay_flag
+		position = 4
+		required_missions = { khuresh_watch_jade_road }
+		trigger = {
+			diplomatic_reputation = 1
+			prestige = 25
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_jade_envoys_fear_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The southern Cathayan scarps are road, wall, and warning. We must find the paths protocol hides.
+	khuresh_probe_cathays_scarps = {
+		icon = mission_cathayan_outpost
+		position = 8
+		required_missions = { khuresh_jade_envoys_fear }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				superregion = cathay_superregion
+				value = 3
+			}
+			army_size_percentage = 0.9
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_probe_cathay_scarps_mod
+				duration = -1
+			}
+			southern_provinces_region = {
+				limit = {
+					is_wasteland = no
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	# Cathay's southern wards are strong because they are predictable. We must make them defend against fear.
+	khuresh_cathays_southern_wards = {
+		icon = mission_cathay_sentinel
+		position = 11
+		required_missions = { khuresh_probe_cathays_scarps }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				superregion = cathay_superregion
+				value = 5
+			}
+			num_of_owned_provinces_with = {
+				superregion = cathay_superregion
+				fort_level = 2
+				value = 2
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_cathay_wards_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Dragon ministers smile behind jade seals, so we must unmask which officials sell fear back to their own court.
+	khuresh_dragon_ministers_unmasked = {
+		icon = mission_cathay_dragon_blooded
+		position = 13
+		required_missions = { khuresh_cathays_southern_wards }
+		trigger = {
+			calc_true_if = {
+				all_country = {
+					capital_scope = { superregion = cathay_superregion }
+					has_spy_network_from = {
+						who = ROOT
+						value = 50
+					}
+				}
+				amount = 2
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_dragon_ministers_unmasked_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Cathay must know that dragon-courts can be humbled by something older than ordered heaven.
+	khuresh_dragon_court_humbled = {
+		icon = mission_cathay_city
+		position = 15
+		required_missions = { khuresh_dragon_ministers_unmasked }
+		trigger = {
+			prestige = 75
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				superregion = cathay_superregion
+				value = 15
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_dragon_court_humbled_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The root-wounds lead beneath the world into vermin tunnels. We must follow the paths they thought secret.
+	khuresh_follow_vermin_tunnels = {
+		icon = mission_skaven_conquest
+		position = 18
+		required_missions = { khuresh_dragon_court_humbled }
+		trigger = {
+			OR = {
+				num_of_provinces_owned_or_owned_by_subjects_with = {
+					region = skavenblight_region
+					value = 3
+				}
+				num_of_provinces_owned_or_owned_by_subjects_with = {
+					region = underempire_region
+					value = 15
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_follow_vermin_tunnels_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The rat-nest below has poisoned the root system long enough. We must burn, bind, or break it.
+	khuresh_burn_rat_nest_below = {
+		icon = mission_skaven_doomsphere
+		position = 19
+		required_missions = { khuresh_follow_vermin_tunnels }
+		provinces_to_highlight = {
+			region = skavenblight_region
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+		}
+		trigger = {
+			skavenblight_region = {
+				type = all
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+			owns_core_province = 169
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_burn_rat_nest_mod
+				duration = -1
+			}
+			athel_loren_region = {
+				limit = {
+					is_wasteland = no
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+}
+
+khuresh_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		khuresh_capital_in_khuresh = yes
+	}
+
+	# The mangroves hide water-roads no foreign admiral can read, so we must wake the first keels.
+	khuresh_wake_mangrove_keels = {
+		icon = mission_druid_ship
+		position = 1
+		required_missions = { }
+		trigger = {
+			navy_size_percentage = 0.5
+			num_of_owned_provinces_with = {
+				OR = {
+					region = north_khuresh_region
+					region = south_khuresh_region
+				}
+				has_port = yes
+				value = 2
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_mangrove_keels_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Weird Waves punish straight-line sailors. We must license pilots who steer by fear and reef-memory.
+	khuresh_reef_pilots_weird_waves = {
+		icon = mission_ind_ship
+		position = 3
+		required_missions = { khuresh_wake_mangrove_keels }
+		trigger = {
+			navy_size = 12
+			num_of_light_ship = 3
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_reef_pilots_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Nocthyrion's black wake touches Khuresh's coast, so we must make its old curse useful.
+	khuresh_nocthyrions_black_wake = {
+		icon = mission_vampire_ritual
+		position = 5
+		required_missions = { khuresh_reef_pilots_weird_waves }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				region = elithis_region
+				value = 3
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_nocthyrion_wake_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Foreign captains think the eastern coast is merely dangerous. We must make terror contractual.
+	khuresh_sea_terror_oaths = {
+		icon = mission_ind_ship
+		position = 7
+		required_missions = { khuresh_nocthyrions_black_wake }
+		trigger = {
+			navy_size = 20
+			navy_tradition = 20
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_sea_terror_oaths_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The eastern tide carries Nipponese rumor and island smoke. We must map both.
+	khuresh_eastern_tide_maps = {
+		icon = mission_druid_ship
+		position = 10
+		required_missions = { khuresh_sea_terror_oaths }
+		trigger = {
+			navy_tradition = 25
+			num_of_owned_provinces_with = {
+				OR = {
+					region = north_khuresh_region
+					region = south_khuresh_region
+				}
+				has_port = yes
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_eastern_tide_maps_mod
+				duration = -1
+			}
+			nippon_region = {
+				limit = {
+					is_wasteland = no
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	# Nippon's shore is disciplined, haunted, and fractured. Our wake-raiders must find the cracks.
+	khuresh_wake_raiders_nippon = {
+		icon = mission_japanese_gate
+		position = 11
+		required_missions = { khuresh_eastern_tide_maps }
+		trigger = {
+			OR = {
+				num_ships_privateering = 15
+				navy_size = 30
+			}
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				region = nippon_region
+				value = 3
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_wake_raiders_nippon_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Black sails must cross the eastern sea often enough that Nippon's castles learn to watch the horizon.
+	khuresh_black_sails_eastern_sea = {
+		icon = mission_ind_ship
+		position = 13
+		required_missions = { khuresh_wake_raiders_nippon }
+		trigger = {
+			navy_size = 50
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				region = nippon_region
+				value = 6
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_black_sails_eastern_mod
+				duration = -1
+			}
+		}
+	}
+
+	# The Shogun's shore must live in dread of masks, raiders, and treaties that arrive like knives.
+	khuresh_shoguns_shore_in_dread = {
+		icon = mission_japanese_gate
+		position = 16
+		required_missions = { khuresh_black_sails_eastern_sea }
+		trigger = {
+			prestige = 75
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				region = nippon_region
+				value = 10
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_shogun_shore_dread_mod
+				duration = -1
+			}
+		}
+	}
+
+	# Nippon's haunted ports must become eastern mouths for Khuresh's root-shadow.
+	khuresh_nippons_haunted_ports = {
+		icon = mission_japanese_gate
+		position = 18
+		required_missions = { khuresh_shoguns_shore_in_dread }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				region = nippon_region
+				value = 20
+			}
+			navy_size = 80
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_nippon_haunted_ports_mod
+				duration = -1
+			}
+		}
+	}
+}

@@ -16924,3 +16924,34 @@ country_event = {
 		add_mercantilism = 1
 	}
 }
+
+### Drechmarazacht Intro Event
+# Drechmarazacht must turn Buglas death-mists, mangrove graves, and Nagashite rites into a Fimir beachhead.
+country_event = {
+	id = war_unique_intro_events.554
+	title = war_unique_intro_events.554.t
+	desc = war_unique_intro_events.554.d
+	picture = FIMIR_eventPicture
+	# Event Weighing Value: +5
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = X07
+		NOT = { has_country_flag = did_intro_event }
+	}
+
+	immediate = { set_country_flag = did_intro_event }
+
+# Raise the corpse-mist.
+	option = {
+		ai_chance = { factor = 100 }
+		name = war_unique_intro_events.554.a
+		# Weighing Value: +5
+
+		add_stability_or_adm_power = yes
+		add_mil_power = 50
+		add_yearly_manpower = 1
+	}
+}
