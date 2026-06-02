@@ -8,6 +8,9 @@ khuresh_missions_1 = {
 	has_country_shield = no
 	ai = yes
 	potential = {
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
 		khuresh_capital_in_khuresh = yes
 	}
 
@@ -190,22 +193,6 @@ khuresh_missions_1 = {
 		}
 	}
 
-	# Ind, Cathay, and Nippon have all felt the root-shadow. The three frontiers must now coil inward.
-	khuresh_three_frontiers_coil_inward = {
-		icon = mission_lizardmen_old_ones_relics
-		position = 16
-		required_missions = { khuresh_indish_heart_blood_compact khuresh_feral_law_world_before }
-		trigger = {
-			is_great_power = yes
-			num_of_cities = 125
-		}
-		effect = {
-			add_country_modifier = {
-				name = khuresh_three_frontiers_mod
-				duration = -1
-			}
-		}
-	}
 }
 
 khuresh_missions_2 = {
@@ -214,6 +201,9 @@ khuresh_missions_2 = {
 	has_country_shield = no
 	ai = yes
 	potential = {
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
 		khuresh_capital_in_khuresh = yes
 	}
 
@@ -418,7 +408,7 @@ khuresh_missions_2 = {
 	khuresh_underroot_warrens_sealed = {
 		icon = mission_skaven_conquest
 		position = 13
-		required_missions = { khuresh_root_sap_reservoirs khuresh_world_root_cartographers }
+		required_missions = { khuresh_root_sap_reservoirs khuresh_grove_stone_altars }
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				region = underempire_region
@@ -440,22 +430,33 @@ khuresh_missions_2 = {
 		}
 	}
 
-	# The world-before was never gentle. Our law must be just as old, feral, and difficult to uproot.
-	khuresh_feral_law_world_before = {
-		icon = mission_druid_conquest
-		position = 15
+	# Skavenblight is not merely a city. It is the wound where vermin teeth found ancient root-flesh.
+	khuresh_skavenblight_root_wound = {
+		icon = mission_skaven_warpstone
+		position = 14
 		required_missions = { khuresh_underroot_warrens_sealed }
-		trigger = {
-			stability = 3
-			num_of_cities = 60
-		}
-		effect = {
-			add_country_modifier = {
-				name = khuresh_feral_law_mod
-				duration = -1
+		provinces_to_highlight = {
+			province_id = 169
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
 			}
 		}
+		trigger = {
+			169 = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+				}
+			}
+		}
+		effect = {
+			country_event = { id = khuresh_events.103 }
+		}
 	}
+
 }
 
 khuresh_missions_3 = {
@@ -464,6 +465,9 @@ khuresh_missions_3 = {
 	has_country_shield = no
 	ai = yes
 	potential = {
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
 		khuresh_capital_in_khuresh = yes
 	}
 
@@ -714,11 +718,11 @@ khuresh_missions_3 = {
 	khuresh_seed_first_canopy = {
 		icon = mission_treetop
 		position = 11
-		required_missions = { khuresh_world_root_cartographers }
+		required_missions = { khuresh_name_progenitor_tree }
 		trigger = {
 			num_of_owned_provinces_with = {
 				has_province_modifier = khuresh_root_shrine_site
-				development = 35
+				development = 30
 				OR = {
 					has_building = temple
 					has_building = cathedral
@@ -787,7 +791,7 @@ khuresh_missions_3 = {
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				superregion = skavenblight_superregion
-				value = 10
+				value = 15
 			}
 		}
 		effect = {
@@ -805,32 +809,25 @@ khuresh_missions_3 = {
 		}
 	}
 
-	# Skavenblight is not merely a city. It is the wound where vermin teeth found ancient root-flesh.
-	khuresh_skavenblight_root_wound = {
-		icon = mission_skaven_warpstone
+
+	# Ind, Cathay, and Nippon have all felt the root-shadow. The three frontiers must now coil inward.
+	khuresh_three_frontiers_coil_inward = {
+		icon = mission_lizardmen_old_ones_relics
 		position = 15
-		required_missions = { khuresh_gnawed_underroot khuresh_follow_vermin_tunnels }
-		provinces_to_highlight = {
-			province_id = 169
-			NOT = {
-				OR = {
-					owned_by = ROOT
-					owned_by_subject_of = ROOT
-				}
-			}
-		}
+		required_missions = { khuresh_indish_heart_blood_compact khuresh_gnawed_underroot khuresh_dragon_court_humbled khuresh_shoguns_shore_in_dread }
 		trigger = {
-			169 = {
-				OR = {
-					owned_by = ROOT
-					owned_by_subject_of = ROOT
-				}
-			}
+			is_great_power = yes
+			num_of_cities = 125
 		}
 		effect = {
-			country_event = { id = khuresh_events.103 }
+			add_country_modifier = {
+				name = khuresh_three_frontiers_mod
+				duration = -1
+			}
 		}
 	}
+
+
 
 	# The western dreams speak of a twin beyond the world-root rot. We must prepare to follow them.
 	khuresh_twin_across_world = {
@@ -889,6 +886,9 @@ khuresh_missions_4 = {
 	has_country_shield = no
 	ai = yes
 	potential = {
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
 		khuresh_capital_in_khuresh = yes
 	}
 
@@ -1036,6 +1036,9 @@ khuresh_missions_5 = {
 	has_country_shield = no
 	ai = yes
 	potential = {
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
 		khuresh_capital_in_khuresh = yes
 	}
 
@@ -1205,7 +1208,7 @@ khuresh_missions_5 = {
 	# Nippon's haunted ports must become eastern mouths for Khuresh's root-shadow.
 	khuresh_nippons_haunted_ports = {
 		icon = mission_japanese_gate
-		position = 16
+		position = 15
 		required_missions = { khuresh_shoguns_shore_in_dread }
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
