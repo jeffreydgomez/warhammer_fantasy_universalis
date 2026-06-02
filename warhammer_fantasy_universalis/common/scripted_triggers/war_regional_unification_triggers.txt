@@ -9,6 +9,19 @@ war_regional_unification_decision_base = {
 	NOT = { is_year = 2503 }
 }
 
+war_regional_unification_indish_subcontinent_target = {
+	ai = yes
+	culture_group = indish_cg
+	NOT = { tag = Z52 }
+	capital_scope = {
+		OR = {
+			region = western_ind_region
+			region = eastern_ind_region
+			region = ind_end_region
+		}
+	}
+}
+
 war_regional_unification_imperial_available = {
 	exists = A01
 	A01 = {
@@ -37,7 +50,14 @@ war_regional_unification_bretonnian_available = {
 war_regional_unification_tilean_available = {
 	exists = A50
 	A50 = {
-		any_neighbor_country = { ai = yes culture_group = tilean_group }
+		OR = {
+			any_neighbor_country = {
+				ai = yes
+				culture_group = tilean_group
+				NOT = { tag = A55 }
+			}
+			AND = { exists = A55 A55 = { ai = yes } }
+		}
 	}
 }
 
@@ -83,7 +103,7 @@ war_regional_unification_cathayan_available = {
 war_regional_unification_indish_available = {
 	exists = Z52
 	Z52 = {
-		any_neighbor_country = { ai = yes culture_group = indish_cg }
+		any_country = { war_regional_unification_indish_subcontinent_target = yes }
 	}
 }
 
@@ -126,7 +146,10 @@ war_regional_unification_asur_available = {
 war_regional_unification_druchii_available = {
 	exists = H12
 	H12 = {
-		any_neighbor_country = { ai = yes culture_group = druchii_group }
+		OR = {
+			any_neighbor_country = { ai = yes culture_group = druchii_group }
+			AND = { exists = H14 H14 = { ai = yes } }
+		}
 	}
 }
 
@@ -141,7 +164,17 @@ war_regional_unification_dwarf_available = {
 	exists = U04
 	U04 = {
 		OR = {
-			any_neighbor_country = { ai = yes culture_group = dwarf_group }
+			any_neighbor_country = {
+				ai = yes
+				culture_group = dwarf_group
+				NOT = { tag = U22 }
+				NOT = { tag = U36 }
+				NOT = { tag = B02 }
+				NOT = { tag = B03 }
+				NOT = { tag = B04 }
+				NOT = { tag = B05 }
+				NOT = { tag = U97 }
+			}
 			AND = { exists = G38 G38 = { ai = yes } }
 			AND = { exists = U09 U09 = { ai = yes } }
 			AND = { exists = U11 U11 = { ai = yes } }
@@ -151,6 +184,13 @@ war_regional_unification_dwarf_available = {
 			AND = { exists = G47 G47 = { ai = yes } }
 			AND = { exists = U10 U10 = { ai = yes } }
 			AND = { exists = U49 U49 = { ai = yes } }
+			AND = { exists = U22 U22 = { ai = yes } }
+			AND = { exists = U36 U36 = { ai = yes } }
+			AND = { exists = B02 B02 = { ai = yes } }
+			AND = { exists = B03 B03 = { ai = yes } }
+			AND = { exists = B04 B04 = { ai = yes } }
+			AND = { exists = B05 B05 = { ai = yes } }
+			AND = { exists = U97 U97 = { ai = yes } }
 		}
 	}
 }
@@ -181,6 +221,9 @@ war_regional_unification_lustrian_lizardmen_available = {
 				ai = yes
 				culture_group = lizardmen_group
 				NOT = { culture = dragon_isles_lizardmen }
+				NOT = { tag = V04 }
+				NOT = { tag = V16 }
+				NOT = { tag = V17 }
 			}
 			AND = {
 				exists = V06
@@ -206,6 +249,9 @@ war_regional_unification_lustrian_lizardmen_available = {
 					culture_group = lizardmen_group
 				}
 			}
+			AND = { exists = V04 V04 = { ai = yes } }
+			AND = { exists = V16 V16 = { ai = yes } }
+			AND = { exists = V17 V17 = { ai = yes } }
 		}
 	}
 }
