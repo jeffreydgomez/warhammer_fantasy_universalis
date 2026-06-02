@@ -1,0 +1,146 @@
+ouroboros_consume_the_rebels = {
+	sprite = "GFX_ouroboros_consume_the_rebels"
+	cost = 100
+
+	trigger = {
+		years_of_manpower = 0.5
+	}
+	effect = {
+		add_yearly_manpower = -0.5
+		add_stability = 1
+		add_war_exhaustion = -2
+	}
+
+	ai_will_do = {
+		factor = 5
+		modifier = {
+			factor = 5
+			NOT = { num_of_generals = 2 }
+		}
+	}
+}
+
+ouroboros_redistribute_the_wealth = {
+	sprite = "GFX_ouroboros_redistribute_the_wealth"
+	cost = 100
+
+	trigger = {
+		capital_scope = {
+			base_tax = 2
+			base_development = 2
+			base_manpower = 2
+		}
+		num_of_cities = 2
+	}
+	effect = {
+		capital_scope = {
+			add_base_tax = -1
+			add_base_production = -1
+			add_base_manpower = -1
+		}
+
+		random_owned_province = {
+			limit = { is_capital = no }
+			add_base_tax = 3
+		}
+		random_owned_province = {
+			limit = { is_capital = no }
+			add_base_production = 3
+		}
+		random_owned_province = {
+			limit = { is_capital = no }
+			add_base_manpower = 3
+		}
+	}
+
+	ai_will_do = {
+		factor = 5
+	}
+}
+
+ouroboros_seize_the_lands = {
+	sprite = "GFX_ouroboros_seize_the_lands"
+	cost = 100
+
+	effect = {
+
+		add_stability = -1
+		change_estate_land_share = {
+			estate = estate_burghers
+			share = -2.5
+		}
+		change_estate_land_share = {
+			estate = estate_nobles
+			share = -2.5
+		}
+		change_estate_land_share = {
+			estate = estate_church
+			share = -2.5
+		}
+		change_estate_land_share = {
+			estate = estate_mages
+			share = -2.5
+		}
+	}
+
+	ai_will_do = {
+		factor = 5
+		modifier = {
+			factor = 5
+			NOT = { years_of_income = 1 }
+		}
+		modifier = {
+			factor = 10
+			num_of_loans = 5
+		}
+	}
+}
+
+ouroboros_glory_to_the_king = {
+	sprite = "GFX_ouroboros_glory_to_the_king"
+	cost = 100
+
+	effect = {
+		add_adm_power = -15
+		add_dip_power = -15
+		add_mil_power = -15
+		random_list = {
+		    33 = {
+		        change_adm = 1
+		    }
+		    33 = {
+		        change_dip = 1
+		    }
+		    33 = {
+		        change_mil = 1
+		    }
+		}
+	}
+
+	ai_will_do = {
+		factor = 5
+		modifier = {
+			factor = 0
+			religious_unity = 1.0
+		}
+		modifier = {
+			factor = 10
+			NOT = { religious_unity = 0.5 }
+		}
+	}
+}
+
+
+ouroboros_rethink_the_ouroboros = {
+	sprite = "GFX_ouroboros_rethink_the_ouroboros"
+	cost = 100
+
+	trigger = { is_religion_reformed = no }
+	effect = {
+		add_authority = 50
+	}
+
+	ai_will_do = {
+		factor = 20
+	}
+}
