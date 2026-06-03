@@ -37,28 +37,6 @@ khuresh_missions_1 = {
 		}
 	}
 
-	# Ind's western jungles are rich and crowded. The trails must be mapped before they can be bled.
-	khuresh_map_indish_game_trails = {
-		icon = mission_ind_jungle
-		position = 5
-		required_missions = { khuresh_jungle_toll_knives }
-		trigger = {
-			any_country = {
-				capital_scope = { superregion = ind_superregion }
-				has_spy_network_from = {
-					who = ROOT
-					value = 50
-				}
-			}
-		}
-		effect = {
-			add_country_modifier = {
-				name = khuresh_ind_game_trails_mod
-				duration = -1
-			}
-		}
-	}
-
 	# Custom tolls, shrine knives, and jungle threats must become one counted predation.
 	khuresh_jungle_toll_knives = {
 		icon = mission_ind_spices
@@ -76,6 +54,29 @@ khuresh_missions_1 = {
 		effect = {
 			add_country_modifier = {
 				name = khuresh_jungle_toll_knives_mod
+				duration = -1
+			}
+		}
+	}
+
+
+	# Ind's western jungles are rich and crowded. The trails must be mapped before they can be bled.
+	khuresh_map_indish_game_trails = {
+		icon = mission_ind_jungle
+		position = 5
+		required_missions = { khuresh_jungle_toll_knives }
+		trigger = {
+			any_country = {
+				capital_scope = { superregion = ind_superregion }
+				has_spy_network_from = {
+					who = ROOT
+					value = 50
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = khuresh_ind_game_trails_mod
 				duration = -1
 			}
 		}
@@ -503,6 +504,7 @@ khuresh_missions_3 = {
 			prestige = 25
 			employed_advisor = { category = ADM }
 			employed_advisor = { category = DIP }
+			employed_advisor = { category = MIL }
 		}
 		effect = {
 			add_country_modifier = {
@@ -526,7 +528,6 @@ khuresh_missions_3 = {
 				OR = {
 					has_building = temple
 					has_building = cathedral
-					has_building = university
 				}
 				value = 3
 			}
@@ -554,13 +555,12 @@ khuresh_missions_3 = {
 			is_prosperous = no
 		}
 		trigger = {
-			num_of_owned_provinces_with = {
+			any_owned_province = {
 				OR = {
 					region = north_khuresh_region
 					region = south_khuresh_region
 				}
 				has_terrain = jungle
-				value = 1
 			}
 			if = {
 				limit = { has_dlc = "Mandate of Heaven" }
@@ -619,14 +619,13 @@ khuresh_missions_3 = {
 			has_province_modifier = khuresh_progenitor_root_sign
 		}
 		trigger = {
-			num_of_owned_provinces_with = {
+			any_owned_province = {
 				has_province_modifier = khuresh_progenitor_root_sign
 				development = 15
 				OR = {
 					has_building = temple
 					has_building = cathedral
 				}
-				value = 1
 			}
 		}
 		effect = {
@@ -652,16 +651,16 @@ khuresh_missions_3 = {
 		position = 8
 		required_missions = { khuresh_raise_root_shrine }
 		trigger = {
-			adm_power = 150
-			dip_power = 150
-			mil_power = 150
+			adm_power = 50
+			dip_power = 50
+			mil_power = 50
 			manpower = 10.0
 		}
 		effect = {
-			add_adm_power = -150
-			add_dip_power = -150
-			add_mil_power = -150
-			add_manpower = -2.0
+			add_adm_power = -50
+			add_dip_power = -50
+			add_mil_power = -50
+			add_manpower = -10.0
 			add_country_modifier = {
 				name = khuresh_oldest_soil_mod
 				duration = -1
@@ -679,10 +678,9 @@ khuresh_missions_3 = {
 				innovativeness = 15
 				has_country_modifier = war_modern_science
 			}
-			num_of_owned_provinces_with = {
+			any_owned_province = {
 				has_province_modifier = khuresh_root_shrine_site
 				development = 20
-				value = 1
 			}
 		}
 		effect = {
@@ -700,10 +698,9 @@ khuresh_missions_3 = {
 		required_missions = { khuresh_read_living_rings }
 		trigger = {
 			prestige = 50
-			num_of_owned_provinces_with = {
+			any_owned_province = {
 				has_province_modifier = khuresh_root_shrine_site
 				development = 25
-				value = 1
 			}
 		}
 		effect = {
@@ -720,7 +717,7 @@ khuresh_missions_3 = {
 		position = 11
 		required_missions = { khuresh_name_progenitor_tree }
 		trigger = {
-			num_of_owned_provinces_with = {
+			any_owned_province = {
 				has_province_modifier = khuresh_root_shrine_site
 				development = 30
 				OR = {
@@ -728,7 +725,6 @@ khuresh_missions_3 = {
 					has_building = cathedral
 					has_building = university
 				}
-				value = 1
 			}
 		}
 		effect = {
@@ -749,8 +745,10 @@ khuresh_missions_3 = {
 				OR = {
 					has_building = temple
 					has_building = cathedral
+					has_building = university
 				}
-				value = 8
+				num_of_times_expanded_infrastructure = 1
+				value = 5
 			}
 		}
 		effect = {
@@ -767,8 +765,8 @@ khuresh_missions_3 = {
 		position = 13
 		required_missions = { khuresh_grove_stone_altars }
 		trigger = {
-			num_of_continents = 3
-			dip_tech = 10
+			navy_size_percentage = 1.0
+			army_size_percentage = 1.0
 		}
 		effect = {
 			add_country_modifier = {
@@ -777,11 +775,6 @@ khuresh_missions_3 = {
 			}
 		}
 	}
-
-
-
-
-
 
 	# The root-system is real, but it is gnawed. We must trace the bite-marks under the world.
 	khuresh_gnawed_underroot = {
@@ -828,14 +821,12 @@ khuresh_missions_3 = {
 	}
 
 
-
 	# The western dreams speak of a twin beyond the world-root rot. We must prepare to follow them.
 	khuresh_twin_across_world = {
 		icon = mission_treeleft
 		position = 16
 		required_missions = { }
 		trigger = {
-			prestige = 75
 			num_of_continents = 3
 		}
 		effect = {
@@ -941,7 +932,7 @@ khuresh_missions_4 = {
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				superregion = cathay_superregion
-				value = 3
+				value = 5
 			}
 			army_size_percentage = 0.9
 		}
@@ -968,7 +959,7 @@ khuresh_missions_4 = {
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				superregion = cathay_superregion
-				value = 5
+				value = 15
 			}
 			num_of_owned_provinces_with = {
 				superregion = cathay_superregion
@@ -990,15 +981,9 @@ khuresh_missions_4 = {
 		position = 13
 		required_missions = { khuresh_cathays_southern_wards }
 		trigger = {
-			calc_true_if = {
-				all_country = {
-					capital_scope = { superregion = cathay_superregion }
-					has_spy_network_from = {
-						who = ROOT
-						value = 50
-					}
-				}
-				amount = 2
+			OR = {
+				army_professionalism = 0.25
+				has_country_modifier = war_modern_army
 			}
 		}
 		effect = {
@@ -1018,7 +1003,7 @@ khuresh_missions_4 = {
 			prestige = 75
 			num_of_provinces_owned_or_owned_by_subjects_with = {
 				superregion = cathay_superregion
-				value = 15
+				value = 30
 			}
 		}
 		effect = {
@@ -1104,8 +1089,8 @@ khuresh_missions_5 = {
 		position = 7
 		required_missions = { khuresh_nocthyrions_black_wake }
 		trigger = {
-			navy_size = 20
-			navy_tradition = 20
+			navy_size = 25
+			navy_tradition = 25
 		}
 		effect = {
 			add_country_modifier = {
@@ -1121,11 +1106,8 @@ khuresh_missions_5 = {
 		position = 10
 		required_missions = { khuresh_sea_terror_oaths }
 		trigger = {
-			navy_tradition = 25
-			num_of_owned_provinces_with = {
-				has_port = yes
-				value = 5
-			}
+			navy_tradition = 50
+			has_flagship = yes
 		}
 		effect = {
 			add_country_modifier = {
