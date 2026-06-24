@@ -1,0 +1,1634 @@
+##################################
+##### Asur Colonies Missions
+##################################
+
+asur_colonies_missions_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		primary_culture = colonial_asur
+	}
+
+## The colonies are too scattered to survive as jewels in separate crowns. We must secure the first fortress-ports of a wider sea order.
+	asur_colonies_first_fortress_ports = {
+		icon = mission_high_elf_docks
+		position = 2
+		provinces_to_highlight = {
+			has_port = yes
+			province_has_center_of_trade_of_level = 1
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 2
+				has_port = yes
+				province_has_center_of_trade_of_level = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = asur_colonies_fortress_ports_mod
+				duration = -1
+			}
+		}
+	}
+
+## Our ports are useful alone, but decisive together. We must turn scattered harbors into outer entrepots that answer one ledger.
+	asur_colonies_outer_entrepots = {
+		icon = mission_high_elf_docks_2
+		required_missions = { asur_colonies_first_fortress_ports }
+		position = 3
+		provinces_to_highlight = {
+			has_port = yes
+			province_has_center_of_trade_of_level = 1
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 5
+				has_port = yes
+				province_has_center_of_trade_of_level = 1
+			}
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_fortress_ports_mod
+			add_country_modifier = {
+				name = asur_colonies_outer_entrepots_mod
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## The sea-lanes are rich but lawless. We must charter the roads between our harbors before rivals make them private hunting grounds.
+	asur_colonies_chartered_sea_lanes = {
+		icon = mission_high_elf_old_world_map
+		required_missions = { asur_colonies_outer_entrepots }
+		position = 5
+		provinces_to_highlight = {
+			has_port = yes
+			OR = {
+				has_building = marketplace
+				has_building = trade_depot
+				has_building = stock_exchange
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 8
+				has_port = yes
+				OR = {
+					has_building = marketplace
+					has_building = trade_depot
+					has_building = stock_exchange
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_outer_entrepots_mod
+			add_country_modifier = {
+				name = asur_colonies_chartered_sea_lanes_mod
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## The situation is that every colony sees only its own horizon, so we must raise lantern harbors that carry orders, omens, and warning fires between them.
+	asur_colonies_lantern_harbors = {
+		icon = mission_high_elf_docks
+		required_missions = { asur_colonies_chartered_sea_lanes }
+		position = 6
+		provinces_to_highlight = {
+			has_port = yes
+			province_has_center_of_trade_of_level = 2
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 10
+				has_port = yes
+				province_has_center_of_trade_of_level = 1
+			}
+			num_of_owned_provinces_with = {
+				value = 3
+				has_port = yes
+				province_has_center_of_trade_of_level = 2
+			}
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_chartered_sea_lanes_mod
+			add_country_modifier = {
+				name = asur_colonies_lantern_harbors_mod
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## The outer oceans are no longer an edge of the map. We must make ports far enough apart that a ship can cross the world beneath Asur lamps.
+	asur_colonies_outer_ocean_ports = {
+		icon = mission_high_elf_southlands_map
+		required_missions = { asur_colonies_lantern_harbors }
+		position = 7
+		provinces_to_highlight = {
+			has_port = yes
+			province_has_center_of_trade_of_level = 1
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_continents = 3
+			num_of_owned_provinces_with = {
+				value = 16
+				has_port = yes
+			}
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_lantern_harbors_mod
+			add_country_modifier = {
+				name = asur_colonies_outer_ocean_ports_mod
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## Ulthuan is divided and distant, but Lothern still names the heart of Asur sea power. We must win, befriend, or take the court that holds it.
+	asur_colonies_first_word_to_ulthuan = {
+		icon = mission_high_elf_ulthuan_map
+		required_missions = {  }
+		position = 8
+		provinces_to_highlight = {
+			province_id = 451
+		}
+		trigger = {
+			451 = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+					owner = {
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 60 }
+						}
+					}
+					owner = {
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 50
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = asur_colonies_ulthuan_accord_mod
+				duration = -1
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						is_wasteland = no
+						superregion = ulthuan_superregion
+						NOT = { owned_by = ROOT }
+					}
+					add_claim = ROOT
+				}
+			}
+		}
+	}
+
+## Friendship with Ulthuan must become command, or command must become law. We must bind the island by treaty, crown, or occupation.
+	asur_colonies_bind_ulthuan = {
+		icon = mission_high_elf_phoenix_crown
+		required_missions = { asur_colonies_first_word_to_ulthuan }
+		position = 9
+		provinces_to_highlight = {
+			OR = {
+				superregion = ulthuan_superregion
+				province_id = 451
+			}
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+		trigger = {
+			OR = {
+				num_of_provinces_owned_or_owned_by_subjects_with = {
+					value = 15
+					superregion = ulthuan_superregion
+				}
+				451 = {
+					owner = {
+						alliance_with = ROOT
+						trust = { who = ROOT value = 100 }
+					}
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					451 = {
+						owner = {
+							NOT = { tag = ROOT }
+							NOT = { is_subject_of = ROOT }
+						}
+					}
+				}
+				custom_tooltip = asur_colonies_ulthuan_pu_cb_tt
+				hidden_effect = {
+					451 = {
+						owner = {
+							ROOT = {
+								add_casus_belli = {
+									target = PREV
+									type = cb_restore_personal_union
+									months = 600
+								}
+							}
+						}
+					}
+				}
+			}
+			add_country_modifier = {
+				name = asur_colonies_ulthuan_bound_mod
+				duration = -1
+			}
+		}
+	}
+
+## The situation is that distant reverence can still become dependence, so we must make Ulthuan's shores answer our colonial council.
+	asur_colonies_rule_ulthuans_shores = {
+		icon = mission_high_elf_ulthuan_map
+		required_missions = { asur_colonies_bind_ulthuan }
+		position = 10
+		provinces_to_highlight = {
+			superregion = ulthuan_superregion
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 50
+				superregion = ulthuan_superregion
+			}
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_ulthuan_accord_mod
+			remove_country_modifier = asur_colonies_ulthuan_bound_mod
+			add_country_modifier = {
+				name = asur_colonies_ulthuan_ruled_mod
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## The old capitals were never meant to kneel to separate necessities forever. We must bind every colonial seat into the same sea-realm.
+	asur_colonies_all_colonial_capitals = {
+		icon = mission_high_elf_court
+		required_missions = { asur_colonies_all_beacons_answer }
+		position = 12
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2142 # Arnheim
+				province_id = 4355 # Citadel of Dusk
+				province_id = 4343 # Fortress of Dawn
+				province_id = 2748 # Tower of the Sun
+				province_id = 4313 # Tower of the Stars
+				province_id = 2899 # Elithis
+				province_id = 2877 # Calith
+				province_id = 4758 # Nocthyrion
+			}
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = asur_colonies_all_colonial_capitals_tt
+				2142 = { OR = { owned_by = ROOT owned_by_subject_of = ROOT } }
+				4355 = { OR = { owned_by = ROOT owned_by_subject_of = ROOT } }
+				4343 = { OR = { owned_by = ROOT owned_by_subject_of = ROOT } }
+				2748 = { OR = { owned_by = ROOT owned_by_subject_of = ROOT } }
+				4313 = { OR = { owned_by = ROOT owned_by_subject_of = ROOT } }
+				2899 = { OR = { owned_by = ROOT owned_by_subject_of = ROOT } }
+				2877 = { OR = { owned_by = ROOT owned_by_subject_of = ROOT } }
+				4758 = { OR = { owned_by = ROOT owned_by_subject_of = ROOT } }
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 50 }
+			add_mercantilism = 2
+		}
+	}
+
+## Cloth and silk carry sails, banners, formal robes, and letters of rank. We must make the loom answer the fleet.
+	asur_colonies_cloth_silk_ledgers = {
+		icon = mission_high_elf_loom
+		position = 13
+		provinces_to_highlight = {
+			OR = {
+				trade_goods = cloth
+				trade_goods = silk
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			OR = {
+				trading_part = {
+					trade_goods = cloth
+					value = 0.05
+				}
+				trading_part = {
+					trade_goods = silk
+					value = 0.05
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = asur_colonies_cloth_silk_mod_1
+				duration = -1
+			}
+		}
+	}
+
+## The loom must become a monopoly, not a convenience. We must hold the finest fabric markets against lesser courts and cheaper imitators.
+	asur_colonies_cloth_silk_monopoly = {
+		icon = mission_high_elf_loom
+		required_missions = { asur_colonies_cloth_silk_ledgers }
+		position = 14
+		provinces_to_highlight = {
+			OR = {
+				trade_goods = cloth
+				trade_goods = silk
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			OR = {
+				trading_bonus = {
+					trade_goods = cloth
+					value = yes
+				}
+				trading_bonus = {
+					trade_goods = silk
+					value = yes
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_cloth_silk_mod_1
+			add_country_modifier = {
+				name = asur_colonies_cloth_silk_mod_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+}
+
+asur_colonies_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		primary_culture = colonial_asur
+	}
+
+## The monsoon roads enrich whoever understands their seasons. We must satisfy the temple-scribes and waystone keepers who read the winds.
+	asur_colonies_monsoon_factors = {
+		icon = mission_lightning_storm
+		position = 1
+		trigger = {
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 60
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 1
+			}
+		}
+		effect = {
+			add_dip_power = 50
+			add_mercantilism = 1
+		}
+	}
+
+## The situation is that each harbor has learned different laws, so we must convene a council that makes distance governable.
+	asur_colonies_council_far_ports = {
+		icon = mission_high_elf_court
+		required_missions = { asur_colonies_harbor_councils asur_colonies_monsoon_factors asur_colonies_sea_prince_admirals }
+		position = 2
+		trigger = {
+			prestige = 25
+			num_of_ports = 5
+		}
+		effect = {
+			add_country_modifier = {
+				name = asur_colonies_council_far_ports_mod
+				duration = -1
+			}
+		}
+	}
+
+## Neighboring rulers test every distant colony. We must prove that the far ports possess a mandate no local prince can ignore.
+	asur_colonies_prove_local_mandate = {
+		icon = mission_high_elf_phoenix_crown
+		required_missions = { asur_colonies_council_far_ports }
+		position = 3
+		provinces_to_highlight = {
+			owner = {
+				NOT = { tag = ROOT }
+				NOT = { is_subject_of = ROOT }
+				NOT = {
+					alliance_with = ROOT
+					trust = { who = ROOT value = 60 }
+				}
+			}
+		}
+		trigger = {
+			total_development = 75
+			OR = {
+				NOT = { any_neighbor_country = { always = yes } }
+				calc_true_if = {
+					amount = 2
+					all_neighbor_country = {
+						OR = {
+							AND = {
+								alliance_with = ROOT
+								trust = { who = ROOT value = 60 }
+							}
+							ROOT = {
+								has_won_war_against = {
+									who = PREV
+									max_years_since = 25
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = asur_colonies_local_mandate_mod
+				duration = -1
+			}
+		}
+	}
+
+## Local proof must become world recognition. We must be counted among the great powers and project strength beyond our own sea-lanes.
+	asur_colonies_recognized_sea_power = {
+		icon = mission_high_elf_warrior_1
+		required_missions = { asur_colonies_prove_local_mandate }
+		position = 6
+		trigger = {
+			is_great_power = yes
+			power_projection = 50
+		}
+		effect = {
+			add_mil_power = 50
+			add_army_professionalism = 0.02
+		}
+	}
+
+## The treaties of the colonies are scattered in chests, towers, and flagship cabins. We must build the mercantile authority to gather them into one diplomatic instrument.
+	asur_colonies_treaty_chest_colonies = {
+		icon = mission_high_elf_allies
+		required_missions = { asur_colonies_proclaim_united_colonies asur_colonies_coastal_batteries }
+		position = 8
+		trigger = {
+			mercantilism = 25
+		}
+		effect = {
+			country_event = { id = asur_colonies_events.1 }
+		}
+	}
+
+## The situation is that our ships visit many continents but do not yet rule their routines, so we must maintain ports on five landmasses.
+	asur_colonies_ports_five_continents = {
+		icon = mission_high_elf_southlands_map
+		required_missions = { asur_colonies_beacon_waystone_network }
+		position = 10
+		provinces_to_highlight = {
+			has_port = yes
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_continents = 5
+		}
+		effect = {
+			add_country_modifier = {
+				name = asur_colonies_ports_five_continents_mod
+				duration = -1
+			}
+		}
+	}
+
+## Five continents make us present; seven make us unavoidable. We must carry the colonial sea road into every major oceanic theater.
+	asur_colonies_ports_seven_continents = {
+		icon = mission_high_elf_southlands_map
+		required_missions = { asur_colonies_ports_five_continents }
+		position = 11
+		provinces_to_highlight = {
+			has_port = yes
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_continents = 7
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_ports_five_continents_mod
+			add_country_modifier = {
+				name = asur_colonies_ports_seven_continents_mod
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## Our sea gates are famous but still mortal. We must make a chain of legendary ports where every ship can repair, trade, and receive orders.
+	asur_colonies_legendary_sea_gates = {
+		icon = mission_high_elf_docks_2
+		required_missions = { asur_colonies_ports_seven_continents }
+		position = 12
+		provinces_to_highlight = {
+			has_port = yes
+			OR = {
+				province_has_center_of_trade_of_level = 2
+				has_building = dock
+				has_building = drydock
+				has_building = shipyard
+				has_building = grand_shipyard
+				has_building = coastal_defence
+				has_building = naval_battery
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 12
+				has_port = yes
+				OR = {
+					province_has_center_of_trade_of_level = 2
+					has_building = dock
+					has_building = drydock
+					has_building = shipyard
+					has_building = grand_shipyard
+					has_building = coastal_defence
+					has_building = naval_battery
+				}
+			}
+			navy_size = 150
+		}
+		effect = {
+			add_country_modifier = {
+				name = asur_colonies_legendary_sea_gates_mod
+				duration = -1
+			}
+		}
+	}
+
+## Spice keeps crews alive and courts attentive. We must enter the spice ledgers before Ind, Khuresh, and island merchants close them.
+	asur_colonies_spice_ledgers = {
+		icon = mission_high_elf_wine
+		position = 13
+		provinces_to_highlight = {
+			trade_goods = spices
+			has_discovered = ROOT
+		}
+		trigger = {
+			trading_part = {
+				trade_goods = spices
+				value = 0.05
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = asur_colonies_spice_mod_1
+				duration = -1
+			}
+		}
+	}
+
+## Spice tribute cannot remain a narrow privilege. We must dominate the markets that perfume courts and provision long voyages.
+	asur_colonies_spice_monopoly = {
+		icon = mission_high_elf_wine
+		required_missions = { asur_colonies_spice_ledgers }
+		position = 14
+		provinces_to_highlight = {
+			trade_goods = spices
+			has_discovered = ROOT
+		}
+		trigger = {
+			trading_bonus = {
+				trade_goods = spices
+				value = yes
+			}
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_spice_mod_1
+			add_country_modifier = {
+				name = asur_colonies_spice_mod_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## Cloth, gems, spice, timber, and stores all feed the same hulls. We must combine the ledgers into the finest convoy system afloat.
+	asur_colonies_finest_convoys = {
+		icon = mission_high_elf_ship
+		required_missions = { asur_colonies_cloth_silk_monopoly asur_colonies_gem_monopoly asur_colonies_spice_monopoly asur_colonies_naval_stores_monopoly asur_colonies_timber_monopoly }
+		position = 15
+		trigger = {
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_cloth_silk_mod_2
+			remove_country_modifier = asur_colonies_gem_mod_2
+			remove_country_modifier = asur_colonies_spice_mod_2
+			remove_country_modifier = asur_colonies_naval_stores_mod_2
+			remove_country_modifier = asur_colonies_timber_mod_2
+			add_country_modifier = {
+				name = asur_colonies_finest_convoys_mod
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## The world ocean has become a single contested ledger. We must make the outer seas answer to the United Colonies before any rival can close them. (Ultimate)
+	asur_colonies_masters_outer_seas = {
+		icon = mission_high_elf_dreadfleet
+		required_missions = { asur_colonies_finest_convoys }
+		position = 16
+		provinces_to_highlight = {
+			trade_node_value = 1
+			OR = {
+				is_sea = yes
+				has_port = yes
+			}
+			NOT = {
+				trade_share = {
+					country = ROOT
+					share = 15
+				}
+			}
+		}
+		trigger = {
+			hidden_trigger = {
+				OR = {
+					ai = no
+					is_great_power = yes
+				}
+			}
+			calc_true_if = {
+				all_trade_node = {
+					trade_share = {
+						country = ROOT
+						share = 15
+					}
+					OR = {
+						is_sea = yes
+						has_port = yes
+					}
+				}
+				amount = 30
+			}
+		}
+		effect = {
+			country_event = { id = asur_colonies_events.3 }
+		}
+	}
+}
+
+asur_colonies_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		primary_culture = colonial_asur
+	}
+
+## Sea-princes cannot rule by memory alone. We must satisfy the noble houses that provide admirals, charts, patrols, and discipline.
+	asur_colonies_sea_prince_admirals = {
+		icon = mission_high_elf_flagship
+		position = 1
+		trigger = {
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 60
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+		effect = {
+			add_navy_tradition = 10
+			create_admiral = { tradition = 50 }
+		}
+	}
+
+## The sea road reaches beyond the countries touching our borders. We must make enough courts trust or fear us that our terms travel farther than our neighbors.
+	asur_colonies_terms_beyond_neighbors = {
+		icon = mission_high_elf_allies
+		required_missions = { asur_colonies_prove_local_mandate }
+		position = 4
+		trigger = {
+			calc_true_if = {
+				amount = 5
+				all_country = {
+					NOT = { tag = ROOT }
+					OR = {
+						trust = { who = ROOT value = 60 }
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = asur_colonies_terms_neighbors_mod
+				duration = -1
+			}
+		}
+	}
+
+## Passages through foreign waters can be closed by insult, fear, or greed. We must make our letters of passage too valuable to refuse.
+	asur_colonies_letters_of_passage = {
+		icon = mission_high_elf_old_world_map
+		required_missions = { asur_colonies_terms_beyond_neighbors }
+		position = 5
+		trigger = {
+			prestige = 50
+			OR = {
+				diplomatic_reputation = 4
+				num_of_allies = 5
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = asur_colonies_letters_passage_mod
+				duration = -1
+			}
+		}
+	}
+
+## The Sea Guard must be able to land before a beacon fails and sail before a treaty breaks. We must muster army and navy as one arm.
+	asur_colonies_muster_sea_guard = {
+		icon = mission_high_elf_soldier_4
+		required_missions = { asur_colonies_letters_of_passage }
+		position = 6
+		trigger = {
+			army_size = 40
+			navy_size = 50
+		}
+		effect = {
+			add_country_modifier = {
+				name = asur_colonies_muster_sea_guard_mod
+				duration = -1
+			}
+		}
+	}
+
+## The situation is that a port without guns invites every ambitious captain, so we must ring the colonial coast with batteries.
+	asur_colonies_coastal_batteries = {
+		icon = mission_high_elf_building_2
+		required_missions = { asur_colonies_muster_sea_guard }
+		position = 7
+		provinces_to_highlight = {
+			has_port = yes
+			OR = {
+				has_building = coastal_defence
+				has_building = naval_battery
+				has_building = fort_15th
+				has_building = fort_16th
+				has_building = fort_17th
+				has_building = fort_18th
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 5
+				has_port = yes
+				OR = {
+					has_building = coastal_defence
+					has_building = naval_battery
+					has_building = fort_15th
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = asur_colonies_coastal_batteries_mod
+				duration = -1
+			}
+		}
+	}
+
+## No hegemony is granted to a realm of frightened harbors. We must field an armada that can force every rival to count our sails first.
+	asur_colonies_naval_hegemons_armada = {
+		icon = mission_high_elf_dreadfleet
+		required_missions = { asur_colonies_world_class_battlefleet asur_colonies_coastal_batteries }
+		position = 8
+		trigger = {
+			OR = {
+				is_hegemon_of_type = naval_hegemon
+				AND = {
+					navy_size = 250
+					navy_tradition = 90
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_world_class_battlefleet_mod
+			add_country_modifier = {
+				name = asur_colonies_naval_hegemons_armada_mod
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## The far courts know our harbors but not yet our authority. We must make the sea road a diplomatic fact from Cathay to Lustria.
+	asur_colonies_great_courts_sea_road = {
+		icon = mission_high_elf_court
+		required_missions = { asur_colonies_ports_five_continents }
+		position = 11
+		trigger = {
+			calc_true_if = {
+				amount = 4
+				all_country = {
+					OR = {
+						capital_scope = { region = northern_cathay_region }
+						capital_scope = { region = celestial_riverlands_region }
+						capital_scope = { region = western_provinces_region }
+						capital_scope = { region = eastern_provinces_region }
+						capital_scope = { region = southern_provinces_region }
+						capital_scope = { region = eastern_ind_region }
+						capital_scope = { region = western_ind_region }
+						capital_scope = { region = ind_end_region }
+						capital_scope = { region = nippon_region }
+						capital_scope = { region = north_khuresh_region }
+						capital_scope = { region = south_khuresh_region }
+						capital_scope = { region = dragon_isles_region }
+						capital_scope = { region = south_lustria_region }
+					}
+					OR = {
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 75 }
+						}
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 50
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = asur_colonies_great_courts_mod
+				duration = -1
+			}
+			country_event = { id = asur_colonies_events.2 }
+		}
+	}
+
+## The fleet cannot sail forever on pride. We must secure naval stores enough to keep masts, ropes, pitch, and spare fittings moving.
+	asur_colonies_naval_stores = {
+		icon = mission_high_elf_docks
+		position = 13
+		provinces_to_highlight = {
+			trade_goods = naval_supplies
+			has_discovered = ROOT
+		}
+		trigger = {
+			trading_part = {
+				trade_goods = naval_supplies
+				value = 0.05
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = asur_colonies_naval_stores_mod_1
+				duration = -1
+			}
+		}
+	}
+
+## Stores bought at need arrive late and dear. We must dominate the naval supply trade before the next great armada calls for repair.
+	asur_colonies_naval_stores_monopoly = {
+		icon = mission_high_elf_docks
+		required_missions = { asur_colonies_naval_stores }
+		position = 14
+		provinces_to_highlight = {
+			trade_goods = naval_supplies
+			has_discovered = ROOT
+		}
+		trigger = {
+			trading_bonus = {
+				trade_goods = naval_supplies
+				value = yes
+			}
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_naval_stores_mod_1
+			add_country_modifier = {
+				name = asur_colonies_naval_stores_mod_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+}
+
+asur_colonies_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		primary_culture = colonial_asur
+	}
+
+## Trade ships without escorts become evidence of weakness. We must give every rich route a fleet that makes piracy unprofitable.
+	asur_colonies_trade_escort_fleet = {
+		icon = mission_high_elf_ship
+		position = 3
+		trigger = {
+			navy_size_percentage = 0.75
+			num_of_light_ship = 8
+		}
+		effect = {
+			add_country_modifier = {
+				name = asur_colonies_trade_escort_fleet_mod
+				duration = -1
+			}
+		}
+	}
+
+## Escorts need harbors that can build, arm, and repair them. We must make the dockyards of the Sea Guard worthy of their patrols.
+	asur_colonies_dockyards_sea_guard = {
+		icon = mission_high_elf_docks_2
+		required_missions = { asur_colonies_trade_escort_fleet }
+		position = 4
+		provinces_to_highlight = {
+			has_port = yes
+			OR = {
+				has_building = dock
+				has_building = drydock
+				has_building = shipyard
+				has_building = grand_shipyard
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 3
+				has_port = yes
+				OR = {
+					has_building = dock
+					has_building = drydock
+					has_building = shipyard
+					has_building = grand_shipyard
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_trade_escort_fleet_mod
+			add_country_modifier = {
+				name = asur_colonies_dockyards_mod
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## A scattered realm needs a visible center at sea. We must launch a beacon flagship that carries both command and royal theater.
+	asur_colonies_beacon_flagship = {
+		icon = mission_high_elf_flagship
+		required_missions = { asur_colonies_dockyards_sea_guard }
+		position = 5
+		trigger = {
+			has_flagship = yes
+			navy_tradition = 25
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_dockyards_mod
+			add_country_modifier = {
+				name = asur_colonies_beacon_flagship_mod
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## The situation is that a sea realm survives only by moving faster than danger. We must field a fleet large enough to answer several oceans.
+	asur_colonies_fleet_sea_realm = {
+		icon = mission_high_elf_ship
+		required_missions = { asur_colonies_beacon_flagship }
+		position = 6
+		trigger = {
+			navy_size = 75
+			num_of_light_ship = 20
+			num_of_heavy_ship = 5
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_beacon_flagship_mod
+			add_country_modifier = {
+				name = asur_colonies_fleet_of_sea_realm_mod
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## Local superiority is no longer enough. We must build a battlefleet that every admiral in the world is forced to study.
+	asur_colonies_world_class_battlefleet = {
+		icon = mission_high_elf_dreadfleet
+		required_missions = { asur_colonies_fleet_sea_realm }
+		position = 7
+		trigger = {
+			navy_size = 125
+			navy_tradition = 75
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_fleet_of_sea_realm_mod
+			add_country_modifier = {
+				name = asur_colonies_world_class_battlefleet_mod
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## Naggarond still casts a cold shadow over the northern seas. We must win, befriend, or take the power that holds it.
+	asur_colonies_first_word_to_naggaroth = {
+		icon = mission_high_elf_naggaroth_map
+		required_missions = {  }
+		position = 8
+		provinces_to_highlight = {
+			province_id = 2009
+		}
+		trigger = {
+			2009 = {
+				OR = {
+					owned_by = ROOT
+					owned_by_subject_of = ROOT
+					owner = {
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 60 }
+						}
+					}
+					owner = {
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 50
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = asur_colonies_naggaroth_accord_mod
+				duration = -1
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						is_wasteland = no
+						OR = {
+							superregion = dark_elven_naggaroth_superregion
+							superregion = outer_naggaroth_superregion
+						}
+						NOT = { owned_by = ROOT }
+					}
+					add_claim = ROOT
+				}
+			}
+		}
+	}
+
+## Naggaroth can be a guarded ally or a conquered shore, but it cannot remain a threat behind our sea road. We must bind it to the colonies.
+	asur_colonies_bind_naggaroth = {
+		icon = mission_high_elf_naggaroth_map
+		required_missions = { asur_colonies_first_word_to_naggaroth }
+		position = 9
+		provinces_to_highlight = {
+			OR = {
+				superregion = dark_elven_naggaroth_superregion
+				superregion = outer_naggaroth_superregion
+				province_id = 2009
+			}
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+		trigger = {
+			OR = {
+				num_of_provinces_owned_or_owned_by_subjects_with = {
+					value = 15
+					OR = {
+						superregion = dark_elven_naggaroth_superregion
+						superregion = outer_naggaroth_superregion
+					}
+				}
+				2009 = {
+					owner = {
+						alliance_with = ROOT
+						trust = { who = ROOT value = 100 }
+					}
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					2009 = {
+						owner = {
+							NOT = { tag = ROOT }
+							NOT = { is_subject_of = ROOT }
+						}
+					}
+				}
+				custom_tooltip = asur_colonies_naggaroth_pu_cb_tt
+				hidden_effect = {
+					2009 = {
+						owner = {
+							ROOT = {
+								add_casus_belli = {
+									target = PREV
+									type = cb_restore_personal_union
+									months = 600
+								}
+							}
+						}
+					}
+				}
+			}
+			add_country_modifier = {
+				name = asur_colonies_naggaroth_bound_mod
+				duration = -1
+			}
+		}
+	}
+
+## The situation is that Naggaroth obeys only strength it cannot escape. We must rule its shores through crown, subject, and settled garrison.
+	asur_colonies_rule_naggaroths_shores = {
+		icon = mission_high_elf_naggaroth_map
+		required_missions = { asur_colonies_bind_naggaroth }
+		position = 10
+		provinces_to_highlight = {
+			OR = {
+				superregion = dark_elven_naggaroth_superregion
+				superregion = outer_naggaroth_superregion
+			}
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 50
+				OR = {
+					superregion = dark_elven_naggaroth_superregion
+					superregion = outer_naggaroth_superregion
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_naggaroth_accord_mod
+			remove_country_modifier = asur_colonies_naggaroth_bound_mod
+			add_country_modifier = {
+				name = asur_colonies_naggaroth_ruled_mod
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## Timber convoys decide whether a fleet repairs in weeks or dreams of home for a year. We must secure wood fit for ocean hulls.
+	asur_colonies_timber_convoys = {
+		icon = mission_high_elf_ship
+		position = 13
+		provinces_to_highlight = {
+			OR = {
+				trade_goods = lumber
+				trade_goods = tropical_wood
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			OR = {
+				trading_part = {
+					trade_goods = lumber
+					value = 0.05
+				}
+				trading_part = {
+					trade_goods = tropical_wood
+					value = 0.05
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = asur_colonies_timber_mod_1
+				duration = -1
+			}
+		}
+	}
+
+## The timber road must be ours from forest to drydock. We must dominate the wood trade that carries the fleet's future.
+	asur_colonies_timber_monopoly = {
+		icon = mission_high_elf_ship
+		required_missions = { asur_colonies_timber_convoys }
+		position = 14
+		provinces_to_highlight = {
+			OR = {
+				trade_goods = lumber
+				trade_goods = tropical_wood
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			OR = {
+				trading_bonus = {
+					trade_goods = lumber
+					value = yes
+				}
+				trading_bonus = {
+					trade_goods = tropical_wood
+					value = yes
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_timber_mod_1
+			add_country_modifier = {
+				name = asur_colonies_timber_mod_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+}
+
+asur_colonies_missions_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		primary_culture = colonial_asur
+		is_colonial_nation = no
+	}
+
+## A port without a council is only a wharf with guards. We must make the merchants, captains, and scribes of our harbors serve a common law.
+	asur_colonies_harbor_councils = {
+		icon = mission_high_elf_court
+		position = 1
+		trigger = {
+			estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 60
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_burghers
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = asur_colonies_harbor_councils_mod
+				duration = -1
+			}
+		}
+	}
+
+## Local markets feed distant ambitions. We must control the counters, market halls, and trade depots around our first sphere.
+	asur_colonies_control_local_markets = {
+		icon = mission_high_elf_docks_2
+		required_missions = { asur_colonies_prove_local_mandate }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				has_building = marketplace
+				has_building = trade_depot
+				has_building = stock_exchange
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			calc_true_if = {
+				amount = 5
+				all_province = {
+					OR = {
+						controlled_by = ROOT
+						owned_by_subject_of = ROOT
+					}
+					OR = {
+						has_building = marketplace
+						has_building = trade_depot
+						has_building = stock_exchange
+					}
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_harbor_councils_mod
+			add_country_modifier = {
+				name = asur_colonies_control_local_markets_mod
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## The capital port must become proof that distance sharpens rather than weakens Asur rule. We must raise it into a crown port worthy of all colonies.
+	asur_colonies_crown_port_upgraded = {
+		icon = mission_high_elf_docks
+		required_missions = { asur_colonies_control_local_markets }
+		position = 5
+		trigger = {
+			any_owned_province = {
+				has_port = yes
+				province_has_center_of_trade_of_level = 3
+			}
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_control_local_markets_mod
+			add_country_modifier = {
+				name = asur_colonies_crown_port_upgraded_mod
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## The situation is scattered authority, so we must either proclaim the United Colonies or stand ready to do so before larger powers divide us.
+	asur_colonies_proclaim_united_colonies = {
+		icon = mission_high_elf_phoenix_crown
+		required_missions = { asur_colonies_lantern_harbors asur_colonies_crown_port_upgraded }
+		position = 7
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2142 # Arnheim
+				province_id = 4355 # Citadel of Dusk
+				province_id = 4343 # Fortress of Dawn
+				province_id = 2748 # Tower of the Sun
+				province_id = 4313 # Tower of the Stars
+				province_id = 2899 # Elithis
+				province_id = 2877 # Calith
+				province_id = 4758 # Nocthyrion
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			OR = {
+				tag = H33
+				AND = {
+					NOT = { tag = H11 }
+					primary_culture = colonial_asur
+					normal_or_historical_nations = yes
+					was_never_end_game_tag_trigger = yes
+					NOT = { has_country_flag = formed_united_colonies_flag }
+					NOT = { exists = H33 }
+					is_colonial_nation = no
+					OR = {
+						is_former_colonial_nation = no
+						AND = {
+							is_former_colonial_nation = yes
+							ai = no
+						}
+					}
+					is_at_war = no
+					custom_trigger_tooltip = {
+						tooltip = united_colonies_formable.tooltip
+						calc_true_if = {
+							all_owned_province = {
+								OR = {
+									province_id = 2142 # Arnheim
+									province_id = 4355 # Citadel of Dusk
+									province_id = 4343 # Fortress of Dawn
+									province_id = 2748 # Tower of the Sun
+									province_id = 4313 # Tower of the Stars
+									province_id = 2899 # Elithis
+									province_id = 2877 # Calith
+									province_id = 4758 # Nocthyrion
+								}
+							}
+							amount = 6
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_crown_port_upgraded_mod
+			add_country_modifier = {
+				name = asur_colonies_united_colonies_mod
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## A united realm must prove itself in ledgers as well as banners. We must hold meaningful shares in ten sea-road nodes.
+	asur_colonies_ten_sea_road_ledgers = {
+		icon = mission_high_elf_old_world_map
+		required_missions = { asur_colonies_proclaim_united_colonies }
+		position = 8
+		provinces_to_highlight = {
+			trade_node_value = 1
+			OR = {
+				is_sea = yes
+				has_port = yes
+			}
+			NOT = {
+				trade_share = {
+					country = ROOT
+					share = 10
+				}
+			}
+		}
+		trigger = {
+			calc_true_if = {
+				amount = 10
+				all_trade_node = {
+					trade_share = {
+						country = ROOT
+						share = 10
+					}
+					OR = {
+						is_sea = yes
+						has_port = yes
+					}
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_united_colonies_mod
+			add_country_modifier = {
+				name = asur_colonies_sea_road_ledgers_mod
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## Our beacons and waystones are isolated miracles unless joined by routine. We must bind the colonial capitals into a navigable network.
+	asur_colonies_beacon_waystone_network = {
+		icon = mission_high_elf_mage_2
+		required_missions = { asur_colonies_ten_sea_road_ledgers }
+		position = 9
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2142
+				province_id = 4355
+				province_id = 4343
+				province_id = 2748
+				province_id = 4313
+				province_id = 2899
+				province_id = 2877
+				province_id = 4758
+			}
+			province_has_center_of_trade_of_level = 2
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 5
+				province_has_center_of_trade_of_level = 2
+				OR = {
+					province_id = 2142
+					province_id = 4355
+					province_id = 4343
+					province_id = 2748
+					province_id = 4313
+					province_id = 2899
+					province_id = 2877
+					province_id = 4758
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_sea_road_ledgers_mod
+			add_country_modifier = {
+				name = asur_colonies_beacon_waystone_network_mod
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## The beacons now answer across oceans. We must make several great trade centers into places where ships, signals, and orders meet.
+	asur_colonies_all_beacons_answer = {
+		icon = mission_high_elf_mage_4
+		required_missions = { asur_colonies_beacon_waystone_network }
+		position = 11
+		provinces_to_highlight = {
+			province_has_center_of_trade_of_level = 3
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 4
+				province_has_center_of_trade_of_level = 3
+			}
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_beacon_waystone_network_mod
+			add_country_modifier = {
+				name = asur_colonies_all_beacons_answer_mod
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+## Gems pay for pearl lamps, waystone repairs, and the politics of distant courts. We must make tribute glitter before it becomes vulnerable.
+	asur_colonies_gem_tribute_ledgers = {
+		icon = mission_high_elf_gems
+		position = 13
+		provinces_to_highlight = {
+			trade_goods = gems
+			has_discovered = ROOT
+		}
+		trigger = {
+			trading_part = {
+				trade_goods = gems
+				value = 0.05
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = asur_colonies_gem_mod_1
+				duration = -1
+			}
+		}
+	}
+
+## Gem tribute must become dependable state income, not a caravan accident. We must dominate the gem trade outright.
+	asur_colonies_gem_monopoly = {
+		icon = mission_high_elf_gems
+		required_missions = { asur_colonies_gem_tribute_ledgers }
+		position = 14
+		provinces_to_highlight = {
+			trade_goods = gems
+			has_discovered = ROOT
+		}
+		trigger = {
+			trading_bonus = {
+				trade_goods = gems
+				value = yes
+			}
+		}
+		effect = {
+			remove_country_modifier = asur_colonies_gem_mod_1
+			add_country_modifier = {
+				name = asur_colonies_gem_mod_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+}
