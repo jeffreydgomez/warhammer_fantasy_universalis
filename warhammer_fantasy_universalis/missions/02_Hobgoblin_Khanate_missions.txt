@@ -1,24 +1,19 @@
-
 ##################################
-##### ORC CULTURE GROUP
+##### HOBGOBLIN KHANATE
 ##################################
-greenskin_missions_1 = {
+hobgoblin_khanate_missions_1 = {
 	slot = 1
 	generic = yes
 	has_country_shield = no
 	ai = yes
 	potential = {
-		OR = {
-			culture_group = greenskins_group
-			culture_group = hobgoblin_group
-		}
-		NOT = { tag = G36 }
+		tag = G36
 		war_mission_priority_1 = no
 	}
 
-# No warboss can be successful without the backing of the other great bosses.
+	# No khan can ride far without the backing of the lesser khans.
 # Worth no ideas
-	greenskin_please_nobility = {
+	hobgoblin_please_nobility = {
 		icon = mission_orc_culture
 		required_missions = { }
 		trigger = {
@@ -41,53 +36,92 @@ greenskin_missions_1 = {
 		}
 	}
 
-# Bosses respect those who earn respect. Let's have some people grovel at our feet.
+	# Lesser rulers must learn that tribute is cheaper than defiance.
 # Worth 1/2 idea
-	greenskin_few_subjects = {
+	hobgoblin_few_subjects = {
 		icon = mission_greenskins_goblin_warboss
-		required_missions = { greenskin_please_nobility }
+		required_missions = { hobgoblin_please_nobility }
 		trigger = {
 			num_of_subjects = 2
 		}
 		effect = {
-			add_country_modifier = { 
-			    name = greenskin_squeeze_vassals_1
-			    duration = -1  
+			add_country_modifier = {
+			    name = hobgoblin_squeeze_vassals_1
+			    duration = -1
 			}
 		}
 	}
 
-# This is fun! More people grovel at our feel. Let's squeeze more money out of them.
+	# More clients mean more tribute, hostages, and useful fear.
 # Worth 1/2 idea
-	greenskin_more_subjects = {
+	hobgoblin_more_subjects = {
 		icon = mission_greenskins_goblin_warboss
-		required_missions = { greenskin_few_subjects }
+		required_missions = { hobgoblin_few_subjects }
 		trigger = {
 			num_of_subjects = 4
 		}
 		effect = {
-			remove_country_modifier = greenskin_squeeze_vassals_1
-			add_country_modifier = { 
-			    name = greenskin_squeeze_vassals_2
-			    duration = -1  
+			remove_country_modifier = hobgoblin_squeeze_vassals_1
+			add_country_modifier = {
+			    name = hobgoblin_squeeze_vassals_2
+			    duration = -1
 			}
-			custom_tooltip = upgrade_replace_tt		
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
-# In order to establish our rule, we must grow. Replace the ar
-	greenskin_grow_1 = {
-		icon = mission_greenskins_fort
+# The Khanate cannot ride south with its back exposed.
+	hobgoblin_tame_the_wastes = {
+		icon = mission_greenskins_savage_orc
+		required_missions = { hobgoblin_warfare_2 }
+		position = 4
+		provinces_to_highlight = {
+			region = the_eastern_steppes_region
+			is_city = yes
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 30
+				region = the_eastern_steppes_region
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+		}
+	}
+
+# In order to restore the Great Khan's legacy, we must seize the thrones that divide Cathay.
+	hobgoblin_grow_1 = {
+		icon = mission_cathay_city
 		required_missions = { }
 		position = 5
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
-				value = 25
+				value = 1
+				OR = {
+					province_id = 2839 # Storm Court
+					province_id = 2972 # Iron Court
+					province_id = 2830 # Imperial Wardens
+					province_id = 2335 # Jade Court
+					province_id = 2838 # Celestial Regency
+					province_id = 2940 # Fire Court
+					province_id = 4243 # Sea Court
+					province_id = 4054 # Burning Wind
+					province_id = 2861 # Wyrmkin
+					province_id = 2905 # Jiangshi Court
+					province_id = 2985 # Jade Custodians
+					province_id = 4022 # Nan-Yang
+					province_id = 2850 # Dead Flag Fleet
+					province_id = 4825 # Monkey Court
+					province_id = 4798 # Koryo
+				}
 			}
 		}
 		effect = {
 			add_yearly_manpower = 1
-			custom_tooltip = ORC_CLAIM_ALL_NEIGHBOR_TT
+			custom_tooltip = HOBGOBLIN_CLAIM_ALL_NEIGHBOR_TT
 			hidden_effect = {
 				every_neighbor_province = {
 					add_claim = ROOT
@@ -96,16 +130,35 @@ greenskin_missions_1 = {
 		}
 	}
 
-# Greenskins respect power. Let us show them.
-	greenskin_grow_2 = {
-		icon = mission_orc_religion
-		required_missions = { greenskin_grow_1 }
+# The dragon courts survive by dividing one another. We shall answer with a growing saddle-count.
+	hobgoblin_grow_2 = {
+		icon = mission_cathay_jade_lancers
+		required_missions = { hobgoblin_grow_1 }
 		trigger = {
-			army_size = 50
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 3
+				OR = {
+					province_id = 2839 # Storm Court
+					province_id = 2972 # Iron Court
+					province_id = 2830 # Imperial Wardens
+					province_id = 2335 # Jade Court
+					province_id = 2838 # Celestial Regency
+					province_id = 2940 # Fire Court
+					province_id = 4243 # Sea Court
+					province_id = 4054 # Burning Wind
+					province_id = 2861 # Wyrmkin
+					province_id = 2905 # Jiangshi Court
+					province_id = 2985 # Jade Custodians
+					province_id = 4022 # Nan-Yang
+					province_id = 2850 # Dead Flag Fleet
+					province_id = 4825 # Monkey Court
+					province_id = 4798 # Koryo
+				}
+			}
 		}
 		effect = {
 			add_yearly_manpower = 2
-			custom_tooltip = ORC_CLAIM_ALL_NEIGHBOR_TT
+			custom_tooltip = HOBGOBLIN_CLAIM_ALL_NEIGHBOR_TT
 			hidden_effect = {
 				every_neighbor_province = {
 					add_claim = ROOT
@@ -114,18 +167,35 @@ greenskin_missions_1 = {
 		}
 	}
 
-# We must claim the Khanate. More orcs flock to our banner
-	greenskin_grow_3 = {
-		icon = mission_greenskins_fort
-		required_missions = { greenskin_grow_2 }
+# More Cathayan capitals must learn that the wolf-rider's bargain is not optional.
+	hobgoblin_grow_3 = {
+		icon = mission_cathay_sentinel
+		required_missions = { hobgoblin_grow_2 }
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
-				value = 75
+				value = 6
+				OR = {
+					province_id = 2839 # Storm Court
+					province_id = 2972 # Iron Court
+					province_id = 2830 # Imperial Wardens
+					province_id = 2335 # Jade Court
+					province_id = 2838 # Celestial Regency
+					province_id = 2940 # Fire Court
+					province_id = 4243 # Sea Court
+					province_id = 4054 # Burning Wind
+					province_id = 2861 # Wyrmkin
+					province_id = 2905 # Jiangshi Court
+					province_id = 2985 # Jade Custodians
+					province_id = 4022 # Nan-Yang
+					province_id = 2850 # Dead Flag Fleet
+					province_id = 4825 # Monkey Court
+					province_id = 4798 # Koryo
+				}
 			}
 		}
 		effect = {
 			add_yearly_manpower = 3
-			custom_tooltip = ORC_CLAIM_ALL_NEIGHBOR_TT
+			custom_tooltip = HOBGOBLIN_CLAIM_ALL_NEIGHBOR_TT
 			hidden_effect = {
 				every_neighbor_province = {
 					add_claim = ROOT
@@ -134,16 +204,35 @@ greenskin_missions_1 = {
 		}
 	}
 
-# With a big enough army, we can conquer all
-	greenskin_grow_4 = {
-		icon = mission_orc_religion
-		required_missions = { greenskin_grow_3 }
+# The dragon courts are brittle; we must break enough of them that the rest hear the crack.
+	hobgoblin_grow_4 = {
+		icon = mission_cathay_flag
+		required_missions = { hobgoblin_grow_3 }
 		trigger = {
-			army_size = 125
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 10
+				OR = {
+					province_id = 2839 # Storm Court
+					province_id = 2972 # Iron Court
+					province_id = 2830 # Imperial Wardens
+					province_id = 2335 # Jade Court
+					province_id = 2838 # Celestial Regency
+					province_id = 2940 # Fire Court
+					province_id = 4243 # Sea Court
+					province_id = 4054 # Burning Wind
+					province_id = 2861 # Wyrmkin
+					province_id = 2905 # Jiangshi Court
+					province_id = 2985 # Jade Custodians
+					province_id = 4022 # Nan-Yang
+					province_id = 2850 # Dead Flag Fleet
+					province_id = 4825 # Monkey Court
+					province_id = 4798 # Koryo
+				}
+			}
 		}
 		effect = {
 			add_yearly_manpower = 4
-			custom_tooltip = ORC_CLAIM_ALL_NEIGHBOR_TT
+			custom_tooltip = HOBGOBLIN_CLAIM_ALL_NEIGHBOR_TT
 			hidden_effect = {
 				every_neighbor_province = {
 					add_claim = ROOT
@@ -152,19 +241,36 @@ greenskin_missions_1 = {
 		}
 	}
 
-## It is nearly time to begin the great Waagh
+## It is nearly time to ride through Cathay as heirs of the Great Khan.
 ## This whole chain is worth 1.5 ideas
-	greenskin_grow_5 = {
-		icon = mission_greenskins_fort
-		required_missions = { greenskin_grow_4 }
+	hobgoblin_grow_5 = {
+		icon = mission_cathay_dragon_blooded
+		required_missions = { hobgoblin_grow_4 }
 		trigger = {
 			num_of_provinces_owned_or_owned_by_subjects_with = {
-				value = 200
+				value = 15
+				OR = {
+					province_id = 2839 # Storm Court
+					province_id = 2972 # Iron Court
+					province_id = 2830 # Imperial Wardens
+					province_id = 2335 # Jade Court
+					province_id = 2838 # Celestial Regency
+					province_id = 2940 # Fire Court
+					province_id = 4243 # Sea Court
+					province_id = 4054 # Burning Wind
+					province_id = 2861 # Wyrmkin
+					province_id = 2905 # Jiangshi Court
+					province_id = 2985 # Jade Custodians
+					province_id = 4022 # Nan-Yang
+					province_id = 2850 # Dead Flag Fleet
+					province_id = 4825 # Monkey Court
+					province_id = 4798 # Koryo
+				}
 			}
 		}
 		effect = {
 			add_yearly_manpower = 5
-			custom_tooltip = ORC_CLAIM_ALL_NEIGHBOR_TT
+			custom_tooltip = HOBGOBLIN_CLAIM_ALL_NEIGHBOR_TT
 			hidden_effect = {
 				every_neighbor_province = {
 					add_claim = ROOT
@@ -175,7 +281,7 @@ greenskin_missions_1 = {
 
 
 
-	greenskin_raid_naggarond = {
+	hobgoblin_raid_naggarond = {
 		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		position = 10
@@ -202,7 +308,7 @@ greenskin_missions_1 = {
 	}
 
 
-	greenskin_raid_hexotl = {
+	hobgoblin_raid_hexotl = {
 		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
@@ -228,7 +334,7 @@ greenskin_missions_1 = {
 	}
 
 ## Actually Tlaxtlan
-	greenskin_raid_lothern = {
+	hobgoblin_raid_lothern = {
 		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
@@ -253,7 +359,7 @@ greenskin_missions_1 = {
 		}
 	}
 
-	greenskin_raid_itza = {
+	hobgoblin_raid_itza = {
 		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
@@ -281,24 +387,20 @@ greenskin_missions_1 = {
 
 }
 
-greenskin_missions_2 = {
+hobgoblin_khanate_missions_2 = {
 	slot = 2
 	generic = yes
 	has_country_shield = no
 	ai = yes
 	potential = {
-		OR = {
-			culture_group = greenskins_group
-			culture_group = hobgoblin_group
-		}
-		NOT = { tag = G36 }
+		tag = G36
 		war_mission_priority_1 = no
 	}
 
-## The bosses respect a good fight. Let us go to war with an enemy with a nation 25% more powerful that us.
-	greenskin_warfare_1 = {
+	## The lesser khans respect a dangerous victory against a stronger host.
+	hobgoblin_warfare_1 = {
 		icon = mission_greenskins_savage_orc
-		required_missions = { greenskin_please_nobility }
+		required_missions = { hobgoblin_please_nobility }
 		position = 2
 		provinces_to_highlight = {
 			owner = {
@@ -333,17 +435,17 @@ greenskin_missions_2 = {
 			}
 		}
 		effect = {
-			add_country_modifier = { 
-			    name = greenskin_respect_of_the_nobles_1
-			    duration = -1  
+			add_country_modifier = {
+			    name = hobgoblin_respect_of_the_nobles_1
+			    duration = -1
 			}
 		}
 	}
 
-## The more we are feared, the more the bosses respect us. Let us strike fear in others.
-	greenskin_warfare_2 = {
+	## The more we are feared, the easier it is to make rivals move before our riders arrive.
+	hobgoblin_warfare_2 = {
 		icon = mission_greenskins_savage_orc
-		required_missions = { greenskin_warfare_1 }
+		required_missions = { hobgoblin_warfare_1 }
 		trigger = {
 			is_at_war = yes
 			any_country = {
@@ -369,20 +471,20 @@ greenskin_missions_2 = {
 			}
 		}
 		effect = {
-			remove_country_modifier = greenskin_respect_of_the_nobles_1
-			add_country_modifier = { 
-			    name = greenskin_respect_of_the_nobles_2
-			    duration = -1  
+			remove_country_modifier = hobgoblin_respect_of_the_nobles_1
+			add_country_modifier = {
+			    name = hobgoblin_respect_of_the_nobles_2
+			    duration = -1
 			}
-			custom_tooltip = upgrade_replace_tt		
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
-# ## The bosses respect a good fight. Let us go to war with an enemy with a nation twice as more powerful that us.
+	# ## A truly great Khanate must defy a host that should be able to crush it.
 # Worth 1 idea
-	greenskin_warfare_3 = {
+	hobgoblin_warfare_3 = {
 		icon = mission_greenskins_savage_orc
-		required_missions = { greenskin_warfare_2 }
+		required_missions = { hobgoblin_warfare_2 }
 		provinces_to_highlight = {
 			owner = {
 				army_strength = {
@@ -416,20 +518,42 @@ greenskin_missions_2 = {
 			}
 		}
 		effect = {
-			remove_country_modifier = greenskin_respect_of_the_nobles_2
-			add_country_modifier = { 
-			    name = greenskin_respect_of_the_nobles_3
-			    duration = -1  
+			remove_country_modifier = hobgoblin_respect_of_the_nobles_2
+			add_country_modifier = {
+			    name = hobgoblin_respect_of_the_nobles_3
+			    duration = -1
 			}
-			custom_tooltip = upgrade_replace_tt		
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
-# We must admit, growth as not been easy. We can no longer house our orcs in the mud. We must build them places to live and train.
-# Worth no ideas
-	greenskin_build_barracks = {
+# A rider who owns Cathay but loses the steppe dies with silk in his hands.
+	hobgoblin_protect_our_flanks = {
 		icon = mission_greenskins_fort
-		required_missions = { greenskin_grow_1 }
+		required_missions = { hobgoblin_tame_the_wastes }
+		position = 5
+		provinces_to_highlight = {
+			region = the_eastern_steppes_region
+			is_city = yes
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by_subject_of = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 50
+				region = the_eastern_steppes_region
+			}
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+		}
+	}
+
+	# The Khanate can no longer muster riders from mud camps alone. We need places to gather and drill.
+# Worth no ideas
+	hobgoblin_build_barracks = {
+		icon = mission_greenskins_fort
+		required_missions = { hobgoblin_grow_1 }
 		position = 6
 		provinces_to_highlight = {
 			owned_by = ROOT
@@ -458,24 +582,24 @@ greenskin_missions_2 = {
 		}
 	}
 
-## Waagh is good! It teaches us many things. We must make sure that the older greenskins teach the younger greenskins a thing or two befor they die.
+	## Old riders know lessons that no ledger can hold. Their tricks must survive them.
 # Worth half an idea
-	greenskin_army_tradition = {
+	hobgoblin_army_tradition = {
 		icon = mission_greenskins_savage_orc
-		required_missions = { greenskin_build_barracks }
+		required_missions = { hobgoblin_build_barracks }
 		trigger = {
 			army_tradition = 75
 		}
 		effect = {
-			add_country_modifier = { 
-			    name = greenskin_army_tradition
-			    duration = -1  
+			add_country_modifier = {
+			    name = hobgoblin_army_tradition
+			    duration = -1
 			}
 		}
 	}
 
 
-	greenskin_raid_couronne = {
+	hobgoblin_raid_couronne = {
 		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		position = 10
@@ -502,7 +626,7 @@ greenskin_missions_2 = {
 	}
 
 
-	greenskin_raid_athel_loren = {
+	hobgoblin_raid_athel_loren = {
 		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
@@ -527,7 +651,7 @@ greenskin_missions_2 = {
 		}
 	}
 
-	greenskin_raid_remas = {
+	hobgoblin_raid_remas = {
 		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
@@ -552,7 +676,7 @@ greenskin_missions_2 = {
 		}
 	}
 
-	greenskin_raid_palace_of_the_wizard_caliph = {
+	hobgoblin_raid_palace_of_the_wizard_caliph = {
 		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
@@ -579,37 +703,34 @@ greenskin_missions_2 = {
 
 }
 
-greenskin_missions_3 = {
+hobgoblin_khanate_missions_3 = {
 	slot = 3
 	generic = yes
 	has_country_shield = no
 	ai = yes
 	potential = {
-		OR = {
-			culture_group = greenskins_group
-			culture_group = hobgoblin_group
-		}
-		NOT = { tag = G36 }
+		tag = G36
 		war_mission_priority_1 = no
 	}
 
-## Maybe Mork is the way to go?
+## The tribes must be pleased before the Khan can ask them to ride deeper into Cathay.
 # Worth half an idea
-	greenskin_try_mork = {
+	hobgoblin_try_mork = {
 		icon = mission_greenskins_mork
 		required_missions = { }
 		trigger = {
-			OR = {
-				piety = 0.7
-				AND = {
-					NOT = { religion = gork_n_mork_religion }
-					at_war_with_religious_enemy = yes
-				}
+			estate_loyalty = {
+				estate = estate_nomadic_tribes
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nomadic_tribes
+				value = 1
 			}
 		}
 		effect = {
 			add_country_modifier = {
-				name = greenskin_tried_mork
+				name = hobgoblin_tried_mork
 				duration = -1
 			}
 		}
@@ -617,9 +738,9 @@ greenskin_missions_3 = {
 
 ## Our shamans and gods are pleased. We shall throw a great festival, and our swords shall glow with the flames of our gods!
 # Worth no ideas
-	greenskin_happy_priest = {
+	hobgoblin_happy_priest = {
 		icon = mission_greenskins_idol
-		required_missions = { greenskin_try_mork greenskin_try_gork }
+		required_missions = { hobgoblin_try_mork hobgoblin_try_gork }
 		trigger = {
 			estate_loyalty = {
 				estate = estate_church
@@ -632,7 +753,7 @@ greenskin_missions_3 = {
 		}
 		effect = {
 			add_country_modifier = {
-				name = greenskin_rituals
+				name = hobgoblin_rituals
 				duration = 3650
 			}
 		}
@@ -641,9 +762,9 @@ greenskin_missions_3 = {
 
 ## There's something strange happening in our nation. As the various factions solidify under our rule, people whisper of rules and laws. To us, it sounds like power. Is this an opportunity to consolidate our rule?
 # Worth no ideas
-	greenskin_estates = {
+	hobgoblin_estates = {
 		icon = mission_greenskins_flag
-		required_missions = { greenskin_warfare_2 greenskin_happy_priest greenskin_some_war_reps}
+		required_missions = { hobgoblin_warfare_2 hobgoblin_happy_priest hobgoblin_some_war_reps}
 		position = 4
 		trigger = {
 
@@ -669,7 +790,7 @@ greenskin_missions_3 = {
  			 	estate = estate_church
     			share = -2.5
 			}
-			
+
 			change_estate_land_share = {
  			 	estate = estate_burghers
     			share = -2.5
@@ -683,11 +804,11 @@ greenskin_missions_3 = {
 		}
 	}
 
-## With the estates on side, we have a strange opportunity. We could seize power, or distribute it to the masses. This is all feeling strange for a greenskin.
+	## With the estates on side, the Khan can decide how much room the camps are allowed to scheme.
 # Worth 1 idea
-	greenskin_reform_personal_freedom = {
+	hobgoblin_reform_personal_freedom = {
 		icon = mission_greenskins_flag
-		required_missions = { greenskin_estates }
+		required_missions = { hobgoblin_estates }
 		trigger = {
 
 			crown_land_share = 50
@@ -709,18 +830,18 @@ greenskin_missions_3 = {
 
 		effect = {
 			change_government_reform_progress = 50
-			country_event = { 
-			    id = greenskin_events.101
+			country_event = {
+			    id = hobgoblin_events.1101
 			}
 
 		}
 	}
 
-## Professionalism and discipline do not come naturally to a greenskin army. But there is much to be said for following orders into combat.
+	## Professionalism and discipline do not come naturally to steppe raiders, but obedience has uses.
 ## Worth half an idea
-	greenskin_professionalism = {
+	hobgoblin_professionalism = {
 		icon = mission_greenskins_boar
-		required_missions = { greenskin_build_barracks }
+		required_missions = { hobgoblin_build_barracks }
 		position = 7
 		trigger = {
 			OR = {
@@ -732,18 +853,18 @@ greenskin_missions_3 = {
 		effect = {
 
 			add_country_modifier = {
-				name = greenskin_professionalism
+				name = hobgoblin_professionalism
 				duration = -1
 			}
 
 		}
 	}
 
-## Which will it be? The traditions of the great warriors, or the discipline of the new ways?
+	## Which will it be? The traditions of the old riders, or the discipline needed to hold Cathay?
 # Worth one idea
-	greenskin_reform_army = {
+	hobgoblin_reform_army = {
 		icon = mission_greenskins_flag
-		required_missions = { greenskin_army_tradition greenskin_professionalism }
+		required_missions = { hobgoblin_army_tradition hobgoblin_professionalism }
 		trigger = {
 			army_tradition = 75
 			OR = {
@@ -754,13 +875,13 @@ greenskin_missions_3 = {
 		}
 		effect = {
 			change_government_reform_progress = 50
-			country_event = { 
-			    id = greenskin_events.102
+			country_event = {
+			    id = hobgoblin_events.1102
 			}
 		}
 	}
 
-	greenskin_raid_kislev = {
+	hobgoblin_raid_kislev = {
 		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		position = 10
@@ -787,7 +908,7 @@ greenskin_missions_3 = {
 	}
 
 
-	greenskin_raid_altdorf = {
+	hobgoblin_raid_altdorf = {
 		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
@@ -812,7 +933,7 @@ greenskin_missions_3 = {
 		}
 	}
 
-	greenskin_raid_barak_varr = {
+	hobgoblin_raid_barak_varr = {
 		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
@@ -837,7 +958,7 @@ greenskin_missions_3 = {
 		}
 	}
 
-	greenskin_raid_khemri = {
+	hobgoblin_raid_khemri = {
 		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
@@ -862,17 +983,17 @@ greenskin_missions_3 = {
 		}
 	}
 
-# We have raided every major city in the world! We are the ultimate warriors!
+	# The Khanate has sacked the world's greatest cities and made its road impossible to ignore.
 # Worth 8 ideas
-	greenskin_ultimate = {
+	hobgoblin_ultimate = {
 		icon = mission_orc_religion
-		required_missions = { greenskin_raid_naggarond greenskin_raid_lothern greenskin_raid_hexotl greenskin_raid_itza greenskin_raid_couronne greenskin_raid_athel_loren greenskin_raid_remas greenskin_raid_palace_of_the_wizard_caliph greenskin_raid_kislev greenskin_raid_altdorf greenskin_raid_barak_varr greenskin_raid_khemri greenskin_raid_skavenhold greenskin_raid_zharr_naggrund greenskin_raid_karaz_a_karak greenskin_raid_pigbarter greenskin_raid_dragon_gate greenskin_raid_wei_jin greenskin_raid_goldtooth_mine greenskin_raid_mrauk_u }
+		required_missions = { hobgoblin_raid_naggarond hobgoblin_raid_lothern hobgoblin_raid_hexotl hobgoblin_raid_itza hobgoblin_raid_couronne hobgoblin_raid_athel_loren hobgoblin_raid_remas hobgoblin_raid_palace_of_the_wizard_caliph hobgoblin_raid_kislev hobgoblin_raid_altdorf hobgoblin_raid_barak_varr hobgoblin_raid_khemri hobgoblin_raid_skavenhold hobgoblin_raid_zharr_naggrund hobgoblin_raid_karaz_a_karak hobgoblin_raid_pigbarter hobgoblin_raid_dragon_gate hobgoblin_raid_wei_jin hobgoblin_raid_goldtooth_mine hobgoblin_raid_mrauk_u }
 		trigger = {
 		}
 		effect = {
 
 			add_country_modifier = {
-				name = greenskin_ultimate
+				name = hobgoblin_ultimate
 				duration = -1
 			}
 
@@ -881,105 +1002,93 @@ greenskin_missions_3 = {
 
 }
 
-greenskin_missions_4 = {
+hobgoblin_khanate_missions_4 = {
 	slot = 4
 	generic = yes
 	has_country_shield = no
 	ai = yes
 	potential = {
-		OR = {
-			culture_group = greenskins_group
-			culture_group = hobgoblin_group
-		}
-		NOT = { tag = G36 }
+		tag = G36
 		war_mission_priority_1 = no
 	}
 
-## Maybe we should try gork
+## The Khan's rites must bind the whole horde before the southern ride begins.
 # Worth half an idea
-	greenskin_try_gork = {
+	hobgoblin_try_gork = {
 		icon = mission_greenskins_gork
 		required_missions = {
 		}
 		trigger = {
-			OR = {
-				NOT = {
-					piety = -0.70
-				}
-				AND = {
-					NOT = { religion = gork_n_mork_religion }
-					at_war_with_religious_enemy = yes
-				}
-			}
+			religious_unity = 1.0
+			prestige = 15
 		}
 		effect = {
 			add_country_modifier = {
-				name = greenskin_tried_gork
+				name = hobgoblin_tried_gork
 				duration = -1
 			}
 		}
 	}
 
-## A greenskin nation is built on raiding and forced tribute. Let us extract as much as we can from our enemies
+	## The Khanate is built on raiding and forced tribute. Let us extract as much as we can from our enemies.
 # Worth half an idea
-	greenskin_some_war_reps = {
+	hobgoblin_some_war_reps = {
 		icon = mission_greenskins_goblin_warboss
 		position = 3
-		required_missions = { greenskin_make_guilds_happy }
+		required_missions = { hobgoblin_make_guilds_happy }
 		trigger = {
 			num_of_war_reparations = 3
 		}
 		effect = {
-			add_country_modifier = { 
-			    name = greenskin_reform_warscore_cost_1
-			    duration = -1  
+			add_country_modifier = {
+			    name = hobgoblin_reform_warscore_cost_1
+			    duration = -1
 			}
 		}
 	}
 
-## WE are warriors, not farmers. Let another tend to the crops. We shall collect.
+	## We are riders, not farmers. Let others tend the crops while we collect.
 ## Worth half an idea
-	greenskin_more_war_reps = {
+	hobgoblin_more_war_reps = {
 		icon = mission_greenskins_fort
-		required_missions = { greenskin_some_war_reps }
+		required_missions = { hobgoblin_some_war_reps }
 		trigger = {
 			num_of_war_reparations = 6
 		}
 		effect = {
-			remove_country_modifier = greenskin_reform_warscore_cost_1
-			add_country_modifier = { 
-			    name = greenskin_reform_warscore_cost_2
-			    duration = -1  
+			remove_country_modifier = hobgoblin_reform_warscore_cost_1
+			add_country_modifier = {
+			    name = hobgoblin_reform_warscore_cost_2
+			    duration = -1
 			}
-			custom_tooltip = upgrade_replace_tt		
+			custom_tooltip = upgrade_replace_tt
 		}
 	}
 
-## Some radical elements are clamboring for some sort of institutional stability. What should be done?
-	greenskin_reform_government = {
+	## Some advisers want institutional stability. The Khan must decide what kind of order is tolerable.
+	hobgoblin_reform_government = {
 		icon = mission_greenskins_flag
-		required_missions = { greenskin_reform_personal_freedom greenskin_reform_economy }
+		required_missions = { hobgoblin_reform_personal_freedom hobgoblin_reform_economy }
 		position = 6
 		trigger = {
 			OR = {
-				stability = 3
-				hidden_trigger = {	ai = yes }
+				legitimacy_equivalent = 95
+				NOT = { average_unrest = -4 }
 			}
-			legitimacy_equivalent = 100
 		}
 		effect = {
 			change_government_reform_progress = 50
-			country_event = { 
-			    id = greenskin_events.103
+			country_event = {
+			    id = hobgoblin_events.1103
 			}
 		}
 	}
 
-## We have a decision to make - do we embrace the waagh, or try to civilize?
+## We have a decision to make - does the Khanate thrive through struggle or through ordered roads?
 # Worth 1.5 ideas
-	greenskin_reform_fightiness = {
+	hobgoblin_reform_fightiness = {
 		icon = mission_greenskins_flag
-		required_missions = { greenskin_reform_government greenskin_reform_army greenskin_reform_orcs_hobgoblin_or_goblin }
+		required_missions = { hobgoblin_reform_government hobgoblin_reform_army hobgoblin_reform_orcs_hobgoblin_or_goblin }
 		position = 9
 		trigger = {
 			OR = {
@@ -991,13 +1100,13 @@ greenskin_missions_4 = {
 		}
 		effect = {
 			change_government_reform_progress = 50
-			country_event = { 
-			    id = greenskin_events.104
+			country_event = {
+			    id = hobgoblin_events.1104
 			}
 		}
 	}
 
-	greenskin_raid_skavenhold = {
+	hobgoblin_raid_skavenhold = {
 		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		position = 10
@@ -1024,7 +1133,7 @@ greenskin_missions_4 = {
 	}
 
 
-	greenskin_raid_zharr_naggrund = {
+	hobgoblin_raid_zharr_naggrund = {
 		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
@@ -1049,7 +1158,7 @@ greenskin_missions_4 = {
 		}
 	}
 
-	greenskin_raid_karaz_a_karak = {
+	hobgoblin_raid_karaz_a_karak = {
 		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
@@ -1074,7 +1183,7 @@ greenskin_missions_4 = {
 		}
 	}
 
-	greenskin_raid_pigbarter = {
+	hobgoblin_raid_pigbarter = {
 		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
@@ -1101,23 +1210,19 @@ greenskin_missions_4 = {
 
 }
 
-greenskin_missions_5 = {
+hobgoblin_khanate_missions_5 = {
 	slot = 5
 	generic = yes
 	has_country_shield = no
 	ai = yes
 	potential = {
-		OR = {
-			culture_group = greenskins_group
-			culture_group = hobgoblin_group
-		}
-		NOT = { tag = G36 }
+		tag = G36
 		war_mission_priority_1 = no
 	}
 
 ## We have little respect for the peddlers and craven traders. However, they have enough power that we must at least acknowledge their presense.
 ## No ideas
-	greenskin_make_guilds_happy = {
+	hobgoblin_make_guilds_happy = {
 		icon = mission_greenskins_goblin_warboss
 		required_missions = {  }
 		position = 2
@@ -1138,9 +1243,9 @@ greenskin_missions_5 = {
 	}
 
 ## It is hard to argue that our great gods shoudl not be worshipped. Very well. WE'll listen to the guilds this one time.
-	greenskin_build_churches = {
+	hobgoblin_build_churches = {
 		icon = mission_greenskins_idol
-		required_missions = { greenskin_make_guilds_happy }
+		required_missions = { hobgoblin_make_guilds_happy }
 		provinces_to_highlight = {
 			owned_by = ROOT
 			NOT = { has_building = temple }
@@ -1170,9 +1275,9 @@ greenskin_missions_5 = {
 	}
 
 ## The temples are somehow making money. We don't understand it, but the traders are suggesting marketplaces as well... I'm not sure about this.
-	greenskin_build_markets = {
+	hobgoblin_build_markets = {
 		icon = mission_greenskins_fort
-		required_missions = { greenskin_build_churches }
+		required_missions = { hobgoblin_build_churches }
 		trigger = {
 			num_of_owned_provinces_with = {
 				OR = {
@@ -1189,23 +1294,23 @@ greenskin_missions_5 = {
 	}
 
 ## With money rolling in from both trade and raiding, we have a decision to make. Do we double down on the raiding? Or do we invest efforts in ... well, investments?
-	greenskin_reform_economy = {
+	hobgoblin_reform_economy = {
 		icon = mission_greenskins_flag
-		required_missions = { greenskin_more_war_reps greenskin_build_markets }
+		required_missions = { hobgoblin_more_war_reps hobgoblin_build_markets }
 		position = 5
 		trigger = {
 			num_of_times_used_pillage_capital = 10
 		}
 		effect = {
 			change_government_reform_progress = 50
-			country_event = { 
-			    id = greenskin_events.105
+			country_event = {
+			    id = hobgoblin_events.1105
 			}
 		}
 	}
 
-## Our Waagh stretches multiple continents.
-	greenskin_global_waagh = {
+	## Our Khanate now throws a shadow across multiple continents.
+	hobgoblin_global_khanate = {
 		icon = mission_greenskins_savage_orc
 		position = 7
 		required_missions = { }
@@ -1216,17 +1321,17 @@ greenskin_missions_5 = {
 			}
 		}
 		effect = {
-			add_country_modifier = { 
-			    name = greenskin_culture_convert
-			    duration = -1  
+			add_country_modifier = {
+			    name = hobgoblin_culture_convert
+			    duration = -1
 			}
 		}
 	}
 
-## As the dominant greenskin nation, greenskin are flocking to our banner. We must decide who will run our government. Orcs, Goblins, or Hobgoblins?
-	greenskin_reform_orcs_hobgoblin_or_goblin = {
+## As the Khanate expands, its ruling road must be chosen: old Hobgoblin legacy, Chaos discipline, or Cathayan statecraft.
+	hobgoblin_reform_orcs_hobgoblin_or_goblin = {
 		icon = mission_greenskins_idol
-		required_missions = { greenskin_global_waagh }
+		required_missions = { hobgoblin_global_khanate }
 		trigger = {
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 				value = 100
@@ -1238,14 +1343,14 @@ greenskin_missions_5 = {
 		}
 		effect = {
 			change_government_reform_progress = 50
-			country_event = { 
-			    id = greenskin_events.106
+			country_event = {
+			    id = hobgoblin_events.1106
 			}
 		}
 	}
 
 
-	greenskin_raid_dragon_gate = {
+	hobgoblin_raid_dragon_gate = {
 		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		position = 10
@@ -1272,7 +1377,7 @@ greenskin_missions_5 = {
 	}
 
 
-	greenskin_raid_wei_jin = {
+	hobgoblin_raid_wei_jin = {
 		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
@@ -1297,7 +1402,7 @@ greenskin_missions_5 = {
 		}
 	}
 
-	greenskin_raid_goldtooth_mine = {
+	hobgoblin_raid_goldtooth_mine = {
 		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {
@@ -1322,7 +1427,7 @@ greenskin_missions_5 = {
 		}
 	}
 
-	greenskin_raid_mrauk_u = {
+	hobgoblin_raid_mrauk_u = {
 		icon = mission_humiliate_lubeck
 		required_missions = {  }
 		provinces_to_highlight = {

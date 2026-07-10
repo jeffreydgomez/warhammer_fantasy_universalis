@@ -650,7 +650,6 @@ war_diplo_convert_to_religion = {
 		}
 
 
-
 		add_entry = {
 			name = AI_TOTAL_DEVELOPMENT
 			export_to_variable = {
@@ -818,6 +817,7 @@ war_request_blood_kiss = {
 	is_visible = {
 		ai = no
 		NOT = { religion = vampiric }
+		NOT = { has_country_modifier = undead_administration }
 		FROM = { religion = vampiric }
 		NOT = { has_reform = everchosen_reform }
 	}
@@ -835,8 +835,45 @@ war_request_blood_kiss = {
 			}
 			multiply_variable = {
 				which = ai_value
-				value = 1000
+				value = -10
 			}
+		}
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.2
+			}
+		}
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.1
+			}
+        }
+        add_entry = {
+			name = WE_ARE_MARRIED
+			limit = { FROM = { marriage_with = ROOT } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
 		}
 	}
 
