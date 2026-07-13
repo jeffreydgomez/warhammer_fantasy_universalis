@@ -16882,10 +16882,31 @@ country_event = {
 
 	immediate = { set_country_flag = did_intro_event }
 
-# Sound the mist-horns.
+# Adopt the new national ideas and sound the mist-horns.
 	option = {
 		ai_chance = { factor = 100 }
-		name = war_unique_intro_events.552.a
+		name = ideagroups.1.a
+		trigger = { has_custom_ideas = no }
+		# Weighing Value: +5
+
+		hidden_effect = {
+			if = {
+				limit = {
+					has_idea_group = norse_ideas
+				}
+				set_country_flag = refused_norse_ideas
+			}
+		}
+		swap_free_idea_group = yes
+		add_stability_or_adm_power = yes
+		add_mil_power = 50
+		add_yearly_manpower = 1
+	}
+
+# Keep our current national ideas and sound the mist-horns.
+	option = {
+		ai_chance = { factor = 0 }
+		name = ideagroups.1.b
 		# Weighing Value: +5
 
 		add_stability_or_adm_power = yes
@@ -16913,10 +16934,31 @@ country_event = {
 
 	immediate = { set_country_flag = did_intro_event }
 
-# Bind the sea councils.
+# Adopt the new national ideas and bind the sea councils.
 	option = {
 		ai_chance = { factor = 100 }
-		name = war_unique_intro_events.553.a
+		name = ideagroups.1.a
+		trigger = { has_custom_ideas = no }
+		# Weighing Value: +5
+
+		hidden_effect = {
+			if = {
+				limit = {
+					has_idea_group = norse_ideas
+				}
+				set_country_flag = refused_norse_ideas
+			}
+		}
+		swap_free_idea_group = yes
+		add_stability_or_adm_power = yes
+		add_dip_power = 50
+		add_mercantilism = 1
+	}
+
+# Keep our current national ideas and bind the sea councils.
+	option = {
+		ai_chance = { factor = 0 }
+		name = ideagroups.1.b
 		# Weighing Value: +5
 
 		add_stability_or_adm_power = yes
