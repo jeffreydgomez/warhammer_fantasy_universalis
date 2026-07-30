@@ -3,8 +3,10 @@ country_decisions = {
 	nippon_nation = {
 		major = yes
 		
-		potential = {
-			normal_or_historical_nations = yes
+			potential = {
+				always = no
+
+				normal_or_historical_nations = yes
 			was_never_end_game_tag_trigger = yes
 			NOT = { has_country_flag = formed_nippon_flag }
 			NOT = { exists = Z96 }
@@ -100,6 +102,111 @@ country_decisions = {
 #					num_of_cities = 20
 #				}
 #			}
+		}
+	}
+
+	grand_nippon_nation = {
+		major = yes
+
+		potential = {
+			normal_or_historical_nations = yes
+			NOT = { tag = Z89 }
+			NOT = { has_country_flag = formed_grand_nippon_flag }
+			NOT = { exists = Z89 }
+			capital_scope = {
+				region = nippon_region
+			}
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 30
+				}
+			}
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+		}
+
+		provinces_to_highlight = {
+			region = nippon_region
+			NOT = { owned_by = ROOT }
+			root = {
+				NOT = {
+					num_of_owned_provinces_with = {
+						value = 30
+						region = nippon_region
+					}
+				}
+			}
+		}
+
+		allow = {
+#			is_free_or_tributary_trigger = yes
+			is_at_war = no
+			capital_scope = {
+				region = nippon_region
+			}
+			num_of_owned_provinces_with = {
+				value = 30
+				region = nippon_region
+			}
+		}
+
+		effect = {
+			if = {
+				limit = {
+					is_part_of_hre = yes
+					is_elector = no
+					is_emperor = no
+				}
+				emperor = {
+					add_opinion = {
+						who = root
+						modifier = opinion_left_empire
+					}
+				}
+				set_in_empire = no
+				emperor = {
+					country_event = { id = hre_event.5 }
+				}
+			}
+			if = {
+				limit = {
+					NOT = { government_rank = 3 }
+				}
+				hidden_effect = {
+					set_in_empire = no
+				}
+				set_government_rank = 3
+			}
+			change_tag = Z89
+			on_change_tag_effect = yes
+			nippon_region = {
+				limit = {
+					is_wasteland = no
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			add_prestige = 25
+			set_country_flag = formed_grand_nippon_flag
+			country_event = { id = war_formable_nations.33 }
+		}
+
+		ai_will_do = {
+			factor = 400
+			modifier = {
+				factor = 0
+				NOT = {
+					num_of_cities = 30
+				}
+			}
 		}
 	}
 }

@@ -910,3 +910,33 @@ country_event = {
 		ai_chance = { factor = 0 }
 	}
 }
+
+# Concept: Grand Nippon is proclaimed as a higher imperial successor to the unified Nipponese realm.
+country_event = {
+	id = war_formable_nations.33
+	title = war_formable_nations.33.t
+	desc = war_formable_nations.33.d
+	picture = NIPPON_eventPicture
+	is_triggered_only = yes
+
+	# Adopt the new national ideas.
+	option = {
+		name = ideagroups.1.a
+		ai_chance = { factor = 100 }
+		trigger = { has_custom_ideas = no }
+		hidden_effect = {
+			if = {
+				limit = {
+					has_idea_group = norse_ideas
+				}
+				set_country_flag = refused_norse_ideas
+			}
+		}
+		swap_free_idea_group = yes
+	}
+	# Keep our current national ideas.
+	option = {
+		name = ideagroups.1.b
+		ai_chance = { factor = 0 }
+	}
+}
