@@ -56,17 +56,22 @@ country_event = {
 }
 
 
-#Spawning the Center
+
+
+#Do you want to become Everchosen?
 country_event = {
-	id = end_times_events.1000
-	title = end_times_events.1000.name
-	desc = end_times_events.1000.desc
+	id = end_times_events.998
+	title = end_times_events.998.name
+	desc = end_times_events.998.desc
 	picture = ARCHAON_eventPicture
-	major = yes
-	goto = root
+	major = no
+#	goto = root
 	trigger = {
 
 		NOT = { has_global_flag = no_end_times_flag }
+		NOT = { has_global_flag = end_times_started }
+		NOT = { has_global_flag = deciding_on_everchosen }
+		NOT = { has_country_modifier = rejected_being_everchosen }
 
 		#### Take out ages when testing
 		OR = {
@@ -80,15 +85,13 @@ country_event = {
 		
 		is_subject = no
 		capital_scope = {
-			religion_group = ruinous_powers_denominations
-			NOT = { religion = hashut }
-		
+			controlled_by = ROOT
 			NOT = {
 				has_province_modifier = religious_center
 			}
 		}
-
 	}
+
 	mean_time_to_happen = {
 		years = 500
 		### Increases the chance if it's a player
@@ -411,16 +414,55 @@ country_event = {
 				value = 100
 			}
 		}
-
-
-
-
-
 		#archaon is favored
 		modifier = {
 			factor = 0.5
 			tag = B99
 		}
+	}
+	immediate = {
+		set_global_flag = deciding_on_everchosen
+	}
+	## I will be chosen!
+	option = {
+		name = end_times_events.998.option_1
+		country_event = { 
+		    id = end_times_events.1000
+		}
+		ai_chance = {
+			factor = 100
+		}
+
+	}
+	## I will not be a puppet
+	option = {
+		name = end_times_events.998.option_2
+		clr_global_flag = deciding_on_everchosen
+		add_country_modifier = { 
+		    name = rejected_being_everchosen
+		    duration = -1  
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+
+#Spawning the Center
+country_event = {
+	id = end_times_events.1000
+	title = end_times_events.1000.name
+	desc = end_times_events.1000.desc
+	picture = ARCHAON_eventPicture
+	major = yes
+	is_triggered_only = yes
+	goto = root
+	trigger = {
+		always = yes
+	}
+	mean_time_to_happen = {
+		years = 1
 	}
 	fire_only_once = yes
 	immediate = {
@@ -433,7 +475,6 @@ country_event = {
 				    duration = -1
 				}
 			}
-
 
 			set_global_flag = end_times_started
 			change_government = chaos_gov
