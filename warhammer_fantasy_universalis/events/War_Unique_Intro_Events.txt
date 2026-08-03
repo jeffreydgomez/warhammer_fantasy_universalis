@@ -16997,3 +16997,48 @@ country_event = {
 		add_yearly_manpower = 1
 	}
 }
+
+### Celestial Khanate Intro Event
+# The Celestial Khanate must make Wei-Jin's stolen mandate, Cathayan bureaucracy, and Hobgoblin wolf-rule into a workable empire.
+country_event = {
+	id = war_unique_intro_events.555
+	title = war_unique_intro_events.555.t
+	desc = war_unique_intro_events.555.d
+	picture = HOBGOBLIN_eventPicture
+	# Event Weighing Value: 0
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = G49
+		NOT = { has_country_flag = did_intro_event }
+	}
+
+	immediate = { set_country_flag = did_intro_event }
+
+# Adopt the new national ideas and stamp the wolf-seal.
+	option = {
+		ai_chance = { factor = 100 }
+		name = ideagroups.1.a
+		trigger = { has_custom_ideas = no }
+		# Weighing Value: 0
+
+		hidden_effect = {
+			if = {
+				limit = {
+					has_idea_group = norse_ideas
+				}
+				set_country_flag = refused_norse_ideas
+			}
+		}
+		swap_free_idea_group = yes
+	}
+
+# Keep our current national ideas and stamp the wolf-seal.
+	option = {
+		ai_chance = { factor = 0 }
+		name = ideagroups.1.b
+		# Weighing Value: 0
+	}
+}
