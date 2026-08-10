@@ -26,13 +26,14 @@ chaos_favor_mechanic = {
 				# So one chaos favor is equvalent to about 8/8/8 = 24 development?
 
 				modifier = {
-					global_tax_income = 1500
-					global_manpower = 200
-					global_sailors = 40000
+					global_tax_income = 1000
+					global_manpower = 100
+					global_sailors = 10000
 					#
 					global_supply_limit_modifier = 10
-					land_forcelimit = 250
-					naval_forcelimit = 250
+					land_forcelimit = 150
+					naval_forcelimit = 150
+					free_leader_pool = 10
 					#
 #					defensiveness = 5
 					#
@@ -117,24 +118,28 @@ chaos_favor_mechanic = {
 			icon = GFX_war_request_men_and_money
 			cost_type = chaos_favor
 			cost = 1
-			trigger = {
-				has_government_power = {
-					mechanic_type = chaos_favor_mechanic
-					power_type = chaos_favor
-					value = 2.0
-				}
-			}
 			effect = {
-				add_manpower = 15
-				add_treasury = 125
-
 				country_event = { id = flavor_chaos.4 }
-
+			}
+			trigger = {
+				NOT = {
+					has_country_modifier = chaos_gift_1
+					has_country_modifier = chaos_gift_2
+					has_country_modifier = chaos_gift_3
+					has_country_modifier = chaos_gift_4
+					has_country_modifier = chaos_gift_5
+					has_country_modifier = chaos_gift_6
+					has_country_modifier = chaos_gift_7
+				}
 			}
 
 			cooldown_years = 10
 			ai_chance = {
-				factor = 0
+				factor = 1
+				modifier = {
+					NOT = { num_of_revolutionary_guard = 15 }
+					factor = 0
+				}
 			}
 		}
 	}
