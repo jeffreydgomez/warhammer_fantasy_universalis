@@ -1,0 +1,2422 @@
+# Sylvania: an exact gameplay copy of the Empire tree with national text and icons.
+# Objectives, effects, reward modifiers and layout are intentionally inherited unchanged.
+# Balance reference: Dev Stuff/Examples/Balance Guide.txt; no reward magnitudes changed.
+war_sylvania_faction_1 = {
+
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		is_or_was_tag = { tag = A13 } # Sylvania and its formations
+	}
+
+	# Charters of the Living: The merchants fear our castles, but their wagons still need safe roads and enforceable contracts. We must honor their petitions and secure their loyalty; a charter bearing our seal should prove more profitable than any priest's warning.
+	sylvania_make_guilds_happy = {
+		icon = mission_vampire_1
+		required_missions = {  }
+		trigger = {
+			estate_loyalty = {
+ 				estate = estate_burghers
+    			loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_burghers
+				value = 1
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+    			name = empire_trade_1
+    			duration = -1  
+			}
+
+		}
+	}
+
+	# Trade Beneath the Gallows: Our merchants need somewhere to trade openly, beyond the whispers that follow every Sylvanian cargo. We must build a commercial center of unquestioned importance, where orderly markets make our protection difficult to refuse.
+	sylvania_center_of_imperial_trade = {
+		icon = mission_vamp_coast_docks
+		required_missions = { sylvania_make_guilds_happy  }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			province_has_center_of_trade_of_level = 1
+		}
+		trigger = {
+			any_owned_province = {
+				province_has_center_of_trade_of_level = 3
+				province_trade_power = 50
+				OR = {
+				 	has_building = marketplace
+				 	has_building = trade_depot
+				 	has_building = stock_exchange
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = empire_trade_powerhouse_tt
+			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						OR = {
+						 	has_building = marketplace
+						 	has_building = trade_depot
+						 	has_building = stock_exchange
+						}
+						province_has_center_of_trade_of_level = 3
+						province_trade_power = 50
+					}
+					add_permanent_province_modifier = { 
+					    name = empire_trade_powerhouse
+					    duration = -1 
+					}
+				}
+			}
+		}
+	}
+
+	# The Empire's Golden Veins: Commerce flows through the living realm as surely as blood through its subjects. We must command our home market until every merchant learns that prosperity requires an accommodation with our court.
+	sylvania_dominate_home_trade_node = {
+		icon = mission_vamp_coast_treasure
+		required_missions = { sylvania_center_of_imperial_trade }
+		trigger = {
+			home_trade_node = {
+				trade_share = {
+					country = ROOT
+					share = 75
+				}
+			}
+		}
+		effect = {
+			remove_country_modifier = empire_trade_1
+			add_country_modifier = { 
+    			name = empire_trade_2
+    			duration = -1  
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+	# A Fleet for the Night: The Counts' writ has little force where our servants cannot carry it. We must establish a flagship and an experienced fleet, opening routes to northern lands whose rulers have yet to receive our claims.
+	sylvania_build_up_navy = {
+		icon = mission_vamp_coast_ship_1
+		required_missions = {  }
+		position = 6
+		trigger = {
+			has_flagship = yes
+			navy_tradition = 25
+		}
+
+		effect = {
+			create_explorer = { tradition = 25 }
+			create_conquistador = { tradition = 25 }
+			custom_tooltip = empire_claims_on_norcsa_albion_coasts_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						is_wasteland = no
+						OR = {
+							region = norsca_region
+							region = albion_region
+						}
+						has_port = yes
+					}
+					add_claim = ROOT
+				}
+			}
+		}
+	}
+
+	# A Foothold in the North: Northern shores promise fresh estates, but a passing raid establishes no lasting title. We must secure a settled holding in Norsca or Albion, directly or through a dependent ruler, and make our presence permanent.
+	sylvania_foothold_across_the_sea = {
+		icon = mission_vamp_coast_shipwreck
+		required_missions = { sylvania_build_up_navy }
+		provinces_to_highlight = {
+			OR = {
+				region = norsca_region
+				region = albion_region
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 1
+				OR = {
+					region = norsca_region
+					region = albion_region
+				}
+				is_city = yes
+			}
+		}
+
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = empire_claims_on_norcsa_albion_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						is_wasteland = no
+						OR = {
+							region = norsca_region
+							region = albion_region
+						}
+						has_port = yes
+					}
+					add_claim = ROOT
+				}
+			}
+		}
+	}
+
+	# Northern Congregations: Our northern possessions cannot remain mere feeding grounds governed by terror. We must spread our faith through their settled communities, binding the living to institutions that will outlast their brief lives.
+	sylvania_convert_the_heathens = {
+		icon = mission_blood_moon
+		required_missions = { sylvania_foothold_across_the_sea }
+		provinces_to_highlight = {
+			OR = {
+				region = norsca_region
+				region = albion_region
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = norsca_region
+					region = albion_region
+				}
+				is_city = yes
+				religion = ROOT
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = empire_get_a_colonist
+				duration = -1
+			}
+			custom_tooltip = empire_claims_on_norcsa_albion_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						is_wasteland = no
+						OR = {
+							region = norsca_region
+							region = albion_region
+						}
+						has_port = yes
+					}
+					add_claim = ROOT
+				}
+			}
+		}
+	}
+
+	# Endow the Black Arts: An ancient grimoire is of little use in the hands of an indolent apprentice. We must advance our scholarship and finance sustained magical research, turning forbidden knowledge into an instrument of government.
+	sylvania_invest_in_magic = {
+		icon = mission_blood_mage
+		position = 10
+		required_missions = {  }
+		trigger = {
+			OR = {
+				innovativeness = 25
+				has_country_modifier = war_modern_science
+			}
+			treasury = 500
+		}
+
+		effect = {
+			add_treasury = -500
+			add_country_modifier = {
+				name = empire_invested_in_magic_1
+				duration = -1
+			}
+		}
+	}
+
+	# An Academy of Forbidden Arts: Our necromancers hoard discoveries in private towers and take their secrets into feuds that last centuries. We must secure a great magical college or build a developed university center, giving forbidden scholarship a permanent home under our supervision.
+	sylvania_invest_in_college = {
+		icon = mission_vampire_ritual
+		required_missions = { sylvania_invest_in_magic }
+		trigger = {
+			any_owned_province = {
+				OR = {
+					has_great_project = {
+						type = altdorf_college_of_mages
+						tier = 3
+					}
+					AND ={
+						has_building = university
+						development = 30
+						num_of_times_expanded_infrastructure = 1
+					}
+				}
+			}
+		}
+
+		effect = {
+			remove_country_modifier = empire_invested_in_magic_1
+			add_country_modifier = {
+				name = empire_invested_in_magic_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+}
+
+war_sylvania_faction_2 = {
+
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		is_or_was_tag = { tag = A13 } # Sylvania and its formations
+	}
+
+	# Guns for the Counts: A dead soldier can wait forever beneath an enemy wall; our ambitions cannot. We must secure access to Nuln and a developed supply of iron, then assemble the artillery that mortal engineers can provide to their new patrons.
+	sylvania_cannons_of_nuln = {
+		icon = mission_dwarf_forge
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = iron
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_artillery = 10
+			31 = {
+				OR = {
+					owned_by = ROOT
+					owner = {
+						OR = {
+							alliance_with = ROOT
+							is_subject_of = ROOT
+						}
+					}
+				}
+			}
+			any_owned_province = {
+				trade_goods = iron
+				base_production = 10
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = empire_nuln_cannons
+				duration = -1
+			}
+		}
+	}
+
+	# Muster the Mortal Levies: Our rule still depends upon living watchmen, servants, and soldiers, however little the court acknowledges their service. We must develop a populous recruiting district and its military facilities so these levies arrive equipped to obey.
+	sylvania_military_powerhouse = {
+		icon = mission_skeleton_armor
+		required_missions = {   }
+		trigger = {
+			any_owned_province = {
+				base_manpower = 10
+				OR = {
+					has_building = barracks
+					has_building = training_fields
+				}
+			}
+		}
+
+		effect = {
+			custom_tooltip = empire_manpower_powerhouse_tt
+			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_building = barracks
+							has_building = training_fields
+						}
+						base_manpower = 10
+					}
+					add_permanent_province_modifier = { 
+					    name = empire_local_manpower_efficiency
+					    duration = -1 
+					}
+				}
+			}
+		}
+	}
+
+	# Discipline Beyond Death: An army of obedient bodies can still be squandered by quarrelling masters. We must combine battlefield experience with professional organization, imposing a common discipline upon the living officers and deathless captains who serve us.
+	sylvania_reform_imperial_army = {
+		icon = mission_skeleton_armor
+		required_missions = { sylvania_military_powerhouse }
+		trigger = {
+			army_tradition = 50
+			OR = {
+				army_professionalism = 0.25
+				has_country_modifier = war_modern_army
+			}
+		}
+
+		effect = {
+			add_army_tradition = -50
+			add_country_modifier = {
+				name = empire_better_discipline
+				duration = -1
+			}
+
+		}
+	}
+
+	# Sword of the Claimant: The Electors respect a pedigree most readily when it commands the strongest army in the realm. We must surpass their hosts in strength and experience, demonstrating our claim in war against enemies beyond the old religious order.
+	sylvania_sword_of_the_empire = {
+		icon = mission_vampire_frenzy
+		position = 4
+		required_missions = { sylvania_reform_imperial_army }
+		provinces_to_highlight = {
+			owner = {
+				OR = {
+					army_size = ROOT
+					army_tradition = ROOT
+				}
+				is_part_of_hre = yes
+			}
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			
+			hidden_trigger = {
+				OR = {
+					ai = no
+					num_of_cities = 25
+				}
+			}
+			army_tradition = 25
+
+			NOT = {
+				any_country = {
+					army_size = ROOT
+					is_part_of_hre = yes
+				}
+			}
+			NOT = {
+				any_country = {
+					army_tradition = ROOT
+					is_part_of_hre = yes
+				}
+			}
+			any_war_enemy_country = {
+				NOT = { religion_group = old_world_denominations }
+			}
+		}
+
+		effect = {
+			if = {
+				limit = { is_emperor = yes }
+				add_imperial_influence = 5
+			}
+			add_country_modifier = {
+				name = empire_better_morale_1
+				duration = -1
+			}
+		}
+	}
+
+	# Recover Our Inheritance: Foreign rulers occupy lands that belong to the inheritance we intend to claim. We must restore the Imperial marches under our authority, or muster an army great enough to enforce those rights without the shelter of Imperial law.
+	sylvania_reconquered_lost_lands = {
+		icon = mission_high_elf_old_world_map
+		required_missions = { sylvania_sword_of_the_empire }
+
+		provinces_to_highlight = {
+			is_part_of_hre = yes
+			owner = { is_part_of_hre = no }
+		}
+
+		trigger = {
+			if = {
+				limit =  { is_part_of_hre = yes }
+				NOT = { num_of_foreign_hre_provinces = 1 }
+				is_emperor = yes
+			} else = {
+				army_size = 80
+
+			}
+		}
+
+		effect = {
+			if = {
+				limit = { is_emperor = yes }
+				add_imperial_influence = 5
+			}
+
+			remove_country_modifier = empire_better_morale_1
+			add_country_modifier = {
+				name = empire_better_morale_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+	# Bargain with the Grudgekeepers: The Dwarfs remember every broken oath, and they have little reason to welcome our envoys. We must overcome that distrust through a lasting alliance or dependent relationship, supported by goodwill so strong that even their ledgers acknowledge it.
+	sylvania_old_alliances_dwarf = {
+		icon = mission_dwarf_king
+		position = 7
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = dwarven_administration }
+			has_discovered = ROOT
+		}
+		trigger = {
+			any_country = {
+				has_country_modifier = dwarven_administration
+				OR = {
+					alliance_with = ROOT
+					is_subject_of = ROOT
+				}
+				trust = {
+					who = ROOT
+					value = 100
+				}
+				has_opinion = {
+					who = ROOT
+					value = 200
+				}
+			}
+		}
+		effect = {
+			add_splendor = 400
+			if = {
+				limit = {
+					adm = 6
+				}
+				add_adm_power = 100
+			}
+			else = {
+				change_adm = 1
+			}
+
+		}
+	}
+
+	# Bring Kislev to Terms: The northern courts regard our envoys with open suspicion, yet their rulers cannot ignore a neighbor of growing power. We must secure their trust or establish our claims through victory and dominion, making indifference impossible.
+	sylvania_weaken_kislev = {
+		icon = mission_kislev_culture
+		required_missions = {  }
+		position = 9
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 330
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 379
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+			330 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+
+			379 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+
+			330 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 25 } }
+					} else {
+						custom_tooltip = empire_claims_on_kislev_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									is_wasteland = no
+									OR = {
+										region = kislev_heartlands_region
+										region = troll_country_region
+									}
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					if = {
+						limit = { NOT = { tag = ROOT } }
+
+						ROOT = {
+							add_casus_belli = {
+							    target = PREV
+							    type = cb_restore_personal_union
+							    months = 600
+							}
+						}
+					}
+				}
+			}
+
+			379 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 25 } }
+					} else {
+						custom_tooltip = empire_claims_on_kislev_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									is_wasteland = no
+									region = kislev_heartlands_region
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					if = {
+						limit = { NOT = { tag = ROOT } }
+
+						ROOT = {
+							add_casus_belli = {
+							    target = PREV
+							    type = cb_restore_personal_union
+							    months = 600
+							}
+						}
+					}
+				}
+			}
+
+		}
+	}
+
+	# Winter Bound by Oath: A frightened northern ruler may sign any parchment and forget it by spring. We must secure the key Kislevite lands through direct authority, dependent rulers, or alliances whose trust and accumulated obligations make withdrawal costly.
+	sylvania_subjugate_kislev = {
+		icon = mission_kislev_ice_palace
+		required_missions = { sylvania_weaken_kislev }
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 339
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 100 }
+									owes_favors = { who = ROOT value = 100 }
+								}
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 325
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 100 }
+									owes_favors = { who = ROOT value = 100 }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+			339 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+
+			325 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+			    name = empire_kislev_ice_magic
+			    duration = -1  
+			}
+
+		}
+	}
+
+}
+
+war_sylvania_faction_3 = {
+
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		is_or_was_tag = { tag = A13 } # Sylvania and its formations
+	}
+
+	# Convene the Blood Court: Every ancient house considers obedience a favor granted to the throne. We must hear the nobility's petitions and secure its loyalty, giving our proudest servants a place in the court before they seek one in a conspiracy.
+	sylvania_please_nobility = {
+		icon = mission_vampire_goblet
+		required_missions = { }
+		trigger = {
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 1
+			}
+		}
+		effect = {
+			define_general = {
+				shock = 6
+				fire = 5
+				manuever = 5
+				siege = 2
+			}
+		}
+	}
+
+	# The Midnight Compact: Merchants, sacred orders, and noble households all sustain our dominion, but each suspects the others of enjoying our favor. We must secure their common loyalty and impose a settlement in which every estate knows its place at the table.
+	sylvania_happy_estates = {
+		icon = mission_vampire_2
+		required_missions = { sylvania_make_guilds_happy sylvania_please_nobility sylvania_happy_church }
+		trigger = {
+			estate_loyalty = {
+    			estate = estate_burghers
+    			loyalty = 70
+			}
+			estate_loyalty = {
+    			estate = estate_church
+    			loyalty = 70
+			}
+			estate_loyalty = {
+    			estate = estate_nobles
+    			loyalty = 70
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 2
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_burghers
+				value = 2
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 2
+			}
+
+		}
+		effect = {
+			add_country_modifier = {
+				name = empire_happy_estates
+				duration = -1
+			}
+		}
+	}
+
+	# Estates of the Eternal Count: Our vassals speak of ancient rights as though those rights preceded our own. We must bring more land directly beneath the crown and curb any estate whose influence threatens to turn service into partnership.
+	sylvania_get_more_crown_land = {
+		icon = mission_vampire_goblet
+		required_missions = { sylvania_happy_estates }
+		trigger = {
+			crown_land_share = 50
+			NOT = {
+				estate_influence = {
+			    	estate = all
+			    	influence = 95
+				}
+			}
+		}
+
+		effect = {
+			add_stability_or_adm_power = yes
+			add_country_modifier = {
+				name = empire_more_absolutism
+				duration = -1
+			}	
+		}
+	}
+
+	# Enter the Electoral Game: Imperial law still admits our envoys, however tightly the Electors clutch their holy symbols. We must assemble a bloc of supporters, or cultivate trusted foreign courts and sufficient standing to make our claim respectable.
+	sylvania_backed_by_some_electors = {
+		icon = mission_vampire_3
+		required_missions = { }
+		provinces_to_highlight = {
+			owner = {
+				is_elector = yes
+				NOT = { preferred_emperor = ROOT }
+			}
+		}		
+		trigger = {
+			if = {
+				limit = {
+					government = monarchy
+					num_of_electors = 6
+					is_part_of_hre = yes
+				}
+				calc_true_if = {
+					desc = gen_hre_electors.tooltip
+					all_elector = {
+						preferred_emperor = ROOT
+					}
+					amount = 6
+				}
+			}
+			else = {
+				calc_true_if = {
+					all_country = {
+						trust = { who = ROOT value = 90 }
+					}
+					amount = 3
+				}
+				OR = {
+					power_projection = 25
+					is_great_power = yes
+				}
+			}
+		}
+		
+		effect = {
+			add_legitimacy = 20
+			add_republican_tradition = 10
+			add_devotion = 20
+			add_horde_unity = 20
+			add_meritocracy = 20
+			add_country_modifier = {
+				name = empire_backed_by_electors_1
+				duration = -1
+			}
+		}
+	}
+
+	# Bind the Electoral College: A few purchased courtesies do not constitute a secure succession. We must extend our influence across the electoral college, or deepen the network of trusted courts that gives substance to our pretensions.
+	sylvania_backed_by_many_electors = {
+		icon = mission_vampire_4
+		required_missions = {  sylvania_backed_by_some_electors }
+		provinces_to_highlight = {
+			owner = {
+				is_elector = yes
+				NOT = { preferred_emperor = ROOT }
+			}
+		}		
+		trigger = {
+			if = {
+				limit = {
+					government = monarchy
+					num_of_electors = 10
+					is_part_of_hre = yes
+				}
+				calc_true_if = {
+					desc = gen_hre_electors.tooltip
+					all_elector = {
+						preferred_emperor = ROOT
+					}
+					amount = 10
+				}
+			}
+			else = {
+				calc_true_if = {
+					all_country = {
+						trust = { who = ROOT value = 90 }
+					}
+					amount = 4
+				}
+				OR = {
+					power_projection = 50
+					is_great_power = yes
+					NOT = { great_power_rank = 4 }
+				}
+			}
+		}
+		
+		effect = {
+			add_legitimacy = 20
+			add_republican_tradition = 10
+			add_devotion = 20
+			add_horde_unity = 20
+			add_meritocracy = 20
+			remove_country_modifier = empire_backed_by_electors_1
+			add_country_modifier = {
+				name = empire_backed_by_electors_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+	# The Midnight Coronation: Our claim has survived petitions, bargains, and the resistance of lesser rulers. We must now command the full authority of the Imperial throne, or establish an equally formidable order of trusted powers around our court.
+	sylvania_very_influential_emperor = {
+		icon = mission_vampire_goblet
+		required_missions = { sylvania_reconquered_lost_lands sylvania_backed_by_many_electors sylvania_deal_with_laurelon }
+		
+		trigger = {
+			if = {
+				limit = {
+					government = monarchy
+					is_part_of_hre = yes
+				}
+				imperial_influence = 100
+				is_emperor = yes
+			}
+			else = {
+				calc_true_if = {
+					all_country = {
+						trust = { who = ROOT value = 90 }
+					}
+					amount = 5
+				}
+				OR = {
+					power_projection = 75
+					is_great_power = yes
+					NOT = { great_power_rank = 2 }
+				}
+			}
+		}
+		
+		effect = {
+			add_prestige_or_monarch_power = { amount = 10 }
+			remove_country_modifier = empire_backed_by_electors_2
+			remove_country_modifier = empire_better_morale_2
+			add_country_modifier = {
+				name = empire_powerful_emperor_1
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+	# Recognition of the Eternal Throne: A coronation does not compel foreign courts to regard us as anything more than a temporary horror. We must demonstrate stable, legitimate rule and unmatched prestige and diplomatic standing within the Empire, making recognition a matter of practical judgment.
+	sylvania_far_reaching_emperor = {
+		icon = mission_high_elf_court
+		required_missions = { sylvania_old_alliances_elf sylvania_very_influential_emperor sylvania_old_alliances_dwarf
+		}
+		position = 8
+		provinces_to_highlight = {
+			owner = {
+				OR = { 
+					prestige = ROOT
+					diplomatic_reputation = ROOT
+				}
+				is_part_of_hre = yes
+			}
+			NOT = { owned_by = ROOT }
+
+		}
+		trigger = {
+			OR = {
+				stability = 3
+				hidden_trigger = {	ai = yes }
+			}
+			legitimacy_equivalent = 95
+
+			NOT = {
+				any_country = {
+					prestige = ROOT
+					is_part_of_hre = yes
+				}
+			}
+			NOT = {
+				any_country = {
+					diplomatic_reputation = ROOT
+					is_part_of_hre = yes
+				}
+			}
+			
+		}
+		effect = {
+
+			remove_country_modifier = empire_powerful_emperor_1
+			add_country_modifier = {
+				name = empire_powerful_emperor_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+	# Claims Beyond the Mountains: The Border Princes rise and fall too quickly to establish convincing pedigrees. We must bring their principal courts into our confidence or prove our superiority in war, preparing claims that will outlive their dynasties.
+	sylvania_weaken_borderlands = {
+		icon = alpine_fortifications
+		required_missions = {  }
+		position = 9
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 655
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 872
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+			655 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+
+			872 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+
+		}
+		effect = {
+
+			655 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 25 } }
+					} else {
+						custom_tooltip = empire_claims_on_borderlands_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									is_wasteland = no
+									region = border_princes_region
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					if = {
+						limit = { NOT = { tag = ROOT } }
+
+						ROOT = {
+							add_casus_belli = {
+							    target = PREV
+							    type = cb_restore_personal_union
+							    months = 600
+							}
+						}
+					}
+				}
+			}
+
+			872 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 25 } }
+					} else {
+						custom_tooltip = empire_claims_on_borderlands_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									is_wasteland = no
+									region = border_princes_region
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					if = {
+						limit = { NOT = { tag = ROOT } }
+
+						ROOT = {
+							add_casus_belli = {
+							    target = PREV
+							    type = cb_restore_personal_union
+							    months = 600
+							}
+						}
+					}
+				}
+			}
+
+		}
+	}
+
+	# Princes Under Our Seal: Our frontier agreements must survive the next succession, murder, and convenient change of allegiance. We must secure the key Borderland territories beneath our rule, dependent princes, or alliances bound by exceptional trust and obligation.
+	sylvania_subjugate_borderlands = {
+		icon = mission_vampire_5
+		required_missions = { sylvania_weaken_borderlands }
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 650
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 100 }
+									owes_favors = { who = ROOT value = 100 }
+								}
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 754
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 100 }
+									owes_favors = { who = ROOT value = 100 }
+								}
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 882
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 100 }
+									owes_favors = { who = ROOT value = 100 }
+								}
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 704
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 100 }
+									owes_favors = { who = ROOT value = 100 }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+			650 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+
+			754 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+
+			882 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+			704 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = empire_border_forts
+				duration = -1
+			}
+		}
+	}
+
+	# Inherit the Southern Realms: The heirs of ancient Remas dispute titles whose original bearers have long since returned to dust. We must establish our influence among their successors through trusted alliances, dominion, or victory, adding the southern realms to our growing inheritance.
+	sylvania_expand_into_remen = {
+		icon = mission_high_elf_old_world_map
+		required_missions = { sylvania_subjugate_bretonnia sylvania_subjugate_borderlands sylvania_subjugate_kislev }
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 590
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 535
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+			590 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+
+			535 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+
+			}
+		}
+
+		effect = {
+			590 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 25 } }
+					} else {
+						custom_tooltip = empire_claims_on_remen_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									is_wasteland = no
+									OR = {
+										region = tilea_region
+										region = estalia_region
+									}
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					if = {
+						limit = { NOT = { tag = ROOT } }
+
+						ROOT = {
+							add_casus_belli = {
+							    target = PREV
+							    type = cb_restore_personal_union
+							    months = 600
+							}
+						}
+					}
+				}
+			}
+			535 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 25 } }
+					} else {
+						custom_tooltip = empire_claims_on_remen_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									is_wasteland = no
+									OR = {
+										region = tilea_region
+										region = estalia_region
+									}
+
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					if = {
+						limit = { NOT = { tag = ROOT } }
+
+						ROOT = {
+							add_casus_belli = {
+							    target = PREV
+							    type = cb_restore_personal_union
+							    months = 600
+							}
+						}
+					}
+				}
+			}
+
+		}
+	}
+
+	# Mankind's Eternal Sovereign: Every mortal dynasty promises lasting order and then leaves its subjects another succession to endure. We must bind the whole western continent through Imperial authority, direct rule, dependent courts, or unbreakable alliances, placing mankind beneath a sovereignty that need never die.
+	sylvania_ultimate_leader_of_mankind = {
+		icon = mission_blood_moon
+		required_missions = { sylvania_expand_into_remen }
+		provinces_to_highlight = {
+			continent = europe
+			NOT = {
+				owner = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+						AND = {
+							ROOT = { is_emperor = yes }
+							is_part_of_hre = yes
+						}
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+					}
+				}
+			}
+		}
+		
+		trigger = {
+			europe = {
+				type = all
+				OR = {
+					hidden_trigger = { is_wasteland = yes }
+					hidden_trigger = { is_sea = yes }
+					owner = {
+						OR = {
+							tag = ROOT
+							is_subject_of = ROOT
+							AND = {
+								alliance_with = ROOT
+								trust = { who = ROOT value = 100 }
+								owes_favors = { who = ROOT value = 100 }
+							}
+							AND = {
+								ROOT = { is_emperor = yes }
+								is_part_of_hre = yes
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		effect = {
+			add_prestige_or_monarch_power = { amount = 200 }
+			add_country_modifier = {
+				name = empire_ultimate
+				duration = -1
+			}
+		}
+	}
+
+}
+
+war_sylvania_faction_4 = {
+
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		is_or_was_tag = { tag = A13 } # Sylvania and its formations
+	}
+
+	# Knights of the Blood: Our mounted aristocrats possess centuries of pride, but pride does not breed horses or organize a cavalry force. We must secure access to Altdorf's martial resources, develop our horse supply, and muster the riders who will carry the court's authority into battle.
+	sylvania_reiksguard = {
+		icon = mission_vampire_frenzy
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = livestock
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_cavalry = 10
+			
+			18 = {
+				OR = {
+					owned_by = ROOT
+					owner = {
+						OR = {
+							alliance_with = ROOT
+							is_subject_of = ROOT
+						}
+					}
+				}
+			}
+			any_owned_province = {
+				trade_goods = livestock
+				base_production = 10
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = empire_better_cavalry
+				duration = -1
+			}
+		}
+	}
+
+	# Credit Beyond the Grave: An Elector who refuses our friendship may still require our money. We must surpass the Empire's other treasuries and extend financial influence through its courts, turning short-lived necessities into obligations held by an undying creditor.
+	sylvania_bank_of_the_empire = {
+		icon = mission_vamp_coast_treasure
+		position = 4
+		required_missions = { }
+		provinces_to_highlight = {
+			owner = {
+				monthly_income = ROOT
+				is_part_of_hre = yes
+			}
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+
+			hidden_trigger = {
+				OR = {
+					ai = no
+					num_of_cities = 25
+				}
+			}
+
+			monthly_income = 50
+			NOT = {
+				any_country = {
+					monthly_income = ROOT
+					is_part_of_hre = yes
+				}
+			}
+
+			if = {
+				limit =  { is_part_of_hre = yes }
+				calc_true_if = {
+					amount = 4
+					all_elector = {
+						has_opinion_modifier = {
+							who = ROOT
+							modifier = great_power_influence
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = empire_bank_of_the_empire
+				duration = -1
+			}
+		}
+	}
+
+	# The Forest That Refuses Us: The Eonir of Laurelorn acknowledge neither our appetite nor the convenience of our Imperial claims. We must obtain their cooperation through binding obligations and exceptional trust, or bring their homeland beneath our authority.
+	sylvania_deal_with_laurelon = {
+		icon = mission_wood_elf_culture
+		required_missions = { sylvania_backed_by_some_electors }
+		provinces_to_highlight = {
+			province_id = 4892
+		}
+		trigger = {
+			4892 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			if = {
+				limit = { is_emperor = yes }
+				add_imperial_influence = 25
+			}
+			if = {
+				limit = { B71 = { ai = yes } }
+				B71 = { set_in_empire = yes }
+			}
+		}
+	}
+
+	# An Audience with the Undying: The Elves understand the patience of long lives, though few will welcome our interpretation of it. We must secure an Elven court's deep trust and goodwill through alliance or dependence, forcing ancient prejudice to contend with a durable relationship.
+	sylvania_old_alliances_elf = {
+		icon = mission_high_elf_court
+		position = 7
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			owner = { has_country_modifier = elven_administration }
+			has_discovered = ROOT
+		}
+		trigger = {
+			any_country = {
+				has_country_modifier = elven_administration
+				OR = {
+					alliance_with = ROOT
+					is_subject_of = ROOT
+				}
+				trust = {
+					who = ROOT
+					value = 100
+				}
+				has_opinion = {
+					who = ROOT
+					value = 200
+				}
+			}
+		}
+		effect = {
+			add_splendor = 400
+			if = {
+				limit = {
+					dip = 6
+				}
+				add_dip_power = 100
+			}
+			else = {
+				change_dip = 1
+			}
+
+		}
+	}
+
+	# Approach the Chivalric Throne: Bretonnian lords denounce our kind, but their quarrels offer openings that righteous speeches cannot close. We must gain the confidence of their principal courts, establish our authority over them, or demonstrate the price of resistance in war.
+	sylvania_weaken_bretonnia = {
+		icon = mission_high_elf_old_world_map
+		required_missions = {  }
+		position = 9
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 263
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 281
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 25
+									}
+								}
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 70 }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+
+			263 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+			}
+
+			281 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 70 }
+						}
+						is_subject_of = ROOT
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+
+			}
+		}
+
+		effect = {
+
+			263 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 25 } }
+					} else {
+						custom_tooltip = empire_claims_on_bretonnia_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									is_wasteland = no
+									region = bretonnia_region
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+					if = {
+						limit = { NOT = { tag = ROOT } }
+
+						ROOT = {
+							add_casus_belli = {
+							    target = PREV
+							    type = cb_restore_personal_union
+							    months = 600
+							}
+						}
+					}
+				}
+			}
+
+			281 = {
+				owner = {
+					if = {
+						limit = { alliance_with = ROOT}
+						ROOT = { add_prestige_or_monarch_power = { amount = 25 } }
+					} else {
+						custom_tooltip = empire_claims_on_bretonnia_tt
+						hidden_effect = {
+							every_province = {
+								limit = {
+									is_wasteland = no
+									region = bretonnia_region
+								}
+								add_claim = ROOT
+							}
+						}
+					}
+
+					if = {
+						limit = { NOT = { tag = ROOT } }
+
+						ROOT = {
+							add_casus_belli = {
+							    target = PREV
+							    type = cb_restore_personal_union
+							    months = 600
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	# The Lily Beneath the Bat: Chivalric vows are useful only when they bind the knight to the correct master. We must secure the key Bretonnian lands through direct dominion, dependent rulers, or alliances whose trust and obligations hold their lords to our interests.
+	sylvania_subjugate_bretonnia = {
+		icon = mission_vampire_goblet
+		required_missions = { sylvania_weaken_bretonnia }
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 314
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 100 }
+									owes_favors = { who = ROOT value = 100 }
+								}
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 257
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 100 }
+									owes_favors = { who = ROOT value = 100 }
+								}
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 280
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 100 }
+									owes_favors = { who = ROOT value = 100 }
+								}
+							}
+						}
+					}
+				}
+
+				AND = {
+					province_id = 237
+					owner = {
+						NOT = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								AND = {
+									alliance_with = ROOT
+									trust = { who = ROOT value = 100 }
+									owes_favors = { who = ROOT value = 100 }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+			314 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+
+			257 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+
+			280 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+			237 = {
+				owner = {
+					OR = {
+						tag = ROOT
+						AND = {
+							alliance_with = ROOT
+							trust = { who = ROOT value = 100 }
+							owes_favors = { who = ROOT value = 100 }
+						}
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+ 				name = empire_bretonnian_cavalry
+				duration = -1
+			}
+		}
+	}
+
+}
+
+war_sylvania_faction_5 = {
+
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	
+	potential = {
+		is_or_was_tag = { tag = A13 } # Sylvania and its formations
+	}
+
+	# Convene the Hidden Cults: Our sacred servants whisper in cellars while rival teachers contest the obedience of the living. We must answer their petitions and secure their loyalty, gathering these scattered congregations into a religious estate the court can direct.
+	sylvania_happy_church = { 
+		icon = mission_vampire_religion
+		required_missions = {  } 
+		trigger = {
+			estate_loyalty = {
+			    estate = estate_church
+			    loyalty = 65
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 1
+			}
+		}
+
+		effect = { 
+			add_country_modifier = { 
+ 				name = empire_happy_church
+				duration = -1
+			}
+		}
+	}
+
+	# Sanctuary of the Night: Scattered shrines cannot sustain the religious order our dominion requires. We must unite our subjects in faith and develop a wealthy temple city, giving our rites an enduring institution beneath the protection of the Counts.
+	sylvania_religious_center = {
+		icon = mission_vampire_ritual
+		position = 2
+		required_missions = { sylvania_happy_church  }
+		trigger = {
+			religious_unity = 1
+			any_owned_province = {
+				base_tax = 10
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = empire_tax_powerhouse_tt
+			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_building = temple
+							has_building = cathedral
+						}
+						base_tax = 10
+					}
+					add_permanent_province_modifier = { 
+					    name = empire_local_tax_efficiency
+					    duration = -1 
+					}
+				}
+			}
+		}
+	}
+
+	# The Hunters at Our Gates: The witch hunters find allies wherever our congregations remain isolated and afraid. We must strengthen the religious estate and fulfill its petitions, allowing our own agents to answer persecution with a wider network of hidden cults.
+	sylvania_decide_on_witch_hunters = { 
+		icon = mission_blood_mage
+		required_missions = { sylvania_religious_center } 
+		position = 3
+		trigger = {
+			estate_influence = {
+			    estate = estate_church
+			    influence = 80
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_church
+				value = 3
+			}
+		}
+
+		effect = { 
+			custom_tooltip = empire_double_cults_tt
+			hidden_effect = { set_country_flag = implant_double_cults }
+
+			remove_country_modifier = empire_happy_church
+			add_country_modifier = { 
+ 				name = empire_happy_church_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+	# Workshops Beneath the Castle: Even an eternal court requires cloth, iron, timber, and craftsmen who understand their work. We must develop a great manufacturing district, placing a productive economy beneath the protection of our towers.
+	sylvania_production_powerhouse = {
+		icon = mission_dwarf_forge
+		required_missions = {   }
+		position = 4
+		trigger = {
+			any_owned_province = {
+				base_production = 10
+				OR = {
+					has_building = workshop
+					has_building = counting_house
+				}
+				OR = {
+					has_building = mills
+					has_building = farm_estate
+					has_building = tradecompany
+					has_building = plantations
+					has_building = textile
+					has_building = weapons
+					has_building = wharf
+					has_building = furnace
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = empire_production_powerhouse_tt
+			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_building = workshop
+							has_building = counting_house
+						}
+						OR = {
+							has_building = mills
+							has_building = farm_estate
+							has_building = tradecompany
+							has_building = plantations
+							has_building = textile
+							has_building = weapons
+							has_building = wharf
+							has_building = furnace
+						}
+						base_production = 10
+					}
+					add_permanent_province_modifier = { 
+					    name = empire_local_production_efficiency
+					    duration = -1 
+					}
+				}
+			}
+		}
+	}
+
+	# Coin of the Eternal Realm: Mortal rulers debase their coins and leave their creditors to argue with the next heir. We must establish orderly finances, advanced knowledge, and developed gold and copper industries, preparing a currency backed by a court that will still exist when its debts mature.
+	sylvania_imperial_currency = {
+		icon = mission_vamp_coast_treasure
+		required_missions = { sylvania_bank_of_the_empire sylvania_production_powerhouse }
+		provinces_to_highlight = {
+			OR = {
+				trade_goods = gold
+				trade_goods = copper
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			NOT = { num_of_loans = 1 }
+			NOT = { inflation = 0.01 }
+			OR = {
+				innovativeness = 15
+				has_country_modifier = war_modern_science
+			}
+
+			any_owned_province = {
+				trade_goods = gold
+				base_production = 10
+				OR = {
+				 	has_building = marketplace
+				 	has_building = trade_depot
+				 	has_building = stock_exchange
+				}
+			}
+			any_owned_province = {
+				trade_goods = copper
+				base_production = 10
+				OR = {
+					has_building = workshop
+					has_building = counting_house
+				}
+			}
+			
+		}
+
+		effect = {
+			add_years_of_income = 2
+			add_inflation = 2
+		}
+	}
+
+	# The Count's Peace: Fear may empty a street, but only reliable administration can keep its revenues flowing. We must establish functioning local courts and suppress unrest, teaching our subjects that the Count's peace governs every day between the nights of judgment.
+	sylvania_law_and_order = { 
+		icon = mission_vampire_goblet
+		required_missions = { sylvania_imperial_currency }
+		trigger = {
+			OR = {
+				num_of_owned_provinces_with = {
+					OR = {
+						has_building = courthouse
+						has_building = town_hall
+					}
+					NOT =  { unrest = 1 }
+					value = 10
+				}
+				all_owned_province = {
+					value = 10
+					OR = {
+						has_building = courthouse
+						has_building = town_hall
+					}
+					NOT =  { unrest = 1 }
+				}
+			}
+		}
+
+		effect = { 
+			add_country_modifier = { 
+ 				name = empire_place_of_law
+				duration = -1
+			}
+		}
+	}
+
+	# Protector of the Night: Our fellow believers cannot trust a protector whose own subjects dispute its authority. We must establish religious unity and exceptional prestige, then assume the defense of our faith or demonstrate our leadership in war against its enemies.
+	sylvania_defender_of_faith = { 
+		icon = mission_vampire_frenzy
+		required_missions = {  }
+		position = 8
+		provinces_to_highlight = {
+			owner = {
+				total_development = ROOT
+				religion = ROOT
+			}
+		}
+		trigger = {
+			prestige = 99
+			religious_unity = 1.0
+			OR = {
+				is_defender_of_faith = yes
+				AND = {
+					at_war_with_religious_enemy = yes
+					NOT = {
+						any_country = {
+							total_development = ROOT
+							religion = ROOT
+						}
+					}
+					any_country = {
+						religion = ROOT
+						OR = {
+							alliance_with = ROOT
+							is_subject_of = ROOT
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+ 				name = empire_historical_defender
+				duration = -1
+			}
+		}
+	}
+
+	# Cults Across the Empire: A handful of hidden congregations can be uprooted; a faith embedded across the Empire cannot be dismissed so easily. We must spread our religion through a broad foundation of Imperial provinces until the old authorities confront an enduring presence.
+	sylvania_most_of_empire_your_faith = { 
+		icon = mission_vampire_religion
+		required_missions = { sylvania_defender_of_faith }
+		provinces_to_highlight = {
+			NOT = { religion = ROOT}
+			is_part_of_hre = yes
+		}
+
+		trigger = {
+			if = {
+				limit = { is_part_of_hre = yes }
+				calc_true_if = {
+					all_province = {
+						is_part_of_hre = yes
+						religion = ROOT
+					}
+					amount = 100
+				}
+			} else = {
+				calc_true_if = {
+					all_province = {
+						superregion = the_empire_superregion
+						religion = ROOT
+					}
+					amount = 100
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = { 
+ 				name = empire_united_religion_1
+				duration = -1
+			}
+		}
+	}
+
+	# An Empire Converted: The old order can still rally against us while its Electors pray for our destruction. We must bring the electoral college into our faith, or complete the conversion of the Imperial heartlands beyond its institutions, making our rites the foundation of the realm.
+	sylvania_is_your_faith = { 
+		icon = mission_blood_moon
+		required_missions = { sylvania_most_of_empire_your_faith }
+		provinces_to_highlight = {
+			owner = {
+				NOT = { religion = ROOT}
+				is_elector = yes
+			}
+		}
+		trigger = {
+			if = {
+				limit = { is_part_of_hre = yes }
+				NOT = {
+					any_elector = {
+						NOT = { religion = ROOT }
+					}
+				}
+			} else = {
+				NOT = {
+					calc_true_if = {
+						all_province = {
+							superregion = the_empire_superregion
+							NOT = { religion = ROOT }
+						}
+						amount = 1
+					}
+				}
+			}
+		}
+
+		effect = {
+			remove_country_modifier = empire_united_religion_1
+			add_country_modifier = { 
+ 				name = empire_united_religion_2
+				duration = -1
+			}
+			custom_tooltip = upgrade_replace_tt
+		}
+	}
+
+}
+
