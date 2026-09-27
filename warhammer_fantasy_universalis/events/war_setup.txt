@@ -271,3 +271,28 @@ country_event = {
 		add_winds_gain_effect = yes
 	}
 }
+
+# Concept: Explain how Undead Military replenishes its ranks from battles on land both owned and controlled.
+country_event = {
+	id = warhammer_setup.6
+	title = warhammer_setup.6.t
+	desc = warhammer_setup.6.d
+	picture = SKELETON_eventPicture
+
+	is_triggered_only = yes
+	# A country flag makes this once per nation, rather than once for the whole world.
+	trigger = {
+		has_country_modifier = undead_military
+		NOT = { has_country_flag = war_undead_military_explained }
+	}
+
+	immediate = {
+		set_country_flag = war_undead_military_explained
+	}
+
+	# Acknowledge the mechanic; informational only. Total Weighing Value: 0.
+	option = {
+		name = warhammer_setup.6.a
+		custom_tooltip = war_undead_battlefield_manpower_tt
+	}
+}

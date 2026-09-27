@@ -13,6 +13,19 @@
 
 # undead religions: vampiric nagash_worship  nehekharan_pantheon (usually)
 
+# Explain Undead Military once per country, including later conversions and releases.
+war_undead_military_intro_effect = {
+	hidden_effect = {
+		if = {
+			limit = {
+				has_country_modifier = undead_military
+				NOT = { has_country_flag = war_undead_military_explained }
+			}
+			country_event = { id = warhammer_setup.6 }
+		}
+	}
+}
+
 war_reset_racial_modifiers = {
 
 	remove_country_modifier = human_administration
@@ -71,6 +84,9 @@ war_reset_racial_modifiers = {
 			duration = -1
 		}
 	}
+
+	# Startup setup and country creation/release all pass through this effect.
+	war_undead_military_intro_effect = yes
 
 
 	if = {
