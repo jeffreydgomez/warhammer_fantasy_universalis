@@ -1,0 +1,10 @@
+# Silent country identity setup; no enclave intro events or startup land grants.
+on_country_creation = { war_enclave_initialize_identity_effect = yes }
+on_country_released = { war_enclave_initialize_identity_effect = yes }
+# Creation may precede the first territorial assignment. This province-scope hook
+# catches that assignment, including separatist independence and scripted cessions.
+on_province_owner_change = {
+	owner = { war_enclave_initialize_identity_effect = yes }
+}
+# Fallback for changes of tag that bypass creation/ownership hooks.
+on_yearly_pulse = { war_enclave_initialize_identity_effect = yes }

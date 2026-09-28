@@ -1,0 +1,18 @@
+# ROOT is a winning country; FROM is a losing country, matching the base-game on_action.
+# No reward is granted here. The flag proves a qualifying victory after 2602 IC.
+on_war_won = {
+	if = {
+		limit = {
+			is_or_was_tag = { tag = A14 }
+			is_year = 2602
+			FROM = {
+				OR = {
+					religion_group = ruinous_powers_denominations
+					has_country_modifier = undead_military
+				}
+				OR = { total_development = 100 is_great_power = yes }
+			}
+		}
+		set_country_flag = moot_end_times_victory
+	}
+}

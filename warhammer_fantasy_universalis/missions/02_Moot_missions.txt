@@ -1,0 +1,920 @@
+# The Moot: approved 15-row, five-column mission tree.
+# 48 missions; 32 cross-column prerequisites. Ordinary rewards: 178 Weighing Value.
+# Ultimate reward: 40 Weighing Value. Four choice events are included in the 178.
+# Sources: Dev Stuff/Examples/Balance Guide.txt, Mission Trigger Catalogue.txt,
+# Lore Reference.txt; Empire/Ogre mission trees and existing Moot national ideas.
+# The Moot remains its own polity; neither emperorship nor Empire formation is required.
+
+war_moot_missions_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = { is_or_was_tag = { tag = A14 } }
+
+	# Every village has a baker who distrusts the butcher next door, yet both depend upon the same roads and customers. We must settle their grievances and give the guilds a reason to work together.
+	# Reward Weighing Value: 2
+	moot_guilds = {
+		icon = mission_moot_market
+		position = 1
+		required_missions = {  }
+		trigger = {
+			estate_loyalty = { estate = estate_burghers loyalty = 60 }
+			num_of_estate_agendas_completed = { estate = estate_burghers value = 1 }
+		}
+		effect = {
+			add_dip_power = 100
+		}
+	}
+
+	# Fieldwardens can keep the roads clear, but merchants still need somewhere to unload their carts. We must equip Eicheschatten with a market worthy of the produce arriving from every corner of the Moot.
+	# Reward Weighing Value: 5
+	moot_market = {
+		icon = mission_moot_market
+		position = 2
+		required_missions = { moot_guilds moot_fieldwardens }
+		provinces_to_highlight = {
+			province_id = 59
+			has_discovered = ROOT
+		}
+		trigger = {
+			59 = { owned_by = ROOT OR = { has_building = marketplace has_building = trade_depot has_building = stock_exchange } province_trade_power = 25 }
+		}
+		effect = {
+			add_country_modifier = { name = moot_market_mod duration = -1 }
+		}
+	}
+
+	# Stirland and Averland have long memories when the Mootland boundary is mentioned. We must cultivate dependable neighbours through agreements, goodwill, and meals generous enough to keep old grievances off the table.
+	# Reward Weighing Value: 2
+	moot_neighbours = {
+		icon = mission_moot_council
+		position = 3
+		required_missions = { moot_market }
+		trigger = {
+			num_of_allies = 2
+			any_neighbor_country = {
+				alliance_with = ROOT
+				has_opinion = { who = ROOT value = 100 }
+			}
+		}
+		effect = {
+			add_dip_power = 100
+		}
+	}
+
+	# Greenleaf pipeweed already travels farther than many of the folk who grow it. We must improve the leaf and expand its cultivation until visiting merchants ask for our growers by name.
+	# Reward Weighing Value: 2
+	moot_pipeweed = {
+		icon = mission_moot_pipeweed
+		position = 5
+		required_missions = { moot_neighbours }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			trade_goods = tobacco
+			has_discovered = ROOT
+		}
+		trigger = {
+			any_owned_province = { trade_goods = tobacco base_production = 8 }
+		}
+		effect = {
+			add_years_of_income = 1
+		}
+	}
+
+	# Dwarf merchants appreciate a sound bargain and a properly filled plate. We must renew the friendships that bring honest scales, reliable metalwork, and mountain customers to our markets.
+	# Reward Weighing Value: 5
+	moot_dwarf_friends = {
+		icon = mission_dwarf_culture
+		position = 6
+		required_missions = { moot_pipeweed }
+		trigger = {
+			any_country = {
+				culture_group = dwarf_group
+				OR = { alliance_with = ROOT is_subject_of = ROOT }
+				has_opinion = { who = ROOT value = 150 }
+				trust = { who = ROOT value = 60 }
+			}
+		}
+		effect = {
+			add_country_modifier = { name = moot_dwarf_friends_mod duration = -1 }
+		}
+	}
+
+	# Our Dwarf friends know the passes, and our hired guards know the cost of an unattended wagon. We must establish trade beyond our home market and carry Mootland produce into the wider Old World.
+	# Reward Weighing Value: 5
+	moot_caravans = {
+		icon = mission_moot_caravans
+		position = 8
+		required_missions = { moot_dwarf_friends moot_hired_heroes }
+		trigger = {
+			calc_true_if = {
+				all_trade_node = { trade_share = { country = ROOT share = 10 } }
+				amount = 2
+			}
+			dip_tech = 7
+		}
+		effect = {
+			add_country_modifier = { name = moot_caravans_mod duration = -1 }
+		}
+	}
+
+	# Supplying an Ogre supper has taught our contractors what a hungry company can consume. We must turn that experience into dependable deliveries for imperial households, garrisons, and marching armies.
+	# Reward Weighing Value: 5
+	moot_kitchen_contracts = {
+		icon = mission_moot_pantry
+		position = 9
+		required_missions = { moot_caravans moot_ogre_guests }
+		trigger = {
+			monthly_income = 15
+			num_of_owned_provinces_with = {
+				value = 3
+				war_moot_food_province = yes
+				base_production = 8
+			}
+		}
+		effect = {
+			add_country_modifier = { name = moot_kitchen_contracts_mod duration = -1 }
+		}
+	}
+
+	# The old practice of keeping accounts on a flour sack cannot serve businesses spread across the Empire. We must establish proper counting houses and keep our expanding commerce on sound money.
+	# Reward Weighing Value: 5
+	moot_counting_houses = {
+		icon = mission_moot_ledgers
+		position = 11
+		required_missions = { moot_kitchen_contracts }
+		trigger = {
+			num_of_owned_provinces_with = { value = 3 has_building = counting_house }
+			NOT = { inflation = 2 }
+		}
+		effect = {
+			add_country_modifier = { name = moot_counting_houses_mod duration = -1 }
+		}
+	}
+
+	# Safe roads and reliable deliveries have made our food a familiar sight in imperial markets. We must secure the commercial influence needed to ensure that this appetite is supplied by Mootland merchants.
+	# Reward Weighing Value: 5
+	moot_imperial_appetite = {
+		icon = mission_moot_market
+		position = 12
+		required_missions = { moot_counting_houses moot_hungry_dead }
+		trigger = {
+			home_trade_node = { trade_share = { country = ROOT share = 60 } }
+			mercantilism = 25
+		}
+		effect = {
+			add_country_modifier = { name = moot_imperial_appetite_mod duration = -1 }
+		}
+	}
+
+	# Soldiers remember the pies that reached them in winter, and ambassadors remember the suppers that ended an argument. We must make the Moot a name welcomed at courts far beyond its modest borders.
+	# Reward Weighing Value: 5
+	moot_famous_pies = {
+		icon = mission_moot_pie_feast
+		position = 14
+		required_missions = { moot_imperial_appetite moot_army_provisions }
+		trigger = {
+			prestige = 90
+			calc_true_if = {
+				all_country = {
+					NOT = { tag = ROOT }
+					has_opinion = { who = ROOT value = 150 }
+				}
+				amount = 5
+			}
+		}
+		effect = {
+			add_country_modifier = { name = moot_famous_pies_mod duration = -1 }
+		}
+	}
+}
+
+war_moot_missions_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = { is_or_was_tag = { tag = A14 } }
+
+	# Human patrols are often elsewhere when trouble reaches a Mootland hedge. We must strengthen our local levy, appoint a capable commander, and put enough Fieldwardens on the roads to answer the next alarm.
+	# Reward Weighing Value: 2
+	moot_fieldwardens = {
+		icon = mission_moot_fieldwarden
+		position = 1
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 59
+			has_discovered = ROOT
+		}
+		trigger = {
+			army_size_percentage = 0.9
+			num_of_generals = 1
+			59 = { owned_by = ROOT base_manpower = 8 }
+		}
+		effect = {
+			add_mil_power = 100
+		}
+	}
+
+	# A stout heart does not make a halfling taller than an Orc. We must train our companies to use cover, careful shooting, and familiar ground before an enemy can bring its greater weight to bear.
+	# Reward Weighing Value: 5
+	moot_shortbows = {
+		icon = mission_moot_fieldwarden
+		position = 2
+		required_missions = { moot_fieldwardens }
+		trigger = {
+			army_tradition = 20
+			OR = { army_professionalism = 0.10 has_country_modifier = war_modern_army }
+		}
+		effect = {
+			add_country_modifier = { name = moot_shortbows_mod duration = -1 }
+		}
+	}
+
+	# Esmeralda watches over hearth and home, but the shrines that serve our villages need more than warm words. We must support their keepers and make room for worship wherever the Moot gathers to share its bread.
+	# Reward Weighing Value: 2
+	moot_hearth_shrines = {
+		icon = mission_moot_hearth
+		position = 4
+		required_missions = {  }
+		trigger = {
+			num_of_owned_provinces_with = { value = 2 OR = { has_building = temple has_building = cathedral } }
+			num_of_estate_agendas_completed = { estate = estate_church value = 1 }
+		}
+		effect = {
+			add_adm_power = 100
+		}
+	}
+
+	# Visiting witch hunters have begun asking whether every unfamiliar hearth custom conceals a darker devotion. Our assembly must establish clear terms for their investigations before suspicion sets neighbour against neighbour.
+	# Reward Weighing Value: 5 (either event option; no additional mission reward)
+	moot_witch_hunters = {
+		icon = mission_empire_religion
+		position = 5
+		required_missions = { moot_hearth_shrines moot_assembly }
+		trigger = {
+			stability = 2
+			NOT = { corruption = 2 }
+			num_of_estate_agendas_completed = { estate = estate_church value = 2 }
+		}
+		effect = {
+			country_event = { id = moot_missions.1 }
+		}
+	}
+
+	# Our mountain friendships have introduced captains willing to work for honest coin and excellent board. We must retain experienced soldiers and keep enough money aside to honour their contracts.
+	# Reward Weighing Value: 5
+	moot_hired_heroes = {
+		icon = mission_dwarf_gotrek
+		position = 7
+		required_missions = { moot_dwarf_friends }
+		trigger = {
+			num_of_mercenaries = 5
+			treasury = 200
+		}
+		effect = {
+			add_country_modifier = { name = moot_hired_heroes_mod duration = -1 }
+		}
+	}
+
+	# Ogre travellers have discovered that a halfling kitchen rarely underestimates an appetite. We must demonstrate that we can feed and pay these formidable guests before offering them a lasting place in our service.
+	# Reward Weighing Value: 5 (either event option; no additional mission reward)
+	moot_ogre_guests = {
+		icon = mission_ogre_maneater
+		position = 8
+		required_missions = { moot_hired_heroes }
+		trigger = {
+			war_moot_ingredient_supply = { GOOD = livestock PRODUCTION = 5 SHARE = 0.02 }
+			treasury = 300
+			manpower_percentage = 0.75
+		}
+		effect = {
+			country_event = { id = moot_missions.3 }
+		}
+	}
+
+	# Prosperity has filled our storehouses, but Sylvania still casts a long shadow over the eastern roads. We must strengthen the Mootland watches and prepare soldiers who can hold their posts when the dead begin to move.
+	# Reward Weighing Value: 5
+	moot_sylvanian_watch = {
+		icon = mission_moot_border_fort
+		position = 10
+		required_missions = { moot_ogre_guests moot_full_bloom }
+		trigger = {
+			num_of_owned_provinces_with = { value = 2 war_moot_homeland_province = yes fort_level = 2 }
+			army_tradition = 40
+		}
+		effect = {
+			add_country_modifier = { name = moot_sylvanian_watch_mod duration = -1 }
+		}
+	}
+
+	# Fortifications buy time, but they cannot silence the masters who send corpses against our fields. We must take our place in a victorious war against the undead and bring our companies home with their purpose fulfilled.
+	# Reward Weighing Value: 5
+	moot_hungry_dead = {
+		icon = mission_moot_undead
+		position = 11
+		required_missions = { moot_sylvanian_watch }
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = moot_defeated_undead_tt
+				has_country_flag = defeated_undead
+			}
+			is_at_war = no
+		}
+		effect = {
+			add_country_modifier = { name = moot_hungry_dead_mod duration = -1 }
+		}
+	}
+
+	# Imperial armies cannot live on declarations of courage. We must organise the harvests, households, and contracts needed to keep allied soldiers fed through long campaigns against the enemies of the living.
+	# Reward Weighing Value: 5
+	moot_army_provisions = {
+		icon = mission_moot_pantry
+		position = 13
+		required_missions = { moot_hungry_dead moot_imperial_appetite moot_pie_week }
+		trigger = {
+			trade_goods_produced_amount = { trade_goods = grain amount = 8 }
+			num_of_owned_provinces_with = { value = 2 has_building = soldier_households }
+			monthly_income = 30
+		}
+		effect = {
+			add_country_modifier = { name = moot_army_provisions_mod duration = -1 }
+		}
+	}
+
+	# Every hedge now shelters the work of generations, and every village helps sustain the wider Empire. We must ensure that our capital, settlements, and reserves can withstand a renewed assault without abandoning the harvest.
+	# Reward Weighing Value: 5
+	moot_defended_homeland = {
+		icon = mission_moot_border_fort
+		position = 14
+		required_missions = { moot_army_provisions moot_breadbasket }
+		provinces_to_highlight = {
+			war_moot_homeland_province = yes
+			has_discovered = ROOT
+		}
+		trigger = {
+			59 = { owned_by = ROOT fort_level = 4 }
+			num_of_owned_provinces_with = {
+				value = 5
+				war_moot_homeland_province = yes
+				development = 20
+				NOT = { devastation = 0.01 }
+			}
+			manpower_percentage = 0.75
+		}
+		effect = {
+			add_country_modifier = { name = moot_defended_homeland_mod duration = -1 }
+		}
+	}
+}
+
+war_moot_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = { is_or_was_tag = { tag = A14 } }
+
+	# Every family knows how the Moot ought to be governed, and most insist upon explaining it at length. We must bring the elders together and give their decisions an administration capable of carrying them beyond the supper table.
+	# Reward Weighing Value: 2
+	moot_family_elders = {
+		icon = mission_moot_council
+		position = 1
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 59
+			has_discovered = ROOT
+		}
+		trigger = {
+			59 = { owned_by = ROOT base_tax = 8 }
+			stability = 1
+		}
+		effect = {
+			add_adm_power = 100
+		}
+	}
+
+	# A disputed ditch can keep two families quarrelling longer than an imperial succession. We must survey the marches, improve their settlements, and let the Fieldwardens enforce boundaries everyone can recognise.
+	# Reward Weighing Value: 2
+	moot_boundary_stones = {
+		icon = mission_moot_boundaries
+		position = 3
+		required_missions = { moot_family_elders moot_shortbows }
+		provinces_to_highlight = {
+			OR = { province_id = 58 province_id = 62 }
+			has_discovered = ROOT
+		}
+		trigger = {
+			58 = { owned_by = ROOT development = 12 }
+			62 = { owned_by = ROOT development = 12 }
+		}
+		effect = {
+			add_adm_power = 50
+			add_mil_power = 50
+		}
+	}
+
+	# The elders have settled local disputes, but common concerns still disappear between village records. We must provide the assembly with dependable courts and preserve the trust on which its authority rests.
+	# Reward Weighing Value: 5
+	moot_assembly = {
+		icon = mission_moot_council
+		position = 4
+		required_missions = { moot_boundary_stones }
+		trigger = {
+			num_of_owned_provinces_with = { value = 2 war_moot_homeland_province = yes OR = { has_building = courthouse has_building = town_hall } }
+			republican_tradition = 75
+		}
+		effect = {
+			add_country_modifier = { name = moot_assembly_mod duration = -1 }
+		}
+	}
+
+	# Ludwig the Fat gave the Moot its privileges, but old parchment needs living defenders. We must secure recognition from the imperial ruler or a dependable coalition of allies, then decide how those liberties should serve our future.
+	# Reward Weighing Value: 5 (either event option; no additional mission reward)
+	moot_charter = {
+		icon = mission_moot_charter
+		position = 6
+		required_missions = { moot_assembly moot_witch_hunters }
+		trigger = {
+			diplomatic_reputation = 2
+			OR = {
+				any_country = {
+					OR = { is_emperor = yes tag = A99 }
+					has_opinion = { who = ROOT value = 150 }
+				}
+				num_of_allies = 3
+			}
+		}
+		effect = {
+			country_event = { id = moot_missions.2 }
+		}
+	}
+
+	# Our electoral dignity means little if taller delegates speak over every proposal. We must build friendships among the electors, or an equally substantial alliance network, so that the Moot is heard when its security and trade are discussed.
+	# Reward Weighing Value: 5
+	moot_diet = {
+		icon = mission_moot_council
+		position = 7
+		required_missions = { moot_charter }
+		trigger = {
+			diplomatic_reputation = 3
+			OR = {
+				calc_true_if = {
+					all_country = {
+						NOT = { tag = ROOT }
+						is_elector = yes
+						has_opinion = { who = ROOT value = 150 }
+					}
+					amount = 3
+				}
+				num_of_allies = 4
+			}
+		}
+		effect = {
+			add_country_modifier = { name = moot_diet_mod duration = -1 }
+		}
+	}
+
+	# Recognised rights, dependable defenders, and thriving vineyards have given the Moot a chance to flourish. We must spread that prosperity through all five of our old districts before pursuing greater ambitions abroad.
+	# Reward Weighing Value: 5
+	moot_full_bloom = {
+		icon = mission_moot_harvest
+		position = 9
+		required_missions = { moot_diet moot_ogre_guests moot_wine }
+		provinces_to_highlight = {
+			war_moot_homeland_province = yes
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_owned_provinces_with = { value = 5 war_moot_homeland_province = yes development = 15 }
+			59 = { owned_by = ROOT is_prosperous = yes }
+			stability = 2
+		}
+		effect = {
+			add_country_modifier = { name = moot_full_bloom_mod duration = -1 }
+		}
+	}
+
+	# Our finest recipes are still scattered among family cupboards and jealously guarded notebooks. We must establish a college where skilled teachers can preserve those discoveries and train cooks capable of serving an entire province.
+	# Reward Weighing Value: 5
+	moot_cookery_college = {
+		icon = mission_moot_cookbook
+		position = 10
+		required_missions = { moot_full_bloom }
+		trigger = {
+			59 = { owned_by = ROOT development = 30 }
+			adm_tech = 10
+			employed_advisor = { category = ADM skill = 3 }
+		}
+		effect = {
+			add_country_modifier = { name = moot_cookery_college_mod duration = -1 }
+		}
+	}
+
+	# The dead have been driven back, and our kitchens are ready to celebrate the peace they helped sustain. We must prepare a Pie Week whose ovens, guests, and generous tables will be remembered throughout the Empire.
+	# Reward Weighing Value: 5 (either event option; no additional mission reward)
+	moot_pie_week = {
+		icon = mission_moot_pie_feast
+		position = 12
+		required_missions = { moot_cookery_college moot_hungry_dead moot_sugar }
+		trigger = {
+			59 = { owned_by = ROOT is_prosperous = yes }
+			treasury = 500
+			prestige = 50
+		}
+		effect = {
+			country_event = { id = moot_missions.4 }
+		}
+	}
+
+	# The Empire has come to rely on our kitchens, but a reputation cannot replace a poor harvest. We must expand the farms and food industries that can sustain that promise in hard years as well as good ones.
+	# Reward Weighing Value: 5
+	moot_breadbasket = {
+		icon = mission_moot_grain
+		position = 13
+		required_missions = { moot_pie_week }
+		trigger = {
+			trade_goods_produced_amount = { trade_goods = grain amount = 10 }
+			num_of_owned_provinces_with = { value = 5 war_moot_food_province = yes base_production = 10 }
+		}
+		effect = {
+			add_country_modifier = { name = moot_breadbasket_mod duration = -1 }
+		}
+	}
+
+	# Darkness has tested the living, yet our fields still yield and our tables still welcome those who stood beside us. We must preserve every ingredient of our great feast, lead the world in grain or beer, restore the whole Moot to prosperity, and return victorious from a great war against Chaos or undeath in the age of gathering doom. Then we shall show the Empire that there is still something worth coming home to.
+	# Reward Weighing Value: 40
+	moot_end_times_feast = {
+		icon = mission_moot_pie_feast
+		position = 15
+		required_missions = { moot_breadbasket moot_defended_homeland moot_laden_table }
+		provinces_to_highlight = {
+			war_moot_homeland_province = yes
+			has_discovered = ROOT
+		}
+		trigger = {
+			war_moot_complete_menu = yes
+			OR = {
+				production_leader = { trade_goods = grain }
+				production_leader = { trade_goods = beer }
+			}
+			num_of_owned_provinces_with = {
+				value = 5
+				war_moot_homeland_province = yes
+				development = 25
+				is_prosperous = yes
+				NOT = { devastation = 0.01 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = moot_end_times_victory_tt
+				has_country_flag = moot_end_times_victory
+			}
+			is_at_war = no
+		}
+		effect = {
+			add_country_modifier = { name = moot_end_times_feast_mod duration = -1 }
+		}
+	}
+}
+
+war_moot_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = { is_or_was_tag = { tag = A14 } }
+
+	# Our ovens need a dependable supply of grain, but too many fields still yield less than they should. We must improve cultivation in a grain-producing district until every village can depend upon a sound loaf.
+	# Reward Weighing Value: 2
+	moot_bread = {
+		icon = mission_moot_grain
+		position = 1
+		required_missions = {  }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			trade_goods = grain
+			has_discovered = ROOT
+		}
+		trigger = {
+			any_owned_province = { trade_goods = grain base_production = 5 }
+		}
+		effect = {
+			add_adm_power = 50
+			add_dip_power = 50
+		}
+	}
+
+	# A larger harvest will be wasted if it lies damp in a cart or disappears into an unrecorded store. The elders must equip our districts with the workshops and storage businesses needed to preserve and process their produce.
+	# Reward Weighing Value: 5
+	moot_granaries = {
+		icon = mission_moot_pantry
+		position = 2
+		required_missions = { moot_bread moot_family_elders }
+		trigger = {
+			num_of_owned_provinces_with = { value = 3 war_moot_homeland_province = yes OR = { has_building = workshop has_building = counting_house } }
+		}
+		effect = {
+			add_country_modifier = { name = moot_granaries_mod duration = -1 }
+		}
+	}
+
+	# Settled boundaries have made room for dependable grazing and honest cattle markets. We must develop a productive source of livestock, within our lands or those of our subjects, or secure enough of the cattle trade to keep the cookpots filled.
+	# Reward Weighing Value: 2
+	moot_cattle = {
+		icon = mission_moot_cattle
+		position = 4
+		required_missions = { moot_boundary_stones }
+		provinces_to_highlight = {
+			trade_goods = livestock
+			has_discovered = ROOT
+		}
+		trigger = {
+			war_moot_ingredient_supply = { GOOD = livestock PRODUCTION = 5 SHARE = 0.02 }
+		}
+		effect = {
+			add_yearly_manpower = 2
+		}
+	}
+
+	# The Aver and Blue Reach bring fishermen to our doors, yet fresh catches still fail to reach many village tables. We must combine a reliable fish supply with a market capable of distributing it.
+	# Reward Weighing Value: 2
+	moot_fish = {
+		icon = mission_moot_fish
+		position = 5
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = fish
+			has_discovered = ROOT
+		}
+		trigger = {
+			war_moot_ingredient_supply = { GOOD = fish PRODUCTION = 5 SHARE = 0.02 }
+			59 = { owned_by = ROOT OR = { has_building = marketplace has_building = trade_depot has_building = stock_exchange } }
+		}
+		effect = {
+			add_years_of_income = 1
+		}
+	}
+
+	# Our renewed privileges give the brewers confidence to enlarge their cellars. We must develop a dependable brewing district whose barrels can accompany our merchants wherever they travel.
+	# Reward Weighing Value: 2
+	moot_beer = {
+		icon = mission_dwarf_beer
+		position = 7
+		required_missions = { moot_charter }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			trade_goods = beer
+			has_discovered = ROOT
+		}
+		trigger = {
+			any_owned_province = { trade_goods = beer base_production = 10 }
+		}
+		effect = {
+			add_adm_power = 50
+			add_dip_power = 50
+		}
+	}
+
+	# A louder voice in imperial affairs brings more guests to our tables. We must develop a wine-producing district until even the most exacting visitor has something kind to say before the negotiations begin.
+	# Reward Weighing Value: 2
+	moot_wine = {
+		icon = mission_high_elf_wine
+		position = 8
+		required_missions = { moot_diet }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			trade_goods = wine
+			has_discovered = ROOT
+		}
+		trigger = {
+			any_owned_province = { trade_goods = wine base_production = 8 }
+		}
+		effect = {
+			add_dip_power = 100
+		}
+	}
+
+	# The new cookbook describes roasts that deserve more than an ordinary market joint. We must establish a developed hunting district or a reliable share of the fur trade, bringing the game of those woodland economies into our kitchens.
+	# Reward Weighing Value: 2
+	moot_game = {
+		icon = mission_moot_game
+		position = 10
+		required_missions = { moot_cookbook }
+		provinces_to_highlight = {
+			trade_goods = fur
+			has_discovered = ROOT
+		}
+		trigger = {
+			war_moot_ingredient_supply = { GOOD = fur PRODUCTION = 8 SHARE = 0.02 }
+		}
+		effect = {
+			add_mil_power = 100
+		}
+	}
+
+	# The college has devised pastries whose sweetness cannot be supplied by a handful of local stores. We must secure substantial sugar production or a dependable place in its long-distance trade.
+	# Reward Weighing Value: 2
+	moot_sugar = {
+		icon = mission_moot_sugar
+		position = 11
+		required_missions = { moot_cookery_college }
+		provinces_to_highlight = {
+			trade_goods = sugar
+			has_discovered = ROOT
+		}
+		trigger = {
+			war_moot_ingredient_supply = { GOOD = sugar PRODUCTION = 8 SHARE = 0.05 }
+		}
+		effect = {
+			add_adm_power = 50
+			add_dip_power = 50
+		}
+	}
+
+	# Our guests linger after dessert, and foreign travellers have introduced drinks that make those conversations longer still. We must secure a regular supply of tea or coffee to complete the hospitality for which the Moot is becoming famous.
+	# Reward Weighing Value: 2
+	moot_tea_coffee = {
+		icon = mission_araby_coffee
+		position = 13
+		required_missions = { moot_pie_week moot_dessert }
+		provinces_to_highlight = {
+			OR = { trade_goods = tea trade_goods = coffee }
+			has_discovered = ROOT
+		}
+		trigger = {
+			OR = {
+			war_moot_ingredient_supply = { GOOD = tea PRODUCTION = 8 SHARE = 0.05 }
+			war_moot_ingredient_supply = { GOOD = coffee PRODUCTION = 8 SHARE = 0.05 }
+			}
+		}
+		effect = {
+			change_innovativeness = 2
+		}
+	}
+
+	# Every course has found its cooks, but a great table depends on supplies that last beyond a single celebration. We must maintain the entire menu and support it with food industries capable of serving our guests year after year.
+	# Reward Weighing Value: 5
+	moot_laden_table = {
+		icon = mission_moot_pie_feast
+		position = 14
+		required_missions = { moot_tea_coffee moot_breadbasket }
+		trigger = {
+			war_moot_complete_menu = yes
+			num_of_owned_provinces_with = {
+				value = 3
+				war_moot_food_province = yes
+				has_building = farm_estate
+			}
+		}
+		effect = {
+			add_country_modifier = { name = moot_laden_table_mod duration = -1 }
+		}
+	}
+}
+
+war_moot_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = { is_or_was_tag = { tag = A14 } }
+
+	# A good harvest is little comfort when its meat spoils before winter. We must secure salt and a proper distribution market so that our larders can preserve the food our farmers and fishermen provide.
+	# Reward Weighing Value: 2
+	moot_salt = {
+		icon = mission_moot_salt
+		position = 2
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = salt
+			has_discovered = ROOT
+		}
+		trigger = {
+			war_moot_ingredient_supply = { GOOD = salt PRODUCTION = 5 SHARE = 0.01 }
+			59 = { owned_by = ROOT OR = { has_building = marketplace has_building = trade_depot has_building = stock_exchange } }
+		}
+		effect = {
+			add_adm_power = 50
+			add_mil_power = 50
+		}
+	}
+
+	# Our larders can preserve a meal, but the best cooks want to make it memorable. We must develop a source of spices or draw their trade into our markets, giving familiar dishes a little of the wider world.
+	# Reward Weighing Value: 2
+	moot_spices = {
+		icon = mission_ind_spices
+		position = 3
+		required_missions = { moot_salt }
+		provinces_to_highlight = {
+			trade_goods = spices
+			has_discovered = ROOT
+		}
+		trigger = {
+			war_moot_ingredient_supply = { GOOD = spices PRODUCTION = 5 SHARE = 0.01 }
+		}
+		effect = {
+			add_mercantilism = 2
+		}
+	}
+
+	# Travelling merchants speak of a fragrant clove whose smallest measure can transform a dish. We must establish a dependable supply from its distant growers and teach our cooks to use it with a suitably careful hand.
+	# Reward Weighing Value: 2
+	moot_cloves = {
+		icon = mission_moot_cloves
+		position = 5
+		required_missions = { moot_spices }
+		provinces_to_highlight = {
+			trade_goods = cloves
+			has_discovered = ROOT
+		}
+		trigger = {
+			war_moot_ingredient_supply = { GOOD = cloves PRODUCTION = 5 SHARE = 0.01 }
+		}
+		effect = {
+			add_dip_power = 100
+		}
+	}
+
+	# Seasonings are welcome, but a clever recipe cannot conceal an empty pantry. We must keep grain, livestock, and fish arriving together, with enough money in reserve to withstand an interrupted delivery.
+	# Reward Weighing Value: 5
+	moot_pantry = {
+		icon = mission_moot_pantry
+		position = 6
+		required_missions = { moot_cloves moot_fish }
+		trigger = {
+			war_moot_ingredient_supply = { GOOD = grain PRODUCTION = 5 SHARE = 0.02 }
+			war_moot_ingredient_supply = { GOOD = livestock PRODUCTION = 5 SHARE = 0.02 }
+			war_moot_ingredient_supply = { GOOD = fish PRODUCTION = 5 SHARE = 0.02 }
+			treasury = 200
+		}
+		effect = {
+			add_country_modifier = { name = moot_pantry_mod duration = -1 }
+		}
+	}
+
+	# Our brewers and household cooks have accumulated knowledge that apprentices learn only by patient service. We must support skilled teachers and better methods so that these secrets strengthen the whole Moot.
+	# Reward Weighing Value: 5
+	moot_master_cooks = {
+		icon = mission_moot_cookbook
+		position = 8
+		required_missions = { moot_pantry moot_beer }
+		trigger = {
+			adm_tech = 8
+			employed_advisor = { category = ADM skill = 2 }
+		}
+		effect = {
+			add_country_modifier = { name = moot_master_cooks_mod duration = -1 }
+		}
+	}
+
+	# Wine, beer, seasonings, and years of kitchen experiments have filled more notebooks than any family can preserve alone. We must gather that knowledge into an authoritative cookbook and encourage the discoveries that will fill its next edition.
+	# Reward Weighing Value: 5
+	moot_cookbook = {
+		icon = mission_moot_cookbook
+		position = 9
+		required_missions = { moot_master_cooks moot_wine }
+		trigger = {
+			innovativeness = 20
+			adm_tech = 10
+		}
+		effect = {
+			add_country_modifier = { name = moot_cookbook_mod duration = -1 }
+		}
+	}
+
+	# Foreign traders bring a bitter cocoa that our confectioners insist can become something extraordinary. We must secure a mature source of the beans and the expertise needed to turn an unfamiliar luxury into a Mootland delicacy.
+	# Reward Weighing Value: 2
+	moot_chocolate = {
+		icon = mission_moot_chocolate
+		position = 11
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = cocoa
+			has_discovered = ROOT
+		}
+		trigger = {
+			war_moot_ingredient_supply = { GOOD = cocoa PRODUCTION = 8 SHARE = 0.05 }
+			adm_tech = 10
+		}
+		effect = {
+			add_dip_power = 100
+		}
+	}
+
+	# Sugar and cocoa have reached our kitchens, but a proper dessert course requires confectioners working at a greater scale. We must sustain both supplies and develop Eicheschatten into a capital capable of hosting the tables they deserve.
+	# Reward Weighing Value: 5
+	moot_dessert = {
+		icon = mission_moot_chocolate
+		position = 12
+		required_missions = { moot_chocolate moot_sugar }
+		trigger = {
+			war_moot_ingredient_supply = { GOOD = sugar PRODUCTION = 8 SHARE = 0.05 }
+			war_moot_ingredient_supply = { GOOD = cocoa PRODUCTION = 8 SHARE = 0.05 }
+			59 = { owned_by = ROOT development = 35 }
+		}
+		effect = {
+			add_country_modifier = { name = moot_dessert_mod duration = -1 }
+		}
+	}
+}

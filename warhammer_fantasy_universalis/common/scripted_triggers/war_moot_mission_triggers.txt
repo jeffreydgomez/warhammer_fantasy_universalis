@@ -1,0 +1,65 @@
+# Province scope: the five original Mootland districts, independent of later expansion.
+war_moot_homeland_province = {
+	OR = {
+		province_id = 58
+		province_id = 59
+		province_id = 60
+		province_id = 61
+		province_id = 62
+	}
+}
+
+# Province scope: goods that count as food industries; tobacco is deliberately excluded.
+war_moot_food_province = {
+	OR = {
+		trade_goods = grain
+		trade_goods = livestock
+		trade_goods = fish
+		trade_goods = beer
+		trade_goods = wine
+		trade_goods = salt
+		trade_goods = spices
+		trade_goods = cloves
+		trade_goods = sugar
+		trade_goods = cocoa
+		trade_goods = tea
+		trade_goods = coffee
+	}
+}
+
+# Country scope: develop a source ourselves/through a non-sovereign subject, OR
+# secure actual global trade share. An alliance with a producer does not qualify.
+# Early imports use 1-2% trade share; mature sugar/cocoa/tea/coffee use 5%.
+war_moot_ingredient_supply = {
+	OR = {
+		num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+			value = 1
+			trade_goods = $GOOD$
+			base_production = $PRODUCTION$
+		}
+		trading_part = {
+			trade_goods = $GOOD$
+			value = $SHARE$
+		}
+	}
+}
+
+# Country scope: maintain supplies now, rather than merely remembering earlier missions.
+# This is an economic objective, not a hidden set of extra mission prerequisites.
+war_moot_complete_menu = {
+	war_moot_ingredient_supply = { GOOD = grain PRODUCTION = 5 SHARE = 0.02 }
+	war_moot_ingredient_supply = { GOOD = livestock PRODUCTION = 5 SHARE = 0.02 }
+	war_moot_ingredient_supply = { GOOD = fish PRODUCTION = 5 SHARE = 0.02 }
+	war_moot_ingredient_supply = { GOOD = salt PRODUCTION = 5 SHARE = 0.01 }
+	war_moot_ingredient_supply = { GOOD = spices PRODUCTION = 5 SHARE = 0.01 }
+	war_moot_ingredient_supply = { GOOD = cloves PRODUCTION = 5 SHARE = 0.01 }
+	war_moot_ingredient_supply = { GOOD = beer PRODUCTION = 10 SHARE = 0.02 }
+	war_moot_ingredient_supply = { GOOD = wine PRODUCTION = 8 SHARE = 0.02 }
+	war_moot_ingredient_supply = { GOOD = fur PRODUCTION = 8 SHARE = 0.02 }
+	war_moot_ingredient_supply = { GOOD = sugar PRODUCTION = 8 SHARE = 0.05 }
+	war_moot_ingredient_supply = { GOOD = cocoa PRODUCTION = 8 SHARE = 0.05 }
+	OR = {
+		war_moot_ingredient_supply = { GOOD = tea PRODUCTION = 8 SHARE = 0.05 }
+		war_moot_ingredient_supply = { GOOD = coffee PRODUCTION = 8 SHARE = 0.05 }
+	}
+}
