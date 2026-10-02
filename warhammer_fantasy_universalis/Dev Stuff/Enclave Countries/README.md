@@ -1,4 +1,4 @@
-# Landless enclave countries: E00–E99
+# Landless enclave countries: Y00–Y99
 
 All 100 entries from the approved [regional catalogue](../Minor%20Faction%20Research.md) are implemented as dormant countries at **2502.11.11**. Each has one core on its listed province. Existing ownership, control, culture, religion, development, buildings, and other province history are unchanged; unowned sites remain unowned. No enclave is automatically released or spawned.
 
@@ -12,7 +12,7 @@ Every listed province starts with a unique **[Faction Name] Enclave** permanent 
 
 Ownership of that province while its modifier remains exposes **Root Out [Faction Name]**. Taking the decision requires peace, control of the enclave province, and no existing rebel armies (`NOT = { num_of_rebel_armies = 1 }`). These requirements apply to players and AI; a temporarily blocked decision remains visible. It has no resource cost. It removes that faction's modifier, restores its original core if it has expired, and spawns one `size = 3` stack of `nationalist_rebels` (EU4's separatist type). Actual regiment counts scale with province development and military technology; size 3 is a multiplier, not three regiments.
 
-The rebels have the faction's primary culture and religion, `friend` and `separatists_target` set to its E## tag, and a named leader and dynasty/byname. `win = yes` makes them immediately occupy the province. Legal ownership, the province population's culture and religion, and other modifiers are unchanged. Removing the enclave modifier makes its decision disappear, so it cannot be repeated there. The faction's core remains after the confrontation.
+The rebels have the faction's primary culture and religion, `friend` and `separatists_target` set to its Y## tag, and a named leader and dynasty/byname. `win = yes` makes them immediately occupy the province. Legal ownership, the province population's culture and religion, and other modifiers are unchanged. Removing the enclave modifier makes its decision disappear, so it cannot be repeated there. The faction's core remains after the confrontation.
 
 AI owners check yearly and additionally require at least +1 stability, 90% of maximum manpower, an army at least 90% of land force limit, and a positive monthly balance. Profit uses `current_income_balance = 0.01` (at least 0.01 ducats per month), excluding both deficits and exact break-even. These extra readiness and profit requirements do not restrict the player.
 
@@ -30,19 +30,19 @@ Ordinary vassal-release eligibility can still depend on province culture, which 
 
 ## Supporting definitions
 
-- All enclaves use existing religions. Cluster Eye Tribe (E02) and Root-Eye Brood (E39) use **Gork n' Mork**. Sog'Kog (E20), Rime-Eaters (E23), Badwater (E27), White Hunger (E47), Last Hearth (E48), First Hunger (E70), Rimejaw (E77), and the Golden Magus (E30) use **Animist**, representing local customs and spirit traditions. The existing religion modifiers are unchanged.
+- All enclaves use existing religions. Cluster Eye Tribe (Y02) and Root-Eye Brood (Y39) use **Gork n' Mork**. Sog'Kog (Y20), Rime-Eaters (Y23), Badwater (Y27), White Hunger (Y47), Last Hearth (Y48), First Hunger (Y70), Rimejaw (Y77), and the Golden Magus (Y30) use **Animist**, representing local customs and spirit traditions. The existing religion modifiers are unchanged.
 - Corrected the missing equals sign in the existing Southern Trade Republic eligibility block, which Nuevo Luccini uses.
 - **Monster Clans:** a generic tribal reform for the monster enclaves that should not be governed by specifically Fimir institutions. Net WV 10: +15% manpower, +15% land force limit, +7.5% development cost.
 
 ## Flags
 
-The [flag source ledger](Flag%20Sources/sources.md) distinguishes described lore heraldry from original artwork. All 100 final files were individually illustrated with the built-in imagegen tool; two adapt explicit lore heraldry descriptions and 98 are original interpretations after the online search. No downloaded flag image was incorporated. Exact prompts and generation provenance are retained alongside 512×512 PNG masters. Aucassin's final white-field correction is documented in `Flag Sources/E10-revision.json`.
+The [flag source ledger](Flag%20Sources/sources.md) distinguishes described lore heraldry from original artwork. All 100 final files were individually illustrated with the built-in imagegen tool; two adapt explicit lore heraldry descriptions and 98 are original interpretations after the online search. No downloaded flag image was incorporated. Exact prompts and generation provenance are retained alongside 512×512 PNG masters. Aucassin's final white-field correction is documented in `Flag Sources/Y10-revision.json`.
 
-- [E00–E19](flags_00_19.png)
-- [E20–E39](flags_20_39.png)
-- [E40–E59](flags_40_59.png)
-- [E60–E79](flags_60_79.png)
-- [E80–E99](flags_80_99.png)
+- [Y00–Y19](flags_00_19.png)
+- [Y20–Y39](flags_20_39.png)
+- [Y40–Y59](flags_40_59.png)
+- [Y60–Y79](flags_60_79.png)
+- [Y80–Y99](flags_80_99.png)
 
 ## Validation
 
@@ -56,103 +56,103 @@ The [resolved JSON manifest](countries.json) records every country, culture, rel
 
 | Tag | Country | Core province | Country faith | Government / reform | Rebel leader |
 |---|---|---|---|---|---|
-| E00 | Zacharias' Domain | 139 — Forest of Shadows | Vampiric | theocracy: Necromancer's Domain | Zacharias the Everliving |
-| E01 | Dieter Helsnicht's Domain | 141 — Ferlangen | Nagashi | theocracy: Necromancer's Domain | Dieter Helsnicht |
-| E02 | Cluster Eye Tribe | 96 — Deinste | Gork n' Mork | tribal: Greenskin Tribe | Vish Venombarb |
-| E03 | Brass Keep | 393 — Dripping Peak | Nurglite | chaos_gov: Mandate of Chaos, Chaos Warband | Egil Rusthand |
-| E04 | House von Wittgenstein | 19 — Wittgendorf | Chaos Undivided | monarchy: Chaos Undivided Monarchy | Margritte von Wittgenstein |
-| E05 | Cult of the Red Crown | 105 — Delberz | Tzeentchian | theocracy: Tzeentchian Theocracy | Master of Change |
-| E06 | Slugtongue's Warherd | 63 — Nattern Forest | Chaos Undivided | tribal: Call of the Beastmen | Slugtongue |
-| E07 | Drycha's Wargrove | 182 — Borkum | The Asrai Pantheon | tribal: The Asrai Pantheon Tribe | Drycha |
-| E08 | Morghur's Warherd | 321 — Beaussons | Chaos Undivided | tribal: Call of the Beastmen | Morghur the Shadowgave |
-| E09 | Red Duke's Exiles | 241 — Derrevin Libre | Vampiric | monarchy: Midnight Aristocracy | The Red Duke |
-| E10 | Aucassin's Household | 317 — Yremy | Vampiric | monarchy: Midnight Aristocracy | Aucassin |
-| E11 | Brachnar's Laboratory | 262 — Montlac | Vampiric | theocracy: Necromancer's Domain | Brachnar |
-| E12 | Bowmen of Bergerac | 239 — Vignoble | Grail | republic: Grail Republic | Bertrand the Brigand |
-| E13 | Coeddil's Wildwood | 776 — Cythral Forest | The Asrai Pantheon | tribal: The Asrai Pantheon Tribe | Coeddil |
-| E14 | Knights of Irrana | 538 — Llaqueno | Vampiric | monarchy: Midnight Aristocracy | Armand de Sangrivage |
-| E15 | Long Drong's Anchorage | 627 — Caprio | Ancestor Gods | republic: pirate_republic_reform | Long Drong Slayer |
-| E16 | Shadewraith Haven | 561 — Grotta | Nagashi | republic: The Vampire Coast | Vangheist |
-| E17 | Golgfag's Winter Camp | 413 — Heldegrad | The Great Maw | republic: Mercenary Company | Golgfag Maneater |
-| E18 | Wintertooth | 1146 — Lair of the Troll King | Chaos Undivided | tribal: Monster Clans | Throgg the Troll King |
-| E19 | Beasts of Telldros | 344 — Skraevold | Chaos Undivided | tribal: Call of the Beastmen | Kharzulg Stormscar |
-| E20 | Sog'Kog's Feeding Ground | 338 — Fort Straghov | Animist | tribal: Monster Clans | Sog'Kog |
-| E21 | Black Ogham Circle | 1173 — Dunnok | Chaos Undivided | theocracy: Chaos Undivided Theocracy | Maelor Blackreed |
-| E22 | Brothers' Giant Moot | 1182 — Everpeak | Druidism | tribal: Druidic Clan Moot | Bologs |
-| E23 | Rime-Eater Clans | 449 — Mount Hellspire | Animist | tribal: Call of the Beastmen | Hrogg Rimehide |
-| E24 | Rabidscar Remnant | 4484 — Snag | Horned Rat | monarchy: Rule of the Fittest-Strongest | Furblak |
-| E25 | Drachenfels Restorationists | 6 — Castle Drachenfels | Nagashi | theocracy: Necromancer's Domain | Albrecht Gravenhorst |
-| E26 | Ember-Script Heretics | 4509 — Vogg | Hashut | monarchy: Hashut Monarchy | Durgan Emberbrand |
-| E27 | Badwater Hagdom | 190 — Felwing Cave | Animist | tribal: Monster Clans | Grulma Bogbelly |
-| E28 | Boglar-Fimir Compact | 154 — Stinkwater Fen | Chaos Undivided | tribal: Greenskin Tribe | Skibbit Mireclaw |
-| E29 | Black Lantern Prospectors | 4596 — Redstone Underpass | Nagashi | theocracy: Necromancer's Domain | Borri Graveshaft |
-| E30 | Golden Magus' Refuge | 987 — Al-Qayid | Animist | republic: pirate_republic_reform | Golden Magus |
-| E31 | Alhazred's Observatory | 1033 — Sharikah | Nagashi | theocracy: Necromancer's Domain | Abdul Alhazred |
-| E32 | Moon-Well Keepers | 961 — Zafira Oasis | Nehekharan | theocracy: Golden Hieorocracy | Nadir al-Qamar |
-| E33 | Free Spears of the Copper Dunes | 1772 — Dhiban | The One Faith | republic: Mercenary Company | Hamid al-Nahas |
-| E34 | Court of the Cursed Scarab | 832 — Khepesh | Nehekharan | monarchy: Nehekharan Monarchy | Apophas |
-| E35 | Rikek Ash-Warrens | 4388 — Cripple Peak | Horned Rat | monarchy: Rule of the Fittest-Strongest | Skreev Ashsnout |
-| E36 | Black Oasis Riders | 848 — Phaktra | The One Faith | tribal: Tribe of the Sacred Charge | Salim al-Rimal |
-| E37 | Clan Festerlingus | 4887 — Cuexotl Wilds | Horned Rat | theocracy: Horned Rat Theocracy | Pustik Rotthroat |
-| E38 | Hellbeard's Cinder Anchorage | 4331 — Scaleback Coast | Hashut | republic: pirate_republic_reform | Abnagg Hellbeard |
-| E39 | Root-Eye Brood | 4287 — Nahuontl Peaks | Gork n' Mork | tribal: Greenskin Tribe | Zikrit Rootfang |
-| E40 | River of Teeth Covenant | 4904 — Flooded Jungle | Vampiric | monarchy: Midnight Aristocracy | Zafira Nightwater |
-| E41 | Braugh's Corpse-Train | 2210 — Brimstone Pass | The Great Maw | republic: Mercenary Company | Braugh Slavelord |
-| E42 | Sneaky Gits of Gash Kadrak | 815 — Zharr Outskirts | Hobgoblin Shamanism | tribal: Hobgoblin Shamanism Tribe | Nagrit Shivtail |
-| E43 | Black Tally Rebellion | 1983 — Blackfire | Gork n' Mork | tribal: Greenskin Tribe | Grakk Chainbreaker |
-| E44 | Unchained Furnace | 2162 — Black Smoke Peaks | Ancestor Gods | monarchy: Dwarfen Kingdom | Dorin Shacklecleaver |
-| E45 | Ghuth's Spawnchompers | 2752 — Bloodpeak | Chaos Undivided | tribal: Rule of the Largest | Ghuth Spawnchomper |
-| E46 | Bezer's Small Empire | 2784 — Gutbuster's Gate | Gork n' Mork | tribal: Greenskin Tribe | Bezer |
-| E47 | White Hunger | 2792 — Choketooth Vale | Animist | tribal: Rule of the Largest | Urrgh Whiteclaw |
-| E48 | Last Hearth of the Tall Ones | 2764 — Giant's Ridge | Animist | tribal: Monster Clans | Hrol Hearthkeeper |
-| E49 | Oglah Khan's Exiles | 4036 — Heicheng | Hobgoblin Shamanism | republic: Mercenary Company | Oglah Khan |
-| E50 | Ash-Hoof Herd | 4038 — Tuoba | Khornate | tribal: Call of the Beastmen | Khorgh Ashhoof |
-| E51 | Broken Harness Freehold | 2669 — Icescar | Harmony | republic: Harmony Republic | Shun Liu |
-| E52 | Cult of the Painted Skin | 2998 — Xienxen | Tzeentchian | theocracy: Tzeentchian Theocracy | Xiu Shen |
-| E53 | Vermilion Tax Revolt | 2923 — Radiant Plains | Harmony | republic: Harmony Republic | Bao Zhang |
-| E54 | Jade Coffin Society | 2843 — Minghua | Vampiric | monarchy: Midnight Aristocracy | Mei Jiang |
-| E55 | Copper Tail Refuge | 2864 — Sapphire Grove | The Thousand Gods | republic: The Thousand Gods Republic | Kavi Copper-Tail |
-| E56 | Bengals of the Tiger's Eye | 4071 — Kushan | The Thousand Gods | republic: The Thousand Gods Republic | Rajar Stripeclaw |
-| E57 | Red Banquet Court | 4073 — Panchala | Vampiric | monarchy: Midnight Aristocracy | Gorakka Redgullet |
-| E58 | Ash Lotus Ascetics | 4252 — Kushari Plains | Nagashi | theocracy: Necromancer's Domain | Harendra Ashlotus |
-| E59 | Emerald Throat Brood | 4109 — Ceylon | Ouroboros | theocracy: Ouroboros Theocracy | Ssaritha Emerald-Throat |
-| E60 | Moltless Sepulchre | 2967 — Dragonfall | Nagashi | theocracy: Necromancer's Domain | Ssilak Moltless |
-| E61 | Unbitten League | 2949 — Silvermist Hills | The Thousand Gods | republic: The Thousand Gods Republic | Devendra Nagesh |
-| E62 | Hollow Gong Warren | 2932 — Silent Lotus | Horned Rat | monarchy: Rule of the Fittest-Strongest | Chikkit Gonggnaw |
-| E63 | Mangrove Eye Court | 4256 — Zhanggan Wetlands | Chaos Undivided | tribal: Fimir Tribe | Morrga Mangrove-Eye |
-| E64 | Empty Sheath League | 4778 — Spirit of the Crane | Harmony | republic: Mercenary Company | Akihiro Kuroda |
-| E65 | Cinder-Eye Burrow | 4791 — Iseki | Gork n' Mork | tribal: Greenskin Tribe | Skarrik Cinder-Eye |
-| E66 | Antlered Hunger | 2425 — Ixtoc | Chaos Undivided | tribal: Call of the Beastmen | Ghorak Thornhorn |
-| E67 | Unmoored Spears | 4753 — Elithis Outpost | The Cytharai | republic: pirate_republic_reform | Aelar Wavebreaker |
-| E68 | Itz-Itza | 4840 — Pyooshupya | Old Ones | tribal: Old Ones Tribe | Itz-Huax |
-| E69 | River-Ruin Chainport | 4842 — Noigo | Hashut | theocracy: Sorcerer's Conclave | Zarkhul Ironwake |
-| E70 | Cave of the First Hunger | 4852 — Xcha | Animist | tribal: Monster Clans | Gor-Ulk |
-| E71 | Scourge of Khaine | 1936 — Darkspire | The Cytharai | theocracy: The Cytharai Theocracy | Nocrusith |
-| E72 | Cult of Excess | 1800 — Circle of Night | Slaaneshi | theocracy: Slaaneshi Theocracy | Arathar |
-| E73 | Blackfang's Worshippers | 1842 — Arithor | Chaos Undivided | tribal: Call of the Beastmen | Gharr Blackfang |
-| E74 | Blackpine Autarii | 2046 — Skarnshade | The Cytharai | tribal: The Cytharai Tribe | Draleth Blackpine |
-| E75 | Hotek's Lost Apprentices | 2594 — Shadowfrost | The Cadai | republic: The Cadai Republic | Vaelir Ashforge |
-| E76 | Deadwood Unbound | 1989 — Deadwood | Imperial Pantheon | republic: Imperial Pantheon Republic | Hakon Freedhand |
-| E77 | Rimejaw Families | 2582 — Nightair | Animist | tribal: Monster Clans | Rulgh Rimejaw |
-| E78 | Vashnaar's Foothold | 2105 — Gorepeak | Chaos Undivided | chaos_gov: Mandate of Chaos, Chaos Warband | Vashnaar the Tormentor |
-| E79 | Cylostra's Drowned | 2104 — Blightward | Nagashi | republic: The Vampire Coast | Cylostra Direfin |
-| E80 | Azure Fang Brood | 2351 — Tlacox | Old Ones | tribal: Old Ones Tribe | Tzak-Huax |
-| E81 | Port Reaver | 2318 — Port Reaver | Myrmidian | republic: pirate_republic_reform | Lorenzo Saltavento |
-| E82 | Swamp Town | 2319 — Swamp Town | Imperial Pantheon | republic: Southern Old World Cults Republic | Konrad Reedhaven |
-| E83 | Sven's River Company | 2387 — Xotlzax | Ancestor Gods | republic: Mercenary Company | Sven Hasselfriesian |
-| E84 | Bregonne | 2384 — Axmin | Grail | monarchy: Grail Monarchy | Marcel de Parravon |
-| E85 | Nuevo Luccini | 2328 — Tzul'cata | Myrmidian | republic: Southern Trade Republic | Marco Venturi |
-| E86 | Amber Maw Expedition | 2514 — Xolt | The Great Maw | republic: Mercenary Company | Borgut Ambermaw |
-| E87 | Ashen Plaque Covenant | 2487 — Xaltlan | Dragon Cults | tribal: Clutch-Bound Clan | Xol-Tzek |
-| E88 | Culchan Feather Exiles | 4371 — Southern Plains | Old Ones | tribal: Amazon Tribe | Itzara Culchanfeather |
-| E89 | Deep Drum Hold | 2520 — Izaltl | Ancestor Gods | monarchy: Dwarfen Kingdom | Grundi Deepdrum |
-| E90 | Clan Skaar | 589 — Falco | Horned Rat | monarchy: Rule of the Fittest-Strongest | Krizzik Oreclaw |
-| E91 | Clan Skaul | 29 — Weissbuck | Horned Rat | monarchy: Rule of the Fittest-Strongest | Skaalrik Dreamfang |
-| E92 | Clan Sleekit | 7 — Fielbach | Horned Rat | monarchy: Rule of the Fittest-Strongest | Shipgnawer Nikkitt |
-| E93 | Clan Septik | 33 — Dotternbach | Horned Rat | theocracy: Horned Rat Theocracy | Blightskab |
-| E94 | Clan Kreepus | 2961 — Eaglecrest | Horned Rat | monarchy: Rule of the Fittest-Strongest | Garrott of Mordheim |
-| E95 | Clan Feesik | 4875 — Mangrove Delta | Horned Rat | theocracy: Horned Rat Theocracy | Rikzik Seepage |
-| E96 | Clan Gratzz | 2490 — Xotec | Horned Rat | theocracy: Horned Rat Theocracy | Gratzik Rotwhisker |
-| E97 | Clan Rikket | 2344 — Ratscar | Horned Rat | monarchy: Rule of the Fittest-Strongest | Rikkaz Warpwake |
-| E98 | Clan Skuttle | 623 — Dusklair | Horned Rat | monarchy: Rule of the Fittest-Strongest | Skuttik Bilgetail |
-| E99 | Clan Gristlecrack | 4400 — Snikt | Horned Rat | monarchy: Rule of the Fittest-Strongest | Grissk Fleshsuture |
+| Y00 | Zacharias' Domain | 139 — Forest of Shadows | Vampiric | theocracy: Necromancer's Domain | Zacharias the Everliving |
+| Y01 | Dieter Helsnicht's Domain | 141 — Ferlangen | Nagashi | theocracy: Necromancer's Domain | Dieter Helsnicht |
+| Y02 | Cluster Eye Tribe | 96 — Deinste | Gork n' Mork | tribal: Greenskin Tribe | Vish Venombarb |
+| Y03 | Brass Keep | 393 — Dripping Peak | Nurglite | chaos_gov: Mandate of Chaos, Chaos Warband | Egil Rusthand |
+| Y04 | House von Wittgenstein | 19 — Wittgendorf | Chaos Undivided | monarchy: Chaos Undivided Monarchy | Margritte von Wittgenstein |
+| Y05 | Cult of the Red Crown | 105 — Delberz | Tzeentchian | theocracy: Tzeentchian Theocracy | Master of Change |
+| Y06 | Slugtongue's Warherd | 63 — Nattern Forest | Chaos Undivided | tribal: Call of the Beastmen | Slugtongue |
+| Y07 | Drycha's Wargrove | 182 — Borkum | The Asrai Pantheon | tribal: The Asrai Pantheon Tribe | Drycha |
+| Y08 | Morghur's Warherd | 321 — Beaussons | Chaos Undivided | tribal: Call of the Beastmen | Morghur the Shadowgave |
+| Y09 | Red Duke's Exiles | 241 — Derrevin Libre | Vampiric | monarchy: Midnight Aristocracy | The Red Duke |
+| Y10 | Aucassin's Household | 317 — Yremy | Vampiric | monarchy: Midnight Aristocracy | Aucassin |
+| Y11 | Brachnar's Laboratory | 262 — Montlac | Vampiric | theocracy: Necromancer's Domain | Brachnar |
+| Y12 | Bowmen of Bergerac | 239 — Vignoble | Grail | republic: Grail Republic | Bertrand the Brigand |
+| Y13 | Coeddil's Wildwood | 776 — Cythral Forest | The Asrai Pantheon | tribal: The Asrai Pantheon Tribe | Coeddil |
+| Y14 | Knights of Irrana | 538 — Llaqueno | Vampiric | monarchy: Midnight Aristocracy | Armand de Sangrivage |
+| Y15 | Long Drong's Anchorage | 627 — Caprio | Ancestor Gods | republic: pirate_republic_reform | Long Drong Slayer |
+| Y16 | Shadewraith Haven | 561 — Grotta | Nagashi | republic: The Vampire Coast | Vangheist |
+| Y17 | Golgfag's Winter Camp | 413 — Heldegrad | The Great Maw | republic: Mercenary Company | Golgfag Maneater |
+| Y18 | Wintertooth | 1146 — Lair of the Troll King | Chaos Undivided | tribal: Monster Clans | Throgg the Troll King |
+| Y19 | Beasts of Telldros | 344 — Skraevold | Chaos Undivided | tribal: Call of the Beastmen | Kharzulg Stormscar |
+| Y20 | Sog'Kog's Feeding Ground | 338 — Fort Straghov | Animist | tribal: Monster Clans | Sog'Kog |
+| Y21 | Black Ogham Circle | 1173 — Dunnok | Chaos Undivided | theocracy: Chaos Undivided Theocracy | Maelor Blackreed |
+| Y22 | Brothers' Giant Moot | 1182 — Everpeak | Druidism | tribal: Druidic Clan Moot | Bologs |
+| Y23 | Rime-Eater Clans | 449 — Mount Hellspire | Animist | tribal: Call of the Beastmen | Hrogg Rimehide |
+| Y24 | Rabidscar Remnant | 4484 — Snag | Horned Rat | monarchy: Rule of the Fittest-Strongest | Furblak |
+| Y25 | Drachenfels Restorationists | 6 — Castle Drachenfels | Nagashi | theocracy: Necromancer's Domain | Albrecht Gravenhorst |
+| Y26 | Ember-Script Heretics | 4509 — Vogg | Hashut | monarchy: Hashut Monarchy | Durgan Emberbrand |
+| Y27 | Badwater Hagdom | 190 — Felwing Cave | Animist | tribal: Monster Clans | Grulma Bogbelly |
+| Y28 | Boglar-Fimir Compact | 154 — Stinkwater Fen | Chaos Undivided | tribal: Greenskin Tribe | Skibbit Mireclaw |
+| Y29 | Black Lantern Prospectors | 4596 — Redstone Underpass | Nagashi | theocracy: Necromancer's Domain | Borri Graveshaft |
+| Y30 | Golden Magus' Refuge | 987 — Al-Qayid | Animist | republic: pirate_republic_reform | Golden Magus |
+| Y31 | Alhazred's Observatory | 1033 — Sharikah | Nagashi | theocracy: Necromancer's Domain | Abdul Alhazred |
+| Y32 | Moon-Well Keepers | 961 — Zafira Oasis | Nehekharan | theocracy: Golden Hieorocracy | Nadir al-Qamar |
+| Y33 | Free Spears of the Copper Dunes | 1772 — Dhiban | The One Faith | republic: Mercenary Company | Hamid al-Nahas |
+| Y34 | Court of the Cursed Scarab | 832 — Khepesh | Nehekharan | monarchy: Nehekharan Monarchy | Apophas |
+| Y35 | Rikek Ash-Warrens | 4388 — Cripple Peak | Horned Rat | monarchy: Rule of the Fittest-Strongest | Skreev Ashsnout |
+| Y36 | Black Oasis Riders | 848 — Phaktra | The One Faith | tribal: Tribe of the Sacred Charge | Salim al-Rimal |
+| Y37 | Clan Festerlingus | 4887 — Cuexotl Wilds | Horned Rat | theocracy: Horned Rat Theocracy | Pustik Rotthroat |
+| Y38 | Hellbeard's Cinder Anchorage | 4331 — Scaleback Coast | Hashut | republic: pirate_republic_reform | Abnagg Hellbeard |
+| Y39 | Root-Eye Brood | 4287 — Nahuontl Peaks | Gork n' Mork | tribal: Greenskin Tribe | Zikrit Rootfang |
+| Y40 | River of Teeth Covenant | 4904 — Flooded Jungle | Vampiric | monarchy: Midnight Aristocracy | Zafira Nightwater |
+| Y41 | Braugh's Corpse-Train | 2210 — Brimstone Pass | The Great Maw | republic: Mercenary Company | Braugh Slavelord |
+| Y42 | Sneaky Gits of Gash Kadrak | 815 — Zharr Outskirts | Hobgoblin Shamanism | tribal: Hobgoblin Shamanism Tribe | Nagrit Shivtail |
+| Y43 | Black Tally Rebellion | 1983 — Blackfire | Gork n' Mork | tribal: Greenskin Tribe | Grakk Chainbreaker |
+| Y44 | Unchained Furnace | 2162 — Black Smoke Peaks | Ancestor Gods | monarchy: Dwarfen Kingdom | Dorin Shacklecleaver |
+| Y45 | Ghuth's Spawnchompers | 2752 — Bloodpeak | Chaos Undivided | tribal: Rule of the Largest | Ghuth Spawnchomper |
+| Y46 | Bezer's Small Empire | 2784 — Gutbuster's Gate | Gork n' Mork | tribal: Greenskin Tribe | Bezer |
+| Y47 | White Hunger | 2792 — Choketooth Vale | Animist | tribal: Rule of the Largest | Urrgh Whiteclaw |
+| Y48 | Last Hearth of the Tall Ones | 2764 — Giant's Ridge | Animist | tribal: Monster Clans | Hrol Hearthkeeper |
+| Y49 | Oglah Khan's Exiles | 4036 — Heicheng | Hobgoblin Shamanism | republic: Mercenary Company | Oglah Khan |
+| Y50 | Ash-Hoof Herd | 4038 — Tuoba | Khornate | tribal: Call of the Beastmen | Khorgh Ashhoof |
+| Y51 | Broken Harness Freehold | 2669 — Icescar | Harmony | republic: Harmony Republic | Shun Liu |
+| Y52 | Cult of the Painted Skin | 2998 — Xienxen | Tzeentchian | theocracy: Tzeentchian Theocracy | Xiu Shen |
+| Y53 | Vermilion Tax Revolt | 2923 — Radiant Plains | Harmony | republic: Harmony Republic | Bao Zhang |
+| Y54 | Jade Coffin Society | 2843 — Minghua | Vampiric | monarchy: Midnight Aristocracy | Mei Jiang |
+| Y55 | Copper Tail Refuge | 2864 — Sapphire Grove | The Thousand Gods | republic: The Thousand Gods Republic | Kavi Copper-Tail |
+| Y56 | Bengals of the Tiger's Eye | 4071 — Kushan | The Thousand Gods | republic: The Thousand Gods Republic | Rajar Stripeclaw |
+| Y57 | Red Banquet Court | 4073 — Panchala | Vampiric | monarchy: Midnight Aristocracy | Gorakka Redgullet |
+| Y58 | Ash Lotus Ascetics | 4252 — Kushari Plains | Nagashi | theocracy: Necromancer's Domain | Harendra Ashlotus |
+| Y59 | Emerald Throat Brood | 4109 — Ceylon | Ouroboros | theocracy: Ouroboros Theocracy | Ssaritha Emerald-Throat |
+| Y60 | Moltless Sepulchre | 2967 — Dragonfall | Nagashi | theocracy: Necromancer's Domain | Ssilak Moltless |
+| Y61 | Unbitten League | 2949 — Silvermist Hills | The Thousand Gods | republic: The Thousand Gods Republic | Devendra Nagesh |
+| Y62 | Hollow Gong Warren | 2932 — Silent Lotus | Horned Rat | monarchy: Rule of the Fittest-Strongest | Chikkit Gonggnaw |
+| Y63 | Mangrove Eye Court | 4256 — Zhanggan Wetlands | Chaos Undivided | tribal: Fimir Tribe | Morrga Mangrove-Eye |
+| Y64 | Empty Sheath League | 4778 — Spirit of the Crane | Harmony | republic: Mercenary Company | Akihiro Kuroda |
+| Y65 | Cinder-Eye Burrow | 4791 — Iseki | Gork n' Mork | tribal: Greenskin Tribe | Skarrik Cinder-Eye |
+| Y66 | Antlered Hunger | 2425 — Ixtoc | Chaos Undivided | tribal: Call of the Beastmen | Ghorak Thornhorn |
+| Y67 | Unmoored Spears | 4753 — Elithis Outpost | The Cytharai | republic: pirate_republic_reform | Aelar Wavebreaker |
+| Y68 | Itz-Itza | 4840 — Pyooshupya | Old Ones | tribal: Old Ones Tribe | Itz-Huax |
+| Y69 | River-Ruin Chainport | 4842 — Noigo | Hashut | theocracy: Sorcerer's Conclave | Zarkhul Ironwake |
+| Y70 | Cave of the First Hunger | 4852 — Xcha | Animist | tribal: Monster Clans | Gor-Ulk |
+| Y71 | Scourge of Khaine | 1936 — Darkspire | The Cytharai | theocracy: The Cytharai Theocracy | Nocrusith |
+| Y72 | Cult of Excess | 1800 — Circle of Night | Slaaneshi | theocracy: Slaaneshi Theocracy | Arathar |
+| Y73 | Blackfang's Worshippers | 1842 — Arithor | Chaos Undivided | tribal: Call of the Beastmen | Gharr Blackfang |
+| Y74 | Blackpine Autarii | 2046 — Skarnshade | The Cytharai | tribal: The Cytharai Tribe | Draleth Blackpine |
+| Y75 | Hotek's Lost Apprentices | 2594 — Shadowfrost | The Cadai | republic: The Cadai Republic | Vaelir Ashforge |
+| Y76 | Deadwood Unbound | 1989 — Deadwood | Imperial Pantheon | republic: Imperial Pantheon Republic | Hakon Freedhand |
+| Y77 | Rimejaw Families | 2582 — Nightair | Animist | tribal: Monster Clans | Rulgh Rimejaw |
+| Y78 | Vashnaar's Foothold | 2105 — Gorepeak | Chaos Undivided | chaos_gov: Mandate of Chaos, Chaos Warband | Vashnaar the Tormentor |
+| Y79 | Cylostra's Drowned | 2104 — Blightward | Nagashi | republic: The Vampire Coast | Cylostra Direfin |
+| Y80 | Azure Fang Brood | 2351 — Tlacox | Old Ones | tribal: Old Ones Tribe | Tzak-Huax |
+| Y81 | Port Reaver | 2318 — Port Reaver | Myrmidian | republic: pirate_republic_reform | Lorenzo Saltavento |
+| Y82 | Swamp Town | 2319 — Swamp Town | Imperial Pantheon | republic: Southern Old World Cults Republic | Konrad Reedhaven |
+| Y83 | Sven's River Company | 2387 — Xotlzax | Ancestor Gods | republic: Mercenary Company | Sven Hasselfriesian |
+| Y84 | Bregonne | 2384 — Axmin | Grail | monarchy: Grail Monarchy | Marcel de Parravon |
+| Y85 | Nuevo Luccini | 2328 — Tzul'cata | Myrmidian | republic: Southern Trade Republic | Marco Venturi |
+| Y86 | Amber Maw Expedition | 2514 — Xolt | The Great Maw | republic: Mercenary Company | Borgut Ambermaw |
+| Y87 | Ashen Plaque Covenant | 2487 — Xaltlan | Dragon Cults | tribal: Clutch-Bound Clan | Xol-Tzek |
+| Y88 | Culchan Feather Exiles | 4371 — Southern Plains | Old Ones | tribal: Amazon Tribe | Itzara Culchanfeather |
+| Y89 | Deep Drum Hold | 2520 — Izaltl | Ancestor Gods | monarchy: Dwarfen Kingdom | Grundi Deepdrum |
+| Y90 | Clan Skaar | 589 — Falco | Horned Rat | monarchy: Rule of the Fittest-Strongest | Krizzik Oreclaw |
+| Y91 | Clan Skaul | 29 — Weissbuck | Horned Rat | monarchy: Rule of the Fittest-Strongest | Skaalrik Dreamfang |
+| Y92 | Clan Sleekit | 7 — Fielbach | Horned Rat | monarchy: Rule of the Fittest-Strongest | Shipgnawer Nikkitt |
+| Y93 | Clan Septik | 33 — Dotternbach | Horned Rat | theocracy: Horned Rat Theocracy | Blightskab |
+| Y94 | Clan Kreepus | 2961 — Eaglecrest | Horned Rat | monarchy: Rule of the Fittest-Strongest | Garrott of Mordheim |
+| Y95 | Clan Feesik | 4875 — Mangrove Delta | Horned Rat | theocracy: Horned Rat Theocracy | Rikzik Seepage |
+| Y96 | Clan Gratzz | 2490 — Xotec | Horned Rat | theocracy: Horned Rat Theocracy | Gratzik Rotwhisker |
+| Y97 | Clan Rikket | 2344 — Ratscar | Horned Rat | monarchy: Rule of the Fittest-Strongest | Rikkaz Warpwake |
+| Y98 | Clan Skuttle | 623 — Dusklair | Horned Rat | monarchy: Rule of the Fittest-Strongest | Skuttik Bilgetail |
+| Y99 | Clan Gristlecrack | 4400 — Snikt | Horned Rat | monarchy: Rule of the Fittest-Strongest | Grissk Fleshsuture |
