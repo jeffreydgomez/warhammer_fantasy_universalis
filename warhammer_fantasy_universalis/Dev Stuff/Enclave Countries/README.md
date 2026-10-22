@@ -8,7 +8,7 @@ The **700 individual national ideas each total Weighing Value 10** using `Dev St
 
 ## Enclave provinces and rooting out factions
 
-Every listed province starts with a unique **[Faction Name] Enclave** permanent modifier. Each applies exactly `local_unrest = 4`, `min_local_autonomy = 33`, `local_autonomy = 0.05`, and `province_trade_power_modifier = -0.1` (-10% province trade power). It has `duration = -1` and uses `add_permanent_province_modifier`, so conquest does not remove it. The Balance Guide does not directly price these local modifiers; their values follow the explicit user instruction.
+Every listed province starts with a unique **[Faction Name] Enclave** permanent modifier. Each applies exactly `local_unrest = 4`, `min_local_autonomy = 33`, `local_autonomy = 0.05`, and `province_trade_power_modifier = 0.1` (+10% local trade power). It has `duration = -1` and uses `add_permanent_province_modifier`, so conquest does not remove it. The Balance Guide does not directly price these local modifiers; their values follow the explicit user instruction.
 
 Ownership of that province while its modifier remains exposes **Root Out [Faction Name]**. Taking the decision requires peace, control of the enclave province, and no existing rebel armies (`NOT = { num_of_rebel_armies = 1 }`). These requirements apply to players and AI; a temporarily blocked decision remains visible. It has no resource cost. It removes that faction's modifier, restores its original core if it has expired, and spawns one `size = 3` stack of `nationalist_rebels` (EU4's separatist type). Actual regiment counts scale with province development and military technology; size 3 is a multiplier, not three regiments.
 
@@ -35,6 +35,12 @@ Ordinary vassal-release eligibility can still depend on province culture, which 
 - All enclaves use existing religions. Cluster Eye Tribe (Y02) and Root-Eye Brood (Y39) use **Gork n' Mork**. Sog'Kog (Y20), Rime-Eaters (Y23), Badwater (Y27), White Hunger (Y47), Last Hearth (Y48), First Hunger (Y70), Rimejaw (Y77), and the Golden Magus (Y30) use **Animist**, representing local customs and spirit traditions. The existing religion modifiers are unchanged.
 - Corrected the missing equals sign in the existing Southern Trade Republic eligibility block, which Nuevo Luccini uses.
 - **Monster Clans:** a generic tribal reform for the monster enclaves that should not be governed by specifically Fimir institutions. Net WV 10: +15% manpower, +15% land force limit, +7.5% development cost.
+
+## Shared province modifier icon
+
+All 100 enclave province modifiers use `picture = "war_enclave_icon"`, which resolves to `gfx/interface/ideas_EU4/war_enclave_icon.dds`. The shared stylized stone keep uses a transparent background and the same 64×64 DXT5 DDS format as the mod's adventurer province icon. The explicit picture remains the same for every enclave regardless of the modifier values.
+
+The artwork was generated with the built-in imagegen tool. The [source PNG](Art/war_enclave_icon.png), [64-pixel preview](Art/war_enclave_icon_64.png), and [generation prompt and export metadata](Art/icon_generation.json) are retained here. The game export is resized from the generated artwork with its alpha channel preserved.
 
 ## Flags
 
