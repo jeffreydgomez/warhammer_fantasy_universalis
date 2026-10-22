@@ -1,0 +1,227 @@
+# ROOT is the country whose mission is being evaluated.
+# Country scope: a trusted, independent commercial partner.
+swine_commercial_partner = {
+	is_subject = no
+	alliance_with = ROOT
+	trust = { who = ROOT value = 60 }
+	has_opinion = { who = ROOT value = 100 }
+}
+# Province scope: direct control or a loyal non-sovereign subject.
+swine_controlled_province = {
+	owner = {
+		OR = {
+			tag = ROOT
+			AND = { is_subject_of = ROOT NOT = { liberty_desire = 50 } }
+		}
+	}
+}
+# Province scope: fixed node membership, independent of later capital moves.
+swine_river_ruin_province = {
+	OR = { province_id = 2145 province_id = 2204 province_id = 2144 province_id = 4108 province_id = 2126 province_id = 2155 province_id = 2156 province_id = 2147 province_id = 2154 province_id = 2272 province_id = 2172 province_id = 1249 province_id = 1248 province_id = 1120 province_id = 1051 province_id = 1333 province_id = 1339 province_id = 4808 province_id = 2271 province_id = 2270 province_id = 2205 province_id = 2206 province_id = 2207 province_id = 2269 province_id = 2268 province_id = 2210 province_id = 2209 province_id = 2211 province_id = 2267 province_id = 2208 province_id = 2226 province_id = 2229 province_id = 2276 province_id = 2273 }
+}
+swine_vorag_hinterland = {
+	OR = { province_id = 2157 province_id = 2163 province_id = 2164 province_id = 2166 province_id = 2167 province_id = 2168 province_id = 2169 province_id = 2170 }
+}
+
+# Country scope: fimdirach; direct/loyal-subject control or an enduring regional alliance.
+swine_fimdirach_settled = {
+	custom_trigger_tooltip = {
+		tooltip = swine_fimdirach_settled_tt
+		OR = {
+			AND = {
+				2147 = { swine_controlled_province = yes }
+				2156 = { swine_controlled_province = yes }
+				calc_true_if = {
+					all_province = {
+						area = scalded_delta
+						swine_controlled_province = yes
+					}
+					amount = 3
+				}
+			}
+			AND = {
+				2147 = { owner = {
+						swine_commercial_partner = yes
+						num_of_owned_provinces_with = {
+							area = scalded_delta
+							value = 3
+						}
+					} }
+				2156 = { OR = { swine_controlled_province = yes owner = { swine_commercial_partner = yes } } }
+			}
+		}
+	}
+}
+
+# Country scope: vorag; direct/loyal-subject control or an enduring regional alliance.
+swine_vorag_settled = {
+	custom_trigger_tooltip = {
+		tooltip = swine_vorag_settled_tt
+		OR = {
+			AND = {
+				2167 = { swine_controlled_province = yes }
+				calc_true_if = {
+					all_province = {
+						swine_vorag_hinterland = yes
+						swine_controlled_province = yes
+					}
+					amount = 3
+				}
+			}
+			AND = {
+				2167 = { owner = {
+						swine_commercial_partner = yes
+						num_of_owned_provinces_with = {
+							swine_vorag_hinterland = yes
+							value = 3
+						}
+					} }
+			}
+		}
+	}
+}
+
+# Country scope: zharr; direct/loyal-subject control or an enduring regional alliance.
+swine_zharr_settled = {
+	custom_trigger_tooltip = {
+		tooltip = swine_zharr_settled_tt
+		OR = {
+			AND = {
+				810 = { swine_controlled_province = yes }
+				calc_true_if = {
+					all_province = {
+						region = plain_of_zharr_region
+						swine_controlled_province = yes
+					}
+					amount = 5
+				}
+			}
+			AND = {
+				810 = { owner = {
+						swine_commercial_partner = yes
+						num_of_owned_provinces_with = {
+							region = plain_of_zharr_region
+							value = 5
+						}
+					} }
+			}
+		}
+	}
+}
+
+# Country scope: orcs; direct/loyal-subject control or an enduring regional alliance.
+swine_orcs_settled = {
+	custom_trigger_tooltip = {
+		tooltip = swine_orcs_settled_tt
+		OR = {
+			AND = {
+				calc_true_if = {
+					all_province = {
+						region = badlands_region
+						swine_controlled_province = yes
+					}
+					amount = 5
+				}
+			}
+			AND = {
+				any_country = {
+					swine_commercial_partner = yes
+					culture_group = greenskins_group
+					num_of_owned_provinces_with = {
+						region = badlands_region
+						value = 5
+					}
+				}
+			}
+		}
+	}
+}
+
+# Country scope: ogres; direct/loyal-subject control or an enduring regional alliance.
+swine_ogres_settled = {
+	custom_trigger_tooltip = {
+		tooltip = swine_ogres_settled_tt
+		OR = {
+			AND = {
+				calc_true_if = {
+					all_province = {
+						region = mountains_of_mourn_region
+						swine_controlled_province = yes
+					}
+					amount = 5
+				}
+			}
+			AND = {
+				any_country = {
+					swine_commercial_partner = yes
+					culture_group = ogre_group
+					num_of_owned_provinces_with = {
+						region = mountains_of_mourn_region
+						value = 5
+					}
+				}
+			}
+		}
+	}
+}
+
+# Country scope: dragon_isles; direct/loyal-subject control or an enduring regional alliance.
+swine_dragon_isles_settled = {
+	custom_trigger_tooltip = {
+		tooltip = swine_dragon_isles_settled_tt
+		OR = {
+			AND = {
+				calc_true_if = {
+					all_province = {
+						region = dragon_isles_region
+						swine_controlled_province = yes
+					}
+					amount = 10
+				}
+			}
+			AND = {
+				any_country = {
+					swine_commercial_partner = yes
+					num_of_owned_provinces_with = {
+						region = dragon_isles_region
+						value = 10
+					}
+				}
+			}
+		}
+	}
+}
+
+# Province scope: direct or loyal-subject rule, or an independent trusted ally.
+swine_friendly_province = {
+	OR = {
+		swine_controlled_province = yes
+		owner = { swine_commercial_partner = yes }
+	}
+}
+
+# Country scope: the whole geographical Darklands, not the six earlier regional bargains.
+swine_darklands_settled = {
+	custom_trigger_tooltip = {
+		tooltip = swine_darklands_settled_tt
+		darklands_superregion = {
+			type = all
+			swine_friendly_province = yes
+		}
+	}
+}
+
+# Province scope: western_ind_trade_node trade-node membership.
+swine_western_ind_province = {
+	OR = { province_id = 1513 province_id = 1526 province_id = 1672 province_id = 4103 province_id = 4130 province_id = 4181 province_id = 4185 province_id = 4189 province_id = 4075 province_id = 4074 province_id = 4096 province_id = 4099 province_id = 4098 province_id = 4182 province_id = 4183 province_id = 4101 province_id = 4184 province_id = 4097 province_id = 4100 province_id = 4186 province_id = 4187 province_id = 4188 province_id = 4190 province_id = 4076 province_id = 4191 province_id = 4087 province_id = 4106 province_id = 4192 province_id = 4102 province_id = 4110 province_id = 4104 province_id = 4252 province_id = 4092 province_id = 4095 province_id = 4148 province_id = 4128 province_id = 4122 province_id = 4125 province_id = 4127 province_id = 4126 province_id = 4123 province_id = 4124 province_id = 4142 }
+}
+
+# Province scope: eastern_colonies_trade_node trade-node membership.
+swine_eastern_colonies_province = {
+	OR = { province_id = 1516 province_id = 1525 province_id = 1512 province_id = 1642 province_id = 1504 province_id = 1616 province_id = 1360 province_id = 1491 province_id = 1511 province_id = 1518 province_id = 1515 province_id = 1524 province_id = 1670 province_id = 4920 province_id = 3999 province_id = 4922 province_id = 4921 province_id = 551 province_id = 2748 province_id = 2778 province_id = 4308 province_id = 4306 province_id = 4305 province_id = 4307 province_id = 2936 province_id = 4304 province_id = 4309 province_id = 1994 province_id = 4312 province_id = 4314 province_id = 4315 province_id = 2007 province_id = 2740 province_id = 2746 province_id = 2747 province_id = 2741 province_id = 1996 province_id = 4313 province_id = 2742 province_id = 4316 province_id = 4310 province_id = 2743 province_id = 2744 province_id = 2745 province_id = 2005 province_id = 4119 province_id = 4118 province_id = 4114 province_id = 4115 province_id = 4120 province_id = 4116 province_id = 4117 province_id = 4121 }
+}
+
+# Province scope: ivory_road_trade_node trade-node membership.
+swine_ivory_road_province = {
+	OR = { province_id = 2787 province_id = 2785 province_id = 2780 province_id = 2782 province_id = 2784 province_id = 2786 province_id = 2788 province_id = 2796 province_id = 2789 province_id = 2794 province_id = 2790 province_id = 2797 province_id = 2809 province_id = 2810 province_id = 2811 province_id = 2812 province_id = 2813 province_id = 2816 province_id = 2817 province_id = 2818 province_id = 2802 province_id = 2815 province_id = 2803 province_id = 2795 province_id = 2804 province_id = 2805 province_id = 2807 province_id = 2806 province_id = 2808 province_id = 2814 province_id = 4272 province_id = 2282 province_id = 2283 province_id = 2281 province_id = 2280 province_id = 601 province_id = 2277 province_id = 2285 province_id = 2960 province_id = 2959 province_id = 2962 province_id = 2973 province_id = 2974 province_id = 2961 province_id = 2963 province_id = 1215 province_id = 2972 province_id = 2971 }
+}

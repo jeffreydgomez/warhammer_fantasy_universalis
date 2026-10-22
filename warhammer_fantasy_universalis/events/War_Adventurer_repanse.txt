@@ -1,0 +1,1402 @@
+namespace = war_adventurer_repanse
+
+# Generated from Dev Stuff/Adventurers/event_data.json; edit that authored source.
+# Budget source: Dev Stuff/Examples/Balance Guide.txt. No MTTH.
+
+# REP-FH01: The Banner from the Chapel. Intended event Weighing Value: +1. Lore: L1.
+country_event = {
+	id = war_adventurer_repanse.1
+	title = war_adventurer_repanse.1.t
+	desc = war_adventurer_repanse.1.d
+	picture = WAR_ADVENTURER_REP_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_repanse = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_repanse
+		    war_adventurer_ready = yes
+		    war_adventurer_repanse_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_repanse = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Repair the chapel. Option Weighing Value: +0.5.
+	option = {
+		name = war_adventurer_repanse.1.option_a
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Enlist the rallied volunteers. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.1.option_b
+		ai_chance = { factor = 1 }
+		add_yearly_manpower = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Have veterans teach the village watch. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.1.option_c
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.02
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_repanse }
+					war_adventurer_move = { MODIFIER = war_adventurer_repanse LOCATION = war_adventurer_location_repanse BEER = no ARRIVAL_EVENT = war_adventurer_repanse.21 }
+				}
+			}
+		}
+	}
+}
+
+# REP-FH02: The Armour in the Hayloft. Intended event Weighing Value: +1. Lore: L1.
+country_event = {
+	id = war_adventurer_repanse.2
+	title = war_adventurer_repanse.2.t
+	desc = war_adventurer_repanse.2.d
+	picture = WAR_ADVENTURER_REP_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_repanse = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_repanse
+		    war_adventurer_ready = yes
+		    war_adventurer_repanse_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_repanse = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Hear the families' claims. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.2.option_a
+		ai_chance = { factor = 1 }
+		add_adm_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Recognize their service publicly. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.2.option_b
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Recover the collector's illicit proceeds. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.2.option_c
+		ai_chance = { factor = 1 }
+		add_years_of_income = 0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_repanse }
+					war_adventurer_move = { MODIFIER = war_adventurer_repanse LOCATION = war_adventurer_location_repanse BEER = no ARRIVAL_EVENT = war_adventurer_repanse.21 }
+				}
+			}
+		}
+	}
+}
+
+# REP-FH03: The Road to Couronne. Intended event Weighing Value: +2. Lore: L2.
+country_event = {
+	id = war_adventurer_repanse.3
+	title = war_adventurer_repanse.3.t
+	desc = war_adventurer_repanse.3.d
+	picture = WAR_ADVENTURER_REP_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_repanse = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_repanse
+		    war_adventurer_ready = yes
+		    war_adventurer_repanse_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_repanse = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Restore the relief route. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.3.option_a
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Honour the escort and enlist willing volunteers. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_repanse.3.option_b
+		ai_chance = { factor = 1 }
+		add_yearly_manpower = 1
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Study the breakthrough. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_repanse.3.option_c
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.04
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_repanse }
+					war_adventurer_move = { MODIFIER = war_adventurer_repanse LOCATION = war_adventurer_location_repanse BEER = no ARRIVAL_EVENT = war_adventurer_repanse.21 }
+				}
+			}
+		}
+	}
+}
+
+# REP-FH04: The Duchess Who Would Not Stay. Intended event Weighing Value: +1. Lore: L3.
+country_event = {
+	id = war_adventurer_repanse.4
+	title = war_adventurer_repanse.4.t
+	desc = war_adventurer_repanse.4.d
+	picture = WAR_ADVENTURER_REP_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_repanse = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_repanse
+		    war_adventurer_ready = yes
+		    war_adventurer_repanse_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_repanse = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Publicly confirm the mediated settlement. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.4.option_a
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Preserve her testimony in the court record. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.4.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Recognize both villages' cooperation. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.4.option_c
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_repanse }
+					war_adventurer_move = { MODIFIER = war_adventurer_repanse LOCATION = war_adventurer_location_repanse BEER = no ARRIVAL_EVENT = war_adventurer_repanse.21 }
+				}
+			}
+		}
+	}
+}
+
+# REP-FH05: A Knight's Name on the Roll. Intended event Weighing Value: +1. Lore: L1, L3.
+country_event = {
+	id = war_adventurer_repanse.5
+	title = war_adventurer_repanse.5.t
+	desc = war_adventurer_repanse.5.d
+	picture = WAR_ADVENTURER_REP_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_repanse = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_repanse
+		    war_adventurer_ready = yes
+		    war_adventurer_repanse_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_repanse = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Acknowledge the rescue. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.5.option_a
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Fund military instruction for the volunteer. Option Weighing Value: +0.5.
+	option = {
+		name = war_adventurer_repanse.5.option_b
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.02
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Teach the deed as a military lesson without altering rank. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.5.option_c
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.02
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_repanse }
+					war_adventurer_move = { MODIFIER = war_adventurer_repanse LOCATION = war_adventurer_location_repanse BEER = no ARRIVAL_EVENT = war_adventurer_repanse.21 }
+				}
+			}
+		}
+	}
+}
+
+# REP-FA01: The Foreign Chapel's Refugees. Intended event Weighing Value: +2. Lore: L1.
+country_event = {
+	id = war_adventurer_repanse.6
+	title = war_adventurer_repanse.6.t
+	desc = war_adventurer_repanse.6.d
+	picture = WAR_ADVENTURER_REP_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_repanse = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_repanse
+		    war_adventurer_ready = yes
+		    war_adventurer_repanse_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_repanse = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Settle the willing families. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.6.option_a
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 3
+		}
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reunite them with their communities. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_repanse.6.option_b
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 50 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Employ willing adults on public repairs. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.6.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_repanse }
+					war_adventurer_move = { MODIFIER = war_adventurer_repanse LOCATION = war_adventurer_location_repanse BEER = no ARRIVAL_EVENT = war_adventurer_repanse.21 }
+				}
+			}
+		}
+	}
+}
+
+# REP-FA02: The Banner Nobody Recognized. Intended event Weighing Value: +1. Lore: L1, L2.
+country_event = {
+	id = war_adventurer_repanse.7
+	title = war_adventurer_repanse.7.t
+	desc = war_adventurer_repanse.7.d
+	picture = WAR_ADVENTURER_REP_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_repanse = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_repanse
+		    war_adventurer_ready = yes
+		    war_adventurer_repanse_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_repanse = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Adopt the useful signals. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.7.option_a
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.02
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Have the returning soldiers retrain their comrades. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.7.option_b
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.02
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Display the captured standards. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.7.option_c
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_repanse }
+					war_adventurer_move = { MODIFIER = war_adventurer_repanse LOCATION = war_adventurer_location_repanse BEER = no ARRIVAL_EVENT = war_adventurer_repanse.21 }
+				}
+			}
+		}
+	}
+}
+
+# REP-FA03: The Champion at the Water Gate. Intended event Weighing Value: +2. Lore: L2.
+country_event = {
+	id = war_adventurer_repanse.8
+	title = war_adventurer_repanse.8.t
+	desc = war_adventurer_repanse.8.d
+	picture = WAR_ADVENTURER_REP_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_repanse = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_repanse
+		    war_adventurer_ready = yes
+		    war_adventurer_repanse_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_repanse = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Distribute the food. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.8.option_a
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Provision the garrison. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_repanse.8.option_b
+		ai_chance = { factor = 1 }
+		add_yearly_manpower = 2
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Sell surplus stores and retain the proceeds after repairs. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_repanse.8.option_c
+		ai_chance = { factor = 1 }
+		add_years_of_income = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_repanse }
+					war_adventurer_move = { MODIFIER = war_adventurer_repanse LOCATION = war_adventurer_location_repanse BEER = no ARRIVAL_EVENT = war_adventurer_repanse.21 }
+				}
+			}
+		}
+	}
+}
+
+# REP-FA04: A Title That Buys No Passage. Intended event Weighing Value: +1. Lore: L3.
+country_event = {
+	id = war_adventurer_repanse.9
+	title = war_adventurer_repanse.9.t
+	desc = war_adventurer_repanse.9.d
+	picture = WAR_ADVENTURER_REP_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_repanse = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_repanse
+		    war_adventurer_ready = yes
+		    war_adventurer_repanse_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_repanse = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Prosecute the forgeries. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.9.option_a
+		ai_chance = { factor = 1 }
+		add_adm_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Recover fraudulent fees. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.9.option_b
+		ai_chance = { factor = 1 }
+		add_years_of_income = 0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Publish her testimony. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.9.option_c
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_repanse }
+					war_adventurer_move = { MODIFIER = war_adventurer_repanse LOCATION = war_adventurer_location_repanse BEER = no ARRIVAL_EVENT = war_adventurer_repanse.21 }
+				}
+			}
+		}
+	}
+}
+
+# REP-FA05: The Fallen Knight's Foreign Grave. Intended event Weighing Value: +1. Lore: L1.
+country_event = {
+	id = war_adventurer_repanse.10
+	title = war_adventurer_repanse.10.t
+	desc = war_adventurer_repanse.10.d
+	picture = WAR_ADVENTURER_REP_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_repanse = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_repanse
+		    war_adventurer_ready = yes
+		    war_adventurer_repanse_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_repanse = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Accept the patrol instruction. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.10.option_a
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.02
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Return the heirlooms with an official escort. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.10.option_b
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Keep the reopened road supplied. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_repanse.10.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_repanse }
+					war_adventurer_move = { MODIFIER = war_adventurer_repanse LOCATION = war_adventurer_location_repanse BEER = no ARRIVAL_EVENT = war_adventurer_repanse.21 }
+				}
+			}
+		}
+	}
+}
+
+# REP-EH01: The Chapel We Had Sealed. Intended event Weighing Value: -1. Lore: L1.
+country_event = {
+	id = war_adventurer_repanse.11
+	title = war_adventurer_repanse.11.t
+	desc = war_adventurer_repanse.11.d
+	picture = WAR_ADVENTURER_REP_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_repanse = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_repanse
+		    war_adventurer_ready = yes
+		    war_adventurer_repanse_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_repanse = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Rebuild the cordon. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_repanse.11.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Negotiate the detainees' settlement. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_repanse.11.option_b
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Order a search that finds only abandoned camps. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_repanse.11.option_c
+		ai_chance = { factor = 1 }
+		add_mil_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_repanse }
+					war_adventurer_move = { MODIFIER = war_adventurer_repanse LOCATION = war_adventurer_location_repanse BEER = no ARRIVAL_EVENT = war_adventurer_repanse.21 }
+				}
+			}
+		}
+	}
+}
+
+# REP-EH02: The Relief Column We Missed. Intended event Weighing Value: -2. Lore: L2.
+country_event = {
+	id = war_adventurer_repanse.12
+	title = war_adventurer_repanse.12.t
+	desc = war_adventurer_repanse.12.d
+	picture = WAR_ADVENTURER_REP_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_repanse = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_repanse
+		    war_adventurer_ready = yes
+		    war_adventurer_repanse_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+			owner = { is_at_war = yes }
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_repanse = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the lost stores and equipment. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_repanse.12.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reorganize the blockade. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_repanse.12.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Abandon damaged forward positions. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_repanse.12.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_repanse }
+					war_adventurer_move = { MODIFIER = war_adventurer_repanse LOCATION = war_adventurer_location_repanse BEER = no ARRIVAL_EVENT = war_adventurer_repanse.21 }
+				}
+			}
+		}
+	}
+}
+
+# REP-EH03: The Duke's Old Seal. Intended event Weighing Value: -1. Lore: L3.
+country_event = {
+	id = war_adventurer_repanse.13
+	title = war_adventurer_repanse.13.t
+	desc = war_adventurer_repanse.13.d
+	picture = WAR_ADVENTURER_REP_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_repanse = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_repanse
+		    war_adventurer_ready = yes
+		    war_adventurer_repanse_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_repanse = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Refund the disputed levy. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_repanse.13.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Investigate the officials responsible. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_repanse.13.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Enforce collection despite the evidence. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_repanse.13.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_repanse }
+					war_adventurer_move = { MODIFIER = war_adventurer_repanse LOCATION = war_adventurer_location_repanse BEER = no ARRIVAL_EVENT = war_adventurer_repanse.21 }
+				}
+			}
+		}
+	}
+}
+
+# REP-EH04: Peasants Beneath the Banner. Intended event Weighing Value: -2. Lore: L1, L2.
+country_event = {
+	id = war_adventurer_repanse.14
+	title = war_adventurer_repanse.14.t
+	desc = war_adventurer_repanse.14.d
+	picture = WAR_ADVENTURER_REP_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_repanse = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_repanse
+		    war_adventurer_ready = yes
+		    war_adventurer_repanse_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_repanse = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Offer an amnesty and buy back the arms. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_repanse.14.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Contain the holdouts. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_repanse.14.option_b
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			spawn_rebels = { type = particularist_rebels size = 1 }
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Withdraw exposed collection teams. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_repanse.14.option_c
+		ai_chance = { factor = 1 }
+		add_adm_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_repanse }
+					war_adventurer_move = { MODIFIER = war_adventurer_repanse LOCATION = war_adventurer_location_repanse BEER = no ARRIVAL_EVENT = war_adventurer_repanse.21 }
+				}
+			}
+		}
+	}
+}
+
+# REP-EH05: A Knighthood Denied. Intended event Weighing Value: -1. Lore: L3.
+country_event = {
+	id = war_adventurer_repanse.15
+	title = war_adventurer_repanse.15.t
+	desc = war_adventurer_repanse.15.d
+	picture = WAR_ADVENTURER_REP_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_repanse = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_repanse
+		    war_adventurer_ready = yes
+		    war_adventurer_repanse_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_repanse = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Compensate the defeated escort. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_repanse.15.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Revise the disputed judgment. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_repanse.15.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Uphold the sentence in her absence. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_repanse.15.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_repanse }
+					war_adventurer_move = { MODIFIER = war_adventurer_repanse LOCATION = war_adventurer_location_repanse BEER = no ARRIVAL_EVENT = war_adventurer_repanse.21 }
+				}
+			}
+		}
+	}
+}
+
+# REP-EA01: The Camp with Open Gates. Intended event Weighing Value: -2. Lore: L1, L2.
+country_event = {
+	id = war_adventurer_repanse.16
+	title = war_adventurer_repanse.16.t
+	desc = war_adventurer_repanse.16.d
+	picture = WAR_ADVENTURER_REP_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_repanse = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_repanse
+		    war_adventurer_ready = yes
+		    war_adventurer_repanse_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_repanse = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Rebuild and audit the camp. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_repanse.16.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reconstruct the missing records. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_repanse.16.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Leave the ruined site abandoned. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_repanse.16.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_repanse }
+					war_adventurer_move = { MODIFIER = war_adventurer_repanse LOCATION = war_adventurer_location_repanse BEER = no ARRIVAL_EVENT = war_adventurer_repanse.21 }
+				}
+			}
+		}
+	}
+}
+
+# REP-EA02: The Shrine's Broken Trophy. Intended event Weighing Value: -1. Lore: L1.
+country_event = {
+	id = war_adventurer_repanse.17
+	title = war_adventurer_repanse.17.t
+	desc = war_adventurer_repanse.17.d
+	picture = WAR_ADVENTURER_REP_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_repanse = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_repanse
+		    war_adventurer_ready = yes
+		    war_adventurer_repanse_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_repanse = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Compensate the guards and custodians. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_repanse.17.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Investigate the original plunder. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_repanse.17.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Dismiss the incident publicly. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_repanse.17.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_repanse }
+					war_adventurer_move = { MODIFIER = war_adventurer_repanse LOCATION = war_adventurer_location_repanse BEER = no ARRIVAL_EVENT = war_adventurer_repanse.21 }
+				}
+			}
+		}
+	}
+}
+
+# REP-EA03: A Couronne in Foreign Soil. Intended event Weighing Value: -2. Lore: L2.
+country_event = {
+	id = war_adventurer_repanse.18
+	title = war_adventurer_repanse.18.t
+	desc = war_adventurer_repanse.18.d
+	picture = WAR_ADVENTURER_REP_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_repanse = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_repanse
+		    war_adventurer_ready = yes
+		    war_adventurer_repanse_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_repanse = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the damaged occupation force. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_repanse.18.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Review its command. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_repanse.18.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Try to contain the testimony. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_repanse.18.option_c
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_repanse }
+					war_adventurer_move = { MODIFIER = war_adventurer_repanse LOCATION = war_adventurer_location_repanse BEER = no ARRIVAL_EVENT = war_adventurer_repanse.21 }
+				}
+			}
+		}
+	}
+}
+
+# REP-EA04: The Knight's Stolen Name. Intended event Weighing Value: -1. Lore: L3.
+country_event = {
+	id = war_adventurer_repanse.19
+	title = war_adventurer_repanse.19.t
+	desc = war_adventurer_repanse.19.d
+	picture = WAR_ADVENTURER_REP_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_repanse = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_repanse
+		    war_adventurer_ready = yes
+		    war_adventurer_repanse_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_repanse = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Compensate those harmed by the contracts. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_repanse.19.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Purge the compromised registry. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_repanse.19.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Defend the officials' conduct. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_repanse.19.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_repanse }
+					war_adventurer_move = { MODIFIER = war_adventurer_repanse LOCATION = war_adventurer_location_repanse BEER = no ARRIVAL_EVENT = war_adventurer_repanse.21 }
+				}
+			}
+		}
+	}
+}
+
+# REP-EA05: The Banner Beyond the Frontier. Intended event Weighing Value: -1. Lore: L1.
+country_event = {
+	id = war_adventurer_repanse.20
+	title = war_adventurer_repanse.20.t
+	desc = war_adventurer_repanse.20.d
+	picture = WAR_ADVENTURER_REP_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_repanse = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_repanse
+		    war_adventurer_ready = yes
+		    war_adventurer_repanse_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_repanse = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the weapons before rumours spread. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_repanse.20.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Discipline the officer. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_repanse.20.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Let the humiliation pass. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_repanse.20.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_repanse }
+					war_adventurer_move = { MODIFIER = war_adventurer_repanse LOCATION = war_adventurer_location_repanse BEER = no ARRIVAL_EVENT = war_adventurer_repanse.21 }
+				}
+			}
+		}
+	}
+}
+
+# Arrival report: introduce Repanse de Lyonesse to the new owner. No mechanical effects.
+country_event = {
+	id = war_adventurer_repanse.21
+	title = war_adventurer_repanse.21.t
+	desc = war_adventurer_repanse.21.d
+	picture = WAR_ADVENTURER_REP_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_arrival_province = {
+			owned_by = ROOT
+			has_province_modifier = war_adventurer_repanse
+		}
+	}
+	# Acknowledge the arrival report. Option Weighing Value: 0.
+	option = { name = war_adventurer_arrival_acknowledge }
+}

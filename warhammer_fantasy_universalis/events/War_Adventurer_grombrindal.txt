@@ -1,0 +1,1405 @@
+namespace = war_adventurer_grombrindal
+
+# Generated from Dev Stuff/Adventurers/event_data.json; edit that authored source.
+# Budget source: Dev Stuff/Examples/Balance Guide.txt. No MTTH.
+
+# GRO-FH01: Umthi's Story at the Barricade. Intended event Weighing Value: +2. Lore: L1.
+country_event = {
+	id = war_adventurer_grombrindal.1
+	title = war_adventurer_grombrindal.1.t
+	desc = war_adventurer_grombrindal.1.d
+	picture = WAR_ADVENTURER_GRO_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_grombrindal = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_grombrindal
+		    war_adventurer_ready = yes
+		    war_adventurer_grombrindal_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_grombrindal = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Train the militia from the account. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_grombrindal.1.option_a
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.04
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Restore the saved district. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_grombrindal.1.option_b
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Honour the surviving defenders. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_grombrindal.1.option_c
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 50 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_grombrindal }
+					war_adventurer_move = { MODIFIER = war_adventurer_grombrindal LOCATION = war_adventurer_location_grombrindal BEER = no ARRIVAL_EVENT = war_adventurer_grombrindal.21 }
+				}
+			}
+		}
+	}
+}
+
+# GRO-FH02: The Three Names on the Old Tablet. Intended event Weighing Value: +1. Lore: L2.
+country_event = {
+	id = war_adventurer_grombrindal.2
+	title = war_adventurer_grombrindal.2.t
+	desc = war_adventurer_grombrindal.2.d
+	picture = WAR_ADVENTURER_GRO_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_grombrindal = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_grombrindal
+		    war_adventurer_ready = yes
+		    war_adventurer_grombrindal_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_grombrindal = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Fund a public distribution to the distressed families. Option Weighing Value: +0.5.
+	option = {
+		name = war_adventurer_grombrindal.2.option_a
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Preserve the recovered account. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_grombrindal.2.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Commemorate the old pledge. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_grombrindal.2.option_c
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_grombrindal }
+					war_adventurer_move = { MODIFIER = war_adventurer_grombrindal LOCATION = war_adventurer_location_grombrindal BEER = no ARRIVAL_EVENT = war_adventurer_grombrindal.21 }
+				}
+			}
+		}
+	}
+}
+
+# GRO-FH03: The Ancestor at the Muster. Intended event Weighing Value: +1. Lore: L3.
+country_event = {
+	id = war_adventurer_grombrindal.3
+	title = war_adventurer_grombrindal.3.t
+	desc = war_adventurer_grombrindal.3.d
+	picture = WAR_ADVENTURER_GRO_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_grombrindal = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_grombrindal
+		    war_adventurer_ready = yes
+		    war_adventurer_grombrindal_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_grombrindal = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Adopt the veterans' instruction. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_grombrindal.3.option_a
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.02
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Restore the regiment's records. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_grombrindal.3.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Celebrate the renewed oath. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_grombrindal.3.option_c
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_grombrindal }
+					war_adventurer_move = { MODIFIER = war_adventurer_grombrindal LOCATION = war_adventurer_location_grombrindal BEER = no ARRIVAL_EVENT = war_adventurer_grombrindal.21 }
+				}
+			}
+		}
+	}
+}
+
+# GRO-FH04: The Miners Beyond the Goblin Ring. Intended event Weighing Value: +2. Lore: L1.
+country_event = {
+	id = war_adventurer_grombrindal.4
+	title = war_adventurer_grombrindal.4.t
+	desc = war_adventurer_grombrindal.4.d
+	picture = WAR_ADVENTURER_GRO_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_grombrindal = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_grombrindal
+		    war_adventurer_ready = yes
+		    war_adventurer_grombrindal_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_grombrindal = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Reopen the saved workings. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_grombrindal.4.option_a
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_production = 3
+		}
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Train the mine watch. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_grombrindal.4.option_b
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.04
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Honour the rescuers with the recovered supplies. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_grombrindal.4.option_c
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 50 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_grombrindal }
+					war_adventurer_move = { MODIFIER = war_adventurer_grombrindal LOCATION = war_adventurer_location_grombrindal BEER = no ARRIVAL_EVENT = war_adventurer_grombrindal.21 }
+				}
+			}
+		}
+	}
+}
+
+# GRO-FH05: The Grudge He Would Not Let Us Forget. Intended event Weighing Value: +1. Lore: L2, L3.
+country_event = {
+	id = war_adventurer_grombrindal.5
+	title = war_adventurer_grombrindal.5.t
+	desc = war_adventurer_grombrindal.5.d
+	picture = WAR_ADVENTURER_GRO_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_grombrindal = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_grombrindal
+		    war_adventurer_ready = yes
+		    war_adventurer_grombrindal_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_grombrindal = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Honour the claim and reconcile the families. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_grombrindal.5.option_a
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Preserve the testimony. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_grombrindal.5.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Recognize the rescue pledge publicly. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_grombrindal.5.option_c
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_grombrindal }
+					war_adventurer_move = { MODIFIER = war_adventurer_grombrindal LOCATION = war_adventurer_location_grombrindal BEER = no ARRIVAL_EVENT = war_adventurer_grombrindal.21 }
+				}
+			}
+		}
+	}
+}
+
+# GRO-FA01: The Caravan's White-Bearded Guard. Intended event Weighing Value: +2. Lore: L1.
+country_event = {
+	id = war_adventurer_grombrindal.6
+	title = war_adventurer_grombrindal.6.t
+	desc = war_adventurer_grombrindal.6.d
+	picture = WAR_ADVENTURER_GRO_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_grombrindal = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_grombrindal
+		    war_adventurer_ready = yes
+		    war_adventurer_grombrindal_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_grombrindal = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Restore the caravan route. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_grombrindal.6.option_a
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Train escorts from the survivors' testimony. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_grombrindal.6.option_b
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.04
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Recover duties on the rescued goods. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_grombrindal.6.option_c
+		ai_chance = { factor = 1 }
+		add_years_of_income = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_grombrindal }
+					war_adventurer_move = { MODIFIER = war_adventurer_grombrindal LOCATION = war_adventurer_location_grombrindal BEER = no ARRIVAL_EVENT = war_adventurer_grombrindal.21 }
+				}
+			}
+		}
+	}
+}
+
+# GRO-FA02: The Agreement Older than the Province. Intended event Weighing Value: +1. Lore: L3.
+country_event = {
+	id = war_adventurer_grombrindal.7
+	title = war_adventurer_grombrindal.7.t
+	desc = war_adventurer_grombrindal.7.d
+	picture = WAR_ADVENTURER_GRO_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_grombrindal = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_grombrindal
+		    war_adventurer_ready = yes
+		    war_adventurer_grombrindal_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_grombrindal = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Honour the shelter agreement. Option Weighing Value: +0.5.
+	option = {
+		name = war_adventurer_grombrindal.7.option_a
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Authenticate the archive. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_grombrindal.7.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Recognize the rescued community. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_grombrindal.7.option_c
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_grombrindal }
+					war_adventurer_move = { MODIFIER = war_adventurer_grombrindal LOCATION = war_adventurer_location_grombrindal BEER = no ARRIVAL_EVENT = war_adventurer_grombrindal.21 }
+				}
+			}
+		}
+	}
+}
+
+# GRO-FA03: The Pledge Carried Far from Karak Varn. Intended event Weighing Value: +1. Lore: L2.
+country_event = {
+	id = war_adventurer_grombrindal.8
+	title = war_adventurer_grombrindal.8.t
+	desc = war_adventurer_grombrindal.8.d
+	picture = WAR_ADVENTURER_GRO_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_grombrindal = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_grombrindal
+		    war_adventurer_ready = yes
+		    war_adventurer_grombrindal_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_grombrindal = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Fund the miners' return. Option Weighing Value: +0.5.
+	option = {
+		name = war_adventurer_grombrindal.8.option_a
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Preserve their survey records. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_grombrindal.8.option_b
+		ai_chance = { factor = 1 }
+		change_innovativeness = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Employ willing survivors in local works. Option Weighing Value: +0.5.
+	option = {
+		name = war_adventurer_grombrindal.8.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_grombrindal }
+					war_adventurer_move = { MODIFIER = war_adventurer_grombrindal LOCATION = war_adventurer_location_grombrindal BEER = no ARRIVAL_EVENT = war_adventurer_grombrindal.21 }
+				}
+			}
+		}
+	}
+}
+
+# GRO-FA04: The Foreign Fortress's Last Gate. Intended event Weighing Value: +2. Lore: L1, L3.
+country_event = {
+	id = war_adventurer_grombrindal.9
+	title = war_adventurer_grombrindal.9.t
+	desc = war_adventurer_grombrindal.9.d
+	picture = WAR_ADVENTURER_GRO_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_grombrindal = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_grombrindal
+		    war_adventurer_ready = yes
+		    war_adventurer_grombrindal_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_grombrindal = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Rebuild the gate and train its guards. Option Weighing Value: +1.5.
+	option = {
+		name = war_adventurer_grombrindal.9.option_a
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.04
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Train the rallied garrison. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_grombrindal.9.option_b
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.04
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Honour those who protected the civilians. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_grombrindal.9.option_c
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 50 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_grombrindal }
+					war_adventurer_move = { MODIFIER = war_adventurer_grombrindal LOCATION = war_adventurer_location_grombrindal BEER = no ARRIVAL_EVENT = war_adventurer_grombrindal.21 }
+				}
+			}
+		}
+	}
+}
+
+# GRO-FA05: The King's Name He Never Claimed. Intended event Weighing Value: +1. Lore: L3.
+country_event = {
+	id = war_adventurer_grombrindal.10
+	title = war_adventurer_grombrindal.10.t
+	desc = war_adventurer_grombrindal.10.d
+	picture = WAR_ADVENTURER_GRO_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_grombrindal = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_grombrindal
+		    war_adventurer_ready = yes
+		    war_adventurer_grombrindal_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_grombrindal = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Recover the fraudulent fees. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_grombrindal.10.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = 0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Secure the registry against further forgeries. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_grombrindal.10.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Publish the victims' vindication. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_grombrindal.10.option_c
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_grombrindal }
+					war_adventurer_move = { MODIFIER = war_adventurer_grombrindal LOCATION = war_adventurer_location_grombrindal BEER = no ARRIVAL_EVENT = war_adventurer_grombrindal.21 }
+				}
+			}
+		}
+	}
+}
+
+# GRO-EH01: The Encirclement Broken from Within. Intended event Weighing Value: -2. Lore: L1.
+country_event = {
+	id = war_adventurer_grombrindal.11
+	title = war_adventurer_grombrindal.11.t
+	desc = war_adventurer_grombrindal.11.d
+	picture = WAR_ADVENTURER_GRO_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_grombrindal = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_grombrindal
+		    war_adventurer_ready = yes
+		    war_adventurer_grombrindal_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+			owner = { is_at_war = yes }
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_grombrindal = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the lost siege stores. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_grombrindal.11.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Revise the encirclement. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_grombrindal.11.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Abandon the damaged siege position. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_grombrindal.11.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_grombrindal }
+					war_adventurer_move = { MODIFIER = war_adventurer_grombrindal LOCATION = war_adventurer_location_grombrindal BEER = no ARRIVAL_EVENT = war_adventurer_grombrindal.21 }
+				}
+			}
+		}
+	}
+}
+
+# GRO-EH02: The Heirlooms Taken from Our Hall. Intended event Weighing Value: -1. Lore: L3.
+country_event = {
+	id = war_adventurer_grombrindal.12
+	title = war_adventurer_grombrindal.12.t
+	desc = war_adventurer_grombrindal.12.d
+	picture = WAR_ADVENTURER_GRO_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_grombrindal = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_grombrindal
+		    war_adventurer_ready = yes
+		    war_adventurer_grombrindal_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_grombrindal = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Compensate the defeated guard. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_grombrindal.12.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Investigate the original confiscations. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_grombrindal.12.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Dismiss the written grievance. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_grombrindal.12.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_grombrindal }
+					war_adventurer_move = { MODIFIER = war_adventurer_grombrindal LOCATION = war_adventurer_location_grombrindal BEER = no ARRIVAL_EVENT = war_adventurer_grombrindal.21 }
+				}
+			}
+		}
+	}
+}
+
+# GRO-EH03: The Promise Behind the Prison Break. Intended event Weighing Value: -2. Lore: L2.
+country_event = {
+	id = war_adventurer_grombrindal.13
+	title = war_adventurer_grombrindal.13.t
+	desc = war_adventurer_grombrindal.13.d
+	picture = WAR_ADVENTURER_GRO_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_grombrindal = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_grombrindal
+		    war_adventurer_ready = yes
+		    war_adventurer_grombrindal_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_grombrindal = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the damaged prison works. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_grombrindal.13.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reorganize detention security. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_grombrindal.13.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Leave the ruined compound closed. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_grombrindal.13.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_grombrindal }
+					war_adventurer_move = { MODIFIER = war_adventurer_grombrindal LOCATION = war_adventurer_location_grombrindal BEER = no ARRIVAL_EVENT = war_adventurer_grombrindal.21 }
+				}
+			}
+		}
+	}
+}
+
+# GRO-EH04: The Muster that Turned Against Us. Intended event Weighing Value: -1. Lore: L3.
+country_event = {
+	id = war_adventurer_grombrindal.14
+	title = war_adventurer_grombrindal.14.t
+	desc = war_adventurer_grombrindal.14.d
+	picture = WAR_ADVENTURER_GRO_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_grombrindal = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_grombrindal
+		    war_adventurer_ready = yes
+		    war_adventurer_grombrindal_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_grombrindal = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Buy new service contracts. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_grombrindal.14.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reorganize the reduced muster. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_grombrindal.14.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Endure the repudiation of our authority. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_grombrindal.14.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_grombrindal }
+					war_adventurer_move = { MODIFIER = war_adventurer_grombrindal LOCATION = war_adventurer_location_grombrindal BEER = no ARRIVAL_EVENT = war_adventurer_grombrindal.21 }
+				}
+			}
+		}
+	}
+}
+
+# GRO-EH05: The Mine's Unpaid Debt. Intended event Weighing Value: -2. Lore: L1, L3.
+country_event = {
+	id = war_adventurer_grombrindal.15
+	title = war_adventurer_grombrindal.15.t
+	desc = war_adventurer_grombrindal.15.d
+	picture = WAR_ADVENTURER_GRO_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_grombrindal = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_grombrindal
+		    war_adventurer_ready = yes
+		    war_adventurer_grombrindal_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_grombrindal = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the equipment and workers. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_grombrindal.15.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Redirect production to other mines. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_grombrindal.15.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Close the damaged workings. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_grombrindal.15.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_grombrindal }
+					war_adventurer_move = { MODIFIER = war_adventurer_grombrindal LOCATION = war_adventurer_location_grombrindal BEER = no ARRIVAL_EVENT = war_adventurer_grombrindal.21 }
+				}
+			}
+		}
+	}
+}
+
+# GRO-EA01: The Slaving Expedition's Return. Intended event Weighing Value: -2. Lore: L1, L3.
+country_event = {
+	id = war_adventurer_grombrindal.16
+	title = war_adventurer_grombrindal.16.t
+	desc = war_adventurer_grombrindal.16.d
+	picture = WAR_ADVENTURER_GRO_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_grombrindal = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_grombrindal
+		    war_adventurer_ready = yes
+		    war_adventurer_grombrindal_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_grombrindal = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the expedition's losses. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_grombrindal.16.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Investigate its failed command. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_grombrindal.16.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Repudiate the expedition publicly. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_grombrindal.16.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_grombrindal }
+					war_adventurer_move = { MODIFIER = war_adventurer_grombrindal LOCATION = war_adventurer_location_grombrindal BEER = no ARRIVAL_EVENT = war_adventurer_grombrindal.21 }
+				}
+			}
+		}
+	}
+}
+
+# GRO-EA02: The Foreign Oathbreaker's Ledger. Intended event Weighing Value: -1. Lore: L3.
+country_event = {
+	id = war_adventurer_grombrindal.17
+	title = war_adventurer_grombrindal.17.t
+	desc = war_adventurer_grombrindal.17.d
+	picture = WAR_ADVENTURER_GRO_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_grombrindal = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_grombrindal
+		    war_adventurer_ready = yes
+		    war_adventurer_grombrindal_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_grombrindal = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Settle the broken contract. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_grombrindal.17.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Investigate the approving officials. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_grombrindal.17.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Defend the contractor despite the evidence. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_grombrindal.17.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_grombrindal }
+					war_adventurer_move = { MODIFIER = war_adventurer_grombrindal LOCATION = war_adventurer_location_grombrindal BEER = no ARRIVAL_EVENT = war_adventurer_grombrindal.21 }
+				}
+			}
+		}
+	}
+}
+
+# GRO-EA03: The Karak Varn Petition. Intended event Weighing Value: -1. Lore: L2.
+country_event = {
+	id = war_adventurer_grombrindal.18
+	title = war_adventurer_grombrindal.18.t
+	desc = war_adventurer_grombrindal.18.d
+	picture = WAR_ADVENTURER_GRO_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_grombrindal = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_grombrindal
+		    war_adventurer_ready = yes
+		    war_adventurer_grombrindal_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_grombrindal = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the missing treasury allocation. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_grombrindal.18.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Audit the confiscation. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_grombrindal.18.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Deny the petitioners' claim. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_grombrindal.18.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_grombrindal }
+					war_adventurer_move = { MODIFIER = war_adventurer_grombrindal LOCATION = war_adventurer_location_grombrindal BEER = no ARRIVAL_EVENT = war_adventurer_grombrindal.21 }
+				}
+			}
+		}
+	}
+}
+
+# GRO-EA04: The Caravan We Had Surrounded. Intended event Weighing Value: -2. Lore: L1.
+country_event = {
+	id = war_adventurer_grombrindal.19
+	title = war_adventurer_grombrindal.19.t
+	desc = war_adventurer_grombrindal.19.d
+	picture = WAR_ADVENTURER_GRO_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_grombrindal = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_grombrindal
+		    war_adventurer_ready = yes
+		    war_adventurer_grombrindal_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_grombrindal = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the camp's stores. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_grombrindal.19.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reorganize interception tactics. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_grombrindal.19.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Requisition nearby settlements. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_grombrindal.19.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_grombrindal }
+					war_adventurer_move = { MODIFIER = war_adventurer_grombrindal LOCATION = war_adventurer_location_grombrindal BEER = no ARRIVAL_EVENT = war_adventurer_grombrindal.21 }
+				}
+			}
+		}
+	}
+}
+
+# GRO-EA05: The Ancestor's Unanswered Grudge. Intended event Weighing Value: -1. Lore: L3.
+country_event = {
+	id = war_adventurer_grombrindal.20
+	title = war_adventurer_grombrindal.20.t
+	desc = war_adventurer_grombrindal.20.d
+	picture = WAR_ADVENTURER_GRO_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_grombrindal = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_grombrindal
+		    war_adventurer_ready = yes
+		    war_adventurer_grombrindal_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_grombrindal = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Compensate the affected households. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_grombrindal.20.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Investigate the officer's collection. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_grombrindal.20.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Refuse the grievance and accept the shame. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_grombrindal.20.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_grombrindal }
+					war_adventurer_move = { MODIFIER = war_adventurer_grombrindal LOCATION = war_adventurer_location_grombrindal BEER = no ARRIVAL_EVENT = war_adventurer_grombrindal.21 }
+				}
+			}
+		}
+	}
+}
+
+# Arrival report: introduce Grombrindal to the new owner. No mechanical effects.
+country_event = {
+	id = war_adventurer_grombrindal.21
+	title = war_adventurer_grombrindal.21.t
+	desc = war_adventurer_grombrindal.21.d
+	picture = WAR_ADVENTURER_GRO_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_arrival_province = {
+			owned_by = ROOT
+			has_province_modifier = war_adventurer_grombrindal
+		}
+	}
+	# Acknowledge the arrival report. Option Weighing Value: 0.
+	option = { name = war_adventurer_arrival_acknowledge }
+}

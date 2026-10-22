@@ -1,0 +1,1409 @@
+namespace = war_adventurer_sienna
+
+# Generated from Dev Stuff/Adventurers/event_data.json; edit that authored source.
+# Budget source: Dev Stuff/Examples/Balance Guide.txt. No MTTH.
+
+# SIE-FH01: Thyrus's Marginal Notes. Intended event Weighing Value: +1. Lore: L1.
+country_event = {
+	id = war_adventurer_sienna.1
+	title = war_adventurer_sienna.1.t
+	desc = war_adventurer_sienna.1.d
+	picture = WAR_ADVENTURER_SIE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_sienna = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_sienna
+		    war_adventurer_ready = yes
+		    war_adventurer_sienna_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_sienna = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Copy the corrected design. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_sienna.1.option_a
+		ai_chance = { factor = 1 }
+		change_innovativeness = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Fund its use in a workshop. Option Weighing Value: +0.5.
+	option = {
+		name = war_adventurer_sienna.1.option_b
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Recognize the guild's safer practice. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_sienna.1.option_c
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_sienna }
+					war_adventurer_move = { MODIFIER = war_adventurer_sienna LOCATION = war_adventurer_location_sienna BEER = no ARRIVAL_EVENT = war_adventurer_sienna.21 }
+				}
+			}
+		}
+	}
+}
+
+# SIE-FH02: The Prisoner's Burning Rescue. Intended event Weighing Value: +2. Lore: L2.
+country_event = {
+	id = war_adventurer_sienna.2
+	title = war_adventurer_sienna.2.t
+	desc = war_adventurer_sienna.2.d
+	picture = WAR_ADVENTURER_SIE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_sienna = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_sienna
+		    war_adventurer_ready = yes
+		    war_adventurer_sienna_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_sienna = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Pardon the incident and support the survivors. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_sienna.2.option_a
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 50 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Train the watch from their account. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_sienna.2.option_b
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.04
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Use recovered supplies to rebuild the cellar. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_sienna.2.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_sienna }
+					war_adventurer_move = { MODIFIER = war_adventurer_sienna LOCATION = war_adventurer_location_sienna BEER = no ARRIVAL_EVENT = war_adventurer_sienna.21 }
+				}
+			}
+		}
+	}
+}
+
+# SIE-FH03: The Fire in the Grain Store. Intended event Weighing Value: +1. Lore: L1, L2.
+country_event = {
+	id = war_adventurer_sienna.3
+	title = war_adventurer_sienna.3.t
+	desc = war_adventurer_sienna.3.d
+	picture = WAR_ADVENTURER_SIE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_sienna = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_sienna
+		    war_adventurer_ready = yes
+		    war_adventurer_sienna_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_sienna = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Release the grain to the district. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_sienna.3.option_a
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Retain a reserve for the garrison. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_sienna.3.option_b
+		ai_chance = { factor = 1 }
+		add_yearly_manpower = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Investigate how the infestation began. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_sienna.3.option_c
+		ai_chance = { factor = 1 }
+		add_adm_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_sienna }
+					war_adventurer_move = { MODIFIER = war_adventurer_sienna LOCATION = war_adventurer_location_sienna BEER = no ARRIVAL_EVENT = war_adventurer_sienna.21 }
+				}
+			}
+		}
+	}
+}
+
+# SIE-FH04: The Sister in the Testimony. Intended event Weighing Value: +1. Lore: L3.
+country_event = {
+	id = war_adventurer_sienna.4
+	title = war_adventurer_sienna.4.t
+	desc = war_adventurer_sienna.4.d
+	picture = WAR_ADVENTURER_SIE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_sienna = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_sienna
+		    war_adventurer_ready = yes
+		    war_adventurer_sienna_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_sienna = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Examine the surviving evidence. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_sienna.4.option_a
+		ai_chance = { factor = 1 }
+		change_innovativeness = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Correct the mistaken accusation. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_sienna.4.option_b
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Pay for honourable burials and publicly clear her name. Option Weighing Value: +0.5.
+	option = {
+		name = war_adventurer_sienna.4.option_c
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_sienna }
+					war_adventurer_move = { MODIFIER = war_adventurer_sienna LOCATION = war_adventurer_location_sienna BEER = no ARRIVAL_EVENT = war_adventurer_sienna.21 }
+				}
+			}
+		}
+	}
+}
+
+# SIE-FH05: The Workshop's Unwelcome Miracle. Intended event Weighing Value: +1. Lore: L1.
+country_event = {
+	id = war_adventurer_sienna.5
+	title = war_adventurer_sienna.5.t
+	desc = war_adventurer_sienna.5.d
+	picture = WAR_ADVENTURER_SIE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_sienna = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_sienna
+		    war_adventurer_ready = yes
+		    war_adventurer_sienna_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_sienna = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Buy the apprentices' notes. Option Weighing Value: +0.5.
+	option = {
+		name = war_adventurer_sienna.5.option_a
+		ai_chance = { factor = 1 }
+		change_innovativeness = 1
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Install the finished casting in public works. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_sienna.5.option_b
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Sell the casting and retain the balance after repairs. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_sienna.5.option_c
+		ai_chance = { factor = 1 }
+		add_years_of_income = 0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_sienna }
+					war_adventurer_move = { MODIFIER = war_adventurer_sienna LOCATION = war_adventurer_location_sienna BEER = no ARRIVAL_EVENT = war_adventurer_sienna.21 }
+				}
+			}
+		}
+	}
+}
+
+# SIE-FA01: A Furnace with No Shared Language. Intended event Weighing Value: +1. Lore: L1.
+country_event = {
+	id = war_adventurer_sienna.6
+	title = war_adventurer_sienna.6.t
+	desc = war_adventurer_sienna.6.d
+	picture = WAR_ADVENTURER_SIE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_sienna = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_sienna
+		    war_adventurer_ready = yes
+		    war_adventurer_sienna_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_sienna = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Translate and circulate the diagrams. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_sienna.6.option_a
+		ai_chance = { factor = 1 }
+		change_innovativeness = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Support a safer furnace. Option Weighing Value: +0.5.
+	option = {
+		name = war_adventurer_sienna.6.option_b
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Buy the trial output to equip new recruits. Option Weighing Value: +0.5.
+	option = {
+		name = war_adventurer_sienna.6.option_c
+		ai_chance = { factor = 1 }
+		add_yearly_manpower = 1
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_sienna }
+					war_adventurer_move = { MODIFIER = war_adventurer_sienna LOCATION = war_adventurer_location_sienna BEER = no ARRIVAL_EVENT = war_adventurer_sienna.21 }
+				}
+			}
+		}
+	}
+}
+
+# SIE-FA02: The Captive Who Cleared the Road. Intended event Weighing Value: +2. Lore: L2.
+country_event = {
+	id = war_adventurer_sienna.7
+	title = war_adventurer_sienna.7.t
+	desc = war_adventurer_sienna.7.d
+	picture = WAR_ADVENTURER_SIE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_sienna = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_sienna
+		    war_adventurer_ready = yes
+		    war_adventurer_sienna_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_sienna = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Return the cargo and recognize the guards. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_sienna.7.option_a
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 50 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Use unclaimed stores for relief. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_sienna.7.option_b
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Teach the guards’ ambush account to the army. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_sienna.7.option_c
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.04
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_sienna }
+					war_adventurer_move = { MODIFIER = war_adventurer_sienna LOCATION = war_adventurer_location_sienna BEER = no ARRIVAL_EVENT = war_adventurer_sienna.21 }
+				}
+			}
+		}
+	}
+}
+
+# SIE-FA03: The Foreign Pyre. Intended event Weighing Value: +1. Lore: L3.
+country_event = {
+	id = war_adventurer_sienna.8
+	title = war_adventurer_sienna.8.t
+	desc = war_adventurer_sienna.8.d
+	picture = WAR_ADVENTURER_SIE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_sienna = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_sienna
+		    war_adventurer_ready = yes
+		    war_adventurer_sienna_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+			has_port = yes
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_sienna = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Preserve samples from the unburned crates. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_sienna.8.option_a
+		ai_chance = { factor = 1 }
+		change_innovativeness = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Publish corrected witness statements. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_sienna.8.option_b
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Return the stolen goods at a public hearing. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_sienna.8.option_c
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_sienna }
+					war_adventurer_move = { MODIFIER = war_adventurer_sienna LOCATION = war_adventurer_location_sienna BEER = no ARRIVAL_EVENT = war_adventurer_sienna.21 }
+				}
+			}
+		}
+	}
+}
+
+# SIE-FA04: The Bridge of Sparks. Intended event Weighing Value: +2. Lore: L2.
+country_event = {
+	id = war_adventurer_sienna.9
+	title = war_adventurer_sienna.9.t
+	desc = war_adventurer_sienna.9.d
+	picture = WAR_ADVENTURER_SIE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_sienna = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_sienna
+		    war_adventurer_ready = yes
+		    war_adventurer_sienna_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_sienna = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Offer temporary homes. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_sienna.9.option_a
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 3
+		}
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Hire willing survivors as scouts. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_sienna.9.option_b
+		ai_chance = { factor = 1 }
+		add_yearly_manpower = 2
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Record the defence for officers. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_sienna.9.option_c
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.04
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_sienna }
+					war_adventurer_move = { MODIFIER = war_adventurer_sienna LOCATION = war_adventurer_location_sienna BEER = no ARRIVAL_EVENT = war_adventurer_sienna.21 }
+				}
+			}
+		}
+	}
+}
+
+# SIE-FA05: The Invitation She Burned. Intended event Weighing Value: +1. Lore: L3.
+country_event = {
+	id = war_adventurer_sienna.10
+	title = war_adventurer_sienna.10.t
+	desc = war_adventurer_sienna.10.d
+	picture = WAR_ADVENTURER_SIE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_sienna = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_sienna
+		    war_adventurer_ready = yes
+		    war_adventurer_sienna_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_sienna = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Trace the courier. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_sienna.10.option_a
+		ai_chance = { factor = 1 }
+		add_adm_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Study the seal safely. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_sienna.10.option_b
+		ai_chance = { factor = 1 }
+		change_innovativeness = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Expose the traffickers to their victims. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_sienna.10.option_c
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_sienna }
+					war_adventurer_move = { MODIFIER = war_adventurer_sienna LOCATION = war_adventurer_location_sienna BEER = no ARRIVAL_EVENT = war_adventurer_sienna.21 }
+				}
+			}
+		}
+	}
+}
+
+# SIE-EH01: The Powder Store's Red Dawn. Intended event Weighing Value: -2. Lore: L1, L2.
+country_event = {
+	id = war_adventurer_sienna.11
+	title = war_adventurer_sienna.11.t
+	desc = war_adventurer_sienna.11.d
+	picture = WAR_ADVENTURER_SIE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_sienna = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_sienna
+		    war_adventurer_ready = yes
+		    war_adventurer_sienna_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_sienna = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the lost ammunition. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_sienna.11.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Redistribute existing stocks. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_sienna.11.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Abandon the damaged magazine. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_sienna.11.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_sienna }
+					war_adventurer_move = { MODIFIER = war_adventurer_sienna LOCATION = war_adventurer_location_sienna BEER = no ARRIVAL_EVENT = war_adventurer_sienna.21 }
+				}
+			}
+		}
+	}
+}
+
+# SIE-EH02: The Escort That Lost Its Prisoner. Intended event Weighing Value: -1. Lore: L1, L2.
+country_event = {
+	id = war_adventurer_sienna.12
+	title = war_adventurer_sienna.12.t
+	desc = war_adventurer_sienna.12.d
+	picture = WAR_ADVENTURER_SIE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_sienna = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_sienna
+		    war_adventurer_ready = yes
+		    war_adventurer_sienna_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_sienna = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the escort's equipment. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_sienna.12.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Investigate its orders. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_sienna.12.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Conceal the humiliating escape. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_sienna.12.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_sienna }
+					war_adventurer_move = { MODIFIER = war_adventurer_sienna LOCATION = war_adventurer_location_sienna BEER = no ARRIVAL_EVENT = war_adventurer_sienna.21 }
+				}
+			}
+		}
+	}
+}
+
+# SIE-EH03: The Grain We Could Not Issue. Intended event Weighing Value: -2. Lore: L2.
+country_event = {
+	id = war_adventurer_sienna.13
+	title = war_adventurer_sienna.13.t
+	desc = war_adventurer_sienna.13.d
+	picture = WAR_ADVENTURER_SIE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_sienna = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_sienna
+		    war_adventurer_ready = yes
+		    war_adventurer_sienna_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_sienna = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the stores conventionally. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_sienna.13.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reorganize the exposed operation. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_sienna.13.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Abandon the contaminated compound. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_sienna.13.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_sienna }
+					war_adventurer_move = { MODIFIER = war_adventurer_sienna LOCATION = war_adventurer_location_sienna BEER = no ARRIVAL_EVENT = war_adventurer_sienna.21 }
+				}
+			}
+		}
+	}
+}
+
+# SIE-EH04: The Wrong Sister's Warrant. Intended event Weighing Value: -1. Lore: L3.
+country_event = {
+	id = war_adventurer_sienna.14
+	title = war_adventurer_sienna.14.t
+	desc = war_adventurer_sienna.14.d
+	picture = WAR_ADVENTURER_SIE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_sienna = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_sienna
+		    war_adventurer_ready = yes
+		    war_adventurer_sienna_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_sienna = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Rebuild the damaged facilities. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_sienna.14.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Investigate the false identity trail. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_sienna.14.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Deny the experiments existed. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_sienna.14.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_sienna }
+					war_adventurer_move = { MODIFIER = war_adventurer_sienna LOCATION = war_adventurer_location_sienna BEER = no ARRIVAL_EVENT = war_adventurer_sienna.21 }
+				}
+			}
+		}
+	}
+}
+
+# SIE-EH05: The Lesson the Guild Rejected. Intended event Weighing Value: -1. Lore: L1.
+country_event = {
+	id = war_adventurer_sienna.15
+	title = war_adventurer_sienna.15.t
+	desc = war_adventurer_sienna.15.d
+	picture = WAR_ADVENTURER_SIE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_sienna = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_sienna
+		    war_adventurer_ready = yes
+		    war_adventurer_sienna_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_sienna = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Repair the machinery properly. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_sienna.15.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reorganize the foundry's supervision. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_sienna.15.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Blame an unexplained accident. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_sienna.15.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_sienna }
+					war_adventurer_move = { MODIFIER = war_adventurer_sienna LOCATION = war_adventurer_location_sienna BEER = no ARRIVAL_EVENT = war_adventurer_sienna.21 }
+				}
+			}
+		}
+	}
+}
+
+# SIE-EA01: The Arsenal's Failed Arrest. Intended event Weighing Value: -2. Lore: L1, L2.
+country_event = {
+	id = war_adventurer_sienna.16
+	title = war_adventurer_sienna.16.t
+	desc = war_adventurer_sienna.16.d
+	picture = WAR_ADVENTURER_SIE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_sienna = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_sienna
+		    war_adventurer_ready = yes
+		    war_adventurer_sienna_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_sienna = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the damaged stores. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_sienna.16.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reassign troops to temporary depots. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_sienna.16.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Leave the burnt compound closed. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_sienna.16.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_sienna }
+					war_adventurer_move = { MODIFIER = war_adventurer_sienna LOCATION = war_adventurer_location_sienna BEER = no ARRIVAL_EVENT = war_adventurer_sienna.21 }
+				}
+			}
+		}
+	}
+}
+
+# SIE-EA02: The Ship with the Empty Hold. Intended event Weighing Value: -1. Lore: L2.
+country_event = {
+	id = war_adventurer_sienna.17
+	title = war_adventurer_sienna.17.t
+	desc = war_adventurer_sienna.17.d
+	picture = WAR_ADVENTURER_SIE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_sienna = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_sienna
+		    war_adventurer_ready = yes
+		    war_adventurer_sienna_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+			has_port = yes
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_sienna = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Repair the transport. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_sienna.17.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Audit the failed watch. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_sienna.17.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Abandon the claim to its passengers. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_sienna.17.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_sienna }
+					war_adventurer_move = { MODIFIER = war_adventurer_sienna LOCATION = war_adventurer_location_sienna BEER = no ARRIVAL_EVENT = war_adventurer_sienna.21 }
+				}
+			}
+		}
+	}
+}
+
+# SIE-EA03: A Necromancer's Rejected Gift. Intended event Weighing Value: -1. Lore: L3.
+country_event = {
+	id = war_adventurer_sienna.18
+	title = war_adventurer_sienna.18.t
+	desc = war_adventurer_sienna.18.d
+	picture = WAR_ADVENTURER_SIE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_sienna = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_sienna
+		    war_adventurer_ready = yes
+		    war_adventurer_sienna_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_sienna = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Settle the outstanding claims. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_sienna.18.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reconstruct the lost records. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_sienna.18.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Repudiate the collector publicly. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_sienna.18.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_sienna }
+					war_adventurer_move = { MODIFIER = war_adventurer_sienna LOCATION = war_adventurer_location_sienna BEER = no ARRIVAL_EVENT = war_adventurer_sienna.21 }
+				}
+			}
+		}
+	}
+}
+
+# SIE-EA04: The Furnace Turned Outward. Intended event Weighing Value: -2. Lore: L1.
+country_event = {
+	id = war_adventurer_sienna.19
+	title = war_adventurer_sienna.19.t
+	desc = war_adventurer_sienna.19.d
+	picture = WAR_ADVENTURER_SIE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_sienna = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_sienna
+		    war_adventurer_ready = yes
+		    war_adventurer_sienna_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_sienna = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Hire replacements and repair the works. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_sienna.19.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Redistribute surviving workshops' capacity. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_sienna.19.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Abandon the ruined yard. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_sienna.19.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_sienna }
+					war_adventurer_move = { MODIFIER = war_adventurer_sienna LOCATION = war_adventurer_location_sienna BEER = no ARRIVAL_EVENT = war_adventurer_sienna.21 }
+				}
+			}
+		}
+	}
+}
+
+# SIE-EA05: The Witnesses in the Smoke. Intended event Weighing Value: -1. Lore: L2.
+country_event = {
+	id = war_adventurer_sienna.20
+	title = war_adventurer_sienna.20.t
+	desc = war_adventurer_sienna.20.d
+	picture = WAR_ADVENTURER_SIE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_sienna = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_sienna
+		    war_adventurer_ready = yes
+		    war_adventurer_sienna_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_sienna = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Compensate the archive staff. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_sienna.20.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reconstruct the missing intelligence. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_sienna.20.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Dismiss the fugitives' allegations. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_sienna.20.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_sienna }
+					war_adventurer_move = { MODIFIER = war_adventurer_sienna LOCATION = war_adventurer_location_sienna BEER = no ARRIVAL_EVENT = war_adventurer_sienna.21 }
+				}
+			}
+		}
+	}
+}
+
+# Arrival report: introduce Sienna Fuegonasus to the new owner. No mechanical effects.
+country_event = {
+	id = war_adventurer_sienna.21
+	title = war_adventurer_sienna.21.t
+	desc = war_adventurer_sienna.21.d
+	picture = WAR_ADVENTURER_SIE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_arrival_province = {
+			owned_by = ROOT
+			has_province_modifier = war_adventurer_sienna
+		}
+	}
+	# Acknowledge the arrival report. Option Weighing Value: 0.
+	option = { name = war_adventurer_arrival_acknowledge }
+}

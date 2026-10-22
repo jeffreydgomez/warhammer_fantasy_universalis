@@ -1,0 +1,1276 @@
+# Pigbarter -> Swinetrade Empire: one continuous mission tree.
+# Regular mission rewards: 179.5 guide-scored WV plus unpriced permanent may_explore.
+# Ultimate: 85 WV, copying Westerland exactly at the user's request.
+# Prerequisites use nearest-above and adjacent-previous-row links only.
+
+war_pigbarter_missions_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = B21 }
+	}
+
+	# Concept: Pigbarter trades beneath leaking roofs and disputed toll boards. Build a proper market and enlarge the city so its stallholders can bargain under a common charter.
+	# Reward Weighing Value: 2.
+	swine_stallholders = {
+		icon = mission_swine_stallholders
+		position = 1
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 2145
+			ROOT = {
+				NOT = {
+					AND = {
+						2145 = {
+							owned_by = ROOT
+							development = 15
+							OR = { has_building = marketplace has_building = trade_depot has_building = stock_exchange }
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			2145 = {
+				owned_by = ROOT
+				development = 15
+				OR = { has_building = marketplace has_building = trade_depot has_building = stock_exchange }
+			}
+		}
+		effect = {
+			add_country_modifier = { name = swine_stallholders_reward duration = -1 }
+		}
+	}
+
+	# Concept: Our charter is worthless if every quay weighs silver differently. Make the River Ruin our home market and establish a quarter share of its trade.
+	# Reward Weighing Value: 2.
+	swine_honest_weights = {
+		icon = mission_swine_honest_weights
+		position = 2
+		required_missions = { swine_stallholders }
+		provinces_to_highlight = {
+			swine_river_ruin_province = yes
+			ROOT = {
+				NOT = {
+					AND = {
+						2206 = { trade_share = { country = ROOT share = 25 } }
+					}
+				}
+			}
+		}
+		trigger = {
+			2206 = { trade_share = { country = ROOT share = 25 } }
+		}
+		effect = {
+			add_country_modifier = { name = swine_honest_weights_reward duration = -1 }
+		}
+	}
+
+	# Concept: River cargo is bought long before it reaches Pigbarter. Send factors upriver and maintain enough light ships to protect their contracts.
+	# Reward Weighing Value: 2.
+	swine_upper_ruin = {
+		icon = mission_caravan
+		position = 3
+		required_missions = { swine_honest_weights }
+		provinces_to_highlight = {
+			swine_river_ruin_province = yes
+			ROOT = {
+				NOT = {
+					AND = {
+						2206 = { trade_share = { country = ROOT share = 35 } }
+						num_of_light_ship = 5
+					}
+				}
+			}
+		}
+		trigger = {
+			2206 = { trade_share = { country = ROOT share = 35 } }
+			num_of_light_ship = 5
+		}
+		effect = {
+			add_country_modifier = { name = swine_upper_ruin_reward duration = -1 }
+		}
+	}
+
+	# Concept: Too much of the river trade passes through private toll stations. Bring half its commerce under our factors and make Pigbarter a port worthy of its customs house.
+	# Reward Weighing Value: 5.
+	swine_ruin_customs = {
+		icon = mission_swine_ruin_customs
+		position = 5
+		required_missions = { swine_upper_ruin }
+		provinces_to_highlight = {
+			swine_river_ruin_province = yes
+			ROOT = {
+				NOT = {
+					AND = {
+						2206 = { trade_share = { country = ROOT share = 50 } }
+						2145 = {
+							owned_by = ROOT
+							province_has_center_of_trade_of_level = 3
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			2206 = { trade_share = { country = ROOT share = 50 } }
+			2145 = {
+				owned_by = ROOT
+				province_has_center_of_trade_of_level = 3
+			}
+		}
+		effect = {
+			add_country_modifier = { name = swine_ruin_customs_reward duration = -1 }
+		}
+	}
+
+	# Concept: A disputed cargo can provoke a feud that closes the river. Establish courts beside the markets in five provinces so merchants can appeal to a common commercial law.
+	# Reward Weighing Value: 2.
+	swine_merchant_appeals = {
+		icon = mission_swine_merchant_appeals
+		position = 6
+		required_missions = { swine_ruin_customs }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = {
+				AND = {
+					OR = { has_building = courthouse has_building = town_hall }
+					OR = { has_building = marketplace has_building = trade_depot has_building = stock_exchange }
+				}
+			}
+			ROOT = {
+				NOT = {
+					AND = {
+						num_of_owned_provinces_with = {
+							OR = { has_building = courthouse has_building = town_hall }
+							OR = { has_building = marketplace has_building = trade_depot has_building = stock_exchange }
+							value = 5
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = { has_building = courthouse has_building = town_hall }
+				OR = { has_building = marketplace has_building = trade_depot has_building = stock_exchange }
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = { name = swine_merchant_appeals_reward duration = -1 }
+		}
+	}
+
+	# Concept: A single crowded quay cannot handle an imperial volume of business. Upgrade a second exchange on the River Ruin and bring three fifths of its commerce into our network.
+	# Reward Weighing Value: 2.
+	swine_grand_exchange = {
+		icon = mission_araby_bazaar
+		position = 8
+		required_missions = { swine_merchant_appeals swine_navy_charter }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			province_has_center_of_trade_of_level = 1
+			ROOT = {
+				NOT = {
+					AND = {
+						2206 = { trade_share = { country = ROOT share = 60 } }
+						num_of_owned_provinces_with = {
+							OR = { province_has_center_of_trade_of_level = 2 province_has_center_of_trade_of_level = 3 }
+							value = 2
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			2206 = { trade_share = { country = ROOT share = 60 } }
+			num_of_owned_provinces_with = {
+				OR = { province_has_center_of_trade_of_level = 2 province_has_center_of_trade_of_level = 3 }
+				value = 2
+			}
+		}
+		effect = {
+			add_country_modifier = { name = swine_grand_exchange_reward duration = -1 }
+		}
+	}
+
+	# Concept: The River Ruin has made us wealthy enough to seek cargo abroad. Win a share of western Ind and maintain transports to supply our factors.
+	# Reward Weighing Value: 5.
+	swine_western_ind = {
+		icon = mission_ind_spices
+		position = 9
+		required_missions = { swine_grand_exchange }
+		provinces_to_highlight = {
+			swine_western_ind_province = yes
+			ROOT = {
+				NOT = {
+					AND = {
+						4103 = { trade_share = { country = ROOT share = 25 } }
+						num_of_transport = 10
+					}
+				}
+			}
+		}
+		trigger = {
+			4103 = { trade_share = { country = ROOT share = 25 } }
+			num_of_transport = 10
+		}
+		effect = {
+			add_country_modifier = { name = swine_western_ind_reward duration = -1 }
+		}
+	}
+
+	# Concept: The eastern sea routes are crowded with merchants who have never heard our charter read. Establish overseas holdings and earn a substantial place in their exchanges.
+	# Reward Weighing Value: 5.
+	swine_eastern_exchange = {
+		icon = mission_high_elf_docks
+		position = 11
+		required_missions = { swine_western_ind swine_soundings }
+		provinces_to_highlight = {
+			swine_eastern_colonies_province = yes
+			ROOT = {
+				NOT = {
+					AND = {
+						2748 = { trade_share = { country = ROOT share = 25 } }
+					}
+				}
+			}
+		}
+		trigger = {
+			2748 = { trade_share = { country = ROOT share = 25 } }
+		}
+		effect = {
+			add_country_modifier = { name = swine_eastern_exchange_reward duration = -1 }
+		}
+	}
+
+	# Concept: Foreign ventures must strengthen the river that sustains the empire. Dominate the River Ruin and secure the Ivory Road traffic that feeds its markets.
+	# Reward Weighing Value: 5.
+	swine_river_circuit = {
+		icon = mission_swine_river_circuit
+		position = 12
+		required_missions = { swine_eastern_exchange }
+		provinces_to_highlight = {
+			OR = { swine_river_ruin_province = yes swine_ivory_road_province = yes }
+			ROOT = {
+				NOT = {
+					AND = {
+						2206 = { trade_share = { country = ROOT share = 80 } }
+						2972 = { trade_share = { country = ROOT share = 50 } }
+					}
+				}
+			}
+		}
+		trigger = {
+			2206 = { trade_share = { country = ROOT share = 80 } }
+			2972 = { trade_share = { country = ROOT share = 50 } }
+		}
+		effect = {
+			add_country_modifier = { name = swine_river_circuit_reward duration = -1 }
+		}
+	}
+
+	# Concept: Our bills of exchange now travel farther than most kings. Secure a near monopoly on the River Ruin and build the great exchanges needed to finance world commerce.
+	# Reward Weighing Value: 5.
+	swine_world_counting_house = {
+		icon = mission_swine_world_counting_house
+		position = 13
+		required_missions = { swine_river_circuit }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			OR = { province_has_center_of_trade_of_level = 1 province_has_center_of_trade_of_level = 2 }
+			ROOT = {
+				NOT = {
+					AND = {
+						2206 = { trade_share = { country = ROOT share = 90 } }
+						monthly_income = 100
+						num_of_owned_provinces_with = {
+							province_has_center_of_trade_of_level = 3
+							value = 3
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			2206 = { trade_share = { country = ROOT share = 90 } }
+			monthly_income = 100
+			num_of_owned_provinces_with = {
+				province_has_center_of_trade_of_level = 3
+				value = 3
+			}
+		}
+		effect = {
+			add_country_modifier = { name = swine_world_counting_house_reward duration = -1 }
+		}
+	}
+
+}
+
+war_pigbarter_missions_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = B21 }
+	}
+
+	# Concept: Mud banks and makeshift jetties leave our hulls rotting between voyages. Build two proper docks to give the river fleet a dependable base.
+	# Reward Weighing Value: 2.
+	swine_slipways = {
+		icon = mission_high_elf_docks_2
+		position = 1
+		required_missions = {  }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			has_port = yes
+			NOT = {
+				AND = {
+					OR = { has_building = dock has_building = drydock }
+				}
+			}
+			ROOT = {
+				NOT = {
+					AND = {
+						num_of_owned_provinces_with = {
+							has_port = yes
+							OR = { has_building = dock has_building = drydock }
+							value = 3
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_port = yes
+				OR = { has_building = dock has_building = drydock }
+				value = 3
+			}
+		}
+		effect = {
+			add_country_modifier = { name = swine_slipways_reward duration = -1 }
+		}
+	}
+
+	# Concept: A dockyard alone does not persuade sailors to face the Scalded Delta. Put a substantial fleet in commission and hire an admiral who can bring it home.
+	# Reward Weighing Value: 2.
+	swine_paid_to_sail = {
+		icon = mission_swine_paid_to_sail
+		position = 3
+		required_missions = { swine_slipways }
+		trigger = {
+			navy_size_percentage = 0.75
+			has_leader_with = { admiral = yes total_pips = 6 }
+		}
+		effect = {
+			add_country_modifier = { name = swine_paid_to_sail_reward duration = -1 }
+		}
+	}
+
+	# Concept: Our contracts multiply faster than our captains can protect them. Establish a practiced light-ship escort service along the River Ruin.
+	# Reward Weighing Value: 5.
+	swine_escort_trade = {
+		icon = mission_high_elf_ship
+		position = 4
+		required_missions = { swine_paid_to_sail }
+		trigger = {
+			num_of_light_ship = 12
+			navy_tradition = 25
+		}
+		effect = {
+			add_country_modifier = { name = swine_escort_trade_reward duration = -1 }
+		}
+	}
+
+	# Concept: Guards, provisions and replacement crews must arrive before a stranded factor loses his nerve. Assemble a transport service within a fleet large enough to defend it.
+	# Reward Weighing Value: 2.
+	swine_seaborne_supply = {
+		icon = mission_ind_ship
+		position = 5
+		required_missions = { swine_escort_trade }
+		trigger = {
+			num_of_transport = 10
+			navy_size = 25
+		}
+		effect = {
+			add_country_modifier = { name = swine_seaborne_supply_reward duration = -1 }
+		}
+	}
+
+	# Concept: Our fleet can now carry the republic beyond its familiar waters. The council must decide whether its finest ships will lead merchant convoys or impose our terms in battle.
+	# Reward Weighing Value: 5.
+	swine_navy_charter = {
+		icon = mission_swine_navy_charter
+		position = 7
+		required_missions = { swine_seaborne_supply }
+		trigger = {
+			navy_tradition = 40
+			has_flagship = yes
+			num_of_heavy_ship = 5
+		}
+		effect = {
+			country_event = { id = war_swine_missions.2 }
+		}
+	}
+
+	# Concept: Our imperial charter promises markets beyond the known sea lanes. Build five shipyards so the council can commission explorers and dispatch permanent colonial expeditions.
+	# Reward Weighing Value: 10.
+	swine_imperial_dockyards = {
+		icon = mission_swine_imperial_dockyards
+		position = 9
+		required_missions = { swine_navy_charter swine_proclaim_empire }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			has_port = yes
+			NOT = {
+				AND = {
+					OR = { has_building = shipyard has_building = grand_shipyard }
+				}
+			}
+			ROOT = {
+				NOT = {
+					AND = {
+						num_of_owned_provinces_with = {
+							has_port = yes
+							OR = { has_building = shipyard has_building = grand_shipyard }
+							value = 5
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_port = yes
+				OR = { has_building = shipyard has_building = grand_shipyard }
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = { name = swine_imperial_dockyards_reward duration = -1 }
+		}
+	}
+
+	# Concept: The imperial yards have given us the means to venture abroad. Establish a holding on another continent and support it with a fleet fit for long voyages.
+	# Reward Weighing Value: 2.5.
+	swine_soundings = {
+		icon = mission_high_elf_southlands_map
+		position = 10
+		required_missions = { swine_imperial_dockyards }
+		trigger = {
+			num_of_continents = 2
+			navy_size = 40
+		}
+		effect = {
+			add_country_modifier = { name = swine_soundings_reward duration = -1 }
+		}
+	}
+
+	# Concept: Experience is scattered among captains who guard their charts like treasure. Bring proven naval officers or an expert advisor into a permanent school of navigation.
+	# Reward Weighing Value: 2.
+	swine_navigation_school = {
+		icon = mission_swine_navigation_school
+		position = 11
+		required_missions = { swine_soundings }
+		trigger = {
+			navy_tradition = 50
+			has_leader_with = { admiral = yes total_pips = 8 }
+			OR = {
+				employed_advisor = { type = navigator skill = 1 }
+				employed_advisor = { type = naval_reformer skill = 1 }
+			}
+		}
+		effect = {
+			add_country_modifier = { name = swine_navigation_school_reward duration = -1 }
+		}
+	}
+
+	# Concept: Our factors now trade beyond the reach of occasional patrols. Maintain a hundred ships and an experienced service capable of guarding every major convoy.
+	# Reward Weighing Value: 5.
+	swine_every_convoy = {
+		icon = mission_swine_every_convoy
+		position = 13
+		required_missions = { swine_navigation_school }
+		trigger = {
+			navy_size = 100
+			navy_tradition = 60
+		}
+		effect = {
+			add_country_modifier = { name = swine_every_convoy_reward duration = -1 }
+		}
+	}
+
+	# Concept: The counting houses can finance a fleet that no neighbour can ignore. Bring the navy to full strength and make its seamanship the envy of the eastern seas.
+	# Reward Weighing Value: 5.
+	swine_eastern_seas = {
+		icon = mission_swine_eastern_seas
+		position = 14
+		required_missions = { swine_every_convoy swine_world_counting_house }
+		trigger = {
+			navy_size_percentage = 1
+			navy_tradition = 90
+		}
+		effect = {
+			add_country_modifier = { name = swine_eastern_seas_reward duration = -1 }
+		}
+	}
+
+}
+
+war_pigbarter_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = B21 }
+	}
+
+	# Concept: Pigbarter has many loud voices and too few decisions that survive the next market day. Earn the guilds a working council, or establish an equally capable civic administration.
+	# Reward Weighing Value: 2.
+	swine_quay_council = {
+		icon = mission_swine_quay_council
+		position = 1
+		required_missions = {  }
+		trigger = {
+			OR = {
+				AND = {
+					num_of_estate_agendas_completed = { estate = estate_burghers value = 1 }
+					estate_loyalty = { estate = estate_burghers loyalty = 60 }
+				}
+				AND = {
+					NOT = { has_estate = estate_burghers }
+					2145 = { owned_by = ROOT development = 20 }
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = { name = swine_quay_council_reward duration = -1 }
+		}
+	}
+
+	# Concept: The council cannot settle accounts while every argument becomes a street battle. Restore stable rule and enough public confidence for its judgments to stand.
+	# Reward Weighing Value: 2.
+	swine_stilt_peace = {
+		icon = mission_swine_stilt_peace
+		position = 2
+		required_missions = { swine_quay_council }
+		trigger = {
+			stability = 2
+			OR = { republican_tradition = 90 legitimacy = 90 devotion = 90 }
+		}
+		effect = {
+			add_country_modifier = { name = swine_stilt_peace_reward duration = -1 }
+		}
+	}
+
+	# Concept: Our neighbours still remember a muddy market town. Build a larger and more stable commonwealth that its citizens have good reason to defend.
+	# Reward Weighing Value: 5.
+	swine_defensible_republic = {
+		icon = mission_empire_culture
+		position = 4
+		required_missions = { swine_stilt_peace }
+		trigger = {
+			total_development = 100
+			stability = 3
+		}
+		effect = {
+			add_country_modifier = { name = swine_defensible_republic_reward duration = -1 }
+		}
+	}
+
+	# Concept: Our companies have grown beyond the customs that once restrained them. Write a charter that either brings their offices into the state or makes their foreign partnerships an instrument of policy.
+	# Reward Weighing Value: 5.
+	swine_company_charter = {
+		icon = mission_swine_company_charter
+		position = 5
+		required_missions = { swine_defensible_republic }
+		trigger = {
+			OR = {
+				AND = {
+					num_of_estate_agendas_completed = { estate = estate_burghers value = 2 }
+					estate_loyalty = { estate = estate_burghers loyalty = 65 }
+				}
+				AND = {
+					NOT = { has_estate = estate_burghers }
+					monthly_income = 30
+				}
+			}
+		}
+		effect = {
+			country_event = { id = war_swine_missions.1 }
+		}
+	}
+
+	# Concept: The companies keep separate purses, but a wider republic needs money it can call its own. Build a steady public income and a common reserve before promising an imperial charter.
+	# Reward Weighing Value: 2.5.
+	swine_fifty_provinces = {
+		icon = mission_sow_culture
+		position = 7
+		required_missions = { swine_company_charter }
+		trigger = {
+			monthly_income = 40
+			treasury = 500
+		}
+		effect = {
+			add_country_modifier = { name = swine_fifty_provinces_reward duration = -1 }
+		}
+	}
+
+	# Concept: The provinces and fleet now deserve a common imperial settlement. Proclaim the Swinetrade Empire through the formation decision and settle whether its charter serves one people or many.
+	# Reward Weighing Value: 2.
+	swine_proclaim_empire = {
+		icon = mission_swine_proclaim_empire
+		position = 8
+		required_missions = { swine_fifty_provinces swine_navy_charter }
+		trigger = {
+			num_of_cities = 50
+		}
+		effect = {
+			add_country_modifier = { name = swine_proclaim_empire_reward duration = -1 }
+		}
+	}
+
+	# Concept: An imperial charter cannot be enforced from a single counting house. Extend the provincial court network to ten towns so the government can honour its contracts throughout the realm.
+	# Reward Weighing Value: 2.
+	swine_government_contract = {
+		icon = mission_moot_ledgers
+		position = 9
+		required_missions = { swine_proclaim_empire }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = {
+				AND = {
+					OR = { has_building = courthouse has_building = town_hall }
+				}
+			}
+			ROOT = {
+				NOT = {
+					AND = {
+						num_of_owned_provinces_with = {
+							OR = { has_building = courthouse has_building = town_hall }
+							value = 10
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = { has_building = courthouse has_building = town_hall }
+				value = 10
+			}
+		}
+		effect = {
+			add_country_modifier = { name = swine_government_contract_reward duration = -1 }
+		}
+	}
+
+	# Concept: Our founding choice cannot remain an elegant inscription. Make the common charter a reality through shared culture and faith, or through the secure acceptance of several peoples.
+	# Reward Weighing Value: 5.
+	swine_charter_real = {
+		icon = mission_swine_charter_real
+		position = 11
+		required_missions = { swine_government_contract }
+		trigger = {
+			OR = {
+				AND = {
+					has_country_modifier = swinetrade_unity
+					religious_unity = 1
+					num_of_owned_provinces_with = { culture = ROOT value = 25 }
+				}
+				AND = {
+					has_country_modifier = swinetrade_diversity
+					num_accepted_cultures = 6
+				}
+				AND = {
+					religious_unity = 1
+					num_accepted_cultures = 5
+					num_of_owned_provinces_with = { culture = ROOT value = 25 }
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = { name = swine_charter_real_reward duration = -1 }
+		}
+	}
+
+	# Concept: Private fees still tempt provincial judges to sell public justice. Retain expert administrators and sufficient republican confidence to place the magistracy on a reliable salary.
+	# Reward Weighing Value: 2.
+	swine_magistrates = {
+		icon = mission_swine_magistrates
+		position = 12
+		required_missions = { swine_charter_real }
+		trigger = {
+			OR = { republican_tradition = 90 legitimacy = 90 devotion = 90 }
+			prestige = 90
+		}
+		effect = {
+			add_country_modifier = { name = swine_magistrates_reward duration = -1 }
+		}
+	}
+
+	# Concept: Our neighbours have learned the value of keeping our contracts. Prove that the empire can meet its obligations without debt, factional disorder or a weakened republic.
+	# Reward Weighing Value: 5.
+	swine_empire_pays = {
+		icon = mission_swine_empire_pays
+		position = 14
+		required_missions = { swine_magistrates swine_darklands_settlement }
+		trigger = {
+			stability = 3
+			OR = { republican_tradition = 90 legitimacy = 90 devotion = 90 }
+			NOT = { num_of_loans = 1 }
+		}
+		effect = {
+			add_country_modifier = { name = swine_empire_pays_reward duration = -1 }
+		}
+	}
+
+	# Concept: Once the world came to Pigbarter to buy livestock and hire guards. Carry the golden boar into the ledgers of fifteen great markets, until our contracts shape the commerce of the world.
+	# Reward Weighing Value: 85.
+	swine_golden_boar = {
+		icon = mission_swine_golden_boar
+		position = 15
+		required_missions = { }
+		trigger = {
+			hidden_trigger = { OR = { ai = no is_great_power = yes } }
+			calc_true_if = {
+				all_trade_node = { trade_share = { country = ROOT share = 51 } }
+				amount = 15
+			}
+		}
+		effect = {
+			add_country_modifier = { name = swine_golden_boar_reward duration = -1 }
+		}
+	}
+
+}
+
+war_pigbarter_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = B21 }
+	}
+
+	# Concept: Pigbarter survives because a living market is useful to its neighbours. Enlarge the town and cultivate two dependable allies before a stronger power decides otherwise.
+	# Reward Weighing Value: 2.
+	swine_friends = {
+		icon = mission_araby_talking
+		position = 1
+		required_missions = {  }
+		trigger = {
+			calc_true_if = {
+				all_country = {
+					trust = { who = ROOT value = 60 }
+				}
+				amount = 2
+			}
+		}
+		effect = {
+			add_country_modifier = { name = swine_friends_reward duration = -1 }
+		}
+	}
+
+	# Concept: Vorag commands the dead near routes our merchants cannot afford to ignore. Secure its stronghold and hinterland through conquest or a binding alliance, then decide how its commerce will be handled.
+	# Reward Weighing Value: 5.
+	swine_vorag = {
+		icon = mission_vampire_goblet
+		position = 3
+		required_missions = { swine_friends swine_fimdirach }
+		provinces_to_highlight = {
+			swine_vorag_hinterland = yes
+			ROOT = { swine_vorag_settled = no }
+			NOT = { swine_controlled_province = yes }
+		}
+		trigger = {
+			swine_vorag_settled = yes
+		}
+		effect = {
+			country_event = { id = war_swine_missions.3 }
+		}
+	}
+
+	# Concept: The furnaces of Zharr-Naggrund hunger for an outlet down the River Ruin. Settle the question of its power by controlling the city and surrounding plain or binding their ruler to a dependable alliance.
+	# Reward Weighing Value: 5.
+	swine_zharr = {
+		icon = mission_chaos_dwarf_anvil
+		position = 5
+		required_missions = { swine_vorag }
+		provinces_to_highlight = {
+			region = plain_of_zharr_region
+			ROOT = { swine_zharr_settled = no }
+			NOT = { swine_controlled_province = yes }
+		}
+		trigger = {
+			swine_zharr_settled = yes
+		}
+		effect = {
+			country_event = { id = war_swine_missions.4 }
+		}
+	}
+
+	# Concept: A caravan guard is useful only if he is better paid than the raiders. Bind a substantial Greenskin realm to our interests or secure its Badlands approaches ourselves.
+	# Reward Weighing Value: 5.
+	swine_orcs = {
+		icon = mission_greenskins_fort
+		position = 6
+		required_missions = { swine_zharr }
+		provinces_to_highlight = {
+			region = badlands_region
+			ROOT = { swine_orcs_settled = no }
+			NOT = { swine_controlled_province = yes }
+		}
+		trigger = {
+			swine_orcs_settled = yes
+		}
+		effect = {
+			add_country_modifier = { name = swine_orcs_reward duration = -1 }
+		}
+	}
+
+	# Concept: The Ogre kingdoms regard every caravan as a meal, a toll payment or an employment offer. Secure their mountain routes through a substantial alliance or dependable provincial control.
+	# Reward Weighing Value: 5.
+	swine_ogres = {
+		icon = mission_ogre_maneater
+		position = 7
+		required_missions = { swine_orcs }
+		provinces_to_highlight = {
+			region = mountains_of_mourn_region
+			ROOT = { swine_ogres_settled = no }
+			NOT = { swine_controlled_province = yes }
+		}
+		trigger = {
+			swine_ogres_settled = yes
+		}
+		effect = {
+			add_country_modifier = { name = swine_ogres_reward duration = -1 }
+		}
+	}
+
+	# Concept: The Dragon Isles guard sea lanes that imperial captains must learn to use. Secure ten island provinces or a durable alliance with an island power whose rulers can enforce our agreements.
+	# Reward Weighing Value: 5.
+	swine_dragon_isles = {
+		icon = mission_green_dragon
+		position = 9
+		required_missions = { swine_ogres swine_proclaim_empire }
+		provinces_to_highlight = {
+			region = dragon_isles_region
+			ROOT = { swine_dragon_isles_settled = no }
+			NOT = { swine_controlled_province = yes }
+		}
+		trigger = {
+			swine_dragon_isles_settled = yes
+		}
+		effect = {
+			add_country_modifier = { name = swine_dragon_isles_reward duration = -1 }
+		}
+	}
+
+	# Concept: Our regional bargains have made Pigbarter a meeting place for envoys. Build a network of respected allies and a diplomatic service capable of keeping their interests aligned.
+	# Reward Weighing Value: 2.
+	swine_treaty_brokers = {
+		icon = mission_high_elf_allies
+		position = 10
+		required_missions = { swine_dragon_isles }
+		trigger = {
+			calc_true_if = {
+				all_country = {
+					trust = { who = ROOT value = 90 }
+				}
+				amount = 3
+			}
+			diplomatic_reputation = 3
+		}
+		effect = {
+			add_country_modifier = { name = swine_treaty_brokers_reward duration = -1 }
+		}
+	}
+
+	# Concept: The river is safest when its greatest beneficiaries depend on one another. Combine decisive commercial power with three enduring alliances to give free navigation credible protectors.
+	# Reward Weighing Value: 2.
+	swine_free_river = {
+		icon = mission_swine_free_river
+		position = 12
+		required_missions = { swine_treaty_brokers }
+		provinces_to_highlight = {
+			swine_river_ruin_province = yes
+			ROOT = {
+				NOT = {
+					AND = {
+						2206 = { trade_share = { country = ROOT share = 80 } }
+						calc_true_if = {
+							all_country = {
+								trust = { who = ROOT value = 75 }
+							}
+							amount = 4
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			2206 = { trade_share = { country = ROOT share = 80 } }
+			calc_true_if = {
+				all_country = {
+					trust = { who = ROOT value = 75 }
+				}
+				amount = 4
+			}
+		}
+		effect = {
+			add_country_modifier = { name = swine_free_river_reward duration = -1 }
+		}
+	}
+
+	# Concept: The old bargains leave gaps where a new toll lord or raiding host can still close the roads. Bring every province of the Darklands under our rule, loyal subjects or trusted allied rulers, until the whole region has a stake in keeping trade alive.
+	# Reward Weighing Value: 5.
+	swine_darklands_settlement = {
+		icon = mission_swine_darklands_settlement
+		position = 13
+		required_missions = { swine_free_river }
+		provinces_to_highlight = {
+			superregion = darklands_superregion
+			NOT = { swine_friendly_province = yes }
+		}
+		trigger = {
+			swine_darklands_settled = yes
+		}
+		effect = {
+			add_country_modifier = { name = swine_darklands_settlement_reward duration = -1 }
+		}
+	}
+
+	# Concept: A merchant carrying our seal should be worth more alive than robbed. Entrench our commercial privileges and sustain four merchant offices so every hostile ruler must reckon with the trade they would lose.
+	# Reward Weighing Value: 5.
+	swine_unhunted_merchants = {
+		icon = mission_swine_unhunted_merchants
+		position = 14
+		required_missions = { swine_darklands_settlement swine_golden_peace }
+		trigger = {
+			mercantilism = 25
+			num_of_merchants = 4
+		}
+		effect = {
+			add_country_modifier = { name = swine_unhunted_merchants_reward duration = -1 }
+		}
+	}
+
+}
+
+war_pigbarter_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = B21 }
+	}
+
+	# Concept: Fimdirach controls the marshes south of Pigbarter and the mouth of the River Ruin. Secure the two key approaches and a lasting foothold in the Scalded Delta, through conquest or an alliance with its masters.
+	# Reward Weighing Value: 5.
+	swine_fimdirach = {
+		icon = mission_fimir
+		position = 2
+		required_missions = { swine_friends }
+		provinces_to_highlight = {
+			area = scalded_delta
+			ROOT = { swine_fimdirach_settled = no }
+			NOT = { swine_controlled_province = yes }
+		}
+		trigger = {
+			swine_fimdirach_settled = yes
+		}
+		effect = {
+			add_country_modifier = { name = swine_fimdirach_reward duration = -1 }
+		}
+	}
+
+	# Concept: An agreement at the river mouth does not keep every raider away from our streets. Give the strix lookouts a trained garrison and professional military direction.
+	# Reward Weighing Value: 2.
+	swine_strix = {
+		icon = mission_swine_strix
+		position = 3
+		required_missions = { swine_fimdirach }
+		provinces_to_highlight = {
+			province_id = 2145
+			ROOT = {
+				NOT = {
+					AND = {
+						2145 = {
+							owned_by = ROOT
+							OR = { has_building = barracks has_building = training_fields }
+						}
+						employed_advisor = { category = MIL }
+					}
+				}
+			}
+		}
+		trigger = {
+			2145 = {
+				owned_by = ROOT
+				OR = { has_building = barracks has_building = training_fields }
+			}
+			employed_advisor = { category = MIL }
+		}
+		effect = {
+			add_country_modifier = { name = swine_strix_reward duration = -1 }
+		}
+	}
+
+	# Concept: A crowded port is only one failed convoy away from hunger. Develop a prosperous grain or livestock estate in the delta to secure its provisions.
+	# Reward Weighing Value: 2.
+	swine_granaries = {
+		icon = mission_moot_grain
+		position = 4
+		required_missions = { swine_strix }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			OR = { area = pigbarter_area area = scalded_delta }
+			OR = { trade_goods = grain trade_goods = livestock }
+			NOT = {
+				AND = {
+					has_building = farm_estate
+					is_prosperous = yes
+				}
+			}
+			ROOT = {
+				NOT = {
+					AND = {
+						num_of_owned_provinces_with = {
+							OR = { area = pigbarter_area area = scalded_delta }
+							OR = { trade_goods = grain trade_goods = livestock }
+							has_building = farm_estate
+							is_prosperous = yes
+							value = 1
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = { area = pigbarter_area area = scalded_delta }
+				OR = { trade_goods = grain trade_goods = livestock }
+				has_building = farm_estate
+				is_prosperous = yes
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = { name = swine_granaries_reward duration = -1 }
+		}
+	}
+
+	# Concept: The river settlements need watch posts that can survive more than a sudden raid. Fortify two approaches and repair the devastation around them.
+	# Reward Weighing Value: 2.5.
+	swine_marshwardens = {
+		icon = mission_skeggi_castle_canal
+		position = 6
+		required_missions = { swine_granaries }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = {
+				AND = {
+					OR = { has_building = fort_15th has_building = fort_16th has_building = fort_17th has_building = fort_18th }
+				}
+			}
+			ROOT = {
+				NOT = {
+					AND = {
+						num_of_owned_provinces_with = {
+							OR = { has_building = fort_15th has_building = fort_16th has_building = fort_17th has_building = fort_18th }
+							value = 5
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = { has_building = fort_15th has_building = fort_16th has_building = fort_17th has_building = fort_18th }
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = { name = swine_marshwardens_reward duration = -1 }
+		}
+	}
+
+	# Concept: A widening frontier cannot depend on a handful of guards from Pigbarter. Organise the provincial levies through local obligations or a professional military office.
+	# Reward Weighing Value: 2.
+	swine_provincial_militia = {
+		icon = mission_sylvania_mortal_levies
+		position = 7
+		required_missions = { swine_marshwardens }
+		trigger = {
+			OR = {
+				AND = {
+					num_of_estate_agendas_completed = { estate = estate_nobles value = 2 }
+				}
+				AND = {
+					NOT = { has_estate = estate_nobles }
+					army_size = 20
+					employed_advisor = { category = MIL skill = 1 }
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = { name = swine_provincial_militia_reward duration = -1 }
+		}
+	}
+
+	# Concept: Our preparations should leave more than tax demands and empty granaries. Restore prosperity across six provinces and clear the debts of consolidation.
+	# Reward Weighing Value: 5.
+	swine_peace_dividend = {
+		icon = mission_moot_pantry
+		position = 8
+		required_missions = { swine_provincial_militia }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			is_prosperous = no
+			ROOT = {
+				NOT = {
+					AND = {
+						num_of_owned_provinces_with = {
+							is_prosperous = yes
+							value = 6
+						}
+						NOT = { num_of_loans = 1 }
+					}
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				is_prosperous = yes
+				value = 6
+			}
+			NOT = { num_of_loans = 1 }
+		}
+		effect = {
+			add_country_modifier = { name = swine_peace_dividend_reward duration = -1 }
+		}
+	}
+
+	# Concept: Distant commerce attracts enemies who would rather burn a warehouse than negotiate. Build coastal defences in three ports to protect the empire while its fleets are abroad.
+	# Reward Weighing Value: 2.
+	swine_harbour_watch = {
+		icon = mission_ind_fort
+		position = 10
+		required_missions = { swine_peace_dividend }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			has_port = yes
+			NOT = {
+				AND = {
+					OR = { has_building = coastal_defence has_building = naval_battery }
+				}
+			}
+			ROOT = {
+				NOT = {
+					AND = {
+						num_of_owned_provinces_with = {
+							has_port = yes
+							OR = { has_building = coastal_defence has_building = naval_battery }
+							value = 3
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_port = yes
+				OR = { has_building = coastal_defence has_building = naval_battery }
+				value = 3
+			}
+		}
+		effect = {
+			add_country_modifier = { name = swine_harbour_watch_reward duration = -1 }
+		}
+	}
+
+	# Concept: Prosperity follows a road only when caravans can trust its markets and patrols. Develop five commercial towns where disorder and devastation no longer threaten ordinary business.
+	# Reward Weighing Value: 5.
+	swine_safe_roads = {
+		icon = mission_skeggi_jungle_road
+		position = 11
+		required_missions = { swine_harbour_watch }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = {
+				AND = {
+					development = 20
+					OR = { has_building = marketplace has_building = trade_depot has_building = stock_exchange }
+					NOT = { unrest = 1 }
+					NOT = { devastation = 1 }
+				}
+			}
+			ROOT = {
+				NOT = {
+					AND = {
+						num_of_owned_provinces_with = {
+							development = 20
+							OR = { has_building = marketplace has_building = trade_depot has_building = stock_exchange }
+							NOT = { unrest = 1 }
+							NOT = { devastation = 1 }
+							value = 5
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				development = 20
+				OR = { has_building = marketplace has_building = trade_depot has_building = stock_exchange }
+				NOT = { unrest = 1 }
+				NOT = { devastation = 1 }
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = { name = swine_safe_roads_reward duration = -1 }
+		}
+	}
+
+	# Concept: The empire must offer its inhabitants something better than a larger collection of tolls. Sustain prosperity across twenty provinces and bring quiet to every market we own on the River Ruin.
+	# Reward Weighing Value: 5.
+	swine_golden_peace = {
+		icon = mission_swine_golden_peace
+		position = 13
+		required_missions = { swine_safe_roads }
+		provinces_to_highlight = {
+			owned_by = ROOT
+			is_prosperous = no
+			ROOT = {
+				NOT = {
+					AND = {
+						num_of_owned_provinces_with = {
+							is_prosperous = yes
+							value = 50
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				is_prosperous = yes
+				value = 50
+			}
+		}
+		effect = {
+			add_country_modifier = { name = swine_golden_peace_reward duration = -1 }
+		}
+	}
+
+}

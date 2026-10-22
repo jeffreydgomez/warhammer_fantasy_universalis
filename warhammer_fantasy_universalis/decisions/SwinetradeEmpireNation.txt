@@ -1,0 +1,58 @@
+country_decisions = {
+	swinetrade_empire_nation = {
+		major = yes
+
+		potential = {
+			NOT = { tag = X30 }
+			# In country scope this tests the primary culture's group.
+			# Pigbarterite is currently its only culture.
+			culture_group = darkland_human_group
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_swinetrade_empire_flag }
+			NOT = { exists = X30 }
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+		}
+
+		allow = {
+			is_at_war = no
+			# Count all owned cities, regardless of culture, religion, or region.
+			num_of_cities = 50
+		}
+
+		effect = {
+			# Formation reward Weighing Value: +1.
+			add_prestige_or_monarch_power = { amount = 25 }
+			change_tag = X30
+			on_change_tag_effect = yes
+			# Install the imperial republic even if the founder used another government.
+			if = {
+				limit = { NOT = { government = republic } }
+				change_government = republic
+			}
+			add_government_reform = war_swinetrade_republic_reform
+			set_government_rank = 3
+			set_country_flag = formed_swinetrade_empire_flag
+			# Both tags use the same mission IDs, preserving Pigbarter's completed missions.
+			# Refresh availability for any other eligible Darklands Human founder.
+			swap_non_generic_missions = yes
+
+			# The founder keeps its existing cores and claims through change_tag.
+			# A commercial empire has no additional compulsory conquest claims.
+			# Fire the unique introduction here, since this tag is not present at start.
+			clr_country_flag = did_intro_event
+			country_event = { id = war_unique_intro_events.556 }
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+}

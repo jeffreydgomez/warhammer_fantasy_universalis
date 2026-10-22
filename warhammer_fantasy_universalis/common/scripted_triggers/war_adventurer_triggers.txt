@@ -1,0 +1,176 @@
+# Country scope. Only Alignment / Racial Administration determine hostility.
+war_adventurer_enemy_a = {
+    OR = {
+        has_country_modifier = chaos_nation
+        has_country_modifier = destruction_nation
+        has_country_modifier = orcish_administration
+        has_country_modifier = skaven_administration
+        has_country_modifier = undead_administration
+    }
+}
+war_adventurer_enemy_b = {
+    NOT = { has_country_modifier = skaven_administration }
+}
+war_adventurer_enemy_c = {
+    OR = { has_country_modifier = order_nation has_country_modifier = undead_administration }
+}
+war_adventurer_enemy_d = {
+    OR = {
+        has_country_modifier = chaos_nation
+        has_country_modifier = orcish_administration
+        has_country_modifier = skaven_administration
+        AND = {
+            has_country_modifier = destruction_nation
+            NOT = { has_country_modifier = undead_administration }
+        }
+    }
+}
+
+# Province scope; shared by selection and transfer, so characters never stack.
+war_adventurer_present = {
+    OR = {
+		has_province_modifier = war_adventurer_gelt
+		has_province_modifier = war_adventurer_teclis
+		has_province_modifier = war_adventurer_snikch
+		has_province_modifier = war_adventurer_bugman
+		has_province_modifier = war_adventurer_bardin
+		has_province_modifier = war_adventurer_harald
+		has_province_modifier = war_adventurer_abhorash
+		has_province_modifier = war_adventurer_elspeth
+		has_province_modifier = war_adventurer_wulfhart
+		has_province_modifier = war_adventurer_gotrek_felix
+		has_province_modifier = war_adventurer_repanse
+		has_province_modifier = war_adventurer_sienna
+		has_province_modifier = war_adventurer_malakai
+		has_province_modifier = war_adventurer_tyrion
+		has_province_modifier = war_adventurer_gor_rok
+		has_province_modifier = war_adventurer_nakai
+		has_province_modifier = war_adventurer_thanquol
+		has_province_modifier = war_adventurer_grombrindal
+    }
+}
+war_adventurer_destination_province = {
+    is_city = yes
+    province_group = war_adventurer_mainlands
+    NOT = { war_adventurer_present = yes }
+}
+# Country scope. random_country weights countries, not their province counts.
+war_adventurer_destination_country = {
+    NOT = { tag = event_target:war_adventurer_origin_country }
+    any_owned_province = { war_adventurer_destination_province = yes }
+}
+# Province scope. A short rest prevents rapid hops between different countries' pulse dates.
+war_adventurer_ready = {
+    OR = {
+        NOT = { has_province_flag = war_adventurer_event_open }
+        # Recover a stale lock if an event disappeared with an annexed recipient.
+        had_province_flag = { flag = war_adventurer_event_open days = 365 }
+    }
+    OR = {
+        NOT = { has_province_flag = war_adventurer_arrived }
+        had_province_flag = { flag = war_adventurer_arrived days = 365 }
+    }
+}
+
+# Province scope. Geography is fixed and never inferred from the owner.
+
+war_adventurer_home_empire = {
+	superregion = the_empire_superregion
+}
+
+war_adventurer_home_western_mountains = {
+	OR = {
+	    superregion = western_mountains_superregion
+	    region = world_edge_mountains_region
+	    region = southern_world_edge_mountains_region
+	    region = karak_eight_peaks_region
+	}
+}
+
+war_adventurer_home_ulthuan = {
+	superregion = ulthuan_superregion
+}
+
+war_adventurer_home_underempire = {
+	OR = {
+	    superregion = skavenblight_superregion
+	    area = skavenblight_area
+	    area = skavenblight_tunnels_area
+	}
+}
+
+war_adventurer_home_lustria = {
+	OR = { superregion = north_lustria_superregion superregion = south_lustria_superregion }
+}
+
+war_adventurer_gelt_home = {
+	war_adventurer_home_empire = yes
+}
+
+war_adventurer_teclis_home = {
+	war_adventurer_home_ulthuan = yes
+}
+
+war_adventurer_snikch_home = {
+	OR = { war_adventurer_home_underempire = yes superregion = cathay_superregion region = nippon_region }
+}
+
+war_adventurer_bugman_home = {
+	OR = { war_adventurer_home_empire = yes war_adventurer_home_western_mountains = yes }
+}
+
+war_adventurer_bardin_home = {
+	OR = { war_adventurer_home_empire = yes region = grey_mountains_region region = world_edge_mountains_region region = southern_world_edge_mountains_region region = karak_eight_peaks_region }
+}
+
+war_adventurer_harald_home = {
+	OR = { region = norsca_region superregion = chaos_wastes_superregion superregion = eastern_steppes_superregion }
+}
+
+war_adventurer_abhorash_home = {
+	OR = { region = nehekhara_region region = lahmia_region }
+}
+
+war_adventurer_elspeth_home = {
+	war_adventurer_home_empire = yes
+}
+
+war_adventurer_wulfhart_home = {
+	war_adventurer_home_empire = yes
+}
+
+war_adventurer_gotrek_felix_home = {
+	OR = { war_adventurer_home_empire = yes war_adventurer_home_western_mountains = yes }
+}
+
+war_adventurer_repanse_home = {
+	region = bretonnia_region
+}
+
+war_adventurer_sienna_home = {
+	OR = { war_adventurer_home_empire = yes region = estalia_region }
+}
+
+war_adventurer_malakai_home = {
+	war_adventurer_home_western_mountains = yes
+}
+
+war_adventurer_tyrion_home = {
+	war_adventurer_home_ulthuan = yes
+}
+
+war_adventurer_gor_rok_home = {
+	war_adventurer_home_lustria = yes
+}
+
+war_adventurer_nakai_home = {
+	war_adventurer_home_lustria = yes
+}
+
+war_adventurer_thanquol_home = {
+	war_adventurer_home_underempire = yes
+}
+
+war_adventurer_grombrindal_home = {
+	war_adventurer_home_western_mountains = yes
+}

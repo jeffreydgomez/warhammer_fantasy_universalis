@@ -17042,3 +17042,55 @@ country_event = {
 		# Weighing Value: 0
 	}
 }
+
+### Swinetrade Empire Intro Event
+# Darklands Human traders bind their far-flung holdings with a common charter and an armed merchant fleet.
+country_event = {
+	id = war_unique_intro_events.556
+	title = war_unique_intro_events.556.t
+	desc = war_unique_intro_events.556.d
+	picture = PIGBARTER_eventPicture
+	# Formation introduction Weighing Value: +5; not a random event.
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = X30
+		NOT = { has_country_flag = did_intro_event }
+	}
+
+	immediate = { set_country_flag = did_intro_event }
+
+	# Adopt the imperial trade charter and new national ideas.
+	option = {
+		ai_chance = { factor = 100 }
+		name = war_unique_intro_events.556.a
+		trigger = { has_custom_ideas = no }
+		# Weighing Value: +5 = stability/ADM +3, DIP +1, mercantilism +1.
+		hidden_effect = {
+			if = {
+				limit = { has_idea_group = norse_ideas }
+				set_country_flag = refused_norse_ideas
+			}
+		}
+		swap_free_idea_group = yes
+		add_stability_or_adm_power = yes
+		add_dip_power = 50
+		add_mercantilism = 1
+		# Settle the empire's cultural and religious charter after the idea choice.
+		country_event = { id = pigbarter_events.1001 days = 1 }
+	}
+
+	# Ratify the charter while retaining our existing national ideas.
+	option = {
+		ai_chance = { factor = 0 }
+		name = war_unique_intro_events.556.b
+		# Weighing Value: +5 = stability/ADM +3, DIP +1, mercantilism +1.
+		add_stability_or_adm_power = yes
+		add_dip_power = 50
+		add_mercantilism = 1
+		# The constitutional choice also applies when retaining existing ideas.
+		country_event = { id = pigbarter_events.1001 days = 1 }
+	}
+}

@@ -1,0 +1,85 @@
+# Country scope. Called only after the destination COUNTRY has been selected.
+# Bugman prefers beer within that country; this never changes country selection weights.
+war_adventurer_pick_destination_province = {
+    if = {
+        limit = {
+            always = $BEER$
+            any_owned_province = {
+                war_adventurer_destination_province = yes
+                trade_goods = beer
+            }
+        }
+        random_owned_province = {
+            limit = { war_adventurer_destination_province = yes trade_goods = beer }
+            save_event_target_as = war_adventurer_destination
+        }
+    }
+    else = {
+        random_owned_province = {
+            limit = { war_adventurer_destination_province = yes }
+            save_event_target_as = war_adventurer_destination
+        }
+    }
+}
+
+# Province scope. MODIFIER and LOCATION identify this one persistent adventurer.
+# ARRIVAL_EVENT notifies the new owner only after a successful transfer.
+# The origin remains intact if no eligible country exists anywhere.
+war_adventurer_move = {
+    save_event_target_as = war_adventurer_origin
+    save_event_target_as = war_adventurer_destination
+    ROOT = { save_event_target_as = war_adventurer_origin_country }
+    if = {
+        limit = { is_empty = no }
+        owner = {
+            save_event_target_as = war_adventurer_origin_country
+            set_variable = { which = war_adventurer_neighbor_count value = 0 }
+            every_neighbor_country = {
+                event_target:war_adventurer_origin_country = {
+                    change_variable = { which = war_adventurer_neighbor_count value = 1 }
+                }
+            }
+            if = {
+                limit = {
+                    check_variable = { which = war_adventurer_neighbor_count value = 2 }
+                    any_neighbor_country = { war_adventurer_destination_country = yes }
+                }
+                random_neighbor_country = {
+                    limit = { war_adventurer_destination_country = yes }
+                    war_adventurer_pick_destination_province = { BEER = $BEER$ }
+                }
+            }
+            else = {
+                # Zero/one neighbor, or a completely blocked neighbor pool: world travel.
+                random_country = {
+                    limit = { war_adventurer_destination_country = yes }
+                    war_adventurer_pick_destination_province = { BEER = $BEER$ }
+                }
+            }
+            set_variable = { which = war_adventurer_neighbor_count value = 0 }
+        }
+    }
+    else = {
+        # Ownership disappeared while the report was open. Preserve the traveller.
+        random_country = {
+            limit = { war_adventurer_destination_country = yes }
+            war_adventurer_pick_destination_province = { BEER = $BEER$ }
+        }
+    }
+    event_target:war_adventurer_destination = {
+        if = {
+            limit = { war_adventurer_destination_province = yes }
+            add_province_modifier = { name = $MODIFIER$ duration = -1 }
+            set_province_flag = war_adventurer_arrived
+            save_global_event_target_as = $LOCATION$
+            event_target:war_adventurer_origin = {
+                remove_province_modifier = $MODIFIER$
+                clr_province_flag = war_adventurer_arrived
+                clr_province_flag = war_adventurer_event_open
+            }
+            # Keep this report's province independent of later global location changes.
+            save_event_target_as = war_adventurer_arrival_province
+            owner = { country_event = { id = $ARRIVAL_EVENT$ } }
+        }
+    }
+}

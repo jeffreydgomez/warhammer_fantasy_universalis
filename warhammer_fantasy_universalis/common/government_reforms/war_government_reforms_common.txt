@@ -212,8 +212,8 @@ enlist_monsters = {
 		has_country_modifier = chaos_nation
 	}
 	modifiers = {
-		can_recruit_cossacks = yes
-		allowed_cossack_fraction = 0.05
+		has_qizilbash = yes
+		amount_of_qizilbash = 6
 #		special_unit_forcelimit = 1
 		special_unit_cost_modifier = -0.1
 	}
@@ -1031,5 +1031,896 @@ war_nobles_lead_the_charge = {
 	}
 	ai = {
 		factor = 00
+	}
+}
+
+
+# Tall reform placeholders: one new option for each non-starting reform level.
+# Level key: M = monarchy, R = republic, T = theocracy, Tr = tribal, N = native, C = chaos_gov.
+# Typical bonuses below are comment-only script examples, each scaled to 10 WV where priced in the Balance Guide.
+# No modifier values or government mechanics are implemented by these stubs.
+# AI weight is 5 below 50% governing capacity usage and 0 at or above 50%.
+# A base weight of 5 is multiplied by 0 at the threshold.
+
+# Theme: Centralization, regional government, and the administration of provinces.
+# Levels: M3, R7, Tr5.
+# Peer modifier WV (guide-priced subtotal): median = 10.00; range = [-3.33, 50.00]; highest = administrative_divisions_reform; lowest = centralize_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   governing_capacity = 50
+#   governing_capacity_modifier = 0.1
+#   global_autonomy = -0.075
+#   state_maintenance_modifier = -0.5
+#   core_creation = -0.2
+#   num_accepted_cultures = 2
+#   reform_progress_growth = 0.15
+# Localized Governance - by redistributing our resources away from external conflict and towards internal affaris, we can better administer our lands at home.
+territorial_administration_tall_reform = {
+	icon = "war_territorial_administration_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		governing_capacity_modifier = 0.1
+		global_autonomy = -0.1
+		reform_progress_growth = 0.2
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: The authority of priests, temples, cults, and magical institutions within the state.
+# Levels: M4, R4, T4, Tr3, C6.
+# Peer modifier WV (guide-priced subtotal): median = 14.08; range = [-6.67, 265.00]; highest = conserve_the_religion_reform; lowest = found_mages_college_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   religious_unity = 0.15
+#   global_missionary_strength = 0.02
+#   tolerance_own = 2
+#   tolerance_heathen = 3
+#   church_power_modifier = 0.15
+#   church_loyalty_modifier = 0.15
+#   stability_cost_modifier = -0.15
+# Holy State - Our doctrine focuses on the holiness of our state, to the exlcusion of others. Our priests see no reason for external conquest when the souls of our citizens are paramount.
+religion_and_state_tall_reform = {
+	icon = "war_religion_and_state_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		tolerance_own = 4
+		church_power_modifier = 0.15
+		church_loyalty_modifier = 0.15
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: Recruitment, training, command, logistics, and the doctrine of the armed forces.
+# Levels: M5, R5, T5, Tr4, C5.
+# Peer modifier WV (guide-priced subtotal): median = 18.08; range = [-4.00, 50.00]; highest = war_mages_reform; lowest = mammoth_riders_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   infantry_power = 0.1
+#   cavalry_power = 0.15
+#   drill_gain_modifier = 1
+#   reinforce_speed = 0.15
+#   reinforce_cost_modifier = -0.15
+#   land_attrition = -0.15
+#   siege_ability = 0.2
+#   naval_morale = 0.1
+
+# Regional Divisions - By organizing our soldiers into regional divisions, we can better organize them and keep them motivated. Of course, this makes it more difficult to incorporate new cultures into our military.
+military_organization_tall_reform = {
+	icon = "war_military_organization_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		manpower_in_own_culture_provinces = 0.25
+		defensiveness = 0.25
+		land_morale = 0.1
+		global_unrest = -1
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: Who staffs the government and how administrators and advisors are selected.
+# Levels: M7, R12, T7, C8.
+# Peer modifier WV (guide-priced subtotal): median = 10.00; range = [0.00, 26.00]; highest = legacy_of_eranshahr_reform; lowest = dyanstic_administration_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   advisor_cost = -0.1
+#   advisor_pool = 2
+#   yearly_corruption = -0.1
+#   free_adm_policy = 1
+#   min_autonomy_in_territories = -0.05
+#   governing_capacity_modifier = 0.1
+#   administrative_efficiency = 0.05
+# Centralized Administrators - Every aspect of our administration is run from our central schools and administrative buildings. While this makes it harder to expand quickly, we have excellent advisors to help us.
+administrative_personnel_tall_reform = {
+	icon = "war_administrative_personnel_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		advisor_cost = -0.1
+		advisor_pool = 2
+		yearly_corruption = -0.15
+		idea_cost = -0.1
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: Commerce, production, taxation, finance, and the extraction of wealth.
+# Levels: M8, R8, T8, C9.
+# Peer modifier WV (guide-priced subtotal): median = 10.83; range = [-10.00, 43.00]; highest = cutthroat_approach_reform; lowest = close_the_mines_to_outsiders_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   global_trade_power = 0.1
+#   trade_efficiency = 0.1
+#   global_trade_goods_size_modifier = 0.1
+#   global_tax_modifier = 0.1
+#   development_cost = -0.075
+#   inflation_reduction = 0.2
+#   interest = <unpriced> # Not covered by Balance Guide.
+#   loot_amount = 1
+# Learn the Land - Our nation is unique, our lands special. Our economic framework is specially designed to suit our own economic needs, with little attention to lands outside our border.
+economic_policy_tall_reform = {
+	icon = "war_economic_policy_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		development_cost_in_primary_culture = -0.1
+		global_trade_power = 0.2
+		global_trade_goods_size_modifier = 0.1
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: The political, cultural, or religious principles that justify the state and its rule.
+# Levels: M9, R10, T11, Tr2, C12.
+# Peer modifier WV (guide-priced subtotal): median = 14.17; range = [-15.00, 43.33]; highest = belief_and_unity_reform; lowest = machiavellianistic_rule_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   global_unrest = -2
+#   years_of_nationalism = -5
+#   tolerance_heathen = 3
+#   land_morale = 0.1
+#   diplomatic_reputation = 2
+#   possible_policy = 1
+#   devotion = 1.5
+#   province_warscore_cost = -0.15
+# Citizen Priority - Our number one responsibility is to our citizens. External expansion is secondary to their health and happiness.
+governing_philosophy_tall_reform = {
+	icon = "war_governing_philosophy_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		global_unrest = -4
+		build_cost = -0.1
+		legitimacy = 1
+		devotion = 1
+		horde_unity = 1
+		meritocracy = 1
+		republican_tradition = 0.33
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: The final settlement between entrenched personal authority and constitutional government.
+# Levels: M10, R13.
+# Peer modifier WV (guide-priced subtotal): median = 15.00; range = [-3.67, 50.00]; highest = unified_piratical_confederacy_reform; lowest = nothing_is_written_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   max_absolutism = <unpriced> # Not covered by Balance Guide.
+#   monarch_admin_power = 1
+#   monarch_military_power = <unpriced> # Not covered by Balance Guide.
+#   possible_policy = 1
+#   governing_capacity = 50
+#   state_governing_cost = -0.1
+#   core_creation = -0.2
+#   reelection_cost = -0.15
+# Father of the Home - Our Monarch is the ultimate leader in matters of home and citizenry, and operates with a free hand when it comes to internal matters. External matters must go through a more rigorious legislative process, often slowing down conquest.
+constitutional_settlement_tall_reform = {
+	icon = "war_constitutional_settlement_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		free_adm_policy = 1
+		free_dip_policy = 1
+		free_mil_policy = 1
+		possible_policy = 1
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: The distribution of authority between rulers, councils, legislatures, and other institutions.
+# Levels: M11, R6, T10, C11.
+# Peer modifier WV (guide-priced subtotal): median = 10.00; range = [2.00, 26.67]; highest = admiral_king_reform; lowest = presidential_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   free_policy = 1
+#   global_unrest = -2
+#   num_accepted_cultures = 2
+#   diplomatic_upkeep = 2
+#   envoy_travel_time = <unpriced> # Not covered by Balance Guide.
+#   national_focus_years = <unpriced> # Not covered by Balance Guide.
+#   max_absolutism = <unpriced> # Not covered by Balance Guide.
+# Typical mechanics/effects (alternatives; not implemented):
+#   has_parliament = yes
+#   no_stability_loss_on_monarch_death = yes
+# Face of the State - Our Ruler operates as the benevolent face of the state, managing external diplomats and appearing in pictures in our people's homes. He leaves the administration of conquest to other institutions.
+separation_of_powers_tall_reform = {
+	icon = "war_separation_of_powers_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		global_unrest = -2
+		diplomatic_upkeep = 2
+		diplomatic_reputation = 2
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: The choice between serving the population at home and pursuing a mission abroad.
+# Levels: T2, C3.
+# Peer modifier WV (guide-priced subtotal): median = 19.50; range = [3.33, 54.50]; highest = mission_to_kill_pirates_reform; lowest = balanced_mission_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   tolerance_own = 2
+#   manpower_recovery_speed = 0.1
+#   defensiveness = 0.2
+#   missionaries = 1
+#   global_trade_power = 0.1
+#   merchants = 1
+#   naval_forcelimit_modifier = 0.2
+#   colonist_placement_chance = <unpriced> # Not covered by Balance Guide.
+# Internal Focus - Our mandate comes from the population at home. External priorities must only come as they serve the interests of the citizens.
+internal_external_mission_tall_reform = {
+	icon = "war_internal_external_mission_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		tolerance_own = 2
+		manpower_recovery_speed = 0.1
+		build_cost = -0.1
+		defensiveness = 0.2
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: The education of rulers, advisors, missionaries, and the wider population.
+# Levels: T3, C4.
+# Peer modifier WV (guide-priced subtotal): median = 16.00; range = [-6.67, 53.83]; highest = kingdom_of_god_reform; lowest = found_mages_college_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   advisor_cost = -0.1
+#   idea_cost = -0.1
+#   institution_spread_from_true_faith = 0.6
+#   monarch_lifespan = 0.15
+#   global_missionary_strength = 0.02
+#   missionary_maintenance_cost = -0.5
+# Typical mechanics/effects (alternatives; not implemented):
+#   custom_attributes = { education_focus_enabled = yes }
+# Education Abroad - All rulers and administrations are required to spend some amount of time abroad to better understand the world at large. While this broadens their views, it does impart a certain reluctance for conquest.
+education_tall_reform = {
+	icon = "war_education_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		idea_cost = -0.1
+		institution_spread_from_true_faith = 0.5
+		global_foreign_trade_power = 0.2
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: How directly religious leaders control political authority and succession.
+# Levels: T6, C7.
+# Peer modifier WV (guide-priced subtotal): median = 13.33; range = [3.30, 18.33]; highest = factories_of_the_horned_rat_reform; lowest = conciliarism_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   tolerance_of_heathens_capacity = 4
+#   tolerance_of_heretics_capacity = 4
+#   yearly_absolutism = <unpriced> # Not covered by Balance Guide.
+#   max_absolutism = <unpriced> # Not covered by Balance Guide.
+#   devotion = 1.5
+#   manpower_in_true_faith_provinces = 0.2
+#   leader_land_fire = 1
+# Typical mechanics/effects (alternatives; not implemented):
+#   change_government = monarchy
+#   change_government = republic
+#   Religious Integration - Our religion is paramount to our state. A unified religious view is necessary, given how integrated are religious practices are to our nation's apparatus. As a result, we are hesitant to incorporate outsiders.
+secularization_tall_reform = {
+	icon = "war_secularization_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		same_religion_advisor_cost = -0.125
+		manpower_in_true_faith_provinces = 0.2
+		institution_spread_from_true_faith = 0.5
+		tolerance_own = 2
+
+		warscore_cost_vs_other_religion = 0.25
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: The practical work undertaken in the name of the faith and its sacred obligations.
+# Levels: T9, C10.
+# Peer modifier WV (guide-priced subtotal): median = 15.00; range = [5.00, 19.00]; highest = khazukan_kazakit_ha_reform; lowest = feed_the_masses_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   defensiveness = 0.2
+#   land_morale = 0.1
+#   shock_damage = 0.1
+#   global_missionary_strength = 0.02
+#   technology_cost = -0.05
+#   development_cost = -0.075
+#   culture_conversion_cost = -0.2
+#   church_loyalty_modifier = 0.15
+#   Religious Justification - Our wars are holy missions of protection. We fight to protect our way of life and our religious underpinnings, not merely to conquer other lands.
+sacred_cause_tall_reform = {
+	icon = "war_sacred_cause_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		church_loyalty_modifier = 0.15
+		defensiveness = 0.2
+		land_morale = 0.1
+		manpower_in_true_faith_provinces = 0.2
+		enforce_religion_cost = -0.75
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: Accommodating, assimilating, or exploiting different cultures within the realm.
+# Levels: T12, C13.
+# Peer modifier WV (guide-priced subtotal): median = 19.33; range = [-3.33, 50.00]; highest = religious_culture_reform; lowest = nothing_is_written_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   governing_capacity = 50
+#   promote_culture_cost = -1.5
+#   same_culture_advisor_cost = -0.125
+#   manpower_in_accepted_culture_provinces = <unpriced> # Not covered by Balance Guide.
+#   manpower_in_culture_group_provinces = <unpriced> # Not covered by Balance Guide.
+#   global_tax_modifier = 0.1
+# One Culture - Our culture is best in the world. It's so much better than everybody else, there's little point in conquering abroad.
+cultural_integration_tall_reform = {
+	icon = "war_cultural_integration_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		same_culture_advisor_cost = -0.15
+		development_cost_in_primary_culture = -0.1
+		manpower_in_own_culture_provinces = 0.25
+		expel_minorities_cost = -0.25
+		relation_with_same_culture = 30
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: The mature religious state and its relationship with outsiders and the wider world.
+# Levels: T13, C14.
+# Peer modifier WV (guide-priced subtotal): median = 20.00; range = [6.67, 32.50]; highest = world_belongs_to_the_old_ones_reform; lowest = religious_permanent_revolution_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   warscore_cost_vs_other_religion = -0.15
+#   enforce_religion_cost = -0.75
+#   tolerance_heretic = 3
+#   tolerance_heathen = 3
+#   administrative_efficiency = 0.05
+#   advisor_cost = -0.1
+#   development_cost = -0.075
+#   global_trade_goods_size_modifier = 0.1
+# Typical mechanics/effects (alternatives; not implemented):
+#   custom_attributes = { has_upgraded_holy_wars = yes }
+# State on a Hill - Our mission is to show the world the best of ourselves, not conquer them. They will marvel our our beauty.
+faith_and_world_tall_reform = {
+	icon = "war_faith_and_world_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		global_unrest = -2
+		diplomatic_reputation = 2
+		reform_progress_growth = 0.15
+		global_trade_power = 0.1
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: Adopting a new political system or preserving and perfecting the existing tribal order.
+# Levels: Tr6, N5.
+# Peer modifier WV (guide-priced subtotal): median = 13.33; range = [-3.33, 13.33]; highest = horde_tribal_unity_reform; lowest = nothing_is_written_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   horde_unity = 1.5
+#   legitimacy = 1.5
+#   yearly_government_power = <unpriced> # Not covered by Balance Guide.
+#   all_estate_loyalty_equilibrium = 0.075
+#   land_morale = 0.1
+#   movement_speed = 0.15
+#   war_exhaustion = -0.03
+# Typical mechanics/effects (alternatives; not implemented):
+#   change_government = monarchy
+#   change_government = republic
+#   change_government = theocracy
+#   add_government_reform = steppe_horde
+# Small But Mighty - We see no reason to expand further. Our nation is perfect as it is.
+government_transformation_tall_reform = {
+	icon = "war_government_transformation_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		legitimacy = 1
+		devotion = 1
+		horde_unity = 1
+		meritocracy = 1
+		republican_tradition = 0.33
+		land_morale = 0.1
+		global_unrest = -2
+		stability_cost_modifier = -0.25
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: Permanent settlement and territorial rule versus migration, mobility, and raiding.
+# Levels: N3, C2.
+# Peer modifier WV (guide-priced subtotal): median = 15.00; range = [-388.33, 75.00]; highest = chaos_settled_horde; lowest = everchosen_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   global_institution_spread = 0.5
+#   tribal_development_growth = <unpriced> # Not covered by Balance Guide.
+#   migration_cost = <unpriced> # Not covered by Balance Guide.
+#   global_manpower_modifier = 0.15
+#   land_forcelimit_modifier = 0.15
+#   land_morale = 0.1
+#   movement_speed = 0.15
+#   loot_amount = 1
+# Typical mechanics/effects (alternatives; not implemented):
+#   allow_migration = yes
+#   allow_migration = no
+#   raze_province = yes
+#   War is for Looting - War isn't for conquering new territories. It's for looting our enemies!
+settlement_and_mobility_tall_reform = {
+	icon = "war_settlement_and_mobility_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		land_morale = 0.1
+		siege_ability = 0.25
+		loot_amount = 2
+		available_province_loot = 2
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: The rights, privileges, duties, and military obligations of the aristocracy.
+# Levels: M2.
+# Peer modifier WV (guide-priced subtotal): median = 11.67; range = [-5.00, 29.17]; highest = legacy_of_timur_reform; lowest = feed_the_tyrants_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   global_manpower_modifier = 0.15
+#   army_tradition = 0.5
+#   cavalry_cost = -0.15
+#   fort_maintenance_modifier = -0.2
+#   legitimacy = 1.5
+#   stability_cost_modifier = -0.15
+#   nobles_loyalty_modifier = <unpriced> # Not covered by Balance Guide.
+#   Aristocratic Rewards - Aristocrats are given plots of land in conquest. This slows conquest down, but leads to a significantly happier, more prestigious noble class.
+aristocratic_privileges_tall_reform = {
+	icon = "war_aristocratic_privileges_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		cavalry_power = 0.1
+		prestige_from_land = 1.0
+		nobles_loyalty_modifier = 0.25
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: The assembly or advisory body that represents the realm and restrains or supports its monarch.
+# Levels: M6.
+# Peer modifier WV (guide-priced subtotal): median = 10.00; range = [5.00, 41.67]; highest = great_council_of_mechelen_reform; lowest = elevate_the_mages_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   diplomatic_reputation = 2
+#   improve_relation_modifier = 0.2
+#   all_estate_loyalty_equilibrium = 0.075
+#   reform_progress_growth = 0.15
+#   global_unrest = -2
+#   yearly_absolutism = <unpriced> # Not covered by Balance Guide.
+#   max_absolutism = <unpriced> # Not covered by Balance Guide.
+# Typical mechanics/effects (alternatives; not implemented):
+#   has_parliament = yes
+#   Prestigious Parliament - Our Parliament is not only powerful, but it is prestigious. People from all walks of life clambour to join.  But since more territory means more seats, Parliament is unlikley to approve external conquests.
+deliberative_assembly_tall_reform = {
+	icon = "war_deliberative_assembly_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		diplomatic_reputation = 2
+		all_estate_loyalty_equilibrium = 0.1
+		prestige_decay = -0.02
+		global_autonomy = -0.1
+
+		administrative_efficiency = -0.1
+	}
+	conditional = {
+		allow = {
+			OR = {
+				has_dlc = "Common Sense"
+				has_dlc = "Domination"
+			}
+		}
+		has_parliament = yes
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: The republic's social character, civic ideals, and favored political constituencies.
+# Levels: R2.
+# Peer modifier WV (guide-priced subtotal): median = 14.00; range = [4.00, 52.78]; highest = the_pirate_ways_reform; lowest = republicanism_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   republican_tradition = 0.5
+#   candidate_random_bonus = <unpriced> # Not covered by Balance Guide.
+#   global_manpower_modifier = 0.15
+#   global_trade_goods_size_modifier = 0.1
+#   missionaries = 1
+#   num_accepted_cultures = 2
+#   global_unrest = -2
+# Internal Charter - Our Republic is a world unto itself. We focus on our internal progress and look to the future rather than outward.
+republican_virtues_tall_reform = {
+	icon = "war_republican_virtues_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		republican_tradition = 0.5
+		candidate_random_bonus = 2
+		reform_progress_growth = 0.30
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: How often rulers change and how elected incumbents retain or renew their authority.
+# Levels: R3.
+# Peer modifier WV (guide-priced subtotal): median = 11.00; range = [7.50, 50.00]; highest = consolidate_power_in_doge_reform; lowest = council_of_the_indies_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   election_cycle = <unpriced> # Not covered by Balance Guide.
+#   candidate_random_bonus = <unpriced> # Not covered by Balance Guide.
+#   reelection_cost = -0.15
+#   republican_tradition = 0.5
+#   yearly_corruption = -0.1
+#   monarch_lifespan = 0.15
+#	Benevolent Servitude - Our leader is our great servant. His position is so steeped in ideology that abusing his power is highly unlikely.
+election_frequency_tall_reform = {
+	icon = "war_election_frequency_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		reelection_cost = -0.15
+		republican_tradition = 0.5
+		yearly_corruption = -0.1
+		election_cycle = -1
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: Concentrating executive authority in the ruler or distributing it among officials.
+# Levels: R9.
+# Peer modifier WV (guide-priced subtotal): median = 18.00; range = [6.67, 23.67]; highest = necrohierarchy_reform; lowest = consolidate_power_to_the_ruler_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   all_power_cost = -0.025
+#   stability_cost_modifier = -0.15
+#   advisor_pool = 2
+#   global_autonomy = -0.075
+#   yearly_absolutism = <unpriced> # Not covered by Balance Guide.
+#   max_absolutism = <unpriced> # Not covered by Balance Guide.
+#   reelection_cost = -0.15
+#	Reliance on Advisors - While not codified in law, our monarch is heavily reliant on a large pool of advisors. This can slow down some complicated external conquests, but is otherwise quite beneficial.
+executive_consolidation_tall_reform = {
+	icon = "war_executive_consolidation_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		advisor_pool = 2
+		advisor_cost = -0.1
+		adm_tech_cost_modifier = -0.1
+		free_policy = 1
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: Who chooses the ruler, who may hold office, and whose interests political representation serves.
+# Levels: R11.
+# Peer modifier WV (guide-priced subtotal): median = 13.33; range = [5.00, 26.60]; highest = equal_electorate_reform; lowest = dynastic_rulership_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   manpower_recovery_speed = 0.1
+#   land_morale = 0.1
+#   global_unrest = -2
+#   global_tax_modifier = 0.1
+#   diplomatic_reputation = 2
+#   army_tradition = 0.5
+#   leader_land_shock = 1
+#   leader_naval_fire = 1
+# Typical mechanics/effects (alternatives; not implemented):
+#   custom_attributes = { generals_become_rulers = yes }
+#   custom_attributes = { admirals_become_rulers = yes }
+#	Cultural Electorate - Those of our culture are the only ones worthy of electing our ruler.
+electorate_tall_reform = {
+	icon = "war_electorate_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		development_cost_in_primary_culture = -0.1
+		manpower_in_own_culture_provinces = 0.25
+		same_culture_advisor_cost = -0.15
+
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: Preserving martial, oral, or territorial knowledge and transmitting it between generations.
+# Levels: N2.
+# Peer modifier WV (guide-priced subtotal): median = 15.00; range = [10.00, 20.00]; highest = native_land_tradition_reform; lowest = native_martial_tradition_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   infantry_power = 0.1
+#   monthly_reform_progress_modifier = <unpriced> # Not covered by Balance Guide.
+#   add_tribal_land_cost = <unpriced> # Not covered by Balance Guide.
+#   country_admin_power = 0.5
+#	Secret Traditions - Our greatest traditions are secrets known only to the ruling class. While this cultivates an aura of mysticicm, it also makes taking new territory more difficult.
+inherited_traditions_tall_reform = {
+	icon = "war_inherited_traditions_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		monthly_splendor = 1
+		all_estate_loyalty_equilibrium = 0.1
+		prestige_decay = -0.01
+		legitimacy = 2
+		devotion = 2
+		horde_unity = 2
+		meritocracy = 2
+		republican_tradition = 0.75
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
+	}
+}
+
+# Theme: Codified authority, diplomatic customs, external recognition, and foreign sponsorship.
+# Levels: N4.
+# Peer modifier WV (guide-priced subtotal): median = 10.00; range = [5.00, 10.00]; highest = native_codified_power_reform; lowest = native_trading_with_foreigners_reform.
+# Typical bonus modifiers (10 WV each where priced; not implemented):
+#   global_unrest = -2
+#   diplomatic_upkeep = 2
+#   diplomatic_reputation = 2
+#   core_creation = -0.2
+# Typical mechanics/effects (alternatives; not implemented):
+#   change_government = native_sponsor_scope
+#   embrace_institutions_of = native_sponsor_scope
+#	Foreign Goodwill - We seek to cultivate foreign goodwill at any times, even if it means adjusting our conquest apparatus.
+legal_foundations_tall_reform = {
+	icon = "war_legal_foundations_tall_reform"
+	allow_normal_conversion = yes
+	potential = {
+		always = yes
+	}
+	modifiers = {
+		diplomatic_upkeep = 2
+		diplomatic_reputation = 2
+		diplomats = 1
+		improve_relation_modifier = 0.2
+
+		administrative_efficiency = -0.1
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0
+			governing_capacity_percentage = 0.5
+		}
 	}
 }

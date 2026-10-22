@@ -1,0 +1,1375 @@
+namespace = war_adventurer_harald
+
+# Generated from Dev Stuff/Adventurers/event_data.json; edit that authored source.
+# Budget source: Dev Stuff/Examples/Balance Guide.txt. No MTTH.
+
+# HAR-FH01: The Hammer's Trophy. Intended event Weighing Value: +2. Lore: L1.
+country_event = {
+	id = war_adventurer_harald.1
+	title = war_adventurer_harald.1.t
+	desc = war_adventurer_harald.1.d
+	picture = WAR_ADVENTURER_HAR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_harald = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_harald
+		    war_adventurer_ready = yes
+		    war_adventurer_harald_home = yes
+		    owner = { war_adventurer_enemy_c = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_harald = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Divide the spoils among the camps. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_harald.1.option_a
+		ai_chance = { factor = 1 }
+		add_yearly_manpower = 1
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Claim a ruler's share. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_harald.1.option_b
+		ai_chance = { factor = 1 }
+		add_years_of_income = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Have the scouts teach other patrols their approach. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_harald.1.option_c
+		ai_chance = { factor = 1 }
+		add_mil_power = 100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_harald }
+					war_adventurer_move = { MODIFIER = war_adventurer_harald LOCATION = war_adventurer_location_harald BEER = no ARRIVAL_EVENT = war_adventurer_harald.21 }
+				}
+			}
+		}
+	}
+}
+
+# HAR-FH02: Vorshgar's Other Door. Intended event Weighing Value: +1. Lore: L2.
+country_event = {
+	id = war_adventurer_harald.2
+	title = war_adventurer_harald.2.t
+	desc = war_adventurer_harald.2.d
+	picture = WAR_ADVENTURER_HAR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_harald = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_harald
+		    war_adventurer_ready = yes
+		    war_adventurer_harald_home = yes
+		    owner = { war_adventurer_enemy_c = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_harald = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Confiscate dangerous relics for study. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_harald.2.option_a
+		ai_chance = { factor = 1 }
+		change_innovativeness = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Auction mundane treasure. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_harald.2.option_b
+		ai_chance = { factor = 1 }
+		add_years_of_income = 0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reward the warning. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_harald.2.option_c
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_harald }
+					war_adventurer_move = { MODIFIER = war_adventurer_harald LOCATION = war_adventurer_location_harald BEER = no ARRIVAL_EVENT = war_adventurer_harald.21 }
+				}
+			}
+		}
+	}
+}
+
+# HAR-FH03: A Night of Broken Bones. Intended event Weighing Value: +2. Lore: L2, L3.
+country_event = {
+	id = war_adventurer_harald.3
+	title = war_adventurer_harald.3.t
+	desc = war_adventurer_harald.3.d
+	picture = WAR_ADVENTURER_HAR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_harald = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_harald
+		    war_adventurer_ready = yes
+		    war_adventurer_harald_home = yes
+		    owner = { war_adventurer_enemy_c = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_harald = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Rebuild with the rescued households. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_harald.3.option_a
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Honour the defenders and enlist willing survivors. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_harald.3.option_b
+		ai_chance = { factor = 1 }
+		add_yearly_manpower = 1
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Sell surplus supplies and revise the relief registers. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_harald.3.option_c
+		ai_chance = { factor = 1 }
+		add_years_of_income = 0.5
+		add_adm_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_harald }
+					war_adventurer_move = { MODIFIER = war_adventurer_harald LOCATION = war_adventurer_location_harald BEER = no ARRIVAL_EVENT = war_adventurer_harald.21 }
+				}
+			}
+		}
+	}
+}
+
+# HAR-FH04: The Dead That Fled. Intended event Weighing Value: +1. Lore: L3.
+country_event = {
+	id = war_adventurer_harald.4
+	title = war_adventurer_harald.4.t
+	desc = war_adventurer_harald.4.d
+	picture = WAR_ADVENTURER_HAR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_harald = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_harald
+		    war_adventurer_ready = yes
+		    war_adventurer_harald_home = yes
+		    owner = { war_adventurer_enemy_c = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_harald = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Clear and reopen the road. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_harald.4.option_a
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Recover military stores. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_harald.4.option_b
+		ai_chance = { factor = 1 }
+		add_yearly_manpower = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_harald }
+					war_adventurer_move = { MODIFIER = war_adventurer_harald LOCATION = war_adventurer_location_harald BEER = no ARRIVAL_EVENT = war_adventurer_harald.21 }
+				}
+			}
+		}
+	}
+}
+
+# HAR-FH05: A Champion's Unwanted Example. Intended event Weighing Value: +1. Lore: L1.
+country_event = {
+	id = war_adventurer_harald.5
+	title = war_adventurer_harald.5.t
+	desc = war_adventurer_harald.5.d
+	picture = WAR_ADVENTURER_HAR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_harald = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_harald
+		    war_adventurer_ready = yes
+		    war_adventurer_harald_home = yes
+		    owner = { war_adventurer_enemy_c = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_harald = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Organize supervised contests. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_harald.5.option_a
+		ai_chance = { factor = 1 }
+		add_mil_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Enlist the eager recruits. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_harald.5.option_b
+		ai_chance = { factor = 1 }
+		add_yearly_manpower = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Sponsor a victory feast. Option Weighing Value: +0.5.
+	option = {
+		name = war_adventurer_harald.5.option_c
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_harald }
+					war_adventurer_move = { MODIFIER = war_adventurer_harald LOCATION = war_adventurer_location_harald BEER = no ARRIVAL_EVENT = war_adventurer_harald.21 }
+				}
+			}
+		}
+	}
+}
+
+# HAR-FA01: The Haunted Caravanserai. Intended event Weighing Value: +1. Lore: L2, L3.
+country_event = {
+	id = war_adventurer_harald.6
+	title = war_adventurer_harald.6.t
+	desc = war_adventurer_harald.6.d
+	picture = WAR_ADVENTURER_HAR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_harald = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_harald
+		    war_adventurer_ready = yes
+		    war_adventurer_harald_home = no
+		    owner = { war_adventurer_enemy_c = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_harald = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Restore it under our guards. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_harald.6.option_a
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Salvage its stores. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_harald.6.option_b
+		ai_chance = { factor = 1 }
+		add_years_of_income = 0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Pay for funerary clearance. Option Weighing Value: +0.5.
+	option = {
+		name = war_adventurer_harald.6.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_harald }
+					war_adventurer_move = { MODIFIER = war_adventurer_harald LOCATION = war_adventurer_location_harald BEER = no ARRIVAL_EVENT = war_adventurer_harald.21 }
+				}
+			}
+		}
+	}
+}
+
+# HAR-FA02: A Daemon's Broken Idol. Intended event Weighing Value: +2. Lore: L1.
+country_event = {
+	id = war_adventurer_harald.7
+	title = war_adventurer_harald.7.t
+	desc = war_adventurer_harald.7.d
+	picture = WAR_ADVENTURER_HAR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_harald = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_harald
+		    war_adventurer_ready = yes
+		    war_adventurer_harald_home = no
+		    owner = { war_adventurer_enemy_c = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_harald = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Return tools to their owners. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_harald.7.option_a
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Inspect the remains under guard. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_harald.7.option_b
+		ai_chance = { factor = 1 }
+		change_innovativeness = 2
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Claim unowned tribute. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_harald.7.option_c
+		ai_chance = { factor = 1 }
+		add_years_of_income = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_harald }
+					war_adventurer_move = { MODIFIER = war_adventurer_harald LOCATION = war_adventurer_location_harald BEER = no ARRIVAL_EVENT = war_adventurer_harald.21 }
+				}
+			}
+		}
+	}
+}
+
+# HAR-FA03: The Cemetery's Empty Watch. Intended event Weighing Value: +1. Lore: L3.
+country_event = {
+	id = war_adventurer_harald.8
+	title = war_adventurer_harald.8.t
+	desc = war_adventurer_harald.8.d
+	picture = WAR_ADVENTURER_HAR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_harald = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_harald
+		    war_adventurer_ready = yes
+		    war_adventurer_harald_home = no
+		    owner = { war_adventurer_enemy_c = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_harald = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Permit supervised burials. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_harald.8.option_a
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Seize the keeper's accumulated fees. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_harald.8.option_b
+		ai_chance = { factor = 1 }
+		add_years_of_income = 0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_harald }
+					war_adventurer_move = { MODIFIER = war_adventurer_harald LOCATION = war_adventurer_location_harald BEER = no ARRIVAL_EVENT = war_adventurer_harald.21 }
+				}
+			}
+		}
+	}
+}
+
+# HAR-FA04: The Foreign Barrow's Warning. Intended event Weighing Value: +2. Lore: L2.
+country_event = {
+	id = war_adventurer_harald.9
+	title = war_adventurer_harald.9.t
+	desc = war_adventurer_harald.9.d
+	picture = WAR_ADVENTURER_HAR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_harald = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_harald
+		    war_adventurer_ready = yes
+		    war_adventurer_harald_home = no
+		    owner = { war_adventurer_enemy_c = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_harald = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Translate the tablets. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_harald.9.option_a
+		ai_chance = { factor = 1 }
+		add_adm_power = 50
+		change_innovativeness = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Have officers record and practise the cleared approach. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_harald.9.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = 100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Charge merchants for access to the cleared outer chambers. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_harald.9.option_c
+		ai_chance = { factor = 1 }
+		add_years_of_income = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_harald }
+					war_adventurer_move = { MODIFIER = war_adventurer_harald LOCATION = war_adventurer_location_harald BEER = no ARRIVAL_EVENT = war_adventurer_harald.21 }
+				}
+			}
+		}
+	}
+}
+
+# HAR-FA05: A Hammer at the Toll Road. Intended event Weighing Value: +1. Lore: L1.
+country_event = {
+	id = war_adventurer_harald.10
+	title = war_adventurer_harald.10.t
+	desc = war_adventurer_harald.10.d
+	picture = WAR_ADVENTURER_HAR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_harald = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_harald
+		    war_adventurer_ready = yes
+		    war_adventurer_harald_home = no
+		    owner = { war_adventurer_enemy_c = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_harald = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Return verified payments and restore the damaged waystation. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_harald.10.option_a
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Pay and recruit a new body of road wardens. Option Weighing Value: +0.5.
+	option = {
+		name = war_adventurer_harald.10.option_b
+		ai_chance = { factor = 1 }
+		add_yearly_manpower = 1
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Retain unclaimed funds. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_harald.10.option_c
+		ai_chance = { factor = 1 }
+		add_years_of_income = 0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_harald }
+					war_adventurer_move = { MODIFIER = war_adventurer_harald LOCATION = war_adventurer_location_harald BEER = no ARRIVAL_EVENT = war_adventurer_harald.21 }
+				}
+			}
+		}
+	}
+}
+
+# HAR-EH01: Bones at the Northern Gate. Intended event Weighing Value: -2. Lore: L3.
+country_event = {
+	id = war_adventurer_harald.11
+	title = war_adventurer_harald.11.t
+	desc = war_adventurer_harald.11.d
+	picture = WAR_ADVENTURER_HAR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_harald = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_harald
+		    war_adventurer_ready = yes
+		    war_adventurer_harald_home = yes
+		    owner = { war_adventurer_enemy_c = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+			owner = { has_country_modifier = undead_administration }
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_harald = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Rebuild the guard. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_harald.11.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Redirect other forces. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_harald.11.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Abandon the exposed district. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_harald.11.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_harald }
+					war_adventurer_move = { MODIFIER = war_adventurer_harald LOCATION = war_adventurer_location_harald BEER = no ARRIVAL_EVENT = war_adventurer_harald.21 }
+				}
+			}
+		}
+	}
+}
+
+# HAR-EH02: The Shrine's Shattered Champion. Intended event Weighing Value: -1. Lore: L1.
+country_event = {
+	id = war_adventurer_harald.12
+	title = war_adventurer_harald.12.t
+	desc = war_adventurer_harald.12.d
+	picture = WAR_ADVENTURER_HAR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_harald = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_harald
+		    war_adventurer_ready = yes
+		    war_adventurer_harald_home = yes
+		    owner = { war_adventurer_enemy_c = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_harald = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the champion's retinue. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_harald.12.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reorganize the defence. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_harald.12.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Absorb the humiliation. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_harald.12.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_harald }
+					war_adventurer_move = { MODIFIER = war_adventurer_harald LOCATION = war_adventurer_location_harald BEER = no ARRIVAL_EVENT = war_adventurer_harald.21 }
+				}
+			}
+		}
+	}
+}
+
+# HAR-EH03: The Barrow We Reopened. Intended event Weighing Value: -2. Lore: L2.
+country_event = {
+	id = war_adventurer_harald.13
+	title = war_adventurer_harald.13.t
+	desc = war_adventurer_harald.13.d
+	picture = WAR_ADVENTURER_HAR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_harald = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_harald
+		    war_adventurer_ready = yes
+		    war_adventurer_harald_home = yes
+		    owner = { war_adventurer_enemy_c = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_harald = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Pay a new survey team. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_harald.13.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Seal the site permanently. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_harald.13.option_b
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Salvage only the records. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_harald.13.option_c
+		ai_chance = { factor = 1 }
+		add_adm_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_harald }
+					war_adventurer_move = { MODIFIER = war_adventurer_harald LOCATION = war_adventurer_location_harald BEER = no ARRIVAL_EVENT = war_adventurer_harald.21 }
+				}
+			}
+		}
+	}
+}
+
+# HAR-EH04: The Night Watch's Last Horn. Intended event Weighing Value: -1. Lore: L2.
+country_event = {
+	id = war_adventurer_harald.14
+	title = war_adventurer_harald.14.t
+	desc = war_adventurer_harald.14.d
+	picture = WAR_ADVENTURER_HAR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_harald = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_harald
+		    war_adventurer_ready = yes
+		    war_adventurer_harald_home = yes
+		    owner = { war_adventurer_enemy_c = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_harald = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Recover and replace equipment. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_harald.14.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Discontinue patrols through the ruin. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_harald.14.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_harald }
+					war_adventurer_move = { MODIFIER = war_adventurer_harald LOCATION = war_adventurer_location_harald BEER = no ARRIVAL_EVENT = war_adventurer_harald.21 }
+				}
+			}
+		}
+	}
+}
+
+# HAR-EH05: A Hammer Against Our Oath. Intended event Weighing Value: -1. Lore: L1.
+country_event = {
+	id = war_adventurer_harald.15
+	title = war_adventurer_harald.15.t
+	desc = war_adventurer_harald.15.d
+	picture = WAR_ADVENTURER_HAR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_harald = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_harald
+		    war_adventurer_ready = yes
+		    war_adventurer_harald_home = yes
+		    owner = { war_adventurer_enemy_c = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_harald = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Renegotiate the pledges. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_harald.15.option_a
+		ai_chance = { factor = 1 }
+		add_dip_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Buy renewed loyalty. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_harald.15.option_b
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Maintain the claim despite ridicule. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_harald.15.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_harald }
+					war_adventurer_move = { MODIFIER = war_adventurer_harald LOCATION = war_adventurer_location_harald BEER = no ARRIVAL_EVENT = war_adventurer_harald.21 }
+				}
+			}
+		}
+	}
+}
+
+# HAR-EA01: A Procession of Empty Armour. Intended event Weighing Value: -2. Lore: L3.
+country_event = {
+	id = war_adventurer_harald.16
+	title = war_adventurer_harald.16.t
+	desc = war_adventurer_harald.16.d
+	picture = WAR_ADVENTURER_HAR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_harald = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_harald
+		    war_adventurer_ready = yes
+		    war_adventurer_harald_home = no
+		    owner = { war_adventurer_enemy_c = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+			owner = { has_country_modifier = undead_administration }
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_harald = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Restore the procession at expense. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_harald.16.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Suspend ceremonies and reorganize security. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_harald.16.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Accept the public humiliation. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_harald.16.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_harald }
+					war_adventurer_move = { MODIFIER = war_adventurer_harald LOCATION = war_adventurer_location_harald BEER = no ARRIVAL_EVENT = war_adventurer_harald.21 }
+				}
+			}
+		}
+	}
+}
+
+# HAR-EA02: The Foreign Fort's Broken Hero. Intended event Weighing Value: -1. Lore: L1.
+country_event = {
+	id = war_adventurer_harald.17
+	title = war_adventurer_harald.17.t
+	desc = war_adventurer_harald.17.d
+	picture = WAR_ADVENTURER_HAR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_harald = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_harald
+		    war_adventurer_ready = yes
+		    war_adventurer_harald_home = no
+		    owner = { war_adventurer_enemy_c = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_harald = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Hire replacements. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_harald.17.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Retrain the garrison. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_harald.17.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_harald }
+					war_adventurer_move = { MODIFIER = war_adventurer_harald LOCATION = war_adventurer_location_harald BEER = no ARRIVAL_EVENT = war_adventurer_harald.21 }
+				}
+			}
+		}
+	}
+}
+
+# HAR-EA03: A Tomb Opened for Tribute. Intended event Weighing Value: -2. Lore: L2.
+country_event = {
+	id = war_adventurer_harald.18
+	title = war_adventurer_harald.18.t
+	desc = war_adventurer_harald.18.d
+	picture = WAR_ADVENTURER_HAR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_harald = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_harald
+		    war_adventurer_ready = yes
+		    war_adventurer_harald_home = no
+		    owner = { war_adventurer_enemy_c = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_harald = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Rehouse the workers and repair the road. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_harald.18.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Abandon the site. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_harald.18.option_b
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Investigate the failed excavation. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_harald.18.option_c
+		ai_chance = { factor = 1 }
+		add_adm_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_harald }
+					war_adventurer_move = { MODIFIER = war_adventurer_harald LOCATION = war_adventurer_location_harald BEER = no ARRIVAL_EVENT = war_adventurer_harald.21 }
+				}
+			}
+		}
+	}
+}
+
+# HAR-EA04: The Spirit That Could Not Return. Intended event Weighing Value: -1. Lore: L3.
+country_event = {
+	id = war_adventurer_harald.19
+	title = war_adventurer_harald.19.t
+	desc = war_adventurer_harald.19.d
+	picture = WAR_ADVENTURER_HAR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_harald = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_harald
+		    war_adventurer_ready = yes
+		    war_adventurer_harald_home = no
+		    owner = { war_adventurer_enemy_c = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+			owner = { has_country_modifier = undead_administration }
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_harald = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Purchase mundane guards. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_harald.19.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Redesign the defences. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_harald.19.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Conceal the weakness. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_harald.19.option_c
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_harald }
+					war_adventurer_move = { MODIFIER = war_adventurer_harald LOCATION = war_adventurer_location_harald BEER = no ARRIVAL_EVENT = war_adventurer_harald.21 }
+				}
+			}
+		}
+	}
+}
+
+# HAR-EA05: The Tournament's Uninvited Guest. Intended event Weighing Value: -1. Lore: L1.
+country_event = {
+	id = war_adventurer_harald.20
+	title = war_adventurer_harald.20.t
+	desc = war_adventurer_harald.20.d
+	picture = WAR_ADVENTURER_HAR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_harald = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_harald
+		    war_adventurer_ready = yes
+		    war_adventurer_harald_home = no
+		    owner = { war_adventurer_enemy_c = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_harald = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Recognize the result. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_harald.20.option_a
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Compensate the defeated company. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_harald.20.option_b
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Discipline the organizers. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_harald.20.option_c
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_harald }
+					war_adventurer_move = { MODIFIER = war_adventurer_harald LOCATION = war_adventurer_location_harald BEER = no ARRIVAL_EVENT = war_adventurer_harald.21 }
+				}
+			}
+		}
+	}
+}
+
+# Arrival report: introduce Harald Hammerstorm to the new owner. No mechanical effects.
+country_event = {
+	id = war_adventurer_harald.21
+	title = war_adventurer_harald.21.t
+	desc = war_adventurer_harald.21.d
+	picture = WAR_ADVENTURER_HAR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_arrival_province = {
+			owned_by = ROOT
+			has_province_modifier = war_adventurer_harald
+		}
+	}
+	# Acknowledge the arrival report. Option Weighing Value: 0.
+	option = { name = war_adventurer_arrival_acknowledge }
+}

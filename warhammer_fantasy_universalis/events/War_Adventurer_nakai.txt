@@ -1,0 +1,1410 @@
+namespace = war_adventurer_nakai
+
+# Generated from Dev Stuff/Adventurers/event_data.json; edit that authored source.
+# Budget source: Dev Stuff/Examples/Balance Guide.txt. No MTTH.
+
+# NAK-FH01: The Crossing Before the Alarm. Intended event Weighing Value: +2. Lore: L1.
+country_event = {
+	id = war_adventurer_nakai.1
+	title = war_adventurer_nakai.1.t
+	desc = war_adventurer_nakai.1.d
+	picture = WAR_ADVENTURER_NAK_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_nakai = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_nakai
+		    war_adventurer_ready = yes
+		    war_adventurer_nakai_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_nakai = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Rebuild the crossing and train its guards. Option Weighing Value: +1.5.
+	option = {
+		name = war_adventurer_nakai.1.option_a
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.04
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Train the defenders from the battle account. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_nakai.1.option_b
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.04
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Restore the interrupted supply route. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.1.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_nakai }
+					war_adventurer_move = { MODIFIER = war_adventurer_nakai LOCATION = war_adventurer_location_nakai BEER = no ARRIVAL_EVENT = war_adventurer_nakai.21 }
+				}
+			}
+		}
+	}
+}
+
+# NAK-FH02: The Temple that Sent No Messenger. Intended event Weighing Value: +1. Lore: L2.
+country_event = {
+	id = war_adventurer_nakai.2
+	title = war_adventurer_nakai.2.t
+	desc = war_adventurer_nakai.2.d
+	picture = WAR_ADVENTURER_NAK_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_nakai = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_nakai
+		    war_adventurer_ready = yes
+		    war_adventurer_nakai_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_nakai = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Publicly honour the recovered stores’ rightful owners. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.2.option_a
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Provision the temple watch. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.2.option_b
+		ai_chance = { factor = 1 }
+		add_yearly_manpower = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Publish the testimony as an account of the temple’s rescue. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.2.option_c
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_nakai }
+					war_adventurer_move = { MODIFIER = war_adventurer_nakai LOCATION = war_adventurer_location_nakai BEER = no ARRIVAL_EVENT = war_adventurer_nakai.21 }
+				}
+			}
+		}
+	}
+}
+
+# NAK-FH03: The Procession Returned at Dawn. Intended event Weighing Value: +1. Lore: L2.
+country_event = {
+	id = war_adventurer_nakai.3
+	title = war_adventurer_nakai.3.t
+	desc = war_adventurer_nakai.3.d
+	picture = WAR_ADVENTURER_NAK_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_nakai = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_nakai
+		    war_adventurer_ready = yes
+		    war_adventurer_nakai_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_nakai = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Map the safe route. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.3.option_a
+		ai_chance = { factor = 1 }
+		add_mil_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Teach the surviving procession guards to train others. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.3.option_b
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.02
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Honour the rescued custodians. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.3.option_c
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_nakai }
+					war_adventurer_move = { MODIFIER = war_adventurer_nakai LOCATION = war_adventurer_location_nakai BEER = no ARRIVAL_EVENT = war_adventurer_nakai.21 }
+				}
+			}
+		}
+	}
+}
+
+# NAK-FH04: The Bridge Nobody Would Approach. Intended event Weighing Value: +2. Lore: L1.
+country_event = {
+	id = war_adventurer_nakai.4
+	title = war_adventurer_nakai.4.t
+	desc = war_adventurer_nakai.4.d
+	picture = WAR_ADVENTURER_NAK_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_nakai = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_nakai
+		    war_adventurer_ready = yes
+		    war_adventurer_nakai_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_nakai = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Repair and reopen the route. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.4.option_a
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 3
+		}
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Train guards to exploit the crossing’s defensive advantage. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_nakai.4.option_b
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.04
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Record the observed reaction. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_nakai.4.option_c
+		ai_chance = { factor = 1 }
+		change_innovativeness = 2
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_nakai }
+					war_adventurer_move = { MODIFIER = war_adventurer_nakai LOCATION = war_adventurer_location_nakai BEER = no ARRIVAL_EVENT = war_adventurer_nakai.21 }
+				}
+			}
+		}
+	}
+}
+
+# NAK-FH05: The Watch Left Behind. Intended event Weighing Value: +1. Lore: L2, L3.
+country_event = {
+	id = war_adventurer_nakai.5
+	title = war_adventurer_nakai.5.t
+	desc = war_adventurer_nakai.5.d
+	picture = WAR_ADVENTURER_NAK_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_nakai = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_nakai
+		    war_adventurer_ready = yes
+		    war_adventurer_nakai_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_nakai = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Train a disciplined watch for the recovered site. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.5.option_a
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.02
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Catalogue its surviving records. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.5.option_b
+		ai_chance = { factor = 1 }
+		change_innovativeness = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Help its displaced workers return. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.5.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_nakai }
+					war_adventurer_move = { MODIFIER = war_adventurer_nakai LOCATION = war_adventurer_location_nakai BEER = no ARRIVAL_EVENT = war_adventurer_nakai.21 }
+				}
+			}
+		}
+	}
+}
+
+# NAK-FA01: The Shrine Beyond the Black Forest. Intended event Weighing Value: +1. Lore: L2, L3.
+country_event = {
+	id = war_adventurer_nakai.6
+	title = war_adventurer_nakai.6.t
+	desc = war_adventurer_nakai.6.d
+	picture = WAR_ADVENTURER_NAK_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_nakai = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_nakai
+		    war_adventurer_ready = yes
+		    war_adventurer_nakai_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_nakai = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Survey the shrine. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.6.option_a
+		ai_chance = { factor = 1 }
+		change_innovativeness = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Recognize the custodians' protection. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.6.option_b
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Use recovered supplies for the settlement. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.6.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_nakai }
+					war_adventurer_move = { MODIFIER = war_adventurer_nakai LOCATION = war_adventurer_location_nakai BEER = no ARRIVAL_EVENT = war_adventurer_nakai.21 }
+				}
+			}
+		}
+	}
+}
+
+# NAK-FA02: The Causeway Through the Mist. Intended event Weighing Value: +2. Lore: L1, L3.
+country_event = {
+	id = war_adventurer_nakai.7
+	title = war_adventurer_nakai.7.t
+	desc = war_adventurer_nakai.7.d
+	picture = WAR_ADVENTURER_NAK_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_nakai = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_nakai
+		    war_adventurer_ready = yes
+		    war_adventurer_nakai_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_nakai = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Examine the stones. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_nakai.7.option_a
+		ai_chance = { factor = 1 }
+		change_innovativeness = 2
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Rebuild the causeway and train its guards. Option Weighing Value: +1.5.
+	option = {
+		name = war_adventurer_nakai.7.option_b
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.04
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Settle rescued workers near the route. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.7.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 3
+		}
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_nakai }
+					war_adventurer_move = { MODIFIER = war_adventurer_nakai LOCATION = war_adventurer_location_nakai BEER = no ARRIVAL_EVENT = war_adventurer_nakai.21 }
+				}
+			}
+		}
+	}
+}
+
+# NAK-FA03: The Camp Built Around His Tracks. Intended event Weighing Value: +1. Lore: L2, L3.
+country_event = {
+	id = war_adventurer_nakai.8
+	title = war_adventurer_nakai.8.t
+	desc = war_adventurer_nakai.8.d
+	picture = WAR_ADVENTURER_NAK_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_nakai = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_nakai
+		    war_adventurer_ready = yes
+		    war_adventurer_nakai_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_nakai = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Maintain a survey station. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.8.option_a
+		ai_chance = { factor = 1 }
+		change_innovativeness = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Train a permanent patrol around the sheltered camp. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.8.option_b
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.02
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reopen the nearby caravan route. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.8.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_nakai }
+					war_adventurer_move = { MODIFIER = war_adventurer_nakai LOCATION = war_adventurer_location_nakai BEER = no ARRIVAL_EVENT = war_adventurer_nakai.21 }
+				}
+			}
+		}
+	}
+}
+
+# NAK-FA04: The Giant in the Floodwater. Intended event Weighing Value: +2. Lore: L1, L2.
+country_event = {
+	id = war_adventurer_nakai.9
+	title = war_adventurer_nakai.9.t
+	desc = war_adventurer_nakai.9.d
+	picture = WAR_ADVENTURER_NAK_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_nakai = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_nakai
+		    war_adventurer_ready = yes
+		    war_adventurer_nakai_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_nakai = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Repair the crossing and nearby homes. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.9.option_a
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 3
+		}
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Recruit willing survivors for rescue patrols. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_nakai.9.option_b
+		ai_chance = { factor = 1 }
+		add_yearly_manpower = 2
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Record the defenders' methods. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_nakai.9.option_c
+		ai_chance = { factor = 1 }
+		add_army_professionalism = 0.04
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_nakai }
+					war_adventurer_move = { MODIFIER = war_adventurer_nakai LOCATION = war_adventurer_location_nakai BEER = no ARRIVAL_EVENT = war_adventurer_nakai.21 }
+				}
+			}
+		}
+	}
+}
+
+# NAK-FA05: The Tablets on the Governor's Steps. Intended event Weighing Value: +1. Lore: L3.
+country_event = {
+	id = war_adventurer_nakai.10
+	title = war_adventurer_nakai.10.t
+	desc = war_adventurer_nakai.10.d
+	picture = WAR_ADVENTURER_NAK_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_nakai = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_nakai
+		    war_adventurer_ready = yes
+		    war_adventurer_nakai_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_nakai = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Offer a temporary scholarly refuge. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.10.option_a
+		ai_chance = { factor = 1 }
+		change_innovativeness = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Return the tablets under official protection. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.10.option_b
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Prosecute the trafficker's surviving records. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_nakai.10.option_c
+		ai_chance = { factor = 1 }
+		add_adm_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_nakai }
+					war_adventurer_move = { MODIFIER = war_adventurer_nakai LOCATION = war_adventurer_location_nakai BEER = no ARRIVAL_EVENT = war_adventurer_nakai.21 }
+				}
+			}
+		}
+	}
+}
+
+# NAK-EH01: The Invasion Stopped at the Bridge. Intended event Weighing Value: -2. Lore: L1.
+country_event = {
+	id = war_adventurer_nakai.11
+	title = war_adventurer_nakai.11.t
+	desc = war_adventurer_nakai.11.d
+	picture = WAR_ADVENTURER_NAK_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_nakai = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_nakai
+		    war_adventurer_ready = yes
+		    war_adventurer_nakai_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_nakai = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the column's equipment. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_nakai.11.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reorganize its route and command. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_nakai.11.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Abandon the battered approach. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_nakai.11.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_nakai }
+					war_adventurer_move = { MODIFIER = war_adventurer_nakai LOCATION = war_adventurer_location_nakai BEER = no ARRIVAL_EVENT = war_adventurer_nakai.21 }
+				}
+			}
+		}
+	}
+}
+
+# NAK-EH02: The Garrison's Unannounced Visitor. Intended event Weighing Value: -1. Lore: L2.
+country_event = {
+	id = war_adventurer_nakai.12
+	title = war_adventurer_nakai.12.t
+	desc = war_adventurer_nakai.12.d
+	picture = WAR_ADVENTURER_NAK_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_nakai = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_nakai
+		    war_adventurer_ready = yes
+		    war_adventurer_nakai_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_nakai = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the damaged equipment. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_nakai.12.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Review the occupation's security. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_nakai.12.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Admit the garrison's failure. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_nakai.12.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_nakai }
+					war_adventurer_move = { MODIFIER = war_adventurer_nakai LOCATION = war_adventurer_location_nakai BEER = no ARRIVAL_EVENT = war_adventurer_nakai.21 }
+				}
+			}
+		}
+	}
+}
+
+# NAK-EH03: The Relics Gone Before Dawn. Intended event Weighing Value: -1. Lore: L2.
+country_event = {
+	id = war_adventurer_nakai.13
+	title = war_adventurer_nakai.13.t
+	desc = war_adventurer_nakai.13.d
+	picture = WAR_ADVENTURER_NAK_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_nakai = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_nakai
+		    war_adventurer_ready = yes
+		    war_adventurer_nakai_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_nakai = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the escort and transport. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_nakai.13.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Investigate the information leak. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_nakai.13.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Deny the trophies' importance. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_nakai.13.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_nakai }
+					war_adventurer_move = { MODIFIER = war_adventurer_nakai LOCATION = war_adventurer_location_nakai BEER = no ARRIVAL_EVENT = war_adventurer_nakai.21 }
+				}
+			}
+		}
+	}
+}
+
+# NAK-EH04: The Daemons at the Water's Edge. Intended event Weighing Value: -2. Lore: L1.
+country_event = {
+	id = war_adventurer_nakai.14
+	title = war_adventurer_nakai.14.t
+	desc = war_adventurer_nakai.14.d
+	picture = WAR_ADVENTURER_NAK_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_nakai = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_nakai
+		    war_adventurer_ready = yes
+		    war_adventurer_nakai_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_nakai = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the apparatus and landing. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_nakai.14.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Abandon the summoned formation. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_nakai.14.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Leave the site sealed. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_nakai.14.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_nakai }
+					war_adventurer_move = { MODIFIER = war_adventurer_nakai LOCATION = war_adventurer_location_nakai BEER = no ARRIVAL_EVENT = war_adventurer_nakai.21 }
+				}
+			}
+		}
+	}
+}
+
+# NAK-EH05: The Ruin Reoccupied Without Us. Intended event Weighing Value: -2. Lore: L2, L3.
+country_event = {
+	id = war_adventurer_nakai.15
+	title = war_adventurer_nakai.15.t
+	desc = war_adventurer_nakai.15.d
+	picture = WAR_ADVENTURER_NAK_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_nakai = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_nakai
+		    war_adventurer_ready = yes
+		    war_adventurer_nakai_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_nakai = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the expedition's tools. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_nakai.15.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reconstruct its lost surveys. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_nakai.15.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Relinquish the position and its prestige. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_nakai.15.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_nakai }
+					war_adventurer_move = { MODIFIER = war_adventurer_nakai LOCATION = war_adventurer_location_nakai BEER = no ARRIVAL_EVENT = war_adventurer_nakai.21 }
+				}
+			}
+		}
+	}
+}
+
+# NAK-EA01: The Shrine Beneath the Slave Camp. Intended event Weighing Value: -2. Lore: L2, L3.
+country_event = {
+	id = war_adventurer_nakai.16
+	title = war_adventurer_nakai.16.t
+	desc = war_adventurer_nakai.16.d
+	picture = WAR_ADVENTURER_NAK_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_nakai = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_nakai
+		    war_adventurer_ready = yes
+		    war_adventurer_nakai_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_nakai = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the compound's equipment. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_nakai.16.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reorganize the exposed frontier administration. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_nakai.16.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Abandon the damaged site. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_nakai.16.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_nakai }
+					war_adventurer_move = { MODIFIER = war_adventurer_nakai LOCATION = war_adventurer_location_nakai BEER = no ARRIVAL_EVENT = war_adventurer_nakai.21 }
+				}
+			}
+		}
+	}
+}
+
+# NAK-EA02: The Foreign Bridge's Broken Column. Intended event Weighing Value: -2. Lore: L1.
+country_event = {
+	id = war_adventurer_nakai.17
+	title = war_adventurer_nakai.17.t
+	desc = war_adventurer_nakai.17.d
+	picture = WAR_ADVENTURER_NAK_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_nakai = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_nakai
+		    war_adventurer_ready = yes
+		    war_adventurer_nakai_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_nakai = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the lost stores. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_nakai.17.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reorganize the escort doctrine. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_nakai.17.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Requisition the river settlements. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_nakai.17.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_nakai }
+					war_adventurer_move = { MODIFIER = war_adventurer_nakai LOCATION = war_adventurer_location_nakai BEER = no ARRIVAL_EVENT = war_adventurer_nakai.21 }
+				}
+			}
+		}
+	}
+}
+
+# NAK-EA03: The Settlement He Would Not Leave. Intended event Weighing Value: -1. Lore: L2, L3.
+country_event = {
+	id = war_adventurer_nakai.18
+	title = war_adventurer_nakai.18.t
+	desc = war_adventurer_nakai.18.d
+	picture = WAR_ADVENTURER_NAK_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_nakai = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_nakai
+		    war_adventurer_ready = yes
+		    war_adventurer_nakai_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_nakai = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Compensate the requisition party. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_nakai.18.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Revise the district's collection arrangements. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_nakai.18.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Accept the public defiance. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_nakai.18.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_nakai }
+					war_adventurer_move = { MODIFIER = war_adventurer_nakai LOCATION = war_adventurer_location_nakai BEER = no ARRIVAL_EVENT = war_adventurer_nakai.21 }
+				}
+			}
+		}
+	}
+}
+
+# NAK-EA04: The Monster Hunter's Empty Cage. Intended event Weighing Value: -1. Lore: L2.
+country_event = {
+	id = war_adventurer_nakai.19
+	title = war_adventurer_nakai.19.t
+	desc = war_adventurer_nakai.19.d
+	picture = WAR_ADVENTURER_NAK_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_nakai = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_nakai
+		    war_adventurer_ready = yes
+		    war_adventurer_nakai_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_nakai = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the collector's equipment. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_nakai.19.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Investigate the failed expedition. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_nakai.19.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Disown the spectacle. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_nakai.19.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_nakai }
+					war_adventurer_move = { MODIFIER = war_adventurer_nakai LOCATION = war_adventurer_location_nakai BEER = no ARRIVAL_EVENT = war_adventurer_nakai.21 }
+				}
+			}
+		}
+	}
+}
+
+# NAK-EA05: The Tablets Beyond the Frontier. Intended event Weighing Value: -2. Lore: L3.
+country_event = {
+	id = war_adventurer_nakai.20
+	title = war_adventurer_nakai.20.t
+	desc = war_adventurer_nakai.20.d
+	picture = WAR_ADVENTURER_NAK_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_nakai = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_nakai
+		    war_adventurer_ready = yes
+		    war_adventurer_nakai_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_nakai = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the expedition and its stores. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_nakai.20.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reconstruct the missing research. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_nakai.20.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Abandon the shattered outpost. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_nakai.20.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_nakai }
+					war_adventurer_move = { MODIFIER = war_adventurer_nakai LOCATION = war_adventurer_location_nakai BEER = no ARRIVAL_EVENT = war_adventurer_nakai.21 }
+				}
+			}
+		}
+	}
+}
+
+# Arrival report: introduce Nakai the Wanderer to the new owner. No mechanical effects.
+country_event = {
+	id = war_adventurer_nakai.21
+	title = war_adventurer_nakai.21.t
+	desc = war_adventurer_nakai.21.d
+	picture = WAR_ADVENTURER_NAK_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_arrival_province = {
+			owned_by = ROOT
+			has_province_modifier = war_adventurer_nakai
+		}
+	}
+	# Acknowledge the arrival report. Option Weighing Value: 0.
+	option = { name = war_adventurer_arrival_acknowledge }
+}

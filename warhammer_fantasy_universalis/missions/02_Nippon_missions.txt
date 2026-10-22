@@ -1,0 +1,1027 @@
+# Nippon: The Second Dawn. Approved 48-mission, five-column, 15-row layout.
+# Priority 4: capital in nippon_region, with priority 1-3 exclusions.
+# Reward budget: 30 x WV 5 + 16 x WV 1 + colonist WV 10 = 176.
+# Ultimate: WV 40 across four modifiers. Event choices are included, not added.
+# References: Dev Stuff/Examples/{Balance Guide,Mission Trigger Catalogue,Lore Reference}.txt.
+nippon_missions_1 = {
+	slot = 1
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_nippon_capital_in_region = yes
+	}
+
+	# Concept: A century of disputed grants has left the same rice fields owing tax to several lords. We must measure the land, improve our domain, and restore a survey that collectors and cultivators can both obey.
+	# Reward Weighing Value: 1.
+	nippon_rice_fields = {
+		icon = mission_nippon_rice_fields
+		position = 1
+		required_missions = {  }
+		trigger = {
+			grown_by_development = 10
+			capital_scope = { base_tax = 3 }
+		}
+		effect = {
+			add_adm_power = 50
+		}
+	}
+
+	# Concept: Debtors whisper of patrons who receive visitors only after sunset, but no magistrate will hear them alone. We must establish a capable intelligence service and build a case against the hidden households.
+	# Reward Weighing Value: 1.
+	nippon_witnesses = {
+		icon = mission_vampire_cards
+		position = 2
+		required_missions = { nippon_rice_fields }
+		trigger = {
+			adm_tech = 5
+			OR = {
+				any_country = { NOT = { tag = ROOT } has_spy_network_from = { who = ROOT value = 25 } }
+				num_of_estate_agendas_completed = { estate = estate_burghers value = 1 }
+			}
+		}
+		effect = {
+			add_dip_power = 50
+		}
+	}
+
+	# Concept: Vampiric creditors hide their demands behind lawful contracts and obedient officers. We must place the castle towns under public magistrates and free their administration from purchased loyalties.
+	# Reward Weighing Value: 5.
+	nippon_blood_debts = {
+		icon = mission_vampire_goblet
+		position = 3
+		required_missions = { nippon_witnesses }
+		trigger = {
+			num_of_owned_provinces_with = {
+				region = nippon_region
+				NOT = { religion = vampiric }
+				OR = { has_building = courthouse has_building = town_hall }
+				value = 3
+			}
+			NOT = { corruption = 1 }
+		}
+		effect = {
+			add_country_modifier = { name = nippon_blood_debts_reward duration = -1 }
+		}
+	}
+
+	# Concept: Clans have sheltered forbidden rites beneath the protection of old mountain shrines. We must restore the sanctuaries to lawful worship and make them answer for the cults they concealed.
+	# Reward Weighing Value: 5.
+	nippon_mountain_shrines = {
+		icon = mission_japanese_gate
+		position = 5
+		required_missions = { nippon_blood_debts }
+		trigger = {
+			num_of_owned_provinces_with = {
+				region = nippon_region
+				war_nippon_uncorrupted_province = yes
+				OR = { has_building = temple has_building = cathedral }
+				value = 4
+			}
+			religious_unity = 0.90
+		}
+		effect = {
+			add_country_modifier = { name = nippon_mountain_shrines_reward duration = -1 }
+		}
+	}
+
+	# Concept: Goblins and armed toll-keepers have inherited the passes abandoned by the clans. We must secure the roads between our castles and make it possible for orders and grain to travel safely.
+	# Reward Weighing Value: 1.
+	nippon_mountain_roads = {
+		icon = mission_greenskins_goblin_warboss
+		position = 6
+		required_missions = { nippon_mountain_shrines }
+		trigger = {
+			num_of_owned_provinces_with = {
+				region = nippon_region
+				war_nippon_fort = yes
+				NOT = { devastation = 5 }
+				value = 3
+			}
+			NOT = { war_exhaustion = 2 }
+		}
+		effect = {
+			add_yearly_manpower = 1
+		}
+	}
+
+	# Concept: An imperial title means little while corrupted lords still rule parts of the homeland. We must reunite the settled islands under loyal authority and end the Chaos and vampiric regimes that prospered during the fracture.
+	# Reward Weighing Value: 5.
+	nippon_century_of_night = {
+		icon = mission_druid_sunrise
+		position = 8
+		required_missions = { nippon_mountain_roads }
+		trigger = {
+			war_nippon_restored = yes
+			war_nippon_homeland_restored = yes
+			is_at_war = no
+		}
+		effect = {
+			add_country_modifier = { name = nippon_century_of_night_reward duration = -1 }
+		}
+	}
+
+	# Concept: The restoration has reopened sealed storehouses and forgotten stairways beneath the mountain sanctuaries. We must compare their records with known underground routes before sending soldiers into the dark.
+	# Reward Weighing Value: 1.
+	nippon_beneath_shrines = {
+		icon = mission_norscan_cavern
+		position = 9
+		required_missions = { nippon_century_of_night }
+		trigger = {
+			war_nippon_restored = yes
+			any_province = { continent = underempire is_discovered_by = ROOT }
+			adm_tech = 8
+		}
+		effect = {
+			add_adm_power = 50
+		}
+	}
+
+	# Concept: A single underground outpost is only an isolated camp waiting to be overwhelmed. We must establish defended stations with enough stores and men to keep the approaches open.
+	# Reward Weighing Value: 5.
+	nippon_lantern_garrisons = {
+		icon = mission_nippon_lantern_garrisons
+		position = 11
+		required_missions = { nippon_beneath_shrines nippon_first_descent }
+		trigger = {
+			war_nippon_restored = yes
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				continent = underempire
+				is_city = yes
+				war_nippon_fort = yes
+				value = 3
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				continent = underempire
+				is_city = yes
+				OR = { has_building = barracks has_building = training_fields }
+				value = 3
+			}
+		}
+		effect = {
+			add_country_modifier = { name = nippon_lantern_garrisons_reward duration = -1 }
+		}
+	}
+
+	# Concept: The garrisons can hold their walls, but disputes over mines and supply roads now reach the surface court. We must establish a working underground administration and choose how it will govern the frontier.
+	# Reward Weighing Value: 5.
+	nippon_roads_below = {
+		icon = mission_nippon_roads_below
+		position = 12
+		required_missions = { nippon_lantern_garrisons }
+		trigger = {
+			war_nippon_restored = yes
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				continent = underempire
+				is_city = yes
+				OR = { has_building = courthouse has_building = town_hall }
+				value = 5
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				continent = underempire
+				is_city = yes
+				OR = { has_building = workshop has_building = counting_house }
+				value = 5
+			}
+		}
+		effect = {
+			country_event = { id = war_nippon_missions.3 }
+		}
+	}
+
+	# Concept: The underground frontier has ceased to be a succession of expeditions and emergency garrisons. We must make it a secure domain whose developed settlements contribute lasting wealth to the empire.
+	# Reward Weighing Value: 5.
+	nippon_deep_dawn = {
+		icon = mission_magical_gems
+		position = 13
+		required_missions = { nippon_roads_below }
+		trigger = {
+			war_nippon_restored = yes
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				continent = underempire
+				is_city = yes
+				war_nippon_controlled_province = yes
+				value = 10
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				continent = underempire
+				is_city = yes
+				development = 15
+				NOT = { devastation = 5 }
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = { name = nippon_deep_dawn_reward duration = -1 }
+		}
+	}
+}
+
+nippon_missions_2 = {
+	slot = 2
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_nippon_capital_in_region = yes
+	}
+
+	# Concept: The old muster rolls name households that have deserted, divided, or sold their service. We must secure fresh military commitments and assemble a force worthy of the summons.
+	# Reward Weighing Value: 5.
+	nippon_retainers = {
+		icon = mission_nippon_retainers
+		position = 1
+		required_missions = {  }
+		trigger = {
+			OR = {
+				num_of_estate_agendas_completed = { estate = estate_nobles value = 1 }
+				AND = { NOT = { has_estate = estate_nobles } grown_by_development = 25 }
+			}
+			army_size_percentage = 0.75
+		}
+		effect = {
+			add_country_modifier = { name = nippon_retainers_reward duration = -1 }
+		}
+	}
+
+	# Concept: Retainers obey their houses before the common command, leaving every campaign hostage to an old quarrel. We must bind officers to a shared service and make the muster independent of private feuds.
+	# Reward Weighing Value: 5.
+	nippon_officer_oaths = {
+		icon = mission_nippon_oaths
+		position = 3
+		required_missions = { nippon_retainers nippon_clan_envoys }
+		trigger = {
+			OR = { army_professionalism = 0.10 has_country_modifier = war_modern_army }
+			OR = {
+				AND = { estate_loyalty = { estate = estate_nobles loyalty = 60 } crown_land_share = 30 }
+				AND = { NOT = { has_estate = estate_nobles } army_tradition = 25 }
+			}
+		}
+		effect = {
+			add_country_modifier = { name = nippon_officer_oaths_reward duration = -1 }
+		}
+	}
+
+	# Concept: Famous duellists cannot hold a battle line by reputation alone. We must make disciplined practice part of the army and teach our warriors to prevail together.
+	# Reward Weighing Value: 5.
+	nippon_sword_school = {
+		icon = mission_nippon_sword_school
+		position = 4
+		required_missions = { nippon_officer_oaths }
+		trigger = {
+			num_of_regiments_at_full_drill = 10
+			army_tradition = 25
+		}
+		effect = {
+			add_country_modifier = { name = nippon_sword_school_reward duration = -1 }
+		}
+	}
+
+	# Concept: The court can summon warriors, but a long campaign still empties villages and exhausts private stores. We must establish permanent recruitment districts capable of sustaining the restoration.
+	# Reward Weighing Value: 5.
+	nippon_reunification_army = {
+		icon = mission_nippon_reunification
+		position = 6
+		required_missions = { nippon_sword_school nippon_sword_seal }
+		trigger = {
+			num_of_owned_provinces_with = {
+				region = nippon_region
+				OR = { has_building = barracks has_building = training_fields }
+				value = 4
+			}
+			army_size = 20
+		}
+		effect = {
+			add_country_modifier = { name = nippon_reunification_army_reward duration = -1 }
+		}
+	}
+
+	# Concept: Former enemies now march beside one another while their officers still maintain separate rolls and stores. We must bring their contingents into one professional muster without wasting their hard-won experience.
+	# Reward Weighing Value: 1.
+	nippon_one_banner = {
+		icon = mission_nippon_one_banner
+		position = 7
+		required_missions = { nippon_reunification_army }
+		trigger = {
+			OR = { army_professionalism = 0.25 has_country_modifier = war_modern_army }
+			num_of_generals = 2
+		}
+		effect = {
+			add_army_professionalism = 0.02
+		}
+	}
+
+	# Concept: The restoration has produced soldiers accustomed to difficult marches and uncertain loyalties. We must organize experienced officers and reliable stores for expeditions beyond the familiar roads.
+	# Reward Weighing Value: 1.
+	nippon_veterans = {
+		icon = mission_nippon_veterans
+		position = 9
+		required_missions = { nippon_one_banner nippon_century_of_night }
+		trigger = {
+			war_nippon_restored = yes
+			army_tradition = 40
+			manpower_percentage = 0.50
+		}
+		effect = {
+			add_mil_power = 50
+		}
+	}
+
+	# Concept: Maps and lanterns have brought our soldiers to the threshold of the underground world. We must establish a defensible settlement whose garrison can survive when the surface roads are cut.
+	# Reward Weighing Value: 5.
+	nippon_first_descent = {
+		icon = mission_nippon_first_descent
+		position = 10
+		required_missions = { nippon_veterans nippon_beneath_shrines }
+		trigger = {
+			war_nippon_restored = yes
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				continent = underempire
+				is_city = yes
+				war_nippon_fort = yes
+				value = 1
+			}
+			num_of_regiments_at_full_drill = 15
+		}
+		effect = {
+			add_country_modifier = { name = nippon_first_descent_reward duration = -1 }
+		}
+	}
+
+	# Concept: The powers below the mountains treat every new garrison as prey or tribute. We must defeat a substantial underground realm and hold enough territory to defend the victory.
+	# Reward Weighing Value: 5.
+	nippon_burrow_kings = {
+		icon = mission_skaven_conquest
+		position = 11
+		required_missions = { nippon_first_descent }
+		trigger = {
+			war_nippon_restored = yes
+			war_nippon_underworld_victory = yes
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				continent = underempire
+				is_city = yes
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = { name = nippon_burrow_kings_reward duration = -1 }
+		}
+	}
+
+	# Concept: The men who fought below the earth possess lessons that no isolated clan school could have taught. We must bring that experience into an imperial system of training and preserve it beyond one generation.
+	# Reward Weighing Value: 5.
+	nippon_imperial_sword_schools = {
+		icon = mission_nippon_sword_schools
+		position = 12
+		required_missions = { nippon_burrow_kings }
+		trigger = {
+			war_nippon_restored = yes
+			OR = { army_professionalism = 0.50 has_country_modifier = war_modern_army }
+			army_tradition = 60
+		}
+		effect = {
+			add_country_modifier = { name = nippon_imperial_sword_schools_reward duration = -1 }
+		}
+	}
+
+	# Concept: Our warriors have carried their discipline into caverns and distant campaigns that defeated the methods of the old clan armies. We must turn that experience into an elite force whose reputation rests on practiced excellence.
+	# Reward Weighing Value: 5.
+	nippon_rising_sword = {
+		icon = mission_cathay_flag
+		position = 14
+		required_missions = { nippon_imperial_sword_schools nippon_deep_dawn }
+		trigger = {
+			war_nippon_restored = yes
+			OR = { army_professionalism = 0.75 has_country_modifier = war_modern_army }
+			num_of_regiments_at_full_drill = 30
+			army_tradition = 75
+		}
+		effect = {
+			add_country_modifier = { name = nippon_rising_sword_reward duration = -1 }
+		}
+	}
+}
+
+nippon_missions_3 = {
+	slot = 3
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_nippon_capital_in_region = yes
+	}
+
+	# Concept: Officials still invoke imperial seals whose registers were lost during the feuds. We must rebuild the institutions that preserve these records and give the court a seat capable of enforcing them.
+	# Reward Weighing Value: 1.
+	nippon_imperial_seals = {
+		icon = mission_moot_ledgers
+		position = 1
+		required_missions = {  }
+		trigger = {
+			num_of_owned_provinces_with = {
+				region = nippon_region
+				OR = { has_building = temple has_building = cathedral }
+				value = 2
+			}
+			capital_scope = { development = 15 }
+		}
+		effect = {
+			add_dip_power = 50
+		}
+	}
+
+	# Concept: Every clan keeps its own account of promises broken during the civil wars. We must obtain public commitments from surviving neighbours, or bring their domains under a government they can no longer defy.
+	# Reward Weighing Value: 1.
+	nippon_clan_envoys = {
+		icon = mission_araby_talking
+		position = 2
+		required_missions = { nippon_imperial_seals }
+		trigger = {
+			OR = {
+				calc_true_if = {
+					all_country = {
+						NOT = { tag = ROOT }
+						is_subject = no
+						capital_scope = { region = nippon_region }
+						has_opinion = { who = ROOT value = 100 }
+					}
+					amount = 2
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					region = nippon_region
+					value = 8
+				}
+			}
+			prestige = 10
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+		}
+	}
+
+	# Concept: Temples, officials, and warrior houses issue commands that cancel one another before they reach the provinces. We must establish a durable settlement at court and the authority to enforce it.
+	# Reward Weighing Value: 5.
+	nippon_pacify_court = {
+		icon = mission_high_elf_court
+		position = 4
+		required_missions = { nippon_clan_envoys nippon_officer_oaths }
+		trigger = {
+			stability = 2
+			crown_land_share = 40
+		}
+		effect = {
+			add_country_modifier = { name = nippon_pacify_court_reward duration = -1 }
+		}
+	}
+
+	# Concept: Imperial decrees and military commands have again begun to reach the same castles, but their authority remains unsettled. We must decide how the sword will uphold the seal before the reunification can endure.
+	# Reward Weighing Value: 5.
+	nippon_sword_seal = {
+		icon = mission_nippon_sword_seal
+		position = 5
+		required_missions = { nippon_pacify_court }
+		trigger = {
+			government_rank = 2
+			OR = { legitimacy = 75 republican_tradition = 75 devotion = 75 horde_unity = 75 meritocracy = 75 }
+		}
+		effect = {
+			country_event = { id = war_nippon_missions.1 }
+		}
+	}
+
+	# Concept: The surviving domains can no longer sustain the pretence that Nippon is merely a gathering of rival courts. We must proclaim Grand Nippon through the existing formation decision and restore a single imperial authority.
+	# Reward Weighing Value: 5.
+	nippon_grand_nippon = {
+		icon = mission_nippon_grand_nippon
+		position = 7
+		required_missions = { nippon_sword_seal nippon_reunification_army }
+		trigger = {
+			war_nippon_restored = yes
+			is_at_war = no
+		}
+		effect = {
+			add_country_modifier = { name = nippon_grand_nippon_reward duration = -1 }
+		}
+	}
+
+	# Concept: Our seals now bind the islands, but foreign courts still address us as one claimant among many. We must secure recognition beyond Nippon and choose how that standing will serve the restored empire.
+	# Reward Weighing Value: 5.
+	nippon_acknowledged = {
+		icon = mission_moot_charter
+		position = 8
+		required_missions = { nippon_grand_nippon }
+		trigger = {
+			calc_true_if = {
+				all_country = {
+					NOT = { tag = ROOT }
+					is_subject = no
+					NOT = { capital_scope = { region = nippon_region } }
+					total_development = 50
+					has_opinion = { who = ROOT value = 125 }
+				}
+				amount = 3
+			}
+			diplomatic_reputation = 2
+		}
+		effect = {
+			country_event = { id = war_nippon_missions.2 }
+		}
+	}
+
+	# Concept: Reunification has placed incompatible surveys and tax registers under one government. We must extend cultivation and reconcile the records so that the empire can support its new ambitions.
+	# Reward Weighing Value: 1.
+	nippon_reunited_survey = {
+		icon = mission_moot_grain
+		position = 9
+		required_missions = { nippon_acknowledged }
+		trigger = {
+			war_nippon_restored = yes
+			grown_by_development = 150
+			num_of_owned_provinces_with = {
+				region = nippon_region
+				base_production = 5
+				value = 5
+			}
+		}
+		effect = {
+			add_adm_power = 50
+		}
+	}
+
+	# Concept: A restored empire needs magistrates, scholars, and prosperous towns as surely as it needs swords. We must deepen learning and develop cities where those arts can flourish.
+	# Reward Weighing Value: 5.
+	nippon_arts_of_peace = {
+		icon = mission_araby_scholar
+		position = 10
+		required_missions = { nippon_reunited_survey }
+		trigger = {
+			war_nippon_restored = yes
+			num_of_total_ideas = 14
+			num_of_owned_provinces_with = {
+				region = nippon_region
+				development = 25
+				prosperity = 50
+				value = 3
+			}
+		}
+		effect = {
+			add_country_modifier = { name = nippon_arts_of_peace_reward duration = -1 }
+		}
+	}
+
+	# Concept: Distant armies and growing ports now demand more than the old castle workshops can supply. We must establish industries across the homeland that can sustain imperial service and civilian prosperity alike.
+	# Reward Weighing Value: 5.
+	nippon_imperial_workshops = {
+		icon = mission_nippon_imperial_workshops
+		position = 11
+		required_missions = { nippon_arts_of_peace }
+		trigger = {
+			war_nippon_restored = yes
+			num_of_owned_provinces_with = {
+				region = nippon_region
+				war_nippon_manufactory = yes
+				value = 5
+			}
+			num_of_owned_provinces_with = {
+				region = nippon_region
+				base_production = 8
+				value = 3
+			}
+		}
+		effect = {
+			add_country_modifier = { name = nippon_imperial_workshops_reward duration = -1 }
+		}
+	}
+
+	# Concept: Our rulers have recovered the authority of their predecessors, but the imperial seat still bears the marks of decline. We must restore the great palaces and build a city worthy of the realm they now govern.
+	# Reward Weighing Value: 5.
+	nippon_imperial_palaces = {
+		icon = mission_nippon_imperial_palaces
+		position = 13
+		required_missions = { nippon_imperial_workshops }
+		trigger = {
+			war_nippon_restored = yes
+			4780 = { owned_by = ROOT development = 40 has_great_project = { type = nippon_imperial_palaces tier = 3 } }
+			capital_scope = { province_id = 4780 }
+		}
+		effect = {
+			add_country_modifier = { name = nippon_imperial_palaces_reward duration = -1 }
+		}
+	}
+
+	# Concept: Foreign envoys now come to Nippon seeking decisions that matter beyond our islands. We must sustain a court whose reputation, ceremony, and reliability make those embassies worth maintaining.
+	# Reward Weighing Value: 5.
+	nippon_hundred_banners = {
+		icon = mission_nippon_hundred_banners
+		position = 14
+		required_missions = { nippon_imperial_palaces }
+		trigger = {
+			war_nippon_restored = yes
+			calc_true_if = {
+				all_country = {
+					NOT = { tag = ROOT }
+					is_subject = no
+					NOT = { capital_scope = { region = nippon_region } }
+					total_development = 100
+					has_opinion = { who = ROOT value = 150 }
+				}
+				amount = 4
+			}
+			prestige = 75
+			diplomatic_reputation = 5
+		}
+		effect = {
+			add_country_modifier = { name = nippon_hundred_banners_reward duration = -1 }
+		}
+	}
+
+	# Concept: The old empire is no longer the measure of what Nippon can become. With its court restored, its warriors tested, and its authority carried beneath the earth and across the sea, we must claim a place among the foremost powers of the world.
+	# Reward Weighing Value: 40.
+	nippon_second_dawn = {
+		icon = mission_nippon_second_dawn
+		position = 15
+		required_missions = { nippon_hundred_banners nippon_rising_sword nippon_ancient_powers }
+		trigger = {
+			war_nippon_restored = yes
+			is_great_power = yes
+			NOT = { great_power_rank = 3 }
+			total_own_and_non_tributary_subject_development = 1500
+			prestige = 100
+		}
+		effect = {
+			add_country_modifier = { name = nippon_second_dawn_reward duration = -1 }
+		}
+	}
+}
+
+nippon_missions_4 = {
+	slot = 4
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_nippon_capital_in_region = yes
+	}
+
+	# Concept: Cathayan courts have learned to treat our quarrelling lords as petitioners and convenient clients. We must learn who commands their coast before presenting demands of our own.
+	# Reward Weighing Value: 1.
+	nippon_measure_dragon = {
+		icon = mission_cathay_culture
+		position = 2
+		required_missions = { nippon_imperial_seals }
+		trigger = {
+			OR = {
+				any_country = { capital_scope = { superregion = cathay_superregion }
+					OR = { has_spy_network_from = { who = ROOT value = 25 } has_opinion = { who = ROOT value = 100 } }
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					superregion = cathay_superregion
+					has_port = yes
+					value = 1
+				}
+			}
+		}
+		effect = {
+			add_dip_power = 50
+		}
+	}
+
+	# Concept: Cathayan protocol still places our envoys beneath rulers whose fleets once profited from our weakness. We must present a court and a navy that make such treatment costly.
+	# Reward Weighing Value: 5.
+	nippon_no_tribute = {
+		icon = mission_cathay_dragon_blooded
+		position = 5
+		required_missions = { nippon_measure_dragon nippon_pacify_court }
+		trigger = {
+			diplomatic_reputation = 2
+			num_of_heavy_ship = 3
+		}
+		effect = {
+			add_country_modifier = { name = nippon_no_tribute_reward duration = -1 }
+		}
+	}
+
+	# Concept: Our ships can cross to Cathay, but they have no safe place to repair or disembark an army. We must secure a defended mainland harbour from which our demands carry weight.
+	# Reward Weighing Value: 5.
+	nippon_cathayan_harbour = {
+		icon = mission_cathayan_outpost
+		position = 6
+		required_missions = { nippon_no_tribute }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				superregion = cathay_superregion
+				has_port = yes
+				war_nippon_fort = yes
+				value = 1
+			}
+			num_of_transport = 10
+		}
+		effect = {
+			add_country_modifier = { name = nippon_cathayan_harbour_reward duration = -1 }
+		}
+	}
+
+	# Concept: Cathayan ministers have measured our petitions for generations without measuring the men who carry them. We must win a war worthy of imperial notice and establish that the eastern sea has two powers.
+	# Reward Weighing Value: 5.
+	nippon_humble_dragon = {
+		icon = mission_red_asian_dragon
+		position = 8
+		required_missions = { nippon_cathayan_harbour nippon_grand_nippon }
+		trigger = {
+			war_nippon_cathayan_victory = yes
+			prestige = 50
+		}
+		effect = {
+			add_country_modifier = { name = nippon_humble_dragon_reward duration = -1 }
+		}
+	}
+
+	# Concept: Victories along the eastern coast have opened a horizon our divided clans could never pursue. We must adopt the first Exploration idea and build ocean-going yards before chartering permanent expeditions.
+	# Reward Weighing Value: 10.
+	nippon_ocean_charters = {
+		icon = mission_high_elf_flagship
+		position = 9
+		required_missions = { nippon_humble_dragon nippon_acknowledged }
+		trigger = {
+			war_nippon_restored = yes
+			has_idea = quest_for_the_new_world
+			num_of_owned_provinces_with = {
+				region = nippon_region
+				has_port = yes
+				OR = { has_building = shipyard has_building = grand_shipyard }
+				value = 3
+			}
+		}
+		effect = {
+			add_country_modifier = { name = nippon_ocean_charters_reward duration = -1 }
+		}
+	}
+
+	# Concept: Our new ships still depend on charts copied from uncertain accounts. We must cultivate a trusted foreign maritime partner and turn borrowed knowledge into practiced navigation.
+	# Reward Weighing Value: 1.
+	nippon_foreign_pilots = {
+		icon = mission_high_elf_allies
+		position = 10
+		required_missions = { nippon_ocean_charters }
+		trigger = {
+			war_nippon_restored = yes
+			any_country = {
+				NOT = { tag = ROOT }
+				NOT = { capital_scope = { region = nippon_region } }
+				capital_scope = { has_port = yes }
+				alliance_with = ROOT
+				trust = { who = ROOT value = 60 }
+			}
+			navy_tradition = 25
+		}
+		effect = {
+			add_dip_power = 50
+		}
+	}
+
+	# Concept: Nipponese merchants have long sought a place among the trading houses of the western world. We must sustain an embassy at Marienburg, or an equivalent surviving western port, and make its court a dependable partner.
+	# Reward Weighing Value: 1.
+	nippon_nipponsstad = {
+		icon = mission_high_elf_old_world_map
+		position = 12
+		required_missions = { nippon_foreign_pilots nippon_overseas_han }
+		trigger = {
+			war_nippon_restored = yes
+			any_country = {
+				NOT = { tag = ROOT }
+				is_subject = no
+				capital_scope = { continent = europe has_port = yes }
+				alliance_with = ROOT
+				has_opinion = { who = ROOT value = 150 }
+				trust = { who = ROOT value = 60 }
+			}
+			diplomatic_reputation = 3
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+		}
+	}
+
+	# Concept: Our distant domains have made Nippon impossible to dismiss, but lasting standing requires durable partners. We must bind major foreign powers to relationships that can survive the end of a single campaign.
+	# Reward Weighing Value: 5.
+	nippon_ancient_powers = {
+		icon = mission_high_elf_ulthuan_map
+		position = 14
+		required_missions = { nippon_nipponsstad nippon_nippon_beyond_sea }
+		trigger = {
+			war_nippon_restored = yes
+			calc_true_if = {
+				all_country = {
+					NOT = { tag = ROOT }
+					is_subject = no
+					NOT = { capital_scope = { region = nippon_region } }
+					total_development = 300
+					alliance_with = ROOT
+					trust = { who = ROOT value = 75 }
+				}
+				amount = 2
+			}
+			num_of_continents = 3
+		}
+		effect = {
+			add_country_modifier = { name = nippon_ancient_powers_reward duration = -1 }
+		}
+	}
+}
+
+nippon_missions_5 = {
+	slot = 5
+	generic = yes
+	has_country_shield = no
+	ai = yes
+	potential = {
+		war_mission_priority_1 = no
+		war_mission_priority_2 = no
+		war_mission_priority_3 = no
+		war_nippon_capital_in_region = yes
+	}
+
+	# Concept: Rotting slips and unpaid crews have left our ports dependent on foreign protection. We must rebuild the docks and place a seaworthy fleet at the service of the realm.
+	# Reward Weighing Value: 1.
+	nippon_war_harbours = {
+		icon = mission_high_elf_docks
+		position = 3
+		required_missions = {  }
+		trigger = {
+			num_of_owned_provinces_with = {
+				region = nippon_region
+				has_port = yes
+				OR = { has_building = dock has_building = drydock }
+				value = 2
+			}
+			navy_size_percentage = 0.75
+		}
+		effect = {
+			add_years_of_income = 0.5
+		}
+	}
+
+	# Concept: Each disputed anchorage gives raiders another place to provision and merchants another reason to stay away. We must protect the ships that carry rice, weapons, and revenue between our ports.
+	# Reward Weighing Value: 1.
+	nippon_inland_sea = {
+		icon = mission_ind_ship
+		position = 4
+		required_missions = { nippon_war_harbours }
+		trigger = {
+			home_trade_node = { trade_share = { country = ROOT share = 40 } }
+			num_of_light_ship = 5
+		}
+		effect = {
+			add_dip_power = 50
+		}
+	}
+
+	# Concept: Khureshi raiders know which harbours change hands with every clan war. We must learn the routes to their own shore and prepare ships that can carry the contest back to them.
+	# Reward Weighing Value: 1.
+	nippon_serpent_sea = {
+		icon = mission_ind_jungle
+		position = 6
+		required_missions = { nippon_inland_sea nippon_no_tribute }
+		trigger = {
+			OR = {
+				any_province = { OR = { region = north_khuresh_region region = south_khuresh_region }
+					has_port = yes
+					is_discovered_by = ROOT }
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					OR = { region = north_khuresh_region region = south_khuresh_region }
+					value = 1
+				}
+			}
+			num_of_transport = 15
+		}
+		effect = {
+			add_mil_power = 50
+		}
+	}
+
+	# Concept: The serpent courts have mistaken our divisions for a permanent weakness. We must defeat a substantial Khureshi power and secure a coastal base that makes renewed predation dangerous.
+	# Reward Weighing Value: 5.
+	nippon_serpent_court = {
+		icon = mission_ind_jungle_ruins
+		position = 7
+		required_missions = { nippon_serpent_sea }
+		trigger = {
+			war_nippon_khureshi_victory = yes
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = { region = north_khuresh_region region = south_khuresh_region }
+				has_port = yes
+				is_city = yes
+				value = 1
+			}
+		}
+		effect = {
+			add_country_modifier = { name = nippon_serpent_court_reward duration = -1 }
+		}
+	}
+
+	# Concept: The sea beyond the familiar islands is beginning to acquire names on our charts. We must find a coast suitable for settlement and sustain a fleet capable of reaching it again.
+	# Reward Weighing Value: 1.
+	nippon_beyond_sunrise = {
+		icon = mission_high_elf_lustria_map
+		position = 10
+		required_missions = { nippon_serpent_court nippon_ocean_charters }
+		trigger = {
+			war_nippon_restored = yes
+			any_province = { war_nippon_new_world_province = yes has_port = yes is_discovered_by = ROOT }
+			num_of_heavy_ship = 5
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+		}
+	}
+
+	# Concept: Our first settlers have survived long enough to ask who will govern the towns they are building. We must complete a lasting colonial settlement and decide whether its future rests with governors or chartered merchants.
+	# Reward Weighing Value: 5.
+	nippon_overseas_han = {
+		icon = mission_nippon_overseas_han
+		position = 11
+		required_missions = { nippon_beyond_sunrise }
+		trigger = {
+			war_nippon_restored = yes
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				war_nippon_new_world_settlement = yes
+				value = 1
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				war_nippon_new_world_settlement = yes
+				has_port = yes
+				OR = { has_building = marketplace has_building = trade_depot has_building = stock_exchange }
+				value = 1
+			}
+		}
+		effect = {
+			country_event = { id = war_nippon_missions.4 }
+		}
+	}
+
+	# Concept: A lone overseas domain cannot protect the routes on which it depends. We must establish several completed settlements and develop ports that can supply one another across the ocean.
+	# Reward Weighing Value: 5.
+	nippon_ocean_towns = {
+		icon = mission_skeggi_castle_canal
+		position = 12
+		required_missions = { nippon_overseas_han }
+		trigger = {
+			war_nippon_restored = yes
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				war_nippon_new_world_settlement = yes
+				value = 5
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				war_nippon_new_world_settlement = yes
+				has_port = yes
+				OR = { has_building = dock has_building = drydock }
+				value = 3
+			}
+		}
+		effect = {
+			add_country_modifier = { name = nippon_ocean_towns_reward duration = -1 }
+		}
+	}
+
+	# Concept: The overseas towns now contain families who know Nippon through the laws, letters, and ships we send them. We must give those settlements prosperity and dependable government without allowing distance to dissolve their loyalty.
+	# Reward Weighing Value: 5.
+	nippon_nippon_beyond_sea = {
+		icon = mission_skeggi_amaxon_river
+		position = 13
+		required_missions = { nippon_ocean_towns }
+		trigger = {
+			war_nippon_restored = yes
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				war_nippon_new_world_province = yes
+				is_city = yes
+				war_nippon_controlled_province = yes
+				value = 15
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				war_nippon_new_world_settlement = yes
+				value = 10
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				war_nippon_new_world_settlement = yes
+				development = 15
+				OR = { has_building = marketplace has_building = trade_depot has_building = stock_exchange }
+				value = 3
+			}
+		}
+		effect = {
+			add_country_modifier = { name = nippon_nippon_beyond_sea_reward duration = -1 }
+		}
+	}
+}

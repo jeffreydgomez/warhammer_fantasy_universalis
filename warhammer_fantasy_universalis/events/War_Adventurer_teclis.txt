@@ -1,0 +1,1395 @@
+namespace = war_adventurer_teclis
+
+# Generated from Dev Stuff/Adventurers/event_data.json; edit that authored source.
+# Budget source: Dev Stuff/Examples/Balance Guide.txt. No MTTH.
+
+# TEC-FH01: The Scar of Finuval. Intended event Weighing Value: +2. Lore: L1.
+country_event = {
+	id = war_adventurer_teclis.1
+	title = war_adventurer_teclis.1.t
+	desc = war_adventurer_teclis.1.d
+	picture = WAR_ADVENTURER_TEC_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_teclis = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_teclis
+		    war_adventurer_ready = yes
+		    war_adventurer_teclis_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_teclis = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Close the site for scholarly study. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_teclis.1.option_a
+		ai_chance = { factor = 1 }
+		add_adm_power = 50
+		change_innovativeness = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Consecrate a safe memorial. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_teclis.1.option_b
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 50 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Pay veteran wardens to train our officers at the site. Option Weighing Value: +1.5.
+	option = {
+		name = war_adventurer_teclis.1.option_c
+		ai_chance = { factor = 1 }
+		add_mil_power = 100
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_teclis }
+					war_adventurer_move = { MODIFIER = war_adventurer_teclis LOCATION = war_adventurer_location_teclis BEER = no ARRIVAL_EVENT = war_adventurer_teclis.21 }
+				}
+			}
+		}
+	}
+}
+
+# TEC-FH02: Students from the Human Lands. Intended event Weighing Value: +1. Lore: L3.
+country_event = {
+	id = war_adventurer_teclis.2
+	title = war_adventurer_teclis.2.t
+	desc = war_adventurer_teclis.2.d
+	picture = WAR_ADVENTURER_TEC_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_teclis = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_teclis
+		    war_adventurer_ready = yes
+		    war_adventurer_teclis_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+			has_port = yes
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_teclis = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Endorse the exchange. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_teclis.2.option_a
+		ai_chance = { factor = 1 }
+		add_dip_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Circulate corrected manuals. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_teclis.2.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Restrict attendance but retain the findings. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_teclis.2.option_c
+		ai_chance = { factor = 1 }
+		change_innovativeness = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_teclis }
+					war_adventurer_move = { MODIFIER = war_adventurer_teclis LOCATION = war_adventurer_location_teclis BEER = no ARRIVAL_EVENT = war_adventurer_teclis.21 }
+				}
+			}
+		}
+	}
+}
+
+# TEC-FH03: The Old Alliance's Dispatches. Intended event Weighing Value: +1. Lore: L2.
+country_event = {
+	id = war_adventurer_teclis.3
+	title = war_adventurer_teclis.3.t
+	desc = war_adventurer_teclis.3.d
+	picture = WAR_ADVENTURER_TEC_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_teclis = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_teclis
+		    war_adventurer_ready = yes
+		    war_adventurer_teclis_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_teclis = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Train investigators from the evidence. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_teclis.3.option_a
+		ai_chance = { factor = 1 }
+		add_adm_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Distribute warnings to captains. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_teclis.3.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_teclis }
+					war_adventurer_move = { MODIFIER = war_adventurer_teclis LOCATION = war_adventurer_location_teclis BEER = no ARRIVAL_EVENT = war_adventurer_teclis.21 }
+				}
+			}
+		}
+	}
+}
+
+# TEC-FH04: Mud from Albion. Intended event Weighing Value: +2. Lore: L4.
+country_event = {
+	id = war_adventurer_teclis.4
+	title = war_adventurer_teclis.4.t
+	desc = war_adventurer_teclis.4.d
+	picture = WAR_ADVENTURER_TEC_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_teclis = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_teclis
+		    war_adventurer_ready = yes
+		    war_adventurer_teclis_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_teclis = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Finance a survey. Option Weighing Value: +1.5.
+	option = {
+		name = war_adventurer_teclis.4.option_a
+		ai_chance = { factor = 1 }
+		change_innovativeness = 2
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Share findings with allied scholars. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_teclis.4.option_b
+		ai_chance = { factor = 1 }
+		add_dip_power = 50
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Secure the stone in a guarded archive. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_teclis.4.option_c
+		ai_chance = { factor = 1 }
+		add_adm_power = 100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_teclis }
+					war_adventurer_move = { MODIFIER = war_adventurer_teclis LOCATION = war_adventurer_location_teclis BEER = no ARRIVAL_EVENT = war_adventurer_teclis.21 }
+				}
+			}
+		}
+	}
+}
+
+# TEC-FH05: A Ward Without a Master. Intended event Weighing Value: +1. Lore: L3.
+country_event = {
+	id = war_adventurer_teclis.5
+	title = war_adventurer_teclis.5.t
+	desc = war_adventurer_teclis.5.d
+	picture = WAR_ADVENTURER_TEC_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_teclis = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_teclis
+		    war_adventurer_ready = yes
+		    war_adventurer_teclis_home = yes
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_teclis = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Appoint the novice with oversight. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_teclis.5.option_a
+		ai_chance = { factor = 1 }
+		add_adm_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reward the custodians for adopting the correction. Option Weighing Value: +0.5.
+	option = {
+		name = war_adventurer_teclis.5.option_b
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Keep the custodians and reopen the protected precinct. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_teclis.5.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_teclis }
+					war_adventurer_move = { MODIFIER = war_adventurer_teclis LOCATION = war_adventurer_location_teclis BEER = no ARRIVAL_EVENT = war_adventurer_teclis.21 }
+				}
+			}
+		}
+	}
+}
+
+# TEC-FA01: The Unlicensed School. Intended event Weighing Value: +2. Lore: L3.
+country_event = {
+	id = war_adventurer_teclis.6
+	title = war_adventurer_teclis.6.t
+	desc = war_adventurer_teclis.6.d
+	picture = WAR_ADVENTURER_TEC_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_teclis = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_teclis
+		    war_adventurer_ready = yes
+		    war_adventurer_teclis_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_teclis = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Charter supervised instruction. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_teclis.6.option_a
+		ai_chance = { factor = 1 }
+		change_innovativeness = 1
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Place pupils under existing tutors. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_teclis.6.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = 100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Close the school but preserve its methods. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_teclis.6.option_c
+		ai_chance = { factor = 1 }
+		change_innovativeness = 2
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_teclis }
+					war_adventurer_move = { MODIFIER = war_adventurer_teclis LOCATION = war_adventurer_location_teclis BEER = no ARRIVAL_EVENT = war_adventurer_teclis.21 }
+				}
+			}
+		}
+	}
+}
+
+# TEC-FA02: A Second Magnus. Intended event Weighing Value: +1. Lore: L2.
+country_event = {
+	id = war_adventurer_teclis.7
+	title = war_adventurer_teclis.7.t
+	desc = war_adventurer_teclis.7.d
+	picture = WAR_ADVENTURER_TEC_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_teclis = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_teclis
+		    war_adventurer_ready = yes
+		    war_adventurer_teclis_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_teclis = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Reward the defenders. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_teclis.7.option_a
+		ai_chance = { factor = 1 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Adopt the recommended drills. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_teclis.7.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Fund a recovery station and return fit soldiers to duty. Option Weighing Value: +0.5.
+	option = {
+		name = war_adventurer_teclis.7.option_c
+		ai_chance = { factor = 1 }
+		add_yearly_manpower = 0.5
+		event_target:war_adventurer_province = {
+			add_base_tax = 1
+		}
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_teclis }
+					war_adventurer_move = { MODIFIER = war_adventurer_teclis LOCATION = war_adventurer_location_teclis BEER = no ARRIVAL_EVENT = war_adventurer_teclis.21 }
+				}
+			}
+		}
+	}
+}
+
+# TEC-FA03: Stones Beneath the Orchard. Intended event Weighing Value: +1. Lore: L4.
+country_event = {
+	id = war_adventurer_teclis.8
+	title = war_adventurer_teclis.8.t
+	desc = war_adventurer_teclis.8.d
+	picture = WAR_ADVENTURER_TEC_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_teclis = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_teclis
+		    war_adventurer_ready = yes
+		    war_adventurer_teclis_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_teclis = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Pay for a protected survey. Option Weighing Value: +0.5.
+	option = {
+		name = war_adventurer_teclis.8.option_a
+		ai_chance = { factor = 1 }
+		add_adm_power = 50
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Compensate the farmers and restore cultivation around the marker. Option Weighing Value: +0.5.
+	option = {
+		name = war_adventurer_teclis.8.option_b
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
+		add_years_of_income = -0.25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_teclis }
+					war_adventurer_move = { MODIFIER = war_adventurer_teclis LOCATION = war_adventurer_location_teclis BEER = no ARRIVAL_EVENT = war_adventurer_teclis.21 }
+				}
+			}
+		}
+	}
+}
+
+# TEC-FA04: The Foreign Court's Duel. Intended event Weighing Value: +2. Lore: L1.
+country_event = {
+	id = war_adventurer_teclis.9
+	title = war_adventurer_teclis.9.t
+	desc = war_adventurer_teclis.9.d
+	picture = WAR_ADVENTURER_TEC_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_teclis = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_teclis
+		    war_adventurer_ready = yes
+		    war_adventurer_teclis_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_teclis = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Expose the plot. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_teclis.9.option_a
+		ai_chance = { factor = 1 }
+		add_dip_power = 50
+		add_prestige_or_monarch_power = { amount = 25 }
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Quietly dismantle its network. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_teclis.9.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = 100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Ransom implicated intermediaries. Option Weighing Value: +2.
+	option = {
+		name = war_adventurer_teclis.9.option_c
+		ai_chance = { factor = 1 }
+		add_years_of_income = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_teclis }
+					war_adventurer_move = { MODIFIER = war_adventurer_teclis LOCATION = war_adventurer_location_teclis BEER = no ARRIVAL_EVENT = war_adventurer_teclis.21 }
+				}
+			}
+		}
+	}
+}
+
+# TEC-FA05: The Translator of Eight Winds. Intended event Weighing Value: +1. Lore: L3.
+country_event = {
+	id = war_adventurer_teclis.10
+	title = war_adventurer_teclis.10.t
+	desc = war_adventurer_teclis.10.d
+	picture = WAR_ADVENTURER_TEC_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_teclis = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_teclis
+		    war_adventurer_ready = yes
+		    war_adventurer_teclis_home = no
+		    owner = { war_adventurer_enemy_a = no }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_teclis = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Publish the translation. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_teclis.10.option_a
+		ai_chance = { factor = 1 }
+		change_innovativeness = 1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# License reliable practitioners. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_teclis.10.option_b
+		ai_chance = { factor = 1 }
+		add_years_of_income = 0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Ask the guild to reform itself. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_teclis.10.option_c
+		ai_chance = { factor = 1 }
+		add_adm_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Retain it privately. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_teclis.10.option_d
+		ai_chance = { factor = 1 }
+		add_adm_power = 50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_teclis }
+					war_adventurer_move = { MODIFIER = war_adventurer_teclis LOCATION = war_adventurer_location_teclis BEER = no ARRIVAL_EVENT = war_adventurer_teclis.21 }
+				}
+			}
+		}
+	}
+}
+
+# TEC-EH01: The Unravelling at Dawn. Intended event Weighing Value: -2. Lore: L1.
+country_event = {
+	id = war_adventurer_teclis.11
+	title = war_adventurer_teclis.11.t
+	desc = war_adventurer_teclis.11.d
+	picture = WAR_ADVENTURER_TEC_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_teclis = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_teclis
+		    war_adventurer_ready = yes
+		    war_adventurer_teclis_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_teclis = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace the wards with mundane works. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_teclis.11.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Rebuild discipline and supply. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_teclis.11.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Pull back from the damaged perimeter. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_teclis.11.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_teclis }
+					war_adventurer_move = { MODIFIER = war_adventurer_teclis LOCATION = war_adventurer_location_teclis BEER = no ARRIVAL_EVENT = war_adventurer_teclis.21 }
+				}
+			}
+		}
+	}
+}
+
+# TEC-EH02: The Missing Novices. Intended event Weighing Value: -1. Lore: L3.
+country_event = {
+	id = war_adventurer_teclis.12
+	title = war_adventurer_teclis.12.t
+	desc = war_adventurer_teclis.12.d
+	picture = WAR_ADVENTURER_TEC_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_teclis = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_teclis
+		    war_adventurer_ready = yes
+		    war_adventurer_teclis_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_teclis = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Recruit replacements. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_teclis.12.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reorganize the institution. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_teclis.12.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_teclis }
+					war_adventurer_move = { MODIFIER = war_adventurer_teclis LOCATION = war_adventurer_location_teclis BEER = no ARRIVAL_EVENT = war_adventurer_teclis.21 }
+				}
+			}
+		}
+	}
+}
+
+# TEC-EH03: Letters to the Resistance. Intended event Weighing Value: -1. Lore: L2.
+country_event = {
+	id = war_adventurer_teclis.13
+	title = war_adventurer_teclis.13.t
+	desc = war_adventurer_teclis.13.d
+	picture = WAR_ADVENTURER_TEC_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_teclis = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_teclis
+		    war_adventurer_ready = yes
+		    war_adventurer_teclis_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_teclis = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Change the routes and codes. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_teclis.13.option_a
+		ai_chance = { factor = 1 }
+		add_mil_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Confiscate the correspondence. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_teclis.13.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -25
+		add_prestige = -12.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Concede a public failure. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_teclis.13.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_teclis }
+					war_adventurer_move = { MODIFIER = war_adventurer_teclis LOCATION = war_adventurer_location_teclis BEER = no ARRIVAL_EVENT = war_adventurer_teclis.21 }
+				}
+			}
+		}
+	}
+}
+
+# TEC-EH04: The Stone That Refused Us. Intended event Weighing Value: -2. Lore: L4.
+country_event = {
+	id = war_adventurer_teclis.14
+	title = war_adventurer_teclis.14.t
+	desc = war_adventurer_teclis.14.d
+	picture = WAR_ADVENTURER_TEC_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_teclis = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_teclis
+		    war_adventurer_ready = yes
+		    war_adventurer_teclis_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_teclis = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Relocate the project. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_teclis.14.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Stabilize the ground. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_teclis.14.option_b
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Abandon the workings. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_teclis.14.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_teclis }
+					war_adventurer_move = { MODIFIER = war_adventurer_teclis LOCATION = war_adventurer_location_teclis BEER = no ARRIVAL_EVENT = war_adventurer_teclis.21 }
+				}
+			}
+		}
+	}
+}
+
+# TEC-EH05: A Crown's Forbidden Formula. Intended event Weighing Value: -1. Lore: L1, L3.
+country_event = {
+	id = war_adventurer_teclis.15
+	title = war_adventurer_teclis.15.t
+	desc = war_adventurer_teclis.15.d
+	picture = WAR_ADVENTURER_TEC_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_teclis = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_teclis
+		    war_adventurer_ready = yes
+		    war_adventurer_teclis_home = yes
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_teclis = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Acknowledge the risk. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_teclis.15.option_a
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Purge the compromised archive. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_teclis.15.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Pay for an independent inquiry. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_teclis.15.option_c
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_teclis }
+					war_adventurer_move = { MODIFIER = war_adventurer_teclis LOCATION = war_adventurer_location_teclis BEER = no ARRIVAL_EVENT = war_adventurer_teclis.21 }
+				}
+			}
+		}
+	}
+}
+
+# TEC-EA01: The Empty Reliquary. Intended event Weighing Value: -1. Lore: L4.
+country_event = {
+	id = war_adventurer_teclis.16
+	title = war_adventurer_teclis.16.t
+	desc = war_adventurer_teclis.16.d
+	picture = WAR_ADVENTURER_TEC_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_teclis = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_teclis
+		    war_adventurer_ready = yes
+		    war_adventurer_teclis_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_teclis = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Admit the relic was unsafe. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_teclis.16.option_a
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Purchase a replacement symbol. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_teclis.16.option_b
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Investigate the keeper's patrons. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_teclis.16.option_c
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_teclis }
+					war_adventurer_move = { MODIFIER = war_adventurer_teclis LOCATION = war_adventurer_location_teclis BEER = no ARRIVAL_EVENT = war_adventurer_teclis.21 }
+				}
+			}
+		}
+	}
+}
+
+# TEC-EA02: An Enemy's Apprentices. Intended event Weighing Value: -2. Lore: L3.
+country_event = {
+	id = war_adventurer_teclis.17
+	title = war_adventurer_teclis.17.t
+	desc = war_adventurer_teclis.17.d
+	picture = WAR_ADVENTURER_TEC_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_teclis = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_teclis
+		    war_adventurer_ready = yes
+		    war_adventurer_teclis_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_teclis = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Compensate affected households. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_teclis.17.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Reorganize the office. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_teclis.17.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Suppress the testimony. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_teclis.17.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 25
+		}
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_teclis }
+					war_adventurer_move = { MODIFIER = war_adventurer_teclis LOCATION = war_adventurer_location_teclis BEER = no ARRIVAL_EVENT = war_adventurer_teclis.21 }
+				}
+			}
+		}
+	}
+}
+
+# TEC-EA03: A Battle Already Lost. Intended event Weighing Value: -2. Lore: L1.
+country_event = {
+	id = war_adventurer_teclis.18
+	title = war_adventurer_teclis.18.t
+	desc = war_adventurer_teclis.18.d
+	picture = WAR_ADVENTURER_TEC_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_teclis = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_teclis
+		    war_adventurer_ready = yes
+		    war_adventurer_teclis_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_teclis = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Restore equipment and pay. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_teclis.18.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -1
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Conduct emergency drills. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_teclis.18.option_b
+		ai_chance = { factor = 1 }
+		add_mil_power = -100
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Withdraw from the exposed district. Option Weighing Value: -2.
+	option = {
+		name = war_adventurer_teclis.18.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_teclis }
+					war_adventurer_move = { MODIFIER = war_adventurer_teclis LOCATION = war_adventurer_location_teclis BEER = no ARRIVAL_EVENT = war_adventurer_teclis.21 }
+				}
+			}
+		}
+	}
+}
+
+# TEC-EA04: The Coalition He Left Behind. Intended event Weighing Value: -1. Lore: L2.
+country_event = {
+	id = war_adventurer_teclis.19
+	title = war_adventurer_teclis.19.t
+	desc = war_adventurer_teclis.19.d
+	picture = WAR_ADVENTURER_TEC_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_teclis = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_teclis
+		    war_adventurer_ready = yes
+		    war_adventurer_teclis_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_teclis = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Buy a negotiated settlement. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_teclis.19.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Revise the offending administration. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_teclis.19.option_b
+		ai_chance = { factor = 1 }
+		add_adm_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Endure the public accusations. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_teclis.19.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_teclis }
+					war_adventurer_move = { MODIFIER = war_adventurer_teclis LOCATION = war_adventurer_location_teclis BEER = no ARRIVAL_EVENT = war_adventurer_teclis.21 }
+				}
+			}
+		}
+	}
+}
+
+# TEC-EA05: A Tower Without Shadows. Intended event Weighing Value: -1. Lore: L1, L3.
+country_event = {
+	id = war_adventurer_teclis.20
+	title = war_adventurer_teclis.20.t
+	desc = war_adventurer_teclis.20.d
+	picture = WAR_ADVENTURER_TEC_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_teclis = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_teclis
+		    war_adventurer_ready = yes
+		    war_adventurer_teclis_home = no
+		    owner = { war_adventurer_enemy_a = yes }
+		    owner = {
+		        any_country = {
+		            NOT = { tag = ROOT }
+		            any_owned_province = { war_adventurer_destination_province = yes }
+		        }
+		    }
+
+		}
+	}
+	immediate = {
+		event_target:war_adventurer_location_teclis = {
+			save_event_target_as = war_adventurer_province
+			set_province_flag = war_adventurer_event_open
+		}
+	}
+	goto = war_adventurer_province
+
+	# Replace magical surveillance with paid agents. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_teclis.20.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Change the security system. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_teclis.20.option_b
+		ai_chance = { factor = 1 }
+		add_dip_power = -50
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	# Conceal the escape. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_teclis.20.option_c
+		ai_chance = { factor = 1 }
+		add_prestige = -25
+		custom_tooltip = war_adventurer_leaves_tt
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				clr_province_flag = war_adventurer_event_open
+				if = {
+					limit = { has_province_modifier = war_adventurer_teclis }
+					war_adventurer_move = { MODIFIER = war_adventurer_teclis LOCATION = war_adventurer_location_teclis BEER = no ARRIVAL_EVENT = war_adventurer_teclis.21 }
+				}
+			}
+		}
+	}
+}
+
+# Arrival report: introduce Teclis to the new owner. No mechanical effects.
+country_event = {
+	id = war_adventurer_teclis.21
+	title = war_adventurer_teclis.21.t
+	desc = war_adventurer_teclis.21.d
+	picture = WAR_ADVENTURER_TEC_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_arrival_province = {
+			owned_by = ROOT
+			has_province_modifier = war_adventurer_teclis
+		}
+	}
+	# Acknowledge the arrival report. Option Weighing Value: 0.
+	option = { name = war_adventurer_arrival_acknowledge }
+}

@@ -732,3 +732,44 @@ country_event = {
 
 	}
 }
+
+# The Swinetrade Empire chooses a common culture and faith or protection for the Dark Lands' many peoples.
+country_event = {
+	id = pigbarter_events.1001
+	title = pigbarter_events.1001.t
+	desc = pigbarter_events.1001.d
+	picture = PIGBARTER_eventPicture
+	# Formation follow-up, matching the permanent rewards of old_world_events.201.
+
+	fire_only_once = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = X30
+		NOT = { has_country_flag = swinetrade_charter_settled }
+	}
+
+	immediate = { set_country_flag = swinetrade_charter_settled }
+
+	# Bind the empire to one culture and one faith.
+	option = {
+		ai_chance = { factor = 50 }
+		name = pigbarter_events.1001.a
+		# Weighing Value: 50/3 (approximately 16.67), identical to Borderlands Unity.
+		add_country_modifier = {
+			name = swinetrade_unity
+			duration = -1
+		}
+	}
+
+	# Protect many cultures and faiths beneath a shared charter.
+	option = {
+		ai_chance = { factor = 50 }
+		name = pigbarter_events.1001.b
+		# Weighing Value: 70/3 (approximately 23.33), identical to Borderlands Diversity.
+		add_country_modifier = {
+			name = swinetrade_diversity
+			duration = -1
+		}
+	}
+}

@@ -1,0 +1,341 @@
+namespace = war_adventurer_setup
+
+# Seed the eighteen unique travellers once, including when first loading an older save.
+country_event = {
+	id = war_adventurer_setup.1
+	hidden = yes
+	is_triggered_only = yes
+	trigger = { NOT = { has_global_flag = war_adventurers_initialized } }
+	immediate = {
+		if = {
+			limit = { NOT = { has_global_flag = war_adventurers_initialized } }
+			set_global_flag = war_adventurers_initialized
+			# Balthasar Gelt; approved mainland start, or an owned mainland in an older save.
+			if = {
+				limit = { 2972 = { is_empty = no war_adventurer_destination_province = yes } }
+				2972 = {
+					add_province_modifier = { name = war_adventurer_gelt duration = -1 }
+					save_global_event_target_as = war_adventurer_location_gelt
+				}
+			}
+			else = {
+				random_country = {
+					limit = { any_owned_province = { war_adventurer_destination_province = yes } }
+					war_adventurer_pick_destination_province = { BEER = no }
+					event_target:war_adventurer_destination = {
+						add_province_modifier = { name = war_adventurer_gelt duration = -1 }
+						save_global_event_target_as = war_adventurer_location_gelt
+					}
+				}
+			}
+			# Teclis; approved mainland start, or an owned mainland in an older save.
+			if = {
+				limit = { 4182 = { is_empty = no war_adventurer_destination_province = yes } }
+				4182 = {
+					add_province_modifier = { name = war_adventurer_teclis duration = -1 }
+					save_global_event_target_as = war_adventurer_location_teclis
+				}
+			}
+			else = {
+				random_country = {
+					limit = { any_owned_province = { war_adventurer_destination_province = yes } }
+					war_adventurer_pick_destination_province = { BEER = no }
+					event_target:war_adventurer_destination = {
+						add_province_modifier = { name = war_adventurer_teclis duration = -1 }
+						save_global_event_target_as = war_adventurer_location_teclis
+					}
+				}
+			}
+			# Deathmaster Snikch; approved mainland start, or an owned mainland in an older save.
+			if = {
+				limit = { 4776 = { is_empty = no war_adventurer_destination_province = yes } }
+				4776 = {
+					add_province_modifier = { name = war_adventurer_snikch duration = -1 }
+					save_global_event_target_as = war_adventurer_location_snikch
+				}
+			}
+			else = {
+				random_country = {
+					limit = { any_owned_province = { war_adventurer_destination_province = yes } }
+					war_adventurer_pick_destination_province = { BEER = no }
+					event_target:war_adventurer_destination = {
+						add_province_modifier = { name = war_adventurer_snikch duration = -1 }
+						save_global_event_target_as = war_adventurer_location_snikch
+					}
+				}
+			}
+			# Josef Bugman; approved mainland start, or an owned mainland in an older save.
+			if = {
+				limit = { 2795 = { is_empty = no war_adventurer_destination_province = yes } }
+				2795 = {
+					add_province_modifier = { name = war_adventurer_bugman duration = -1 }
+					save_global_event_target_as = war_adventurer_location_bugman
+				}
+			}
+			else = {
+				random_country = {
+					limit = { any_owned_province = { war_adventurer_destination_province = yes } }
+					war_adventurer_pick_destination_province = { BEER = yes }
+					event_target:war_adventurer_destination = {
+						add_province_modifier = { name = war_adventurer_bugman duration = -1 }
+						save_global_event_target_as = war_adventurer_location_bugman
+					}
+				}
+			}
+			# Bardin Goreksson; approved mainland start, or an owned mainland in an older save.
+			if = {
+				limit = { 4258 = { is_empty = no war_adventurer_destination_province = yes } }
+				4258 = {
+					add_province_modifier = { name = war_adventurer_bardin duration = -1 }
+					save_global_event_target_as = war_adventurer_location_bardin
+				}
+			}
+			else = {
+				random_country = {
+					limit = { any_owned_province = { war_adventurer_destination_province = yes } }
+					war_adventurer_pick_destination_province = { BEER = no }
+					event_target:war_adventurer_destination = {
+						add_province_modifier = { name = war_adventurer_bardin duration = -1 }
+						save_global_event_target_as = war_adventurer_location_bardin
+					}
+				}
+			}
+			# Harald Hammerstorm; approved mainland start, or an owned mainland in an older save.
+			if = {
+				limit = { 2644 = { is_empty = no war_adventurer_destination_province = yes } }
+				2644 = {
+					add_province_modifier = { name = war_adventurer_harald duration = -1 }
+					save_global_event_target_as = war_adventurer_location_harald
+				}
+			}
+			else = {
+				random_country = {
+					limit = { any_owned_province = { war_adventurer_destination_province = yes } }
+					war_adventurer_pick_destination_province = { BEER = no }
+					event_target:war_adventurer_destination = {
+						add_province_modifier = { name = war_adventurer_harald duration = -1 }
+						save_global_event_target_as = war_adventurer_location_harald
+					}
+				}
+			}
+			# Abhorash; approved mainland start, or an owned mainland in an older save.
+			if = {
+				limit = { 851 = { is_empty = no war_adventurer_destination_province = yes } }
+				851 = {
+					add_province_modifier = { name = war_adventurer_abhorash duration = -1 }
+					save_global_event_target_as = war_adventurer_location_abhorash
+				}
+			}
+			else = {
+				random_country = {
+					limit = { any_owned_province = { war_adventurer_destination_province = yes } }
+					war_adventurer_pick_destination_province = { BEER = no }
+					event_target:war_adventurer_destination = {
+						add_province_modifier = { name = war_adventurer_abhorash duration = -1 }
+						save_global_event_target_as = war_adventurer_location_abhorash
+					}
+				}
+			}
+			# Elspeth von Draken; approved mainland start, or an owned mainland in an older save.
+			if = {
+				limit = { 872 = { is_empty = no war_adventurer_destination_province = yes } }
+				872 = {
+					add_province_modifier = { name = war_adventurer_elspeth duration = -1 }
+					save_global_event_target_as = war_adventurer_location_elspeth
+				}
+			}
+			else = {
+				random_country = {
+					limit = { any_owned_province = { war_adventurer_destination_province = yes } }
+					war_adventurer_pick_destination_province = { BEER = no }
+					event_target:war_adventurer_destination = {
+						add_province_modifier = { name = war_adventurer_elspeth duration = -1 }
+						save_global_event_target_as = war_adventurer_location_elspeth
+					}
+				}
+			}
+			# Markus Wulfhart; approved mainland start, or an owned mainland in an older save.
+			if = {
+				limit = { 988 = { is_empty = no war_adventurer_destination_province = yes } }
+				988 = {
+					add_province_modifier = { name = war_adventurer_wulfhart duration = -1 }
+					save_global_event_target_as = war_adventurer_location_wulfhart
+				}
+			}
+			else = {
+				random_country = {
+					limit = { any_owned_province = { war_adventurer_destination_province = yes } }
+					war_adventurer_pick_destination_province = { BEER = no }
+					event_target:war_adventurer_destination = {
+						add_province_modifier = { name = war_adventurer_wulfhart duration = -1 }
+						save_global_event_target_as = war_adventurer_location_wulfhart
+					}
+				}
+			}
+			# Gotrek and Felix; approved mainland start, or an owned mainland in an older save.
+			if = {
+				limit = { 1 = { is_empty = no war_adventurer_destination_province = yes } }
+				1 = {
+					add_province_modifier = { name = war_adventurer_gotrek_felix duration = -1 }
+					save_global_event_target_as = war_adventurer_location_gotrek_felix
+				}
+			}
+			else = {
+				random_country = {
+					limit = { any_owned_province = { war_adventurer_destination_province = yes } }
+					war_adventurer_pick_destination_province = { BEER = no }
+					event_target:war_adventurer_destination = {
+						add_province_modifier = { name = war_adventurer_gotrek_felix duration = -1 }
+						save_global_event_target_as = war_adventurer_location_gotrek_felix
+					}
+				}
+			}
+			# Repanse de Lyonesse; approved mainland start, or an owned mainland in an older save.
+			if = {
+				limit = { 284 = { is_empty = no war_adventurer_destination_province = yes } }
+				284 = {
+					add_province_modifier = { name = war_adventurer_repanse duration = -1 }
+					save_global_event_target_as = war_adventurer_location_repanse
+				}
+			}
+			else = {
+				random_country = {
+					limit = { any_owned_province = { war_adventurer_destination_province = yes } }
+					war_adventurer_pick_destination_province = { BEER = no }
+					event_target:war_adventurer_destination = {
+						add_province_modifier = { name = war_adventurer_repanse duration = -1 }
+						save_global_event_target_as = war_adventurer_location_repanse
+					}
+				}
+			}
+			# Sienna Fuegonasus; approved mainland start, or an owned mainland in an older save.
+			if = {
+				limit = { 553 = { is_empty = no war_adventurer_destination_province = yes } }
+				553 = {
+					add_province_modifier = { name = war_adventurer_sienna duration = -1 }
+					save_global_event_target_as = war_adventurer_location_sienna
+				}
+			}
+			else = {
+				random_country = {
+					limit = { any_owned_province = { war_adventurer_destination_province = yes } }
+					war_adventurer_pick_destination_province = { BEER = no }
+					event_target:war_adventurer_destination = {
+						add_province_modifier = { name = war_adventurer_sienna duration = -1 }
+						save_global_event_target_as = war_adventurer_location_sienna
+					}
+				}
+			}
+			# Malakai Makaisson; approved mainland start, or an owned mainland in an older save.
+			if = {
+				limit = { 332 = { is_empty = no war_adventurer_destination_province = yes } }
+				332 = {
+					add_province_modifier = { name = war_adventurer_malakai duration = -1 }
+					save_global_event_target_as = war_adventurer_location_malakai
+				}
+			}
+			else = {
+				random_country = {
+					limit = { any_owned_province = { war_adventurer_destination_province = yes } }
+					war_adventurer_pick_destination_province = { BEER = no }
+					event_target:war_adventurer_destination = {
+						add_province_modifier = { name = war_adventurer_malakai duration = -1 }
+						save_global_event_target_as = war_adventurer_location_malakai
+					}
+				}
+			}
+			# Tyrion; approved mainland start, or an owned mainland in an older save.
+			if = {
+				limit = { 1829 = { is_empty = no war_adventurer_destination_province = yes } }
+				1829 = {
+					add_province_modifier = { name = war_adventurer_tyrion duration = -1 }
+					save_global_event_target_as = war_adventurer_location_tyrion
+				}
+			}
+			else = {
+				random_country = {
+					limit = { any_owned_province = { war_adventurer_destination_province = yes } }
+					war_adventurer_pick_destination_province = { BEER = no }
+					event_target:war_adventurer_destination = {
+						add_province_modifier = { name = war_adventurer_tyrion duration = -1 }
+						save_global_event_target_as = war_adventurer_location_tyrion
+					}
+				}
+			}
+			# Gor-Rok; approved mainland start, or an owned mainland in an older save.
+			if = {
+				limit = { 2466 = { is_empty = no war_adventurer_destination_province = yes } }
+				2466 = {
+					add_province_modifier = { name = war_adventurer_gor_rok duration = -1 }
+					save_global_event_target_as = war_adventurer_location_gor_rok
+				}
+			}
+			else = {
+				random_country = {
+					limit = { any_owned_province = { war_adventurer_destination_province = yes } }
+					war_adventurer_pick_destination_province = { BEER = no }
+					event_target:war_adventurer_destination = {
+						add_province_modifier = { name = war_adventurer_gor_rok duration = -1 }
+						save_global_event_target_as = war_adventurer_location_gor_rok
+					}
+				}
+			}
+			# Nakai the Wanderer; approved mainland start, or an owned mainland in an older save.
+			if = {
+				limit = { 2348 = { is_empty = no war_adventurer_destination_province = yes } }
+				2348 = {
+					add_province_modifier = { name = war_adventurer_nakai duration = -1 }
+					save_global_event_target_as = war_adventurer_location_nakai
+				}
+			}
+			else = {
+				random_country = {
+					limit = { any_owned_province = { war_adventurer_destination_province = yes } }
+					war_adventurer_pick_destination_province = { BEER = no }
+					event_target:war_adventurer_destination = {
+						add_province_modifier = { name = war_adventurer_nakai duration = -1 }
+						save_global_event_target_as = war_adventurer_location_nakai
+					}
+				}
+			}
+			# Thanquol and Boneripper; approved mainland start, or an owned mainland in an older save.
+			if = {
+				limit = { 4600 = { is_empty = no war_adventurer_destination_province = yes } }
+				4600 = {
+					add_province_modifier = { name = war_adventurer_thanquol duration = -1 }
+					save_global_event_target_as = war_adventurer_location_thanquol
+				}
+			}
+			else = {
+				random_country = {
+					limit = { any_owned_province = { war_adventurer_destination_province = yes } }
+					war_adventurer_pick_destination_province = { BEER = no }
+					event_target:war_adventurer_destination = {
+						add_province_modifier = { name = war_adventurer_thanquol duration = -1 }
+						save_global_event_target_as = war_adventurer_location_thanquol
+					}
+				}
+			}
+			# Grombrindal; approved mainland start, or an owned mainland in an older save.
+			if = {
+				limit = { 4410 = { is_empty = no war_adventurer_destination_province = yes } }
+				4410 = {
+					add_province_modifier = { name = war_adventurer_grombrindal duration = -1 }
+					save_global_event_target_as = war_adventurer_location_grombrindal
+				}
+			}
+			else = {
+				random_country = {
+					limit = { any_owned_province = { war_adventurer_destination_province = yes } }
+					war_adventurer_pick_destination_province = { BEER = no }
+					event_target:war_adventurer_destination = {
+						add_province_modifier = { name = war_adventurer_grombrindal duration = -1 }
+						save_global_event_target_as = war_adventurer_location_grombrindal
+					}
+				}
+			}
+		}
+	}
+	# Hidden acknowledgement; all placement happens immediately.
+	option = { name = war_adventurer_setup.1.a }
+}

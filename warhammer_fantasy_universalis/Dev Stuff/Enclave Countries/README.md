@@ -24,7 +24,9 @@ All 100 modifier descriptions give the enclave's leader, local refuge, and prese
 
 ## Silent emergence setup
 
-Creation, release, and province-owner-change hooks apply the enclave's country identity silently once it owns a city, guarded by `war_enclave_identity_initialized`. A yearly fallback catches scripted tag changes. No enclave-specific intro or replacement event is fired. The country's listed cultures, religion, government, reforms, technology, ideas, racial modifiers, alignment, and vision are restored without changing province population or legal ownership.
+Creation, release, and province-owner-change hooks apply the enclave's country identity silently once it owns a city, guarded by `war_enclave_identity_initialized`. A yearly fallback catches scripted tag changes. No enclave-specific intro or replacement event is fired. The country's listed cultures, religion, government, reforms, technology, ideas, racial modifiers, alignment, and vision are restored. Each identity effect also changes the country's current capital to its intended primary culture and religion, even when the country already has the correct identity. Other provinces and legal ownership are unchanged. The Balance Guide does not assign a standalone Weighing Value to capital culture/religion conversion; this setup follows the explicit user instruction.
+
+The initialization guard still prevents automatic setup from running again for already-initialized enclaves, including after annexation and re-release. Adding capital conversion does not retroactively update those countries or repair release timing.
 
 Ordinary vassal-release eligibility can still depend on province culture, which intentionally differs from several enclave cultures. The new decisions explicitly select the faction's separatist tag and rebel culture. Game testing is still required to verify the full engine path from rebellion through independence; this has not been inferred from static checks alone.
 

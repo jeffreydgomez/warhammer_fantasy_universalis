@@ -1,0 +1,155 @@
+# Country scope. Geography alone determines regional eligibility; priority is
+# applied by the five mission groups, not by this shared predicate.
+war_nippon_capital_in_region = {
+	capital_scope = { region = nippon_region }
+}
+
+# Country scope. Preserve completion after a later tag change.
+war_nippon_restored = {
+	OR = { tag = Z89 has_country_flag = formed_grand_nippon_flag }
+}
+
+# Province scope. Tributaries are deliberately excluded from imperial territory.
+war_nippon_controlled_province = {
+	OR = {
+		owned_by = ROOT
+		owner = {
+			is_subject_of = ROOT
+			NOT = { is_subject_of_type = tributary_state }
+			NOT = { is_subject_of_type = cultural_sphere_of_influence_subject }
+			NOT = { liberty_desire = 50 }
+		}
+	}
+}
+
+# Province scope. These are the mod's Lustria and Naggaroth continents.
+war_nippon_new_world_province = {
+	OR = { continent = north_america continent = south_america }
+}
+
+# Province scope. Count real completed colonial settlements, including those
+# subsequently assigned to a colonial nation, rather than conquered native land.
+war_nippon_new_world_settlement = {
+	custom_trigger_tooltip = {
+		tooltip = war_nippon_new_world_settlement_tt
+		war_nippon_new_world_province = yes
+		is_city = yes
+		has_province_flag = war_nippon_colonial_settlement
+	}
+}
+
+# Country scope. Existing and later Nipponese colonial nations can mark colonies.
+war_nippon_colonial_sponsor = {
+	OR = {
+		war_nippon_capital_in_region = yes
+		AND = {
+			is_colonial_nation = yes
+			overlord = { war_nippon_capital_in_region = yes }
+		}
+	}
+}
+
+# Province scope. Religious variety outside Chaos and vampirism is preserved.
+war_nippon_uncorrupted_province = {
+	NOT = { religion = vampiric }
+	NOT = { religion_group = ruinous_powers_denominations }
+	owner = {
+		NOT = { religion = vampiric }
+		NOT = { religion_group = ruinous_powers_denominations }
+	}
+}
+
+# Country scope. All settled homeland provinces, including loyal subject lands.
+war_nippon_homeland_restored = {
+	custom_trigger_tooltip = {
+		tooltip = war_nippon_homeland_restored_tt
+		NOT = {
+			any_province = {
+				region = nippon_region
+				is_city = yes
+				NOT = {
+					AND = {
+						war_nippon_controlled_province = yes
+						war_nippon_uncorrupted_province = yes
+					}
+				}
+			}
+		}
+	}
+}
+
+# Country scope. Victories are checked from ROOT, not from the defeated country.
+# Territorial alternatives prevent dead ends when a rival has been annexed.
+war_nippon_cathayan_victory = {
+	custom_trigger_tooltip = {
+		tooltip = war_nippon_cathayan_victory_tt
+		OR = {
+			any_country = {
+				NOT = { tag = ROOT }
+				capital_scope = { superregion = cathay_superregion }
+				total_development = 50
+				ROOT = { has_won_war_against = { who = PREV max_years_since = 50 } }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				superregion = cathay_superregion
+				is_city = yes
+				value = 8
+			}
+		}
+	}
+}
+
+war_nippon_khureshi_victory = {
+	custom_trigger_tooltip = {
+		tooltip = war_nippon_khureshi_victory_tt
+		OR = {
+			any_country = {
+				NOT = { tag = ROOT }
+				capital_scope = { OR = { region = north_khuresh_region region = south_khuresh_region } }
+				total_development = 50
+				ROOT = { has_won_war_against = { who = PREV max_years_since = 50 } }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = { region = north_khuresh_region region = south_khuresh_region }
+				is_city = yes
+				value = 8
+			}
+		}
+	}
+}
+
+war_nippon_underworld_victory = {
+	custom_trigger_tooltip = {
+		tooltip = war_nippon_underworld_victory_tt
+		OR = {
+			any_country = {
+				NOT = { tag = ROOT }
+				capital_scope = { continent = underempire }
+				total_development = 50
+				ROOT = { has_won_war_against = { who = PREV max_years_since = 50 } }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				continent = underempire
+				is_city = yes
+				value = 8
+			}
+		}
+	}
+}
+
+# Province scope: ordinary building lines always accept their replacements.
+war_nippon_fort = {
+	OR = { has_building = fort_15th has_building = fort_16th has_building = fort_17th has_building = fort_18th }
+}
+war_nippon_manufactory = {
+	OR = {
+		has_building = mills
+		has_building = farm_estate
+		has_building = tradecompany
+		has_building = plantations
+		has_building = textile
+		has_building = weapons
+		has_building = wharf
+		has_building = furnace
+	}
+}
