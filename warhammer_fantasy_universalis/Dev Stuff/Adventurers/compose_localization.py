@@ -8,6 +8,7 @@ import json,re
 
 HERE=Path(__file__).resolve().parent
 P=HERE/'event_data.json';D=json.loads(P.read_text())
+INTRODUCTIONS={c['code']:c['event_introduction'] for c in D['characters']}
 SCENES={}
 for line in (HERE/'scene_details.txt').read_text().splitlines():
  if line and not line.startswith('#'):
@@ -19,7 +20,7 @@ fixes={
  'SIE-FH04':"Our investigator receives conflicting descriptions of a woman resembling Sienna near disturbed graves. Sienna has burned a necromantic cache and left a warning naming her twin Sofia.",
  'MAL-FH05':"Our border warden reports that Malakai's experimental flying machine carried stranded prospectors over a blocked pass. They returned with mineral samples and sketches of ruins he hopes might guide a future expedition to a lost hold.",
  'NAK-FA02':"Our frontier officer reports that Nakai held a mist-covered causeway long enough for an archaeological party to escape with inscribed stones. The survivors believe the abandoned enclosure beyond it could support a protected settlement.",
- 'GRO-FA03':"Our border officer reports that Grombrindal rescued a mining party and left a copy of the pledge associated with his stand beside Gotrek and Bugman. The miners arrived with their survey records and a request for passage back to their kin.",
+ 'GRO-FA03':"Our border officer reports that Grombrindal rescued a mining party and left a copy of the pledge associated with his stand beside the Dwarf Slayer Gotrek Gurnisson and the Dwarf brewer Josef Bugman. The miners arrived with their survey records and a request for passage back to their kin.",
  'GRO-EH03':"Our jailer reports that Grombrindal opened the cells holding a captured Dwarf work party. A pledge recalling Karak Varn was carved into the broken gate, and copies of the prison roll have begun circulating among the prisoners' kin.",
 }
 departures={
@@ -43,11 +44,11 @@ departures={
  'GRO':["The white-bearded stranger vanished before the witnesses could arrange a formal audience.","The surviving officers found no trace of Grombrindal when they returned with the court's messenger.","Grombrindal has left the people he aided to fulfil their own obligations and continued his mysterious wandering.","No escort remains with the stranger, and his witnesses cannot agree on the road he took.","The last report ends with the White Dwarf's departure rather than a demand for land or office."],
 }
 openers=[
- "A sealed report from [war_adventurer_province.GetName] has reached our court.",
- "The latest dispatch from [war_adventurer_province.GetName] describes an incident demanding our attention.",
- "Witnesses from [war_adventurer_province.GetName] have brought their account before our officials.",
- "Our officials in [war_adventurer_province.GetName] have forwarded the following account.",
- "A courier from [war_adventurer_province.GetName] has delivered testimony and a request for instructions.",
+ "A sealed report from [war_adventurer_province.GetName] concerns {intro}.",
+ "The latest dispatch from [war_adventurer_province.GetName] describes an incident linked to {intro}.",
+ "Witnesses from [war_adventurer_province.GetName] have brought our officials an account concerning {intro}.",
+ "Our officials in [war_adventurer_province.GetName] have forwarded a report about {intro}.",
+ "A courier from [war_adventurer_province.GetName] has delivered testimony concerning {intro}.",
 ]
 proposals=[
  ("Our officials ask us to {a}.","Others argue that we should instead {b}."),
@@ -66,7 +67,7 @@ for index,e in enumerate(D['events']):
  # Report and evidence remain specific to this incident; no design commentary appears in-game.
  a=e['options'][0]['label'];b=e['options'][1]['label']
  a=a[0].lower()+a[1:];b=b[0].lower()+b[1:]
- first=sentences(openers[index%5]+' '+report)
+ first=sentences(openers[index%5].format(intro=INTRODUCTIONS[e['code']])+' '+report)
  second=sentences(SCENES[e['concept_id']])
  pair=proposals[(index//5)%5]
  decision=[pair[0].format(a=a,b=b),pair[1].format(a=a,b=b),departures[e['code']][(index+index//20)%5]]

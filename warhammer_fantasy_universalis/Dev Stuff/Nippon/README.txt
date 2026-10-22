@@ -17,13 +17,31 @@ Content
 - Second half: domestic growth, underground garrisons and government, exploration,
   New World settlements, foreign recognition, and restoration of the palaces.
 - 176 Weighing Value before the ultimate: 30 x 5, 16 x 1, and a colonist worth 10.
-- The Second Dawn: +2 diplomatic reputation, +1.5 annual prestige, +10% infantry
+- Proof of Superiority: collect 14 distinct artifacts in directly owned provinces
+  to establish Nippon as the center of the world. Multiple artifacts in one
+  province each count; subject-held artifacts do not. The internal mission ID
+  remains nippon_second_dawn for save compatibility.
+- Ultimate rewards: +2 diplomatic reputation, +1.5 annual prestige, +10% infantry
   combat ability, +10% governing capacity. Total Weighing Value 40.
 - Four mission events, each offering two alternative rewards worth 5 each.
 - Local lore and balance sources are Dev Stuff/Examples/Lore Reference.txt,
   Balance Guide.txt, and Mission Trigger Catalogue.txt.
 
 Implementation notes
+- 36 missions have province highlights for unfinished geographic objectives,
+  construction/development, rival and diplomatic capitals, colony sites, and
+  artifacts not yet collected. Highlights follow direct/non-sovereign/loyal
+  subject requirements as appropriate and stop when the relevant quota is met.
+- Ordinary targets must be discovered. The three exploration missions deliberately
+  highlight undiscovered destinations. Colonization points to empty land and
+  unfinished subject/owned colonies; unmarked native cities cannot count as new
+  settlements. Artifact highlights cover all 24 defined relics and exclude any
+  relic type already held, even if another copy exists elsewhere.
+- The 12 missions without highlights have national army, fleet, court, estate,
+  general espionage, or home-node trade objectives. Each omission has a reason in
+  mission_design.json and an inline mission comment.
+- The existing error log identified invalid is_discovered_by and num_of_total_ideas
+  triggers. Discovery now uses has_discovered; the idea count uses total_ideas.
 - Ocean Charters requires quest_for_the_new_world. It grants a colonist without
   introducing an unpriced permanent may_explore modifier.
 - Cathayan, Khureshi, and underground victory checks accept a war won within

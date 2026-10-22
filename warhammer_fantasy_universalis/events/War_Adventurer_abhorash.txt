@@ -27,9 +27,12 @@ country_event = {
 		}
 	}
 	immediate = {
-		event_target:war_adventurer_location_abhorash = {
-			save_event_target_as = war_adventurer_province
-			set_province_flag = war_adventurer_event_open
+		hidden_effect = {
+			event_target:war_adventurer_location_abhorash = {
+				save_event_target_as = war_adventurer_province
+				set_province_flag = war_adventurer_event_open
+				war_adventurer_prepare_destination = yes
+			}
 		}
 	}
 	goto = war_adventurer_province
@@ -39,7 +42,13 @@ country_event = {
 		name = war_adventurer_abhorash.1.option_a
 		ai_chance = { factor = 1 }
 		add_adm_power = 100
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Honour the rescued workers and rebuild their homes. Option Weighing Value: +2.
@@ -50,7 +59,13 @@ country_event = {
 		event_target:war_adventurer_province = {
 			add_base_tax = 2
 		}
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Quietly retain the corrections. Option Weighing Value: +2.
@@ -58,7 +73,13 @@ country_event = {
 		name = war_adventurer_abhorash.1.option_c
 		ai_chance = { factor = 1 }
 		add_adm_power = 100
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	after = {
@@ -98,9 +119,12 @@ country_event = {
 		}
 	}
 	immediate = {
-		event_target:war_adventurer_location_abhorash = {
-			save_event_target_as = war_adventurer_province
-			set_province_flag = war_adventurer_event_open
+		hidden_effect = {
+			event_target:war_adventurer_location_abhorash = {
+				save_event_target_as = war_adventurer_province
+				set_province_flag = war_adventurer_event_open
+				war_adventurer_prepare_destination = yes
+			}
 		}
 	}
 	goto = war_adventurer_province
@@ -110,7 +134,13 @@ country_event = {
 		name = war_adventurer_abhorash.2.option_a
 		ai_chance = { factor = 1 }
 		add_adm_power = 50
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Accept a negotiated departure. Option Weighing Value: +1.
@@ -118,7 +148,13 @@ country_event = {
 		name = war_adventurer_abhorash.2.option_b
 		ai_chance = { factor = 1 }
 		add_dip_power = 50
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Confiscate the conspirators' funds. Option Weighing Value: +1.
@@ -126,7 +162,13 @@ country_event = {
 		name = war_adventurer_abhorash.2.option_c
 		ai_chance = { factor = 1 }
 		add_years_of_income = 0.5
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	after = {
@@ -166,9 +208,12 @@ country_event = {
 		}
 	}
 	immediate = {
-		event_target:war_adventurer_location_abhorash = {
-			save_event_target_as = war_adventurer_province
-			set_province_flag = war_adventurer_event_open
+		hidden_effect = {
+			event_target:war_adventurer_location_abhorash = {
+				save_event_target_as = war_adventurer_province
+				set_province_flag = war_adventurer_event_open
+				war_adventurer_prepare_destination = yes
+			}
 		}
 	}
 	goto = war_adventurer_province
@@ -179,7 +224,13 @@ country_event = {
 		ai_chance = { factor = 1 }
 		change_innovativeness = 2
 		add_years_of_income = -0.25
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Preserve the remains as a trophy. Option Weighing Value: +2.
@@ -187,7 +238,13 @@ country_event = {
 		name = war_adventurer_abhorash.3.option_b
 		ai_chance = { factor = 1 }
 		add_prestige_or_monarch_power = { amount = 50 }
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Recruit the guides and circulate their hunting methods. Option Weighing Value: +2.
@@ -196,7 +253,13 @@ country_event = {
 		ai_chance = { factor = 1 }
 		add_mil_power = 50
 		add_yearly_manpower = 1
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	after = {
@@ -236,9 +299,12 @@ country_event = {
 		}
 	}
 	immediate = {
-		event_target:war_adventurer_location_abhorash = {
-			save_event_target_as = war_adventurer_province
-			set_province_flag = war_adventurer_event_open
+		hidden_effect = {
+			event_target:war_adventurer_location_abhorash = {
+				save_event_target_as = war_adventurer_province
+				set_province_flag = war_adventurer_event_open
+				war_adventurer_prepare_destination = yes
+			}
 		}
 	}
 	goto = war_adventurer_province
@@ -250,7 +316,13 @@ country_event = {
 		event_target:war_adventurer_province = {
 			add_base_tax = 2
 		}
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Instruct the guard from the account. Option Weighing Value: +1.
@@ -258,7 +330,13 @@ country_event = {
 		name = war_adventurer_abhorash.4.option_b
 		ai_chance = { factor = 1 }
 		add_mil_power = 50
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	after = {
@@ -298,9 +376,12 @@ country_event = {
 		}
 	}
 	immediate = {
-		event_target:war_adventurer_location_abhorash = {
-			save_event_target_as = war_adventurer_province
-			set_province_flag = war_adventurer_event_open
+		hidden_effect = {
+			event_target:war_adventurer_location_abhorash = {
+				save_event_target_as = war_adventurer_province
+				set_province_flag = war_adventurer_event_open
+				war_adventurer_prepare_destination = yes
+			}
 		}
 	}
 	goto = war_adventurer_province
@@ -310,7 +391,13 @@ country_event = {
 		name = war_adventurer_abhorash.5.option_a
 		ai_chance = { factor = 1 }
 		add_army_professionalism = 0.02
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Honour restraint publicly. Option Weighing Value: +1.
@@ -318,7 +405,13 @@ country_event = {
 		name = war_adventurer_abhorash.5.option_b
 		ai_chance = { factor = 1 }
 		add_prestige_or_monarch_power = { amount = 25 }
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Keep the instructions within the guard. Option Weighing Value: +1.
@@ -326,7 +419,13 @@ country_event = {
 		name = war_adventurer_abhorash.5.option_c
 		ai_chance = { factor = 1 }
 		add_mil_power = 50
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	after = {
@@ -366,9 +465,12 @@ country_event = {
 		}
 	}
 	immediate = {
-		event_target:war_adventurer_location_abhorash = {
-			save_event_target_as = war_adventurer_province
-			set_province_flag = war_adventurer_event_open
+		hidden_effect = {
+			event_target:war_adventurer_location_abhorash = {
+				save_event_target_as = war_adventurer_province
+				set_province_flag = war_adventurer_event_open
+				war_adventurer_prepare_destination = yes
+			}
 		}
 	}
 	goto = war_adventurer_province
@@ -378,7 +480,13 @@ country_event = {
 		name = war_adventurer_abhorash.6.option_a
 		ai_chance = { factor = 1 }
 		add_years_of_income = 1
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Fund anatomical study. Option Weighing Value: +1.5.
@@ -387,7 +495,13 @@ country_event = {
 		ai_chance = { factor = 1 }
 		change_innovativeness = 2
 		add_years_of_income = -0.25
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Pay the guides’ settlements to rebuild their homes. Option Weighing Value: +1.
@@ -398,7 +512,13 @@ country_event = {
 			add_base_tax = 3
 		}
 		add_years_of_income = -0.25
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	after = {
@@ -438,9 +558,12 @@ country_event = {
 		}
 	}
 	immediate = {
-		event_target:war_adventurer_location_abhorash = {
-			save_event_target_as = war_adventurer_province
-			set_province_flag = war_adventurer_event_open
+		hidden_effect = {
+			event_target:war_adventurer_location_abhorash = {
+				save_event_target_as = war_adventurer_province
+				set_province_flag = war_adventurer_event_open
+				war_adventurer_prepare_destination = yes
+			}
 		}
 	}
 	goto = war_adventurer_province
@@ -450,7 +573,13 @@ country_event = {
 		name = war_adventurer_abhorash.7.option_a
 		ai_chance = { factor = 1 }
 		add_dip_power = 50
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Expose the coercive bargain. Option Weighing Value: +1.
@@ -458,7 +587,13 @@ country_event = {
 		name = war_adventurer_abhorash.7.option_b
 		ai_chance = { factor = 1 }
 		add_prestige_or_monarch_power = { amount = 25 }
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Confiscate abandoned valuables. Option Weighing Value: +1.
@@ -466,7 +601,13 @@ country_event = {
 		name = war_adventurer_abhorash.7.option_c
 		ai_chance = { factor = 1 }
 		add_years_of_income = 0.5
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	after = {
@@ -506,9 +647,12 @@ country_event = {
 		}
 	}
 	immediate = {
-		event_target:war_adventurer_location_abhorash = {
-			save_event_target_as = war_adventurer_province
-			set_province_flag = war_adventurer_event_open
+		hidden_effect = {
+			event_target:war_adventurer_location_abhorash = {
+				save_event_target_as = war_adventurer_province
+				set_province_flag = war_adventurer_event_open
+				war_adventurer_prepare_destination = yes
+			}
 		}
 	}
 	goto = war_adventurer_province
@@ -520,7 +664,13 @@ country_event = {
 		event_target:war_adventurer_province = {
 			add_base_tax = 2
 		}
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Recruit the rescued volunteers and circulate his defence. Option Weighing Value: +2.
@@ -529,7 +679,13 @@ country_event = {
 		ai_chance = { factor = 1 }
 		add_mil_power = 50
 		add_yearly_manpower = 1
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Recover abandoned property. Option Weighing Value: +2.
@@ -537,7 +693,13 @@ country_event = {
 		name = war_adventurer_abhorash.8.option_c
 		ai_chance = { factor = 1 }
 		add_years_of_income = 1
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	after = {
@@ -577,9 +739,12 @@ country_event = {
 		}
 	}
 	immediate = {
-		event_target:war_adventurer_location_abhorash = {
-			save_event_target_as = war_adventurer_province
-			set_province_flag = war_adventurer_event_open
+		hidden_effect = {
+			event_target:war_adventurer_location_abhorash = {
+				save_event_target_as = war_adventurer_province
+				set_province_flag = war_adventurer_event_open
+				war_adventurer_prepare_destination = yes
+			}
 		}
 	}
 	goto = war_adventurer_province
@@ -590,7 +755,13 @@ country_event = {
 		ai_chance = { factor = 1 }
 		add_army_professionalism = 0.02
 		add_years_of_income = -0.25
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Preserve the account as a training text. Option Weighing Value: +1.
@@ -598,7 +769,13 @@ country_event = {
 		name = war_adventurer_abhorash.9.option_b
 		ai_chance = { factor = 1 }
 		add_mil_power = 50
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	after = {
@@ -638,9 +815,12 @@ country_event = {
 		}
 	}
 	immediate = {
-		event_target:war_adventurer_location_abhorash = {
-			save_event_target_as = war_adventurer_province
-			set_province_flag = war_adventurer_event_open
+		hidden_effect = {
+			event_target:war_adventurer_location_abhorash = {
+				save_event_target_as = war_adventurer_province
+				set_province_flag = war_adventurer_event_open
+				war_adventurer_prepare_destination = yes
+			}
 		}
 	}
 	goto = war_adventurer_province
@@ -650,7 +830,13 @@ country_event = {
 		name = war_adventurer_abhorash.10.option_a
 		ai_chance = { factor = 1 }
 		add_adm_power = 50
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Refund victims from seized funds. Option Weighing Value: +1.
@@ -658,7 +844,13 @@ country_event = {
 		name = war_adventurer_abhorash.10.option_b
 		ai_chance = { factor = 1 }
 		add_prestige_or_monarch_power = { amount = 25 }
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Confiscate unclaimed proceeds. Option Weighing Value: +1.
@@ -666,7 +858,13 @@ country_event = {
 		name = war_adventurer_abhorash.10.option_c
 		ai_chance = { factor = 1 }
 		add_years_of_income = 0.5
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	after = {
@@ -706,9 +904,12 @@ country_event = {
 		}
 	}
 	immediate = {
-		event_target:war_adventurer_location_abhorash = {
-			save_event_target_as = war_adventurer_province
-			set_province_flag = war_adventurer_event_open
+		hidden_effect = {
+			event_target:war_adventurer_location_abhorash = {
+				save_event_target_as = war_adventurer_province
+				set_province_flag = war_adventurer_event_open
+				war_adventurer_prepare_destination = yes
+			}
 		}
 	}
 	goto = war_adventurer_province
@@ -718,7 +919,13 @@ country_event = {
 		name = war_adventurer_abhorash.11.option_a
 		ai_chance = { factor = 1 }
 		add_years_of_income = -1
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Relinquish the exposed palace quarter. Option Weighing Value: -2.
@@ -728,7 +935,13 @@ country_event = {
 		event_target:war_adventurer_province = {
 			add_devastation = 50
 		}
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Suppress the growing legend. Option Weighing Value: -2.
@@ -737,7 +950,13 @@ country_event = {
 		ai_chance = { factor = 1 }
 		add_adm_power = -50
 		add_prestige = -25
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	after = {
@@ -777,9 +996,12 @@ country_event = {
 		}
 	}
 	immediate = {
-		event_target:war_adventurer_location_abhorash = {
-			save_event_target_as = war_adventurer_province
-			set_province_flag = war_adventurer_event_open
+		hidden_effect = {
+			event_target:war_adventurer_location_abhorash = {
+				save_event_target_as = war_adventurer_province
+				set_province_flag = war_adventurer_event_open
+				war_adventurer_prepare_destination = yes
+			}
 		}
 	}
 	goto = war_adventurer_province
@@ -789,7 +1011,13 @@ country_event = {
 		name = war_adventurer_abhorash.12.option_a
 		ai_chance = { factor = 1 }
 		add_dip_power = -50
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Compensate the escort's families. Option Weighing Value: -1.
@@ -797,7 +1025,13 @@ country_event = {
 		name = war_adventurer_abhorash.12.option_b
 		ai_chance = { factor = 1 }
 		add_years_of_income = -0.5
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	after = {
@@ -837,9 +1071,12 @@ country_event = {
 		}
 	}
 	immediate = {
-		event_target:war_adventurer_location_abhorash = {
-			save_event_target_as = war_adventurer_province
-			set_province_flag = war_adventurer_event_open
+		hidden_effect = {
+			event_target:war_adventurer_location_abhorash = {
+				save_event_target_as = war_adventurer_province
+				set_province_flag = war_adventurer_event_open
+				war_adventurer_prepare_destination = yes
+			}
 		}
 	}
 	goto = war_adventurer_province
@@ -849,7 +1086,13 @@ country_event = {
 		name = war_adventurer_abhorash.13.option_a
 		ai_chance = { factor = 1 }
 		add_years_of_income = -1
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Replace its role with troops. Option Weighing Value: -2.
@@ -857,7 +1100,13 @@ country_event = {
 		name = war_adventurer_abhorash.13.option_b
 		ai_chance = { factor = 1 }
 		add_mil_power = -100
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Admit the loss publicly. Option Weighing Value: -2.
@@ -865,7 +1114,13 @@ country_event = {
 		name = war_adventurer_abhorash.13.option_c
 		ai_chance = { factor = 1 }
 		add_prestige = -50
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	after = {
@@ -905,9 +1160,12 @@ country_event = {
 		}
 	}
 	immediate = {
-		event_target:war_adventurer_location_abhorash = {
-			save_event_target_as = war_adventurer_province
-			set_province_flag = war_adventurer_event_open
+		hidden_effect = {
+			event_target:war_adventurer_location_abhorash = {
+				save_event_target_as = war_adventurer_province
+				set_province_flag = war_adventurer_event_open
+				war_adventurer_prepare_destination = yes
+			}
 		}
 	}
 	goto = war_adventurer_province
@@ -917,7 +1175,13 @@ country_event = {
 		name = war_adventurer_abhorash.14.option_a
 		ai_chance = { factor = 1 }
 		add_adm_power = -50
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Pay for a new guard establishment. Option Weighing Value: -1.
@@ -925,7 +1189,13 @@ country_event = {
 		name = war_adventurer_abhorash.14.option_b
 		ai_chance = { factor = 1 }
 		add_years_of_income = -0.5
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Reject it despite the scandal. Option Weighing Value: -1.
@@ -933,7 +1203,13 @@ country_event = {
 		name = war_adventurer_abhorash.14.option_c
 		ai_chance = { factor = 1 }
 		add_prestige = -25
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	after = {
@@ -973,9 +1249,12 @@ country_event = {
 		}
 	}
 	immediate = {
-		event_target:war_adventurer_location_abhorash = {
-			save_event_target_as = war_adventurer_province
-			set_province_flag = war_adventurer_event_open
+		hidden_effect = {
+			event_target:war_adventurer_location_abhorash = {
+				save_event_target_as = war_adventurer_province
+				set_province_flag = war_adventurer_event_open
+				war_adventurer_prepare_destination = yes
+			}
 		}
 	}
 	goto = war_adventurer_province
@@ -985,7 +1264,13 @@ country_event = {
 		name = war_adventurer_abhorash.15.option_a
 		ai_chance = { factor = 1 }
 		add_years_of_income = -0.5
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Investigate the collectors. Option Weighing Value: -1.
@@ -993,7 +1278,13 @@ country_event = {
 		name = war_adventurer_abhorash.15.option_b
 		ai_chance = { factor = 1 }
 		add_adm_power = -50
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Deny liability. Option Weighing Value: -1.
@@ -1001,7 +1292,13 @@ country_event = {
 		name = war_adventurer_abhorash.15.option_c
 		ai_chance = { factor = 1 }
 		add_prestige = -25
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	after = {
@@ -1041,9 +1338,12 @@ country_event = {
 		}
 	}
 	immediate = {
-		event_target:war_adventurer_location_abhorash = {
-			save_event_target_as = war_adventurer_province
-			set_province_flag = war_adventurer_event_open
+		hidden_effect = {
+			event_target:war_adventurer_location_abhorash = {
+				save_event_target_as = war_adventurer_province
+				set_province_flag = war_adventurer_event_open
+				war_adventurer_prepare_destination = yes
+			}
 		}
 	}
 	goto = war_adventurer_province
@@ -1053,7 +1353,13 @@ country_event = {
 		name = war_adventurer_abhorash.16.option_a
 		ai_chance = { factor = 1 }
 		add_prestige = -25
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Fund a state funeral. Option Weighing Value: -1.
@@ -1061,7 +1367,13 @@ country_event = {
 		name = war_adventurer_abhorash.16.option_b
 		ai_chance = { factor = 1 }
 		add_years_of_income = -0.5
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Challenge the testimony. Option Weighing Value: -1.
@@ -1069,7 +1381,13 @@ country_event = {
 		name = war_adventurer_abhorash.16.option_c
 		ai_chance = { factor = 1 }
 		add_adm_power = -50
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	after = {
@@ -1109,9 +1427,12 @@ country_event = {
 		}
 	}
 	immediate = {
-		event_target:war_adventurer_location_abhorash = {
-			save_event_target_as = war_adventurer_province
-			set_province_flag = war_adventurer_event_open
+		hidden_effect = {
+			event_target:war_adventurer_location_abhorash = {
+				save_event_target_as = war_adventurer_province
+				set_province_flag = war_adventurer_event_open
+				war_adventurer_prepare_destination = yes
+			}
 		}
 	}
 	goto = war_adventurer_province
@@ -1121,7 +1442,13 @@ country_event = {
 		name = war_adventurer_abhorash.17.option_a
 		ai_chance = { factor = 1 }
 		add_years_of_income = -1
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Renegotiate under threat of scandal. Option Weighing Value: -2.
@@ -1129,7 +1456,13 @@ country_event = {
 		name = war_adventurer_abhorash.17.option_b
 		ai_chance = { factor = 1 }
 		add_dip_power = -100
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Requisition compensation from the district. Option Weighing Value: -2.
@@ -1139,7 +1472,13 @@ country_event = {
 		event_target:war_adventurer_province = {
 			add_devastation = 50
 		}
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	after = {
@@ -1179,9 +1518,12 @@ country_event = {
 		}
 	}
 	immediate = {
-		event_target:war_adventurer_location_abhorash = {
-			save_event_target_as = war_adventurer_province
-			set_province_flag = war_adventurer_event_open
+		hidden_effect = {
+			event_target:war_adventurer_location_abhorash = {
+				save_event_target_as = war_adventurer_province
+				set_province_flag = war_adventurer_event_open
+				war_adventurer_prepare_destination = yes
+			}
 		}
 	}
 	goto = war_adventurer_province
@@ -1191,7 +1533,13 @@ country_event = {
 		name = war_adventurer_abhorash.18.option_a
 		ai_chance = { factor = 1 }
 		add_years_of_income = -0.5
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Investigate the escort's secret orders. Option Weighing Value: -1.
@@ -1199,7 +1547,13 @@ country_event = {
 		name = war_adventurer_abhorash.18.option_b
 		ai_chance = { factor = 1 }
 		add_adm_power = -50
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	after = {
@@ -1239,9 +1593,12 @@ country_event = {
 		}
 	}
 	immediate = {
-		event_target:war_adventurer_location_abhorash = {
-			save_event_target_as = war_adventurer_province
-			set_province_flag = war_adventurer_event_open
+		hidden_effect = {
+			event_target:war_adventurer_location_abhorash = {
+				save_event_target_as = war_adventurer_province
+				set_province_flag = war_adventurer_event_open
+				war_adventurer_prepare_destination = yes
+			}
 		}
 	}
 	goto = war_adventurer_province
@@ -1251,7 +1608,13 @@ country_event = {
 		name = war_adventurer_abhorash.19.option_a
 		ai_chance = { factor = 1 }
 		add_years_of_income = -1
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Abandon the outer compound. Option Weighing Value: -2.
@@ -1261,7 +1624,13 @@ country_event = {
 		event_target:war_adventurer_province = {
 			add_devastation = 50
 		}
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Reorganize the command. Option Weighing Value: -2.
@@ -1270,7 +1639,13 @@ country_event = {
 		ai_chance = { factor = 1 }
 		add_mil_power = -50
 		add_prestige = -25
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	after = {
@@ -1310,9 +1685,12 @@ country_event = {
 		}
 	}
 	immediate = {
-		event_target:war_adventurer_location_abhorash = {
-			save_event_target_as = war_adventurer_province
-			set_province_flag = war_adventurer_event_open
+		hidden_effect = {
+			event_target:war_adventurer_location_abhorash = {
+				save_event_target_as = war_adventurer_province
+				set_province_flag = war_adventurer_event_open
+				war_adventurer_prepare_destination = yes
+			}
 		}
 	}
 	goto = war_adventurer_province
@@ -1322,7 +1700,13 @@ country_event = {
 		name = war_adventurer_abhorash.20.option_a
 		ai_chance = { factor = 1 }
 		add_years_of_income = -0.5
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Remove his office. Option Weighing Value: -1.
@@ -1330,7 +1714,13 @@ country_event = {
 		name = war_adventurer_abhorash.20.option_b
 		ai_chance = { factor = 1 }
 		add_adm_power = -50
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	# Defend him despite the disgrace. Option Weighing Value: -1.
@@ -1338,7 +1728,13 @@ country_event = {
 		name = war_adventurer_abhorash.20.option_c
 		ai_chance = { factor = 1 }
 		add_prestige = -25
-		custom_tooltip = war_adventurer_leaves_tt
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
 	after = {

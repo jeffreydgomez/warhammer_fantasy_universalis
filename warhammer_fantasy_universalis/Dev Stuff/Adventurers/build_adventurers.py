@@ -183,17 +183,19 @@ war_adventurer_pick_destination_province = {
     }
 }
 
-# Province scope. MODIFIER and LOCATION identify this one persistent adventurer.
-# ARRIVAL_EVENT notifies the new owner only after a successful transfer.
-# The origin remains intact if no eligible country exists anywhere.
-war_adventurer_move = {
+# Province scope. Choose the country when the report opens, so every option names it.
+# Actual province selection and transfer wait until the player answers.
+war_adventurer_prepare_destination = {
     save_event_target_as = war_adventurer_origin
-    save_event_target_as = war_adventurer_destination
-    ROOT = { save_event_target_as = war_adventurer_origin_country }
+    ROOT = {
+        save_event_target_as = war_adventurer_origin_country
+        save_event_target_as = war_adventurer_destination_country
+    }
     if = {
         limit = { is_empty = no }
         owner = {
             save_event_target_as = war_adventurer_origin_country
+            save_event_target_as = war_adventurer_destination_country
             set_variable = { which = war_adventurer_neighbor_count value = 0 }
             every_neighbor_country = {
                 event_target:war_adventurer_origin_country = {
@@ -207,14 +209,14 @@ war_adventurer_move = {
                 }
                 random_neighbor_country = {
                     limit = { war_adventurer_destination_country = yes }
-                    war_adventurer_pick_destination_province = { BEER = $BEER$ }
+                    save_event_target_as = war_adventurer_destination_country
                 }
             }
             else = {
                 # Zero/one neighbor, or a completely blocked neighbor pool: world travel.
                 random_country = {
                     limit = { war_adventurer_destination_country = yes }
-                    war_adventurer_pick_destination_province = { BEER = $BEER$ }
+                    save_event_target_as = war_adventurer_destination_country
                 }
             }
             set_variable = { which = war_adventurer_neighbor_count value = 0 }
@@ -223,6 +225,58 @@ war_adventurer_move = {
     else = {
         # Ownership disappeared while the report was open. Preserve the traveller.
         random_country = {
+            limit = { war_adventurer_destination_country = yes }
+            save_event_target_as = war_adventurer_destination_country
+        }
+    }
+}
+
+# Province scope. MODIFIER and LOCATION identify this one persistent adventurer.
+# ARRIVAL_EVENT notifies the new owner only after a successful transfer.
+# The origin remains intact if no eligible country exists anywhere.
+war_adventurer_move = {
+    save_event_target_as = war_adventurer_origin
+    save_event_target_as = war_adventurer_destination
+    # Retain the displayed country unless ownership or destination eligibility changed.
+    # Also supports old, already-open reports that have no preselected destination.
+    if = {
+        limit = {
+            OR = {
+                NOT = { owner = { tag = event_target:war_adventurer_origin_country } }
+                NOT = {
+                    event_target:war_adventurer_destination_country = {
+                        war_adventurer_destination_country = yes
+                    }
+                }
+            }
+        }
+        war_adventurer_prepare_destination = yes
+    }
+    # A changed border must not send a local journey to a now non-neighbor.
+    if = {
+        limit = { is_empty = no }
+        owner = {
+            set_variable = { which = war_adventurer_neighbor_count value = 0 }
+            every_neighbor_country = {
+                event_target:war_adventurer_origin_country = {
+                    change_variable = { which = war_adventurer_neighbor_count value = 1 }
+                }
+            }
+            if = {
+                limit = {
+                    check_variable = { which = war_adventurer_neighbor_count value = 2 }
+                    any_neighbor_country = { war_adventurer_destination_country = yes }
+                    NOT = {
+                        any_neighbor_country = { tag = event_target:war_adventurer_destination_country }
+                    }
+                }
+                event_target:war_adventurer_origin = { war_adventurer_prepare_destination = yes }
+            }
+            set_variable = { which = war_adventurer_neighbor_count value = 0 }
+        }
+    }
+    event_target:war_adventurer_destination_country = {
+        if = {
             limit = { war_adventurer_destination_country = yes }
             war_adventurer_pick_destination_province = { BEER = $BEER$ }
         }
@@ -323,9 +377,11 @@ def build_events():
                       'country_event = {', f'\tid = {id}', f'\ttitle = {id}.t', f'\tdesc = {id}.d',
                       f'\tpicture = WAR_ADVENTURER_{c["code"]}_eventPicture', '\tis_triggered_only = yes',
                       '\ttrigger = {', indent(trigger, 2), '\t}',
-                      '\timmediate = {', f'\t\tevent_target:war_adventurer_location_{slug} = {{',
-                      '\t\t\tsave_event_target_as = war_adventurer_province', '\t\t\tset_province_flag = war_adventurer_event_open',
-                      '\t\t}', '\t}', '\tgoto = war_adventurer_province']
+                      '\timmediate = {', '\t\thidden_effect = {',
+                      f'\t\t\tevent_target:war_adventurer_location_{slug} = {{',
+                      '\t\t\t\tsave_event_target_as = war_adventurer_province', '\t\t\t\tset_province_flag = war_adventurer_event_open',
+                      '\t\t\t\twar_adventurer_prepare_destination = yes',
+                      '\t\t\t}', '\t\t}', '\t}', '\tgoto = war_adventurer_province']
             for i, option in enumerate(e['options']):
                 letter = chr(97 + i)
                 weight = option['weight']
@@ -333,7 +389,10 @@ def build_events():
                 lines += ['', f'\t# {option["label"]}. Option Weighing Value: {weight:+g}.',
                           '\toption = {', f'\t\tname = {id}.option_{letter}', '\t\tai_chance = { factor = 1 }',
                           indent(effect_lines(option), 2),
-                          '\t\tcustom_tooltip = war_adventurer_leaves_tt', '\t}']
+                          '\t\tif = {', '\t\t\tlimit = {',
+                          '\t\t\t\tevent_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }',
+                          '\t\t\t}', '\t\t\tcustom_tooltip = war_adventurer_leaves_tt', '\t\t}',
+                          '\t\telse = { custom_tooltip = war_adventurer_stays_tt }', '\t}']
                 localization.append(f' {id}.option_{letter}:0 "{escape(option["label"])}"')
             lines += ['', '\tafter = {', '\t\thidden_effect = {', '\t\t\tevent_target:war_adventurer_province = {',
                       '\t\t\t\tclr_province_flag = war_adventurer_event_open', '\t\t\t\tif = {',
@@ -360,7 +419,8 @@ def build_events():
         write(f'events/War_Adventurer_{slug}.txt', '\n'.join(lines))
     localization += [' war_adventurer_setup.1.a:0 "Their journeys begin."',
                      ' war_adventurer_arrival_acknowledge:0 "Noted."',
-                     ' war_adventurer_leaves_tt:0 "The adventurer departs for another eligible country. With two or more neighbours, an eligible neighbour is chosen; with zero or one, the destination is chosen worldwide. If all neighbouring destinations are blocked, travel also becomes worldwide. If no destination exists, the adventurer remains until a later encounter."',
+                     ' war_adventurer_leaves_tt:0 "The Adventurer departs for [war_adventurer_destination_country.GetName]."',
+                     ' war_adventurer_stays_tt:0 "The Adventurer remains here."',
                      ' war_adventurer_mainlands:0 "Adventurer Mainlands"']
     write('localisation/war_adventurers_l_english.yml', '\n'.join(localization), bom=True)
     # This exact active block is unique to pulse 5 in the current mod.

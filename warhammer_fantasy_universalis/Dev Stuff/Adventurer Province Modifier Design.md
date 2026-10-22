@@ -28,6 +28,8 @@ An enemy occupying a character's homeland gets enemy/home encounters. A friendly
 
 ## 2. Movement after an encounter
 
+The destination country is selected when the report opens, allowing the effect tooltip to read **“The Adventurer departs for [Country].”** Province selection and the actual transfer wait until the response resolves. Revalidate the announced destination if ownership, borders, or available provinces change while the report is open; if no destination remains, the tooltip simply reads **“The Adventurer remains here.”**
+
 1. Identify the adventurer's current province owner and count its **distinct neighboring countries**, excluding itself. Neighbor means a country connected by a land border or a traversable strait; merely sharing a sea zone does not qualify. Multiple bordering provinces do not increase a country's count. A separate subject country counts as a country.
 2. With **two or more neighboring countries**, choose a random eligible neighboring country, then a random eligible province anywhere within that country. The destination province need not itself touch the departure province.
 3. With **zero or one neighboring country**, choose a random eligible country **anywhere in the world**, then a random eligible province within it. Exclude the current owner. The sole neighbor may still be selected as part of the worldwide pool; the worldwide choice is not restricted to it.
@@ -40,13 +42,14 @@ An enemy occupying a character's homeland gets enemy/home encounters. A friendly
 10. **Bugman prefers beer:** after choosing the destination country, select among its eligible beer provinces if any exist. Otherwise choose any eligible province there. An island or a province occupied by another adventurer is not eligible, even if it produces beer. This preference never changes which country is selected.
 11. After a successful transfer, send the destination province's owner a triggered-only arrival notice: “[Name] has arrived in [Province]” (using “have” for pairs), followed by a brief introduction. These 18 notices use each character's `.21` event, with one effect-free acknowledgement. They are excluded from the random pulse and do not fire on initial placement or failed movement.
 
-Worldwide travel can be explained as an unobserved sea voyage, a caravan journey, clandestine passage, or a supernatural disappearance appropriate to the character. Do not claim that every character teleports. The ruler only knows that the adventurer has escaped or departed; the event need not announce the precise destination.
+Worldwide travel can be explained as an unobserved sea voyage, a caravan journey, clandestine passage, or a supernatural disappearance appropriate to the character. Do not claim that every character teleports. The ruler only knows that the adventurer has escaped or departed; the departure tooltip names the selected country without listing the travel-selection rules.
 
 ## 3. Localization and ruler perspective
 
 The player is the ruler **learning about an incident**, not the adventurer performing it. Each description should establish the source of the report, what has already happened, the consequences for the province, and the decision now facing the government.
 
 - Use watch captains, guild petitions, survivors, scouts, intercepted correspondence, temple attendants, and frightened officials as narrators or sources.
+- At the first mention in every encounter and arrival description, identify the adventurer by name and an appropriate role, such as a wandering wizard, Dwarf ranger, or High Elf prince. Introduce both members of a pair and briefly identify any other adventurer mentioned; do not assume prior lore knowledge or that the player saw an arrival notice.
 - Describe a specific incident with concrete details. Avoid generic openings such as “an adventurer offers to help us.”
 - Separate established facts from rumour. An anonymous assassin's responsibility may be suspected even when the player-facing title identifies the character.
 - Show the adventurer acting independently: witnesses saw them escape, officials cannot locate them, or they have gone into ruins beyond the authorities' reach.

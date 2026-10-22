@@ -188,7 +188,8 @@ class Script:
             elif key == 'hidden_effect':
                 self.run(value, entity)
             elif key in EFFECTS:
-                params = dict(value)
+                assert isinstance(value, list) or value == 'yes'
+                params = dict(value) if isinstance(value, list) else {}
 
                 def expand(tree):
                     if isinstance(tree, str):
@@ -387,6 +388,49 @@ def movement_tests():
     assert state.dispatched[1][2]['war_adventurer_arrival_province'] is second_destination
     cases.append('successive arrival notices retain their own destination province')
     cases.append('successful moves send exactly one notice to the actual destination owner')
+    state, origin = world(2)
+    state.choices = [1]  # Choose C, proving resolution does not reroll to default-first B.
+    state.run([('war_adventurer_prepare_destination', 'yes')], origin)
+    announced_country = state.targets['war_adventurer_destination_country']
+    assert announced_country.key == 'C'
+    assert 'war_adventurer_bugman' in origin.modifiers and not state.dispatched
+    assert move(state, origin).owner is announced_country
+    assert sum(scope.endswith('_country') for scope, _ in state.pools) == 1
+    cases.append('displayed destination country is selected on opening and retained on resolution')
+    state, origin = world(2)
+    state.run([('war_adventurer_prepare_destination', 'yes')], origin)
+    announced_country = state.targets['war_adventurer_destination_country']
+    announced_country.provinces[0].modifiers.add('war_adventurer_gelt')
+    announced_country.provinces[1].attrs['trade_goods'] = 'beer'
+    assert move(state, origin) is announced_country.provinces[1]
+    cases.append('province selection waits for resolution and preserves Bugman beer preference')
+    state, origin = world(2)
+    state.run([('war_adventurer_prepare_destination', 'yes')], origin)
+    for p in state.targets['war_adventurer_destination_country'].provinces:
+        p.modifiers.add('war_adventurer_gelt')
+    assert move(state, origin).owner.key == 'C'
+    cases.append('a destination blocked while the event is open is replaced safely')
+    state, origin = world(2)
+    state.run([('war_adventurer_prepare_destination', 'yes')], origin)
+    for c in state.countries[1:]:
+        for p in c.provinces:
+            p.modifiers.add('war_adventurer_gelt')
+    assert move(state, origin) is origin and not state.dispatched
+    cases.append('all destinations lost after opening preserves the visitor without an arrival notice')
+    state, origin = world(2)
+    state.run([('war_adventurer_prepare_destination', 'yes')], origin)
+    assert state.targets['war_adventurer_destination_country'].key == 'B'
+    state.countries[0].provinces.remove(origin)
+    state.countries[1].provinces.append(origin)
+    origin.owner = state.countries[1]
+    assert move(state, origin).owner is not origin.owner
+    cases.append('ownership change to the announced destination forces a new country')
+    state, origin = world(2)
+    state.run([('war_adventurer_prepare_destination', 'yes')], origin)
+    assert state.targets['war_adventurer_destination_country'].key == 'B'
+    origin.owner.neighbors = state.countries[2:]
+    assert move(state, origin).owner.key in ('C', 'D')
+    cases.append('changed borders replace an announced country that is no longer a valid neighbor')
     return cases
 
 
@@ -426,6 +470,8 @@ def main():
         loc[key] = value
     assert len({e['description'] for e in DATA['events']}) == 360
     assert len({e['title'] for e in DATA['events']}) == 360
+    assert loc['war_adventurer_leaves_tt'] == 'The Adventurer departs for [war_adventurer_destination_country.GetName].'
+    assert loc['war_adventurer_stays_tt'] == 'The Adventurer remains here.'
     options_count = 0
     for e in DATA['events']:
         char = next(c for c in DATA['characters'] if c['code'] == e['code'])
@@ -443,7 +489,10 @@ def main():
         assert relationship == ('yes' if e['category'].startswith('E') else 'no')
         assert get(province_trigger, 'war_adventurer_ready') == 'yes'
         assert any(k == 'any_country' for k, _ in walk(province_trigger))
+        # Destination bookkeeping must not print scope headers or variable changes in the report.
+        assert [k for k, _ in get(node, 'immediate')] == ['hidden_effect']
         assert any(k == 'save_event_target_as' and v == 'war_adventurer_province' for k, v in walk(get(node, 'immediate')))
+        assert any(k == 'war_adventurer_prepare_destination' and v == 'yes' for k, v in walk(get(node, 'immediate')))
         movement = [v for k, v in walk(get(node, 'after')) if k == 'war_adventurer_move']
         assert len(movement) == 1
         assert dict(movement[0]) == {'MODIFIER': namespace,
@@ -452,6 +501,7 @@ def main():
                                      'ARRIVAL_EVENT': namespace + '.21'}
         description = loc[get(node, 'desc')].replace('\\n\\n', '\n\n')
         assert description == e['description'].replace('"', "'")
+        assert char['event_introduction'] in re.split(r'(?<=[.!?])\s+', description)[0]
         assert loc[get(node, 'title')] == e['title'].replace('"', "'")
         paragraphs = description.split('\n\n')
         counts = [len(re.split(r'(?<=[.!?])\s+', p)) for p in paragraphs]
@@ -463,6 +513,7 @@ def main():
         options_count += len(options)
         for option, authored in zip(options, e['options']):
             assert loc[get(option, 'name')] == authored['label'].replace('"', "'")
+            assert {v for k, v in walk(option) if k == 'custom_tooltip'} == {'war_adventurer_leaves_tt', 'war_adventurer_stays_tt'}
             actual = [(k, amount(k, v)) for k, v in walk(option) if k in UNIT_PRICE]
             expected = [(f['key'], float(f['value'])) for f in authored['effects']]
             assert actual == expected, (e['concept_id'], actual, expected)
@@ -475,12 +526,16 @@ def main():
             state.targets['war_adventurer_location_' + char['slug']] = province
             state.run(get(node, 'immediate'), state.root)
             assert state.targets['war_adventurer_province'] is province
+            announced_country = state.targets['war_adventurer_destination_country']
+            assert announced_country is not state.root
+            assert namespace in province.modifiers and not state.dispatched
             state.run(option, state.root)
             assert len(state.applied) == len(expected)
             assert all(target == ('1' if k in PROVINCE_EFFECTS else 'A') for k, target, _ in state.applied)
             state.run(get(node, 'after'), state.root)
             destination = state.targets['war_adventurer_location_' + char['slug']]
             assert destination is not province and destination.owner is not state.root
+            assert destination.owner is announced_country
             assert namespace not in province.modifiers and namespace in destination.modifiers
             assert 'war_adventurer_event_open' not in province.flags
             assert len(state.dispatched) == 1
@@ -505,6 +560,7 @@ def main():
         assert title == char['name'] + ' ' + verb + ' arrived in [war_adventurer_arrival_province.GetName]'
         description = loc[get(node, 'desc')].replace('\\n\\n', '\n\n')
         assert description == char['arrival_description'].replace('"', "'")
+        assert char['event_introduction'] in re.split(r'(?<=[.!?])\s+', description)[0]
         assert '[war_adventurer_arrival_province.GetName]' in description
         counts = [len(re.split(r'(?<=[.!?])\s+', p)) for p in description.split('\n\n')]
         assert counts == [2, 2], (event_id, counts)
@@ -531,9 +587,10 @@ def main():
         assert sum(get(b, 'name') == name for b in all_values(registry, 'spriteType')) == 1
         path = ROOT / sprites[name]
         header = path.read_bytes()[:128]
-        assert header[:4] == b'DDS ' and struct.unpack_from('<II', header, 12) == (320, 512)
+        assert header[:4] == b'DDS ' and struct.unpack_from('<II', header, 12) == (132, 512)
         assert header[84:88] == b'DXT1'
         assert art_sources[char['code']]['asset'] == sprites[name]
+        assert art_sources[char['code']]['dimensions'] == [512, 132]
     modifiers = dict(read('common/event_modifiers/war_adventurer_modifiers.txt'))
     assert len(modifiers) == 18
     icon = ROOT / 'gfx/interface/ideas_EU4/war_adventurer_icon.dds'

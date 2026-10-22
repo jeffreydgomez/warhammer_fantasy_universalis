@@ -8,7 +8,7 @@ The **700 individual national ideas each total Weighing Value 10** using `Dev St
 
 ## Enclave provinces and rooting out factions
 
-Every listed province starts with a unique **[Faction Name] Enclave** permanent modifier. Each applies exactly `local_unrest = 4`, `min_local_autonomy = 33`, and `local_autonomy = 0.05`. It has `duration = -1` and uses `add_permanent_province_modifier`, so conquest does not remove it. The Balance Guide does not directly price these local modifiers; their values follow the explicit user instruction.
+Every listed province starts with a unique **[Faction Name] Enclave** permanent modifier. Each applies exactly `local_unrest = 4`, `min_local_autonomy = 33`, `local_autonomy = 0.05`, and `province_trade_power_modifier = -0.1` (-10% province trade power). It has `duration = -1` and uses `add_permanent_province_modifier`, so conquest does not remove it. The Balance Guide does not directly price these local modifiers; their values follow the explicit user instruction.
 
 Ownership of that province while its modifier remains exposes **Root Out [Faction Name]**. Taking the decision requires peace, control of the enclave province, and no existing rebel armies (`NOT = { num_of_rebel_armies = 1 }`). These requirements apply to players and AI; a temporarily blocked decision remains visible. It has no resource cost. It removes that faction's modifier, restores its original core if it has expired, and spawns one `size = 3` stack of `nationalist_rebels` (EU4's separatist type). Actual regiment counts scale with province development and military technology; size 3 is a multiplier, not three regiments.
 
