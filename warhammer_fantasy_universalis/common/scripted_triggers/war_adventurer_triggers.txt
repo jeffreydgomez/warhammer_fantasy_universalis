@@ -50,26 +50,14 @@ war_adventurer_present = {
     }
 }
 war_adventurer_destination_province = {
-    is_city = yes
     province_group = war_adventurer_mainlands
+    is_city = yes
     NOT = { war_adventurer_present = yes }
 }
 # Country scope. random_country weights countries, not their province counts.
 war_adventurer_destination_country = {
     NOT = { tag = event_target:war_adventurer_origin_country }
     any_owned_province = { war_adventurer_destination_province = yes }
-}
-# Province scope. A short rest prevents rapid hops between different countries' pulse dates.
-war_adventurer_ready = {
-    OR = {
-        NOT = { has_province_flag = war_adventurer_event_open }
-        # Recover a stale lock if an event disappeared with an annexed recipient.
-        had_province_flag = { flag = war_adventurer_event_open days = 365 }
-    }
-    OR = {
-        NOT = { has_province_flag = war_adventurer_arrived }
-        had_province_flag = { flag = war_adventurer_arrived days = 365 }
-    }
 }
 
 # Province scope. Geography is fixed and never inferred from the owner.

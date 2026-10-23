@@ -1,0 +1,43 @@
+country_decisions = {
+	war_destroy_warpmoon_project = {
+		major = yes
+		potential = {
+			any_province = { war_warpmoon_can_be_sabotaged = yes }
+		}
+		# The decision's native Go To/highlight button follows the current site,
+		# including an undiscovered site: this is a worldwide public warning.
+		provinces_to_highlight = { war_warpmoon_can_be_sabotaged = yes }
+		allow = {
+			custom_trigger_tooltip = {
+				tooltip = war_warpmoon_control_site_tt
+				any_province = {
+					war_warpmoon_can_be_sabotaged = yes
+					controlled_by = ROOT
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = war_warpmoon_reset_tt
+			hidden_effect = {
+				random_province = {
+					limit = {
+						war_warpmoon_can_be_sabotaged = yes
+						controlled_by = ROOT
+					}
+					war_warpmoon_reset_project = yes
+				}
+			}
+			# User-specified reward: prestige is +2 Weighing Value; flat gold
+			# has no fixed valuation in the Balance Guide.
+			add_prestige = 50
+			add_treasury = 1000
+		}
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = 0
+				has_country_modifier = skaven_administration
+			}
+		}
+	}
+}

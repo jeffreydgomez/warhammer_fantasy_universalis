@@ -1,0 +1,28 @@
+# Province scope: the owner must produce 20 units, not own 20 mines or lead trade.
+war_warpmoon_can_upgrade = {
+	owner = {
+		has_country_modifier = skaven_administration
+		mil_tech = 12
+		trade_goods_produced_amount = { trade_goods = warpstone amount = 20 }
+	}
+}
+
+# Province scope. has_great_project tests an EXACT tier, not a minimum.
+# Query the actual project so relocation and conquest cannot leave stale targets.
+war_warpmoon_can_be_sabotaged = {
+	OR = {
+		has_great_project = { type = war_warpmoon_project tier = 1 }
+		has_great_project = { type = war_warpmoon_project tier = 2 }
+	}
+}
+
+# Inhabitable land, including uncolonized land. Only the four requested
+# underground terrains are immune; fertile caverns are not added to that list.
+war_warpmoon_impact_eligible = {
+	is_sea = no
+	is_wasteland = no
+	NOT = { has_terrain = underway }
+	NOT = { has_terrain = dwarf_karak }
+	NOT = { has_terrain = great_maze }
+	NOT = { has_terrain = warren_city }
+}

@@ -1,0 +1,69 @@
+CITY OF GLASS - TOR LITHANEL
+
+Placement and operation
+- Great project id: city_of_glass; fixed at Tor Lithanel, province 4892.
+- Starts at tier 1. Existing Old World upgrade costs/times are retained:
+  tier 1: 1000 ducats / 120 months; tier 2: 2500 / 240; tier 3: 5000 / 480.
+- The owner must have elven_administration OR beastfolk_administration to
+  build, use, or upgrade the monument. Beastfolk Administration is the mod's
+  existing implementation of the requested Beastmen administration.
+- No culture, religion, military-administration, or overlord bypass.
+- The site survives ineligible ownership but provides no active modifiers.
+- Every reward is an area_modifier. No country or region modifiers, no
+  province-only stacking, and no upgrade rewards affecting the wider realm.
+- The map's laurelorn_forest area contains 610 (Ward of Storm), 743 (Ward of
+  Ruin), 744 (Ward of the Sun), 4892 (Tor Lithanel), 4932 (Ward of Frost).
+  Native great-project area scope handles the owner's eligible provinces.
+
+Balance
+The user explicitly requested the exact regional bonuses of karak_eight_peaks_gp
+from common/great_projects/01_southland_monuments.txt, applied to the area.
+All five keys and values are copied tier-for-tier from its region_modifier
+blocks into City of Glass's area_modifier blocks. Tier 0 remains empty.
+Karak Eight Peaks' separate Dwarf/Skaven/Orc conditional national bonuses
+are outside the requested regional package and the local-only requirement.
+
+Jeff's Dev Stuff/Examples/Balance Guide.txt is the source of truth for value
+comparisons. It does not explicitly price the local equivalents or specify a
+great-project budget; this gap was called out before scripting. National
+magnitudes are used as conservative benchmarks, with no invented scope
+discount. The user-requested source values remain exact.
+
+Local modifier                  National guide benchmark (WV 10)       I / II / III
+trade_goods_size_modifier       global_trade_goods_size_modifier = 0.1  +10% / +20% / +30%
+local_defensiveness             defensiveness = 0.2                     +10% / +20% / +30%
+local_manpower_modifier         global_manpower_modifier = 0.15         +10% / +20% / +30%
+local_development_cost          development_cost = -0.075               -5% / -10% / -15%
+local_unrest                    global_unrest = -2                      -1 / -2 / -3
+
+Benchmark totals: tier 0 = 0; tier 1 = 33 1/3; tier 2 = 66 2/3; tier 3 = 100.
+These are national-equivalent magnitude comparisons, not claims of equal
+national power. Tiers replace one another; rewards are not cumulative.
+
+Lore and art
+- Read Dev Stuff/Examples/Lore Reference.txt for the mod's threatened,
+  fragmented world-state and primacy of local canon. Laurelorn's specific
+  premise comes from war_unique_intro_events.200: an independent Eonir forest
+  realm whose sacred woods are under pressure from its human neighbors.
+- Canonical detail: Tor Lithanel's ancient elven architecture, soul-gems,
+  Silver Tower, High Council, magical orchards, and Library of Mournings.
+  Source: Archives of the Empire, Volume I, pp. 77, 80-81, as referenced at
+  https://whfb.lexicanum.com/wiki/Tor_Lithanel
+  https://warhammerfantasy.fandom.com/wiki/Tor_Lithanel
+- Beastmen operation is the requested gameplay exception, not a claim of
+  canonical Beastmen stewardship. Flavor frames their use as the profanation
+  and coercion of the city's bound power rather than friendly elven rule.
+- The source artwork was generated with built-in image_gen. Its original
+  generation prompt is retained in generation_prompt.txt.
+- At the user's request the final frame is now the actual existing
+  Dev Stuff/Image Reference/Monument_Image_Template.png, alpha-composited
+  over the artwork. This preserves its exact gold frame and top-left title
+  readability gradient, rather than asking image generation to imitate it.
+- To remove the generated frame, the original 1774 x 887 source is cropped
+  to (44, 44, 1730, 843), using Pillow's exclusive right/bottom coordinates.
+  This artwork is resized to 290 x 142 with Lanczos and placed at (5, 4)
+  on a transparent 300 x 150 canvas. The unmodified template is composited
+  over that canvas at (0, 0), retaining its alpha outside the artwork.
+- The game texture is gfx/interface/great_projects/great_project_city_of_glass.dds,
+  matching the existing portraits' 300 x 150 RGBA format. The original source
+  PNG remains intact; city_of_glass_preview.png shows the final composite.

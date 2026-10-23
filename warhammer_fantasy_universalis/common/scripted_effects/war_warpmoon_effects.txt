@@ -1,0 +1,64 @@
+# Province scope: remove completed tiers without deleting or relocating the
+# unique great project. Explicit exact-tier branches avoid unsigned underflow.
+war_warpmoon_reset_project = {
+	if = {
+		limit = { has_great_project = { type = war_warpmoon_project tier = 2 } }
+		add_great_project_tier = { type = war_warpmoon_project tier = -2 }
+	}
+	else_if = {
+		limit = { has_great_project = { type = war_warpmoon_project tier = 1 } }
+		add_great_project_tier = { type = war_warpmoon_project tier = -1 }
+	}
+}
+
+# Province scope: the impact is one indivisible 15% roll per eligible province.
+# Balance Guide: 100 devastation = -4 Weighing Value per impact. Trade-good
+# conversion and local attrition are unpriced; magnitudes are user-specified.
+war_warpmoon_impact = {
+	add_devastation = 100
+	change_trade_goods = warpstone
+	add_province_modifier = {
+		name = war_warpmoon_impact_site
+		duration = 365
+	}
+}
+
+# Province scope: completion resolves immediately, once per campaign, regardless
+# of announcement options. Credit follows the current owner after relocation.
+war_warpmoon_destroy_moon = {
+	if = {
+		limit = { NOT = { has_global_flag = war_warpmoon_moon_destroyed } }
+		set_global_flag = war_warpmoon_moon_destroyed
+		save_event_target_as = war_warpmoon_province
+		owner = {
+			save_event_target_as = war_warpmoon_builder
+			add_country_modifier = {
+				name = war_we_destroyed_the_moon
+				duration = -1
+			}
+		}
+		destroy_great_project = { type = war_warpmoon_project }
+
+		every_province = {
+			limit = { war_warpmoon_impact_eligible = yes }
+			random = {
+				chance = 15
+				war_warpmoon_impact = yes
+			}
+		}
+		every_country = {
+			limit = {
+				NOT = { has_country_modifier = skaven_administration }
+				NOT = { tag = event_target:war_warpmoon_builder }
+			}
+			# Recipients gain AE opinion against the builder, not the reverse.
+			# Unscaled: exactly 50, regardless of distance, religion or AE modifiers.
+			add_aggressive_expansion = {
+				who = event_target:war_warpmoon_builder
+				value = 50
+				apply_calc = no
+			}
+		}
+		every_country = { country_event = { id = war_warpmoon.3 } }
+	}
+}

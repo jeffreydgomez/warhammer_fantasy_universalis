@@ -9,10 +9,10 @@ nippon_missions_1 = {
 	has_country_shield = no
 	ai = yes
 	potential = {
+		war_nippon_capital_in_region = yes
 		war_mission_priority_1 = no
 		war_mission_priority_2 = no
 		war_mission_priority_3 = no
-		war_nippon_capital_in_region = yes
 	}
 
 	# Concept: A century of disputed grants has left the same rice fields owing tax to several lords. We must measure the land, improve our domain, and restore a survey that collectors and cultivators can both obey.
@@ -55,8 +55,8 @@ nippon_missions_1 = {
 		trigger = {
 			adm_tech = 5
 			OR = {
-				any_country = { NOT = { tag = ROOT } has_spy_network_from = { who = ROOT value = 25 } }
 				num_of_estate_agendas_completed = { estate = estate_burghers value = 1 }
+				any_country = { NOT = { tag = ROOT } has_spy_network_from = { who = ROOT value = 25 } }
 			}
 		}
 		effect = {
@@ -75,6 +75,12 @@ nippon_missions_1 = {
 			is_wasteland = no
 			has_discovered = ROOT
 			AND = {
+				region = nippon_region
+				owned_by = ROOT
+				NOT = { AND = {
+						NOT = { religion = vampiric }
+						OR = { has_building = courthouse has_building = town_hall }
+					} }
 				ROOT = { NOT = { AND = {
 							num_of_owned_provinces_with = {
 								region = nippon_region
@@ -83,22 +89,16 @@ nippon_missions_1 = {
 								value = 3
 							}
 						} } }
-				region = nippon_region
-				owned_by = ROOT
-				NOT = { AND = {
-						NOT = { religion = vampiric }
-						OR = { has_building = courthouse has_building = town_hall }
-					} }
 			}
 		}
 		trigger = {
+			NOT = { corruption = 1 }
 			num_of_owned_provinces_with = {
 				region = nippon_region
 				NOT = { religion = vampiric }
 				OR = { has_building = courthouse has_building = town_hall }
 				value = 3
 			}
-			NOT = { corruption = 1 }
 		}
 		effect = {
 			add_country_modifier = { name = nippon_blood_debts_reward duration = -1 }
@@ -116,6 +116,12 @@ nippon_missions_1 = {
 			is_wasteland = no
 			has_discovered = ROOT
 			AND = {
+				region = nippon_region
+				owned_by = ROOT
+				NOT = { AND = {
+						war_nippon_uncorrupted_province = yes
+						OR = { has_building = temple has_building = cathedral }
+					} }
 				ROOT = { NOT = { AND = {
 							num_of_owned_provinces_with = {
 								region = nippon_region
@@ -124,22 +130,16 @@ nippon_missions_1 = {
 								value = 4
 							}
 						} } }
-				region = nippon_region
-				owned_by = ROOT
-				NOT = { AND = {
-						war_nippon_uncorrupted_province = yes
-						OR = { has_building = temple has_building = cathedral }
-					} }
 			}
 		}
 		trigger = {
+			religious_unity = 0.90
 			num_of_owned_provinces_with = {
 				region = nippon_region
 				war_nippon_uncorrupted_province = yes
 				OR = { has_building = temple has_building = cathedral }
 				value = 4
 			}
-			religious_unity = 0.90
 		}
 		effect = {
 			add_country_modifier = { name = nippon_mountain_shrines_reward duration = -1 }
@@ -157,6 +157,12 @@ nippon_missions_1 = {
 			is_wasteland = no
 			has_discovered = ROOT
 			AND = {
+				region = nippon_region
+				owned_by = ROOT
+				NOT = { AND = {
+						war_nippon_fort = yes
+						NOT = { devastation = 5 }
+					} }
 				ROOT = { NOT = { AND = {
 							num_of_owned_provinces_with = {
 								region = nippon_region
@@ -165,22 +171,16 @@ nippon_missions_1 = {
 								value = 3
 							}
 						} } }
-				region = nippon_region
-				owned_by = ROOT
-				NOT = { AND = {
-						war_nippon_fort = yes
-						NOT = { devastation = 5 }
-					} }
 			}
 		}
 		trigger = {
+			NOT = { war_exhaustion = 2 }
 			num_of_owned_provinces_with = {
 				region = nippon_region
 				war_nippon_fort = yes
 				NOT = { devastation = 5 }
 				value = 3
 			}
-			NOT = { war_exhaustion = 2 }
 		}
 		effect = {
 			add_yearly_manpower = 1
@@ -203,8 +203,8 @@ nippon_missions_1 = {
 		}
 		trigger = {
 			war_nippon_restored = yes
-			war_nippon_homeland_restored = yes
 			is_at_war = no
+			war_nippon_homeland_restored = yes
 		}
 		effect = {
 			add_country_modifier = { name = nippon_century_of_night_reward duration = -1 }
@@ -221,17 +221,17 @@ nippon_missions_1 = {
 			is_sea = no
 			is_wasteland = no
 			AND = {
+				continent = underempire
+				NOT = { has_discovered = ROOT }
 				ROOT = { NOT = { AND = {
 							any_province = { continent = underempire has_discovered = ROOT }
 						} } }
-				continent = underempire
-				NOT = { has_discovered = ROOT }
 			}
 		}
 		trigger = {
 			war_nippon_restored = yes
-			any_province = { continent = underempire has_discovered = ROOT }
 			adm_tech = 8
+			any_province = { continent = underempire has_discovered = ROOT }
 		}
 		effect = {
 			add_adm_power = 50
@@ -251,6 +251,12 @@ nippon_missions_1 = {
 			OR = {
 				AND = {
 					AND = {
+						continent = underempire
+						is_city = yes
+						NOT = { AND = {
+								country_or_non_sovereign_subject_holds = ROOT
+								war_nippon_fort = yes
+							} }
 						ROOT = { NOT = { AND = {
 									num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 										continent = underempire
@@ -259,16 +265,16 @@ nippon_missions_1 = {
 										value = 3
 									}
 								} } }
-						continent = underempire
-						is_city = yes
-						NOT = { AND = {
-								country_or_non_sovereign_subject_holds = ROOT
-								war_nippon_fort = yes
-							} }
 					}
 				}
 				AND = {
 					AND = {
+						continent = underempire
+						is_city = yes
+						NOT = { AND = {
+								country_or_non_sovereign_subject_holds = ROOT
+								OR = { has_building = barracks has_building = training_fields }
+							} }
 						ROOT = { NOT = { AND = {
 									num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 										continent = underempire
@@ -277,12 +283,6 @@ nippon_missions_1 = {
 										value = 3
 									}
 								} } }
-						continent = underempire
-						is_city = yes
-						NOT = { AND = {
-								country_or_non_sovereign_subject_holds = ROOT
-								OR = { has_building = barracks has_building = training_fields }
-							} }
 					}
 				}
 			}
@@ -320,6 +320,12 @@ nippon_missions_1 = {
 			OR = {
 				AND = {
 					AND = {
+						continent = underempire
+						is_city = yes
+						NOT = { AND = {
+								country_or_non_sovereign_subject_holds = ROOT
+								OR = { has_building = courthouse has_building = town_hall }
+							} }
 						ROOT = { NOT = { AND = {
 									num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 										continent = underempire
@@ -328,16 +334,16 @@ nippon_missions_1 = {
 										value = 5
 									}
 								} } }
-						continent = underempire
-						is_city = yes
-						NOT = { AND = {
-								country_or_non_sovereign_subject_holds = ROOT
-								OR = { has_building = courthouse has_building = town_hall }
-							} }
 					}
 				}
 				AND = {
 					AND = {
+						continent = underempire
+						is_city = yes
+						NOT = { AND = {
+								country_or_non_sovereign_subject_holds = ROOT
+								OR = { has_building = workshop has_building = counting_house }
+							} }
 						ROOT = { NOT = { AND = {
 									num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 										continent = underempire
@@ -346,12 +352,6 @@ nippon_missions_1 = {
 										value = 5
 									}
 								} } }
-						continent = underempire
-						is_city = yes
-						NOT = { AND = {
-								country_or_non_sovereign_subject_holds = ROOT
-								OR = { has_building = workshop has_building = counting_house }
-							} }
 					}
 				}
 			}
@@ -389,6 +389,12 @@ nippon_missions_1 = {
 			OR = {
 				AND = {
 					AND = {
+						continent = underempire
+						is_city = yes
+						NOT = { AND = {
+								country_or_non_sovereign_subject_holds = ROOT
+								war_nippon_controlled_province = yes
+							} }
 						ROOT = { NOT = { AND = {
 									num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 										continent = underempire
@@ -397,16 +403,17 @@ nippon_missions_1 = {
 										value = 10
 									}
 								} } }
-						continent = underempire
-						is_city = yes
-						NOT = { AND = {
-								country_or_non_sovereign_subject_holds = ROOT
-								war_nippon_controlled_province = yes
-							} }
 					}
 				}
 				AND = {
 					AND = {
+						continent = underempire
+						is_city = yes
+						NOT = { AND = {
+								country_or_non_sovereign_subject_holds = ROOT
+								development = 15
+								NOT = { devastation = 5 }
+							} }
 						ROOT = { NOT = { AND = {
 									num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 										continent = underempire
@@ -416,13 +423,6 @@ nippon_missions_1 = {
 										value = 5
 									}
 								} } }
-						continent = underempire
-						is_city = yes
-						NOT = { AND = {
-								country_or_non_sovereign_subject_holds = ROOT
-								development = 15
-								NOT = { devastation = 5 }
-							} }
 					}
 				}
 			}
@@ -455,10 +455,10 @@ nippon_missions_2 = {
 	has_country_shield = no
 	ai = yes
 	potential = {
+		war_nippon_capital_in_region = yes
 		war_mission_priority_1 = no
 		war_mission_priority_2 = no
 		war_mission_priority_3 = no
-		war_nippon_capital_in_region = yes
 	}
 
 	# Concept: The old muster rolls name households that have deserted, divided, or sold their service. We must secure fresh military commitments and assemble a force worthy of the summons.
@@ -507,8 +507,8 @@ nippon_missions_2 = {
 		required_missions = { nippon_officer_oaths }
 		# No province highlights: Regiment drill and army tradition.
 		trigger = {
-			num_of_regiments_at_full_drill = 10
 			army_tradition = 25
+			num_of_regiments_at_full_drill = 10
 		}
 		effect = {
 			add_country_modifier = { name = nippon_sword_school_reward duration = -1 }
@@ -526,6 +526,11 @@ nippon_missions_2 = {
 			is_wasteland = no
 			has_discovered = ROOT
 			AND = {
+				region = nippon_region
+				owned_by = ROOT
+				NOT = { AND = {
+						OR = { has_building = barracks has_building = training_fields }
+					} }
 				ROOT = { NOT = { AND = {
 							num_of_owned_provinces_with = {
 								region = nippon_region
@@ -533,20 +538,15 @@ nippon_missions_2 = {
 								value = 4
 							}
 						} } }
-				region = nippon_region
-				owned_by = ROOT
-				NOT = { AND = {
-						OR = { has_building = barracks has_building = training_fields }
-					} }
 			}
 		}
 		trigger = {
+			army_size = 20
 			num_of_owned_provinces_with = {
 				region = nippon_region
 				OR = { has_building = barracks has_building = training_fields }
 				value = 4
 			}
-			army_size = 20
 		}
 		effect = {
 			add_country_modifier = { name = nippon_reunification_army_reward duration = -1 }
@@ -597,6 +597,12 @@ nippon_missions_2 = {
 			is_wasteland = no
 			has_discovered = ROOT
 			AND = {
+				continent = underempire
+				NOT = { AND = {
+						country_or_non_sovereign_subject_holds = ROOT
+						is_city = yes
+						war_nippon_fort = yes
+					} }
 				ROOT = { NOT = { AND = {
 							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 								continent = underempire
@@ -605,23 +611,17 @@ nippon_missions_2 = {
 								value = 1
 							}
 						} } }
-				continent = underempire
-				NOT = { AND = {
-						country_or_non_sovereign_subject_holds = ROOT
-						is_city = yes
-						war_nippon_fort = yes
-					} }
 			}
 		}
 		trigger = {
 			war_nippon_restored = yes
+			num_of_regiments_at_full_drill = 15
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 				continent = underempire
 				is_city = yes
 				war_nippon_fort = yes
 				value = 1
 			}
-			num_of_regiments_at_full_drill = 15
 		}
 		effect = {
 			add_country_modifier = { name = nippon_first_descent_reward duration = -1 }
@@ -641,9 +641,6 @@ nippon_missions_2 = {
 			OR = {
 				AND = {
 					AND = {
-						ROOT = { NOT = { AND = {
-									war_nippon_underworld_victory = yes
-								} } }
 						OR = {
 							AND = {
 								continent = underempire
@@ -659,10 +656,18 @@ nippon_missions_2 = {
 								}
 							}
 						}
+						ROOT = { NOT = { AND = {
+									war_nippon_underworld_victory = yes
+								} } }
 					}
 				}
 				AND = {
 					AND = {
+						continent = underempire
+						is_city = yes
+						NOT = { AND = {
+								country_or_non_sovereign_subject_holds = ROOT
+							} }
 						ROOT = { NOT = { AND = {
 									num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 										continent = underempire
@@ -670,11 +675,6 @@ nippon_missions_2 = {
 										value = 5
 									}
 								} } }
-						continent = underempire
-						is_city = yes
-						NOT = { AND = {
-								country_or_non_sovereign_subject_holds = ROOT
-							} }
 					}
 				}
 			}
@@ -720,8 +720,8 @@ nippon_missions_2 = {
 		trigger = {
 			war_nippon_restored = yes
 			OR = { army_professionalism = 0.75 has_country_modifier = war_modern_army }
-			num_of_regiments_at_full_drill = 30
 			army_tradition = 75
+			num_of_regiments_at_full_drill = 30
 		}
 		effect = {
 			add_country_modifier = { name = nippon_rising_sword_reward duration = -1 }
@@ -735,10 +735,10 @@ nippon_missions_3 = {
 	has_country_shield = no
 	ai = yes
 	potential = {
+		war_nippon_capital_in_region = yes
 		war_mission_priority_1 = no
 		war_mission_priority_2 = no
 		war_mission_priority_3 = no
-		war_nippon_capital_in_region = yes
 	}
 
 	# Concept: Officials still invoke imperial seals whose registers were lost during the feuds. We must rebuild the institutions that preserve these records and give the court a seat capable of enforcing them.
@@ -754,6 +754,11 @@ nippon_missions_3 = {
 			OR = {
 				AND = {
 					AND = {
+						region = nippon_region
+						owned_by = ROOT
+						NOT = { AND = {
+								OR = { has_building = temple has_building = cathedral }
+							} }
 						ROOT = { NOT = { AND = {
 									num_of_owned_provinces_with = {
 										region = nippon_region
@@ -761,11 +766,6 @@ nippon_missions_3 = {
 										value = 2
 									}
 								} } }
-						region = nippon_region
-						owned_by = ROOT
-						NOT = { AND = {
-								OR = { has_building = temple has_building = cathedral }
-							} }
 					}
 				}
 				AND = {
@@ -776,12 +776,12 @@ nippon_missions_3 = {
 			}
 		}
 		trigger = {
+			capital_scope = { development = 15 }
 			num_of_owned_provinces_with = {
 				region = nippon_region
 				OR = { has_building = temple has_building = cathedral }
 				value = 2
 			}
-			capital_scope = { development = 15 }
 		}
 		effect = {
 			add_dip_power = 50
@@ -799,6 +799,27 @@ nippon_missions_3 = {
 			is_wasteland = no
 			has_discovered = ROOT
 			AND = {
+				OR = {
+					AND = {
+						region = nippon_region
+						is_capital = yes
+						owner = { NOT = { tag = ROOT } is_subject = no NOT = { has_opinion = { who = ROOT value = 100 } } }
+					}
+					AND = {
+						AND = {
+							region = nippon_region
+							NOT = { AND = {
+									country_or_non_sovereign_subject_holds = ROOT
+								} }
+							ROOT = { NOT = { AND = {
+										num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+											region = nippon_region
+											value = 8
+										}
+									} } }
+						}
+					}
+				}
 				ROOT = { NOT = { AND = {
 							OR = {
 								AND = {
@@ -820,30 +841,10 @@ nippon_missions_3 = {
 								}
 							}
 						} } }
-				OR = {
-					AND = {
-						region = nippon_region
-						is_capital = yes
-						owner = { NOT = { tag = ROOT } is_subject = no NOT = { has_opinion = { who = ROOT value = 100 } } }
-					}
-					AND = {
-						AND = {
-							ROOT = { NOT = { AND = {
-										num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-											region = nippon_region
-											value = 8
-										}
-									} } }
-							region = nippon_region
-							NOT = { AND = {
-									country_or_non_sovereign_subject_holds = ROOT
-								} }
-						}
-					}
-				}
 			}
 		}
 		trigger = {
+			prestige = 10
 			OR = {
 				calc_true_if = {
 					all_country = {
@@ -859,7 +860,6 @@ nippon_missions_3 = {
 					value = 8
 				}
 			}
-			prestige = 10
 		}
 		effect = {
 			add_prestige_or_monarch_power = { amount = 25 }
@@ -913,16 +913,16 @@ nippon_missions_3 = {
 							war_nippon_restored = yes
 						} } }
 				AND = {
+					region = nippon_region
+					NOT = { AND = {
+							owned_by = ROOT
+						} }
 					ROOT = { NOT = { AND = {
 								num_of_owned_provinces_with = {
 									region = nippon_region
 									value = 30
 								}
 							} } }
-					region = nippon_region
-					NOT = { AND = {
-							owned_by = ROOT
-						} }
 				}
 			}
 		}
@@ -946,6 +946,14 @@ nippon_missions_3 = {
 			is_wasteland = no
 			has_discovered = ROOT
 			AND = {
+				is_capital = yes
+				NOT = { region = nippon_region }
+				owner = {
+					NOT = { tag = ROOT }
+					is_subject = no
+					total_development = 50
+					NOT = { AND = { has_opinion = { who = ROOT value = 125 } } }
+				}
 				ROOT = { NOT = { AND = {
 							calc_true_if = {
 								all_country = {
@@ -958,17 +966,10 @@ nippon_missions_3 = {
 								amount = 3
 							}
 						} } }
-				is_capital = yes
-				NOT = { region = nippon_region }
-				owner = {
-					NOT = { tag = ROOT }
-					is_subject = no
-					total_development = 50
-					NOT = { AND = { has_opinion = { who = ROOT value = 125 } } }
-				}
 			}
 		}
 		trigger = {
+			diplomatic_reputation = 2
 			calc_true_if = {
 				all_country = {
 					NOT = { tag = ROOT }
@@ -979,7 +980,6 @@ nippon_missions_3 = {
 				}
 				amount = 3
 			}
-			diplomatic_reputation = 2
 		}
 		effect = {
 			country_event = { id = war_nippon_missions.2 }
@@ -999,6 +999,11 @@ nippon_missions_3 = {
 			OR = {
 				AND = {
 					AND = {
+						region = nippon_region
+						owned_by = ROOT
+						NOT = { AND = {
+								base_production = 5
+							} }
 						ROOT = { NOT = { AND = {
 									num_of_owned_provinces_with = {
 										region = nippon_region
@@ -1006,11 +1011,6 @@ nippon_missions_3 = {
 										value = 5
 									}
 								} } }
-						region = nippon_region
-						owned_by = ROOT
-						NOT = { AND = {
-								base_production = 5
-							} }
 					}
 				}
 				AND = {
@@ -1044,6 +1044,12 @@ nippon_missions_3 = {
 			is_wasteland = no
 			has_discovered = ROOT
 			AND = {
+				region = nippon_region
+				owned_by = ROOT
+				NOT = { AND = {
+						development = 25
+						prosperity = 50
+					} }
 				ROOT = { NOT = { AND = {
 							num_of_owned_provinces_with = {
 								region = nippon_region
@@ -1052,12 +1058,6 @@ nippon_missions_3 = {
 								value = 3
 							}
 						} } }
-				region = nippon_region
-				owned_by = ROOT
-				NOT = { AND = {
-						development = 25
-						prosperity = 50
-					} }
 			}
 		}
 		trigger = {
@@ -1088,6 +1088,11 @@ nippon_missions_3 = {
 			OR = {
 				AND = {
 					AND = {
+						region = nippon_region
+						owned_by = ROOT
+						NOT = { AND = {
+								war_nippon_manufactory = yes
+							} }
 						ROOT = { NOT = { AND = {
 									num_of_owned_provinces_with = {
 										region = nippon_region
@@ -1095,15 +1100,15 @@ nippon_missions_3 = {
 										value = 5
 									}
 								} } }
-						region = nippon_region
-						owned_by = ROOT
-						NOT = { AND = {
-								war_nippon_manufactory = yes
-							} }
 					}
 				}
 				AND = {
 					AND = {
+						region = nippon_region
+						owned_by = ROOT
+						NOT = { AND = {
+								base_production = 8
+							} }
 						ROOT = { NOT = { AND = {
 									num_of_owned_provinces_with = {
 										region = nippon_region
@@ -1111,11 +1116,6 @@ nippon_missions_3 = {
 										value = 3
 									}
 								} } }
-						region = nippon_region
-						owned_by = ROOT
-						NOT = { AND = {
-								base_production = 8
-							} }
 					}
 				}
 			}
@@ -1177,6 +1177,14 @@ nippon_missions_3 = {
 			is_wasteland = no
 			has_discovered = ROOT
 			AND = {
+				is_capital = yes
+				NOT = { region = nippon_region }
+				owner = {
+					NOT = { tag = ROOT }
+					is_subject = no
+					total_development = 100
+					NOT = { AND = { has_opinion = { who = ROOT value = 150 } } }
+				}
 				ROOT = { NOT = { AND = {
 							calc_true_if = {
 								all_country = {
@@ -1189,18 +1197,12 @@ nippon_missions_3 = {
 								amount = 4
 							}
 						} } }
-				is_capital = yes
-				NOT = { region = nippon_region }
-				owner = {
-					NOT = { tag = ROOT }
-					is_subject = no
-					total_development = 100
-					NOT = { AND = { has_opinion = { who = ROOT value = 150 } } }
-				}
 			}
 		}
 		trigger = {
 			war_nippon_restored = yes
+			prestige = 75
+			diplomatic_reputation = 5
 			calc_true_if = {
 				all_country = {
 					NOT = { tag = ROOT }
@@ -1211,8 +1213,6 @@ nippon_missions_3 = {
 				}
 				amount = 4
 			}
-			prestige = 75
-			diplomatic_reputation = 5
 		}
 		effect = {
 			add_country_modifier = { name = nippon_hundred_banners_reward duration = -1 }
@@ -1230,38 +1230,6 @@ nippon_missions_3 = {
 			is_wasteland = no
 			has_discovered = ROOT
 			AND = {
-				ROOT = { NOT = { AND = {
-							custom_trigger_tooltip = {
-								tooltip = war_nippon_artifacts_collected_tt
-								calc_true_if = {
-									amount = 14
-									any_owned_province = { has_province_modifier = location_of_the_phoenix_crown }
-									any_owned_province = { has_province_modifier = location_of_the_ghal_maraz }
-									any_owned_province = { has_province_modifier = location_of_the_book_of_grudges }
-									any_owned_province = { has_province_modifier = location_of_the_widowmaker }
-									any_owned_province = { has_province_modifier = location_of_the_carstein_ring }
-									any_owned_province = { has_province_modifier = location_of_the_staff_of_nagash }
-									any_owned_province = { has_province_modifier = location_of_the_fellblade }
-									any_owned_province = { has_province_modifier = location_of_the_bow_of_loren }
-									any_owned_province = { has_province_modifier = location_of_the_celestial_compass }
-									any_owned_province = { has_province_modifier = location_of_the_great_maw_cauldron }
-									any_owned_province = { has_province_modifier = location_of_the_hashuts_black_hammer }
-									any_owned_province = { has_province_modifier = location_of_the_crown_of_the_troll_king }
-									any_owned_province = { has_province_modifier = location_of_the_jade_blooded_vial }
-									any_owned_province = { has_province_modifier = location_of_nagashs_tome }
-									any_owned_province = { has_province_modifier = location_of_the_plaque_of_tepok }
-									any_owned_province = { has_province_modifier = location_of_the_cloak_of_twilight }
-									any_owned_province = { has_province_modifier = location_of_the_dragon_armor_of_aenarion }
-									any_owned_province = { has_province_modifier = location_of_the_reman_scroll }
-									any_owned_province = { has_province_modifier = location_of_the_genie_in_a_bottle }
-									any_owned_province = { has_province_modifier = location_of_the_heavens_gate }
-									any_owned_province = { has_province_modifier = location_of_the_bleeding_idol }
-									any_owned_province = { has_province_modifier = location_of_the_shoguns_katana }
-									any_owned_province = { has_province_modifier = location_of_the_grail }
-									any_owned_province = { has_province_modifier = location_of_the_gromril_crown }
-								}
-							}
-						} } }
 				NOT = { owned_by = ROOT }
 				OR = {
 					AND = {
@@ -1361,6 +1329,38 @@ nippon_missions_3 = {
 						ROOT = { NOT = { any_owned_province = { has_province_modifier = location_of_the_gromril_crown } } }
 					}
 				}
+				ROOT = { NOT = { AND = {
+							custom_trigger_tooltip = {
+								tooltip = war_nippon_artifacts_collected_tt
+								calc_true_if = {
+									amount = 14
+									any_owned_province = { has_province_modifier = location_of_the_phoenix_crown }
+									any_owned_province = { has_province_modifier = location_of_the_ghal_maraz }
+									any_owned_province = { has_province_modifier = location_of_the_book_of_grudges }
+									any_owned_province = { has_province_modifier = location_of_the_widowmaker }
+									any_owned_province = { has_province_modifier = location_of_the_carstein_ring }
+									any_owned_province = { has_province_modifier = location_of_the_staff_of_nagash }
+									any_owned_province = { has_province_modifier = location_of_the_fellblade }
+									any_owned_province = { has_province_modifier = location_of_the_bow_of_loren }
+									any_owned_province = { has_province_modifier = location_of_the_celestial_compass }
+									any_owned_province = { has_province_modifier = location_of_the_great_maw_cauldron }
+									any_owned_province = { has_province_modifier = location_of_the_hashuts_black_hammer }
+									any_owned_province = { has_province_modifier = location_of_the_crown_of_the_troll_king }
+									any_owned_province = { has_province_modifier = location_of_the_jade_blooded_vial }
+									any_owned_province = { has_province_modifier = location_of_nagashs_tome }
+									any_owned_province = { has_province_modifier = location_of_the_plaque_of_tepok }
+									any_owned_province = { has_province_modifier = location_of_the_cloak_of_twilight }
+									any_owned_province = { has_province_modifier = location_of_the_dragon_armor_of_aenarion }
+									any_owned_province = { has_province_modifier = location_of_the_reman_scroll }
+									any_owned_province = { has_province_modifier = location_of_the_genie_in_a_bottle }
+									any_owned_province = { has_province_modifier = location_of_the_heavens_gate }
+									any_owned_province = { has_province_modifier = location_of_the_bleeding_idol }
+									any_owned_province = { has_province_modifier = location_of_the_shoguns_katana }
+									any_owned_province = { has_province_modifier = location_of_the_grail }
+									any_owned_province = { has_province_modifier = location_of_the_gromril_crown }
+								}
+							}
+						} } }
 			}
 		}
 		trigger = {
@@ -1408,10 +1408,10 @@ nippon_missions_4 = {
 	has_country_shield = no
 	ai = yes
 	potential = {
+		war_nippon_capital_in_region = yes
 		war_mission_priority_1 = no
 		war_mission_priority_2 = no
 		war_mission_priority_3 = no
-		war_nippon_capital_in_region = yes
 	}
 
 	# Concept: Cathayan courts have learned to treat our quarrelling lords as petitioners and convenient clients. We must learn who commands their coast before presenting demands of our own.
@@ -1425,6 +1425,30 @@ nippon_missions_4 = {
 			is_wasteland = no
 			has_discovered = ROOT
 			AND = {
+				OR = {
+					AND = {
+						superregion = cathay_superregion
+						is_capital = yes
+						owner = { NOT = { tag = ROOT }
+							NOT = { OR = { has_spy_network_from = { who = ROOT value = 25 } has_opinion = { who = ROOT value = 100 } } } }
+					}
+					AND = {
+						AND = {
+							superregion = cathay_superregion
+							has_port = yes
+							NOT = { AND = {
+									country_or_non_sovereign_subject_holds = ROOT
+								} }
+							ROOT = { NOT = { AND = {
+										num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+											superregion = cathay_superregion
+											has_port = yes
+											value = 1
+										}
+									} } }
+						}
+					}
+				}
 				ROOT = { NOT = { AND = {
 							OR = {
 								any_country = { capital_scope = { superregion = cathay_superregion }
@@ -1437,30 +1461,6 @@ nippon_missions_4 = {
 								}
 							}
 						} } }
-				OR = {
-					AND = {
-						superregion = cathay_superregion
-						is_capital = yes
-						owner = { NOT = { tag = ROOT }
-							NOT = { OR = { has_spy_network_from = { who = ROOT value = 25 } has_opinion = { who = ROOT value = 100 } } } }
-					}
-					AND = {
-						AND = {
-							ROOT = { NOT = { AND = {
-										num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-											superregion = cathay_superregion
-											has_port = yes
-											value = 1
-										}
-									} } }
-							superregion = cathay_superregion
-							has_port = yes
-							NOT = { AND = {
-									country_or_non_sovereign_subject_holds = ROOT
-								} }
-						}
-					}
-				}
 			}
 		}
 		trigger = {
@@ -1507,6 +1507,12 @@ nippon_missions_4 = {
 			is_wasteland = no
 			has_discovered = ROOT
 			AND = {
+				superregion = cathay_superregion
+				has_port = yes
+				NOT = { AND = {
+						country_or_non_sovereign_subject_holds = ROOT
+						war_nippon_fort = yes
+					} }
 				ROOT = { NOT = { AND = {
 							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 								superregion = cathay_superregion
@@ -1515,22 +1521,16 @@ nippon_missions_4 = {
 								value = 1
 							}
 						} } }
-				superregion = cathay_superregion
-				has_port = yes
-				NOT = { AND = {
-						country_or_non_sovereign_subject_holds = ROOT
-						war_nippon_fort = yes
-					} }
 			}
 		}
 		trigger = {
+			num_of_transport = 10
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 				superregion = cathay_superregion
 				has_port = yes
 				war_nippon_fort = yes
 				value = 1
 			}
-			num_of_transport = 10
 		}
 		effect = {
 			add_country_modifier = { name = nippon_cathayan_harbour_reward duration = -1 }
@@ -1548,9 +1548,6 @@ nippon_missions_4 = {
 			is_wasteland = no
 			has_discovered = ROOT
 			AND = {
-				ROOT = { NOT = { AND = {
-							war_nippon_cathayan_victory = yes
-						} } }
 				OR = {
 					AND = {
 						superregion = cathay_superregion
@@ -1566,11 +1563,14 @@ nippon_missions_4 = {
 						}
 					}
 				}
+				ROOT = { NOT = { AND = {
+							war_nippon_cathayan_victory = yes
+						} } }
 			}
 		}
 		trigger = {
-			war_nippon_cathayan_victory = yes
 			prestige = 50
+			war_nippon_cathayan_victory = yes
 		}
 		effect = {
 			add_country_modifier = { name = nippon_humble_dragon_reward duration = -1 }
@@ -1588,6 +1588,12 @@ nippon_missions_4 = {
 			is_wasteland = no
 			has_discovered = ROOT
 			AND = {
+				region = nippon_region
+				has_port = yes
+				owned_by = ROOT
+				NOT = { AND = {
+						OR = { has_building = shipyard has_building = grand_shipyard }
+					} }
 				ROOT = { NOT = { AND = {
 							num_of_owned_provinces_with = {
 								region = nippon_region
@@ -1596,12 +1602,6 @@ nippon_missions_4 = {
 								value = 3
 							}
 						} } }
-				region = nippon_region
-				has_port = yes
-				owned_by = ROOT
-				NOT = { AND = {
-						OR = { has_building = shipyard has_building = grand_shipyard }
-					} }
 			}
 		}
 		trigger = {
@@ -1630,28 +1630,28 @@ nippon_missions_4 = {
 			is_wasteland = no
 			has_discovered = ROOT
 			AND = {
-				ROOT = { NOT = { AND = {
-							any_country = { NOT = { tag = ROOT }
-								capital_scope = { NOT = { region = nippon_region } has_port = yes }
-								alliance_with = ROOT trust = { who = ROOT value = 60 } }
-						} } }
 				NOT = { region = nippon_region }
 				is_capital = yes
 				has_port = yes
 				owner = { NOT = { tag = ROOT }
 					NOT = { AND = { alliance_with = ROOT trust = { who = ROOT value = 60 } } } }
+				ROOT = { NOT = { AND = {
+							any_country = {
+								alliance_with = ROOT NOT = { tag = ROOT }
+								capital_scope = { NOT = { region = nippon_region } has_port = yes } trust = { who = ROOT value = 60 } }
+						} } }
 			}
 		}
 		trigger = {
 			war_nippon_restored = yes
+			navy_tradition = 25
 			any_country = {
+				alliance_with = ROOT
 				NOT = { tag = ROOT }
 				NOT = { capital_scope = { region = nippon_region } }
 				capital_scope = { has_port = yes }
-				alliance_with = ROOT
 				trust = { who = ROOT value = 60 }
 			}
-			navy_tradition = 25
 		}
 		effect = {
 			add_dip_power = 50
@@ -1669,29 +1669,29 @@ nippon_missions_4 = {
 			is_wasteland = no
 			has_discovered = ROOT
 			AND = {
-				ROOT = { NOT = { AND = {
-							any_country = { NOT = { tag = ROOT } is_subject = no
-								capital_scope = { continent = europe has_port = yes }
-								alliance_with = ROOT has_opinion = { who = ROOT value = 150 } trust = { who = ROOT value = 60 } }
-						} } }
 				continent = europe
 				has_port = yes
 				is_capital = yes
 				owner = { NOT = { tag = ROOT } is_subject = no
 					NOT = { AND = { alliance_with = ROOT has_opinion = { who = ROOT value = 150 } trust = { who = ROOT value = 60 } } } }
+				ROOT = { NOT = { AND = {
+							any_country = {
+								alliance_with = ROOT NOT = { tag = ROOT } is_subject = no
+								capital_scope = { continent = europe has_port = yes } has_opinion = { who = ROOT value = 150 } trust = { who = ROOT value = 60 } }
+						} } }
 			}
 		}
 		trigger = {
 			war_nippon_restored = yes
+			diplomatic_reputation = 3
 			any_country = {
+				alliance_with = ROOT
 				NOT = { tag = ROOT }
 				is_subject = no
 				capital_scope = { continent = europe has_port = yes }
-				alliance_with = ROOT
 				has_opinion = { who = ROOT value = 150 }
 				trust = { who = ROOT value = 60 }
 			}
-			diplomatic_reputation = 3
 		}
 		effect = {
 			add_prestige_or_monarch_power = { amount = 25 }
@@ -1711,19 +1711,6 @@ nippon_missions_4 = {
 			OR = {
 				AND = {
 					AND = {
-						ROOT = { NOT = { AND = {
-									calc_true_if = {
-										all_country = {
-											NOT = { tag = ROOT }
-											is_subject = no
-											capital_scope = { NOT = { region = nippon_region } }
-											total_development = 300
-											alliance_with = ROOT
-											trust = { who = ROOT value = 75 }
-										}
-										amount = 2
-									}
-								} } }
 						is_capital = yes
 						NOT = { region = nippon_region }
 						owner = {
@@ -1733,6 +1720,19 @@ nippon_missions_4 = {
 							NOT = { AND = { alliance_with = ROOT
 									trust = { who = ROOT value = 75 } } }
 						}
+						ROOT = { NOT = { AND = {
+									calc_true_if = {
+										all_country = {
+											alliance_with = ROOT
+											NOT = { tag = ROOT }
+											is_subject = no
+											capital_scope = { NOT = { region = nippon_region } }
+											total_development = 300
+											trust = { who = ROOT value = 75 }
+										}
+										amount = 2
+									}
+								} } }
 					}
 				}
 				AND = {
@@ -1780,18 +1780,18 @@ nippon_missions_4 = {
 		}
 		trigger = {
 			war_nippon_restored = yes
+			num_of_continents = 3
 			calc_true_if = {
 				all_country = {
+					alliance_with = ROOT
 					NOT = { tag = ROOT }
 					is_subject = no
 					NOT = { capital_scope = { region = nippon_region } }
 					total_development = 300
-					alliance_with = ROOT
 					trust = { who = ROOT value = 75 }
 				}
 				amount = 2
 			}
-			num_of_continents = 3
 		}
 		effect = {
 			add_country_modifier = { name = nippon_ancient_powers_reward duration = -1 }
@@ -1805,10 +1805,10 @@ nippon_missions_5 = {
 	has_country_shield = no
 	ai = yes
 	potential = {
+		war_nippon_capital_in_region = yes
 		war_mission_priority_1 = no
 		war_mission_priority_2 = no
 		war_mission_priority_3 = no
-		war_nippon_capital_in_region = yes
 	}
 
 	# Concept: Rotting slips and unpaid crews have left our ports dependent on foreign protection. We must rebuild the docks and place a seaworthy fleet at the service of the realm.
@@ -1822,6 +1822,12 @@ nippon_missions_5 = {
 			is_wasteland = no
 			has_discovered = ROOT
 			AND = {
+				region = nippon_region
+				has_port = yes
+				owned_by = ROOT
+				NOT = { AND = {
+						OR = { has_building = dock has_building = drydock }
+					} }
 				ROOT = { NOT = { AND = {
 							num_of_owned_provinces_with = {
 								region = nippon_region
@@ -1830,22 +1836,16 @@ nippon_missions_5 = {
 								value = 2
 							}
 						} } }
-				region = nippon_region
-				has_port = yes
-				owned_by = ROOT
-				NOT = { AND = {
-						OR = { has_building = dock has_building = drydock }
-					} }
 			}
 		}
 		trigger = {
+			navy_size_percentage = 0.75
 			num_of_owned_provinces_with = {
 				region = nippon_region
 				has_port = yes
 				OR = { has_building = dock has_building = drydock }
 				value = 2
 			}
-			navy_size_percentage = 0.75
 		}
 		effect = {
 			add_years_of_income = 0.5
@@ -1878,6 +1878,9 @@ nippon_missions_5 = {
 			is_sea = no
 			is_wasteland = no
 			AND = {
+				OR = { region = north_khuresh_region region = south_khuresh_region }
+				has_port = yes
+				NOT = { has_discovered = ROOT }
 				ROOT = { NOT = { AND = {
 							OR = {
 								AND = {
@@ -1891,12 +1894,10 @@ nippon_missions_5 = {
 								}
 							}
 						} } }
-				OR = { region = north_khuresh_region region = south_khuresh_region }
-				has_port = yes
-				NOT = { has_discovered = ROOT }
 			}
 		}
 		trigger = {
+			num_of_transport = 15
 			OR = {
 				any_province = { OR = { region = north_khuresh_region region = south_khuresh_region }
 					has_port = yes
@@ -1906,7 +1907,6 @@ nippon_missions_5 = {
 					value = 1
 				}
 			}
-			num_of_transport = 15
 		}
 		effect = {
 			add_mil_power = 50
@@ -1926,9 +1926,6 @@ nippon_missions_5 = {
 			OR = {
 				AND = {
 					AND = {
-						ROOT = { NOT = { AND = {
-									war_nippon_khureshi_victory = yes
-								} } }
 						OR = {
 							AND = {
 								OR = { region = north_khuresh_region region = south_khuresh_region }
@@ -1944,10 +1941,19 @@ nippon_missions_5 = {
 								}
 							}
 						}
+						ROOT = { NOT = { AND = {
+									war_nippon_khureshi_victory = yes
+								} } }
 					}
 				}
 				AND = {
 					AND = {
+						OR = { region = north_khuresh_region region = south_khuresh_region }
+						has_port = yes
+						NOT = { AND = {
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							} }
 						ROOT = { NOT = { AND = {
 									num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 										OR = { region = north_khuresh_region region = south_khuresh_region }
@@ -1956,12 +1962,6 @@ nippon_missions_5 = {
 										value = 1
 									}
 								} } }
-						OR = { region = north_khuresh_region region = south_khuresh_region }
-						has_port = yes
-						NOT = { AND = {
-								country_or_non_sovereign_subject_holds = ROOT
-								is_city = yes
-							} }
 					}
 				}
 			}
@@ -1990,18 +1990,18 @@ nippon_missions_5 = {
 			is_sea = no
 			is_wasteland = no
 			AND = {
-				ROOT = { NOT = { AND = {
-							any_province = { war_nippon_new_world_province = yes has_port = yes has_discovered = ROOT }
-						} } }
 				war_nippon_new_world_province = yes
 				has_port = yes
 				NOT = { has_discovered = ROOT }
+				ROOT = { NOT = { AND = {
+							any_province = { war_nippon_new_world_province = yes has_port = yes has_discovered = ROOT }
+						} } }
 			}
 		}
 		trigger = {
 			war_nippon_restored = yes
-			any_province = { war_nippon_new_world_province = yes has_port = yes has_discovered = ROOT }
 			num_of_heavy_ship = 5
+			any_province = { war_nippon_new_world_province = yes has_port = yes has_discovered = ROOT }
 		}
 		effect = {
 			add_prestige_or_monarch_power = { amount = 25 }
@@ -2021,12 +2021,6 @@ nippon_missions_5 = {
 			OR = {
 				AND = {
 					AND = {
-						ROOT = { NOT = { AND = {
-									num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-										war_nippon_new_world_settlement = yes
-										value = 1
-									}
-								} } }
 						war_nippon_new_world_province = yes
 						OR = {
 							AND = {
@@ -2037,10 +2031,22 @@ nippon_missions_5 = {
 								is_city = no
 							}
 						}
+						ROOT = { NOT = { AND = {
+									num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+										war_nippon_new_world_settlement = yes
+										value = 1
+									}
+								} } }
 					}
 				}
 				AND = {
 					AND = {
+						war_nippon_new_world_settlement = yes
+						has_port = yes
+						country_or_non_sovereign_subject_holds = ROOT
+						NOT = { AND = {
+								OR = { has_building = marketplace has_building = trade_depot has_building = stock_exchange }
+							} }
 						ROOT = { NOT = { AND = {
 									num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 										war_nippon_new_world_settlement = yes
@@ -2049,12 +2055,6 @@ nippon_missions_5 = {
 										value = 1
 									}
 								} } }
-						war_nippon_new_world_settlement = yes
-						has_port = yes
-						country_or_non_sovereign_subject_holds = ROOT
-						NOT = { AND = {
-								OR = { has_building = marketplace has_building = trade_depot has_building = stock_exchange }
-							} }
 					}
 				}
 			}
@@ -2090,12 +2090,6 @@ nippon_missions_5 = {
 			OR = {
 				AND = {
 					AND = {
-						ROOT = { NOT = { AND = {
-									num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-										war_nippon_new_world_settlement = yes
-										value = 5
-									}
-								} } }
 						war_nippon_new_world_province = yes
 						OR = {
 							AND = {
@@ -2106,10 +2100,22 @@ nippon_missions_5 = {
 								is_city = no
 							}
 						}
+						ROOT = { NOT = { AND = {
+									num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+										war_nippon_new_world_settlement = yes
+										value = 5
+									}
+								} } }
 					}
 				}
 				AND = {
 					AND = {
+						war_nippon_new_world_settlement = yes
+						has_port = yes
+						country_or_non_sovereign_subject_holds = ROOT
+						NOT = { AND = {
+								OR = { has_building = dock has_building = drydock }
+							} }
 						ROOT = { NOT = { AND = {
 									num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 										war_nippon_new_world_settlement = yes
@@ -2118,12 +2124,6 @@ nippon_missions_5 = {
 										value = 3
 									}
 								} } }
-						war_nippon_new_world_settlement = yes
-						has_port = yes
-						country_or_non_sovereign_subject_holds = ROOT
-						NOT = { AND = {
-								OR = { has_building = dock has_building = drydock }
-							} }
 					}
 				}
 			}
@@ -2159,6 +2159,12 @@ nippon_missions_5 = {
 			OR = {
 				AND = {
 					AND = {
+						war_nippon_new_world_province = yes
+						is_city = yes
+						NOT = { AND = {
+								country_or_non_sovereign_subject_holds = ROOT
+								war_nippon_controlled_province = yes
+							} }
 						ROOT = { NOT = { AND = {
 									num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 										war_nippon_new_world_province = yes
@@ -2167,22 +2173,10 @@ nippon_missions_5 = {
 										value = 15
 									}
 								} } }
-						war_nippon_new_world_province = yes
-						is_city = yes
-						NOT = { AND = {
-								country_or_non_sovereign_subject_holds = ROOT
-								war_nippon_controlled_province = yes
-							} }
 					}
 				}
 				AND = {
 					AND = {
-						ROOT = { NOT = { AND = {
-									num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-										war_nippon_new_world_settlement = yes
-										value = 10
-									}
-								} } }
 						war_nippon_new_world_province = yes
 						OR = {
 							AND = {
@@ -2193,10 +2187,22 @@ nippon_missions_5 = {
 								is_city = no
 							}
 						}
+						ROOT = { NOT = { AND = {
+									num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+										war_nippon_new_world_settlement = yes
+										value = 10
+									}
+								} } }
 					}
 				}
 				AND = {
 					AND = {
+						war_nippon_new_world_settlement = yes
+						country_or_non_sovereign_subject_holds = ROOT
+						NOT = { AND = {
+								development = 15
+								OR = { has_building = marketplace has_building = trade_depot has_building = stock_exchange }
+							} }
 						ROOT = { NOT = { AND = {
 									num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 										war_nippon_new_world_settlement = yes
@@ -2205,12 +2211,6 @@ nippon_missions_5 = {
 										value = 3
 									}
 								} } }
-						war_nippon_new_world_settlement = yes
-						country_or_non_sovereign_subject_holds = ROOT
-						NOT = { AND = {
-								development = 15
-								OR = { has_building = marketplace has_building = trade_depot has_building = stock_exchange }
-							} }
 					}
 				}
 			}

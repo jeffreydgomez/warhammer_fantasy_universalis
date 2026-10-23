@@ -1,0 +1,2820 @@
+# Country scope. Record one adventurer on its current owner for this global pulse.
+war_adventurer_collect_pulse_host = {
+    if = {
+        limit = {
+            event_target:war_adventurer_location_$SLUG$ = {
+                is_empty = no
+                has_province_modifier = war_adventurer_$SLUG$
+            }
+        }
+        event_target:war_adventurer_location_$SLUG$ = {
+            owner = {
+                set_country_flag = war_adventurer_pulse_host
+                set_country_flag = war_adventurer_pulse_$SLUG$_scheduled
+            }
+        }
+    }
+}
+
+# Country scope: the #1 great power coordinates one global pass.
+war_adventurer_schedule_pulse = {
+	war_adventurer_collect_pulse_host = { SLUG = gelt }
+	war_adventurer_collect_pulse_host = { SLUG = teclis }
+	war_adventurer_collect_pulse_host = { SLUG = snikch }
+	war_adventurer_collect_pulse_host = { SLUG = bugman }
+	war_adventurer_collect_pulse_host = { SLUG = bardin }
+	war_adventurer_collect_pulse_host = { SLUG = harald }
+	war_adventurer_collect_pulse_host = { SLUG = abhorash }
+	war_adventurer_collect_pulse_host = { SLUG = elspeth }
+	war_adventurer_collect_pulse_host = { SLUG = wulfhart }
+	war_adventurer_collect_pulse_host = { SLUG = gotrek_felix }
+	war_adventurer_collect_pulse_host = { SLUG = repanse }
+	war_adventurer_collect_pulse_host = { SLUG = sienna }
+	war_adventurer_collect_pulse_host = { SLUG = malakai }
+	war_adventurer_collect_pulse_host = { SLUG = tyrion }
+	war_adventurer_collect_pulse_host = { SLUG = gor_rok }
+	war_adventurer_collect_pulse_host = { SLUG = nakai }
+	war_adventurer_collect_pulse_host = { SLUG = thanquol }
+	war_adventurer_collect_pulse_host = { SLUG = grombrindal }
+	# All visitors are recorded before the first host receives a selection event.
+	every_country = {
+		limit = { has_country_flag = war_adventurer_pulse_host }
+		clr_country_flag = war_adventurer_pulse_host
+		country_event = { id = war_adventurer_pulse.2 }
+	}
+}
+
+# Country scope. Cache a scheduled visitor's presence, geography, relationship and story count.
+# The snapshot prevents newly arriving visitors from entering this same global pass twice.
+war_adventurer_cache_pulse_candidate = {
+    if = {
+        limit = {
+            has_country_flag = war_adventurer_pulse_$SLUG$_scheduled
+            event_target:war_adventurer_location_$SLUG$ = {
+                owned_by = ROOT
+                has_province_modifier = war_adventurer_$SLUG$
+            }
+        }
+        set_country_flag = war_adventurer_pulse_has_candidate
+        set_country_flag = war_adventurer_pulse_$SLUG$_eligible
+        set_variable = { which = war_adventurer_pulse_$SLUG$_weight value = 5 }
+        if = {
+            limit = { event_target:war_adventurer_location_$SLUG$ = { war_adventurer_$SLUG$_home = yes } }
+            set_country_flag = war_adventurer_pulse_$SLUG$_home
+        }
+        if = {
+            limit = { war_adventurer_enemy_$PROFILE$ = yes }
+            set_country_flag = war_adventurer_pulse_$SLUG$_enemy
+        }
+    }
+}
+
+# Country scope. One draw per snapshotted host, with equal odds for every eligible story.
+war_adventurer_dispatch_pulse = {
+	war_adventurer_cache_pulse_candidate = { SLUG = gelt PROFILE = a }
+	war_adventurer_cache_pulse_candidate = { SLUG = teclis PROFILE = a }
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_teclis_eligible }
+		if = {
+			limit = {
+				has_country_flag = war_adventurer_pulse_teclis_home
+				NOT = { has_country_flag = war_adventurer_pulse_teclis_enemy }
+				event_target:war_adventurer_location_teclis = {
+					NOT = {
+						has_port = yes
+					}
+				}
+			}
+			change_variable = { which = war_adventurer_pulse_teclis_weight value = -1 }
+		}
+	}
+	war_adventurer_cache_pulse_candidate = { SLUG = snikch PROFILE = b }
+	war_adventurer_cache_pulse_candidate = { SLUG = bugman PROFILE = a }
+	war_adventurer_cache_pulse_candidate = { SLUG = bardin PROFILE = a }
+	war_adventurer_cache_pulse_candidate = { SLUG = harald PROFILE = c }
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_harald_eligible }
+		if = {
+			limit = {
+				has_country_flag = war_adventurer_pulse_harald_home
+				has_country_flag = war_adventurer_pulse_harald_enemy
+				event_target:war_adventurer_location_harald = {
+					NOT = {
+						owner = { has_country_modifier = undead_administration }
+					}
+				}
+			}
+			change_variable = { which = war_adventurer_pulse_harald_weight value = -1 }
+		}
+		if = {
+			limit = {
+				NOT = { has_country_flag = war_adventurer_pulse_harald_home }
+				has_country_flag = war_adventurer_pulse_harald_enemy
+				event_target:war_adventurer_location_harald = {
+					NOT = {
+						owner = { has_country_modifier = undead_administration }
+					}
+				}
+			}
+			change_variable = { which = war_adventurer_pulse_harald_weight value = -1 }
+		}
+		if = {
+			limit = {
+				NOT = { has_country_flag = war_adventurer_pulse_harald_home }
+				has_country_flag = war_adventurer_pulse_harald_enemy
+				event_target:war_adventurer_location_harald = {
+					NOT = {
+						owner = { has_country_modifier = undead_administration }
+					}
+				}
+			}
+			change_variable = { which = war_adventurer_pulse_harald_weight value = -1 }
+		}
+	}
+	war_adventurer_cache_pulse_candidate = { SLUG = abhorash PROFILE = d }
+	war_adventurer_cache_pulse_candidate = { SLUG = elspeth PROFILE = a }
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_elspeth_eligible }
+		if = {
+			limit = {
+				has_country_flag = war_adventurer_pulse_elspeth_home
+				has_country_flag = war_adventurer_pulse_elspeth_enemy
+				event_target:war_adventurer_location_elspeth = {
+					NOT = {
+						owner = { has_country_modifier = undead_administration }
+					}
+				}
+			}
+			change_variable = { which = war_adventurer_pulse_elspeth_weight value = -1 }
+		}
+		if = {
+			limit = {
+				has_country_flag = war_adventurer_pulse_elspeth_home
+				has_country_flag = war_adventurer_pulse_elspeth_enemy
+				event_target:war_adventurer_location_elspeth = {
+					NOT = {
+						owner = { has_country_modifier = undead_administration }
+					}
+				}
+			}
+			change_variable = { which = war_adventurer_pulse_elspeth_weight value = -1 }
+		}
+		if = {
+			limit = {
+				NOT = { has_country_flag = war_adventurer_pulse_elspeth_home }
+				has_country_flag = war_adventurer_pulse_elspeth_enemy
+				event_target:war_adventurer_location_elspeth = {
+					NOT = {
+						owner = { has_country_modifier = undead_administration }
+					}
+				}
+			}
+			change_variable = { which = war_adventurer_pulse_elspeth_weight value = -1 }
+		}
+	}
+	war_adventurer_cache_pulse_candidate = { SLUG = wulfhart PROFILE = a }
+	war_adventurer_cache_pulse_candidate = { SLUG = gotrek_felix PROFILE = a }
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_gotrek_felix_eligible }
+		if = {
+			limit = {
+				NOT = { has_country_flag = war_adventurer_pulse_gotrek_felix_home }
+				has_country_flag = war_adventurer_pulse_gotrek_felix_enemy
+				event_target:war_adventurer_location_gotrek_felix = {
+					NOT = {
+						owner = { is_at_war = yes }
+					}
+				}
+			}
+			change_variable = { which = war_adventurer_pulse_gotrek_felix_weight value = -1 }
+		}
+	}
+	war_adventurer_cache_pulse_candidate = { SLUG = repanse PROFILE = a }
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_repanse_eligible }
+		if = {
+			limit = {
+				has_country_flag = war_adventurer_pulse_repanse_home
+				has_country_flag = war_adventurer_pulse_repanse_enemy
+				event_target:war_adventurer_location_repanse = {
+					NOT = {
+						owner = { is_at_war = yes }
+					}
+				}
+			}
+			change_variable = { which = war_adventurer_pulse_repanse_weight value = -1 }
+		}
+	}
+	war_adventurer_cache_pulse_candidate = { SLUG = sienna PROFILE = a }
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_sienna_eligible }
+		if = {
+			limit = {
+				NOT = { has_country_flag = war_adventurer_pulse_sienna_home }
+				NOT = { has_country_flag = war_adventurer_pulse_sienna_enemy }
+				event_target:war_adventurer_location_sienna = {
+					NOT = {
+						has_port = yes
+					}
+				}
+			}
+			change_variable = { which = war_adventurer_pulse_sienna_weight value = -1 }
+		}
+		if = {
+			limit = {
+				NOT = { has_country_flag = war_adventurer_pulse_sienna_home }
+				has_country_flag = war_adventurer_pulse_sienna_enemy
+				event_target:war_adventurer_location_sienna = {
+					NOT = {
+						has_port = yes
+					}
+				}
+			}
+			change_variable = { which = war_adventurer_pulse_sienna_weight value = -1 }
+		}
+	}
+	war_adventurer_cache_pulse_candidate = { SLUG = malakai PROFILE = a }
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_malakai_eligible }
+		if = {
+			limit = {
+				NOT = { has_country_flag = war_adventurer_pulse_malakai_home }
+				NOT = { has_country_flag = war_adventurer_pulse_malakai_enemy }
+				event_target:war_adventurer_location_malakai = {
+					NOT = {
+						has_port = yes
+					}
+				}
+			}
+			change_variable = { which = war_adventurer_pulse_malakai_weight value = -1 }
+		}
+		if = {
+			limit = {
+				has_country_flag = war_adventurer_pulse_malakai_home
+				has_country_flag = war_adventurer_pulse_malakai_enemy
+				event_target:war_adventurer_location_malakai = {
+					NOT = {
+						owner = { is_at_war = yes }
+					}
+				}
+			}
+			change_variable = { which = war_adventurer_pulse_malakai_weight value = -1 }
+		}
+		if = {
+			limit = {
+				has_country_flag = war_adventurer_pulse_malakai_home
+				has_country_flag = war_adventurer_pulse_malakai_enemy
+				event_target:war_adventurer_location_malakai = {
+					NOT = {
+						has_port = yes
+					}
+				}
+			}
+			change_variable = { which = war_adventurer_pulse_malakai_weight value = -1 }
+		}
+		if = {
+			limit = {
+				NOT = { has_country_flag = war_adventurer_pulse_malakai_home }
+				has_country_flag = war_adventurer_pulse_malakai_enemy
+				event_target:war_adventurer_location_malakai = {
+					NOT = {
+						has_port = yes
+					}
+				}
+			}
+			change_variable = { which = war_adventurer_pulse_malakai_weight value = -1 }
+		}
+	}
+	war_adventurer_cache_pulse_candidate = { SLUG = tyrion PROFILE = a }
+	war_adventurer_cache_pulse_candidate = { SLUG = gor_rok PROFILE = a }
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_gor_rok_eligible }
+		if = {
+			limit = {
+				NOT = { has_country_flag = war_adventurer_pulse_gor_rok_home }
+				NOT = { has_country_flag = war_adventurer_pulse_gor_rok_enemy }
+				event_target:war_adventurer_location_gor_rok = {
+					NOT = {
+						OR = { has_winter = normal_winter has_winter = severe_winter has_climate = arctic }
+					}
+				}
+			}
+			change_variable = { which = war_adventurer_pulse_gor_rok_weight value = -1 }
+		}
+		if = {
+			limit = {
+				NOT = { has_country_flag = war_adventurer_pulse_gor_rok_home }
+				has_country_flag = war_adventurer_pulse_gor_rok_enemy
+				event_target:war_adventurer_location_gor_rok = {
+					NOT = {
+						OR = { has_winter = normal_winter has_winter = severe_winter has_climate = arctic }
+					}
+				}
+			}
+			change_variable = { which = war_adventurer_pulse_gor_rok_weight value = -1 }
+		}
+	}
+	war_adventurer_cache_pulse_candidate = { SLUG = nakai PROFILE = a }
+	war_adventurer_cache_pulse_candidate = { SLUG = thanquol PROFILE = b }
+	war_adventurer_cache_pulse_candidate = { SLUG = grombrindal PROFILE = a }
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_grombrindal_eligible }
+		if = {
+			limit = {
+				has_country_flag = war_adventurer_pulse_grombrindal_home
+				has_country_flag = war_adventurer_pulse_grombrindal_enemy
+				event_target:war_adventurer_location_grombrindal = {
+					NOT = {
+						owner = { is_at_war = yes }
+					}
+				}
+			}
+			change_variable = { which = war_adventurer_pulse_grombrindal_weight value = -1 }
+		}
+	}
+
+	# Destination existence is identical for every visitor owned by this country.
+	# Search once, and only if at least one scheduled visitor is still present.
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_has_candidate }
+		if = {
+			limit = {
+				any_country = {
+					NOT = { tag = ROOT }
+					any_owned_province = { war_adventurer_destination_province = yes }
+				}
+			}
+			random_list = {
+				# Balthasar Gelt: weight equals the number of eligible stories.
+				5 = {
+					trigger = {
+						has_country_flag = war_adventurer_pulse_gelt_eligible
+						check_variable = { which = war_adventurer_pulse_gelt_weight value = 1 }
+					}
+					modifier = {
+						factor = 0.2
+						check_variable = { which = war_adventurer_pulse_gelt_weight value = 1 }
+						NOT = { check_variable = { which = war_adventurer_pulse_gelt_weight value = 2 } }
+					}
+					modifier = {
+						factor = 0.4
+						check_variable = { which = war_adventurer_pulse_gelt_weight value = 2 }
+						NOT = { check_variable = { which = war_adventurer_pulse_gelt_weight value = 3 } }
+					}
+					modifier = {
+						factor = 0.6
+						check_variable = { which = war_adventurer_pulse_gelt_weight value = 3 }
+						NOT = { check_variable = { which = war_adventurer_pulse_gelt_weight value = 4 } }
+					}
+					modifier = {
+						factor = 0.8
+						check_variable = { which = war_adventurer_pulse_gelt_weight value = 4 }
+						NOT = { check_variable = { which = war_adventurer_pulse_gelt_weight value = 5 } }
+					}
+					war_adventurer_pick_pulse_story_gelt = yes
+				}
+				# Teclis: weight equals the number of eligible stories.
+				5 = {
+					trigger = {
+						has_country_flag = war_adventurer_pulse_teclis_eligible
+						check_variable = { which = war_adventurer_pulse_teclis_weight value = 1 }
+					}
+					modifier = {
+						factor = 0.2
+						check_variable = { which = war_adventurer_pulse_teclis_weight value = 1 }
+						NOT = { check_variable = { which = war_adventurer_pulse_teclis_weight value = 2 } }
+					}
+					modifier = {
+						factor = 0.4
+						check_variable = { which = war_adventurer_pulse_teclis_weight value = 2 }
+						NOT = { check_variable = { which = war_adventurer_pulse_teclis_weight value = 3 } }
+					}
+					modifier = {
+						factor = 0.6
+						check_variable = { which = war_adventurer_pulse_teclis_weight value = 3 }
+						NOT = { check_variable = { which = war_adventurer_pulse_teclis_weight value = 4 } }
+					}
+					modifier = {
+						factor = 0.8
+						check_variable = { which = war_adventurer_pulse_teclis_weight value = 4 }
+						NOT = { check_variable = { which = war_adventurer_pulse_teclis_weight value = 5 } }
+					}
+					war_adventurer_pick_pulse_story_teclis = yes
+				}
+				# Deathmaster Snikch: weight equals the number of eligible stories.
+				5 = {
+					trigger = {
+						has_country_flag = war_adventurer_pulse_snikch_eligible
+						check_variable = { which = war_adventurer_pulse_snikch_weight value = 1 }
+					}
+					modifier = {
+						factor = 0.2
+						check_variable = { which = war_adventurer_pulse_snikch_weight value = 1 }
+						NOT = { check_variable = { which = war_adventurer_pulse_snikch_weight value = 2 } }
+					}
+					modifier = {
+						factor = 0.4
+						check_variable = { which = war_adventurer_pulse_snikch_weight value = 2 }
+						NOT = { check_variable = { which = war_adventurer_pulse_snikch_weight value = 3 } }
+					}
+					modifier = {
+						factor = 0.6
+						check_variable = { which = war_adventurer_pulse_snikch_weight value = 3 }
+						NOT = { check_variable = { which = war_adventurer_pulse_snikch_weight value = 4 } }
+					}
+					modifier = {
+						factor = 0.8
+						check_variable = { which = war_adventurer_pulse_snikch_weight value = 4 }
+						NOT = { check_variable = { which = war_adventurer_pulse_snikch_weight value = 5 } }
+					}
+					war_adventurer_pick_pulse_story_snikch = yes
+				}
+				# Josef Bugman: weight equals the number of eligible stories.
+				5 = {
+					trigger = {
+						has_country_flag = war_adventurer_pulse_bugman_eligible
+						check_variable = { which = war_adventurer_pulse_bugman_weight value = 1 }
+					}
+					modifier = {
+						factor = 0.2
+						check_variable = { which = war_adventurer_pulse_bugman_weight value = 1 }
+						NOT = { check_variable = { which = war_adventurer_pulse_bugman_weight value = 2 } }
+					}
+					modifier = {
+						factor = 0.4
+						check_variable = { which = war_adventurer_pulse_bugman_weight value = 2 }
+						NOT = { check_variable = { which = war_adventurer_pulse_bugman_weight value = 3 } }
+					}
+					modifier = {
+						factor = 0.6
+						check_variable = { which = war_adventurer_pulse_bugman_weight value = 3 }
+						NOT = { check_variable = { which = war_adventurer_pulse_bugman_weight value = 4 } }
+					}
+					modifier = {
+						factor = 0.8
+						check_variable = { which = war_adventurer_pulse_bugman_weight value = 4 }
+						NOT = { check_variable = { which = war_adventurer_pulse_bugman_weight value = 5 } }
+					}
+					war_adventurer_pick_pulse_story_bugman = yes
+				}
+				# Bardin Goreksson: weight equals the number of eligible stories.
+				5 = {
+					trigger = {
+						has_country_flag = war_adventurer_pulse_bardin_eligible
+						check_variable = { which = war_adventurer_pulse_bardin_weight value = 1 }
+					}
+					modifier = {
+						factor = 0.2
+						check_variable = { which = war_adventurer_pulse_bardin_weight value = 1 }
+						NOT = { check_variable = { which = war_adventurer_pulse_bardin_weight value = 2 } }
+					}
+					modifier = {
+						factor = 0.4
+						check_variable = { which = war_adventurer_pulse_bardin_weight value = 2 }
+						NOT = { check_variable = { which = war_adventurer_pulse_bardin_weight value = 3 } }
+					}
+					modifier = {
+						factor = 0.6
+						check_variable = { which = war_adventurer_pulse_bardin_weight value = 3 }
+						NOT = { check_variable = { which = war_adventurer_pulse_bardin_weight value = 4 } }
+					}
+					modifier = {
+						factor = 0.8
+						check_variable = { which = war_adventurer_pulse_bardin_weight value = 4 }
+						NOT = { check_variable = { which = war_adventurer_pulse_bardin_weight value = 5 } }
+					}
+					war_adventurer_pick_pulse_story_bardin = yes
+				}
+				# Harald Hammerstorm: weight equals the number of eligible stories.
+				5 = {
+					trigger = {
+						has_country_flag = war_adventurer_pulse_harald_eligible
+						check_variable = { which = war_adventurer_pulse_harald_weight value = 1 }
+					}
+					modifier = {
+						factor = 0.2
+						check_variable = { which = war_adventurer_pulse_harald_weight value = 1 }
+						NOT = { check_variable = { which = war_adventurer_pulse_harald_weight value = 2 } }
+					}
+					modifier = {
+						factor = 0.4
+						check_variable = { which = war_adventurer_pulse_harald_weight value = 2 }
+						NOT = { check_variable = { which = war_adventurer_pulse_harald_weight value = 3 } }
+					}
+					modifier = {
+						factor = 0.6
+						check_variable = { which = war_adventurer_pulse_harald_weight value = 3 }
+						NOT = { check_variable = { which = war_adventurer_pulse_harald_weight value = 4 } }
+					}
+					modifier = {
+						factor = 0.8
+						check_variable = { which = war_adventurer_pulse_harald_weight value = 4 }
+						NOT = { check_variable = { which = war_adventurer_pulse_harald_weight value = 5 } }
+					}
+					war_adventurer_pick_pulse_story_harald = yes
+				}
+				# Abhorash: weight equals the number of eligible stories.
+				5 = {
+					trigger = {
+						has_country_flag = war_adventurer_pulse_abhorash_eligible
+						check_variable = { which = war_adventurer_pulse_abhorash_weight value = 1 }
+					}
+					modifier = {
+						factor = 0.2
+						check_variable = { which = war_adventurer_pulse_abhorash_weight value = 1 }
+						NOT = { check_variable = { which = war_adventurer_pulse_abhorash_weight value = 2 } }
+					}
+					modifier = {
+						factor = 0.4
+						check_variable = { which = war_adventurer_pulse_abhorash_weight value = 2 }
+						NOT = { check_variable = { which = war_adventurer_pulse_abhorash_weight value = 3 } }
+					}
+					modifier = {
+						factor = 0.6
+						check_variable = { which = war_adventurer_pulse_abhorash_weight value = 3 }
+						NOT = { check_variable = { which = war_adventurer_pulse_abhorash_weight value = 4 } }
+					}
+					modifier = {
+						factor = 0.8
+						check_variable = { which = war_adventurer_pulse_abhorash_weight value = 4 }
+						NOT = { check_variable = { which = war_adventurer_pulse_abhorash_weight value = 5 } }
+					}
+					war_adventurer_pick_pulse_story_abhorash = yes
+				}
+				# Elspeth von Draken: weight equals the number of eligible stories.
+				5 = {
+					trigger = {
+						has_country_flag = war_adventurer_pulse_elspeth_eligible
+						check_variable = { which = war_adventurer_pulse_elspeth_weight value = 1 }
+					}
+					modifier = {
+						factor = 0.2
+						check_variable = { which = war_adventurer_pulse_elspeth_weight value = 1 }
+						NOT = { check_variable = { which = war_adventurer_pulse_elspeth_weight value = 2 } }
+					}
+					modifier = {
+						factor = 0.4
+						check_variable = { which = war_adventurer_pulse_elspeth_weight value = 2 }
+						NOT = { check_variable = { which = war_adventurer_pulse_elspeth_weight value = 3 } }
+					}
+					modifier = {
+						factor = 0.6
+						check_variable = { which = war_adventurer_pulse_elspeth_weight value = 3 }
+						NOT = { check_variable = { which = war_adventurer_pulse_elspeth_weight value = 4 } }
+					}
+					modifier = {
+						factor = 0.8
+						check_variable = { which = war_adventurer_pulse_elspeth_weight value = 4 }
+						NOT = { check_variable = { which = war_adventurer_pulse_elspeth_weight value = 5 } }
+					}
+					war_adventurer_pick_pulse_story_elspeth = yes
+				}
+				# Markus Wulfhart: weight equals the number of eligible stories.
+				5 = {
+					trigger = {
+						has_country_flag = war_adventurer_pulse_wulfhart_eligible
+						check_variable = { which = war_adventurer_pulse_wulfhart_weight value = 1 }
+					}
+					modifier = {
+						factor = 0.2
+						check_variable = { which = war_adventurer_pulse_wulfhart_weight value = 1 }
+						NOT = { check_variable = { which = war_adventurer_pulse_wulfhart_weight value = 2 } }
+					}
+					modifier = {
+						factor = 0.4
+						check_variable = { which = war_adventurer_pulse_wulfhart_weight value = 2 }
+						NOT = { check_variable = { which = war_adventurer_pulse_wulfhart_weight value = 3 } }
+					}
+					modifier = {
+						factor = 0.6
+						check_variable = { which = war_adventurer_pulse_wulfhart_weight value = 3 }
+						NOT = { check_variable = { which = war_adventurer_pulse_wulfhart_weight value = 4 } }
+					}
+					modifier = {
+						factor = 0.8
+						check_variable = { which = war_adventurer_pulse_wulfhart_weight value = 4 }
+						NOT = { check_variable = { which = war_adventurer_pulse_wulfhart_weight value = 5 } }
+					}
+					war_adventurer_pick_pulse_story_wulfhart = yes
+				}
+				# Gotrek and Felix: weight equals the number of eligible stories.
+				5 = {
+					trigger = {
+						has_country_flag = war_adventurer_pulse_gotrek_felix_eligible
+						check_variable = { which = war_adventurer_pulse_gotrek_felix_weight value = 1 }
+					}
+					modifier = {
+						factor = 0.2
+						check_variable = { which = war_adventurer_pulse_gotrek_felix_weight value = 1 }
+						NOT = { check_variable = { which = war_adventurer_pulse_gotrek_felix_weight value = 2 } }
+					}
+					modifier = {
+						factor = 0.4
+						check_variable = { which = war_adventurer_pulse_gotrek_felix_weight value = 2 }
+						NOT = { check_variable = { which = war_adventurer_pulse_gotrek_felix_weight value = 3 } }
+					}
+					modifier = {
+						factor = 0.6
+						check_variable = { which = war_adventurer_pulse_gotrek_felix_weight value = 3 }
+						NOT = { check_variable = { which = war_adventurer_pulse_gotrek_felix_weight value = 4 } }
+					}
+					modifier = {
+						factor = 0.8
+						check_variable = { which = war_adventurer_pulse_gotrek_felix_weight value = 4 }
+						NOT = { check_variable = { which = war_adventurer_pulse_gotrek_felix_weight value = 5 } }
+					}
+					war_adventurer_pick_pulse_story_gotrek_felix = yes
+				}
+				# Repanse de Lyonesse: weight equals the number of eligible stories.
+				5 = {
+					trigger = {
+						has_country_flag = war_adventurer_pulse_repanse_eligible
+						check_variable = { which = war_adventurer_pulse_repanse_weight value = 1 }
+					}
+					modifier = {
+						factor = 0.2
+						check_variable = { which = war_adventurer_pulse_repanse_weight value = 1 }
+						NOT = { check_variable = { which = war_adventurer_pulse_repanse_weight value = 2 } }
+					}
+					modifier = {
+						factor = 0.4
+						check_variable = { which = war_adventurer_pulse_repanse_weight value = 2 }
+						NOT = { check_variable = { which = war_adventurer_pulse_repanse_weight value = 3 } }
+					}
+					modifier = {
+						factor = 0.6
+						check_variable = { which = war_adventurer_pulse_repanse_weight value = 3 }
+						NOT = { check_variable = { which = war_adventurer_pulse_repanse_weight value = 4 } }
+					}
+					modifier = {
+						factor = 0.8
+						check_variable = { which = war_adventurer_pulse_repanse_weight value = 4 }
+						NOT = { check_variable = { which = war_adventurer_pulse_repanse_weight value = 5 } }
+					}
+					war_adventurer_pick_pulse_story_repanse = yes
+				}
+				# Sienna Fuegonasus: weight equals the number of eligible stories.
+				5 = {
+					trigger = {
+						has_country_flag = war_adventurer_pulse_sienna_eligible
+						check_variable = { which = war_adventurer_pulse_sienna_weight value = 1 }
+					}
+					modifier = {
+						factor = 0.2
+						check_variable = { which = war_adventurer_pulse_sienna_weight value = 1 }
+						NOT = { check_variable = { which = war_adventurer_pulse_sienna_weight value = 2 } }
+					}
+					modifier = {
+						factor = 0.4
+						check_variable = { which = war_adventurer_pulse_sienna_weight value = 2 }
+						NOT = { check_variable = { which = war_adventurer_pulse_sienna_weight value = 3 } }
+					}
+					modifier = {
+						factor = 0.6
+						check_variable = { which = war_adventurer_pulse_sienna_weight value = 3 }
+						NOT = { check_variable = { which = war_adventurer_pulse_sienna_weight value = 4 } }
+					}
+					modifier = {
+						factor = 0.8
+						check_variable = { which = war_adventurer_pulse_sienna_weight value = 4 }
+						NOT = { check_variable = { which = war_adventurer_pulse_sienna_weight value = 5 } }
+					}
+					war_adventurer_pick_pulse_story_sienna = yes
+				}
+				# Malakai Makaisson: weight equals the number of eligible stories.
+				5 = {
+					trigger = {
+						has_country_flag = war_adventurer_pulse_malakai_eligible
+						check_variable = { which = war_adventurer_pulse_malakai_weight value = 1 }
+					}
+					modifier = {
+						factor = 0.2
+						check_variable = { which = war_adventurer_pulse_malakai_weight value = 1 }
+						NOT = { check_variable = { which = war_adventurer_pulse_malakai_weight value = 2 } }
+					}
+					modifier = {
+						factor = 0.4
+						check_variable = { which = war_adventurer_pulse_malakai_weight value = 2 }
+						NOT = { check_variable = { which = war_adventurer_pulse_malakai_weight value = 3 } }
+					}
+					modifier = {
+						factor = 0.6
+						check_variable = { which = war_adventurer_pulse_malakai_weight value = 3 }
+						NOT = { check_variable = { which = war_adventurer_pulse_malakai_weight value = 4 } }
+					}
+					modifier = {
+						factor = 0.8
+						check_variable = { which = war_adventurer_pulse_malakai_weight value = 4 }
+						NOT = { check_variable = { which = war_adventurer_pulse_malakai_weight value = 5 } }
+					}
+					war_adventurer_pick_pulse_story_malakai = yes
+				}
+				# Tyrion: weight equals the number of eligible stories.
+				5 = {
+					trigger = {
+						has_country_flag = war_adventurer_pulse_tyrion_eligible
+						check_variable = { which = war_adventurer_pulse_tyrion_weight value = 1 }
+					}
+					modifier = {
+						factor = 0.2
+						check_variable = { which = war_adventurer_pulse_tyrion_weight value = 1 }
+						NOT = { check_variable = { which = war_adventurer_pulse_tyrion_weight value = 2 } }
+					}
+					modifier = {
+						factor = 0.4
+						check_variable = { which = war_adventurer_pulse_tyrion_weight value = 2 }
+						NOT = { check_variable = { which = war_adventurer_pulse_tyrion_weight value = 3 } }
+					}
+					modifier = {
+						factor = 0.6
+						check_variable = { which = war_adventurer_pulse_tyrion_weight value = 3 }
+						NOT = { check_variable = { which = war_adventurer_pulse_tyrion_weight value = 4 } }
+					}
+					modifier = {
+						factor = 0.8
+						check_variable = { which = war_adventurer_pulse_tyrion_weight value = 4 }
+						NOT = { check_variable = { which = war_adventurer_pulse_tyrion_weight value = 5 } }
+					}
+					war_adventurer_pick_pulse_story_tyrion = yes
+				}
+				# Gor-Rok: weight equals the number of eligible stories.
+				5 = {
+					trigger = {
+						has_country_flag = war_adventurer_pulse_gor_rok_eligible
+						check_variable = { which = war_adventurer_pulse_gor_rok_weight value = 1 }
+					}
+					modifier = {
+						factor = 0.2
+						check_variable = { which = war_adventurer_pulse_gor_rok_weight value = 1 }
+						NOT = { check_variable = { which = war_adventurer_pulse_gor_rok_weight value = 2 } }
+					}
+					modifier = {
+						factor = 0.4
+						check_variable = { which = war_adventurer_pulse_gor_rok_weight value = 2 }
+						NOT = { check_variable = { which = war_adventurer_pulse_gor_rok_weight value = 3 } }
+					}
+					modifier = {
+						factor = 0.6
+						check_variable = { which = war_adventurer_pulse_gor_rok_weight value = 3 }
+						NOT = { check_variable = { which = war_adventurer_pulse_gor_rok_weight value = 4 } }
+					}
+					modifier = {
+						factor = 0.8
+						check_variable = { which = war_adventurer_pulse_gor_rok_weight value = 4 }
+						NOT = { check_variable = { which = war_adventurer_pulse_gor_rok_weight value = 5 } }
+					}
+					war_adventurer_pick_pulse_story_gor_rok = yes
+				}
+				# Nakai the Wanderer: weight equals the number of eligible stories.
+				5 = {
+					trigger = {
+						has_country_flag = war_adventurer_pulse_nakai_eligible
+						check_variable = { which = war_adventurer_pulse_nakai_weight value = 1 }
+					}
+					modifier = {
+						factor = 0.2
+						check_variable = { which = war_adventurer_pulse_nakai_weight value = 1 }
+						NOT = { check_variable = { which = war_adventurer_pulse_nakai_weight value = 2 } }
+					}
+					modifier = {
+						factor = 0.4
+						check_variable = { which = war_adventurer_pulse_nakai_weight value = 2 }
+						NOT = { check_variable = { which = war_adventurer_pulse_nakai_weight value = 3 } }
+					}
+					modifier = {
+						factor = 0.6
+						check_variable = { which = war_adventurer_pulse_nakai_weight value = 3 }
+						NOT = { check_variable = { which = war_adventurer_pulse_nakai_weight value = 4 } }
+					}
+					modifier = {
+						factor = 0.8
+						check_variable = { which = war_adventurer_pulse_nakai_weight value = 4 }
+						NOT = { check_variable = { which = war_adventurer_pulse_nakai_weight value = 5 } }
+					}
+					war_adventurer_pick_pulse_story_nakai = yes
+				}
+				# Thanquol and Boneripper: weight equals the number of eligible stories.
+				5 = {
+					trigger = {
+						has_country_flag = war_adventurer_pulse_thanquol_eligible
+						check_variable = { which = war_adventurer_pulse_thanquol_weight value = 1 }
+					}
+					modifier = {
+						factor = 0.2
+						check_variable = { which = war_adventurer_pulse_thanquol_weight value = 1 }
+						NOT = { check_variable = { which = war_adventurer_pulse_thanquol_weight value = 2 } }
+					}
+					modifier = {
+						factor = 0.4
+						check_variable = { which = war_adventurer_pulse_thanquol_weight value = 2 }
+						NOT = { check_variable = { which = war_adventurer_pulse_thanquol_weight value = 3 } }
+					}
+					modifier = {
+						factor = 0.6
+						check_variable = { which = war_adventurer_pulse_thanquol_weight value = 3 }
+						NOT = { check_variable = { which = war_adventurer_pulse_thanquol_weight value = 4 } }
+					}
+					modifier = {
+						factor = 0.8
+						check_variable = { which = war_adventurer_pulse_thanquol_weight value = 4 }
+						NOT = { check_variable = { which = war_adventurer_pulse_thanquol_weight value = 5 } }
+					}
+					war_adventurer_pick_pulse_story_thanquol = yes
+				}
+				# Grombrindal: weight equals the number of eligible stories.
+				5 = {
+					trigger = {
+						has_country_flag = war_adventurer_pulse_grombrindal_eligible
+						check_variable = { which = war_adventurer_pulse_grombrindal_weight value = 1 }
+					}
+					modifier = {
+						factor = 0.2
+						check_variable = { which = war_adventurer_pulse_grombrindal_weight value = 1 }
+						NOT = { check_variable = { which = war_adventurer_pulse_grombrindal_weight value = 2 } }
+					}
+					modifier = {
+						factor = 0.4
+						check_variable = { which = war_adventurer_pulse_grombrindal_weight value = 2 }
+						NOT = { check_variable = { which = war_adventurer_pulse_grombrindal_weight value = 3 } }
+					}
+					modifier = {
+						factor = 0.6
+						check_variable = { which = war_adventurer_pulse_grombrindal_weight value = 3 }
+						NOT = { check_variable = { which = war_adventurer_pulse_grombrindal_weight value = 4 } }
+					}
+					modifier = {
+						factor = 0.8
+						check_variable = { which = war_adventurer_pulse_grombrindal_weight value = 4 }
+						NOT = { check_variable = { which = war_adventurer_pulse_grombrindal_weight value = 5 } }
+					}
+					war_adventurer_pick_pulse_story_grombrindal = yes
+				}
+			}
+		}
+	}
+
+	# Clear the cache even when no destination was available. Open reports do not use it.
+	clr_country_flag = war_adventurer_pulse_gelt_scheduled
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_gelt_eligible }
+		clr_country_flag = war_adventurer_pulse_gelt_eligible
+		clr_country_flag = war_adventurer_pulse_gelt_home
+		clr_country_flag = war_adventurer_pulse_gelt_enemy
+		set_variable = { which = war_adventurer_pulse_gelt_weight value = 0 }
+	}
+	clr_country_flag = war_adventurer_pulse_teclis_scheduled
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_teclis_eligible }
+		clr_country_flag = war_adventurer_pulse_teclis_eligible
+		clr_country_flag = war_adventurer_pulse_teclis_home
+		clr_country_flag = war_adventurer_pulse_teclis_enemy
+		set_variable = { which = war_adventurer_pulse_teclis_weight value = 0 }
+	}
+	clr_country_flag = war_adventurer_pulse_snikch_scheduled
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_snikch_eligible }
+		clr_country_flag = war_adventurer_pulse_snikch_eligible
+		clr_country_flag = war_adventurer_pulse_snikch_home
+		clr_country_flag = war_adventurer_pulse_snikch_enemy
+		set_variable = { which = war_adventurer_pulse_snikch_weight value = 0 }
+	}
+	clr_country_flag = war_adventurer_pulse_bugman_scheduled
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_bugman_eligible }
+		clr_country_flag = war_adventurer_pulse_bugman_eligible
+		clr_country_flag = war_adventurer_pulse_bugman_home
+		clr_country_flag = war_adventurer_pulse_bugman_enemy
+		set_variable = { which = war_adventurer_pulse_bugman_weight value = 0 }
+	}
+	clr_country_flag = war_adventurer_pulse_bardin_scheduled
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_bardin_eligible }
+		clr_country_flag = war_adventurer_pulse_bardin_eligible
+		clr_country_flag = war_adventurer_pulse_bardin_home
+		clr_country_flag = war_adventurer_pulse_bardin_enemy
+		set_variable = { which = war_adventurer_pulse_bardin_weight value = 0 }
+	}
+	clr_country_flag = war_adventurer_pulse_harald_scheduled
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_harald_eligible }
+		clr_country_flag = war_adventurer_pulse_harald_eligible
+		clr_country_flag = war_adventurer_pulse_harald_home
+		clr_country_flag = war_adventurer_pulse_harald_enemy
+		set_variable = { which = war_adventurer_pulse_harald_weight value = 0 }
+	}
+	clr_country_flag = war_adventurer_pulse_abhorash_scheduled
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_abhorash_eligible }
+		clr_country_flag = war_adventurer_pulse_abhorash_eligible
+		clr_country_flag = war_adventurer_pulse_abhorash_home
+		clr_country_flag = war_adventurer_pulse_abhorash_enemy
+		set_variable = { which = war_adventurer_pulse_abhorash_weight value = 0 }
+	}
+	clr_country_flag = war_adventurer_pulse_elspeth_scheduled
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_elspeth_eligible }
+		clr_country_flag = war_adventurer_pulse_elspeth_eligible
+		clr_country_flag = war_adventurer_pulse_elspeth_home
+		clr_country_flag = war_adventurer_pulse_elspeth_enemy
+		set_variable = { which = war_adventurer_pulse_elspeth_weight value = 0 }
+	}
+	clr_country_flag = war_adventurer_pulse_wulfhart_scheduled
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_wulfhart_eligible }
+		clr_country_flag = war_adventurer_pulse_wulfhart_eligible
+		clr_country_flag = war_adventurer_pulse_wulfhart_home
+		clr_country_flag = war_adventurer_pulse_wulfhart_enemy
+		set_variable = { which = war_adventurer_pulse_wulfhart_weight value = 0 }
+	}
+	clr_country_flag = war_adventurer_pulse_gotrek_felix_scheduled
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_gotrek_felix_eligible }
+		clr_country_flag = war_adventurer_pulse_gotrek_felix_eligible
+		clr_country_flag = war_adventurer_pulse_gotrek_felix_home
+		clr_country_flag = war_adventurer_pulse_gotrek_felix_enemy
+		set_variable = { which = war_adventurer_pulse_gotrek_felix_weight value = 0 }
+	}
+	clr_country_flag = war_adventurer_pulse_repanse_scheduled
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_repanse_eligible }
+		clr_country_flag = war_adventurer_pulse_repanse_eligible
+		clr_country_flag = war_adventurer_pulse_repanse_home
+		clr_country_flag = war_adventurer_pulse_repanse_enemy
+		set_variable = { which = war_adventurer_pulse_repanse_weight value = 0 }
+	}
+	clr_country_flag = war_adventurer_pulse_sienna_scheduled
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_sienna_eligible }
+		clr_country_flag = war_adventurer_pulse_sienna_eligible
+		clr_country_flag = war_adventurer_pulse_sienna_home
+		clr_country_flag = war_adventurer_pulse_sienna_enemy
+		set_variable = { which = war_adventurer_pulse_sienna_weight value = 0 }
+	}
+	clr_country_flag = war_adventurer_pulse_malakai_scheduled
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_malakai_eligible }
+		clr_country_flag = war_adventurer_pulse_malakai_eligible
+		clr_country_flag = war_adventurer_pulse_malakai_home
+		clr_country_flag = war_adventurer_pulse_malakai_enemy
+		set_variable = { which = war_adventurer_pulse_malakai_weight value = 0 }
+	}
+	clr_country_flag = war_adventurer_pulse_tyrion_scheduled
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_tyrion_eligible }
+		clr_country_flag = war_adventurer_pulse_tyrion_eligible
+		clr_country_flag = war_adventurer_pulse_tyrion_home
+		clr_country_flag = war_adventurer_pulse_tyrion_enemy
+		set_variable = { which = war_adventurer_pulse_tyrion_weight value = 0 }
+	}
+	clr_country_flag = war_adventurer_pulse_gor_rok_scheduled
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_gor_rok_eligible }
+		clr_country_flag = war_adventurer_pulse_gor_rok_eligible
+		clr_country_flag = war_adventurer_pulse_gor_rok_home
+		clr_country_flag = war_adventurer_pulse_gor_rok_enemy
+		set_variable = { which = war_adventurer_pulse_gor_rok_weight value = 0 }
+	}
+	clr_country_flag = war_adventurer_pulse_nakai_scheduled
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_nakai_eligible }
+		clr_country_flag = war_adventurer_pulse_nakai_eligible
+		clr_country_flag = war_adventurer_pulse_nakai_home
+		clr_country_flag = war_adventurer_pulse_nakai_enemy
+		set_variable = { which = war_adventurer_pulse_nakai_weight value = 0 }
+	}
+	clr_country_flag = war_adventurer_pulse_thanquol_scheduled
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_thanquol_eligible }
+		clr_country_flag = war_adventurer_pulse_thanquol_eligible
+		clr_country_flag = war_adventurer_pulse_thanquol_home
+		clr_country_flag = war_adventurer_pulse_thanquol_enemy
+		set_variable = { which = war_adventurer_pulse_thanquol_weight value = 0 }
+	}
+	clr_country_flag = war_adventurer_pulse_grombrindal_scheduled
+	if = {
+		limit = { has_country_flag = war_adventurer_pulse_grombrindal_eligible }
+		clr_country_flag = war_adventurer_pulse_grombrindal_eligible
+		clr_country_flag = war_adventurer_pulse_grombrindal_home
+		clr_country_flag = war_adventurer_pulse_grombrindal_enemy
+		set_variable = { which = war_adventurer_pulse_grombrindal_weight value = 0 }
+	}
+	clr_country_flag = war_adventurer_pulse_has_candidate
+}
+
+# Country scope. Pick one eligible Balthasar Gelt story in the cached category.
+war_adventurer_pick_pulse_story_gelt = {
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_gelt_home
+			NOT = { has_country_flag = war_adventurer_pulse_gelt_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_gelt.1 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gelt.2 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gelt.3 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gelt.4 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gelt.5 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_gelt_home }
+			NOT = { has_country_flag = war_adventurer_pulse_gelt_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_gelt.6 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gelt.7 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gelt.8 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gelt.9 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gelt.10 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_gelt_home
+			has_country_flag = war_adventurer_pulse_gelt_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_gelt.11 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gelt.12 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gelt.13 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gelt.14 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gelt.15 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_gelt_home }
+			has_country_flag = war_adventurer_pulse_gelt_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_gelt.16 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gelt.17 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gelt.18 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gelt.19 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gelt.20 }
+			}
+		}
+	}
+}
+
+# Country scope. Pick one eligible Teclis story in the cached category.
+war_adventurer_pick_pulse_story_teclis = {
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_teclis_home
+			NOT = { has_country_flag = war_adventurer_pulse_teclis_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_teclis.1 }
+			}
+			1 = {
+				trigger = {
+					event_target:war_adventurer_location_teclis = {
+						has_port = yes
+					}
+				}
+				country_event = { id = war_adventurer_teclis.2 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_teclis.3 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_teclis.4 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_teclis.5 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_teclis_home }
+			NOT = { has_country_flag = war_adventurer_pulse_teclis_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_teclis.6 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_teclis.7 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_teclis.8 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_teclis.9 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_teclis.10 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_teclis_home
+			has_country_flag = war_adventurer_pulse_teclis_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_teclis.11 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_teclis.12 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_teclis.13 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_teclis.14 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_teclis.15 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_teclis_home }
+			has_country_flag = war_adventurer_pulse_teclis_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_teclis.16 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_teclis.17 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_teclis.18 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_teclis.19 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_teclis.20 }
+			}
+		}
+	}
+}
+
+# Country scope. Pick one eligible Deathmaster Snikch story in the cached category.
+war_adventurer_pick_pulse_story_snikch = {
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_snikch_home
+			NOT = { has_country_flag = war_adventurer_pulse_snikch_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_snikch.1 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_snikch.2 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_snikch.3 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_snikch.4 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_snikch.5 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_snikch_home }
+			NOT = { has_country_flag = war_adventurer_pulse_snikch_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_snikch.6 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_snikch.7 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_snikch.8 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_snikch.9 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_snikch.10 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_snikch_home
+			has_country_flag = war_adventurer_pulse_snikch_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_snikch.11 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_snikch.12 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_snikch.13 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_snikch.14 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_snikch.15 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_snikch_home }
+			has_country_flag = war_adventurer_pulse_snikch_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_snikch.16 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_snikch.17 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_snikch.18 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_snikch.19 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_snikch.20 }
+			}
+		}
+	}
+}
+
+# Country scope. Pick one eligible Josef Bugman story in the cached category.
+war_adventurer_pick_pulse_story_bugman = {
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_bugman_home
+			NOT = { has_country_flag = war_adventurer_pulse_bugman_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_bugman.1 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bugman.2 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bugman.3 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bugman.4 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bugman.5 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_bugman_home }
+			NOT = { has_country_flag = war_adventurer_pulse_bugman_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_bugman.6 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bugman.7 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bugman.8 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bugman.9 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bugman.10 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_bugman_home
+			has_country_flag = war_adventurer_pulse_bugman_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_bugman.11 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bugman.12 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bugman.13 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bugman.14 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bugman.15 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_bugman_home }
+			has_country_flag = war_adventurer_pulse_bugman_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_bugman.16 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bugman.17 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bugman.18 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bugman.19 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bugman.20 }
+			}
+		}
+	}
+}
+
+# Country scope. Pick one eligible Bardin Goreksson story in the cached category.
+war_adventurer_pick_pulse_story_bardin = {
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_bardin_home
+			NOT = { has_country_flag = war_adventurer_pulse_bardin_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_bardin.1 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bardin.2 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bardin.3 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bardin.4 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bardin.5 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_bardin_home }
+			NOT = { has_country_flag = war_adventurer_pulse_bardin_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_bardin.6 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bardin.7 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bardin.8 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bardin.9 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bardin.10 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_bardin_home
+			has_country_flag = war_adventurer_pulse_bardin_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_bardin.11 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bardin.12 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bardin.13 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bardin.14 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bardin.15 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_bardin_home }
+			has_country_flag = war_adventurer_pulse_bardin_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_bardin.16 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bardin.17 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bardin.18 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bardin.19 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_bardin.20 }
+			}
+		}
+	}
+}
+
+# Country scope. Pick one eligible Harald Hammerstorm story in the cached category.
+war_adventurer_pick_pulse_story_harald = {
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_harald_home
+			NOT = { has_country_flag = war_adventurer_pulse_harald_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_harald.1 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_harald.2 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_harald.3 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_harald.4 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_harald.5 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_harald_home }
+			NOT = { has_country_flag = war_adventurer_pulse_harald_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_harald.6 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_harald.7 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_harald.8 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_harald.9 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_harald.10 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_harald_home
+			has_country_flag = war_adventurer_pulse_harald_enemy
+		}
+		random_list = {
+			1 = {
+				trigger = {
+					event_target:war_adventurer_location_harald = {
+						owner = { has_country_modifier = undead_administration }
+					}
+				}
+				country_event = { id = war_adventurer_harald.11 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_harald.12 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_harald.13 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_harald.14 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_harald.15 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_harald_home }
+			has_country_flag = war_adventurer_pulse_harald_enemy
+		}
+		random_list = {
+			1 = {
+				trigger = {
+					event_target:war_adventurer_location_harald = {
+						owner = { has_country_modifier = undead_administration }
+					}
+				}
+				country_event = { id = war_adventurer_harald.16 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_harald.17 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_harald.18 }
+			}
+			1 = {
+				trigger = {
+					event_target:war_adventurer_location_harald = {
+						owner = { has_country_modifier = undead_administration }
+					}
+				}
+				country_event = { id = war_adventurer_harald.19 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_harald.20 }
+			}
+		}
+	}
+}
+
+# Country scope. Pick one eligible Abhorash story in the cached category.
+war_adventurer_pick_pulse_story_abhorash = {
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_abhorash_home
+			NOT = { has_country_flag = war_adventurer_pulse_abhorash_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_abhorash.1 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_abhorash.2 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_abhorash.3 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_abhorash.4 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_abhorash.5 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_abhorash_home }
+			NOT = { has_country_flag = war_adventurer_pulse_abhorash_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_abhorash.6 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_abhorash.7 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_abhorash.8 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_abhorash.9 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_abhorash.10 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_abhorash_home
+			has_country_flag = war_adventurer_pulse_abhorash_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_abhorash.11 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_abhorash.12 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_abhorash.13 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_abhorash.14 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_abhorash.15 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_abhorash_home }
+			has_country_flag = war_adventurer_pulse_abhorash_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_abhorash.16 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_abhorash.17 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_abhorash.18 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_abhorash.19 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_abhorash.20 }
+			}
+		}
+	}
+}
+
+# Country scope. Pick one eligible Elspeth von Draken story in the cached category.
+war_adventurer_pick_pulse_story_elspeth = {
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_elspeth_home
+			NOT = { has_country_flag = war_adventurer_pulse_elspeth_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_elspeth.1 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_elspeth.2 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_elspeth.3 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_elspeth.4 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_elspeth.5 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_elspeth_home }
+			NOT = { has_country_flag = war_adventurer_pulse_elspeth_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_elspeth.6 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_elspeth.7 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_elspeth.8 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_elspeth.9 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_elspeth.10 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_elspeth_home
+			has_country_flag = war_adventurer_pulse_elspeth_enemy
+		}
+		random_list = {
+			1 = {
+				trigger = {
+					event_target:war_adventurer_location_elspeth = {
+						owner = { has_country_modifier = undead_administration }
+					}
+				}
+				country_event = { id = war_adventurer_elspeth.11 }
+			}
+			1 = {
+				trigger = {
+					event_target:war_adventurer_location_elspeth = {
+						owner = { has_country_modifier = undead_administration }
+					}
+				}
+				country_event = { id = war_adventurer_elspeth.12 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_elspeth.13 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_elspeth.14 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_elspeth.15 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_elspeth_home }
+			has_country_flag = war_adventurer_pulse_elspeth_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_elspeth.16 }
+			}
+			1 = {
+				trigger = {
+					event_target:war_adventurer_location_elspeth = {
+						owner = { has_country_modifier = undead_administration }
+					}
+				}
+				country_event = { id = war_adventurer_elspeth.17 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_elspeth.18 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_elspeth.19 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_elspeth.20 }
+			}
+		}
+	}
+}
+
+# Country scope. Pick one eligible Markus Wulfhart story in the cached category.
+war_adventurer_pick_pulse_story_wulfhart = {
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_wulfhart_home
+			NOT = { has_country_flag = war_adventurer_pulse_wulfhart_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_wulfhart.1 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_wulfhart.2 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_wulfhart.3 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_wulfhart.4 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_wulfhart.5 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_wulfhart_home }
+			NOT = { has_country_flag = war_adventurer_pulse_wulfhart_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_wulfhart.6 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_wulfhart.7 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_wulfhart.8 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_wulfhart.9 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_wulfhart.10 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_wulfhart_home
+			has_country_flag = war_adventurer_pulse_wulfhart_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_wulfhart.11 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_wulfhart.12 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_wulfhart.13 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_wulfhart.14 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_wulfhart.15 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_wulfhart_home }
+			has_country_flag = war_adventurer_pulse_wulfhart_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_wulfhart.16 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_wulfhart.17 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_wulfhart.18 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_wulfhart.19 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_wulfhart.20 }
+			}
+		}
+	}
+}
+
+# Country scope. Pick one eligible Gotrek and Felix story in the cached category.
+war_adventurer_pick_pulse_story_gotrek_felix = {
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_gotrek_felix_home
+			NOT = { has_country_flag = war_adventurer_pulse_gotrek_felix_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_gotrek_felix.1 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gotrek_felix.2 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gotrek_felix.3 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gotrek_felix.4 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gotrek_felix.5 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_gotrek_felix_home }
+			NOT = { has_country_flag = war_adventurer_pulse_gotrek_felix_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_gotrek_felix.6 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gotrek_felix.7 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gotrek_felix.8 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gotrek_felix.9 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gotrek_felix.10 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_gotrek_felix_home
+			has_country_flag = war_adventurer_pulse_gotrek_felix_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_gotrek_felix.11 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gotrek_felix.12 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gotrek_felix.13 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gotrek_felix.14 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gotrek_felix.15 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_gotrek_felix_home }
+			has_country_flag = war_adventurer_pulse_gotrek_felix_enemy
+		}
+		random_list = {
+			1 = {
+				trigger = {
+					event_target:war_adventurer_location_gotrek_felix = {
+						owner = { is_at_war = yes }
+					}
+				}
+				country_event = { id = war_adventurer_gotrek_felix.16 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gotrek_felix.17 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gotrek_felix.18 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gotrek_felix.19 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gotrek_felix.20 }
+			}
+		}
+	}
+}
+
+# Country scope. Pick one eligible Repanse de Lyonesse story in the cached category.
+war_adventurer_pick_pulse_story_repanse = {
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_repanse_home
+			NOT = { has_country_flag = war_adventurer_pulse_repanse_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_repanse.1 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_repanse.2 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_repanse.3 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_repanse.4 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_repanse.5 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_repanse_home }
+			NOT = { has_country_flag = war_adventurer_pulse_repanse_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_repanse.6 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_repanse.7 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_repanse.8 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_repanse.9 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_repanse.10 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_repanse_home
+			has_country_flag = war_adventurer_pulse_repanse_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_repanse.11 }
+			}
+			1 = {
+				trigger = {
+					event_target:war_adventurer_location_repanse = {
+						owner = { is_at_war = yes }
+					}
+				}
+				country_event = { id = war_adventurer_repanse.12 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_repanse.13 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_repanse.14 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_repanse.15 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_repanse_home }
+			has_country_flag = war_adventurer_pulse_repanse_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_repanse.16 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_repanse.17 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_repanse.18 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_repanse.19 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_repanse.20 }
+			}
+		}
+	}
+}
+
+# Country scope. Pick one eligible Sienna Fuegonasus story in the cached category.
+war_adventurer_pick_pulse_story_sienna = {
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_sienna_home
+			NOT = { has_country_flag = war_adventurer_pulse_sienna_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_sienna.1 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_sienna.2 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_sienna.3 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_sienna.4 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_sienna.5 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_sienna_home }
+			NOT = { has_country_flag = war_adventurer_pulse_sienna_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_sienna.6 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_sienna.7 }
+			}
+			1 = {
+				trigger = {
+					event_target:war_adventurer_location_sienna = {
+						has_port = yes
+					}
+				}
+				country_event = { id = war_adventurer_sienna.8 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_sienna.9 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_sienna.10 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_sienna_home
+			has_country_flag = war_adventurer_pulse_sienna_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_sienna.11 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_sienna.12 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_sienna.13 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_sienna.14 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_sienna.15 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_sienna_home }
+			has_country_flag = war_adventurer_pulse_sienna_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_sienna.16 }
+			}
+			1 = {
+				trigger = {
+					event_target:war_adventurer_location_sienna = {
+						has_port = yes
+					}
+				}
+				country_event = { id = war_adventurer_sienna.17 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_sienna.18 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_sienna.19 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_sienna.20 }
+			}
+		}
+	}
+}
+
+# Country scope. Pick one eligible Malakai Makaisson story in the cached category.
+war_adventurer_pick_pulse_story_malakai = {
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_malakai_home
+			NOT = { has_country_flag = war_adventurer_pulse_malakai_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_malakai.1 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_malakai.2 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_malakai.3 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_malakai.4 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_malakai.5 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_malakai_home }
+			NOT = { has_country_flag = war_adventurer_pulse_malakai_enemy }
+		}
+		random_list = {
+			1 = {
+				trigger = {
+					event_target:war_adventurer_location_malakai = {
+						has_port = yes
+					}
+				}
+				country_event = { id = war_adventurer_malakai.6 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_malakai.7 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_malakai.8 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_malakai.9 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_malakai.10 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_malakai_home
+			has_country_flag = war_adventurer_pulse_malakai_enemy
+		}
+		random_list = {
+			1 = {
+				trigger = {
+					event_target:war_adventurer_location_malakai = {
+						owner = { is_at_war = yes }
+					}
+				}
+				country_event = { id = war_adventurer_malakai.11 }
+			}
+			1 = {
+				trigger = {
+					event_target:war_adventurer_location_malakai = {
+						has_port = yes
+					}
+				}
+				country_event = { id = war_adventurer_malakai.12 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_malakai.13 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_malakai.14 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_malakai.15 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_malakai_home }
+			has_country_flag = war_adventurer_pulse_malakai_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_malakai.16 }
+			}
+			1 = {
+				trigger = {
+					event_target:war_adventurer_location_malakai = {
+						has_port = yes
+					}
+				}
+				country_event = { id = war_adventurer_malakai.17 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_malakai.18 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_malakai.19 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_malakai.20 }
+			}
+		}
+	}
+}
+
+# Country scope. Pick one eligible Tyrion story in the cached category.
+war_adventurer_pick_pulse_story_tyrion = {
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_tyrion_home
+			NOT = { has_country_flag = war_adventurer_pulse_tyrion_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_tyrion.1 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_tyrion.2 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_tyrion.3 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_tyrion.4 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_tyrion.5 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_tyrion_home }
+			NOT = { has_country_flag = war_adventurer_pulse_tyrion_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_tyrion.6 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_tyrion.7 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_tyrion.8 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_tyrion.9 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_tyrion.10 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_tyrion_home
+			has_country_flag = war_adventurer_pulse_tyrion_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_tyrion.11 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_tyrion.12 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_tyrion.13 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_tyrion.14 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_tyrion.15 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_tyrion_home }
+			has_country_flag = war_adventurer_pulse_tyrion_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_tyrion.16 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_tyrion.17 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_tyrion.18 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_tyrion.19 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_tyrion.20 }
+			}
+		}
+	}
+}
+
+# Country scope. Pick one eligible Gor-Rok story in the cached category.
+war_adventurer_pick_pulse_story_gor_rok = {
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_gor_rok_home
+			NOT = { has_country_flag = war_adventurer_pulse_gor_rok_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_gor_rok.1 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gor_rok.2 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gor_rok.3 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gor_rok.4 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gor_rok.5 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_gor_rok_home }
+			NOT = { has_country_flag = war_adventurer_pulse_gor_rok_enemy }
+		}
+		random_list = {
+			1 = {
+				trigger = {
+					event_target:war_adventurer_location_gor_rok = {
+						OR = { has_winter = normal_winter has_winter = severe_winter has_climate = arctic }
+					}
+				}
+				country_event = { id = war_adventurer_gor_rok.6 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gor_rok.7 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gor_rok.8 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gor_rok.9 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gor_rok.10 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_gor_rok_home
+			has_country_flag = war_adventurer_pulse_gor_rok_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_gor_rok.11 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gor_rok.12 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gor_rok.13 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gor_rok.14 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gor_rok.15 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_gor_rok_home }
+			has_country_flag = war_adventurer_pulse_gor_rok_enemy
+		}
+		random_list = {
+			1 = {
+				trigger = {
+					event_target:war_adventurer_location_gor_rok = {
+						OR = { has_winter = normal_winter has_winter = severe_winter has_climate = arctic }
+					}
+				}
+				country_event = { id = war_adventurer_gor_rok.16 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gor_rok.17 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gor_rok.18 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gor_rok.19 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_gor_rok.20 }
+			}
+		}
+	}
+}
+
+# Country scope. Pick one eligible Nakai the Wanderer story in the cached category.
+war_adventurer_pick_pulse_story_nakai = {
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_nakai_home
+			NOT = { has_country_flag = war_adventurer_pulse_nakai_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_nakai.1 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_nakai.2 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_nakai.3 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_nakai.4 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_nakai.5 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_nakai_home }
+			NOT = { has_country_flag = war_adventurer_pulse_nakai_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_nakai.6 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_nakai.7 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_nakai.8 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_nakai.9 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_nakai.10 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_nakai_home
+			has_country_flag = war_adventurer_pulse_nakai_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_nakai.11 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_nakai.12 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_nakai.13 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_nakai.14 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_nakai.15 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_nakai_home }
+			has_country_flag = war_adventurer_pulse_nakai_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_nakai.16 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_nakai.17 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_nakai.18 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_nakai.19 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_nakai.20 }
+			}
+		}
+	}
+}
+
+# Country scope. Pick one eligible Thanquol and Boneripper story in the cached category.
+war_adventurer_pick_pulse_story_thanquol = {
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_thanquol_home
+			NOT = { has_country_flag = war_adventurer_pulse_thanquol_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_thanquol.1 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_thanquol.2 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_thanquol.3 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_thanquol.4 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_thanquol.5 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_thanquol_home }
+			NOT = { has_country_flag = war_adventurer_pulse_thanquol_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_thanquol.6 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_thanquol.7 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_thanquol.8 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_thanquol.9 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_thanquol.10 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_thanquol_home
+			has_country_flag = war_adventurer_pulse_thanquol_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_thanquol.11 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_thanquol.12 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_thanquol.13 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_thanquol.14 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_thanquol.15 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_thanquol_home }
+			has_country_flag = war_adventurer_pulse_thanquol_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_thanquol.16 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_thanquol.17 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_thanquol.18 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_thanquol.19 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_thanquol.20 }
+			}
+		}
+	}
+}
+
+# Country scope. Pick one eligible Grombrindal story in the cached category.
+war_adventurer_pick_pulse_story_grombrindal = {
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_grombrindal_home
+			NOT = { has_country_flag = war_adventurer_pulse_grombrindal_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_grombrindal.1 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_grombrindal.2 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_grombrindal.3 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_grombrindal.4 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_grombrindal.5 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_grombrindal_home }
+			NOT = { has_country_flag = war_adventurer_pulse_grombrindal_enemy }
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_grombrindal.6 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_grombrindal.7 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_grombrindal.8 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_grombrindal.9 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_grombrindal.10 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = war_adventurer_pulse_grombrindal_home
+			has_country_flag = war_adventurer_pulse_grombrindal_enemy
+		}
+		random_list = {
+			1 = {
+				trigger = {
+					event_target:war_adventurer_location_grombrindal = {
+						owner = { is_at_war = yes }
+					}
+				}
+				country_event = { id = war_adventurer_grombrindal.11 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_grombrindal.12 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_grombrindal.13 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_grombrindal.14 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_grombrindal.15 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = war_adventurer_pulse_grombrindal_home }
+			has_country_flag = war_adventurer_pulse_grombrindal_enemy
+		}
+		random_list = {
+			1 = {
+				country_event = { id = war_adventurer_grombrindal.16 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_grombrindal.17 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_grombrindal.18 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_grombrindal.19 }
+			}
+			1 = {
+				country_event = { id = war_adventurer_grombrindal.20 }
+			}
+		}
+	}
+}

@@ -3791,3 +3791,114 @@ palace_of_mourkain = {
 	}
 }
 
+
+
+#### Bowmen of Oreon
+
+# Oreon's living sanctuary sustains the surrounding jungle glades and their defenders.
+# Mechanically identical to the current city_of_glass except for its location.
+# Balance source: Dev Stuff/Examples/Balance Guide.txt. Local equivalents are not
+# priced there; the comments use proportional national magnitudes as benchmarks.
+# See Dev Stuff/Oreons Jungle Glade/Design Notes.txt for the mapping and sources.
+oreons_jungle_glade = {
+	start = 4880
+	date = 1.01.01
+	time = { months = 0 }
+	build_cost = 1000
+	can_be_moved = no
+	starting_tier = 1
+	type = monument
+
+	# Beastmen use the mod's existing Beastfolk Administration modifier.
+	build_trigger = {
+		owner = {
+			OR = {
+				has_country_modifier = elven_administration
+				has_country_modifier = beastfolk_administration
+			}
+		}
+	}
+	on_built = { }
+	on_destroyed = { }
+	can_use_modifiers_trigger = {
+		owner = {
+			OR = {
+				has_country_modifier = elven_administration
+				has_country_modifier = beastfolk_administration
+			}
+		}
+	}
+	can_upgrade_trigger = {
+		owner = {
+			OR = {
+				has_country_modifier = elven_administration
+				has_country_modifier = beastfolk_administration
+			}
+		}
+	}
+	# Preserve the site on conquest; an ineligible owner receives no benefits.
+	keep_trigger = { }
+
+	tier_0 = {
+		upgrade_time = { months = 0 }
+		cost_to_upgrade = { factor = 0 }
+		province_modifiers = { }
+
+		area_modifier = {
+		}
+		country_modifiers = { }
+		on_upgraded = { }
+	}
+
+	# Restored glade and canopy paths: national-equivalent WV benchmark 66 2/3.
+	tier_1 = {
+		upgrade_time = { months = 120 }
+		cost_to_upgrade = { factor = 1000 }
+		province_modifiers = { }
+		# Only the monument's map area: heart_of_the_jungle_area (four provinces).
+
+		area_modifier = {
+			trade_goods_size_modifier = 0.2
+			local_defensiveness = 0.2
+			local_manpower_modifier = 0.2
+			local_development_cost = -0.1
+			local_unrest = -2
+		}
+		country_modifiers = { }
+		on_upgraded = { }
+	}
+
+	# Renewed waystones and spirit groves: national-equivalent WV benchmark 133 1/3.
+	tier_2 = {
+		upgrade_time = { months = 240 }
+		cost_to_upgrade = { factor = 2500 }
+		province_modifiers = { }
+
+		area_modifier = {
+			trade_goods_size_modifier = 0.4
+			local_defensiveness = 0.4
+			local_manpower_modifier = 0.4
+			local_development_cost = -0.2
+			local_unrest = -4
+		}
+		country_modifiers = { }
+		on_upgraded = { }
+	}
+
+	# The jungle sanctuary in its full strength: national-equivalent WV benchmark 200.
+	tier_3 = {
+		upgrade_time = { months = 480 }
+		cost_to_upgrade = { factor = 5000 }
+		province_modifiers = { }
+
+		area_modifier = {
+			trade_goods_size_modifier = 0.6
+			local_defensiveness = 0.6
+			local_manpower_modifier = 0.6
+			local_development_cost = -0.3
+			local_unrest = -6
+		}
+		country_modifiers = { }
+		on_upgraded = { }
+	}
+}

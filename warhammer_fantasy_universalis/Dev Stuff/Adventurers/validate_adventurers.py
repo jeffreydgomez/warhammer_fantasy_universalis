@@ -78,10 +78,13 @@ def walk(block):
 
 TRIGGERS = dict(read('common/scripted_triggers/war_adventurer_triggers.txt'))
 EFFECTS = dict(read('common/scripted_effects/war_adventurer_effects.txt'))
+EFFECTS.update(read('common/scripted_effects/war_adventurer_pulse_effects.txt'))
 ELIGIBLE = set(json.loads((HERE / 'map_eligibility.json').read_text())['allowed'])
 GROUPS = {k: {int(v) for v in b if isinstance(v, str) and v.isdigit()}
           for k, b in read('map/provincegroup.txt') if isinstance(b, list)}
 ARRIVALS = {}
+ENCOUNTERS = {}
+CONTROLS = {get(node, 'id'): node for node in all_values(read('events/War_Adventurer_Pulse.txt'), 'country_event')}
 
 
 @dataclass
@@ -108,6 +111,9 @@ class Script:
         self.pools = []
         self.applied = []
         self.dispatched = []
+        self.control_dispatched = []
+        self.random_lists = []
+        self.trigger_counts = Counter()
         self.entities = {x.key: x for c in countries for x in [c, *c.provinces]}
 
     def resolve(self, value):
@@ -132,6 +138,7 @@ class Script:
         return all(self.test_one(k, v, entity) for k, v in block)
 
     def test_one(self, key, value, entity):
+        self.trigger_counts[key] += 1
         if key == 'OR':
             return any(self.test_one(k, v, entity) for k, v in value)
         if key in ('AND', 'limit'):
@@ -152,7 +159,7 @@ class Script:
             return value in entity.modifiers
         if key == 'has_global_flag':
             return value in self.global_flags
-        if key == 'has_province_flag':
+        if key in ('has_province_flag', 'has_country_flag'):
             return value in entity.flags
         if key == 'had_province_flag':
             return get(value, 'flag') in entity.flags and self.day - entity.flags[get(value, 'flag')] >= int(get(value, 'days'))
@@ -166,6 +173,10 @@ class Script:
             return (entity.owner is None) == (value == 'yes')
         if key == 'is_city':
             return entity.attrs.get('city', True) == (value == 'yes')
+        if key == 'is_great_power':
+            return (entity.attrs.get('great_power_rank', 999) <= 8) == (value == 'yes')
+        if key == 'great_power_rank':
+            return entity.attrs.get('great_power_rank', 999) >= int(value)
         if key == 'province_group':
             return int(entity.key) in GROUPS[value]
         if key in ('trade_goods', 'area', 'region', 'superregion', 'has_winter', 'has_climate', 'has_port', 'is_at_war'):
@@ -185,6 +196,10 @@ class Script:
                     self.run(value, entity)
             elif key in ('limit', 'ai_chance', 'name', 'custom_tooltip'):
                 continue
+            elif key == 'events':
+                for event_id in value:
+                    if self.test(get(CONTROLS[event_id], 'trigger', []), entity):
+                        self.run([('country_event', [('id', event_id)])], entity)
             elif key == 'hidden_effect':
                 self.run(value, entity)
             elif key in EFFECTS:
@@ -199,6 +214,21 @@ class Script:
                     return [(expand(k), expand(v)) for k, v in tree]
 
                 self.run(expand(EFFECTS[key]), entity)
+            elif key == 'random_list':
+                pool = []
+                for weight, effects in value:
+                    if not self.test(get(effects, 'trigger', []), entity):
+                        continue
+                    weight = float(weight)
+                    for modifier in all_values(effects, 'modifier'):
+                        if self.test([(k, v) for k, v in modifier if k != 'factor'], entity):
+                            weight *= float(get(modifier, 'factor'))
+                    if weight > 0:
+                        pool.append((weight, [(k, v) for k, v in effects if k not in ('trigger', 'modifier')]))
+                self.random_lists.append(pool)
+                if pool:
+                    index = self.choices.pop(0) if self.choices else 0
+                    self.run(pool[index % len(pool)][1], entity)
             elif key.startswith(('random_', 'every_')):
                 pool = [p for p in self.candidates(key, entity) if self.test(get(value, 'limit', []), p)]
                 if key.startswith('random_'):
@@ -218,9 +248,9 @@ class Script:
                 self.targets[value] = entity
             elif key == 'set_global_flag':
                 self.global_flags.add(value)
-            elif key == 'set_province_flag':
+            elif key in ('set_province_flag', 'set_country_flag'):
                 entity.flags[value] = self.day
-            elif key == 'clr_province_flag':
+            elif key in ('clr_province_flag', 'clr_country_flag'):
                 entity.flags.pop(value, None)
             elif key in ('set_variable', 'change_variable'):
                 name, amount = get(value, 'which'), float(get(value, 'value'))
@@ -234,12 +264,20 @@ class Script:
             elif key == 'country_event':
                 assert entity.kind == 'country'
                 event_id = get(value, 'id')
-                assert event_id in ARRIVALS and len(value) == 1
+                events = ARRIVALS | ENCOUNTERS | CONTROLS
+                assert event_id in events and len(value) == 1
                 # A child event receives its own ROOT and a snapshot of the local targets.
                 report = Script(self.countries, entity)
                 report.targets = self.targets.copy()
-                assert report.test(get(ARRIVALS[event_id], 'trigger'), entity), ('Premature or misdirected arrival', event_id)
-                self.dispatched.append((event_id, entity, report.targets))
+                assert report.test(get(events[event_id], 'trigger', []), entity), ('Ineligible dispatched event', event_id)
+                if event_id in CONTROLS:
+                    self.control_dispatched.append((event_id, entity))
+                    for attr in ('day', 'choices', 'pools', 'applied', 'dispatched', 'control_dispatched',
+                                 'random_lists', 'trigger_counts', 'global_flags'):
+                        setattr(report, attr, getattr(self, attr))
+                    report.run(get(events[event_id], 'immediate'), entity)
+                else:
+                    self.dispatched.append((event_id, entity, report.targets))
             elif key in UNIT_PRICE:
                 expected = 'province' if key in PROVINCE_EFFECTS else 'country'
                 assert entity.kind == expected, (key, entity.kind, expected)
@@ -298,11 +336,7 @@ def move(state, origin, beer='yes'):
         assert event_id == 'war_adventurer_bugman.21'
         assert recipient is locations[0].owner
         assert targets['war_adventurer_arrival_province'] is locations[0]
-        assert not state.test(TRIGGERS['war_adventurer_ready'], locations[0])
-        state.day += 364
-        assert not state.test(TRIGGERS['war_adventurer_ready'], locations[0])
-        state.day += 1
-        assert state.test(TRIGGERS['war_adventurer_ready'], locations[0])
+        assert 'war_adventurer_arrived' not in locations[0].flags
     return locations[0]
 
 
@@ -373,12 +407,6 @@ def movement_tests():
     assert len(state.pools[1][1]) == 17
     cases.append('country chosen before province, without province-count country weighting')
     state, origin = world(2)
-    origin.flags['war_adventurer_event_open'] = state.day
-    assert not state.test(TRIGGERS['war_adventurer_ready'], origin)
-    state.day += 365
-    assert state.test(TRIGGERS['war_adventurer_ready'], origin)
-    cases.append('stale pending-event lock recovers after one year')
-    state, origin = world(2)
     first_destination = move(state, origin)
     first_report = state.dispatched[0]
     second_destination = move(state, first_destination)
@@ -431,6 +459,243 @@ def movement_tests():
     origin.owner.neighbors = state.countries[2:]
     assert move(state, origin).owner.key in ('C', 'D')
     cases.append('changed borders replace an announced country that is no longer a valid neighbor')
+    return cases
+
+
+def pulse_tests():
+    """Compare the dispatcher with the original per-story eligibility and weights."""
+    pulse = get(read('common/on_actions/00_on_actions.txt'), 'on_bi_yearly_pulse_5')
+    assert pulse == [('events', ['war_adventurer_pulse.1'])]
+    assert set(CONTROLS) == {'war_adventurer_pulse.1', 'war_adventurer_pulse.2'}
+    for node in CONTROLS.values():
+        assert get(node, 'hidden') == get(node, 'is_triggered_only') == 'yes'
+        assert get(node, 'mean_time_to_happen') is None
+    assert get(CONTROLS['war_adventurer_pulse.1'], 'trigger') == [
+        ('is_great_power', 'yes'), ('NOT', [('great_power_rank', '2')])]
+    assert get(CONTROLS['war_adventurer_pulse.1'], 'immediate') == [('war_adventurer_schedule_pulse', 'yes')]
+    assert get(CONTROLS['war_adventurer_pulse.2'], 'immediate') == [('war_adventurer_dispatch_pulse', 'yes')]
+    hosts = all_values(EFFECTS['war_adventurer_schedule_pulse'], 'war_adventurer_collect_pulse_host')
+    assert [dict(h) for h in hosts] == [{'SLUG': c['slug']} for c in DATA['characters']]
+    assert EFFECTS['war_adventurer_schedule_pulse'][-1][0] == 'every_country'
+    assert 'war_adventurer_ready' not in TRIGGERS
+    obsolete = {'war_adventurer_ready', 'war_adventurer_arrived', 'war_adventurer_event_open'}
+    assert not any(k in obsolete or (isinstance(v, str) and v in obsolete) for k, v in walk(list(EFFECTS.items())))
+    candidates = all_values(EFFECTS['war_adventurer_dispatch_pulse'], 'war_adventurer_cache_pulse_candidate')
+    assert [dict(c) for c in candidates] == [{'SLUG': c['slug'], 'PROFILE': c['profile']} for c in DATA['characters']]
+    assert sum(k == 'any_country' for k, _ in walk(EFFECTS['war_adventurer_dispatch_pulse'])) == 1
+    for char in DATA['characters']:
+        for node in all_values(read(f'events/War_Adventurer_{char["slug"]}.txt'), 'country_event'):
+            event_id = get(node, 'id')
+            (ARRIVALS if event_id.endswith('.21') else ENCOUNTERS)[event_id] = node
+            assert not any(k == 'any_country' for k, _ in walk(get(node, 'trigger')))
+            assert not any(k in obsolete or (isinstance(v, str) and v in obsolete) for k, v in walk(node))
+
+    def home_attrs(block):
+        attrs = {}
+        for key, value in block:
+            if key in TRIGGERS:
+                attrs.update(home_attrs(TRIGGERS[key]))
+            elif key == 'OR':
+                attrs.update(home_attrs(value[:1]))
+            else:
+                assert key in ('area', 'region', 'superregion'), key
+                attrs[key] = value
+        return attrs
+
+    def make_world(characters, home=False, modifiers=(), port='yes', war='yes', frozen=True):
+        countries = [Entity('A', 'country', modifiers=set(modifiers), attrs={'is_at_war': war, 'great_power_rank': 1}),
+                     Entity('B', 'country')]
+        numbers = iter(sorted(ELIGIBLE))
+        state = Script(countries, countries[0])
+        for char in characters:
+            attrs = {'trade_goods': 'grain', 'has_port': port,
+                     'has_winter': 'severe_winter' if frozen else 'no_winter'}
+            if home:
+                attrs.update(home_attrs(TRIGGERS[f'war_adventurer_{char["slug"]}_home']))
+            province = Entity(str(next(numbers)), 'province', owner=state.root, attrs=attrs,
+                              modifiers={'war_adventurer_' + char['slug']})
+            state.root.provinces.append(province)
+            state.targets['war_adventurer_location_' + char['slug']] = province
+        countries[1].provinces.append(Entity(str(next(numbers)), 'province', owner=countries[1]))
+        state.entities = {x.key: x for c in countries for x in [c, *c.provinces]}
+        return state
+
+    def eligible(state):
+        # The original pool assigned the same weight (400) to every eligible story.
+        return [event_id for event_id, node in ENCOUNTERS.items()
+                if state.test(get(node, 'trigger'), state.root)]
+
+    def run(state, expected, searches=1):
+        state.trigger_counts.clear()
+        state.run(pulse, state.root)
+        assert state.trigger_counts['any_country'] == searches
+        assert not any(k.startswith('war_adventurer_pulse_') for k in state.root.flags)
+        assert all(v == 0 for k, v in state.root.variables.items() if k.startswith('war_adventurer_pulse_'))
+        if expected:
+            assert len(state.dispatched) == 1 and state.dispatched[0][0] in expected
+            assert state.dispatched[0][1] is state.root
+            assert len(state.random_lists) == 2
+            counts = Counter(event_id.rsplit('.', 1)[0] for event_id in expected)
+            weights = {}
+            for weight, effects in state.random_lists[0]:
+                selector = effects[0][0]
+                slug = selector.removeprefix('war_adventurer_pick_pulse_story_')
+                weights['war_adventurer_' + slug] = weight
+            assert weights == dict(counts), (weights, counts)
+            selected_namespace = state.dispatched[0][0].rsplit('.', 1)[0]
+            selected_pool = {get(get(effects, 'country_event'), 'id'): weight
+                             for weight, effects in state.random_lists[1]}
+            assert selected_pool == {e: 1 for e in expected if e.rsplit('.', 1)[0] == selected_namespace}
+            # Visitor weight / all weights * 1 / its story count = 1 / all eligible stories.
+            assert sum(weights.values()) == len(expected)
+        else:
+            assert not state.dispatched and not state.random_lists
+
+    cases = []
+    covered = set()
+    for char in DATA['characters']:
+        for home, enemy in itertools.product((False, True), repeat=2):
+            friendly = {'a': (), 'b': ('skaven_administration',), 'c': (), 'd': ()}[char['profile']]
+            hostile = {'a': ('undead_administration',), 'b': (),
+                       'c': ('undead_administration',), 'd': ('chaos_nation',)}[char['profile']]
+            for story_index in range(5):
+                state = make_world([char], home, hostile if enemy else friendly)
+                expected = eligible(state)
+                assert len(expected) == 5
+                state.choices = [0, story_index]
+                run(state, expected)
+                assert state.trigger_counts['war_adventurer_ready'] == 0
+                assert state.trigger_counts[f'war_adventurer_{char["slug"]}_home'] == 1
+                assert state.trigger_counts[f'war_adventurer_enemy_{char["profile"]}'] == 1
+                covered.add(state.dispatched[0][0])
+    assert covered == set(ENCOUNTERS)
+    cases.append('all 360 stories reachable through the global pulse; candidates check home and hostility once, with no readiness gate')
+
+    matrix_count = 0
+    for char in DATA['characters']:
+        for home, port, war, frozen, modifiers in itertools.product(
+                (False, True), ('no', 'yes'), ('no', 'yes'), (False, True),
+                ((), ('order_nation',), ('chaos_nation',), ('undead_administration',), ('skaven_administration',))):
+            state = make_world([char], home, modifiers, port, war, frozen)
+            run(state, eligible(state))
+            matrix_count += 1
+    cases.append(f'{matrix_count} geography, port, war, climate and alignment cases preserve eligible stories and weights')
+
+    for index in range(18):
+        state = make_world(DATA['characters'], home=True, modifiers=('order_nation',), port='no', war='no', frozen=False)
+        expected = eligible(state)
+        state.choices = [index, 0]
+        run(state, expected)
+        assert [e for e, _ in state.control_dispatched].count('war_adventurer_pulse.2') == 1
+    cases.append('18 simultaneous visitors retain per-story odds, share one destination search and produce one encounter')
+
+    char = DATA['characters'][0]
+    for flag, age in itertools.product(('war_adventurer_arrived', 'war_adventurer_event_open'), (0, 59, 60, 364, 365)):
+        state = make_world([char])
+        state.root.provinces[0].flags[flag] = state.day - age
+        run(state, eligible(state))
+    cases.append('adventurers are immediately eligible; legacy arrival and pending-event flags have no effect')
+
+    for missing in ('target', 'modifier', 'ownership'):
+        state = make_world([char])
+        province = state.root.provinces[0]
+        if missing == 'target':
+            state.targets.clear()
+        elif missing == 'modifier':
+            province.modifiers.clear()
+        else:
+            province.owner = None
+        run(state, [], searches=0)
+        assert not state.root.variables
+    state = make_world([])
+    run(state, [], searches=0)
+    cases.append('missing targets, missing modifiers, unowned provinces and empty hosts do not cause destination scans')
+
+    state = make_world([char])
+    state.countries[1].provinces[0].modifiers.add('war_adventurer_bugman')
+    run(state, [], searches=1)
+    state.countries[1].provinces[0].modifiers.clear()
+    run(state, eligible(state))
+    cases.append('no destination suppresses encounters and clears cache; next pulse recovers')
+
+    for rank in (1, 2, 3, 8, 9, 999):
+        state = make_world([char])
+        state.root.attrs['great_power_rank'] = rank
+        state.run(pulse, state.root)
+        assert bool(state.dispatched) == (rank == 1)
+        assert len(state.control_dispatched) == (2 if rank == 1 else 0)
+        if rank != 1:
+            assert state.trigger_counts['any_country'] == 0
+            assert not state.root.flags and not state.root.variables
+    cases.append('only great power rank 1 runs the coordinator; all other ranks do no adventurer work')
+
+    state = make_world(DATA['characters'], port='yes', war='yes', frozen=True)
+    first_host = state.root
+    leader = state.countries[1]
+    first_host.attrs.pop('great_power_rank')
+    leader.attrs['great_power_rank'] = 1
+    for index, province in enumerate(list(first_host.provinces)[1:], start=1):
+        country = Entity(f'H{index}', 'country', attrs={'is_at_war': 'yes'})
+        first_host.provinces.remove(province)
+        country.provinces.append(province)
+        province.owner = country
+        state.countries.append(country)
+    state.root = leader
+    state.run(pulse, leader)
+    assert len(state.dispatched) == 18
+    assert Counter(c.key for _, c, _ in state.dispatched) == Counter(
+        c.key for c in state.countries if c is not leader)
+    for event_id, recipient, _ in state.dispatched:
+        slug = event_id.rsplit('.', 1)[0].removeprefix('war_adventurer_')
+        assert state.targets['war_adventurer_location_' + slug].owner is recipient
+    assert state.control_dispatched[0] == ('war_adventurer_pulse.1', leader)
+    assert len(state.control_dispatched) == 19
+    assert state.trigger_counts['any_country'] == 18
+    assert all(not any(k.startswith('war_adventurer_pulse_') for k in c.flags) for c in state.countries)
+    cases.append('one non-host great power dispatches to 18 distinct current owners in their own ROOT scopes and clears all scheduling state')
+
+    # Snapshot two hosts, resolve the first report and move Gelt into the second host.
+    # The second host must still select its original visitor, not the new arrival.
+    gelt = next(c for c in DATA['characters'] if c['slug'] == 'gelt')
+    bugman = next(c for c in DATA['characters'] if c['slug'] == 'bugman')
+    state = make_world([gelt, bugman])
+    origin_owner, later_owner = state.countries
+    bugman_province = state.targets['war_adventurer_location_bugman']
+    origin_owner.provinces.remove(bugman_province)
+    later_owner.provinces.append(bugman_province)
+    bugman_province.owner = later_owner
+    later_owner.attrs['is_at_war'] = 'yes'
+    state.run(EFFECTS['war_adventurer_schedule_pulse'][:-1], state.root)
+    assert 'war_adventurer_pulse_gelt_scheduled' in origin_owner.flags
+    assert 'war_adventurer_pulse_gelt_scheduled' not in later_owner.flags
+    for owner in (origin_owner, later_owner):
+        owner.flags.pop('war_adventurer_pulse_host')
+    state.run([('country_event', [('id', 'war_adventurer_pulse.2')])], origin_owner)
+    event_id, recipient, targets = state.dispatched[0]
+    assert event_id.startswith('war_adventurer_gelt.')
+    story = Script(state.countries, recipient)
+    story.targets = targets.copy()
+    story.run(get(ENCOUNTERS[event_id], 'immediate'), recipient)
+    story.run(get(ENCOUNTERS[event_id], 'after'), recipient)
+    state.targets['war_adventurer_location_gelt'] = story.targets['war_adventurer_location_gelt']
+    assert state.targets['war_adventurer_location_gelt'].owner is later_owner
+    assert not state.targets['war_adventurer_location_gelt'].flags
+    state.run([('country_event', [('id', 'war_adventurer_pulse.2')])], later_owner)
+    assert len(state.dispatched) == 2
+    assert state.dispatched[-1][0].startswith('war_adventurer_bugman.')
+    assert state.dispatched[-1][1] is later_owner
+    assert all(not any(k.startswith('war_adventurer_pulse_') for k in c.flags) for c in state.countries)
+    cases.append('an immediate same-pass move cannot give one adventurer a second encounter at a later host')
+
+    # Ownership can change between the snapshot and receipt; never select a departed visitor.
+    state = make_world([char])
+    state.run(EFFECTS['war_adventurer_schedule_pulse'][:-1], state.root)
+    state.root.flags.pop('war_adventurer_pulse_host')
+    state.root.provinces[0].owner = state.countries[1]
+    state.run([('country_event', [('id', 'war_adventurer_pulse.2')])], state.root)
+    assert not state.dispatched and not state.root.flags
+    assert state.trigger_counts['any_country'] == 0
+    cases.append('ownership changes after the snapshot skip stale candidates and still clear their scheduled flags')
     return cases
 
 
@@ -487,8 +752,8 @@ def main():
         assert get(province_trigger, namespace + '_home') == ('yes' if e['category'].endswith('H') else 'no')
         relationship = next(v for k, v in walk(province_trigger) if k == 'war_adventurer_enemy_' + char['profile'])
         assert relationship == ('yes' if e['category'].startswith('E') else 'no')
-        assert get(province_trigger, 'war_adventurer_ready') == 'yes'
-        assert any(k == 'any_country' for k, _ in walk(province_trigger))
+        assert get(province_trigger, 'war_adventurer_ready') is None
+        assert not any(k == 'any_country' for k, _ in walk(province_trigger))
         # Destination bookkeeping must not print scope headers or variable changes in the report.
         assert [k for k, _ in get(node, 'immediate')] == ['hidden_effect']
         assert any(k == 'save_event_target_as' and v == 'war_adventurer_province' for k, v in walk(get(node, 'immediate')))
@@ -566,12 +831,8 @@ def main():
         assert counts == [2, 2], (event_id, counts)
 
     actions = read('common/on_actions/00_on_actions.txt')
-    pulse = get(get(actions, 'on_bi_yearly_pulse_5'), 'random_events')
-    registered = [(k, v) for k, v in pulse if isinstance(v, str) and v.startswith('war_adventurer_')]
-    assert len(registered) == 360 and {v for _, v in registered} == set(event_nodes)
-    assert not {v for _, v in registered} & set(ARRIVALS)
-    assert all(k == '400' for k, _ in registered)
-    assert ('2000', '0') in pulse
+    pulse = get(actions, 'on_bi_yearly_pulse_5')
+    assert pulse == [('events', ['war_adventurer_pulse.1'])]
     for action, body in actions:
         if action != 'on_bi_yearly_pulse_5':
             assert not any(isinstance(v, str) and v.startswith('war_adventurer_') for _, v in walk(body))
@@ -662,24 +923,24 @@ def main():
         covered.update((char['code'], a) for a in anchors)
     assert len(covered) == 68
 
-    cases = movement_tests()
-    # Initialization is idempotent even if multiple queued startup events run.
+    ENCOUNTERS.update(event_nodes)
+    cases = movement_tests() + pulse_tests()
+    # The engine, rather than an effect-level flag, enforces once-per-campaign setup.
     countries = [Entity(t, 'country') for t in start_tags]
     for c, number in zip(countries, starts):
         c.provinces.append(Entity(str(number), 'province', owner=c))
     setup = all_values(read('events/War_Adventurer_Setup.txt'), 'country_event')[0]
+    assert get(setup, 'fire_only_once') == 'yes'
+    assert get(setup, 'trigger') is None
     state = Script(countries, countries[0])
     state.run(get(setup, 'immediate'), state.root)
-    snapshot = [(p.key, sorted(p.modifiers)) for c in countries for p in c.provinces]
-    state.run(get(setup, 'immediate'), state.root)
-    assert snapshot == [(p.key, sorted(p.modifiers)) for c in countries for p in c.provinces]
     assert len(state.targets) == 18
     assert not state.dispatched
     for char, country in zip(DATA['characters'], countries):
         province = country.provinces[0]
         assert province.modifiers == {'war_adventurer_' + char['slug']}
         assert state.targets['war_adventurer_location_' + char['slug']] is province
-    cases.append('startup initializes eighteen unique locations and is idempotent')
+    cases.append('startup initializes eighteen unique locations with engine fire_only_once tracking')
     # An older save can have an unowned preferred start. Seed an eligible owned replacement.
     countries = [Entity(t, 'country') for t in start_tags]
     for c, number in zip(countries, starts):
@@ -711,4 +972,13 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--pulse-only', action='store_true', help='Check pulse dispatch and movement without unrelated content assertions.')
+    args = parser.parse_args()
+    if args.pulse_only:
+        cases = pulse_tests() + movement_tests()
+        print(json.dumps({'status': 'passed', 'tests': cases,
+                          'limitations': 'Restricted script interpreter; no live EU4 execution or profiling.'}, indent=2))
+    else:
+        main()

@@ -134,8 +134,8 @@ PRESENCE
     }
 }
 war_adventurer_destination_province = {
-    is_city = yes
     province_group = war_adventurer_mainlands
+    is_city = yes
     NOT = { war_adventurer_present = yes }
 }
 # Country scope. random_country weights countries, not their province counts.
@@ -143,18 +143,7 @@ war_adventurer_destination_country = {
     NOT = { tag = event_target:war_adventurer_origin_country }
     any_owned_province = { war_adventurer_destination_province = yes }
 }
-# Province scope. A short rest prevents rapid hops between different countries' pulse dates.
-war_adventurer_ready = {
-    OR = {
-        NOT = { has_province_flag = war_adventurer_event_open }
-        # Recover a stale lock if an event disappeared with an annexed recipient.
-        had_province_flag = { flag = war_adventurer_event_open days = 365 }
-    }
-    OR = {
-        NOT = { has_province_flag = war_adventurer_arrived }
-        had_province_flag = { flag = war_adventurer_arrived days = 365 }
-    }
-}
+
 '''.replace('PRESENCE', presence)
     write('common/scripted_triggers/war_adventurer_triggers.txt', text + '\n' + home_triggers())
 
@@ -166,12 +155,12 @@ war_adventurer_pick_destination_province = {
         limit = {
             always = $BEER$
             any_owned_province = {
-                war_adventurer_destination_province = yes
                 trade_goods = beer
+                war_adventurer_destination_province = yes
             }
         }
         random_owned_province = {
-            limit = { war_adventurer_destination_province = yes trade_goods = beer }
+            limit = { trade_goods = beer war_adventurer_destination_province = yes }
             save_event_target_as = war_adventurer_destination
         }
     }
@@ -265,10 +254,10 @@ war_adventurer_move = {
             if = {
                 limit = {
                     check_variable = { which = war_adventurer_neighbor_count value = 2 }
-                    any_neighbor_country = { war_adventurer_destination_country = yes }
                     NOT = {
                         any_neighbor_country = { tag = event_target:war_adventurer_destination_country }
                     }
+                    any_neighbor_country = { war_adventurer_destination_country = yes }
                 }
                 event_target:war_adventurer_origin = { war_adventurer_prepare_destination = yes }
             }
@@ -285,12 +274,9 @@ war_adventurer_move = {
         if = {
             limit = { war_adventurer_destination_province = yes }
             add_province_modifier = { name = $MODIFIER$ duration = -1 }
-            set_province_flag = war_adventurer_arrived
             save_global_event_target_as = $LOCATION$
             event_target:war_adventurer_origin = {
                 remove_province_modifier = $MODIFIER$
-                clr_province_flag = war_adventurer_arrived
-                clr_province_flag = war_adventurer_event_open
             }
             # Keep this report's province independent of later global location changes.
             save_event_target_as = war_adventurer_arrival_province
@@ -302,25 +288,22 @@ war_adventurer_move = {
 
 def build_setup():
     lines = ['namespace = war_adventurer_setup', '',
-             '# Seed the eighteen unique travellers once, including when first loading an older save.',
+             '# Seed the eighteen unique travellers once per campaign, tracked by the engine.',
              'country_event = {', '\tid = war_adventurer_setup.1', '\thidden = yes',
-             '\tis_triggered_only = yes', '\ttrigger = { NOT = { has_global_flag = war_adventurers_initialized } }',
-             '\timmediate = {', '\t\tif = {',
-             '\t\t\tlimit = { NOT = { has_global_flag = war_adventurers_initialized } }',
-             '\t\t\tset_global_flag = war_adventurers_initialized']
+             '\tis_triggered_only = yes', '\tfire_only_once = yes', '\timmediate = {']
     for c in CHARS.values():
         slug = c['slug']
         placement = f'''add_province_modifier = {{ name = war_adventurer_{slug} duration = -1 }}
 save_global_event_target_as = war_adventurer_location_{slug}'''
-        lines += [f'\t\t\t# {c["name"]}; approved mainland start, or an owned mainland in an older save.',
-                  '\t\t\tif = {', f'\t\t\t\tlimit = {{ {c["start"]} = {{ is_empty = no war_adventurer_destination_province = yes }} }}',
-                  f'\t\t\t\t{c["start"]} = {{', indent(placement, 5), '\t\t\t\t}', '\t\t\t}',
-                  '\t\t\telse = {', '\t\t\t\trandom_country = {',
-                  '\t\t\t\t\tlimit = { any_owned_province = { war_adventurer_destination_province = yes } }',
-                  f'\t\t\t\t\twar_adventurer_pick_destination_province = {{ BEER = {"yes" if c["code"] == "BUG" else "no"} }}',
-                  '\t\t\t\t\tevent_target:war_adventurer_destination = {', indent(placement, 6),
-                  '\t\t\t\t\t}', '\t\t\t\t}', '\t\t\t}']
-    lines += ['\t\t}', '\t}', '\t# Hidden acknowledgement; all placement happens immediately.',
+        lines += [f'\t\t# {c["name"]}; approved mainland start, or an owned mainland in an older save.',
+                  '\t\tif = {', f'\t\t\tlimit = {{ {c["start"]} = {{ is_empty = no war_adventurer_destination_province = yes }} }}',
+                  f'\t\t\t{c["start"]} = {{', indent(placement, 4), '\t\t\t}', '\t\t}',
+                  '\t\telse = {', '\t\t\trandom_country = {',
+                  '\t\t\t\tlimit = { any_owned_province = { war_adventurer_destination_province = yes } }',
+                  f'\t\t\t\twar_adventurer_pick_destination_province = {{ BEER = {"yes" if c["code"] == "BUG" else "no"} }}',
+                  '\t\t\t\tevent_target:war_adventurer_destination = {', indent(placement, 5),
+                  '\t\t\t\t}', '\t\t\t}', '\t\t}']
+    lines += ['\t}', '\t# Hidden acknowledgement; all placement happens immediately.',
               '\toption = { name = war_adventurer_setup.1.a }', '}']
     write('events/War_Adventurer_Setup.txt', '\n'.join(lines))
     marked('common/on_actions/war_startup_on_actions.txt', 'WAR_ADVENTURER_STARTUP',
@@ -341,9 +324,169 @@ def build_modifiers():
         lines += ['\tpicture = "war_adventurer_icon"', '}']
     write('common/event_modifiers/war_adventurer_modifiers.txt', '\n'.join(lines))
 
+def pulse_category(slug, category):
+    """Country-scope tests against this pulse's cached geography and relationship."""
+    return '\n'.join(
+        f'has_country_flag = war_adventurer_pulse_{slug}_{key}' if enabled else
+        f'NOT = {{ has_country_flag = war_adventurer_pulse_{slug}_{key} }}'
+        for key, enabled in [('home', category.endswith('H')), ('enemy', category.startswith('E'))])
+
+
+def build_pulse():
+    # Snapshot the owners before any host event can select a story or move a visitor.
+    scheduler = ['''# Country scope. Record one adventurer on its current owner for this global pulse.
+war_adventurer_collect_pulse_host = {
+    if = {
+        limit = {
+            event_target:war_adventurer_location_$SLUG$ = {
+                is_empty = no
+                has_province_modifier = war_adventurer_$SLUG$
+            }
+        }
+        event_target:war_adventurer_location_$SLUG$ = {
+            owner = {
+                set_country_flag = war_adventurer_pulse_host
+                set_country_flag = war_adventurer_pulse_$SLUG$_scheduled
+            }
+        }
+    }
+}
+
+# Country scope: the #1 great power coordinates one global pass.
+war_adventurer_schedule_pulse = {''']
+    for c in CHARS.values():
+        scheduler.append(f'\twar_adventurer_collect_pulse_host = {{ SLUG = {c["slug"]} }}')
+    scheduler += ['''	# All visitors are recorded before the first host receives a selection event.
+	every_country = {
+		limit = { has_country_flag = war_adventurer_pulse_host }
+		clr_country_flag = war_adventurer_pulse_host
+		country_event = { id = war_adventurer_pulse.2 }
+	}
+}''']
+    # Candidate eligibility is independent of story choice. Cache it once per visitor.
+    lines = scheduler + ['''
+# Country scope. Cache a scheduled visitor's presence, geography, relationship and story count.
+# The snapshot prevents newly arriving visitors from entering this same global pass twice.
+war_adventurer_cache_pulse_candidate = {
+    if = {
+        limit = {
+            has_country_flag = war_adventurer_pulse_$SLUG$_scheduled
+            event_target:war_adventurer_location_$SLUG$ = {
+                owned_by = ROOT
+                has_province_modifier = war_adventurer_$SLUG$
+            }
+        }
+        set_country_flag = war_adventurer_pulse_has_candidate
+        set_country_flag = war_adventurer_pulse_$SLUG$_eligible
+        set_variable = { which = war_adventurer_pulse_$SLUG$_weight value = 5 }
+        if = {
+            limit = { event_target:war_adventurer_location_$SLUG$ = { war_adventurer_$SLUG$_home = yes } }
+            set_country_flag = war_adventurer_pulse_$SLUG$_home
+        }
+        if = {
+            limit = { war_adventurer_enemy_$PROFILE$ = yes }
+            set_country_flag = war_adventurer_pulse_$SLUG$_enemy
+        }
+    }
+}
+
+# Country scope. One draw per snapshotted host, with equal odds for every eligible story.
+war_adventurer_dispatch_pulse = {''']
+    for c in CHARS.values():
+        slug = c['slug']
+        lines.append(f'\twar_adventurer_cache_pulse_candidate = {{ SLUG = {slug} PROFILE = {c["profile"]} }}')
+        extras = [e for e in DATA['events'] if e['code'] == c['code'] and e.get('province_trigger')]
+        if extras:
+            lines += ['\tif = {', f'\t\tlimit = {{ has_country_flag = war_adventurer_pulse_{slug}_eligible }}']
+            for e in extras:
+                lines += ['\t\tif = {', '\t\t\tlimit = {', indent(pulse_category(slug, e['category']), 4),
+                          f'\t\t\t\tevent_target:war_adventurer_location_{slug} = {{',
+                          '\t\t\t\t\tNOT = {', indent(e['province_trigger'], 6), '\t\t\t\t\t}',
+                          '\t\t\t\t}', '\t\t\t}',
+                          f'\t\t\tchange_variable = {{ which = war_adventurer_pulse_{slug}_weight value = -1 }}',
+                          '\t\t}']
+            lines.append('\t}')
+    lines += ['', '\t# Destination existence is identical for every visitor owned by this country.',
+              '\t# Search once, and only if at least one scheduled visitor is still present.',
+              '\tif = {', '\t\tlimit = { has_country_flag = war_adventurer_pulse_has_candidate }',
+              '\t\tif = {', '\t\t\tlimit = {', '\t\t\t\tany_country = {',
+              '\t\t\t\t\tNOT = { tag = ROOT }',
+              '\t\t\t\t\tany_owned_province = { war_adventurer_destination_province = yes }',
+              '\t\t\t\t}', '\t\t\t}', '\t\t\trandom_list = {']
+    for c in CHARS.values():
+        slug = c['slug']; weight = f'war_adventurer_pulse_{slug}_weight'
+        lines += [f'\t\t\t\t# {c["name"]}: weight equals the number of eligible stories.',
+                  '\t\t\t\t5 = {', '\t\t\t\t\ttrigger = {',
+                  f'\t\t\t\t\t\thas_country_flag = war_adventurer_pulse_{slug}_eligible',
+                  f'\t\t\t\t\t\tcheck_variable = {{ which = {weight} value = 1 }}', '\t\t\t\t\t}']
+        for count in range(1, 5):
+            lines += ['\t\t\t\t\tmodifier = {', f'\t\t\t\t\t\tfactor = {count / 5:g}',
+                      f'\t\t\t\t\t\tcheck_variable = {{ which = {weight} value = {count} }}',
+                      f'\t\t\t\t\t\tNOT = {{ check_variable = {{ which = {weight} value = {count + 1} }} }}',
+                      '\t\t\t\t\t}']
+        lines += [f'\t\t\t\t\twar_adventurer_pick_pulse_story_{slug} = yes', '\t\t\t\t}']
+    lines += ['\t\t\t}', '\t\t}', '\t}', '',
+              '\t# Clear the cache even when no destination was available. Open reports do not use it.']
+    for c in CHARS.values():
+        slug = c['slug']
+        lines.append(f'\tclr_country_flag = war_adventurer_pulse_{slug}_scheduled')
+        lines += ['\tif = {', f'\t\tlimit = {{ has_country_flag = war_adventurer_pulse_{slug}_eligible }}',
+                  f'\t\tclr_country_flag = war_adventurer_pulse_{slug}_eligible',
+                  f'\t\tclr_country_flag = war_adventurer_pulse_{slug}_home',
+                  f'\t\tclr_country_flag = war_adventurer_pulse_{slug}_enemy',
+                  f'\t\tset_variable = {{ which = war_adventurer_pulse_{slug}_weight value = 0 }}', '\t}']
+    lines += ['\tclr_country_flag = war_adventurer_pulse_has_candidate', '}']
+    for c in CHARS.values():
+        slug = c['slug']
+        lines += ['', f'# Country scope. Pick one eligible {c["name"]} story in the cached category.',
+                  f'war_adventurer_pick_pulse_story_{slug} = {{']
+        for category in ('FH', 'FA', 'EH', 'EA'):
+            lines += ['\tif = {', '\t\tlimit = {', indent(pulse_category(slug, category), 3),
+                      '\t\t}', '\t\trandom_list = {']
+            for e in DATA['events']:
+                if e['code'] != c['code'] or e['category'] != category:
+                    continue
+                lines.append('\t\t\t1 = {')
+                if e.get('province_trigger'):
+                    lines += ['\t\t\t\ttrigger = {', f'\t\t\t\t\tevent_target:war_adventurer_location_{slug} = {{',
+                              indent(e['province_trigger'], 6), '\t\t\t\t\t}', '\t\t\t\t}']
+                lines += [f'\t\t\t\tcountry_event = {{ id = war_adventurer_{slug}.{e["number"]} }}', '\t\t\t}']
+            lines += ['\t\t}', '\t}']
+        lines.append('}')
+    write('common/scripted_effects/war_adventurer_pulse_effects.txt', '\n'.join(lines))
+    write('events/War_Adventurer_Pulse.txt', '''namespace = war_adventurer_pulse
+
+# The leading great power schedules encounters for all current adventurer hosts.
+country_event = {
+    id = war_adventurer_pulse.1
+    hidden = yes
+    is_triggered_only = yes
+    trigger = {
+        is_great_power = yes
+        # Rank tests mean this rank or worse, so exclude rank 2 and below.
+        NOT = { great_power_rank = 2 }
+    }
+    immediate = { war_adventurer_schedule_pulse = yes }
+    # Hidden acknowledgement; hosts receive their own selection events.
+    option = { name = war_adventurer_arrival_acknowledge }
+}
+
+# Select one encounter in the host's country scope using the global ownership snapshot.
+country_event = {
+    id = war_adventurer_pulse.2
+    hidden = yes
+    is_triggered_only = yes
+    immediate = { war_adventurer_dispatch_pulse = yes }
+    # Hidden acknowledgement; the selected story handles responses and movement.
+    option = { name = war_adventurer_arrival_acknowledge }
+}
+''')
+    marked('common/on_actions/00_on_actions.txt', 'WAR_ADVENTURER_PULSE_5',
+           '\tevents = { war_adventurer_pulse.1 }\t# Only the #1 great power passes the event trigger.')
+
+
 def build_events():
     localization = ['l_english:']
-    pulse = []
     for c in CHARS.values():
         slug = c['slug']; namespace = 'war_adventurer_' + slug
         lines = [f'namespace = {namespace}', '',
@@ -352,26 +495,18 @@ def build_events():
         modifier_name = c.get('modifier_name', c['name'] + ', Adventurer')
         localization += [f' {namespace}:0 "{escape(modifier_name)}"',
                          f' desc_{namespace}:0 "{escape(c["modifier_description"])}"']
-        pulse.append(f'\t\t# {c["name"]}: five eligible home/abroad and friendly/enemy variants.')
         for e in [e for e in DATA['events'] if e['code'] == c['code']]:
             id = namespace + '.' + str(e['number'])
             assert e.get('description') and all('effects' in o for o in e['options']), e['concept_id']
             home = 'yes' if e['category'].endswith('H') else 'no'
             enemy = 'yes' if e['category'].startswith('E') else 'no'
             extra = e.get('province_trigger', '')
+            extra_trigger = indent(extra) + '\n' if extra else ''
             trigger = f'''event_target:war_adventurer_location_{slug} = {{
     owned_by = ROOT
     has_province_modifier = {namespace}
-    war_adventurer_ready = yes
     war_adventurer_{slug}_home = {home}
-    owner = {{ war_adventurer_enemy_{c['profile']} = {enemy} }}
-    owner = {{
-        any_country = {{
-            NOT = {{ tag = ROOT }}
-            any_owned_province = {{ war_adventurer_destination_province = yes }}
-        }}
-    }}
-{indent(extra) if extra else ''}
+{extra_trigger}    owner = {{ war_adventurer_enemy_{c['profile']} = {enemy} }}
 }}'''
             lines += [f'# {e["concept_id"]}: {e["title"]}. Intended event Weighing Value: {e["weight"]:+}. Lore: {e["lore"]}.',
                       'country_event = {', f'\tid = {id}', f'\ttitle = {id}.t', f'\tdesc = {id}.d',
@@ -379,7 +514,7 @@ def build_events():
                       '\ttrigger = {', indent(trigger, 2), '\t}',
                       '\timmediate = {', '\t\thidden_effect = {',
                       f'\t\t\tevent_target:war_adventurer_location_{slug} = {{',
-                      '\t\t\t\tsave_event_target_as = war_adventurer_province', '\t\t\t\tset_province_flag = war_adventurer_event_open',
+                      '\t\t\t\tsave_event_target_as = war_adventurer_province',
                       '\t\t\t\twar_adventurer_prepare_destination = yes',
                       '\t\t\t}', '\t\t}', '\t}', '\tgoto = war_adventurer_province']
             for i, option in enumerate(e['options']):
@@ -395,12 +530,11 @@ def build_events():
                           '\t\telse = { custom_tooltip = war_adventurer_stays_tt }', '\t}']
                 localization.append(f' {id}.option_{letter}:0 "{escape(option["label"])}"')
             lines += ['', '\tafter = {', '\t\thidden_effect = {', '\t\t\tevent_target:war_adventurer_province = {',
-                      '\t\t\t\tclr_province_flag = war_adventurer_event_open', '\t\t\t\tif = {',
+                      '\t\t\t\tif = {',
                       f'\t\t\t\t\tlimit = {{ has_province_modifier = {namespace} }}',
                       f'\t\t\t\t\twar_adventurer_move = {{ MODIFIER = {namespace} LOCATION = war_adventurer_location_{slug} BEER = {"yes" if c["code"] == "BUG" else "no"} ARRIVAL_EVENT = {namespace}.21 }}',
                       '\t\t\t\t}', '\t\t\t}', '\t\t}', '\t}', '}', '']
             localization += [f' {id}.t:0 "{escape(e["title"])}"', f' {id}.d:0 "{escape(e["description"])}"']
-            pulse.append(f'\t\t400 = {id}')
         # Arrival notices are invoked by movement, never drawn from the encounter pulse.
         arrival_id = namespace + '.21'
         verb = 'have' if c['code'] in ('GOF', 'THA') else 'has'
@@ -423,18 +557,7 @@ def build_events():
                      ' war_adventurer_stays_tt:0 "The Adventurer remains here."',
                      ' war_adventurer_mainlands:0 "Adventurer Mainlands"']
     write('localisation/war_adventurers_l_english.yml', '\n'.join(localization), bom=True)
-    # This exact active block is unique to pulse 5 in the current mod.
-    p = ROOT / 'common/on_actions/00_on_actions.txt'
-    text = p.read_text(); start = text.index('on_bi_yearly_pulse_5 = {')
-    opening = text.index('random_events = {', start)
-    boundary = text.index('\n', opening) + 1
-    marker = '# BEGIN WAR_ADVENTURER_PULSE_5'
-    content = '\t\t' + marker + '\n' + '\n'.join(pulse) + '\n\t\t# END WAR_ADVENTURER_PULSE_5\n'
-    if marker in text:
-        text = re.sub(r'\t*# BEGIN WAR_ADVENTURER_PULSE_5.*?# END WAR_ADVENTURER_PULSE_5\n', lambda _: content, text, flags=re.S)
-    else:
-        text = text[:boundary] + content + text[boundary:]
-    p.write_text(text)
+    build_pulse()
 
 def escape(text):
     return text.replace('"', "'").replace('\n\n', '\\n\\n').replace('\n', ' ')

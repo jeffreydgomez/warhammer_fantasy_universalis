@@ -5,12 +5,12 @@ war_adventurer_pick_destination_province = {
         limit = {
             always = $BEER$
             any_owned_province = {
-                war_adventurer_destination_province = yes
                 trade_goods = beer
+                war_adventurer_destination_province = yes
             }
         }
         random_owned_province = {
-            limit = { war_adventurer_destination_province = yes trade_goods = beer }
+            limit = { trade_goods = beer war_adventurer_destination_province = yes }
             save_event_target_as = war_adventurer_destination
         }
     }
@@ -104,10 +104,10 @@ war_adventurer_move = {
             if = {
                 limit = {
                     check_variable = { which = war_adventurer_neighbor_count value = 2 }
-                    any_neighbor_country = { war_adventurer_destination_country = yes }
                     NOT = {
                         any_neighbor_country = { tag = event_target:war_adventurer_destination_country }
                     }
+                    any_neighbor_country = { war_adventurer_destination_country = yes }
                 }
                 event_target:war_adventurer_origin = { war_adventurer_prepare_destination = yes }
             }
@@ -124,12 +124,9 @@ war_adventurer_move = {
         if = {
             limit = { war_adventurer_destination_province = yes }
             add_province_modifier = { name = $MODIFIER$ duration = -1 }
-            set_province_flag = war_adventurer_arrived
             save_global_event_target_as = $LOCATION$
             event_target:war_adventurer_origin = {
                 remove_province_modifier = $MODIFIER$
-                clr_province_flag = war_adventurer_arrived
-                clr_province_flag = war_adventurer_event_open
             }
             # Keep this report's province independent of later global location changes.
             save_event_target_as = war_adventurer_arrival_province

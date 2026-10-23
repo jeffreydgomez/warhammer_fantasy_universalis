@@ -7842,3 +7842,179 @@ silver_pinnacle = {
 	}
 }
 
+
+
+city_of_glass = {
+	start = 4892
+	date = 1.01.01
+	time = { months = 0 }
+	build_cost = 1000
+	can_be_moved = no
+	starting_tier = 1
+	type = monument
+
+	# Beastmen use the mod's existing Beastfolk Administration modifier.
+	build_trigger = {
+		owner = {
+			OR = {
+				has_country_modifier = elven_administration
+				has_country_modifier = beastfolk_administration
+			}
+		}
+	}
+	on_built = { }
+	on_destroyed = { }
+	can_use_modifiers_trigger = {
+		owner = {
+			OR = {
+				has_country_modifier = elven_administration
+				has_country_modifier = beastfolk_administration
+			}
+		}
+	}
+	can_upgrade_trigger = {
+		owner = {
+			OR = {
+				has_country_modifier = elven_administration
+				has_country_modifier = beastfolk_administration
+			}
+		}
+	}
+	# Preserve the site on conquest; an ineligible owner receives no benefits.
+	keep_trigger = { }
+
+	tier_0 = {
+		upgrade_time = { months = 0 }
+		cost_to_upgrade = { factor = 0 }
+		province_modifiers = { }
+
+		area_modifier = {
+		}
+		country_modifiers = { }
+		on_upgraded = { }
+	}
+
+	# Restored courts and ward patrols: national-equivalent WV benchmark 33 1/3.
+	tier_1 = {
+		upgrade_time = { months = 120 }
+		cost_to_upgrade = { factor = 1000 }
+		province_modifiers = { }
+		# Only the monument's map area: laurelorn_forest (five provinces).
+
+		area_modifier = {
+			trade_goods_size_modifier = 0.2
+			local_defensiveness = 0.2
+			local_manpower_modifier = 0.2
+			local_development_cost = -0.1
+			local_unrest = -2
+		}
+		country_modifiers = { }
+		on_upgraded = { }
+	}
+
+	# Rejoined wards and renewed sanctuaries: national-equivalent WV benchmark 66 2/3.
+	tier_2 = {
+		upgrade_time = { months = 240 }
+		cost_to_upgrade = { factor = 2500 }
+		province_modifiers = { }
+
+		area_modifier = {
+			trade_goods_size_modifier = 0.4
+			local_defensiveness = 0.4
+			local_manpower_modifier = 0.4
+			local_development_cost = -0.2
+			local_unrest = -4
+		}
+		country_modifiers = { }
+		on_upgraded = { }
+	}
+
+	# The City of Glass in its full splendor: national-equivalent WV benchmark 100.
+	tier_3 = {
+		upgrade_time = { months = 480 }
+		cost_to_upgrade = { factor = 5000 }
+		province_modifiers = { }
+
+		area_modifier = {
+			trade_goods_size_modifier = 0.6
+			local_defensiveness = 0.6
+			local_manpower_modifier = 0.6
+			local_development_cost = -0.3
+			local_unrest = -6
+		}
+		country_modifiers = { }
+		on_upgraded = { }
+	}
+}
+
+# A movable Skryre doomsday engine, initially concealed in Central Skavenblight.
+# No tier has passive modifiers. Costs and upgrade times are twice the normal
+# 1000/2500/5000 ducats and 120/240/480 months in 01_old_world_monuments.txt.
+war_warpmoon_project = {
+	start = 4600
+	date = 01.01.01
+	time = { months = 0 }
+	build_cost = 0
+	can_be_moved = yes
+	move_days_per_unit_distance = 2
+	starting_tier = 0
+	type = monument
+
+	build_trigger = { war_warpmoon_can_upgrade = yes }
+	can_use_modifiers_trigger = { war_warpmoon_can_upgrade = yes }
+	can_upgrade_trigger = { war_warpmoon_can_upgrade = yes }
+	# Conquest by a non-Skaven country preserves the project for sabotage.
+	keep_trigger = { }
+	on_built = { }
+	on_destroyed = { }
+
+	tier_0 = {
+		upgrade_time = { months = 0 }
+		cost_to_upgrade = { factor = 0 }
+		province_modifiers = { }
+		area_modifier = { }
+		country_modifiers = { }
+		on_upgraded = { }
+	}
+	tier_1 = {
+		upgrade_time = { months = 240 }
+		cost_to_upgrade = { factor = 2000 }
+		province_modifiers = { }
+		area_modifier = { }
+		country_modifiers = { }
+		on_upgraded = {
+			custom_tooltip = war_warpmoon_stage_warning_tt
+			hidden_effect = {
+				save_event_target_as = war_warpmoon_province
+				owner = { save_event_target_as = war_warpmoon_builder }
+				every_country = { country_event = { id = war_warpmoon.1 } }
+			}
+		}
+	}
+	tier_2 = {
+		upgrade_time = { months = 480 }
+		cost_to_upgrade = { factor = 5000 }
+		province_modifiers = { }
+		area_modifier = { }
+		country_modifiers = { }
+		on_upgraded = {
+			custom_tooltip = war_warpmoon_stage_warning_tt
+			hidden_effect = {
+				save_event_target_as = war_warpmoon_province
+				owner = { save_event_target_as = war_warpmoon_builder }
+				every_country = { country_event = { id = war_warpmoon.2 } }
+			}
+		}
+	}
+	tier_3 = {
+		upgrade_time = { months = 960 }
+		cost_to_upgrade = { factor = 10000 }
+		province_modifiers = { }
+		area_modifier = { }
+		country_modifiers = { }
+		on_upgraded = {
+			custom_tooltip = war_warpmoon_completion_tt
+			hidden_effect = { war_warpmoon_destroy_moon = yes }
+		}
+	}
+}

@@ -42,12 +42,12 @@
         "swine_honest_weights"
       ],
       "icon": "mission_caravan",
-      "trigger": "2206 = { trade_share = { country = ROOT share = 35 } }\nnum_of_light_ship = 5",
+      "trigger": "num_of_light_ship = 5\n2206 = { trade_share = { country = ROOT share = 35 } }",
       "effect": "add_country_modifier = { name = swine_upper_ruin_reward duration = -1 }",
       "wv": 2,
       "description": "River cargo is bought long before it reaches Pigbarter. Send factors upriver and maintain enough light ships to protect their contracts.",
       "objective": "35% River Ruin trade power and 5 light ships.",
-      "highlight": "swine_river_ruin_province = yes\nROOT = { NOT = { AND = {\n2206 = { trade_share = { country = ROOT share = 35 } }\nnum_of_light_ship = 5\n} } }"
+      "highlight": "swine_river_ruin_province = yes\nROOT = {\n\tNOT = {\n\t\tAND = {\n\t\t\tnum_of_light_ship = 5\n\t\t\t2206 = { trade_share = { country = ROOT share = 35 } }\n\t\t}\n\t}\n}"
     },
     {
       "id": "swine_ruin_customs",
@@ -107,12 +107,12 @@
         "swine_grand_exchange"
       ],
       "icon": "mission_ind_spices",
-      "trigger": "4103 = { trade_share = { country = ROOT share = 25 } }\nnum_of_transport = 10",
+      "trigger": "num_of_transport = 10\n4103 = { trade_share = { country = ROOT share = 25 } }",
       "effect": "add_country_modifier = { name = swine_western_ind_reward duration = -1 }",
       "wv": 5,
       "description": "The River Ruin has made us wealthy enough to seek cargo abroad. Win a share of western Ind and maintain transports to supply our factors.",
       "objective": "25% Western Ind trade power and 10 transports.",
-      "highlight": "swine_western_ind_province = yes\nROOT = { NOT = { AND = {\n4103 = { trade_share = { country = ROOT share = 25 } }\nnum_of_transport = 10\n} } }"
+      "highlight": "swine_western_ind_province = yes\nROOT = {\n\tNOT = {\n\t\tAND = {\n\t\t\tnum_of_transport = 10\n\t\t\t4103 = { trade_share = { country = ROOT share = 25 } }\n\t\t}\n\t}\n}"
     },
     {
       "id": "swine_eastern_exchange",
@@ -156,12 +156,12 @@
         "swine_river_circuit"
       ],
       "icon": "mission_swine_world_counting_house",
-      "trigger": "2206 = { trade_share = { country = ROOT share = 90 } }\nmonthly_income = 100\nnum_of_owned_provinces_with = {\nprovince_has_center_of_trade_of_level = 3\nvalue = 3\n}",
+      "trigger": "monthly_income = 100\n2206 = { trade_share = { country = ROOT share = 90 } }\nnum_of_owned_provinces_with = {\n\tprovince_has_center_of_trade_of_level = 3\n\tvalue = 3\n}",
       "effect": "add_country_modifier = { name = swine_world_counting_house_reward duration = -1 }",
       "wv": 5,
       "description": "Our bills of exchange now travel farther than most kings. Secure a near monopoly on the River Ruin and build the great exchanges needed to finance world commerce.",
       "objective": "90% River Ruin trade power, 100 monthly income, 3 level 3 centres.",
-      "highlight": "owned_by = ROOT\nOR = { province_has_center_of_trade_of_level = 1 province_has_center_of_trade_of_level = 2 }\nROOT = { NOT = { AND = {\n2206 = { trade_share = { country = ROOT share = 90 } }\nmonthly_income = 100\nnum_of_owned_provinces_with = {\nprovince_has_center_of_trade_of_level = 3\nvalue = 3\n}\n} } }"
+      "highlight": "owned_by = ROOT\nOR = { province_has_center_of_trade_of_level = 1 province_has_center_of_trade_of_level = 2 }\nROOT = {\n\tNOT = {\n\t\tAND = {\n\t\t\tmonthly_income = 100\n\t\t\t2206 = { trade_share = { country = ROOT share = 90 } }\n\t\t\tnum_of_owned_provinces_with = {\n\t\t\t\tprovince_has_center_of_trade_of_level = 3\n\t\t\t\tvalue = 3\n\t\t\t}\n\t\t}\n\t}\n}"
     },
     {
       "id": "swine_slipways",
@@ -429,7 +429,7 @@
         "swine_government_contract"
       ],
       "icon": "mission_swine_charter_real",
-      "trigger": "OR = {\nAND = {\nhas_country_modifier = swinetrade_unity\nreligious_unity = 1\nnum_of_owned_provinces_with = { culture = ROOT value = 25 }\n}\nAND = {\nhas_country_modifier = swinetrade_diversity\nnum_accepted_cultures = 6\n}\nAND = {\nreligious_unity = 1\nnum_accepted_cultures = 5\nnum_of_owned_provinces_with = { culture = ROOT value = 25 }\n}\n}",
+      "trigger": "OR = {\n\tAND = {\n\t\thas_country_modifier = swinetrade_diversity\n\t\tnum_accepted_cultures = 6\n\t}\n\tAND = {\n\t\thas_country_modifier = swinetrade_unity\n\t\treligious_unity = 1\n\t\tnum_of_owned_provinces_with = { culture = ROOT value = 25 }\n\t}\n\tAND = {\n\t\treligious_unity = 1\n\t\tnum_accepted_cultures = 5\n\t\tnum_of_owned_provinces_with = { culture = ROOT value = 25 }\n\t}\n}",
       "effect": "add_country_modifier = { name = swine_charter_real_reward duration = -1 }",
       "wv": 5,
       "description": "Our founding choice cannot remain an elegant inscription. Make the common charter a reality through shared culture and faith, or through the secure acceptance of several peoples.",
@@ -507,7 +507,7 @@
       "wv": 5,
       "description": "Vorag commands the dead near routes our merchants cannot afford to ignore. Secure its stronghold and hinterland through conquest or a binding alliance, then decide how its commerce will be handled.",
       "objective": "Secure Vorag and 3 provinces of its original hinterland through conquest, a loyal subject, or a substantial alliance; choice event.",
-      "highlight": "swine_vorag_hinterland = yes\nROOT = { swine_vorag_settled = no }\nNOT = { swine_controlled_province = yes }"
+      "highlight": "swine_vorag_hinterland = yes\nNOT = { swine_controlled_province = yes }\nROOT = { swine_vorag_settled = no }"
     },
     {
       "id": "swine_zharr",
@@ -523,7 +523,7 @@
       "wv": 5,
       "description": "The furnaces of Zharr-Naggrund hunger for an outlet down the River Ruin. Settle the question of its power by controlling the city and surrounding plain or binding their ruler to a dependable alliance.",
       "objective": "Secure Zharr-Naggrund and 5 provinces of the Plain of Zharr through conquest, a loyal subject, or alliance; choice event.",
-      "highlight": "region = plain_of_zharr_region\nROOT = { swine_zharr_settled = no }\nNOT = { swine_controlled_province = yes }"
+      "highlight": "region = plain_of_zharr_region\nNOT = { swine_controlled_province = yes }\nROOT = { swine_zharr_settled = no }"
     },
     {
       "id": "swine_orcs",
@@ -539,7 +539,7 @@
       "wv": 5,
       "description": "A caravan guard is useful only if he is better paid than the raiders. Bind a substantial Greenskin realm to our interests or secure its Badlands approaches ourselves.",
       "objective": "Ally a Greenskin realm holding 5 Badlands provinces, or hold 5 there directly/through loyal subjects.",
-      "highlight": "region = badlands_region\nROOT = { swine_orcs_settled = no }\nNOT = { swine_controlled_province = yes }"
+      "highlight": "region = badlands_region\nNOT = { swine_controlled_province = yes }\nROOT = { swine_orcs_settled = no }"
     },
     {
       "id": "swine_ogres",
@@ -555,7 +555,7 @@
       "wv": 5,
       "description": "The Ogre kingdoms regard every caravan as a meal, a toll payment or an employment offer. Secure their mountain routes through a substantial alliance or dependable provincial control.",
       "objective": "Ally an Ogre realm holding 5 Mountains of Mourn provinces, or hold 5 there directly/through loyal subjects.",
-      "highlight": "region = mountains_of_mourn_region\nROOT = { swine_ogres_settled = no }\nNOT = { swine_controlled_province = yes }"
+      "highlight": "region = mountains_of_mourn_region\nNOT = { swine_controlled_province = yes }\nROOT = { swine_ogres_settled = no }"
     },
     {
       "id": "swine_dragon_isles",
@@ -572,7 +572,7 @@
       "wv": 5,
       "description": "The Dragon Isles guard sea lanes that imperial captains must learn to use. Secure ten island provinces or a durable alliance with an island power whose rulers can enforce our agreements.",
       "objective": "Control 10 Dragon Isles provinces directly/through loyal subjects, or ally a regional ruler holding 10.",
-      "highlight": "region = dragon_isles_region\nROOT = { swine_dragon_isles_settled = no }\nNOT = { swine_controlled_province = yes }"
+      "highlight": "region = dragon_isles_region\nNOT = { swine_controlled_province = yes }\nROOT = { swine_dragon_isles_settled = no }"
     },
     {
       "id": "swine_treaty_brokers",
@@ -583,7 +583,7 @@
         "swine_dragon_isles"
       ],
       "icon": "mission_high_elf_allies",
-      "trigger": "calc_true_if = {\nall_country = {\ntrust = { who = ROOT value = 90 }\n}\namount = 3\n}\ndiplomatic_reputation = 3",
+      "trigger": "diplomatic_reputation = 3\ncalc_true_if = {\n\tall_country = {\n\t\ttrust = { who = ROOT value = 90 }\n\t}\n\tamount = 3\n}",
       "effect": "add_country_modifier = { name = swine_treaty_brokers_reward duration = -1 }",
       "wv": 2,
       "description": "Our regional bargains have made Pigbarter a meeting place for envoys. Build a network of respected allies and a diplomatic service capable of keeping their interests aligned.",
@@ -651,7 +651,7 @@
       "wv": 5,
       "description": "Fimdirach controls the marshes south of Pigbarter and the mouth of the River Ruin. Secure the two key approaches and a lasting foothold in the Scalded Delta, through conquest or an alliance with its masters.",
       "objective": "Secure provinces 2147 and 2156 plus 3 Scalded Delta provinces; conquest/loyal subjects or a substantive alliance.",
-      "highlight": "area = scalded_delta\nROOT = { swine_fimdirach_settled = no }\nNOT = { swine_controlled_province = yes }"
+      "highlight": "area = scalded_delta\nNOT = { swine_controlled_province = yes }\nROOT = { swine_fimdirach_settled = no }"
     },
     {
       "id": "swine_strix",
@@ -725,12 +725,12 @@
         "swine_provincial_militia"
       ],
       "icon": "mission_moot_pantry",
-      "trigger": "num_of_owned_provinces_with = {\nis_prosperous = yes\nvalue = 6\n}\nNOT = { num_of_loans = 1 }",
+      "trigger": "NOT = { num_of_loans = 1 }\nnum_of_owned_provinces_with = {\n\tis_prosperous = yes\n\tvalue = 6\n}",
       "effect": "add_country_modifier = { name = swine_peace_dividend_reward duration = -1 }",
       "wv": 5,
       "description": "Our preparations should leave more than tax demands and empty granaries. Restore prosperity across six provinces and clear the debts of consolidation.",
       "objective": "6 prosperous provinces and no loans.",
-      "highlight": "owned_by = ROOT\nis_prosperous = no\nROOT = { NOT = { AND = {\nnum_of_owned_provinces_with = {\nis_prosperous = yes\nvalue = 6\n}\nNOT = { num_of_loans = 1 }\n} } }"
+      "highlight": "owned_by = ROOT\nis_prosperous = no\nROOT = {\n\tNOT = {\n\t\tAND = {\n\t\t\tNOT = { num_of_loans = 1 }\n\t\t\tnum_of_owned_provinces_with = {\n\t\t\t\tis_prosperous = yes\n\t\t\t\tvalue = 6\n\t\t\t}\n\t\t}\n\t}\n}"
     },
     {
       "id": "swine_harbour_watch",

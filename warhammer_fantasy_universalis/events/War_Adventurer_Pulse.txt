@@ -1,0 +1,26 @@
+namespace = war_adventurer_pulse
+
+# The leading great power schedules encounters for all current adventurer hosts.
+country_event = {
+    id = war_adventurer_pulse.1
+    hidden = yes
+    is_triggered_only = yes
+    trigger = {
+        is_great_power = yes
+        # Rank tests mean this rank or worse, so exclude rank 2 and below.
+        NOT = { great_power_rank = 2 }
+    }
+    immediate = { war_adventurer_schedule_pulse = yes }
+    # Hidden acknowledgement; hosts receive their own selection events.
+    option = { name = war_adventurer_arrival_acknowledge }
+}
+
+# Select one encounter in the host's country scope using the global ownership snapshot.
+country_event = {
+    id = war_adventurer_pulse.2
+    hidden = yes
+    is_triggered_only = yes
+    immediate = { war_adventurer_dispatch_pulse = yes }
+    # Hidden acknowledgement; the selected story handles responses and movement.
+    option = { name = war_adventurer_arrival_acknowledge }
+}

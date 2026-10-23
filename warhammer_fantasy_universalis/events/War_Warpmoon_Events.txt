@@ -1,0 +1,52 @@
+namespace = war_warpmoon
+# Template picture: WAR_WARPMOON_CONSTRUCTION_eventPicture, defined in war_eventpictures.gfx.
+# The final event alone uses WAR_WARPMOON_eventPicture to show the actual moon shot.
+# These are triggered announcements, not random reward events.
+
+# Concept: completion of the first stage exposes the Skaven plan to every ruler.
+country_event = {
+	id = war_warpmoon.1
+	title = war_warpmoon.1.t
+	desc = war_warpmoon.1.d
+	picture = WAR_WARPMOON_CONSTRUCTION_eventPicture
+	is_triggered_only = yes
+	major = no
+	# Explicitly requested navigation for this global, province-linked warning.
+	goto = war_warpmoon_province
+	# Acknowledge the warning; the sabotage decision is available separately.
+	option = {
+		name = war_warpmoon.1.a
+		custom_tooltip = war_warpmoon_warning_tt
+	}
+}
+
+# Concept: the second stage readies the engine for its final, irreversible charge.
+country_event = {
+	id = war_warpmoon.2
+	title = war_warpmoon.2.t
+	desc = war_warpmoon.2.d
+	picture = WAR_WARPMOON_CONSTRUCTION_eventPicture
+	is_triggered_only = yes
+	major = no
+	goto = war_warpmoon_province
+	# Recognize the last opportunity to reduce the project to ruins.
+	option = {
+		name = war_warpmoon.2.a
+		custom_tooltip = war_warpmoon_warning_tt
+	}
+}
+
+# Concept: Morrslieb shatters, scattering warpstone across the surface world.
+country_event = {
+	id = war_warpmoon.3
+	title = war_warpmoon.3.t
+	desc = war_warpmoon.3.d
+	picture = WAR_WARPMOON_eventPicture
+	is_triggered_only = yes
+	major = no
+	# The worldwide impacts have already resolved; do not reroll them here.
+	option = {
+		name = war_warpmoon.3.a
+		custom_tooltip = war_warpmoon_aftermath_tt
+	}
+}

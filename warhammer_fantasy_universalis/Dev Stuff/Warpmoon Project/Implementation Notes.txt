@@ -1,0 +1,135 @@
+THE WARPMOON PROJECT
+
+Initial location: Central Skavenblight, province 4600, owned by U25 at start.
+Identifier: war_warpmoon_project. Starts at tier 0; relocatable.
+All tiers have empty province, area and country modifier blocks.
+
+Owner requirements for construction/upgrading:
+- skaven_administration country modifier
+- Military Technology >= 12
+- trade_goods_produced_amount: warpstone >= 20
+
+Stage       Base ducats       Base months       Base years
+1           2000              240               20
+2           5000              480               40
+3           10000             960               80
+
+These double the common 1000/2500/5000 and 120/240/480 monument values.
+Normal national monument cost/time modifiers and construction boosts still work.
+Movement uses 2 days per distance unit, twice the 1-day baseline. The engine
+derives its movement cost from duration. Conquest does not delete the project.
+
+SABOTAGE AND ANNOUNCEMENTS
+
+All countries see Destroy the Warpmoon Project when its exact tier is 1 or 2.
+The decision queries the actual project instead of a saved starting province.
+Its native provinces_to_highlight/Go To points at the current site, even if it
+has not been discovered. Its allow condition requires control, not ownership.
+Skaven players may use it; Skaven AI has a zero decision weight.
+
+The decision subtracts exactly the current completed tier, leaving the same
+project at tier 0 in the same province. It grants 50 prestige and 1000 ducats.
+It does not destroy/recreate the project or cancel unrelated province activity.
+Verify the engine's behavior when sabotage occurs during an upgrade or move;
+the script directly resets completed tiers, not construction progress.
+
+Stages 1 and 2 each broadcast one warning per country on every completion,
+including reconstruction after sabotage. Each warning inherits the province
+and current owner as event targets. Navigation in these informational warnings
+is an explicit exception requested by the user to AGENTS.md's usual goto rule.
+
+Stage 3 runs all effects immediately in the great project's province scope.
+A global flag is set before any effects solely to prevent duplicate detonation
+effects. It is not a construction, upgrade, use or sabotage requirement.
+destroy_great_project removes the engine; sabotage availability queries the
+actual project and its tier.
+The current owner, rather than an original builder or occupier, gets the reward.
+Each current country receives war_warpmoon.3 after impacts and AE resolve.
+Announcement options have no mechanical effects; delaying/dismissing a popup
+cannot delay or repeat the catastrophe.
+
+IMPACTS AND REWARD
+
+Each habitable land province, including uncolonized provinces, rolls separately
+at 15%. Seas and impassable wastelands are excluded because they cannot host
+normal trade-good production. Exactly these four terrain keys are protected:
+underway, dwarf_karak, great_maze, warren_city. Fertile cavern was not added to
+the user's explicit exclusion list.
+
+On a hit, all three changes happen together: add_devastation = 100 (clamped by
+EU4 to 100), change_trade_goods = warpstone, and a 365-day impact modifier.
+The trade good persists. The modifier adds attrition = 100 and max_attrition =
+100; the raised cap lets the requested attrition operate beyond the normal 5.
+This follows the existing skaven_doomsphere_radiation local-attrition pattern.
+
+We destroyed the Moon is permanent, with yearly prestige = 2, legitimacy = 2,
+devotion = 2, horde_unity = 2, republican_tradition = 1, tolerance_own = 2 and
+religious_unity = 0.15. The user clarified that prestige should be YEARLY.
+Government-resource modifiers apply according to the current government.
+
+Every other country without skaven_administration gets 50 AE opinion against
+the firing country. apply_calc = no prevents religion, distance, or AE modifiers
+from altering that value. Skaven administration also defines the AI exemption.
+
+BALANCE AND LORE REFERENCES
+
+Dev Stuff/Examples/Balance Guide.txt was consulted before implementation.
+Its Weighing Values give the permanent modifier 13.33 prestige + 13.33 applicable
+legitimacy/devotion/horde unity + 10 tolerance + 10 unity = 46.67, or 53.33 when
+republican tradition (20) applies instead. The 50 prestige sabotage reward is
+worth 2; an impact's 100 devastation is worth -4. Local attrition and its cap,
+flat ducat amounts, changing trade goods, project removal and AE have no fixed
+guide valuation. These are user-specified effects, not random-event options,
+and their magnitudes are preserved rather than rebalanced into random events.
+
+Dev Stuff/Examples/Lore Reference.txt, especially the Skaven and Lizardmen
+sections, informed the flavor. The End Times: Thanquol's Warpmoon Project and
+Morskittar Engine provide the canonical premise. This implementation follows
+the user's alternate outcome: dispersed global impacts rather than the
+canonical Slann intervention and concentrated destruction of Lustria.
+Any eligible Skaven state may complete it; named historical engineers are not
+required. Dedicated generated art supplies the monument and event pictures.
+The monument uses great_project_war_warpmoon_project.dds (300x150 RGBA8).
+Its artwork is fitted into a 290x142 inset at (5, 4), then the exact existing
+Dev Stuff/Image Reference/Monument_Image_Template.png is alpha-composited over
+it. This preserves the standard gold border, transparent outer edges and dark
+title backing. The original generated source remains unchanged.
+The first two warnings use WAR_WARPMOON_CONSTRUCTION_eventPicture.dds, showing
+the unfinished cannon, exposed coils, scaffolding and suspended muzzle ring.
+Only the final event uses WAR_WARPMOON_eventPicture.dds, showing the moon shot.
+Both event textures are 512x132 DXT1, defined in interface/war_eventpictures.gfx.
+Source PNGs, exact built-in image_gen prompts,
+export script and decoded previews are preserved in the neighboring Art folder.
+
+VALIDATION
+
+Run: python3 "Dev Stuff/Warpmoon Project/validate_warpmoon.py"
+
+The script parses the new files, checks localisation BOM/links, art references,
+event-ID uniqueness, blank passive modifiers, costs, and requested reward values.
+Its small interpreter exercises the actual scripted triggers/effects against
+relocation, owner changes, occupation, Skaven/non-Skaven decision eligibility,
+zero-tier resets, global broadcasts, impact hits/misses, existing devastation,
+uncolonized land, all four immunities, AE direction and duplicate detonation.
+These checks are not an EU4 engine or UI integration test.
+
+Live campaign checks still required (use a disposable test save, Leviathan enabled):
+1. Start a new campaign and inspect Central Skavenblight's level-0 project,
+   picture, no passive benefits, upgrade costs and times.
+2. Confirm tech 11 / 19.99 warpstone / no Skaven Administration each blocks
+   upgrades; tech 12 / 20 warpstone / Skaven Administration permits them.
+3. Complete tier 1, verify worldwide warning and its Go To; relocate and check
+   the decision's Go To moves to the new province.
+4. Occupy that province as another country. Sabotage at tiers 1 and 2, including
+   while construction or relocation is underway. Confirm completed tier 0,
+   rewards, retained location, and that rebuilding begins at the first stage.
+5. Finish tier 3 after transferring ownership to a different Skaven country.
+   Verify only the current owner receives the permanent modifier, everyone is
+   notified once, and every non-Skaven country's AE opinion rises by exactly 50.
+6. Inspect impacted and unaffected surface/underground provinces and actual
+   army attrition. Advance one year to check expiration and persistent warpstone.
+7. Save/reload after detonation; the project must remain destroyed and cannot
+   fire again. Review fresh error.log for war_warpmoon or related parse errors.
+
+Existing campaigns may require a fresh start to instantiate the newly defined
+great project. No save-game migration or automatic construction cheats are added.
