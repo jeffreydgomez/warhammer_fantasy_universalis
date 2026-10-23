@@ -98,7 +98,7 @@ dip_request_phoenix_crown = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_phoenix_crown } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_phoenix_crown COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -135,15 +135,22 @@ dip_request_phoenix_crown = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_phoenix_crown }
-			remove_province_modifier = location_of_the_phoenix_crown
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_phoenix_crown }
+			event_target:war_location_of_the_phoenix_crown = {
+				if = {
+					limit = { has_province_modifier = location_of_the_phoenix_crown }
+					remove_province_modifier = location_of_the_phoenix_crown
+					clear_global_event_target = war_location_of_the_phoenix_crown
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_phoenix_crown
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_phoenix_crown
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -195,7 +202,7 @@ dip_gift_phoenix_crown = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_phoenix_crown }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_phoenix_crown COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -219,9 +226,15 @@ dip_gift_phoenix_crown = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_phoenix_crown }
-			remove_province_modifier = location_of_the_phoenix_crown
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_phoenix_crown }
+			event_target:war_location_of_the_phoenix_crown = {
+				if = {
+					limit = { has_province_modifier = location_of_the_phoenix_crown }
+					remove_province_modifier = location_of_the_phoenix_crown
+					clear_global_event_target = war_location_of_the_phoenix_crown
+				}
+			}
 		}
 
 		FROM = {
@@ -230,6 +243,7 @@ dip_gift_phoenix_crown = {
 				    name = location_of_the_phoenix_crown
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_phoenix_crown
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -269,7 +283,7 @@ dip_request_ghal_maraz = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_ghal_maraz } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_ghal_maraz COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -305,15 +319,22 @@ dip_request_ghal_maraz = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_ghal_maraz }
-			remove_province_modifier = location_of_the_ghal_maraz
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_ghal_maraz }
+			event_target:war_location_of_the_ghal_maraz = {
+				if = {
+					limit = { has_province_modifier = location_of_the_ghal_maraz }
+					remove_province_modifier = location_of_the_ghal_maraz
+					clear_global_event_target = war_location_of_the_ghal_maraz
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_ghal_maraz
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_ghal_maraz
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -364,7 +385,7 @@ dip_gift_ghal_maraz = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_ghal_maraz }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_ghal_maraz COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -388,9 +409,15 @@ dip_gift_ghal_maraz = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_ghal_maraz }
-			remove_province_modifier = location_of_the_ghal_maraz
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_ghal_maraz }
+			event_target:war_location_of_the_ghal_maraz = {
+				if = {
+					limit = { has_province_modifier = location_of_the_ghal_maraz }
+					remove_province_modifier = location_of_the_ghal_maraz
+					clear_global_event_target = war_location_of_the_ghal_maraz
+				}
+			}
 		}
 
 		FROM = {
@@ -399,6 +426,7 @@ dip_gift_ghal_maraz = {
 				    name = location_of_the_ghal_maraz
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_ghal_maraz
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -438,7 +466,7 @@ dip_request_book_of_grudges = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_book_of_grudges } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_book_of_grudges COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -474,15 +502,22 @@ dip_request_book_of_grudges = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_book_of_grudges }
-			remove_province_modifier = location_of_the_book_of_grudges
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_book_of_grudges }
+			event_target:war_location_of_the_book_of_grudges = {
+				if = {
+					limit = { has_province_modifier = location_of_the_book_of_grudges }
+					remove_province_modifier = location_of_the_book_of_grudges
+					clear_global_event_target = war_location_of_the_book_of_grudges
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_book_of_grudges
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_book_of_grudges
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -533,7 +568,7 @@ dip_gift_book_of_grudges = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_book_of_grudges }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_book_of_grudges COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -557,9 +592,15 @@ dip_gift_book_of_grudges = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_book_of_grudges }
-			remove_province_modifier = location_of_the_book_of_grudges
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_book_of_grudges }
+			event_target:war_location_of_the_book_of_grudges = {
+				if = {
+					limit = { has_province_modifier = location_of_the_book_of_grudges }
+					remove_province_modifier = location_of_the_book_of_grudges
+					clear_global_event_target = war_location_of_the_book_of_grudges
+				}
+			}
 		}
 
 		FROM = {
@@ -568,6 +609,7 @@ dip_gift_book_of_grudges = {
 				    name = location_of_the_book_of_grudges
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_book_of_grudges
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -607,7 +649,7 @@ dip_request_widowmaker = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_widowmaker } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_widowmaker COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -643,15 +685,22 @@ dip_request_widowmaker = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_widowmaker }
-			remove_province_modifier = location_of_the_widowmaker
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_widowmaker }
+			event_target:war_location_of_the_widowmaker = {
+				if = {
+					limit = { has_province_modifier = location_of_the_widowmaker }
+					remove_province_modifier = location_of_the_widowmaker
+					clear_global_event_target = war_location_of_the_widowmaker
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_widowmaker
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_widowmaker
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -702,7 +751,7 @@ dip_gift_widowmaker = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_widowmaker }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_widowmaker COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -726,9 +775,15 @@ dip_gift_widowmaker = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_widowmaker }
-			remove_province_modifier = location_of_the_widowmaker
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_widowmaker }
+			event_target:war_location_of_the_widowmaker = {
+				if = {
+					limit = { has_province_modifier = location_of_the_widowmaker }
+					remove_province_modifier = location_of_the_widowmaker
+					clear_global_event_target = war_location_of_the_widowmaker
+				}
+			}
 		}
 
 		FROM = {
@@ -737,6 +792,7 @@ dip_gift_widowmaker = {
 				    name = location_of_the_widowmaker
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_widowmaker
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -775,7 +831,7 @@ dip_request_carstein_ring = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_carstein_ring } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_carstein_ring COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -811,15 +867,22 @@ dip_request_carstein_ring = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_carstein_ring }
-			remove_province_modifier = location_of_the_carstein_ring
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_carstein_ring }
+			event_target:war_location_of_the_carstein_ring = {
+				if = {
+					limit = { has_province_modifier = location_of_the_carstein_ring }
+					remove_province_modifier = location_of_the_carstein_ring
+					clear_global_event_target = war_location_of_the_carstein_ring
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_carstein_ring
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_carstein_ring
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -870,7 +933,7 @@ dip_gift_carstein_ring = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_carstein_ring }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_carstein_ring COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -894,9 +957,15 @@ dip_gift_carstein_ring = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_carstein_ring }
-			remove_province_modifier = location_of_the_carstein_ring
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_carstein_ring }
+			event_target:war_location_of_the_carstein_ring = {
+				if = {
+					limit = { has_province_modifier = location_of_the_carstein_ring }
+					remove_province_modifier = location_of_the_carstein_ring
+					clear_global_event_target = war_location_of_the_carstein_ring
+				}
+			}
 		}
 
 		FROM = {
@@ -905,6 +974,7 @@ dip_gift_carstein_ring = {
 				    name = location_of_the_carstein_ring
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_carstein_ring
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -944,7 +1014,7 @@ dip_request_staff_of_nagash = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_staff_of_nagash } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_staff_of_nagash COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -980,15 +1050,22 @@ dip_request_staff_of_nagash = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_staff_of_nagash }
-			remove_province_modifier = location_of_the_staff_of_nagash
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_staff_of_nagash }
+			event_target:war_location_of_the_staff_of_nagash = {
+				if = {
+					limit = { has_province_modifier = location_of_the_staff_of_nagash }
+					remove_province_modifier = location_of_the_staff_of_nagash
+					clear_global_event_target = war_location_of_the_staff_of_nagash
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_staff_of_nagash
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_staff_of_nagash
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -1039,7 +1116,7 @@ dip_gift_staff_of_nagash = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_staff_of_nagash }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_staff_of_nagash COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -1063,9 +1140,15 @@ dip_gift_staff_of_nagash = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_staff_of_nagash }
-			remove_province_modifier = location_of_the_staff_of_nagash
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_staff_of_nagash }
+			event_target:war_location_of_the_staff_of_nagash = {
+				if = {
+					limit = { has_province_modifier = location_of_the_staff_of_nagash }
+					remove_province_modifier = location_of_the_staff_of_nagash
+					clear_global_event_target = war_location_of_the_staff_of_nagash
+				}
+			}
 		}
 
 		FROM = {
@@ -1074,6 +1157,7 @@ dip_gift_staff_of_nagash = {
 				    name = location_of_the_staff_of_nagash
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_staff_of_nagash
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -1112,7 +1196,7 @@ dip_request_fellblade = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_fellblade } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_fellblade COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -1148,15 +1232,22 @@ dip_request_fellblade = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_fellblade }
-			remove_province_modifier = location_of_the_fellblade
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_fellblade }
+			event_target:war_location_of_the_fellblade = {
+				if = {
+					limit = { has_province_modifier = location_of_the_fellblade }
+					remove_province_modifier = location_of_the_fellblade
+					clear_global_event_target = war_location_of_the_fellblade
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_fellblade
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_fellblade
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -1207,7 +1298,7 @@ dip_gift_fellblade = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_fellblade }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_fellblade COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -1231,9 +1322,15 @@ dip_gift_fellblade = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_fellblade }
-			remove_province_modifier = location_of_the_fellblade
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_fellblade }
+			event_target:war_location_of_the_fellblade = {
+				if = {
+					limit = { has_province_modifier = location_of_the_fellblade }
+					remove_province_modifier = location_of_the_fellblade
+					clear_global_event_target = war_location_of_the_fellblade
+				}
+			}
 		}
 
 		FROM = {
@@ -1242,6 +1339,7 @@ dip_gift_fellblade = {
 				    name = location_of_the_fellblade
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_fellblade
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -1282,7 +1380,7 @@ dip_request_bow_of_loren = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_bow_of_loren } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_bow_of_loren COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -1318,15 +1416,22 @@ dip_request_bow_of_loren = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_bow_of_loren }
-			remove_province_modifier = location_of_the_bow_of_loren
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_bow_of_loren }
+			event_target:war_location_of_the_bow_of_loren = {
+				if = {
+					limit = { has_province_modifier = location_of_the_bow_of_loren }
+					remove_province_modifier = location_of_the_bow_of_loren
+					clear_global_event_target = war_location_of_the_bow_of_loren
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_bow_of_loren
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_bow_of_loren
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -1377,7 +1482,7 @@ dip_gift_bow_of_loren = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_bow_of_loren }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_bow_of_loren COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -1401,9 +1506,15 @@ dip_gift_bow_of_loren = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_bow_of_loren }
-			remove_province_modifier = location_of_the_bow_of_loren
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_bow_of_loren }
+			event_target:war_location_of_the_bow_of_loren = {
+				if = {
+					limit = { has_province_modifier = location_of_the_bow_of_loren }
+					remove_province_modifier = location_of_the_bow_of_loren
+					clear_global_event_target = war_location_of_the_bow_of_loren
+				}
+			}
 		}
 
 		FROM = {
@@ -1412,6 +1523,7 @@ dip_gift_bow_of_loren = {
 				    name = location_of_the_bow_of_loren
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_bow_of_loren
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -1451,7 +1563,7 @@ dip_request_celestial_compass = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_celestial_compass } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_celestial_compass COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -1487,15 +1599,22 @@ dip_request_celestial_compass = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_celestial_compass }
-			remove_province_modifier = location_of_the_celestial_compass
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_celestial_compass }
+			event_target:war_location_of_the_celestial_compass = {
+				if = {
+					limit = { has_province_modifier = location_of_the_celestial_compass }
+					remove_province_modifier = location_of_the_celestial_compass
+					clear_global_event_target = war_location_of_the_celestial_compass
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_celestial_compass
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_celestial_compass
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -1546,7 +1665,7 @@ dip_gift_celestial_compass = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_celestial_compass }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_celestial_compass COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -1570,9 +1689,15 @@ dip_gift_celestial_compass = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_celestial_compass }
-			remove_province_modifier = location_of_the_celestial_compass
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_celestial_compass }
+			event_target:war_location_of_the_celestial_compass = {
+				if = {
+					limit = { has_province_modifier = location_of_the_celestial_compass }
+					remove_province_modifier = location_of_the_celestial_compass
+					clear_global_event_target = war_location_of_the_celestial_compass
+				}
+			}
 		}
 
 		FROM = {
@@ -1581,6 +1706,7 @@ dip_gift_celestial_compass = {
 				    name = location_of_the_celestial_compass
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_celestial_compass
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -1621,7 +1747,7 @@ dip_request_great_maw_cauldron = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_great_maw_cauldron } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_great_maw_cauldron COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -1657,15 +1783,22 @@ dip_request_great_maw_cauldron = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_great_maw_cauldron }
-			remove_province_modifier = location_of_the_great_maw_cauldron
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_great_maw_cauldron }
+			event_target:war_location_of_the_great_maw_cauldron = {
+				if = {
+					limit = { has_province_modifier = location_of_the_great_maw_cauldron }
+					remove_province_modifier = location_of_the_great_maw_cauldron
+					clear_global_event_target = war_location_of_the_great_maw_cauldron
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_great_maw_cauldron
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_great_maw_cauldron
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -1716,7 +1849,7 @@ dip_gift_great_maw_cauldron = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_great_maw_cauldron }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_great_maw_cauldron COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -1740,9 +1873,15 @@ dip_gift_great_maw_cauldron = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_great_maw_cauldron }
-			remove_province_modifier = location_of_the_great_maw_cauldron
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_great_maw_cauldron }
+			event_target:war_location_of_the_great_maw_cauldron = {
+				if = {
+					limit = { has_province_modifier = location_of_the_great_maw_cauldron }
+					remove_province_modifier = location_of_the_great_maw_cauldron
+					clear_global_event_target = war_location_of_the_great_maw_cauldron
+				}
+			}
 		}
 
 		FROM = {
@@ -1751,6 +1890,7 @@ dip_gift_great_maw_cauldron = {
 				    name = location_of_the_great_maw_cauldron
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_great_maw_cauldron
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -1790,7 +1930,7 @@ dip_request_hashut_black_hammer = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_hashuts_black_hammer } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_hashuts_black_hammer COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -1826,15 +1966,22 @@ dip_request_hashut_black_hammer = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_hashuts_black_hammer }
-			remove_province_modifier = location_of_the_hashuts_black_hammer
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_hashuts_black_hammer }
+			event_target:war_location_of_the_hashuts_black_hammer = {
+				if = {
+					limit = { has_province_modifier = location_of_the_hashuts_black_hammer }
+					remove_province_modifier = location_of_the_hashuts_black_hammer
+					clear_global_event_target = war_location_of_the_hashuts_black_hammer
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_hashuts_black_hammer
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_hashuts_black_hammer
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -1885,7 +2032,7 @@ dip_gift_hashut_black_hammer = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_hashuts_black_hammer }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_hashuts_black_hammer COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -1909,9 +2056,15 @@ dip_gift_hashut_black_hammer = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_hashuts_black_hammer }
-			remove_province_modifier = location_of_the_hashuts_black_hammer
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_hashuts_black_hammer }
+			event_target:war_location_of_the_hashuts_black_hammer = {
+				if = {
+					limit = { has_province_modifier = location_of_the_hashuts_black_hammer }
+					remove_province_modifier = location_of_the_hashuts_black_hammer
+					clear_global_event_target = war_location_of_the_hashuts_black_hammer
+				}
+			}
 		}
 
 		FROM = {
@@ -1920,6 +2073,7 @@ dip_gift_hashut_black_hammer = {
 				    name = location_of_the_hashuts_black_hammer
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_hashuts_black_hammer
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -1959,7 +2113,7 @@ dip_request_crown_of_troll_king = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_crown_of_the_troll_king } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_crown_of_the_troll_king COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -1995,15 +2149,22 @@ dip_request_crown_of_troll_king = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_crown_of_the_troll_king }
-			remove_province_modifier = location_of_the_crown_of_the_troll_king
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_crown_of_the_troll_king }
+			event_target:war_location_of_the_crown_of_the_troll_king = {
+				if = {
+					limit = { has_province_modifier = location_of_the_crown_of_the_troll_king }
+					remove_province_modifier = location_of_the_crown_of_the_troll_king
+					clear_global_event_target = war_location_of_the_crown_of_the_troll_king
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_crown_of_the_troll_king
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_crown_of_the_troll_king
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -2054,7 +2215,7 @@ dip_gift_crown_of_troll_king = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_crown_of_the_troll_king }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_crown_of_the_troll_king COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -2078,9 +2239,15 @@ dip_gift_crown_of_troll_king = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_crown_of_the_troll_king }
-			remove_province_modifier = location_of_the_crown_of_the_troll_king
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_crown_of_the_troll_king }
+			event_target:war_location_of_the_crown_of_the_troll_king = {
+				if = {
+					limit = { has_province_modifier = location_of_the_crown_of_the_troll_king }
+					remove_province_modifier = location_of_the_crown_of_the_troll_king
+					clear_global_event_target = war_location_of_the_crown_of_the_troll_king
+				}
+			}
 		}
 
 		FROM = {
@@ -2089,6 +2256,7 @@ dip_gift_crown_of_troll_king = {
 				    name = location_of_the_crown_of_the_troll_king
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_crown_of_the_troll_king
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -2129,7 +2297,7 @@ dip_request_jade_blooded_vial = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_jade_blooded_vial } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_jade_blooded_vial COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -2165,15 +2333,22 @@ dip_request_jade_blooded_vial = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_jade_blooded_vial }
-			remove_province_modifier = location_of_the_jade_blooded_vial
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_jade_blooded_vial }
+			event_target:war_location_of_the_jade_blooded_vial = {
+				if = {
+					limit = { has_province_modifier = location_of_the_jade_blooded_vial }
+					remove_province_modifier = location_of_the_jade_blooded_vial
+					clear_global_event_target = war_location_of_the_jade_blooded_vial
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_jade_blooded_vial
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_jade_blooded_vial
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -2224,7 +2399,7 @@ dip_gift_jade_blooded_vial = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_jade_blooded_vial }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_jade_blooded_vial COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -2248,9 +2423,15 @@ dip_gift_jade_blooded_vial = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_jade_blooded_vial }
-			remove_province_modifier = location_of_the_jade_blooded_vial
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_jade_blooded_vial }
+			event_target:war_location_of_the_jade_blooded_vial = {
+				if = {
+					limit = { has_province_modifier = location_of_the_jade_blooded_vial }
+					remove_province_modifier = location_of_the_jade_blooded_vial
+					clear_global_event_target = war_location_of_the_jade_blooded_vial
+				}
+			}
 		}
 
 		FROM = {
@@ -2259,6 +2440,7 @@ dip_gift_jade_blooded_vial = {
 				    name = location_of_the_jade_blooded_vial
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_jade_blooded_vial
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -2298,7 +2480,7 @@ dip_request_nagashs_tome = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_nagashs_tome } }
+		war_artifact_owned_by = { ARTIFACT = location_of_nagashs_tome COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -2334,15 +2516,22 @@ dip_request_nagashs_tome = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_nagashs_tome }
-			remove_province_modifier = location_of_nagashs_tome
+		if = {
+			limit = { has_saved_event_target = war_location_of_nagashs_tome }
+			event_target:war_location_of_nagashs_tome = {
+				if = {
+					limit = { has_province_modifier = location_of_nagashs_tome }
+					remove_province_modifier = location_of_nagashs_tome
+					clear_global_event_target = war_location_of_nagashs_tome
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_nagashs_tome
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_nagashs_tome
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -2393,7 +2582,7 @@ dip_gift_nagashs_tome = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_nagashs_tome }
+		war_artifact_owned_by = { ARTIFACT = location_of_nagashs_tome COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -2417,9 +2606,15 @@ dip_gift_nagashs_tome = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_nagashs_tome }
-			remove_province_modifier = location_of_nagashs_tome
+		if = {
+			limit = { has_saved_event_target = war_location_of_nagashs_tome }
+			event_target:war_location_of_nagashs_tome = {
+				if = {
+					limit = { has_province_modifier = location_of_nagashs_tome }
+					remove_province_modifier = location_of_nagashs_tome
+					clear_global_event_target = war_location_of_nagashs_tome
+				}
+			}
 		}
 
 		FROM = {
@@ -2428,6 +2623,7 @@ dip_gift_nagashs_tome = {
 				    name = location_of_nagashs_tome
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_nagashs_tome
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -2468,7 +2664,7 @@ dip_request_plaque_of_tepok = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_plaque_of_tepok } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_plaque_of_tepok COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -2504,15 +2700,22 @@ dip_request_plaque_of_tepok = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_plaque_of_tepok }
-			remove_province_modifier = location_of_the_plaque_of_tepok
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_plaque_of_tepok }
+			event_target:war_location_of_the_plaque_of_tepok = {
+				if = {
+					limit = { has_province_modifier = location_of_the_plaque_of_tepok }
+					remove_province_modifier = location_of_the_plaque_of_tepok
+					clear_global_event_target = war_location_of_the_plaque_of_tepok
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_plaque_of_tepok
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_plaque_of_tepok
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -2563,7 +2766,7 @@ dip_gift_plaque_of_tepok = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_plaque_of_tepok }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_plaque_of_tepok COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -2587,9 +2790,15 @@ dip_gift_plaque_of_tepok = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_plaque_of_tepok }
-			remove_province_modifier = location_of_the_plaque_of_tepok
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_plaque_of_tepok }
+			event_target:war_location_of_the_plaque_of_tepok = {
+				if = {
+					limit = { has_province_modifier = location_of_the_plaque_of_tepok }
+					remove_province_modifier = location_of_the_plaque_of_tepok
+					clear_global_event_target = war_location_of_the_plaque_of_tepok
+				}
+			}
 		}
 
 		FROM = {
@@ -2598,6 +2807,7 @@ dip_gift_plaque_of_tepok = {
 				    name = location_of_the_plaque_of_tepok
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_plaque_of_tepok
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -2638,7 +2848,7 @@ dip_request_cloak_of_twilight = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_cloak_of_twilight } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_cloak_of_twilight COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -2674,15 +2884,22 @@ dip_request_cloak_of_twilight = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_cloak_of_twilight }
-			remove_province_modifier = location_of_the_cloak_of_twilight
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_cloak_of_twilight }
+			event_target:war_location_of_the_cloak_of_twilight = {
+				if = {
+					limit = { has_province_modifier = location_of_the_cloak_of_twilight }
+					remove_province_modifier = location_of_the_cloak_of_twilight
+					clear_global_event_target = war_location_of_the_cloak_of_twilight
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_cloak_of_twilight
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_cloak_of_twilight
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -2733,7 +2950,7 @@ dip_gift_cloak_of_twilight = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_cloak_of_twilight }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_cloak_of_twilight COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -2757,9 +2974,15 @@ dip_gift_cloak_of_twilight = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_cloak_of_twilight }
-			remove_province_modifier = location_of_the_cloak_of_twilight
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_cloak_of_twilight }
+			event_target:war_location_of_the_cloak_of_twilight = {
+				if = {
+					limit = { has_province_modifier = location_of_the_cloak_of_twilight }
+					remove_province_modifier = location_of_the_cloak_of_twilight
+					clear_global_event_target = war_location_of_the_cloak_of_twilight
+				}
+			}
 		}
 
 		FROM = {
@@ -2768,6 +2991,7 @@ dip_gift_cloak_of_twilight = {
 				    name = location_of_the_cloak_of_twilight
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_cloak_of_twilight
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -2807,7 +3031,7 @@ dip_request_dragon_armor = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_dragon_armor_of_aenarion } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_dragon_armor_of_aenarion COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -2843,15 +3067,22 @@ dip_request_dragon_armor = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_dragon_armor_of_aenarion }
-			remove_province_modifier = location_of_the_dragon_armor_of_aenarion
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_dragon_armor_of_aenarion }
+			event_target:war_location_of_the_dragon_armor_of_aenarion = {
+				if = {
+					limit = { has_province_modifier = location_of_the_dragon_armor_of_aenarion }
+					remove_province_modifier = location_of_the_dragon_armor_of_aenarion
+					clear_global_event_target = war_location_of_the_dragon_armor_of_aenarion
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_dragon_armor_of_aenarion
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_dragon_armor_of_aenarion
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -2902,7 +3133,7 @@ dip_gift_dragon_armor = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_dragon_armor_of_aenarion }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_dragon_armor_of_aenarion COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -2926,9 +3157,15 @@ dip_gift_dragon_armor = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_dragon_armor_of_aenarion }
-			remove_province_modifier = location_of_the_dragon_armor_of_aenarion
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_dragon_armor_of_aenarion }
+			event_target:war_location_of_the_dragon_armor_of_aenarion = {
+				if = {
+					limit = { has_province_modifier = location_of_the_dragon_armor_of_aenarion }
+					remove_province_modifier = location_of_the_dragon_armor_of_aenarion
+					clear_global_event_target = war_location_of_the_dragon_armor_of_aenarion
+				}
+			}
 		}
 
 		FROM = {
@@ -2937,6 +3174,7 @@ dip_gift_dragon_armor = {
 				    name = location_of_the_dragon_armor_of_aenarion
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_dragon_armor_of_aenarion
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -2978,7 +3216,7 @@ dip_request_the_grail = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_grail } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_grail COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -3014,15 +3252,22 @@ dip_request_the_grail = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_grail }
-			remove_province_modifier = location_of_the_grail
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_grail }
+			event_target:war_location_of_the_grail = {
+				if = {
+					limit = { has_province_modifier = location_of_the_grail }
+					remove_province_modifier = location_of_the_grail
+					clear_global_event_target = war_location_of_the_grail
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_grail
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_grail
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -3075,7 +3320,7 @@ dip_gift_the_grail = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_grail }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_grail COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -3099,9 +3344,15 @@ dip_gift_the_grail = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_grail }
-			remove_province_modifier = location_of_the_grail
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_grail }
+			event_target:war_location_of_the_grail = {
+				if = {
+					limit = { has_province_modifier = location_of_the_grail }
+					remove_province_modifier = location_of_the_grail
+					clear_global_event_target = war_location_of_the_grail
+				}
+			}
 		}
 
 		FROM = {
@@ -3110,6 +3361,7 @@ dip_gift_the_grail = {
 				    name = location_of_the_grail
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_grail
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -3149,7 +3401,7 @@ dip_request_the_reman_scroll = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_reman_scroll } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_reman_scroll COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -3185,15 +3437,22 @@ dip_request_the_reman_scroll = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_reman_scroll }
-			remove_province_modifier = location_of_the_reman_scroll
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_reman_scroll }
+			event_target:war_location_of_the_reman_scroll = {
+				if = {
+					limit = { has_province_modifier = location_of_the_reman_scroll }
+					remove_province_modifier = location_of_the_reman_scroll
+					clear_global_event_target = war_location_of_the_reman_scroll
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_reman_scroll
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_reman_scroll
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -3246,7 +3505,7 @@ dip_gift_the_reman_scroll = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_reman_scroll }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_reman_scroll COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -3270,9 +3529,15 @@ dip_gift_the_reman_scroll = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_reman_scroll }
-			remove_province_modifier = location_of_the_reman_scroll
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_reman_scroll }
+			event_target:war_location_of_the_reman_scroll = {
+				if = {
+					limit = { has_province_modifier = location_of_the_reman_scroll }
+					remove_province_modifier = location_of_the_reman_scroll
+					clear_global_event_target = war_location_of_the_reman_scroll
+				}
+			}
 		}
 
 		FROM = {
@@ -3281,6 +3546,7 @@ dip_gift_the_reman_scroll = {
 				    name = location_of_the_reman_scroll
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_reman_scroll
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -3320,7 +3586,7 @@ dip_request_the_genie_in_a_bottle = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_genie_in_a_bottle } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_genie_in_a_bottle COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -3356,15 +3622,22 @@ dip_request_the_genie_in_a_bottle = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_genie_in_a_bottle }
-			remove_province_modifier = location_of_the_genie_in_a_bottle
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_genie_in_a_bottle }
+			event_target:war_location_of_the_genie_in_a_bottle = {
+				if = {
+					limit = { has_province_modifier = location_of_the_genie_in_a_bottle }
+					remove_province_modifier = location_of_the_genie_in_a_bottle
+					clear_global_event_target = war_location_of_the_genie_in_a_bottle
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_genie_in_a_bottle
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_genie_in_a_bottle
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -3417,7 +3690,7 @@ dip_gift_the_genie_in_a_bottle = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_genie_in_a_bottle }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_genie_in_a_bottle COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -3441,9 +3714,15 @@ dip_gift_the_genie_in_a_bottle = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_genie_in_a_bottle }
-			remove_province_modifier = location_of_the_genie_in_a_bottle
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_genie_in_a_bottle }
+			event_target:war_location_of_the_genie_in_a_bottle = {
+				if = {
+					limit = { has_province_modifier = location_of_the_genie_in_a_bottle }
+					remove_province_modifier = location_of_the_genie_in_a_bottle
+					clear_global_event_target = war_location_of_the_genie_in_a_bottle
+				}
+			}
 		}
 
 		FROM = {
@@ -3452,6 +3731,7 @@ dip_gift_the_genie_in_a_bottle = {
 				    name = location_of_the_genie_in_a_bottle
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_genie_in_a_bottle
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -3491,7 +3771,7 @@ dip_request_the_heavens_gate = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_heavens_gate } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_heavens_gate COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -3527,15 +3807,22 @@ dip_request_the_heavens_gate = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_heavens_gate }
-			remove_province_modifier = location_of_the_heavens_gate
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_heavens_gate }
+			event_target:war_location_of_the_heavens_gate = {
+				if = {
+					limit = { has_province_modifier = location_of_the_heavens_gate }
+					remove_province_modifier = location_of_the_heavens_gate
+					clear_global_event_target = war_location_of_the_heavens_gate
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_heavens_gate
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_heavens_gate
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -3588,7 +3875,7 @@ dip_gift_the_heavens_gate = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_heavens_gate }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_heavens_gate COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -3612,9 +3899,15 @@ dip_gift_the_heavens_gate = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_heavens_gate }
-			remove_province_modifier = location_of_the_heavens_gate
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_heavens_gate }
+			event_target:war_location_of_the_heavens_gate = {
+				if = {
+					limit = { has_province_modifier = location_of_the_heavens_gate }
+					remove_province_modifier = location_of_the_heavens_gate
+					clear_global_event_target = war_location_of_the_heavens_gate
+				}
+			}
 		}
 
 		FROM = {
@@ -3623,6 +3916,7 @@ dip_gift_the_heavens_gate = {
 				    name = location_of_the_heavens_gate
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_heavens_gate
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -3662,7 +3956,7 @@ dip_request_the_bleeding_idol = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_bleeding_idol } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_bleeding_idol COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -3698,15 +3992,22 @@ dip_request_the_bleeding_idol = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_bleeding_idol }
-			remove_province_modifier = location_of_the_bleeding_idol
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_bleeding_idol }
+			event_target:war_location_of_the_bleeding_idol = {
+				if = {
+					limit = { has_province_modifier = location_of_the_bleeding_idol }
+					remove_province_modifier = location_of_the_bleeding_idol
+					clear_global_event_target = war_location_of_the_bleeding_idol
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_bleeding_idol
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_bleeding_idol
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -3759,7 +4060,7 @@ dip_gift_the_bleeding_idol = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_bleeding_idol }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_bleeding_idol COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -3783,9 +4084,15 @@ dip_gift_the_bleeding_idol = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_bleeding_idol }
-			remove_province_modifier = location_of_the_bleeding_idol
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_bleeding_idol }
+			event_target:war_location_of_the_bleeding_idol = {
+				if = {
+					limit = { has_province_modifier = location_of_the_bleeding_idol }
+					remove_province_modifier = location_of_the_bleeding_idol
+					clear_global_event_target = war_location_of_the_bleeding_idol
+				}
+			}
 		}
 
 		FROM = {
@@ -3794,6 +4101,7 @@ dip_gift_the_bleeding_idol = {
 				    name = location_of_the_bleeding_idol
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_bleeding_idol
 			}
 		}
 		war_artifact_giver_penalty_effect = yes
@@ -3833,7 +4141,7 @@ dip_request_the_shoguns_katana = {
 
 	is_visible = {
 		ai = no
-		FROM = { any_owned_province = { has_province_modifier = location_of_the_shoguns_katana } }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_shoguns_katana COUNTRY = FROM }
 	}
 
 	is_allowed = {
@@ -3869,15 +4177,22 @@ dip_request_the_shoguns_katana = {
 		   amount = -100
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_shoguns_katana }
-			remove_province_modifier = location_of_the_shoguns_katana
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_shoguns_katana }
+			event_target:war_location_of_the_shoguns_katana = {
+				if = {
+					limit = { has_province_modifier = location_of_the_shoguns_katana }
+					remove_province_modifier = location_of_the_shoguns_katana
+					clear_global_event_target = war_location_of_the_shoguns_katana
+				}
+			}
 		}
 		capital_scope = {
 			add_permanent_province_modifier = { 
 			    name = location_of_the_shoguns_katana
 			    duration = -1  
 			}
+			save_global_event_target_as = war_location_of_the_shoguns_katana
 		}
 		FROM = {
 			war_artifact_giver_penalty_effect = yes
@@ -3930,7 +4245,7 @@ dip_gift_the_shoguns_katana = {
 
 	is_visible = {
 		ai = no
-		any_owned_province = { has_province_modifier = location_of_the_shoguns_katana }
+		war_artifact_owned_by = { ARTIFACT = location_of_the_shoguns_katana COUNTRY = ROOT }
 	}
 
 	is_allowed = {
@@ -3954,9 +4269,15 @@ dip_gift_the_shoguns_katana = {
 		   amount = 50
 		}
 
-		every_province ={
-			limit = { has_province_modifier = location_of_the_shoguns_katana }
-			remove_province_modifier = location_of_the_shoguns_katana
+		if = {
+			limit = { has_saved_event_target = war_location_of_the_shoguns_katana }
+			event_target:war_location_of_the_shoguns_katana = {
+				if = {
+					limit = { has_province_modifier = location_of_the_shoguns_katana }
+					remove_province_modifier = location_of_the_shoguns_katana
+					clear_global_event_target = war_location_of_the_shoguns_katana
+				}
+			}
 		}
 
 		FROM = {
@@ -3965,6 +4286,7 @@ dip_gift_the_shoguns_katana = {
 				    name = location_of_the_shoguns_katana
 				    duration = -1  
 				}
+				save_global_event_target_as = war_location_of_the_shoguns_katana
 			}
 		}
 		war_artifact_giver_penalty_effect = yes

@@ -1,7 +1,7 @@
 THE WARPMOON PROJECT
 
 Initial location: Central Skavenblight, province 4600, owned by U25 at start.
-Identifier: war_warpmoon_project. Starts at tier 0; relocatable.
+Identifier: war_warpmoon_project. Starts at tier 0; immovable.
 All tiers have empty province, area and country modifier blocks.
 
 Owner requirements for construction/upgrading:
@@ -16,13 +16,12 @@ Stage       Base ducats       Base months       Base years
 
 These double the common 1000/2500/5000 and 120/240/480 monument values.
 Normal national monument cost/time modifiers and construction boosts still work.
-Movement uses 2 days per distance unit, twice the 1-day baseline. The engine
-derives its movement cost from duration. Conquest does not delete the project.
+The project stays in province 4600. Conquest does not delete the project.
 
 SABOTAGE AND ANNOUNCEMENTS
 
 All countries see Destroy the Warpmoon Project when its exact tier is 1 or 2.
-The decision queries the actual project instead of a saved starting province.
+The decision checks the project directly in province 4600.
 Its native provinces_to_highlight/Go To points at the current site, even if it
 has not been discovered. Its allow condition requires control, not ownership.
 Skaven players may use it; Skaven AI has a zero decision weight.
@@ -30,7 +29,7 @@ Skaven players may use it; Skaven AI has a zero decision weight.
 The decision subtracts exactly the current completed tier, leaving the same
 project at tier 0 in the same province. It grants 50 prestige and 1000 ducats.
 It does not destroy/recreate the project or cancel unrelated province activity.
-Verify the engine's behavior when sabotage occurs during an upgrade or move;
+Verify the engine's behavior when sabotage occurs during an upgrade;
 the script directly resets completed tiers, not construction progress.
 
 Stages 1 and 2 each broadcast one warning per country on every completion,

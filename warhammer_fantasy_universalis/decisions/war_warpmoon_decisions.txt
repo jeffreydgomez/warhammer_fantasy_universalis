@@ -2,15 +2,15 @@ country_decisions = {
 	war_destroy_warpmoon_project = {
 		major = yes
 		potential = {
-			any_province = { war_warpmoon_can_be_sabotaged = yes }
+			4600 = { war_warpmoon_can_be_sabotaged = yes }
 		}
-		# The decision's native Go To/highlight button follows the current site,
+		# The decision's native Go To/highlight button points to Central Skavenblight,
 		# including an undiscovered site: this is a worldwide public warning.
-		provinces_to_highlight = { war_warpmoon_can_be_sabotaged = yes }
+		provinces_to_highlight = { province_id = 4600 war_warpmoon_can_be_sabotaged = yes }
 		allow = {
 			custom_trigger_tooltip = {
 				tooltip = war_warpmoon_control_site_tt
-				any_province = {
+				4600 = {
 					war_warpmoon_can_be_sabotaged = yes
 					controlled_by = ROOT
 				}
@@ -19,12 +19,14 @@ country_decisions = {
 		effect = {
 			custom_tooltip = war_warpmoon_reset_tt
 			hidden_effect = {
-				random_province = {
-					limit = {
-						war_warpmoon_can_be_sabotaged = yes
-						controlled_by = ROOT
+				4600 = {
+					if = {
+						limit = {
+							war_warpmoon_can_be_sabotaged = yes
+							controlled_by = ROOT
+						}
+						war_warpmoon_reset_project = yes
 					}
-					war_warpmoon_reset_project = yes
 				}
 			}
 			# User-specified reward: prestige is +2 Weighing Value; flat gold

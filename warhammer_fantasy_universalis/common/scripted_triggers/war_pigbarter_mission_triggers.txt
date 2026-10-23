@@ -32,8 +32,8 @@ swine_fimdirach_settled = {
 				2147 = { swine_controlled_province = yes }
 				2156 = { swine_controlled_province = yes }
 				calc_true_if = {
-					all_province = {
-						area = scalded_delta
+					scalded_delta = {
+						type = all
 						swine_controlled_province = yes
 					}
 					amount = 3
@@ -61,10 +61,14 @@ swine_vorag_settled = {
 			AND = {
 				2167 = { swine_controlled_province = yes }
 				calc_true_if = {
-					all_province = {
-						swine_vorag_hinterland = yes
-						swine_controlled_province = yes
-					}
+					2157 = { swine_controlled_province = yes }
+					2163 = { swine_controlled_province = yes }
+					2164 = { swine_controlled_province = yes }
+					2166 = { swine_controlled_province = yes }
+					2167 = { swine_controlled_province = yes }
+					2168 = { swine_controlled_province = yes }
+					2169 = { swine_controlled_province = yes }
+					2170 = { swine_controlled_province = yes }
 					amount = 3
 				}
 			}
@@ -89,8 +93,8 @@ swine_zharr_settled = {
 			AND = {
 				810 = { swine_controlled_province = yes }
 				calc_true_if = {
-					all_province = {
-						region = plain_of_zharr_region
+					plain_of_zharr_region = {
+						type = all
 						swine_controlled_province = yes
 					}
 					amount = 5
@@ -116,15 +120,15 @@ swine_orcs_settled = {
 		OR = {
 			AND = {
 				calc_true_if = {
-					all_province = {
-						region = badlands_region
+					badlands_region = {
+						type = all
 						swine_controlled_province = yes
 					}
 					amount = 5
 				}
 			}
 			AND = {
-				any_country = {
+				any_ally = {
 					culture_group = greenskins_group
 					swine_commercial_partner = yes
 					num_of_owned_provinces_with = {
@@ -144,15 +148,15 @@ swine_ogres_settled = {
 		OR = {
 			AND = {
 				calc_true_if = {
-					all_province = {
-						region = mountains_of_mourn_region
+					mountains_of_mourn_region = {
+						type = all
 						swine_controlled_province = yes
 					}
 					amount = 5
 				}
 			}
 			AND = {
-				any_country = {
+				any_ally = {
 					culture_group = ogre_group
 					swine_commercial_partner = yes
 					num_of_owned_provinces_with = {
@@ -172,15 +176,15 @@ swine_dragon_isles_settled = {
 		OR = {
 			AND = {
 				calc_true_if = {
-					all_province = {
-						region = dragon_isles_region
+					dragon_isles_region = {
+						type = all
 						swine_controlled_province = yes
 					}
 					amount = 10
 				}
 			}
 			AND = {
-				any_country = {
+				any_ally = {
 					swine_commercial_partner = yes
 					num_of_owned_provinces_with = {
 						region = dragon_isles_region
@@ -224,4 +228,64 @@ swine_eastern_colonies_province = {
 # Province scope: ivory_road_trade_node trade-node membership.
 swine_ivory_road_province = {
 	OR = { province_id = 2787 province_id = 2785 province_id = 2780 province_id = 2782 province_id = 2784 province_id = 2786 province_id = 2788 province_id = 2796 province_id = 2789 province_id = 2794 province_id = 2790 province_id = 2797 province_id = 2809 province_id = 2810 province_id = 2811 province_id = 2812 province_id = 2813 province_id = 2816 province_id = 2817 province_id = 2818 province_id = 2802 province_id = 2815 province_id = 2803 province_id = 2795 province_id = 2804 province_id = 2805 province_id = 2807 province_id = 2806 province_id = 2808 province_id = 2814 province_id = 4272 province_id = 2282 province_id = 2283 province_id = 2281 province_id = 2280 province_id = 601 province_id = 2277 province_id = 2285 province_id = 2960 province_id = 2959 province_id = 2962 province_id = 2973 province_id = 2974 province_id = 2961 province_id = 2963 province_id = 1215 province_id = 2972 province_id = 2971 }
+}
+
+# Country scope: 2 distinct allies or subjects with at least 60 trust.
+swine_trusted_partners_2_60 = {
+	OR = {
+		AND = {
+			calc_true_if = { all_subject_country = { NOT = { alliance_with = ROOT } trust = { who = ROOT value = 60 } } amount = 2 }
+		}
+		AND = {
+			calc_true_if = { all_ally = { trust = { who = ROOT value = 60 } } amount = 1 }
+			calc_true_if = { all_subject_country = { NOT = { alliance_with = ROOT } trust = { who = ROOT value = 60 } } amount = 1 }
+		}
+		AND = {
+			calc_true_if = { all_ally = { trust = { who = ROOT value = 60 } } amount = 2 }
+		}
+	}
+}
+
+# Country scope: 3 distinct allies or subjects with at least 90 trust.
+swine_trusted_partners_3_90 = {
+	OR = {
+		AND = {
+			calc_true_if = { all_subject_country = { NOT = { alliance_with = ROOT } trust = { who = ROOT value = 90 } } amount = 3 }
+		}
+		AND = {
+			calc_true_if = { all_ally = { trust = { who = ROOT value = 90 } } amount = 1 }
+			calc_true_if = { all_subject_country = { NOT = { alliance_with = ROOT } trust = { who = ROOT value = 90 } } amount = 2 }
+		}
+		AND = {
+			calc_true_if = { all_ally = { trust = { who = ROOT value = 90 } } amount = 2 }
+			calc_true_if = { all_subject_country = { NOT = { alliance_with = ROOT } trust = { who = ROOT value = 90 } } amount = 1 }
+		}
+		AND = {
+			calc_true_if = { all_ally = { trust = { who = ROOT value = 90 } } amount = 3 }
+		}
+	}
+}
+
+# Country scope: 4 distinct allies or subjects with at least 75 trust.
+swine_trusted_partners_4_75 = {
+	OR = {
+		AND = {
+			calc_true_if = { all_subject_country = { NOT = { alliance_with = ROOT } trust = { who = ROOT value = 75 } } amount = 4 }
+		}
+		AND = {
+			calc_true_if = { all_ally = { trust = { who = ROOT value = 75 } } amount = 1 }
+			calc_true_if = { all_subject_country = { NOT = { alliance_with = ROOT } trust = { who = ROOT value = 75 } } amount = 3 }
+		}
+		AND = {
+			calc_true_if = { all_ally = { trust = { who = ROOT value = 75 } } amount = 2 }
+			calc_true_if = { all_subject_country = { NOT = { alliance_with = ROOT } trust = { who = ROOT value = 75 } } amount = 2 }
+		}
+		AND = {
+			calc_true_if = { all_ally = { trust = { who = ROOT value = 75 } } amount = 3 }
+			calc_true_if = { all_subject_country = { NOT = { alliance_with = ROOT } trust = { who = ROOT value = 75 } } amount = 1 }
+		}
+		AND = {
+			calc_true_if = { all_ally = { trust = { who = ROOT value = 75 } } amount = 4 }
+		}
+	}
 }

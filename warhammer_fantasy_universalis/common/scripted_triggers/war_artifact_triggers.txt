@@ -1,0 +1,69 @@
+# Saved province locations avoid recurring world searches. Missing/consumed artifacts
+# return false without dereferencing an unset target, including during tooltip evaluation.
+war_artifact_owned_by = {
+	if = {
+		limit = { has_saved_event_target = war_$ARTIFACT$ }
+		event_target:war_$ARTIFACT$ = {
+			has_province_modifier = $ARTIFACT$
+			owned_by = $COUNTRY$
+		}
+	}
+	else = { always = no }
+}
+
+war_artifact_controlled_by = {
+	if = {
+		limit = { has_saved_event_target = war_$ARTIFACT$ }
+		event_target:war_$ARTIFACT$ = {
+			has_province_modifier = $ARTIFACT$
+			controlled_by = $COUNTRY$
+		}
+	}
+	else = { always = no }
+}
+
+# Caller is the prospective taker; ROOT retains the decision's country scope.
+war_artifact_holder_relation = {
+	if = {
+		limit = { has_saved_event_target = war_$ARTIFACT$ }
+		event_target:war_$ARTIFACT$ = {
+			has_province_modifier = $ARTIFACT$
+			owner = { $RELATION$ = ROOT }
+		}
+	}
+	else = { always = no }
+}
+
+war_nagash_holder_exists = {
+	if = {
+		limit = { has_saved_event_target = war_nagash_holder }
+		event_target:war_nagash_holder = {
+			exists = yes
+			has_country_modifier = nagash_resurrected_modifier
+		}
+	}
+	else = { always = no }
+}
+
+# Country scope. Preserve the original two relocation routes: an owned, unbesieged
+# non-capital province, or an empty province neighboring the country's capital.
+war_artifact_can_relocate = {
+	if = {
+		limit = { has_saved_event_target = war_$ARTIFACT$ }
+		event_target:war_$ARTIFACT$ = {
+			has_province_modifier = $ARTIFACT$
+			is_capital = no
+			OR = {
+				AND = { owned_by = ROOT has_siege = no }
+				ROOT = {
+					capital_scope = {
+						any_empty_neighbor_province = {
+							province_id = event_target:war_$ARTIFACT$
+						}
+					}
+				}
+			}
+		}
+	}
+	else = { always = no }
+}
