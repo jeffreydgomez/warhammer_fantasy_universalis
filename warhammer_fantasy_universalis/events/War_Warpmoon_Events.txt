@@ -1,9 +1,9 @@
 namespace = war_warpmoon
 # Template picture: WAR_WARPMOON_CONSTRUCTION_eventPicture, defined in war_eventpictures.gfx.
-# The final event alone uses WAR_WARPMOON_eventPicture to show the actual moon shot.
+# Only the final-stage announcements use WAR_WARPMOON_eventPicture for the moon shot.
 # These are triggered announcements, not random reward events.
 
-# Concept: completion of the first stage exposes the Skaven plan to every ruler.
+# Concept: completion of the first stage exposes the Skaven plan to other rulers.
 country_event = {
 	id = war_warpmoon.1
 	title = war_warpmoon.1.t
@@ -49,4 +49,181 @@ country_event = {
 		name = war_warpmoon.3.a
 		custom_tooltip = war_warpmoon_aftermath_tt
 	}
+}
+
+# Concept: the owner celebrates the first stage and must protect the unfinished engine.
+country_event = {
+	id = war_warpmoon.4
+	title = war_warpmoon.4.t
+	desc = war_warpmoon.4.d
+	picture = WAR_WARPMOON_CONSTRUCTION_eventPicture
+	is_triggered_only = yes
+	major = no
+	# Owner version of the explicitly requested province-linked stage warning.
+	goto = war_warpmoon_province
+	# Claim credit and protect the completed works while construction continues.
+	option = {
+		name = war_warpmoon.4.a
+		custom_tooltip = war_warpmoon_owner_warning_tt
+	}
+}
+
+# Concept: the owner's engineers complete the second stage and demand the final charge.
+country_event = {
+	id = war_warpmoon.5
+	title = war_warpmoon.5.t
+	desc = war_warpmoon.5.d
+	picture = WAR_WARPMOON_CONSTRUCTION_eventPicture
+	is_triggered_only = yes
+	major = no
+	goto = war_warpmoon_province
+	# Prepare the final stage before an enemy can sabotage the cannon.
+	option = {
+		name = war_warpmoon.5.a
+		custom_tooltip = war_warpmoon_owner_warning_tt
+	}
+}
+
+# Concept: the owner claims the Horned Rat's favor after shattering Morrslieb.
+country_event = {
+	id = war_warpmoon.6
+	title = war_warpmoon.6.t
+	desc = war_warpmoon.6.d
+	picture = WAR_WARPMOON_eventPicture
+	is_triggered_only = yes
+	major = no
+	# Celebrate the completed shot; all rewards and impacts have already resolved.
+	option = {
+		name = war_warpmoon.6.a
+		custom_tooltip = war_warpmoon_owner_aftermath_tt
+	}
+}
+
+# Concept: execute sabotage without exposing native tier changes to hover tooltips.
+country_event = {
+	id = war_warpmoon.10
+	title = war_destroy_warpmoon_project_title
+	desc = war_destroy_warpmoon_project_desc
+	picture = WAR_WARPMOON_CONSTRUCTION_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		4600 = {
+			if = {
+				limit = { controlled_by = ROOT }
+				# Native project effects live directly in this event, not in a
+				# scripted-effect expansion used by the decision's description.
+				# Exact-tier branches leave the existing project at tier 0.
+				if = {
+					limit = { has_great_project = { type = war_warpmoon_project tier = 2 } }
+					add_great_project_tier = { type = war_warpmoon_project tier = -2 }
+				}
+				else_if = {
+					limit = { has_great_project = { type = war_warpmoon_project tier = 1 } }
+					add_great_project_tier = { type = war_warpmoon_project tier = -1 }
+				}
+			}
+		}
+	}
+	# Finish the hidden helper; all work is resolved in immediate.
+	option = { name = war_warpmoon_internal.a }
+}
+
+# Concept: dispatch first-stage reports using the province's owner at completion.
+province_event = {
+	id = war_warpmoon.11
+	title = war_warpmoon.4.t
+	desc = war_warpmoon.4.d
+	picture = WAR_WARPMOON_CONSTRUCTION_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		save_event_target_as = war_warpmoon_province
+		owner = {
+			save_event_target_as = war_warpmoon_builder
+			country_event = { id = war_warpmoon.4 }
+		}
+		every_country = {
+			limit = { NOT = { tag = event_target:war_warpmoon_builder } }
+			country_event = { id = war_warpmoon.1 }
+		}
+	}
+	# Finish the hidden helper; all work is resolved in immediate.
+	option = { name = war_warpmoon_internal.a }
+}
+
+# Concept: dispatch second-stage reports without previewing unsaved event targets.
+province_event = {
+	id = war_warpmoon.12
+	title = war_warpmoon.5.t
+	desc = war_warpmoon.5.d
+	picture = WAR_WARPMOON_CONSTRUCTION_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		save_event_target_as = war_warpmoon_province
+		owner = {
+			save_event_target_as = war_warpmoon_builder
+			country_event = { id = war_warpmoon.5 }
+		}
+		every_country = {
+			limit = { NOT = { tag = event_target:war_warpmoon_builder } }
+			country_event = { id = war_warpmoon.2 }
+		}
+	}
+	# Finish the hidden helper; all work is resolved in immediate.
+	option = { name = war_warpmoon_internal.a }
+}
+
+# Concept: fire the completed cannon once, then report triumph to its owner and ruin abroad.
+province_event = {
+	id = war_warpmoon.13
+	title = war_warpmoon.6.t
+	desc = war_warpmoon.6.d
+	picture = WAR_WARPMOON_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		if = {
+			limit = { NOT = { has_global_flag = war_warpmoon_moon_destroyed } }
+			set_global_flag = war_warpmoon_moon_destroyed
+			save_event_target_as = war_warpmoon_province
+			owner = {
+				save_event_target_as = war_warpmoon_builder
+				add_country_modifier = {
+					name = war_we_destroyed_the_moon
+					duration = -1
+				}
+			}
+			4600 = { destroy_great_project = { type = war_warpmoon_project } }
+
+			every_province = {
+				limit = { war_warpmoon_impact_eligible = yes }
+				random = {
+					chance = 15
+					war_warpmoon_impact = yes
+				}
+			}
+			every_country = {
+				limit = {
+					NOT = { has_country_modifier = skaven_administration }
+					NOT = { tag = event_target:war_warpmoon_builder }
+				}
+				# Recipients gain AE against the builder. User-specified, unpriced
+				# in the Balance Guide; no distance, religion or AE scaling.
+				add_aggressive_expansion = {
+					who = event_target:war_warpmoon_builder
+					value = 50
+					apply_calc = no
+				}
+			}
+			owner = { country_event = { id = war_warpmoon.6 } }
+			every_country = {
+				limit = { NOT = { tag = event_target:war_warpmoon_builder } }
+				country_event = { id = war_warpmoon.3 }
+			}
+		}
+	}
+	# Finish the hidden helper; all work is resolved in immediate.
+	option = { name = war_warpmoon_internal.a }
 }

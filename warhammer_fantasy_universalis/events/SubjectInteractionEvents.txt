@@ -294,99 +294,100 @@ country_event = {
 }
 
 # Cousin Claims Chair of [Root.Country.GetName]
-country_event = {
-	id = subject_interaction_events.6
-	title = subject_interaction_events.6.t
-	desc = subject_interaction_events.6.d
-	picture = ANGRY_MOB_eventPicture
-	
-	is_triggered_only = yes
-	
-	trigger = {
-		has_dlc = "Common Sense"
-		num_of_subjects = 1
-		has_regency = no
-		government = monarchy
-		NOT = { has_reform = steppe_horde }
-		religion_group = christian
-		num_of_cities = 2
-		NOT = {
-			legitimacy = 50
-		}
-		any_subject_country = {
-			government = monarchy
-			has_regency = no
-			has_new_dynasty = yes
-			dynasty = ROOT
-			OR = {
-				is_vassal = yes
-				is_march = yes
-			}
-		}
-	}
-	
-	mean_time_to_happen = {
-		days = 1
-	}
-	
-	immediate = {
-		hidden_effect = {
-			random_subject_country = {
-				limit = {
-					government = monarchy
-					has_regency = no
-					has_new_dynasty = yes
-					dynasty = ROOT
-					OR = {
-						is_vassal = yes
-						is_march = yes
-					}
-				}
-				set_country_flag = si_subject_state
-			}
-		}
-	}
-	
-	option = {
-		name = subject_interaction_events.6.a # Depose our cousin!
-		random_subject_country = {
-			limit = {
-				has_country_flag = si_subject_state
-			}
-			define_ruler = {
-				dynasty = ROOT
-				culture = ROOT
-				religion = ROOT
-			}
-			random_province = {
-				limit = {
-					owned_by = ROOT
-					NOT = {
-						is_capital = yes
-					}
-				}
-				spawn_rebels = {
-					type = pretender_rebels
-					friend = PREV
-					size = 1
-				}
-			}
-			clr_country_flag = si_subject_state
-		}
-	}
-	option = {
-		name = subject_interaction_events.6.b
-		add_corruption = 0.5
-		add_treasury = -100
-		random_subject_country = {
-			limit = {
-				has_country_flag = si_subject_state
-			}
-			add_treasury = 100
-			clr_country_flag = si_subject_state
-		}
-	}
-}
+# WFU cleanup: reviewed unavailable definition
+# country_event = {
+# 	id = subject_interaction_events.6
+# 	title = subject_interaction_events.6.t
+# 	desc = subject_interaction_events.6.d
+# 	picture = ANGRY_MOB_eventPicture
+#
+# 	is_triggered_only = yes
+#
+# 	trigger = {
+# 		has_dlc = "Common Sense"
+# 		num_of_subjects = 1
+# 		has_regency = no
+# 		government = monarchy
+# 		NOT = { has_reform = steppe_horde }
+# 		religion_group = christian
+# 		num_of_cities = 2
+# 		NOT = {
+# 			legitimacy = 50
+# 		}
+# 		any_subject_country = {
+# 			government = monarchy
+# 			has_regency = no
+# 			has_new_dynasty = yes
+# 			dynasty = ROOT
+# 			OR = {
+# 				is_vassal = yes
+# 				is_march = yes
+# 			}
+# 		}
+# 	}
+#
+# 	mean_time_to_happen = {
+# 		days = 1
+# 	}
+#
+# 	immediate = {
+# 		hidden_effect = {
+# 			random_subject_country = {
+# 				limit = {
+# 					government = monarchy
+# 					has_regency = no
+# 					has_new_dynasty = yes
+# 					dynasty = ROOT
+# 					OR = {
+# 						is_vassal = yes
+# 						is_march = yes
+# 					}
+# 				}
+# 				set_country_flag = si_subject_state
+# 			}
+# 		}
+# 	}
+#
+# 	option = {
+# 		name = subject_interaction_events.6.a # Depose our cousin!
+# 		random_subject_country = {
+# 			limit = {
+# 				has_country_flag = si_subject_state
+# 			}
+# 			define_ruler = {
+# 				dynasty = ROOT
+# 				culture = ROOT
+# 				religion = ROOT
+# 			}
+# 			random_province = {
+# 				limit = {
+# 					owned_by = ROOT
+# 					NOT = {
+# 						is_capital = yes
+# 					}
+# 				}
+# 				spawn_rebels = {
+# 					type = pretender_rebels
+# 					friend = PREV
+# 					size = 1
+# 				}
+# 			}
+# 			clr_country_flag = si_subject_state
+# 		}
+# 	}
+# 	option = {
+# 		name = subject_interaction_events.6.b
+# 		add_corruption = 0.5
+# 		add_treasury = -100
+# 		random_subject_country = {
+# 			limit = {
+# 				has_country_flag = si_subject_state
+# 			}
+# 			add_treasury = 100
+# 			clr_country_flag = si_subject_state
+# 		}
+# 	}
+# }
 
 # Manpower Misused
 country_event = {

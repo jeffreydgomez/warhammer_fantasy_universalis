@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Script-driven regressions for cache lifecycles and narrowed mission conditions.
+"""Script-driven regressions for the artifact rollback and retained mission optimizations.
 This is a limited interpreter, not EU4: unsupported conditions/effects fail loudly.
 Run from any directory. Original scripts come from the commit before this change.
 """
@@ -11,7 +11,7 @@ BASELINE='85be098c'
 PREFIX=subprocess.check_output(['git','rev-parse','--show-prefix'],cwd=ROOT,text=True).strip()
 def baseline(path):return subprocess.check_output(['git','show',BASELINE+':'+PREFIX+path],cwd=ROOT).decode('utf-8-sig')
 def defs(text):return {n.k:n for n in parse(text)}
-TRIGGER_TEXT=read('common/scripted_triggers/war_artifact_triggers.txt')+'\n'+read('common/scripted_triggers/war_pigbarter_mission_triggers.txt')
+TRIGGER_TEXT=read('common/scripted_triggers/war_pigbarter_mission_triggers.txt')
 EFFECT_TEXT=read('common/scripted_effects/war_artifact_effects.txt')
 TRIGGERS=defs(TRIGGER_TEXT); EFFECTS=defs(EFFECT_TEXT)
 MODS=[n.k for n in parse(read('common/event_modifiers/war_artifacts.txt')) if n.k.startswith('location_of_')]
@@ -120,91 +120,9 @@ class World:
     signature=tuple((c.k,c.v) for c in v) if isinstance(v,list) else v
     self.log.append((s,k,signature))
    else:raise AssertionError(('unhandled effect',k))
- def initialize(self):self.effect(EFFECTS['war_initialize_artifact_locations'].v)
- def visible_state(self):return (self.provinces,self.countries,self.flags-{'war_artifact_locations_initialized_v1'},self.log)
 
-new_decisions=defs(read('decisions/Artifact_decisions.txt'))['country_decisions']
-old_decisions=defs(baseline('decisions/Artifact_decisions.txt'))['country_decisions']
-# A pre-cache save can already have moved artifacts. Initialization finds real locations,
-# including unowned land; subsequent calls do not scan again or respawn consumed relics.
-w=World()
-for i,m in enumerate(MODS[:22]):w.provinces[str(i%5+1)]['mods'].add(m)
-w.countries['from']['mods'].add('nagash_resurrected_modifier');w.initialize()
-for m in MODS[:22]:assert m in w.obj(w.targets['war_'+m])['mods']
-assert w.scans==1
-w.initialize();assert w.scans==1
-assert w.targets['war_nagash_holder']==('c','from')
-for m in MODS[22:]:assert not w.test(parse(f'war_artifact_owned_by = {{ ARTIFACT = {m} COUNTRY = ROOT }}'))
-# Target exists but modifier has gone: the cache cannot produce a false positive.
-m=MODS[0];w.obj(w.targets['war_'+m])['mods'].remove(m)
-assert not w.test(parse(f'war_artifact_owned_by = {{ ARTIFACT = {m} COUNTRY = ROOT }}'))
-print('PASS: one migration scan, idempotence, missing/consumed artifacts, and existing Nagash holder')
-
-capture_count=0
-for decision in new_decisions.v:
- if not decision.k.startswith('take_'):continue
- mods={x.v for x,_ in walk(decision.get('effect').v) if x.k=='remove_province_modifier'};assert len(mods)==1
- m=mods.pop()
- for pid in ('2','4'):
-  old=World();old.provinces[pid]['mods'].add(m);new=copy.deepcopy(old);new.initialize();new.scans=0
-  old.effect(old_decisions.get(decision.k).get('effect').v);new.effect(decision.get('effect').v)
-  assert old.visible_state()==new.visible_state(),decision.k
-  assert new.targets['war_'+m]==('p','1') and new.scans==0
-  assert new.test(parse(f'war_artifact_owned_by = {{ ARTIFACT = {m} COUNTRY = ROOT }}'))
-  # Conquest automatically changes the holder without touching the province target.
-  new.provinces['1']['owner']='from'
-  assert not new.test(parse(f'war_artifact_owned_by = {{ ARTIFACT = {m} COUNTRY = ROOT }}'))
-  capture_count+=1
-print('PASS:',capture_count,'capture/conquest scenarios preserve modifiers, ruler effects and notifications')
-
-old_dip=defs(baseline('common/new_diplomatic_actions/00_war_artifacts.txt'))
-new_dip=defs(read('common/new_diplomatic_actions/00_war_artifacts.txt'))
-for k,n in new_dip.items():
- m=next(x.v for x,_ in walk(n.get('on_accept').v) if x.k=='remove_province_modifier')
- old=World();source='1' if k.startswith('dip_gift_') else '2';old.provinces[source]['mods'].add(m)
- new=copy.deepcopy(old);new.initialize();new.scans=0
- old.effect(old_dip[k].get('on_accept').v);new.effect(n.get('on_accept').v)
- assert old.visible_state()==new.visible_state(),k
- expected='2' if k.startswith('dip_gift_') else '1'
- assert new.targets['war_'+m]==('p',expected) and new.scans==0
-print('PASS:',len(new_dip),'request/gift actions preserve favors, penalties and destinations')
-
-for pid,siege,neighbor in itertools.product(('1','2','3','4','5'),(False,True),(False,True)):
- old=World();m=MODS[0];old.provinces[pid]['mods'].add(m);old.provinces[pid]['siege']=siege
- old.provinces['1']['neighbors']={'4'} if neighbor else set()
- new=copy.deepcopy(old);new.initialize();new.scans=0
- old.effect(old_decisions.get('relocate_artifacts').get('effect').v)
- new.effect(new_decisions.get('relocate_artifacts').get('effect').v)
- assert old.visible_state()==new.visible_state(),(pid,siege,neighbor)
- dest=next(p for p,x in new.provinces.items() if m in x['mods'])
- assert new.targets['war_'+m]==('p',dest) and new.scans==0
-# The Grail remains excluded from relocation, as in the previous script.
-w=World();w.provinces['3']['mods'].add('location_of_the_grail');w.initialize()
-w.effect(new_decisions.get('relocate_artifacts').get('effect').v)
-assert 'location_of_the_grail' in w.provinces['3']['mods']
-print('PASS: 40 relocation cases cover capitals, siege, ownership and empty neighbors; Grail exception preserved')
-
-old=World()
-ritual=old_decisions.get('resurrect_nagash_decision').get('effect')
-consumed=[n.v for n,_ in walk(ritual.v) if n.k=='remove_province_modifier']
-for m in consumed:old.provinces['3']['mods'].add(m)
-new=copy.deepcopy(old);new.initialize();new.scans=0
-old.effect(ritual.v);new.effect(new_decisions.get('resurrect_nagash_decision').get('effect').v)
-assert old.visible_state()==new.visible_state()
-assert new.scans==0 and new.targets['war_nagash_holder']==('c','root')
-assert all('war_'+m not in new.targets for m in consumed)
-# Change Nagash's capital and occupier, then evaluate another country's destruction decision.
-w=World();w.countries['from']['mods'].add('nagash_resurrected_modifier');w.initialize()
-w.countries['from']['capital']='5';w.provinces['5']['controller']='root'
-assert w.test(new_decisions.get('destroy_nagash').get('allow').v)
-w.provinces['5']['controller']='from';assert not w.test(new_decisions.get('destroy_nagash').get('allow').v)
-w.effect(new_decisions.get('destroy_nagash').get('effect').v);assert 'war_nagash_holder' not in w.targets
-# Grail appearance after startup supplies the absent location.
-w=World();w.initialize()
-grail_event=next(n for n in parse(read('events/Bretonnia.txt')) if isinstance(n.v,list) and any(x.k=='name' and x.v=='location_of_the_grail' for x,_ in walk(n.v)))
-w.effect(grail_event.get('option').get('capital_scope').v,('p','1'))
-assert w.targets['war_location_of_the_grail']==('p','1')
-print('PASS: resurrection consumes five locations; Nagash follows his current capital; later Grail discovery is indexed')
+from validate_artifact_rollback import validate as validate_artifact_rollback
+validate_artifact_rollback()
 
 # Exhaust the ally/subject intersection and trust boundary: a country counts once.
 for quota,trust in [(2,60),(3,90),(4,75)]:

@@ -1843,62 +1843,63 @@ country_event = {
 }
 
 # Religious Divergences
-country_event = {
-	id = ideagroups.406
-	title = "EVTNAME6159"
-	desc = "EVTDESC6159"
-	picture = DEBATE_REPUBLICAN_eventPicture
-
-	is_triggered_only = yes
-
-	trigger = {
-		has_idea_group = religious_ideas
-		NOT = { has_country_modifier = religious_deviants }
-		OR = {
-			religion_group = christian
-			religion_group = muslim
-		}
-	}
-
-	mean_time_to_happen = {
-		days = 1
-	}
-
-	option = {
-		name = "EVTOPTA6159"
-		ai_chance = {
-			factor = 75
-			modifier = {
-				factor = 0
-				has_estate = estate_church
-				NOT = {
-					estate_loyalty = {
-						estate = estate_church
-						loyalty = 40
-					}
-				}
-			}
-		}
-		add_piety = -0.15
-		add_corruption = 0.5
-		add_country_modifier = {
-			name = "religious_deviants"
-			duration = 3650
-		}
-		reduce_estate_church_loyalty_effect = yes
-	}
-
-	option = {
-		name = "EVTOPTB6159"
-		ai_chance = {
-			factor = 25
-		}
-		add_piety = 0.15
-		add_stability = -1
-		add_estate_church_loyalty_effect = yes
-
-	}
-}
+# WFU cleanup: reviewed unavailable definition
+# country_event = {
+# 	id = ideagroups.406
+# 	title = "EVTNAME6159"
+# 	desc = "EVTDESC6159"
+# 	picture = DEBATE_REPUBLICAN_eventPicture
+#
+# 	is_triggered_only = yes
+#
+# 	trigger = {
+# 		has_idea_group = religious_ideas
+# 		NOT = { has_country_modifier = religious_deviants }
+# 		OR = {
+# 			religion_group = christian
+# 			religion_group = muslim
+# 		}
+# 	}
+#
+# 	mean_time_to_happen = {
+# 		days = 1
+# 	}
+#
+# 	option = {
+# 		name = "EVTOPTA6159"
+# 		ai_chance = {
+# 			factor = 75
+# 			modifier = {
+# 				factor = 0
+# 				has_estate = estate_church
+# 				NOT = {
+# 					estate_loyalty = {
+# 						estate = estate_church
+# 						loyalty = 40
+# 					}
+# 				}
+# 			}
+# 		}
+# 		add_piety = -0.15
+# 		add_corruption = 0.5
+# 		add_country_modifier = {
+# 			name = "religious_deviants"
+# 			duration = 3650
+# 		}
+# 		reduce_estate_church_loyalty_effect = yes
+# 	}
+#
+# 	option = {
+# 		name = "EVTOPTB6159"
+# 		ai_chance = {
+# 			factor = 25
+# 		}
+# 		add_piety = 0.15
+# 		add_stability = -1
+# 		add_estate_church_loyalty_effect = yes
+#
+# 	}
+# }
 
 # Religious Zeal
 country_event = {
@@ -2448,48 +2449,49 @@ country_event = {
 }
 
 # Spies get you better heirs....
-country_event = {
-	id = ideagroups.506
-	title = ideagroups.506.t
-	desc = ideagroups.506.d
-	picture = SPY_eventPicture
-
-	is_triggered_only = yes
-
-	trigger = {
-		has_idea_group = spy_ideas
-		government = monarchy
-		is_lesser_in_union = no
-		has_heir = no
-		has_regency = no
-		is_female = no
-		religion_group = christian
-		has_government_attribute = heir
-		NOT = {	has_ruler_modifier =  "extra_heir" }
-	}
-
-	mean_time_to_happen = {
-		days = 1
-	}
-
-	option = {
-		name = ideagroups.506.a
-		add_ruler_modifier = {
-			name = "extra_heir"
-			duration = -1
-		}
-	}
-	option = {
-		name = ideagroups.506.b
-		define_heir = {
-			dynasty = ROOT
-			claim = 10
-			change_adm = 3
-			change_dip = 3
-			change_mil = 3
-		}
-	}
-}
+# WFU cleanup: reviewed unavailable definition
+# country_event = {
+# 	id = ideagroups.506
+# 	title = ideagroups.506.t
+# 	desc = ideagroups.506.d
+# 	picture = SPY_eventPicture
+#
+# 	is_triggered_only = yes
+#
+# 	trigger = {
+# 		has_idea_group = spy_ideas
+# 		government = monarchy
+# 		is_lesser_in_union = no
+# 		has_heir = no
+# 		has_regency = no
+# 		is_female = no
+# 		religion_group = christian
+# 		has_government_attribute = heir
+# 		NOT = {	has_ruler_modifier =  "extra_heir" }
+# 	}
+#
+# 	mean_time_to_happen = {
+# 		days = 1
+# 	}
+#
+# 	option = {
+# 		name = ideagroups.506.a
+# 		add_ruler_modifier = {
+# 			name = "extra_heir"
+# 			duration = -1
+# 		}
+# 	}
+# 	option = {
+# 		name = ideagroups.506.b
+# 		define_heir = {
+# 			dynasty = ROOT
+# 			claim = 10
+# 			change_adm = 3
+# 			change_dip = 3
+# 			change_mil = 3
+# 		}
+# 	}
+# }
 
 # Reduced Upkeep
 country_event = {
@@ -5418,44 +5420,45 @@ country_event = {
 }
 
 # Evangelical Mission
-country_event = {
-	id = ideagroups.1208
-	title = ideagroups.1208.t
-	desc = ideagroups.1208.d
-	picture = RELIGION_eventPicture
-
-	is_triggered_only = yes
-
-	trigger = {
-		has_idea_group = exploration_ideas
-		overseas_provinces_percentage = 0.05
-		religion_group = christian
-		any_owned_province = {
-			is_overseas = yes
-			religion_group = pagan
-			NOT = { has_province_modifier = evangelical_system }
-			NOT = { is_owned_by_trade_company = yes }
-		}
-	}
-
-	mean_time_to_happen = {
-		days = 1
-	}
-
-	option = {
-		name = ideagroups.1208.a
-		random_owned_province = {
-			limit = {
-				is_overseas = yes
-				religion_group = pagan
-			}
-			add_province_modifier = {
-				name = evangelical_system
-				duration = 3650
-			}
-		}
-	}
-}
+# WFU cleanup: reviewed unavailable definition
+# country_event = {
+# 	id = ideagroups.1208
+# 	title = ideagroups.1208.t
+# 	desc = ideagroups.1208.d
+# 	picture = RELIGION_eventPicture
+#
+# 	is_triggered_only = yes
+#
+# 	trigger = {
+# 		has_idea_group = exploration_ideas
+# 		overseas_provinces_percentage = 0.05
+# 		religion_group = christian
+# 		any_owned_province = {
+# 			is_overseas = yes
+# 			religion_group = pagan
+# 			NOT = { has_province_modifier = evangelical_system }
+# 			NOT = { is_owned_by_trade_company = yes }
+# 		}
+# 	}
+#
+# 	mean_time_to_happen = {
+# 		days = 1
+# 	}
+#
+# 	option = {
+# 		name = ideagroups.1208.a
+# 		random_owned_province = {
+# 			limit = {
+# 				is_overseas = yes
+# 				religion_group = pagan
+# 			}
+# 			add_province_modifier = {
+# 				name = evangelical_system
+# 				duration = 3650
+# 			}
+# 		}
+# 	}
+# }
 
 # Colony in Trouble
 country_event = {
@@ -8550,15 +8553,16 @@ country_event = {
 				loyalty = -10
 			}
 		}
-		else_if = {
-			limit = {
-				has_estate = estate_brahmins
-			}
-			add_estate_loyalty = {
-				estate = estate_brahmins
-				loyalty = -10
-			}
-		}
+		# WFU cleanup: unreachable branch
+		# else_if = {
+# 			limit = {
+# 				has_estate = estate_brahmins
+# 			}
+# 			add_estate_loyalty = {
+# 				estate = estate_brahmins
+# 				loyalty = -10
+# 			}
+# 		}
 		else = {
 			add_adm_power = -50
 		}
@@ -9769,8 +9773,10 @@ country_event = {
 			NOT = { is_subject_of = ROOT }
 			OR = {
 				has_estate = estate_nobles
-				has_estate = estate_rajput
-				has_estate = estate_maratha
+				# WFU cleanup: dead condition
+				# has_estate = estate_rajput
+				# WFU cleanup: dead condition
+				# has_estate = estate_maratha
 			}
 		}
 	}
@@ -9782,8 +9788,10 @@ country_event = {
 					NOT = { is_subject_of = ROOT }
 					OR = {
 						has_estate = estate_nobles
-						has_estate = estate_rajput
-						has_estate = estate_maratha
+						# WFU cleanup: dead condition
+						# has_estate = estate_rajput
+						# WFU cleanup: dead condition
+						# has_estate = estate_maratha
 					}
 				}
 				save_event_target_as = noble_origin_country
@@ -9898,7 +9906,7 @@ country_event = {
 			}
 			1 = {
 				trigger = {
-					has_estate = estate_maratha
+					always = no
 				}
 				change_estate_land_share = {
 					estate = estate_maratha
@@ -9907,7 +9915,7 @@ country_event = {
 			}
 			1 = {
 				trigger = {
-					has_estate = estate_rajput
+					always = no
 				}
 				change_estate_land_share = {
 					estate = estate_rajput

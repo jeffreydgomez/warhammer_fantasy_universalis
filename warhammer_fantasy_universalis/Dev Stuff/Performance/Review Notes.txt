@@ -4,14 +4,14 @@ Implemented
 
 - End Times completion: is_great_power plus NOT great_power_rank = 2 selects only
   the leading great power. The existing completion condition and MTTH are unchanged.
-- Artifacts: 24 saved global province locations replace world/ownership searches
-  in capture decisions, diplomatic gifts/requests, relocation and collection missions.
-  All scripted additions/transfers update the location; consumption clears it.
-  A one-time startup scan discovers actual locations in both new and existing saves.
-  Missing artifacts return false without accessing unset targets. Nagash has a saved
-  country target, and the defeat decision reads that country's current capital.
-  The system assumes one copy of each artifact; province history satisfies this.
-  An externally edited save with duplicate artifact modifiers needs separate cleanup.
+- Artifacts: the saved-location optimization was reverted after reported Fellblade
+  ownership and neighboring-holder decision regressions. Capture, gifts/requests,
+  relocation and Nagash decisions use the province/country searches from 85be098c.
+  The startup cache, Grail cache update and cache-only trigger file are removed.
+  Collection missions use actual owned-province modifiers again. Later Nippon edits
+  already used direct ownership checks and were preserved without modification.
+  Existing saved cache targets/flags are no longer read; no artifact modifiers or
+  save files were moved, removed or rewritten as part of the rollback.
 - Tomb Kings: ten monument quota branches now check only the five relevant fixed
   monument sites each, preserving exact tiers, quotas and subject ownership rules.
 - Pigbarter: regional settlement quotas search only their named area/region; Vorag
@@ -47,15 +47,46 @@ python3 "Dev Stuff/Performance/validate_performance.py"
 python3 "Dev Stuff/Performance/validate_scopes.py"
 python3 "Dev Stuff/Performance/validate_warpmoon.py"
 
-All three pass. Checks include 48 capture/conquest scenarios, 46 diplomatic actions,
-40 relocation cases, missing/consumed artifact targets, existing-save initialization,
-Grail discovery, Nagash capital movement, 1,875 ally/subject quota cases, 1,000 monument
-states, exact geographic sets, design-source synchronization, Warpmoon occupation,
-sabotage tiers, detonation and localisation BOM. git diff --check passes.
+After the artifact rollback, validate_performance.py and validate_warpmoon.py pass.
+validate_artifact_rollback.py also runs independently: nine artifact-only files match
+85be098c byte-for-byte, all cache hooks/callers are absent, all 24 capture decisions
+use direct province checks, and 64 Fellblade ownership/neighbor/war/occupation cases
+pass. Retained checks cover 1,875 ally/subject cases and 1,000 monument states.
+validate_scopes.py now checks the historical Nippon scope conversion against its
+own commit, keeping later approved homeland/city requirements separate. Current
+mission triggers and highlights must match their design sources; the Nippon suite
+checks the current mission scenarios. The scope suite passes.
+The exact artifact rollback restores some pre-existing whitespace flagged by
+git diff --check against 70790359. Restored files match 85be098c exactly.
 These are static/script-driven checks, not an EU4 benchmark or an engine playtest.
-Reload EU4 with the updated mod, load a copy of the same save, let startup initialize,
-and compare elapsed real time for the same number of game days at the same speed.
-Check missing-event-target and script errors in the new error.log as part of that run.
+Restart EU4 with the updated mod and reload the save to check decision visibility.
+The earlier cache-model checks did not catch the reported in-game regressions.
+
+Follow-up fixes after reviewing the game log
+
+- Nippon Arts of Peace: EU4 rejected num_of_total_ideas as a trigger. It now calls
+  war_nippon_fourteen_ideas, which counts native has_idea checks using calc_true_if.
+  The generated list covers all 294 ideas in the mod's 42 selectable groups,
+  including Warhammer and tall-play groups, excluding free national ideas and
+  completion bonuses. The builder regenerates it from common/ideas; the validator
+  checks exact coverage, mixed-group 13/14 thresholds and the city requirement.
+  Mission design, the generated mission, BOM localisation and validation agree.
+- Existing Warpmoon fixes move native tier changes and upgrade effects into
+  immediate blocks of hidden events. Targets are created before runtime use;
+  tooltip traversal no longer previews those effects with unset builder targets.
+  The performance Warpmoon entry point now calls the current project validator
+  instead of keeping a stale second copy. Province 4600-only sabotage and no
+  startup relocation were explicitly reconfirmed by the user.
+- Cleanup validation now selects the 105 reviewed/marked cleanup files rather
+  than treating later artifact deletions and unrelated mission edits as cleanup
+  changes. Its reference scan still covers all active content. All 477 definitions,
+  caller/registration checks and protected-content checks pass; no additional
+  gameplay cleanup edits were needed.
+
+Follow-up suites passed: Nippon/validate_missions.py (using Python with Pillow),
+validate_performance.py, validate_scopes.py, validate_safe_cleanup.py and the
+canonical Warpmoon Project/validate_warpmoon.py. These are static/model checks.
+A fresh engine load is still required to verify the updated scripts and log.
 
 Vanilla-reference list
 

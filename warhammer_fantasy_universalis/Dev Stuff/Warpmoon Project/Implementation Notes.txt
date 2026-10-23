@@ -28,22 +28,30 @@ Skaven players may use it; Skaven AI has a zero decision weight.
 
 The decision subtracts exactly the current completed tier, leaving the same
 project at tier 0 in the same province. It grants 50 prestige and 1000 ducats.
+The decision calls hidden country event war_warpmoon.10. Native tier changes
+live directly in its immediate block, outside the decision tooltip traversal.
+The event rechecks control and the exact tier before changing the project.
 It does not destroy/recreate the project or cancel unrelated province activity.
 Verify the engine's behavior when sabotage occurs during an upgrade;
 the script directly resets completed tiers, not construction progress.
 
-Stages 1 and 2 each broadcast one warning per country on every completion,
-including reconstruction after sabotage. Each warning inherits the province
+Stages 1 and 2 call hidden province events war_warpmoon.11 and .12. Each
+completion, including reconstruction after sabotage, sends the current owner
+war_warpmoon.4 or .5 and every OTHER country war_warpmoon.1 or .2. Each country
+gets exactly one announcement. All four announcements inherit the province
 and current owner as event targets. Navigation in these informational warnings
 is an explicit exception requested by the user to AGENTS.md's usual goto rule.
 
-Stage 3 runs all effects immediately in the great project's province scope.
+Stage 3 calls hidden province event war_warpmoon.13, whose immediate block
+runs all effects in the great project's province scope.
 A global flag is set before any effects solely to prevent duplicate detonation
 effects. It is not a construction, upgrade, use or sabotage requirement.
 destroy_great_project removes the engine; sabotage availability queries the
 actual project and its tier.
 The current owner, rather than an original builder or occupier, gets the reward.
-Each current country receives war_warpmoon.3 after impacts and AE resolve.
+The current owner receives war_warpmoon.6 after impacts and AE resolve; every
+other country receives war_warpmoon.3. Other Skaven countries get the public
+announcement too, not the owner's version.
 Announcement options have no mechanical effects; delaying/dismissing a popup
 cannot delay or repeat the catastrophe.
 
@@ -95,7 +103,8 @@ it. This preserves the standard gold border, transparent outer edges and dark
 title backing. The original generated source remains unchanged.
 The first two warnings use WAR_WARPMOON_CONSTRUCTION_eventPicture.dds, showing
 the unfinished cannon, exposed coils, scaffolding and suspended muzzle ring.
-Only the final event uses WAR_WARPMOON_eventPicture.dds, showing the moon shot.
+Only the final-stage events (.3 and .6) use WAR_WARPMOON_eventPicture.dds,
+showing the moon shot. Owner events .4 and .5 use the construction picture.
 Both event textures are 512x132 DXT1, defined in interface/war_eventpictures.gfx.
 Source PNGs, exact built-in image_gen prompts,
 export script and decoded previews are preserved in the neighboring Art folder.
@@ -104,27 +113,51 @@ VALIDATION
 
 Run: python3 "Dev Stuff/Warpmoon Project/validate_warpmoon.py"
 
-The script parses the new files, checks localisation BOM/links, art references,
+The script extracts the Warpmoon entry from 01_old_world_monuments.txt and
+parses the focused scripts. It checks localisation BOM/links, art references,
 event-ID uniqueness, blank passive modifiers, costs, and requested reward values.
 Its small interpreter exercises the actual scripted triggers/effects against
-relocation, owner changes, occupation, Skaven/non-Skaven decision eligibility,
-zero-tier resets, global broadcasts, impact hits/misses, existing devastation,
+the fixed site, owner changes, occupation, Skaven/non-Skaven decision eligibility,
+zero-tier resets, reconstruction, exclusive owner/public broadcasts, impact
+hits/misses, existing devastation,
 uncolonized land, all four immunities, AE direction and duplicate detonation.
+It also verifies that decision/upgrade tooltips cannot traverse native project
+changes, world scans or unsaved event targets, including through hidden_effect.
 These checks are not an EU4 engine or UI integration test.
+
+CRASH DIAGNOSIS (2026-10-23)
+
+The eu4_20261023_131637 exception report identifies
+CAddGreatProjectTierEffect::GetDesc beneath CHiddenEffect::GetCompleteDesc and
+CDecision::GetEffectDescription. Thus hidden_effect did not prevent the native
+tier-effect description from crashing on hover. Tier changes now live directly
+in war_warpmoon.10 immediate, rather than a scripted-effect expansion in the
+decision. The installed 1.37.5 binary also shows GetDesc dereferencing its project
+type before formatting the tier; the trace alone does not prove negative tiers
+were the cause. Exact -1/-2 changes remain necessary to preserve the tier-0 site.
+
+Upgrade effects similarly call hidden province events, so their previews cannot
+resolve event targets that only exist after execution. This also addresses the
+repeated undefined war_warpmoon_builder entries in the existing error.log.
+All hidden helpers execute without a day delay. Visible event options remain
+informational; rewards and catastrophe effects do not depend on clicking them.
 
 Live campaign checks still required (use a disposable test save, Leviathan enabled):
 1. Start a new campaign and inspect Central Skavenblight's level-0 project,
    picture, no passive benefits, upgrade costs and times.
 2. Confirm tech 11 / 19.99 warpstone / no Skaven Administration each blocks
    upgrades; tech 12 / 20 warpstone / Skaven Administration permits them.
-3. Complete tier 1, verify worldwide warning and its Go To; relocate and check
-   the decision's Go To moves to the new province.
-4. Occupy that province as another country. Sabotage at tiers 1 and 2, including
-   while construction or relocation is underway. Confirm completed tier 0,
-   rewards, retained location, and that rebuilding begins at the first stage.
+3. Complete tiers 1 and 2. Check that the owner receives its progress event and
+   every other country receives one public warning, all with Go To to province
+   4600. Inspect the upgrade tooltip for fresh undefined event-target errors.
+4. Hover the sabotage button before taking the decision at both tiers. Occupy
+   the province as another country and sabotage, including during an upgrade.
+   Confirm completed tier 0, rewards, retained location, and that rebuilding
+   starts at the first stage and produces the correct announcements again.
 5. Finish tier 3 after transferring ownership to a different Skaven country.
    Verify only the current owner receives the permanent modifier, everyone is
-   notified once, and every non-Skaven country's AE opinion rises by exactly 50.
+   notified once with its own version, and every non-Skaven country's AE opinion
+   rises by exactly 50. Only the two final-stage event versions show the moon shot.
 6. Inspect impacted and unaffected surface/underground provinces and actual
    army attrition. Advance one year to check expiration and persistent warpstone.
 7. Save/reload after detonation; the project must remain destroyed and cannot

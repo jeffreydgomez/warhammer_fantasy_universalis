@@ -6,8 +6,7 @@ estate_nobles_land_rights = {
 	loyalty = 0.05
 	influence = 0.05
 	can_select = {
-		not = { has_estate_privilege = estate_ghulams_land_rights }
-		not = { has_estate_privilege = estate_qizilbash_land_rights }
+		always = yes
 	}
 	on_granted = {
 	}
@@ -167,26 +166,29 @@ estate_nobles_land_rights = {
 		# 	NOT = { adm_tech = 17 }
 		# }
 		#Has already a similar privilege active
-		modifier = {
-			factor = 0.75
-			has_estate_privilege = estate_brahmins_land_rights
-		}
+		# WFU cleanup: unreachable modifier
+		# modifier = {
+# 			factor = 0.75
+# 			has_estate_privilege = estate_brahmins_land_rights
+# 		}
 		modifier = {
 			factor = 0.75
 			has_estate_privilege = estate_church_land_rights
 		}
-		modifier = {
-			factor = 0.75
-			has_estate_privilege = estate_maratha_land_rights
-		}
+		# WFU cleanup: unreachable modifier
+		# modifier = {
+# 			factor = 0.75
+# 			has_estate_privilege = estate_maratha_land_rights
+# 		}
 		modifier = {
 			factor = 0.75
 			has_estate_privilege = estate_burghers_land_rights
 		}
-		modifier = {
-			factor = 0.75
-			has_estate_privilege = estate_vaisyas_land_rights
-		}
+		# WFU cleanup: unreachable modifier
+		# modifier = {
+# 			factor = 0.75
+# 			has_estate_privilege = estate_vaisyas_land_rights
+# 		}
 		modifier = {
 			factor = 0.75
 			has_estate_privilege = estate_cossacks_land_rights
@@ -195,18 +197,21 @@ estate_nobles_land_rights = {
 			factor = 0.75
 			has_estate_privilege = estate_nomadic_tribes_land_rights
 		}
-		modifier = {
-			factor = 0.75
-			has_estate_privilege = estate_dhimmi_land_rights
-		}
-		modifier = {
-			factor = 0.75
-			has_estate_privilege = estate_jains_land_rights
-		}
-		modifier = {
-			factor = 0.75
-			has_estate_privilege = estate_rajput_land_rights
-		}
+		# WFU cleanup: unreachable modifier
+		# modifier = {
+# 			factor = 0.75
+# 			has_estate_privilege = estate_dhimmi_land_rights
+# 		}
+		# WFU cleanup: unreachable modifier
+		# modifier = {
+# 			factor = 0.75
+# 			has_estate_privilege = estate_jains_land_rights
+# 		}
+		# WFU cleanup: unreachable modifier
+		# modifier = {
+# 			factor = 0.75
+# 			has_estate_privilege = estate_rajput_land_rights
+# 		}
 	}
 }
 
@@ -283,7 +288,7 @@ estate_nobles_officer_corp = {
 	conditional_modifier = { trigger = { has_absolutism_reduction_for_estate_privileges = yes } modifier = { max_absolutism = 1 } }
 	influence = 0.05
 	is_valid = {
-		NOT = { has_estate = estate_qizilbash }
+		always = yes
 	}
 	can_select = {
 		army_tradition = 30
@@ -317,22 +322,17 @@ estate_nobles_levies = {
 	influence = 0.1
 	loyalty = 0.1
 	is_valid = {
-	#	NOT = { has_estate_privilege = estate_nobles_golden_liberty }
-		NOT = { has_estate = estate_ghulams }
+		always = yes
 	}
 	can_select = {
 	#	NOT = { has_estate_privilege = estate_nobles_golden_liberty }
 		if = {
-			limit = {
-				has_estate = estate_maratha
-			}
-			NOT = { has_estate_privilege = estate_maratha_levies }
+			limit = { always = no }
+			always = yes # WFU: disabled-estate branch cannot run.
 		}
 		if = {
-			limit = {
-				has_estate = estate_maratha
-			}
-			NOT = { has_estate_privilege = estate_maratha_levies_for_muslims }
+			limit = { always = no }
+			always = yes # WFU: disabled-estate branch cannot run.
 		}
 	}
 	modifier_by_land_ownership = {
@@ -431,9 +431,8 @@ estate_nobles_advisors = {
 	penalties = {
 		stability_cost_modifier = 0.1
 	}
-	can_select = { 
-		NOT = { has_estate_privilege = estate_maratha_advisor }
-		NOT = { has_estate_privilege = estate_rajput_advisor }
+	can_select = {
+		always = yes
 	}
 	benefits = {
 		mil_advisor_cost = -0.15
@@ -3158,12 +3157,12 @@ estate_nobles_royal_court_tasks = {
 	}
 	can_select = {
 		if = {
-			limit = { has_estate_privilege = estate_rajput_royal_court_tasks }
-			NOT = { has_estate_privilege = estate_rajput_royal_court_tasks }
+			limit = { always = no }
+			always = yes # WFU: disabled-estate branch cannot run.
 		}
 		if = {
-			limit = { has_estate_privilege = estate_maratha_royal_court_tasks }
-			NOT = { has_estate_privilege = estate_maratha_royal_court_tasks }
+			limit = { always = no }
+			always = yes # WFU: disabled-estate branch cannot run.
 		}
 	}
 	on_granted = {
@@ -3318,12 +3317,12 @@ estate_nobles_noble_officer_right = {
 	}
 	can_select = {
 		if = {
-			limit = { has_estate = estate_rajput }
-			NOT = { has_estate_privilege = estate_rajput_force_conscription }
+			limit = { always = no }
+			always = yes # WFU: disabled-estate branch cannot run.
 		}
 		if = {
-			limit = { has_estate = estate_maratha }
-			NOT = { has_estate_privilege = estate_maratha_force_conscription }
+			limit = { always = no }
+			always = yes # WFU: disabled-estate branch cannot run.
 		}
 	}
 	on_granted = {

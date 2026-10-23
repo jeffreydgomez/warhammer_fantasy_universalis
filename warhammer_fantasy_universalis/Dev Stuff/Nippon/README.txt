@@ -1,84 +1,84 @@
 NIPPON: THE SECOND DAWN
 
-48 missions, five slots, rows 1-15. The approved layout has 27 blank cells.
-All 47 other missions lead into the final slot-3 mission.
+Approved revision: 23 October 2026
+48 missions, five slots, rows 1-15, with 27 blank cells.
+Proof of Superiority requires only A Hundred Banners. The military and
+foreign-power capstones remain independent optional branches.
 
-Eligibility
-- Priority 4, based solely on capital location in nippon_region.
-- Existing priority 1, 2, and 3 trees take precedence under the mod's system.
-- No culture or religion restriction is added to regional eligibility.
-- The Borderlands and overseas Norscan trees defer to Nippon when capitals
-  overlap its region. Compatible racial challenges follow from row 16.
-- Grand Nippon (Z89 or formed_grand_nippon_flag) is required from row 9 onward.
+Eligibility and progression
+- Priority 4, based on a capital in nippon_region. Existing priority 1-3
+  exclusions, regional collision guards, and row-16 racial challenges remain.
+- No culture, religion, Grand Nippon tag, or formation-flag gate is imposed.
+- Restore Grand Nippon requires peace and ownership of every usable Nippon
+  province, directly or through non-sovereign subjects. Unowned land counts as
+  unfinished; seas and wastelands do not. The formation decision is separate.
+- Blood Debts retains low corruption and three non-vampiric courthouse/town-hall
+  provinces, or permits a vampiric country with three courts and all directly
+  owned Nippon provinces following its vampiric faith.
+- Cleanse the Shrines requires every directly owned Nippon province to follow
+  the state religion, plus four temple/cathedral provinces. End the Century of
+  Night requires every settled Nippon province to follow the state religion
+  and belong to the country or a loyal non-sovereign subject.
+- Beneath the Old Shrines requires three directly owned Nippon shrine provinces
+  with temple/cathedral and 20 development, plus a level-2 ADM advisor.
+  Reusing temples deliberately represents investment in the expedition's bases.
+- Overseas progression counts 1, 5, 10, and 20 completed cities in the mod's
+  Lustria/Naggaroth continents (north_america/south_america), owned directly or
+  by non-sovereign subjects. Conquered cities count; incomplete colonies do not.
+  No colonial-origin flag, extra port/building quota, or loyalty check is needed.
+- The legacy colony-completion marker hook remains compatible with old saves
+  but is no longer consulted by these mission objectives.
 
-Content
-- First half: surveys, compromised households, samurai reform, restored court,
-  Grand Nippon, island cleansing, and victories against Cathay and Khuresh.
-- Second half: domestic growth, underground garrisons and government, exploration,
-  New World settlements, foreign recognition, and restoration of the palaces.
-- 176 Weighing Value before the ultimate: 30 x 5, 16 x 1, and a colonist worth 10.
-- Proof of Superiority: collect 14 distinct artifacts in directly owned provinces
-  to establish Nippon as the center of the world. Multiple artifacts in one
-  province each count; subject-held artifacts do not. The internal mission ID
-  remains nippon_second_dawn for save compatibility.
-- Ultimate rewards: +2 diplomatic reputation, +1.5 annual prestige, +10% infantry
-  combat ability, +10% governing capacity. Total Weighing Value 40.
-- Four mission events, each offering two alternative rewards worth 5 each.
-- Local lore and balance sources are Dev Stuff/Examples/Lore Reference.txt,
-  Balance Guide.txt, and Mission Trigger Catalogue.txt.
+Rewards and balance
+- Ten former immediate rewards are permanent modifiers; six immediate rewards
+  remain. The four event missions still offer two permanent rewards each.
+- Priced regular rewards total 177.5 WV: 30 x 5, 15 x 1, 1 x 2.5, 1 x 10.
+- Ocean Voyages grants a permanent colonist and may_explore. The colonist is
+  worth 10 WV; explorer recruitment is an explicit user-requested unlock not
+  covered by the Balance Guide, so no invented WV is assigned to it.
+- The ultimate remains 40 WV across diplomatic reputation, annual prestige,
+  infantry combat ability, and governing capacity.
+- Sources: Examples/Balance Guide.txt, Mission Trigger Catalogue.txt, and
+  Lore Reference.txt. This revision preserves the mod's Nippon premise.
 
-Implementation notes
-- 36 missions have province highlights for unfinished geographic objectives,
-  construction/development, rival and diplomatic capitals, colony sites, and
-  artifacts not yet collected. Highlights follow direct/non-sovereign/loyal
-  subject requirements as appropriate and stop when the relevant quota is met.
-- Ordinary targets must be discovered. The three exploration missions deliberately
-  highlight undiscovered destinations. Colonization points to empty land and
-  unfinished subject/owned colonies; unmarked native cities cannot count as new
-  settlements. Artifact highlights cover all 24 defined relics and exclude any
-  relic type already held, even if another copy exists elsewhere.
-- The 12 missions without highlights have national army, fleet, court, estate,
-  general espionage, or home-node trade objectives. Each omission has a reason in
-  mission_design.json and an inline mission comment.
-- The existing error log identified invalid is_discovered_by and num_of_total_ideas
-  triggers. Discovery now uses has_discovered; the idea count uses total_ideas.
-- Ocean Charters requires quest_for_the_new_world. It grants a colonist without
-  introducing an unpriced permanent may_explore modifier.
-- Cathayan, Khureshi, and underground victory checks accept a war won within
-  50 years against a surviving regional state of at least 50 development, or
-  control of eight cities in that geography through direct/non-sovereign rule.
-  This keeps the branches usable when the original rival has been annexed.
-- Colony completion marks new settlements owned by a Nippon-capital country or
-  its colonial nation. Marks survive transfer to colonial subjects. The first
-  colony, five-settlement, and ten-settlement checks cannot be met solely by
-  conquering unmarked native cities. Existing saves must finish new settlements
-  after installing this content; old colonies are not retrospectively marked.
-- Cleansing permits faiths other than vampirism and Chaos. Loyal non-tributary
-  subject rule counts for the homeland and later imperial domains.
-- The palace mission restores province 4780 and requires it to be the capital.
-- New localisation is UTF-8 with BOM. Event paragraphs use literal \n\n escapes.
+Artifacts and compatibility
+- Proof of Superiority requires 14 distinct artifact types in directly owned
+  provinces. Multiple different artifacts in one province count separately;
+  duplicate copies of one artifact type, subject relics and foreign relics do not.
+- Each artifact check is explicitly grouped under AND inside calc_true_if and
+  reads the actual province modifier. It does not count expanded if/else helper
+  branches or rely on cached artifact event targets.
+- Internal mission and reward IDs are preserved for saves. Missions already
+  completed do not re-award converted permanent rewards automatically.
+- Arts of Peace counts 14 unlocked ideas from selectable groups using native
+  has_idea checks inside calc_true_if. Both total_ideas and num_of_total_ideas
+  were rejected as conditions by EU4; a name appearing in the binary does not
+  establish that it is a usable trigger. Warhammer and tall-play groups count;
+  free national ideas, traditions and completion bonuses do not.
+- build_missions.py generates war_nippon_idea_triggers.txt from common/ideas.
+  Rerun it after adding/removing selectable ideas; validation checks coverage.
 
-Artwork
-- Every mission has a different sprite, texture path, and texture hash.
-- 18 new images were created with the built-in image_gen tool and converted to
-  59 x 63 uncompressed RGBA8 DDS. Original PNG sources are retained in Mission
-  Art/sources. The other 30 missions reuse distinct existing mod artwork.
-- Mission Art/manifest.json records assignments, prompts, sources, dimensions,
-  hashes, and the existing battle-standard fallback for the commander image
-  rejected by the image tool. No shared texture is overwritten.
-- Sprites are defined in interface/war_missions.gfx.
-- mission_tree_preview.png shows the complete layout and prerequisite arrows;
-  Mission Art/icon_review.png shows all 48 icons at enlarged inspection size.
+Highlights and artwork
+- 37 missions highlight unfinished geographic requirements; 11 national-only
+  objectives document why they have no province highlight.
+- Quotas stop highlighting when satisfied. Ordinary targets must be discovered;
+  Across the Serpent Sea deliberately highlights undiscovered coastal destinations.
+- Witnesses uses mission_unique_vamp_coast_spy_in_capital, showing a sealed
+  message at a throne; its highlights identify neighboring capitals only.
+- All 48 missions retain distinct registered sprites, texture paths and hashes.
+- mission_tree_preview.png is generated from current design data and installed
+  DDS files. Optional original art source files are not present in this checkout.
 
 Editing and verification
-- The editable game files are missions/02_Nippon_missions.txt, the matching
-  war_nippon_mission_modifiers and war_nippon_mission_triggers files, events/
-  War_Nippon_Mission_Events.txt, and localisation/war_nippon_missions_l_english.yml.
-- build_missions.py regenerates the mission, reward, event, localisation and
-  design files. Update it too if future changes should survive regeneration.
-- prepare_art.py packages sources, registers the new sprites, and redraws previews.
-- validate_missions.py checks syntax, references, geometry, all reward arithmetic
-  against the balance guide, starting history, scope scenarios and icon uniqueness.
-  It needs Pillow; use the bundled workspace Python when system Python lacks it.
-- validation.json records the latest results. Validation is static and synthetic;
-  the new tree still needs a fresh EU4 load and an in-game playtest.
+- mission_design.json is the canonical editable design, including trigger and
+  highlight source, rewards, flavor, icons, layout, events and tooltips.
+- build_missions.py renders the game mission, modifier, event and BOM-localisation
+  files from that design. Edit the design before regenerating.
+- The shared helpers in common/scripted_triggers/war_nippon_mission_triggers.txt
+  are maintained separately and validated with the mission files.
+- validate_missions.py checks geometry, references, guide-derived balance,
+  starting history, numerical boundaries, religion/ownership/discovery scenarios,
+  artifact counts, localisation and icon uniqueness. Requires Pillow.
+- render_preview.py rebuilds the tree preview without modifying shared artwork.
+- validation.json records static and synthetic results. An in-game load/playtest
+  is still required; this validation does not emulate the full EU4 engine.

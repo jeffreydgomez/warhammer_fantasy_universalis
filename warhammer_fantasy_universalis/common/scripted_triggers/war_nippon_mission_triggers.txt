@@ -4,9 +4,18 @@ war_nippon_capital_in_region = {
 	capital_scope = { region = nippon_region }
 }
 
-# Country scope. Preserve completion after a later tag change.
-war_nippon_restored = {
-	OR = { tag = Z89 has_country_flag = formed_grand_nippon_flag }
+# Country scope. Unify every usable Nippon province, including subject land.
+war_nippon_islands_united = {
+    custom_trigger_tooltip = {
+        tooltip = war_nippon_islands_united_tt
+        NOT = {
+            nippon_region = {
+                is_sea = no
+                is_wasteland = no
+                NOT = { country_or_non_sovereign_subject_holds = ROOT }
+            }
+        }
+    }
 }
 
 # Province scope. Tributaries are deliberately excluded from imperial territory.
@@ -69,7 +78,7 @@ war_nippon_homeland_restored = {
 				NOT = {
 					AND = {
 						war_nippon_controlled_province = yes
-						war_nippon_uncorrupted_province = yes
+						religion = ROOT
 					}
 				}
 			}

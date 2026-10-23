@@ -4,7 +4,10 @@
 country_decisions = {
 	connect_world_tree = {
 		potential = {
-			culture_group = asrai_group
+			OR = {
+				culture_group = asrai_group
+				religion = asrai_cadai
+			}
 			NOT = { has_global_flag = world_tree_connected }
 			OR = {
 				ai = no
@@ -13,19 +16,53 @@ country_decisions = {
 		}
 
 		provinces_to_highlight = {
-			has_terrain = magical_forest_terrain
+			OR = {
+				province_id = 662
+				province_id = 2097
+				province_id = 1828
+				province_id = 4892
+				province_id = 4880
+				province_id = 4128
+			}
 			NOT = { owned_by = ROOT }
-			NOT = { owned_by_subject_of = ROOT }
-			NOT = { owner = { alliance_with = ROOT } }
+			NOT = { owner = { trust = { who = ROOT value = 100 } } }
 		}
 
 		allow = {
-			all_province = {
+			662 = {
 				OR = {
-					NOT = { has_terrain = magical_forest_terrain }
 					owned_by = ROOT
-					owned_by_subject_of = ROOT
-					owner = { alliance_with = ROOT }
+					owner = { trust = { who = ROOT value = 100 } }
+				}
+			}
+			2097 = {
+				OR = {
+					owned_by = ROOT
+					owner = { trust = { who = ROOT value = 100 } }
+				}
+			}
+			1828 = {
+				OR = {
+					owned_by = ROOT
+					owner = { trust = { who = ROOT value = 100 } }
+				}
+			}
+			4892 = {
+				OR = {
+					owned_by = ROOT
+					owner = { trust = { who = ROOT value = 100 } }
+				}
+			}
+			4880 = {
+				OR = {
+					owned_by = ROOT
+					owner = { trust = { who = ROOT value = 100 } }
+				}
+			}
+			4128 = {
+				OR = {
+					owned_by = ROOT
+					owner = { trust = { who = ROOT value = 100 } }
 				}
 			}
 		}
@@ -90,9 +127,7 @@ country_decisions = {
 				mechanic_type = everchosen_mechanic
 				power_type = everchosen_favor
 				value = 50
-			}			
-			
-
+			}
 		}
 
 		ai_will_do = { factor = 100 }	

@@ -123,10 +123,11 @@ estate_burghers_land_rights = {
 		#Tag specific convincement - after tech 17 (+250 governing capacity) it should not play a role anymore
 
 		#Has already a similar privilege active
-		modifier = {
-			factor = 0.75
-			has_estate_privilege = estate_brahmins_land_rights
-		}
+		# WFU cleanup: unreachable modifier
+		# modifier = {
+# 			factor = 0.75
+# 			has_estate_privilege = estate_brahmins_land_rights
+# 		}
 		modifier = {
 			factor = 0.75
 			has_estate_privilege = estate_nobles_land_rights
@@ -135,14 +136,16 @@ estate_burghers_land_rights = {
 			factor = 0.75
 			has_estate_privilege = estate_church_land_rights
 		}
-		modifier = {
-			factor = 0.75
-			has_estate_privilege = estate_maratha_land_rights
-		}
-		modifier = {
-			factor = 0.75
-			has_estate_privilege = estate_vaisyas_land_rights
-		}
+		# WFU cleanup: unreachable modifier
+		# modifier = {
+# 			factor = 0.75
+# 			has_estate_privilege = estate_maratha_land_rights
+# 		}
+		# WFU cleanup: unreachable modifier
+		# modifier = {
+# 			factor = 0.75
+# 			has_estate_privilege = estate_vaisyas_land_rights
+# 		}
 		modifier = {
 			factor = 0.75
 			has_estate_privilege = estate_cossacks_land_rights
@@ -151,18 +154,21 @@ estate_burghers_land_rights = {
 			factor = 0.75
 			has_estate_privilege = estate_nomadic_tribes_land_rights
 		}
-		modifier = {
-			factor = 0.75
-			has_estate_privilege = estate_dhimmi_land_rights
-		}
-		modifier = {
-			factor = 0.75
-			has_estate_privilege = estate_jains_land_rights
-		}
-		modifier = {
-			factor = 0.75
-			has_estate_privilege = estate_rajput_land_rights
-		}
+		# WFU cleanup: unreachable modifier
+		# modifier = {
+# 			factor = 0.75
+# 			has_estate_privilege = estate_dhimmi_land_rights
+# 		}
+		# WFU cleanup: unreachable modifier
+		# modifier = {
+# 			factor = 0.75
+# 			has_estate_privilege = estate_jains_land_rights
+# 		}
+		# WFU cleanup: unreachable modifier
+		# modifier = {
+# 			factor = 0.75
+# 			has_estate_privilege = estate_rajput_land_rights
+# 		}
 	}
 }
 
@@ -175,10 +181,11 @@ estate_burghers_enforced_interfaith_dialogue = {
 		any_owned_province = {
 			NOT = { religion = root }
 		}
-		OR = {
-			has_estate_privilege = estate_burghers_enforced_interfaith_dialogue
-			NOT = { has_estate = estate_dhimmi }
-		}
+		# WFU cleanup: dead condition
+		# OR = {
+# 			has_estate_privilege = estate_burghers_enforced_interfaith_dialogue
+# 			NOT = { has_estate = estate_dhimmi }
+# 		}
 	}
 	can_select = {
 		NOT = { has_estate_privilege = estate_church_enforced_one_faith }
@@ -2051,123 +2058,124 @@ estate_burghers_mountain_expansion = {
 	}
 }
 
-estate_burghers_orthodox_tolerance = {
-	icon = privilege_tolerance_heretics
-	max_absolutism = -5
-	conditional_modifier = { trigger = { has_absolutism_reduction_for_estate_privileges = yes } modifier = { max_absolutism = 1 } }
-	loyalty = 0.05
-	influence = 0.05
-	is_valid = {
-		religion_group = christian
-		NOT = { religion = orthodox }
-		NOT = { religion = coptic }
-		#has_unlocked_estate_privilege = { estate_privilege = estate_burghers_orthodox_tolerance }
-	}
-	can_select = {
-		religion_group = christian
-		NOT = { religion = orthodox }
-		NOT = { religion = coptic }
-		any_owned_province = {
-			OR = {
-				religion = orthodox
-				religion = coptic
-			}
-		}
-	}
-	on_granted = {
-		if = {
-			limit = { has_estate_privilege = estate_church_anti_heresy_act }
-			remove_estate_privilege = estate_church_anti_heresy_act
-			add_estate_loyalty = {
-				estate = estate_church
-				loyalty = -20
-			}
-		}
-		custom_tooltip = estate_burghers_orthodox_tolerance_effect_tooltip
-		hidden_effect = {
-			set_country_flag = burghers_tolerates_orthodoxy
-		}
-	}
-	on_granted_province = {
-		if = {
-			limit = {
-				OR = {
-					religion = orthodox
-					religion = coptic
-				}
-			}
-			add_province_modifier = {
-				name = estate_burghers_guaranteed_autonomy_mod
-				duration = -1
-			}
-		}
-		else_if = {
-			limit = {
-				has_province_modifier = estate_burghers_guaranteed_autonomy_mod
-			}
-			remove_province_modifier = estate_burghers_guaranteed_autonomy_mod
-		}
-	}
-	on_revoked = {
-		custom_tooltip = estate_burghers_orthodox_tolerance_revoke_effect_tooltip
-		hidden_effect = {
-			clr_country_flag = burghers_tolerates_orthodoxy
-		}
-	}
-	on_revoked_province = {
-		if = {
-			limit = {
-				has_province_modifier = estate_burghers_guaranteed_autonomy_mod
-			}
-			remove_province_modifier = estate_burghers_guaranteed_autonomy_mod
-		}
-	}
-	on_invalid = {
-		custom_tooltip = estate_burghers_orthodox_tolerance_revoke_effect_tooltip
-		hidden_effect = {
-			clr_country_flag = burghers_tolerates_orthodoxy
-		}
-	}
-	on_invalid_province = {
-		if = {
-			limit = {
-				has_province_modifier = estate_burghers_guaranteed_autonomy_mod
-			}
-			remove_province_modifier = estate_burghers_guaranteed_autonomy_mod
-		}
-	}
-	penalties = {
-		church_loyalty_modifier = -0.1
-	}
-	benefits = {
-	}
-	ai_will_do = {
-		factor = 1000
-		modifier = {
-			factor = 0
-			NOT = {
-				any_owned_province = {
-					OR = {
-						religion = orthodox
-						religion = coptic
-					}
-				}
-			}
-		}
-		modifier = {
-			factor = 0
-			government = theocracy
-		}
-		modifier = {
-			factor = 0
-			is_subject = yes
-			overlord = {
-				religion = ROOT
-				has_idea_group = religious_ideas
-			}
-		}
-	}
-}
+# WFU cleanup: reviewed unavailable definition
+# estate_burghers_orthodox_tolerance = {
+# 	icon = privilege_tolerance_heretics
+# 	max_absolutism = -5
+# 	conditional_modifier = { trigger = { has_absolutism_reduction_for_estate_privileges = yes } modifier = { max_absolutism = 1 } }
+# 	loyalty = 0.05
+# 	influence = 0.05
+# 	is_valid = {
+# 		religion_group = christian
+# 		NOT = { religion = orthodox }
+# 		NOT = { religion = coptic }
+# 		#has_unlocked_estate_privilege = { estate_privilege = estate_burghers_orthodox_tolerance }
+# 	}
+# 	can_select = {
+# 		religion_group = christian
+# 		NOT = { religion = orthodox }
+# 		NOT = { religion = coptic }
+# 		any_owned_province = {
+# 			OR = {
+# 				religion = orthodox
+# 				religion = coptic
+# 			}
+# 		}
+# 	}
+# 	on_granted = {
+# 		if = {
+# 			limit = { has_estate_privilege = estate_church_anti_heresy_act }
+# 			remove_estate_privilege = estate_church_anti_heresy_act
+# 			add_estate_loyalty = {
+# 				estate = estate_church
+# 				loyalty = -20
+# 			}
+# 		}
+# 		custom_tooltip = estate_burghers_orthodox_tolerance_effect_tooltip
+# 		hidden_effect = {
+# 			set_country_flag = burghers_tolerates_orthodoxy
+# 		}
+# 	}
+# 	on_granted_province = {
+# 		if = {
+# 			limit = {
+# 				OR = {
+# 					religion = orthodox
+# 					religion = coptic
+# 				}
+# 			}
+# 			add_province_modifier = {
+# 				name = estate_burghers_guaranteed_autonomy_mod
+# 				duration = -1
+# 			}
+# 		}
+# 		else_if = {
+# 			limit = {
+# 				has_province_modifier = estate_burghers_guaranteed_autonomy_mod
+# 			}
+# 			remove_province_modifier = estate_burghers_guaranteed_autonomy_mod
+# 		}
+# 	}
+# 	on_revoked = {
+# 		custom_tooltip = estate_burghers_orthodox_tolerance_revoke_effect_tooltip
+# 		hidden_effect = {
+# 			clr_country_flag = burghers_tolerates_orthodoxy
+# 		}
+# 	}
+# 	on_revoked_province = {
+# 		if = {
+# 			limit = {
+# 				has_province_modifier = estate_burghers_guaranteed_autonomy_mod
+# 			}
+# 			remove_province_modifier = estate_burghers_guaranteed_autonomy_mod
+# 		}
+# 	}
+# 	on_invalid = {
+# 		custom_tooltip = estate_burghers_orthodox_tolerance_revoke_effect_tooltip
+# 		hidden_effect = {
+# 			clr_country_flag = burghers_tolerates_orthodoxy
+# 		}
+# 	}
+# 	on_invalid_province = {
+# 		if = {
+# 			limit = {
+# 				has_province_modifier = estate_burghers_guaranteed_autonomy_mod
+# 			}
+# 			remove_province_modifier = estate_burghers_guaranteed_autonomy_mod
+# 		}
+# 	}
+# 	penalties = {
+# 		church_loyalty_modifier = -0.1
+# 	}
+# 	benefits = {
+# 	}
+# 	ai_will_do = {
+# 		factor = 1000
+# 		modifier = {
+# 			factor = 0
+# 			NOT = {
+# 				any_owned_province = {
+# 					OR = {
+# 						religion = orthodox
+# 						religion = coptic
+# 					}
+# 				}
+# 			}
+# 		}
+# 		modifier = {
+# 			factor = 0
+# 			government = theocracy
+# 		}
+# 		modifier = {
+# 			factor = 0
+# 			is_subject = yes
+# 			overlord = {
+# 				religion = ROOT
+# 				has_idea_group = religious_ideas
+# 			}
+# 		}
+# 	}
+# }
 
 #Poland Privileges 
 
@@ -2457,12 +2465,12 @@ estate_burghers_economical_boost = {
 	}
 	can_select = {
 		if = {
-			limit = { has_estate_privilege = estate_vaisyas_economical_boost }
-			NOT = { has_estate_privilege = estate_vaisyas_economical_boost }
+			limit = { always = no }
+			always = yes # WFU: disabled-estate branch cannot run.
 		}
 		if = {
-			limit = { has_estate_privilege = estate_jains_economical_boost }
-			NOT = { has_estate_privilege = estate_jains_economical_boost }
+			limit = { always = no }
+			always = yes # WFU: disabled-estate branch cannot run.
 		}
 	}
 	on_granted = {

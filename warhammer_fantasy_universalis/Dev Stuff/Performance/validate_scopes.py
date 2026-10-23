@@ -6,7 +6,7 @@ import json,random,subprocess,itertools
 from script_parser import ROOT,parse,walk,read
 BASELINE='85be098c'
 PREFIX=subprocess.check_output(['git','rev-parse','--show-prefix'],cwd=ROOT,text=True).strip()
-def previous(p):return subprocess.check_output(['git','show',BASELINE+':'+PREFIX+p],cwd=ROOT).decode('utf-8-sig')
+def previous(p,revision=BASELINE):return subprocess.check_output(['git','show',revision+':'+PREFIX+p],cwd=ROOT).decode('utf-8-sig')
 def sig(ns):return [(n.k,sig(n.v) if isinstance(n.v,list) else n.v) for n in ns]
 def lookup(ns,k):return next(n for n in ns if n.k==k)
 def scalar_ids(ns):return {n.k for n in ns if n.v is None and n.k.isdecimal()}
@@ -66,29 +66,40 @@ for file in files:
 assert count=={'objective':18,'highlight':3},count
 print('PASS: all 18 relationship objectives and three associated highlight checks retain equivalent requirements without redundant relationship checks')
 
-# Direct geographic queries replace only the outer world iterator, preserving
-# eligible sets for homeland cleansing and discovery objectives/highlights.
+# Check the original geography-only optimization against its historical source.
+# The later approved Nippon redesign changes homeland religion requirements;
+# its current predicate/scenarios are covered by Nippon/validate_missions.py.
 old_help=parse(previous('common/scripted_triggers/war_nippon_mission_triggers.txt'))
+optimized_help=parse(previous('common/scripted_triggers/war_nippon_mission_triggers.txt','70790359'))
 new_help=parse(read('common/scripted_triggers/war_nippon_mission_triggers.txt'))
 old_home=next(n for n,_ in walk(lookup(old_help,'war_nippon_homeland_restored').v) if n.k=='any_province')
+optimized_home=next(n for n,_ in walk(lookup(optimized_help,'war_nippon_homeland_restored').v) if n.k=='nippon_region')
 new_home=next(n for n,_ in walk(lookup(new_help,'war_nippon_homeland_restored').v) if n.k=='nippon_region')
-assert sig([n for n in old_home.v if n.k!='region'])==sig(new_home.v)
+assert sig([n for n in old_home.v if n.k!='region'])==sig(optimized_home.v)
+assert new_home.has('is_city','yes') and not new_home.has('type','all')
+assert not any(n.k=='any_province' for n,_ in walk(lookup(new_help,'war_nippon_homeland_restored').v))
 assert geography['nippon_region']=={p for p in all_provinces if p in regions['nippon_region']}
 new_nippon=parse(read('missions/02_Nippon_missions.txt'))
 assert not any(n.k=='any_province' for n,_ in walk(new_nippon))
+# The redesigned missions replace some discovery objectives with city counts.
+# Retain the original conversion checks on the optimization commit rather than
+# requiring obsolete objectives to reappear in the live tree.
+optimized_nippon=parse(previous('missions/02_Nippon_missions.txt','70790359'))
 for continent in ['underempire','north_america','south_america']:
  assert continent in geography and geography[continent]
- assert any(n.k==continent and n.has('has_discovered','ROOT') for n,_ in walk(new_nippon))
+ assert any(n.k==continent and n.has('has_discovered','ROOT') for n,_ in walk(optimized_nippon))
 for region in ['north_khuresh_region','south_khuresh_region']:
- assert any(n.k==region and n.has('has_port','yes') and n.has('has_discovered','ROOT') for n,_ in walk(new_nippon))
-print('PASS: Nippon homeland, underground, Khuresh and New World searches use direct map scopes')
+ assert any(n.k==region and n.has('has_port','yes') and n.has('has_discovered','ROOT') for n,_ in walk(optimized_nippon))
+print('PASS: historical Nippon geographic conversions; current homeland stays regional and the live tree has no world-province searches')
 
 mods={n.k for n in parse(read('common/event_modifiers/war_artifacts.txt')) if n.k.startswith('location_of_')}
 ultimate=next(n for n,_ in walk(new_nippon) if n.k=='nippon_second_dawn')
 quotas=[n for n,_ in walk(ultimate.get('trigger').v) if n.k=='calc_true_if'];assert len(quotas)==1
 quota=quotas[0];assert quota.get('amount').v=='14'
-assert {n.get('ARTIFACT').v for n in quota.v if n.k=='war_artifact_owned_by'}==mods
-assert all(n.get('COUNTRY').v=='ROOT' for n in quota.v if n.k=='war_artifact_owned_by')
+checks=[n for n in quota.v if n.k!='amount']
+assert len(checks)==len(mods)
+assert all(n.k=='AND' and len(n.v)==1 and n.v[0].k=='any_owned_province' for n in checks)
+assert {n.get('any_owned_province').get('has_province_modifier').v for n in checks}==mods
 print('PASS: Nippon ultimate counts 14 distinct directly owned artifact identities, including stacked relics')
 
 for folder,file in [('Nippon','02_Nippon_missions.txt'),('Swinetrade Empire','02_Pigbarter_missions.txt')]:
