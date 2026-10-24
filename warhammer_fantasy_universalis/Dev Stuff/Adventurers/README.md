@@ -19,7 +19,7 @@ Run `python3 "Dev Stuff/Adventurers/validate_adventurers.py" --pulse-only` from 
 
 ## Event IDs
 
-Each namespace below contains `.1`–`.20`: **1–5 friendly home, 6–10 friendly abroad, 11–15 enemy home, 16–20 enemy abroad**. Titles and descriptions use `.t` / `.d`; options use `.option_a` through `.option_d` so the fourth option cannot collide with the description key. Each namespace also has **`.21`**, a triggered-only arrival notice called directly by the movement effect and excluded from the pulse. Its local `war_adventurer_arrival_province` target records the destination for that report independently of later moves.
+Each namespace below contains `.1`–`.20`: **1–5 friendly home, 6–10 friendly abroad, 11–15 enemy home, 16–20 enemy abroad**. Titles and descriptions use `.t` / `.d`; options use `.option_a` through `.option_d` so the fourth option cannot collide with the description key. Each namespace also has **`.21`**, a triggered-only arrival notice called directly by the movement effect and excluded from the pulse. Its local `war_adventurer_arrival_province` target records the destination for that report independently of later moves, and `goto = war_adventurer_arrival_province` points to that same province.
 
 | Character | Namespace | Starting owner | Province |
 |---|---|---|---:|

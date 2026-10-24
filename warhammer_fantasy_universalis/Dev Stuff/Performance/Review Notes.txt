@@ -4,14 +4,17 @@ Implemented
 
 - End Times completion: is_great_power plus NOT great_power_rank = 2 selects only
   the leading great power. The existing completion condition and MTTH are unchanged.
-- Artifacts: the saved-location optimization was reverted after reported Fellblade
-  ownership and neighboring-holder decision regressions. Capture, gifts/requests,
-  relocation and Nagash decisions use the province/country searches from 85be098c.
-  The startup cache, Grail cache update and cache-only trigger file are removed.
-  Collection missions use actual owned-province modifiers again. Later Nippon edits
-  already used direct ownership checks and were preserved without modification.
-  Existing saved cache targets/flags are no longer read; no artifact modifiers or
-  save files were moved, removed or rewritten as part of the rollback.
+- Artifacts: capture allow checks now use direct global province targets, following
+  the adventurer placement/movement pattern. All 118 live placement paths save the
+  target immediately after adding the modifier (captures, gifts/requests, relocation,
+  Grail discovery and Gromril Crown forging). A fire_only_once startup event rebuilds
+  all 24 locations from current modifiers, so existing saves keep their locations.
+  New names ignore targets/flags from the reverted cache. Consumed artifacts clear
+  their targets. No has_saved_event_target wrappers or cache-based visibility checks
+  return: decision potential, diplomatic eligibility, highlights and mission ownership
+  checks retain the restored direct province checks. Destroy Nagash tracks the holder
+  country and checks its current capital. The 25 recurring allow world scans are gone;
+  one-time transfer effects still search for existing modifiers to preserve behavior.
 - Tomb Kings: ten monument quota branches now check only the five relevant fixed
   monument sites each, preserving exact tiers, quotas and subject ownership rules.
 - Pigbarter: regional settlement quotas search only their named area/region; Vorag
@@ -47,20 +50,23 @@ python3 "Dev Stuff/Performance/validate_performance.py"
 python3 "Dev Stuff/Performance/validate_scopes.py"
 python3 "Dev Stuff/Performance/validate_warpmoon.py"
 
-After the artifact rollback, validate_performance.py and validate_warpmoon.py pass.
-validate_artifact_rollback.py also runs independently: nine artifact-only files match
-85be098c byte-for-byte, all cache hooks/callers are absent, all 24 capture decisions
-use direct province checks, and 64 Fellblade ownership/neighbor/war/occupation cases
-pass. Retained checks cover 1,875 ally/subject cases and 1,000 monument states.
+The earlier artifact rollback restored direct ownership and neighbor checks after
+reported in-game visibility regressions. The new adventurer-style target change keeps
+those rules structurally identical to 85be098c. validate_artifact_locations.py checks
+all 118 placement hooks, initialization of present/absent/relocated artifacts, 256
+Fellblade cases, every capture and diplomatic transfer, 92 relocation/siege cases,
+Grail creation, and Nagash consumption/holder/capital changes. It rejects world scans
+in the 25 modified allow blocks. validate_artifact_rollback.py is now a compatibility
+entry point to this suite; it no longer requires the reverted files byte-for-byte.
 validate_scopes.py now checks the historical Nippon scope conversion against its
 own commit, keeping later approved homeland/city requirements separate. Current
 mission triggers and highlights must match their design sources; the Nippon suite
 checks the current mission scenarios. The scope suite passes.
-The exact artifact rollback restores some pre-existing whitespace flagged by
-git diff --check against 70790359. Restored files match 85be098c exactly.
 These are static/script-driven checks, not an EU4 benchmark or an engine playtest.
-Restart EU4 with the updated mod and reload the save to check decision visibility.
-The earlier cache-model checks did not catch the reported in-game regressions.
+The model assumes an unset event-target trigger is false; it cannot prove engine
+parsing, decision tooltip behavior or global target persistence. The earlier cache
+model checks did not catch the reported regressions. See Artifact Location Targets.txt
+for the current implementation boundaries and the required in-game smoke test.
 
 Follow-up fixes after reviewing the game log
 

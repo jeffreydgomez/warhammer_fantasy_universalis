@@ -813,8 +813,9 @@ def main():
         namespace = 'war_adventurer_' + char['slug']
         event_id = namespace + '.21'
         node = ARRIVALS[event_id]
-        assert set(dict(node)) == {'id', 'title', 'desc', 'picture', 'is_triggered_only', 'trigger', 'option'}
+        assert set(dict(node)) == {'id', 'title', 'desc', 'picture', 'is_triggered_only', 'trigger', 'goto', 'option'}
         assert get(node, 'is_triggered_only') == 'yes'
+        assert get(node, 'goto') == 'war_adventurer_arrival_province'
         assert get(node, 'picture') == f'WAR_ADVENTURER_{char["code"]}_eventPicture'
         assert get(node, 'trigger') == [('event_target:war_adventurer_arrival_province',
                                       [('owned_by', 'ROOT'), ('has_province_modifier', namespace)])]

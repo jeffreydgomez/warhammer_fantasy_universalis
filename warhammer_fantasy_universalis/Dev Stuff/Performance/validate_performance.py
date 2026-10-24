@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Script-driven regressions for the artifact rollback and retained mission optimizations.
+"""Script-driven regressions for artifact locations and retained mission optimizations.
 This is a limited interpreter, not EU4: unsupported conditions/effects fail loudly.
 Run from any directory. Original scripts come from the commit before this change.
 """
@@ -109,7 +109,7 @@ class World:
    elif k=='set_global_flag':self.flags.add(v)
    elif k in ('add_permanent_province_modifier','add_country_modifier'):o['mods'].add(n.get('name').v)
    elif k in ('remove_province_modifier','remove_country_modifier'):o['mods'].discard(v)
-   elif k in ('every_province','every_owned_province','every_empty_neighbor_province','random_country'):
+   elif k in ('every_province','every_owned_province','every_empty_neighbor_province','random_country','every_country'):
     candidates=[x for x in self.pool(k,s) if not n.has('limit') or self.test(n.get('limit').v,x)]
     if k=='random_country':candidates=candidates[:1]
     for x in candidates:self.effect([c for c in v if c.k!='limit'],x)
@@ -121,49 +121,53 @@ class World:
     self.log.append((s,k,signature))
    else:raise AssertionError(('unhandled effect',k))
 
-from validate_artifact_rollback import validate as validate_artifact_rollback
-validate_artifact_rollback()
+def validate():
+ from validate_artifact_locations import validate as validate_artifact_locations
+ validate_artifact_locations()
 
-# Exhaust the ally/subject intersection and trust boundary: a country counts once.
-for quota,trust in [(2,60),(3,90),(4,75)]:
- for states in itertools.product(range(5),repeat=4):
-  w=World();w.countries={k:v for k,v in w.countries.items() if k=='root'}
-  eligible=0
-  for i,state in enumerate(states):
-   c=str(i);ally=state in (1,3);subject=state in (2,3);value=trust if state!=4 else trust-1
-   w.countries[c]=dict(id=c,allies={'root'} if ally else set(),overlord='root' if subject else None,trust=value)
-   if ally:w.countries['root']['allies'].add(c)
-   eligible+=bool((ally or subject) and value>=trust)
-  assert w.test(parse(f'swine_trusted_partners_{quota}_{trust} = yes'))==(eligible>=quota),(quota,states)
-print('PASS: 1,875 ally/subject quota cases, including unrelated high-trust countries and double-count protection')
+ # Exhaust the ally/subject intersection and trust boundary: a country counts once.
+ for quota,trust in [(2,60),(3,90),(4,75)]:
+  for states in itertools.product(range(5),repeat=4):
+   w=World();w.countries={k:v for k,v in w.countries.items() if k=='root'}
+   eligible=0
+   for i,state in enumerate(states):
+    c=str(i);ally=state in (1,3);subject=state in (2,3);value=trust if state!=4 else trust-1
+    w.countries[c]=dict(id=c,allies={'root'} if ally else set(),overlord='root' if subject else None,trust=value)
+    if ally:w.countries['root']['allies'].add(c)
+    eligible+=bool((ally or subject) and value>=trust)
+   assert w.test(parse(f'swine_trusted_partners_{quota}_{trust} = yes'))==(eligible>=quota),(quota,states)
+ print('PASS: 1,875 ally/subject quota cases, including unrelated high-trust countries and double-count protection')
 
-# Province quota narrowing preserves exact tiers and direct/subject ownership.
-old=defs(baseline('missions/02_Tomb_King_Missions.txt'));new=defs(read('missions/02_Tomb_King_Missions.txt'))
-project_locations={n.k:n.get('start').v for n in parse(read('common/great_projects/01_southland_monuments.txt')) if isinstance(n.v,list) and n.has('start')}
-old_counts=[n for n,_ in walk(list(old.values())) if n.k=='calc_true_if' and n.has('all_province')]
-new_counts=[n for n,_ in walk(list(new.values())) if n.k=='calc_true_if' and any(x.k.isdecimal() for x in n.v)]
-assert len(old_counts)==len(new_counts)==10
-rng=random.Random(734)
-for previous,current in zip(old_counts,new_counts):
- assert previous.get('amount').v==current.get('amount').v
- prs=[x for x,_ in walk(previous.v) if x.k=='has_great_project']
- assert {x.k for x in current.v if x.k!='amount'}=={project_locations[x.get('type').v] for x in prs}
- for _ in range(100):
-  states={x.get('type').v:(rng.randrange(4),rng.choice(['root','subject','foreign','empty'])) for x in prs}
-  a=sum(states[x.get('type').v][0]==int(x.get('tier').v) and states[x.get('type').v][1] in ('root','subject') for x in prs)
-  b=0
-  for x in current.v:
-   if x.k=='amount':continue
-   pr=x.get('has_great_project');tier,owner=states[pr.get('type').v]
-   assert x.get('OR').has('owned_by','ROOT') and x.get('OR').has('owned_by_subject_of','ROOT')
-   b+=tier==int(pr.get('tier').v) and owner in ('root','subject')
-  assert a==b
-print('PASS: 1,000 monument states retain exact tiers, quotas and subject eligibility')
-# The permanent artifact histories contain no duplicated artifact identities.
-history_counts=Counter()
-for p in (ROOT/'history/provinces').glob('*.txt'):
- for n,_ in walk(parse(p.read_text(encoding='utf-8-sig',errors='replace'))):
-  if n.k=='name' and n.v in MODS:history_counts[n.v]+=1
-assert all(n==1 for n in history_counts.values())
-print('PASS: starting artifact identities are unique')
-print('All performance regression checks passed. In-engine timing and save/load testing still required.')
+ # Province quota narrowing preserves exact tiers and direct/subject ownership.
+ old=defs(baseline('missions/02_Tomb_King_Missions.txt'));new=defs(read('missions/02_Tomb_King_Missions.txt'))
+ project_locations={n.k:n.get('start').v for n in parse(read('common/great_projects/01_southland_monuments.txt')) if isinstance(n.v,list) and n.has('start')}
+ old_counts=[n for n,_ in walk(list(old.values())) if n.k=='calc_true_if' and n.has('all_province')]
+ new_counts=[n for n,_ in walk(list(new.values())) if n.k=='calc_true_if' and any(x.k.isdecimal() for x in n.v)]
+ assert len(old_counts)==len(new_counts)==10
+ rng=random.Random(734)
+ for previous,current in zip(old_counts,new_counts):
+  assert previous.get('amount').v==current.get('amount').v
+  prs=[x for x,_ in walk(previous.v) if x.k=='has_great_project']
+  assert {x.k for x in current.v if x.k!='amount'}=={project_locations[x.get('type').v] for x in prs}
+  for _ in range(100):
+   states={x.get('type').v:(rng.randrange(4),rng.choice(['root','subject','foreign','empty'])) for x in prs}
+   a=sum(states[x.get('type').v][0]==int(x.get('tier').v) and states[x.get('type').v][1] in ('root','subject') for x in prs)
+   b=0
+   for x in current.v:
+    if x.k=='amount':continue
+    pr=x.get('has_great_project');tier,owner=states[pr.get('type').v]
+    assert x.get('OR').has('owned_by','ROOT') and x.get('OR').has('owned_by_subject_of','ROOT')
+    b+=tier==int(pr.get('tier').v) and owner in ('root','subject')
+   assert a==b
+ print('PASS: 1,000 monument states retain exact tiers, quotas and subject eligibility')
+ # The permanent artifact histories contain no duplicated artifact identities.
+ history_counts=Counter()
+ for p in (ROOT/'history/provinces').glob('*.txt'):
+  for n,_ in walk(parse(p.read_text(encoding='utf-8-sig',errors='replace'))):
+   if n.k=='name' and n.v in MODS:history_counts[n.v]+=1
+ assert all(n==1 for n in history_counts.values())
+ print('PASS: starting artifact identities are unique')
+ print('All performance regression checks passed. In-engine timing and save/load testing still required.')
+
+if __name__ == '__main__':
+ validate()

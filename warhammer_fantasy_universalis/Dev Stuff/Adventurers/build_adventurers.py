@@ -546,6 +546,7 @@ def build_events():
                   '\t\tevent_target:war_adventurer_arrival_province = {',
                   '\t\t\towned_by = ROOT', f'\t\t\thas_province_modifier = {namespace}',
                   '\t\t}', '\t}',
+                  '\tgoto = war_adventurer_arrival_province',
                   '\t# Acknowledge the arrival report. Option Weighing Value: 0.',
                   '\toption = { name = war_adventurer_arrival_acknowledge }', '}', '']
         localization += [f' {arrival_id}.t:0 "{escape(arrival_title)}"',
