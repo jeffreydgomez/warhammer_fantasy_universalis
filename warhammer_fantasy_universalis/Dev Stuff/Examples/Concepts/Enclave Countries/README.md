@@ -8,6 +8,8 @@ The **700 individual national ideas each total Weighing Value 10** using `Dev St
 
 ## Enclave provinces and rooting out factions
 
+As of 2026-10-24, Reikland starts with only House von Wittgenstein at Wittgendorf (19). Drachenfels Restorationists use Kolsa Hills (157, Talabecland), Clan Skaul uses Streissen (50, Averland), and Clan Sleekit uses Dietershafen (127, Nordland). Each recipient owner previously had no enclave; all three destinations are Imperial provinces outside existing country capitals. These are outlying refuges and depots, with the factions' original identities retained.
+
 Every listed province starts with a unique **[Faction Name] Enclave** permanent modifier. Each applies exactly `local_unrest = 4`, `min_local_autonomy = 33`, `local_autonomy = 0.05`, and `province_trade_power_modifier = 0.1` (+10% local trade power). It has `duration = -1` and uses `add_permanent_province_modifier`, so conquest does not remove it. The Balance Guide does not directly price these local modifiers; their values follow the explicit user instruction.
 
 Ownership of that province while its modifier remains exposes **Root Out [Faction Name]**. Taking the decision requires peace, control of the enclave province, and no existing rebel armies (`NOT = { num_of_rebel_armies = 1 }`). These requirements apply to players and AI; a temporarily blocked decision remains visible. It has no resource cost. It removes that faction's modifier, restores its original core if it has expired, and spawns one `size = 3` stack of `nationalist_rebels` (EU4's separatist type). Actual regiment counts scale with province development and military technology; size 3 is a multiplier, not three regiments.
@@ -89,7 +91,7 @@ The [resolved JSON manifest](countries.json) records every country, culture, rel
 | Y22 | Brothers' Giant Moot | 1182 — Everpeak | Druidism | tribal: Druidic Clan Moot | Bologs |
 | Y23 | Rime-Eater Clans | 449 — Mount Hellspire | Animist | tribal: Call of the Beastmen | Hrogg Rimehide |
 | Y24 | Rabidscar Remnant | 4484 — Snag | Horned Rat | monarchy: Rule of the Fittest-Strongest | Furblak |
-| Y25 | Drachenfels Restorationists | 6 — Castle Drachenfels | Nagashi | theocracy: Necromancer's Domain | Albrecht Gravenhorst |
+| Y25 | Drachenfels Restorationists | 157 — Kolsa Hills | Nagashi | theocracy: Necromancer's Domain | Albrecht Gravenhorst |
 | Y26 | Ember-Script Heretics | 4509 — Vogg | Hashut | monarchy: Hashut Monarchy | Durgan Emberbrand |
 | Y27 | Badwater Hagdom | 190 — Felwing Cave | Animist | tribal: Monster Clans | Grulma Bogbelly |
 | Y28 | Boglar-Fimir Compact | 154 — Stinkwater Fen | Chaos Undivided | tribal: Greenskin Tribe | Skibbit Mireclaw |
@@ -155,8 +157,8 @@ The [resolved JSON manifest](countries.json) records every country, culture, rel
 | Y88 | Culchan Feather Exiles | 4371 — Southern Plains | Old Ones | tribal: Amazon Tribe | Itzara Culchanfeather |
 | Y89 | Deep Drum Hold | 2520 — Izaltl | Ancestor Gods | monarchy: Dwarfen Kingdom | Grundi Deepdrum |
 | Y90 | Clan Skaar | 589 — Falco | Horned Rat | monarchy: Rule of the Fittest-Strongest | Krizzik Oreclaw |
-| Y91 | Clan Skaul | 29 — Weissbuck | Horned Rat | monarchy: Rule of the Fittest-Strongest | Skaalrik Dreamfang |
-| Y92 | Clan Sleekit | 7 — Fielbach | Horned Rat | monarchy: Rule of the Fittest-Strongest | Shipgnawer Nikkitt |
+| Y91 | Clan Skaul | 50 — Streissen | Horned Rat | monarchy: Rule of the Fittest-Strongest | Skaalrik Dreamfang |
+| Y92 | Clan Sleekit | 127 — Dietershafen | Horned Rat | monarchy: Rule of the Fittest-Strongest | Shipgnawer Nikkitt |
 | Y93 | Clan Septik | 33 — Dotternbach | Horned Rat | theocracy: Horned Rat Theocracy | Blightskab |
 | Y94 | Clan Kreepus | 2961 — Eaglecrest | Horned Rat | monarchy: Rule of the Fittest-Strongest | Garrott of Mordheim |
 | Y95 | Clan Feesik | 4875 — Mangrove Delta | Horned Rat | theocracy: Horned Rat Theocracy | Rikzik Seepage |
