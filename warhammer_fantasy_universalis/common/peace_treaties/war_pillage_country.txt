@@ -1,0 +1,51 @@
+# Pillage every province of the defeated country and carry its development home.
+# ROOT/THIS = recipient (winner), FROM = giver (loser), including offered tribute.
+po_pillage_country = {
+	category = 6
+	power_cost_base = 0.25
+	prestige_base = 0.1
+	ae_base = 0.1 # Half Force Dominion's 0.2 AE factor; actual AE also scales with warscore.
+	warscore_cost = {
+		all_provinces = 0.75 # All the giver's provinces
+	}
+	warscore_cap = 90
+	requires_demand_independence = no
+	is_make_subject = no
+	requires_is_allowed = no
+
+	is_visible = {
+		always = yes
+	}
+	is_allowed = {
+		any_owned_province = { always = yes }
+		FROM = {
+			any_owned_province = {
+				OR = {
+					base_tax = 2
+					base_production = 2
+					base_manpower = 2
+				}
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = war_pillage_country_tt
+		hidden_effect = {
+			# Recheck the destination in case other peace terms removed its provinces.
+			if = {
+				limit = { any_owned_province = { always = yes } }
+				FROM = {
+					every_owned_province = {
+						war_pillage_country_province_effect = yes
+					}
+				}
+			}
+		}
+	}
+	ai_weight = {
+		export_to_variable = {
+			variable_name = ai_value
+			value = 1
+		}
+	}
+}

@@ -1,0 +1,59 @@
+# Province scope: the loser's province. ROOT remains the peace treaty recipient.
+# Balance Guide: add_base_tax/production/manpower = 2 is Weighing Value 1.
+# Each stolen point therefore gives the winner 0.5 and costs the loser 0.5.
+war_pillage_country_province_effect = {
+	# Snapshot the original total so crossing 15/30/45/... during removal cannot
+	# reduce the quota. Spending this total plus 15 in chunks of 15 gives
+	# exactly 1 + floor(original development / 15) transfer attempts.
+	export_to_variable = {
+		which = war_pillage_country_remaining
+		value = development
+	}
+	change_variable = {
+		which = war_pillage_country_remaining
+		value = 15
+	}
+	while = {
+		limit = {
+			check_variable = {
+				which = war_pillage_country_remaining
+				value = 15
+			}
+			OR = {
+				base_tax = 2
+				base_production = 2
+				base_manpower = 2
+			}
+		}
+		# Equal chances among eligible types; never select a type already at 1.
+		# Each point keeps its type and independently chooses a destination.
+		random_list = {
+			1 = {
+				trigger = { base_tax = 2 }
+				add_base_tax = -1
+				ROOT = {
+					random_owned_province = { add_base_tax = 1 }
+				}
+			}
+			1 = {
+				trigger = { base_production = 2 }
+				add_base_production = -1
+				ROOT = {
+					random_owned_province = { add_base_production = 1 }
+				}
+			}
+			1 = {
+				trigger = { base_manpower = 2 }
+				add_base_manpower = -1
+				ROOT = {
+					random_owned_province = { add_base_manpower = 1 }
+				}
+			}
+		}
+		subtract_variable = {
+			which = war_pillage_country_remaining
+			value = 15
+		}
+	}
+	set_variable = { which = war_pillage_country_remaining value = 0 }
+}

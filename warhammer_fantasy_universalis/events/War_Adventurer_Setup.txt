@@ -1,5 +1,38 @@
 namespace = war_adventurer_setup
 
+# Upgrade old saves once; retain every existing traveller's province and bonuses.
+country_event = {
+    id = war_adventurer_setup.2
+    hidden = yes
+    is_triggered_only = yes
+    fire_only_once = yes
+    immediate = { war_adventurer_browser_rebuild_locations = yes }
+    # Acknowledge the migration. No reward.
+    option = { name = war_adventurer_arrival_acknowledge }
+}
+
+# Manual recovery for a Thanquol lost by the old conquest-removal bug.
+# Console: event war_adventurer_setup.3 <last known province id>.
+# Not called automatically: a missing traveller's last province may be unknowable.
+province_event = {
+    id = war_adventurer_setup.3
+    hidden = yes
+    is_triggered_only = yes
+    immediate = {
+        if = {
+            limit = {
+                is_city = yes
+                NOT = { war_adventurer_present = yes }
+                NOT = { any_province = { has_province_modifier = war_adventurer_thanquol } }
+            }
+            add_permanent_province_modifier = { name = war_adventurer_thanquol duration = -1 }
+            save_global_event_target_as = war_adventurer_location_thanquol
+        }
+    }
+    # Acknowledge recovery; the guard prevents duplicates or stacked adventurers.
+    option = { name = war_adventurer_arrival_acknowledge }
+}
+
 # Seed the eighteen unique travellers once per campaign, tracked by the engine.
 country_event = {
 	id = war_adventurer_setup.1
@@ -11,7 +44,7 @@ country_event = {
 		if = {
 			limit = { 2972 = { is_empty = no war_adventurer_destination_province = yes } }
 			2972 = {
-				add_province_modifier = { name = war_adventurer_gelt duration = -1 }
+				add_permanent_province_modifier = { name = war_adventurer_gelt duration = -1 }
 				save_global_event_target_as = war_adventurer_location_gelt
 			}
 		}
@@ -20,7 +53,7 @@ country_event = {
 				limit = { any_owned_province = { war_adventurer_destination_province = yes } }
 				war_adventurer_pick_destination_province = { BEER = no }
 				event_target:war_adventurer_destination = {
-					add_province_modifier = { name = war_adventurer_gelt duration = -1 }
+					add_permanent_province_modifier = { name = war_adventurer_gelt duration = -1 }
 					save_global_event_target_as = war_adventurer_location_gelt
 				}
 			}
@@ -29,7 +62,7 @@ country_event = {
 		if = {
 			limit = { 4182 = { is_empty = no war_adventurer_destination_province = yes } }
 			4182 = {
-				add_province_modifier = { name = war_adventurer_teclis duration = -1 }
+				add_permanent_province_modifier = { name = war_adventurer_teclis duration = -1 }
 				save_global_event_target_as = war_adventurer_location_teclis
 			}
 		}
@@ -38,7 +71,7 @@ country_event = {
 				limit = { any_owned_province = { war_adventurer_destination_province = yes } }
 				war_adventurer_pick_destination_province = { BEER = no }
 				event_target:war_adventurer_destination = {
-					add_province_modifier = { name = war_adventurer_teclis duration = -1 }
+					add_permanent_province_modifier = { name = war_adventurer_teclis duration = -1 }
 					save_global_event_target_as = war_adventurer_location_teclis
 				}
 			}
@@ -47,7 +80,7 @@ country_event = {
 		if = {
 			limit = { 4776 = { is_empty = no war_adventurer_destination_province = yes } }
 			4776 = {
-				add_province_modifier = { name = war_adventurer_snikch duration = -1 }
+				add_permanent_province_modifier = { name = war_adventurer_snikch duration = -1 }
 				save_global_event_target_as = war_adventurer_location_snikch
 			}
 		}
@@ -56,7 +89,7 @@ country_event = {
 				limit = { any_owned_province = { war_adventurer_destination_province = yes } }
 				war_adventurer_pick_destination_province = { BEER = no }
 				event_target:war_adventurer_destination = {
-					add_province_modifier = { name = war_adventurer_snikch duration = -1 }
+					add_permanent_province_modifier = { name = war_adventurer_snikch duration = -1 }
 					save_global_event_target_as = war_adventurer_location_snikch
 				}
 			}
@@ -65,7 +98,7 @@ country_event = {
 		if = {
 			limit = { 2795 = { is_empty = no war_adventurer_destination_province = yes } }
 			2795 = {
-				add_province_modifier = { name = war_adventurer_bugman duration = -1 }
+				add_permanent_province_modifier = { name = war_adventurer_bugman duration = -1 }
 				save_global_event_target_as = war_adventurer_location_bugman
 			}
 		}
@@ -74,7 +107,7 @@ country_event = {
 				limit = { any_owned_province = { war_adventurer_destination_province = yes } }
 				war_adventurer_pick_destination_province = { BEER = yes }
 				event_target:war_adventurer_destination = {
-					add_province_modifier = { name = war_adventurer_bugman duration = -1 }
+					add_permanent_province_modifier = { name = war_adventurer_bugman duration = -1 }
 					save_global_event_target_as = war_adventurer_location_bugman
 				}
 			}
@@ -83,7 +116,7 @@ country_event = {
 		if = {
 			limit = { 4258 = { is_empty = no war_adventurer_destination_province = yes } }
 			4258 = {
-				add_province_modifier = { name = war_adventurer_bardin duration = -1 }
+				add_permanent_province_modifier = { name = war_adventurer_bardin duration = -1 }
 				save_global_event_target_as = war_adventurer_location_bardin
 			}
 		}
@@ -92,7 +125,7 @@ country_event = {
 				limit = { any_owned_province = { war_adventurer_destination_province = yes } }
 				war_adventurer_pick_destination_province = { BEER = no }
 				event_target:war_adventurer_destination = {
-					add_province_modifier = { name = war_adventurer_bardin duration = -1 }
+					add_permanent_province_modifier = { name = war_adventurer_bardin duration = -1 }
 					save_global_event_target_as = war_adventurer_location_bardin
 				}
 			}
@@ -101,7 +134,7 @@ country_event = {
 		if = {
 			limit = { 2644 = { is_empty = no war_adventurer_destination_province = yes } }
 			2644 = {
-				add_province_modifier = { name = war_adventurer_harald duration = -1 }
+				add_permanent_province_modifier = { name = war_adventurer_harald duration = -1 }
 				save_global_event_target_as = war_adventurer_location_harald
 			}
 		}
@@ -110,7 +143,7 @@ country_event = {
 				limit = { any_owned_province = { war_adventurer_destination_province = yes } }
 				war_adventurer_pick_destination_province = { BEER = no }
 				event_target:war_adventurer_destination = {
-					add_province_modifier = { name = war_adventurer_harald duration = -1 }
+					add_permanent_province_modifier = { name = war_adventurer_harald duration = -1 }
 					save_global_event_target_as = war_adventurer_location_harald
 				}
 			}
@@ -119,7 +152,7 @@ country_event = {
 		if = {
 			limit = { 851 = { is_empty = no war_adventurer_destination_province = yes } }
 			851 = {
-				add_province_modifier = { name = war_adventurer_abhorash duration = -1 }
+				add_permanent_province_modifier = { name = war_adventurer_abhorash duration = -1 }
 				save_global_event_target_as = war_adventurer_location_abhorash
 			}
 		}
@@ -128,7 +161,7 @@ country_event = {
 				limit = { any_owned_province = { war_adventurer_destination_province = yes } }
 				war_adventurer_pick_destination_province = { BEER = no }
 				event_target:war_adventurer_destination = {
-					add_province_modifier = { name = war_adventurer_abhorash duration = -1 }
+					add_permanent_province_modifier = { name = war_adventurer_abhorash duration = -1 }
 					save_global_event_target_as = war_adventurer_location_abhorash
 				}
 			}
@@ -137,7 +170,7 @@ country_event = {
 		if = {
 			limit = { 872 = { is_empty = no war_adventurer_destination_province = yes } }
 			872 = {
-				add_province_modifier = { name = war_adventurer_elspeth duration = -1 }
+				add_permanent_province_modifier = { name = war_adventurer_elspeth duration = -1 }
 				save_global_event_target_as = war_adventurer_location_elspeth
 			}
 		}
@@ -146,7 +179,7 @@ country_event = {
 				limit = { any_owned_province = { war_adventurer_destination_province = yes } }
 				war_adventurer_pick_destination_province = { BEER = no }
 				event_target:war_adventurer_destination = {
-					add_province_modifier = { name = war_adventurer_elspeth duration = -1 }
+					add_permanent_province_modifier = { name = war_adventurer_elspeth duration = -1 }
 					save_global_event_target_as = war_adventurer_location_elspeth
 				}
 			}
@@ -155,7 +188,7 @@ country_event = {
 		if = {
 			limit = { 988 = { is_empty = no war_adventurer_destination_province = yes } }
 			988 = {
-				add_province_modifier = { name = war_adventurer_wulfhart duration = -1 }
+				add_permanent_province_modifier = { name = war_adventurer_wulfhart duration = -1 }
 				save_global_event_target_as = war_adventurer_location_wulfhart
 			}
 		}
@@ -164,7 +197,7 @@ country_event = {
 				limit = { any_owned_province = { war_adventurer_destination_province = yes } }
 				war_adventurer_pick_destination_province = { BEER = no }
 				event_target:war_adventurer_destination = {
-					add_province_modifier = { name = war_adventurer_wulfhart duration = -1 }
+					add_permanent_province_modifier = { name = war_adventurer_wulfhart duration = -1 }
 					save_global_event_target_as = war_adventurer_location_wulfhart
 				}
 			}
@@ -173,7 +206,7 @@ country_event = {
 		if = {
 			limit = { 1 = { is_empty = no war_adventurer_destination_province = yes } }
 			1 = {
-				add_province_modifier = { name = war_adventurer_gotrek_felix duration = -1 }
+				add_permanent_province_modifier = { name = war_adventurer_gotrek_felix duration = -1 }
 				save_global_event_target_as = war_adventurer_location_gotrek_felix
 			}
 		}
@@ -182,7 +215,7 @@ country_event = {
 				limit = { any_owned_province = { war_adventurer_destination_province = yes } }
 				war_adventurer_pick_destination_province = { BEER = no }
 				event_target:war_adventurer_destination = {
-					add_province_modifier = { name = war_adventurer_gotrek_felix duration = -1 }
+					add_permanent_province_modifier = { name = war_adventurer_gotrek_felix duration = -1 }
 					save_global_event_target_as = war_adventurer_location_gotrek_felix
 				}
 			}
@@ -191,7 +224,7 @@ country_event = {
 		if = {
 			limit = { 284 = { is_empty = no war_adventurer_destination_province = yes } }
 			284 = {
-				add_province_modifier = { name = war_adventurer_repanse duration = -1 }
+				add_permanent_province_modifier = { name = war_adventurer_repanse duration = -1 }
 				save_global_event_target_as = war_adventurer_location_repanse
 			}
 		}
@@ -200,7 +233,7 @@ country_event = {
 				limit = { any_owned_province = { war_adventurer_destination_province = yes } }
 				war_adventurer_pick_destination_province = { BEER = no }
 				event_target:war_adventurer_destination = {
-					add_province_modifier = { name = war_adventurer_repanse duration = -1 }
+					add_permanent_province_modifier = { name = war_adventurer_repanse duration = -1 }
 					save_global_event_target_as = war_adventurer_location_repanse
 				}
 			}
@@ -209,7 +242,7 @@ country_event = {
 		if = {
 			limit = { 553 = { is_empty = no war_adventurer_destination_province = yes } }
 			553 = {
-				add_province_modifier = { name = war_adventurer_sienna duration = -1 }
+				add_permanent_province_modifier = { name = war_adventurer_sienna duration = -1 }
 				save_global_event_target_as = war_adventurer_location_sienna
 			}
 		}
@@ -218,7 +251,7 @@ country_event = {
 				limit = { any_owned_province = { war_adventurer_destination_province = yes } }
 				war_adventurer_pick_destination_province = { BEER = no }
 				event_target:war_adventurer_destination = {
-					add_province_modifier = { name = war_adventurer_sienna duration = -1 }
+					add_permanent_province_modifier = { name = war_adventurer_sienna duration = -1 }
 					save_global_event_target_as = war_adventurer_location_sienna
 				}
 			}
@@ -227,7 +260,7 @@ country_event = {
 		if = {
 			limit = { 332 = { is_empty = no war_adventurer_destination_province = yes } }
 			332 = {
-				add_province_modifier = { name = war_adventurer_malakai duration = -1 }
+				add_permanent_province_modifier = { name = war_adventurer_malakai duration = -1 }
 				save_global_event_target_as = war_adventurer_location_malakai
 			}
 		}
@@ -236,7 +269,7 @@ country_event = {
 				limit = { any_owned_province = { war_adventurer_destination_province = yes } }
 				war_adventurer_pick_destination_province = { BEER = no }
 				event_target:war_adventurer_destination = {
-					add_province_modifier = { name = war_adventurer_malakai duration = -1 }
+					add_permanent_province_modifier = { name = war_adventurer_malakai duration = -1 }
 					save_global_event_target_as = war_adventurer_location_malakai
 				}
 			}
@@ -245,7 +278,7 @@ country_event = {
 		if = {
 			limit = { 1829 = { is_empty = no war_adventurer_destination_province = yes } }
 			1829 = {
-				add_province_modifier = { name = war_adventurer_tyrion duration = -1 }
+				add_permanent_province_modifier = { name = war_adventurer_tyrion duration = -1 }
 				save_global_event_target_as = war_adventurer_location_tyrion
 			}
 		}
@@ -254,7 +287,7 @@ country_event = {
 				limit = { any_owned_province = { war_adventurer_destination_province = yes } }
 				war_adventurer_pick_destination_province = { BEER = no }
 				event_target:war_adventurer_destination = {
-					add_province_modifier = { name = war_adventurer_tyrion duration = -1 }
+					add_permanent_province_modifier = { name = war_adventurer_tyrion duration = -1 }
 					save_global_event_target_as = war_adventurer_location_tyrion
 				}
 			}
@@ -263,7 +296,7 @@ country_event = {
 		if = {
 			limit = { 2466 = { is_empty = no war_adventurer_destination_province = yes } }
 			2466 = {
-				add_province_modifier = { name = war_adventurer_gor_rok duration = -1 }
+				add_permanent_province_modifier = { name = war_adventurer_gor_rok duration = -1 }
 				save_global_event_target_as = war_adventurer_location_gor_rok
 			}
 		}
@@ -272,7 +305,7 @@ country_event = {
 				limit = { any_owned_province = { war_adventurer_destination_province = yes } }
 				war_adventurer_pick_destination_province = { BEER = no }
 				event_target:war_adventurer_destination = {
-					add_province_modifier = { name = war_adventurer_gor_rok duration = -1 }
+					add_permanent_province_modifier = { name = war_adventurer_gor_rok duration = -1 }
 					save_global_event_target_as = war_adventurer_location_gor_rok
 				}
 			}
@@ -281,7 +314,7 @@ country_event = {
 		if = {
 			limit = { 2348 = { is_empty = no war_adventurer_destination_province = yes } }
 			2348 = {
-				add_province_modifier = { name = war_adventurer_nakai duration = -1 }
+				add_permanent_province_modifier = { name = war_adventurer_nakai duration = -1 }
 				save_global_event_target_as = war_adventurer_location_nakai
 			}
 		}
@@ -290,7 +323,7 @@ country_event = {
 				limit = { any_owned_province = { war_adventurer_destination_province = yes } }
 				war_adventurer_pick_destination_province = { BEER = no }
 				event_target:war_adventurer_destination = {
-					add_province_modifier = { name = war_adventurer_nakai duration = -1 }
+					add_permanent_province_modifier = { name = war_adventurer_nakai duration = -1 }
 					save_global_event_target_as = war_adventurer_location_nakai
 				}
 			}
@@ -299,7 +332,7 @@ country_event = {
 		if = {
 			limit = { 4600 = { is_empty = no war_adventurer_destination_province = yes } }
 			4600 = {
-				add_province_modifier = { name = war_adventurer_thanquol duration = -1 }
+				add_permanent_province_modifier = { name = war_adventurer_thanquol duration = -1 }
 				save_global_event_target_as = war_adventurer_location_thanquol
 			}
 		}
@@ -308,7 +341,7 @@ country_event = {
 				limit = { any_owned_province = { war_adventurer_destination_province = yes } }
 				war_adventurer_pick_destination_province = { BEER = no }
 				event_target:war_adventurer_destination = {
-					add_province_modifier = { name = war_adventurer_thanquol duration = -1 }
+					add_permanent_province_modifier = { name = war_adventurer_thanquol duration = -1 }
 					save_global_event_target_as = war_adventurer_location_thanquol
 				}
 			}
@@ -317,7 +350,7 @@ country_event = {
 		if = {
 			limit = { 4410 = { is_empty = no war_adventurer_destination_province = yes } }
 			4410 = {
-				add_province_modifier = { name = war_adventurer_grombrindal duration = -1 }
+				add_permanent_province_modifier = { name = war_adventurer_grombrindal duration = -1 }
 				save_global_event_target_as = war_adventurer_location_grombrindal
 			}
 		}
@@ -326,7 +359,7 @@ country_event = {
 				limit = { any_owned_province = { war_adventurer_destination_province = yes } }
 				war_adventurer_pick_destination_province = { BEER = no }
 				event_target:war_adventurer_destination = {
-					add_province_modifier = { name = war_adventurer_grombrindal duration = -1 }
+					add_permanent_province_modifier = { name = war_adventurer_grombrindal duration = -1 }
 					save_global_event_target_as = war_adventurer_location_grombrindal
 				}
 			}

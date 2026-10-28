@@ -1,0 +1,76 @@
+ADVENTURER BROWSER
+
+Player behavior
+- Restart EU4 after installing the interface files. Click Adventurers to the right of National Decisions; Artifacts remains to the left.
+- The panel contains all 18 existing travelling entries, alphabetically by displayed name, in three columns and six rows. Gotrek and Felix count as one entry; Thanquol and Boneripper count as one entry.
+- All portraits remain in color, regardless of province ownership, discovery, or whether a current location is available. Click a portrait to open a short lore event; its native Go To arrow navigates to the recorded province. Missing travellers get lore and an unknown-location message without an arrow.
+- Hover for the character's name, current presence modifier values (including drawbacks), two sentences of existing lore, and location. Labels use title capitalization. Local Trade Power is hidden from the browser's text only; the province modifier is unchanged. The lore comes from the final paragraph of the character's arrival notice.
+- Location uses "Province, Owner, Superregion", without field labels; for example, "East Altdorf, Reikland, The Empire". The user's requested "Subregion" means the superregion, resolved with native GetSuperRegionName from the current province. The tooltip reports an unknown location when no valid presence modifier matches the stored target. An ownerless province uses "Unowned" in the middle field.
+- The title, gold ornament, movable panel, close button, and centered Refresh match the artifact browser. Opening one collection closes the other.
+- Existing adventurer movement updates the same global targets used by the panel. Opening and Refresh rebind targets from actual presence modifiers, repairing missing or stale records without moving or creating anyone. Existing presence modifiers are converted to permanent province modifiers so conquest cannot delete them. There are no world scans in tooltips or per-frame visibility checks.
+
+Authoritative sources
+- common/event_modifiers/war_adventurer_modifiers.txt: current numeric benefits and drawbacks. These supersede older values in the adventurer concept document. No modifier values or balance were changed.
+- localisation/war_adventurers_l_english.yml: names and two-sentence lore from the .21 arrival notices. Dev Stuff/Examples/Lore Reference.txt and the existing adventurer design reference were consulted for local canon.
+- events/War_Adventurer_Setup.txt and common/scripted_effects/war_adventurer_effects.txt: existing global location targets, initial placement and movement behavior.
+- interface/war_eventpictures.gfx: the 18 dedicated character event pictures. The 512x132 pictures are displayed at 0.4375 scale, retaining their original proportions.
+- Two monochrome source pictures have separate color variants: Josef Bugman and Gotrek/Felix. Both the browser and all their events use these variants through interface/war_eventpictures.gfx. Original monochrome source files are retained. Prompts, source paths and final asset paths are recorded in Adventurer Browser Artwork.txt.
+
+Files
+- Dev Stuff/Tools/build_adventurer_browser.py: ordered roster, layout, modifier labels and deterministic generation. Imports shared rendering helpers from the artifact builder.
+- Dev Stuff/Tools/validate_adventurer_browser.py: script parsing, GUI bindings, assets/fonts, localization, location scenarios, cache behavior and mutual exclusion checks.
+- interface/countrydecisionsview.gui: both marked collection insertions, preserving the installed 1.37.5 view outside those insertions. Either builder can run again without reordering the panels or deleting the other insertion.
+- interface/war_adventurer_browser.gfx: normal-color portrait definitions and rectangular gold frames. Background and native title decorations are shared with the artifact panel.
+- common/custom_gui/war_adventurer_browser.txt: the right-hand opener, window, close/refresh controls and 18 clickable portraits with hidden effects and empty triggers.
+- customizable_localization/war_adventurer_browser.txt: current province/owner/superregion branches, guarded by the actual presence modifier.
+- common/scripted_effects/war_adventurer_browser_effects.txt: explicit open/refresh cache reconstruction and conversion of existing presence to permanent province modifiers. Modifier values, movement, encounters and ownership are unchanged.
+- events/War_Adventurer_Browser.txt: 36 short lore reports, using each character's existing event picture. Located reports use a local province snapshot saved by the click; missing reports omit Go To. Clicking closes the collection.
+- events/War_Adventurer_Setup.txt and common/on_actions/war_startup_on_actions.txt: permanent initial placement and a one-time old-save migration through war_adventurer_setup.2.
+- common/scripted_effects/war_adventurer_effects.txt: permanent presence on arrival; normal movement still removes the origin modifier.
+- localisation/war_adventurer_browser_l_english.yml: UTF-8 with BOM, literal numeric benefits and lore, double-newline paragraph breaks, dynamic location only. Static $key$ substitutions are intentionally avoided after the artifact tooltip issue.
+- gfx/interface/adventurer_browser/: two colorized DDS variants.
+- Adventurer Browser Layout.png: offline preview using native assets and fonts; not an in-game screenshot.
+
+Regenerate (artifact browser first on a new checkout):
+python3 "Dev Stuff/Tools/build_artifact_browser.py" --game-dir "/path/to/Europa Universalis IV"
+python3 "Dev Stuff/Tools/build_adventurer_browser.py" --game-dir "/path/to/Europa Universalis IV"
+
+Validate:
+python3 "Dev Stuff/Tools/validate_artifact_browser.py" --game-dir "/path/to/Europa Universalis IV"
+python3 "Dev Stuff/Tools/validate_adventurer_browser.py" --game-dir "/path/to/Europa Universalis IV"
+
+Completed checks
+- All 18 live adventurer modifiers covered exactly once, all bonuses/drawbacks except the intentionally hidden Local Trade Power included, and each entry has its source-derived name, two lore sentences and valid portrait texture.
+- 36 lore events and 126 navigation cases, including stale caches, independent report targets and absent travellers.
+- Ownership-transfer migration preserves the 18 original bonuses and locations. Manual recovery rejects duplicates and occupied destinations.
+- 144 location scenarios cover own, foreign, subject-held, occupied, undiscovered, unowned, missing and stale locations. Portrait visibility stays enabled in each case.
+- Actual generated cache effects repair stale targets and follow a relocated modifier without modifying gameplay state. The missing adventurer's old target is cleared.
+- Open, reopen, refresh, close and switches between both collections execute correctly in the state harness. Reopening an already-open panel does not rescan the world.
+- 22 adventurer GUI bindings, normal-color shaders, font/sprite dependencies, unique localization keys, BOM, dynamic-reference closure and deterministic output pass.
+- The artifact checks also pass, including destroyed necromancy tooltips and the surviving fifth relic retaining its current location. Removing both generated insertions recovers the native view.
+- Offline layout rendering with native bitmap-font metrics reports no clipped text.
+
+In-game checks still required
+- After restarting EU4, confirm both buttons sit beside National Decisions and correctly open/close/switch panels while paused.
+- Hover an owned and a foreign adventurer. Confirm capitalized bonuses/drawbacks except Local Trade Power, two lore sentences, and Province, Owner, Superregion render, and both portraits remain colored.
+- Resolve an existing adventurer encounter, then confirm the panel follows the traveller's new province and owner. Test Refresh with an older save if available.
+- Check a missing or stale location and an unowned province: no previous owner's name or stale location should appear.
+- Resurrect Nagash: the four consumed relics should say in red that they have been destroyed; any remaining fifth relic must still show its location.
+- Inspect the new run's error.log for adventurer/artifact browser parsing, missing texture/font, or shader errors. Static checks do not confirm in-game behavior.
+
+Thanquol disappearance diagnosed in the Clan Skryre campaign (2026-10-25)
+- Clan_Skryre2503_04_01.eu4 contains all 18 travellers, with Thanquol in Central Skavenblight (4600).
+- The 2505 and 2506 autosaves have him in Mold Infested Hollows (4685).
+- game.log records his arrival in South Underempire Hold (4623), owned by Clan Skurvy, on 2506.4.1.
+- game.log and province history record its conquest by Clan Skryre on 2506.8.23. Clan_Skryre2506_09_15.eu4 then contains only 17 travellers, with no Thanquol modifier anywhere.
+- The old scripts used add_province_modifier with duration = -1. That is unlimited duration, but it is removed on ownership change. Placement and movement now use add_permanent_province_modifier; old-save migration upgrades surviving travellers.
+- Browser refresh had correctly discarded the stale Thanquol target after his modifier disappeared. It cannot reconstruct a lost traveller from an empty cache.
+- To restore this campaign's Thanquol after restarting EU4 and loading the save, run this console command:
+  event war_adventurer_setup.3 4623
+- This manual-only recovery checks that Thanquol is absent everywhere and that the selected city has no other adventurer. It restores his permanent presence and location target. Repeating it cannot create duplicates. Save files were inspected read-only and were not edited.
+- The short informational lore events and their Go To arrows are explicitly requested by the user; general event-length/province-effect guidelines do not apply to this requested navigation flow.
+
+Additional in-game checks
+- Click a portrait, use the native Go To arrow, and confirm it matches the report's province. Verify reports from separate clicks retain independent province targets.
+- Load an older save: surviving travellers should keep their current provinces/bonuses and survive a subsequent conquest. The normal encounter system should still move them and remove their old presence.
+- Run the guarded recovery above in the affected campaign, then reopen Adventurers and inspect Thanquol.

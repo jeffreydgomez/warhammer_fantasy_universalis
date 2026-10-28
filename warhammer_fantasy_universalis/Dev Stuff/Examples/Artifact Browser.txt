@@ -1,0 +1,69 @@
+ARTIFACT BROWSER
+
+Entry point
+- Restart EU4 after installing these interface files. Click "Artifacts" to the left of the National Decisions heading in Decisions and Policies. The former entry decision has been removed.
+- The collection is attached to the Decisions and Policies view. Its close button hides the collection; opening another country tab hides it with the parent view. Return to Decisions to see an already-open collection.
+- Hover an icon for its name, numeric benefits, exactly two sentences of lore, and current location. Benefit labels use title capitalization. Local Goods Produced is hidden from this browser's text only; the province modifier is unchanged.
+- Location uses the exact comma-separated format "Province, Owner, Superregion", without field labels; for example, "East Altdorf, Reikland, The Empire". The user's requested "Subregion" means the superregion. Native GetSuperRegionName resolves it from the current province, including after transfers. An ownerless province uses "Unowned" in the middle field. Click an icon to open a short lore report with the native Go To arrow for its province. Missing/consumed/unfound/unforged entries open a report without an arrow. There are no pinned details, ownership labels, benefits heading, or navigation instructions in the collection.
+- Color means the artifact's province is owned directly by the viewing country. Foreign, subject-held, occupied-but-not-owned, absent, and consumed artifacts are grey. Both states have the same tooltip.
+- No current location is displayed for a missing or stale province target. Before their creation flags are set, the absent Grail says "The Grail has not yet been found." and the absent Gromril Crown says "The Gromril Crown has not yet been forged." Existing valid locations take precedence, including in older saves. Necromancy relics absent after Nagash's resurrection say in red: "This artifact has been destroyed in the ritual to resurrect Nagash." A surviving fifth relic still shows its location.
+- Opening Artifacts closes the Adventurers collection, and opening Adventurers closes Artifacts. The two buttons sit on opposite sides of National Decisions.
+- Refresh rebuilds the existing location targets from actual province modifiers. Opening the collection also refreshes them, including in older saves. The window itself performs no every_province or every_country scans.
+
+Layout
+- The six top groups use the user's thematic categories in two columns, read left to right. They do not move when possession changes. All 24 existing location_of_* artifact modifiers are represented exactly once.
+- Row 1, Prizes of Men: Ghal Maraz, Scroll of Remas, the Grail. Weapons of the Wild: Bow of Loren, Troll King's Crown, Fellblade.
+- Row 2, Treasures of the Elves: Phoenix Crown, Widowmaker, Dragon Armor. Relics of the Dwarves: Book of Grudges, Hashut's Hammer, Gromril Crown.
+- Row 3, Wonders of Distant Lands: Cloak of Twilight, Plaque of Tepok, Djinn in a Bottle. Heirlooms of the East: Maw Cauldron, Celestial Compass, Heaven's Gate, Shogun's Katana.
+- Bottom, Artifacts of Necromancy: Carstein Ring, Staff of Nagash, Nagash's Tome, Jade Blooded Vial, Bleeding Idol. These are the five eligible resurrection relics; the existing resurrection decision's four-of-five requirement is unchanged.
+- No artifact placements, rewards, or balance were changed. The user explicitly requested informational Go To events and short lore descriptions; those requests take precedence over the general event guidelines about province effects and description length.
+- The first pass reuses mission artwork, including thematic stand-ins where no dedicated artifact picture exists. The mapping is explicit in GROUPS in the builder.
+- Panel size: 784 by 660, attached at x=554 to the Decisions view. Designed around the supplied 1440 by 900 reference at normal interface scale; smaller displays or larger UI scaling need an in-game layout check. The panel is movable.
+- The title uses a larger shadowed font on a native scroll banner, with a gold ornamental flourish underneath. Refresh is centered along the bottom.
+- Artifact Browser Layout.png uses actual game sprites and bitmap fonts with illustrative possession states. It is not an in-game screenshot.
+
+Files and maintenance
+- interface/countrydecisionsview.gui: installed 1.37.5 decisions view with marked insertions for both collection openers/windows; the rest of the view is preserved. Each opener is a sibling of its gated window so it remains available while its collection is closed. Each builder preserves the other insertion in a stable order.
+- interface/war_artifact_browser.gfx: existing artwork references and panel/frame definitions.
+- common/custom_gui/war_artifact_browser.txt: visibility, ownership, opening, closing, and refresh. Artifact tiles use custom_button with empty triggers and hidden click effects to keep the tooltip focused on the authored content.
+- customizable_localization/war_artifact_browser.txt: current province/owner/superregion and absent/consumed/undiscovered-Grail/unforged-Crown states.
+- localisation/war_artifact_browser_l_english.yml: UTF-8 with BOM. Names, source-derived benefits, and two lore sentences are inlined at build time: nested $key$ substitutions were blank in the user's in-game screenshot. Only location remains dynamic. Lore reuses war_artifacts_l_english.yml, with focused two-sentence overrides for the Grail and Nagash's Tome.
+- events/War_Artifact_Browser.txt: one located and one unlocated lore report per artifact. EVENT_PICTURES in the builder explicitly selects existing banners from war_eventpictures.gfx by bearer, origin or tradition: Karl Franz for Ghal Maraz, Tyrion for the Dragon Armor, Nagash for his staff, the Black Pyramid for his tome, and relevant faction/region artwork for the others. The Jade Blooded Vial and Bleeding Idol use vampire artwork to match their established lore. Both report variants use the same selected banner. Located reports use a local province snapshot saved by the click; later clicks and global cache updates do not retarget an existing report. Clicking closes the collection.
+- gfx/FX/war_artifact_unowned.shader: native button shader adapted to render grey in all button states.
+- Dev Stuff/Tools/build_artifact_browser.py: catalog, layout, and regeneration. Numeric tooltip benefits are read from common/event_modifiers/war_artifacts.txt, with trade_goods_size intentionally excluded from display. Unknown modifier types fail generation so they cannot be silently omitted.
+- Dev Stuff/Tools/validate_artifact_browser.py: independent parsing, bindings, dependency/localization checks and state regressions.
+- EU4 NOT negates each child separately. Unowned visibility and stale-location repair therefore use NOT = { AND = { exists = ... event_target:... = { ... } } } to negate the complete predicate. Omitting AND hides foreign artifacts and prevents stale cache repair; the validator models NOT as NOR and includes a truth-table regression.
+
+Regenerate:
+python3 "Dev Stuff/Tools/build_artifact_browser.py" --game-dir "/path/to/Europa Universalis IV"
+
+Verify generated output without changes:
+python3 "Dev Stuff/Tools/build_artifact_browser.py" --game-dir "/path/to/Europa Universalis IV" --check
+python3 "Dev Stuff/Tools/validate_artifact_browser.py" --game-dir "/path/to/Europa Universalis IV"
+
+References consulted
+- Dev Stuff/Examples/Lore Reference.txt: local world-state and artifact-related regional references.
+- Dev Stuff/Examples/Balance Guide.txt: no modifiers or balance-sensitive gameplay effects are added or adjusted.
+- Installed EU4 1.37.5 common/custom_gui/example.txt: custom-window nesting and ROOT/FROM scope rules. The mod's older example.txt predates descendant-window support.
+- Installed interface/countrydecisionsview.gui, interface/core.gfx and gfx/FX/buttonstate.shader: host window, native fonts and enabled/disabled shader states.
+- https://raw.githubusercontent.com/cwtools/cwtools-eu4-config/master/common/custom_gui.cwt
+- https://raw.githubusercontent.com/cwtools/cwtools-eu4-config/master/triggers.cwt
+
+Validation completed
+- 24 artifact modifiers, matching descriptions, and existing location targets covered.
+- 192 ownership/location scenarios plus transfer, consumption, and late-creation scenarios, using the actual generated trigger predicates.
+- 48 lore events and 336 click-path cases (including stale caches, movement, missing entries and independent report targets).
+- Both variants of each lore report use their selected event picture, and all referenced event textures exist. Artifact banners and all 18 dedicated adventurer portraits were visually reviewed; the colorized Bugman and Gotrek/Felix portraits remain in use.
+- 52 custom GUI bindings, native fonts, sprites, texture/shader paths, localization references, unique localization keys, double-newline formatting and BOM checked. Tooltips contain literal benefits and exactly two lore sentences, without nested static substitutions.
+- All 24 artifacts are included exactly once in the seven thematic categories; the five eligible necromancy artifacts occupy the bottom strip.
+- Generated files reproduce deterministically. Removing both marked collection insertions restores the installed decisions view.
+- Offline layout rendering using native bitmap-font metrics found no clipped text.
+
+In-game checks still required
+- Click Artifacts while paused, close/reopen the collection, change tabs, and reload a save. Confirm the opener sits beside National Decisions at the intended UI scale.
+- Inspect an owned artifact, a foreign artifact, a subject-held artifact, an occupied artifact, and an artifact whose province is undiscovered. Confirm color/greyscale and that tooltips show the capitalized benefits except Local Goods Produced, two lore sentences, and Province, Owner, Superregion without an "Always" trigger line.
+- Hover the unfound Grail and unforged Gromril Crown, then check their tooltips after discovery/forging.
+- Click an icon, then the native Go To arrow on its lore event. Verify the arrow and comma-separated location match the province clicked. Open another report and verify the first report retains its own target. Absent and consumed artifacts must have no Go To arrow.
+- Transfer an artifact through an existing decision or diplomatic action; verify its owner, color, province, and F target update.
+- Remove/consume a relic, refresh, and verify no stale province appears.
+- Inspect error.log from that game run for war_artifact_browser or war_artifact_unowned entries. Static checks and offline previews do not validate actual in-game tooltip rendering or interaction.
