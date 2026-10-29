@@ -1,20 +1,15 @@
+# Transfer one of each monarch power per province owned by the defeated country.
+# ROOT = recipient, FROM = giver, including offered tribute.
 tall_take_scientists = {
 	category = 6 
 	power_projection = vassalized_rival 
 	power_cost_base = 0.0 
 	prestige_base = 0.1
-	ae_base = 0.1
+	ae_base = 0.1 # Same AE factor as Pillage Country; scales with warscore.
 	warscore_cost = {
-		all_provinces = 0.0 
-		no_provinces = 90.0 
-		owner_keeps = 0.0 
-		conquered = 0.0 
-		returned_core = 0.0 
-		released_nation = 0.0 
-		cancelled_subject = 0.0 
-		concede_colonial_region = 0.0 
+		all_provinces = 0.375 # Same province-based cost as Pillage Country.
 	}
-	warscore_cap = 90
+	warscore_cap = 100
 	requires_demand_independence = yes 
 	is_make_subject = no
 	requires_is_allowed = no 
@@ -31,14 +26,24 @@ tall_take_scientists = {
 	is_allowed = { 
 		always = yes
 	}
-	effect = { 
-		add_adm_power = 25
-		add_dip_power = 25
-		add_mil_power = 25
-		FROM = {
-			add_adm_power = -25
-			add_dip_power = -25
-			add_mil_power = -25
+	effect = {
+		custom_tooltip = tall_take_scientists_tt
+		hidden_effect = {
+			# Balance Guide: 50 power = 1 value; recipient gains 0.06 value per province.
+			FROM = {
+				every_owned_province = {
+					ROOT = {
+						add_adm_power = 1
+						add_dip_power = 1
+						add_mil_power = 1
+					}
+					owner = {
+						add_adm_power = -1
+						add_dip_power = -1
+						add_mil_power = -1
+					}
+				}
+			}
 		}
 	}
 	ai_weight = { 
