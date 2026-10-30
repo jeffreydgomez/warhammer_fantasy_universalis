@@ -84,7 +84,7 @@ country_event = {
 	}
 }
 
-# Concept: the owner claims the Horned Rat's favor after shattering Morrslieb.
+# Concept: reward the owner with the Horned Rat's favor after shattering Morrslieb.
 country_event = {
 	id = war_warpmoon.6
 	title = war_warpmoon.6.t
@@ -92,6 +92,20 @@ country_event = {
 	picture = WAR_WARPMOON_eventPicture
 	is_triggered_only = yes
 	major = no
+	immediate = {
+		# on_upgraded runs in province scope; this event is sent to its owner.
+		# Replaying this report can restore a missing reward without rerolling impacts.
+		if = {
+			limit = {
+				has_global_flag = war_warpmoon_moon_destroyed
+				NOT = { has_country_modifier = war_we_destroyed_the_moon }
+			}
+			add_country_modifier = {
+				name = war_we_destroyed_the_moon
+				duration = -1
+			}
+		}
+	}
 	# Celebrate the completed shot; all rewards and impacts have already resolved.
 	option = {
 		name = war_warpmoon.6.a
