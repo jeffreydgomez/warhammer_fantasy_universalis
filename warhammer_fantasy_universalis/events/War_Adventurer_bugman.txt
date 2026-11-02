@@ -1,6 +1,6 @@
 namespace = war_adventurer_bugman
 
-# Generated from Dev Stuff/Adventurers/event_data.json; edit that authored source.
+# Choices and eligibility: Dev Stuff/Tools/adventurer_event_balance.tsv.
 # Budget source: Dev Stuff/Examples/Balance Guide.txt. No MTTH.
 
 # BUG-FH01: The Seventh Cask. Intended event Weighing Value: +1. Lore: L1.
@@ -14,9 +14,6 @@ country_event = {
 		event_target:war_adventurer_location_bugman = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_bugman
-		    war_adventurer_bugman_home = yes
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -29,7 +26,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Share the method under inspection. Option Weighing Value: +1.
+	# Share the fermentation schedule with local brewers. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.1.option_a
 		ai_chance = { factor = 1 }
@@ -45,11 +42,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Auction a limited licence. Option Weighing Value: +1.
+	# License the improved ale through the provincial guild. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.1.option_b
 		ai_chance = { factor = 1 }
-		add_years_of_income = 0.5
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -59,11 +58,25 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Endorse a public tasting. Option Weighing Value: +1.
+	# Establish a counting house for the brewing trade. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.1.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = counting_house }
+				NOT = { trade_goods = gold }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = counting_house }
+					NOT = { trade_goods = gold }
+				}
+				add_building = counting_house
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -85,7 +98,7 @@ country_event = {
 	}
 }
 
-# BUG-FH02: Charcoal Beneath the Brewhouse. Intended event Weighing Value: +2. Lore: L2, L3.
+# BUG-FH02: Charcoal Beneath the Brewhouse. Intended event Weighing Value: +1. Lore: L2, L3.
 country_event = {
 	id = war_adventurer_bugman.2
 	title = war_adventurer_bugman.2.t
@@ -96,7 +109,6 @@ country_event = {
 		event_target:war_adventurer_location_bugman = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_bugman
-		    war_adventurer_bugman_home = yes
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -111,14 +123,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Fund homes and premises for the brewing families. Option Weighing Value: +1.
+	# Settle the displaced brewing families in restored homes. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.2.option_a
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
-			add_base_tax = 3
+			add_base_tax = 2
 		}
-		add_years_of_income = -0.25
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -128,14 +139,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Settle the brewers in our workshops and copy their methods. Option Weighing Value: +2.
+	# Return the copper vessels to working provincial breweries. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.2.option_b
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
 			add_base_production = 2
 		}
-		change_innovativeness = 1
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -145,11 +155,25 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Sell surplus vessels and retain the proceeds after relief. Option Weighing Value: +2.
+	# Equip a brewers' counting house with the recovered vessels. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.2.option_c
 		ai_chance = { factor = 1 }
-		add_years_of_income = 1
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = counting_house }
+				NOT = { trade_goods = gold }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = counting_house }
+					NOT = { trade_goods = gold }
+				}
+				add_building = counting_house
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -182,7 +206,6 @@ country_event = {
 		event_target:war_adventurer_location_bugman = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_bugman
-		    war_adventurer_bugman_home = yes
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -197,7 +220,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Settle the families. Option Weighing Value: +1.
+	# Give the rescued families abandoned local holdings. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.3.option_a
 		ai_chance = { factor = 1 }
@@ -213,11 +236,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Recruit experienced survivors. Option Weighing Value: +1.
+	# Enlist willing survivors in the provincial watch. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.3.option_b
 		ai_chance = { factor = 1 }
-		add_yearly_manpower = 1
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -227,12 +252,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Finance their return to kin. Option Weighing Value: +0.5.
+	# Reequip the survivors' workshops with their recovered tools. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.3.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
-		add_years_of_income = -0.25
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -254,7 +280,7 @@ country_event = {
 	}
 }
 
-# BUG-FH04: Crossbows Before Dawn. Intended event Weighing Value: +2. Lore: L4.
+# BUG-FH04: Crossbows Before Dawn. Intended event Weighing Value: +1. Lore: L4.
 country_event = {
 	id = war_adventurer_bugman.4
 	title = war_adventurer_bugman.4.t
@@ -265,7 +291,6 @@ country_event = {
 		event_target:war_adventurer_location_bugman = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_bugman
-		    war_adventurer_bugman_home = yes
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -280,12 +305,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Distribute the stores and copy the rangers’ supply arrangements. Option Weighing Value: +2.
+	# Equip local defenders with the captured supplies. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.4.option_a
 		ai_chance = { factor = 1 }
-		add_mil_power = 50
-		add_yearly_manpower = 1
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -295,11 +321,10 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Return stolen property and restore the affected homes. Option Weighing Value: +2.
+	# Restore the raided households from their recovered property. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.4.option_b
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
 		event_target:war_adventurer_province = {
 			add_base_tax = 2
 		}
@@ -312,11 +337,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Sell unclaimed spoils. Option Weighing Value: +2.
+	# Use the captured stores to establish training fields. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.4.option_c
 		ai_chance = { factor = 1 }
-		add_years_of_income = 1
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = training_fields }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = training_fields }
+				}
+				add_building = training_fields
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -349,7 +386,6 @@ country_event = {
 		event_target:war_adventurer_location_bugman = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_bugman
-		    war_adventurer_bugman_home = yes
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -364,11 +400,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Adopt controlled rations. Option Weighing Value: +1.
+	# Provision and register the provincial volunteers. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.5.option_a
 		ai_chance = { factor = 1 }
-		add_yearly_manpower = 1
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -378,14 +416,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Pay the quartermaster and retain brewing advice. Option Weighing Value: +0.5.
+	# Teach local brewers the safe ration recipe. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.5.option_b
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
 			add_base_production = 2
 		}
-		add_years_of_income = -0.25
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -395,11 +432,10 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Stage a veterans' gathering. Option Weighing Value: +1.
+	# Leave the remaining casks with the quartermaster. Option Weighing Value: +0.
 	option = {
 		name = war_adventurer_bugman.5.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -432,9 +468,6 @@ country_event = {
 		event_target:war_adventurer_location_bugman = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_bugman
-		    war_adventurer_bugman_home = no
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -447,14 +480,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Pay the suppliers to expand the caravan stop. Option Weighing Value: +0.5.
+	# Expand the caravan stop with the recovered freight. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.6.option_a
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
 			add_base_tax = 2
 		}
-		add_years_of_income = -0.25
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -464,11 +496,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Use the route survey. Option Weighing Value: +1.
+	# Train local road wardens from the route survey. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.6.option_b
 		ai_chance = { factor = 1 }
-		add_dip_power = 50
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -490,7 +524,7 @@ country_event = {
 	}
 }
 
-# BUG-FA02: Grain from a Strange Valley. Intended event Weighing Value: +2. Lore: L1.
+# BUG-FA02: Grain from a Strange Valley. Intended event Weighing Value: +1. Lore: L1.
 country_event = {
 	id = war_adventurer_bugman.7
 	title = war_adventurer_bugman.7.t
@@ -501,9 +535,6 @@ country_event = {
 		event_target:war_adventurer_location_bugman = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_bugman
-		    war_adventurer_bugman_home = no
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -516,7 +547,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Support wider production. Option Weighing Value: +1.
+	# Share the adapted grain recipe with local brewers. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.7.option_a
 		ai_chance = { factor = 1 }
@@ -532,15 +563,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Sponsor a merchant fair. Option Weighing Value: +1.5.
+	# Open a regulated provincial market for the new ale. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.7.option_b
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
 			add_base_tax = 2
 		}
-		add_prestige_or_monarch_power = { amount = 25 }
-		add_years_of_income = -0.25
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -550,11 +579,25 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Sell the recipe rights locally. Option Weighing Value: +2.
+	# Establish a brewers' counting house for the growing trade. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.7.option_c
 		ai_chance = { factor = 1 }
-		add_years_of_income = 1
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = counting_house }
+				NOT = { trade_goods = gold }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = counting_house }
+					NOT = { trade_goods = gold }
+				}
+				add_building = counting_house
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -587,7 +630,6 @@ country_event = {
 		event_target:war_adventurer_location_bugman = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_bugman
-		    war_adventurer_bugman_home = no
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -602,11 +644,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Protect the witnesses. Option Weighing Value: +1.
+	# Settle the rescued workers in protected local homes. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.8.option_a
 		ai_chance = { factor = 1 }
-		add_adm_power = 50
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -616,7 +660,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Employ their skills. Option Weighing Value: +1.
+	# Restore the workers to provincial breweries. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.8.option_b
 		ai_chance = { factor = 1 }
@@ -632,11 +676,25 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Confiscate the smugglers' stock. Option Weighing Value: +1.
+	# Turn the seized premises into a brewers' counting house. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.8.option_c
 		ai_chance = { factor = 1 }
-		add_years_of_income = 0.5
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = counting_house }
+				NOT = { trade_goods = gold }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = counting_house }
+					NOT = { trade_goods = gold }
+				}
+				add_building = counting_house
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -658,7 +716,7 @@ country_event = {
 	}
 }
 
-# BUG-FA04: The Pass Beyond the Mountains. Intended event Weighing Value: +2. Lore: L4.
+# BUG-FA04: The Pass Beyond the Mountains. Intended event Weighing Value: +1. Lore: L4.
 country_event = {
 	id = war_adventurer_bugman.9
 	title = war_adventurer_bugman.9.t
@@ -669,7 +727,6 @@ country_event = {
 		event_target:war_adventurer_location_bugman = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_bugman
-		    war_adventurer_bugman_home = no
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -684,7 +741,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Survey and open the route. Option Weighing Value: +1.
+	# Register the newly opened pass with provincial customs. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.9.option_a
 		ai_chance = { factor = 1 }
@@ -700,12 +757,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Buy the recovered provisions. Option Weighing Value: +1.5.
+	# Equip local pass wardens from the recovered supplies. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.9.option_b
 		ai_chance = { factor = 1 }
-		add_yearly_manpower = 2
-		add_years_of_income = -0.25
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -715,11 +773,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Circulate the warning to merchants. Option Weighing Value: +2.
+	# Supply provincial workshops through the safer crossing. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.9.option_c
 		ai_chance = { factor = 1 }
-		add_dip_power = 100
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -752,9 +812,6 @@ country_event = {
 		event_target:war_adventurer_location_bugman = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_bugman
-		    war_adventurer_bugman_home = no
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -767,7 +824,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Forward it with an escort. Option Weighing Value: +1.
+	# Return the sealed delivery to its rightful customer. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.10.option_a
 		ai_chance = { factor = 1 }
@@ -781,11 +838,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Arrange a paid local sale. Option Weighing Value: +1.
+	# Settle the freight dispute through a permanent local delivery office. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.10.option_b
 		ai_chance = { factor = 1 }
-		add_years_of_income = 0.5
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -795,12 +854,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Compensate the carrier and retain brewing samples. Option Weighing Value: +0.5.
+	# Retain lawful brewing samples for the provincial guild. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_bugman.10.option_c
 		ai_chance = { factor = 1 }
-		change_innovativeness = 1
-		add_years_of_income = -0.25
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -822,7 +882,7 @@ country_event = {
 	}
 }
 
-# BUG-EH01: The Brewery Burns Twice. Intended event Weighing Value: -2. Lore: L2, L3.
+# BUG-EH01: The Brewery Burns Twice. Intended event Weighing Value: -1. Lore: L2, L3.
 country_event = {
 	id = war_adventurer_bugman.11
 	title = war_adventurer_bugman.11.t
@@ -833,7 +893,6 @@ country_event = {
 		event_target:war_adventurer_location_bugman = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_bugman
-		    war_adventurer_bugman_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -848,11 +907,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Import replacements. Option Weighing Value: -2.
+	# Import the garrison's replacement supplies. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.11.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -862,12 +921,12 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Divert civilian stocks. Option Weighing Value: -2.
+	# Let local suppliers renegotiate their own military obligations. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.11.option_b
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
-			add_devastation = 50
+			add_local_autonomy = 50
 		}
 		if = {
 			limit = {
@@ -878,11 +937,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reduce military allocations. Option Weighing Value: -2.
+	# Write off the burned brewery's counting house. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.11.option_c
 		ai_chance = { factor = 1 }
-		add_mil_power = -100
+		trigger = {
+			event_target:war_adventurer_province = {
+				has_building = counting_house
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					has_building = counting_house
+				}
+				remove_building = counting_house
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -915,7 +986,6 @@ country_event = {
 		event_target:war_adventurer_location_bugman = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_bugman
-		    war_adventurer_bugman_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -930,7 +1000,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Buy replacement grain. Option Weighing Value: -1.
+	# Purchase replacement grain. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.12.option_a
 		ai_chance = { factor = 1 }
@@ -944,11 +1014,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Redistribute existing supplies. Option Weighing Value: -1.
+	# Give local communities control of grain deliveries. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.12.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -958,12 +1030,12 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Ignore the demand and endure shortages. Option Weighing Value: -1.
+	# Seize civilian seed stocks to keep the troops supplied. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.12.option_c
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
-			add_devastation = 25
+			add_devastation = 50
 		}
 		if = {
 			limit = {
@@ -986,7 +1058,7 @@ country_event = {
 	}
 }
 
-# BUG-EH03: The Night of Broken Crossbows. Intended event Weighing Value: -2. Lore: L4.
+# BUG-EH03: The Night of Broken Crossbows. Intended event Weighing Value: -1. Lore: L4.
 country_event = {
 	id = war_adventurer_bugman.13
 	title = war_adventurer_bugman.13.t
@@ -997,7 +1069,6 @@ country_event = {
 		event_target:war_adventurer_location_bugman = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_bugman
-		    war_adventurer_bugman_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1012,11 +1083,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Rebuild the equipment. Option Weighing Value: -2.
+	# Purchase replacement siege equipment. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.13.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1026,12 +1097,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon the operation. Option Weighing Value: -2.
+	# Let the provincial commanders abandon the operation. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.13.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -50
-		add_prestige = -25
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1041,7 +1113,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Requisition local materials. Option Weighing Value: -2.
+	# Strip the district for replacement timber and iron. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.13.option_c
 		ai_chance = { factor = 1 }
@@ -1080,9 +1152,6 @@ country_event = {
 		event_target:war_adventurer_location_bugman = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_bugman
-		    war_adventurer_bugman_home = yes
-		    owner = { war_adventurer_enemy_a = yes }
-
 		}
 	}
 	immediate = {
@@ -1095,7 +1164,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Refund purchasers. Option Weighing Value: -1.
+	# Refund the purchasers of counterfeit ale. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.14.option_a
 		ai_chance = { factor = 1 }
@@ -1109,11 +1178,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Investigate the licence. Option Weighing Value: -1.
+	# Give the brewing guild independent control of inspections. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.14.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1146,7 +1217,6 @@ country_event = {
 		event_target:war_adventurer_location_bugman = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_bugman
-		    war_adventurer_bugman_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1161,7 +1231,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the cargo quietly. Option Weighing Value: -1.
+	# Replace the stolen cargo from the treasury. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.15.option_a
 		ai_chance = { factor = 1 }
@@ -1175,11 +1245,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Tighten river controls. Option Weighing Value: -1.
+	# Return convoy protection to the local river communities. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.15.option_b
 		ai_chance = { factor = 1 }
-		add_dip_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1189,7 +1261,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Deny the prisoners existed. Option Weighing Value: -1.
+	# Admit that the state transported concealed prisoners. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.15.option_c
 		ai_chance = { factor = 1 }
@@ -1226,7 +1298,6 @@ country_event = {
 		event_target:war_adventurer_location_bugman = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_bugman
-		    war_adventurer_bugman_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1241,7 +1312,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Pay the merchants. Option Weighing Value: -1.
+	# Honour the merchants' convoy contracts. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.16.option_a
 		ai_chance = { factor = 1 }
@@ -1255,11 +1326,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Contest the contracts. Option Weighing Value: -1.
+	# Let provincial merchants set their own convoy terms. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.16.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1269,11 +1342,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon the purchase. Option Weighing Value: -1.
+	# Requisition local stocks to replace the intercepted shipment. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.16.option_c
 		ai_chance = { factor = 1 }
-		add_mil_power = -50
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1295,7 +1370,7 @@ country_event = {
 	}
 }
 
-# BUG-EA02: The Brewer's Mark Abroad. Intended event Weighing Value: -2. Lore: L2, L3.
+# BUG-EA02: The Brewer's Mark Abroad. Intended event Weighing Value: -1. Lore: L2, L3.
 country_event = {
 	id = war_adventurer_bugman.17
 	title = war_adventurer_bugman.17.t
@@ -1306,7 +1381,6 @@ country_event = {
 		event_target:war_adventurer_location_bugman = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_bugman
-		    war_adventurer_bugman_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1321,11 +1395,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Compensate surrounding businesses. Option Weighing Value: -2.
+	# Compensate the businesses damaged in the fire. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.17.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1335,7 +1409,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Let the district absorb the damage. Option Weighing Value: -2.
+	# Leave the burned warehouse district unrepaired. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.17.option_b
 		ai_chance = { factor = 1 }
@@ -1351,11 +1425,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Expose and dismantle the trafficking network. Option Weighing Value: -2.
+	# Dismantle the traffickers' counting house. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.17.option_c
 		ai_chance = { factor = 1 }
-		add_adm_power = -100
+		trigger = {
+			event_target:war_adventurer_province = {
+				has_building = counting_house
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					has_building = counting_house
+				}
+				remove_building = counting_house
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1388,7 +1474,6 @@ country_event = {
 		event_target:war_adventurer_location_bugman = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_bugman
-		    war_adventurer_bugman_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1403,7 +1488,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Purchase animals and equipment. Option Weighing Value: -1.
+	# Purchase replacement pack animals and equipment. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.18.option_a
 		ai_chance = { factor = 1 }
@@ -1417,11 +1502,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reduce the convoy service. Option Weighing Value: -1.
+	# Withdraw the state convoy service and leave transport to local companies. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.18.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1454,7 +1541,6 @@ country_event = {
 		event_target:war_adventurer_location_bugman = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_bugman
-		    war_adventurer_bugman_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1469,7 +1555,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Pay restitution. Option Weighing Value: -1.
+	# Pay restitution to the rescued captives. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.19.option_a
 		ai_chance = { factor = 1 }
@@ -1483,11 +1569,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Prosecute compromised officials. Option Weighing Value: -1.
+	# Give the provincial communities control of trafficking investigations. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.19.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1497,7 +1585,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Silence the witnesses. Option Weighing Value: -1.
+	# Admit that our officials protected the captive trader. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.19.option_c
 		ai_chance = { factor = 1 }
@@ -1523,7 +1611,7 @@ country_event = {
 	}
 }
 
-# BUG-EA05: The Mountain King's Barrels. Intended event Weighing Value: -2. Lore: L1, L4.
+# BUG-EA05: The Mountain King's Barrels. Intended event Weighing Value: -1. Lore: L1, L4.
 country_event = {
 	id = war_adventurer_bugman.20
 	title = war_adventurer_bugman.20.t
@@ -1534,9 +1622,6 @@ country_event = {
 		event_target:war_adventurer_location_bugman = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_bugman
-		    war_adventurer_bugman_home = no
-		    owner = { war_adventurer_enemy_a = yes }
-
 		}
 	}
 	immediate = {
@@ -1549,11 +1634,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Compensate the delegation. Option Weighing Value: -2.
+	# Compensate the visiting delegation. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.20.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1563,11 +1648,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Renegotiate the supply agreement. Option Weighing Value: -2.
+	# Let the provincial merchants choose their own suppliers. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.20.option_b
 		ai_chance = { factor = 1 }
-		add_dip_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1577,11 +1664,10 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon the ceremony. Option Weighing Value: -2.
+	# Cancel the disgraced ceremony. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_bugman.20.option_c
 		ai_chance = { factor = 1 }
-		add_years_of_income = -0.5
 		add_prestige = -25
 		if = {
 			limit = {

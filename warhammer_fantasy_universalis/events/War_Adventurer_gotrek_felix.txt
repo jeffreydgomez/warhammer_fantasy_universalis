@@ -1,6 +1,6 @@
 namespace = war_adventurer_gotrek_felix
 
-# Generated from Dev Stuff/Adventurers/event_data.json; edit that authored source.
+# Choices and eligibility: Dev Stuff/Tools/adventurer_event_balance.tsv.
 # Budget source: Dev Stuff/Examples/Balance Guide.txt. No MTTH.
 
 # GOF-FH01: The Window Tax Witness. Intended event Weighing Value: +1. Lore: L1.
@@ -14,9 +14,6 @@ country_event = {
 		event_target:war_adventurer_location_gotrek_felix = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gotrek_felix
-		    war_adventurer_gotrek_felix_home = yes
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -29,11 +26,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Review and reform the collection. Option Weighing Value: +1.
+	# Replace the abusive collection with verified local assessments. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.1.option_a
 		ai_chance = { factor = 1 }
-		add_adm_power = 50
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -43,11 +42,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Compensate victims from recovered fees. Option Weighing Value: +1.
+	# Return confiscated goods to the provincial shopkeepers. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.1.option_b
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -57,11 +58,10 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Publish a moderated account. Option Weighing Value: +1.
+	# File Felix's witness account without intervening. Option Weighing Value: +0.
 	option = {
 		name = war_adventurer_gotrek_felix.1.option_c
 		ai_chance = { factor = 1 }
-		add_dip_power = 50
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -83,7 +83,7 @@ country_event = {
 	}
 }
 
-# GOF-FH02: Ratmen Beneath the Warehouses. Intended event Weighing Value: +2. Lore: L2.
+# GOF-FH02: Ratmen Beneath the Warehouses. Intended event Weighing Value: +1. Lore: L2.
 country_event = {
 	id = war_adventurer_gotrek_felix.2
 	title = war_adventurer_gotrek_felix.2.t
@@ -94,7 +94,6 @@ country_event = {
 		event_target:war_adventurer_location_gotrek_felix = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gotrek_felix
-		    war_adventurer_gotrek_felix_home = yes
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -109,11 +108,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Send investigators after the evidence. Option Weighing Value: +2.
+	# Train provincial cellar patrols from the rescued workers' testimony. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.2.option_a
 		ai_chance = { factor = 1 }
-		add_mil_power = 100
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -123,12 +124,12 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Restore the warehouses from recovered goods. Option Weighing Value: +1.
+	# Restore the warehouses with the recovered goods. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.2.option_b
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
-			add_base_tax = 2
+			add_base_production = 2
 		}
 		if = {
 			limit = {
@@ -139,11 +140,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Honour the rescue publicly. Option Weighing Value: +2.
+	# Rehouse the rescued townsfolk in the damaged district. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.2.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 50 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -165,7 +168,7 @@ country_event = {
 	}
 }
 
-# GOF-FH03: A Dragon's Unclaimed Hoard. Intended event Weighing Value: +2. Lore: L5.
+# GOF-FH03: A Dragon's Unclaimed Hoard. Intended event Weighing Value: +1. Lore: L5.
 country_event = {
 	id = war_adventurer_gotrek_felix.3
 	title = war_adventurer_gotrek_felix.3.t
@@ -176,7 +179,6 @@ country_event = {
 		event_target:war_adventurer_location_gotrek_felix = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gotrek_felix
-		    war_adventurer_gotrek_felix_home = yes
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -191,11 +193,10 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Return identifiable goods and repair the claimants’ premises. Option Weighing Value: +2.
+	# Return identifiable property and restore the claimants' premises. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.3.option_a
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
 		event_target:war_adventurer_province = {
 			add_base_tax = 2
 		}
@@ -208,11 +209,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Auction unclaimed treasure. Option Weighing Value: +2.
+	# Give unclaimed tools and freight to provincial workshops. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.3.option_b
 		ai_chance = { factor = 1 }
-		add_years_of_income = 1
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -222,14 +225,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Pay wardens to secure the pass. Option Weighing Value: +1.
+	# Equip local pass wardens from the recovered stores. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.3.option_c
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
-			add_base_tax = 3
+			add_base_manpower = 2
 		}
-		add_years_of_income = -0.25
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -251,7 +253,7 @@ country_event = {
 	}
 }
 
-# GOF-FH04: The Blood on the Chapel Floor. Intended event Weighing Value: +2. Lore: L4.
+# GOF-FH04: The Blood on the Chapel Floor. Intended event Weighing Value: +1. Lore: L4.
 country_event = {
 	id = war_adventurer_gotrek_felix.4
 	title = war_adventurer_gotrek_felix.4.t
@@ -262,7 +264,6 @@ country_event = {
 		event_target:war_adventurer_location_gotrek_felix = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gotrek_felix
-		    war_adventurer_gotrek_felix_home = yes
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -277,12 +278,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Fund repairs and investigate the cult’s surviving records. Option Weighing Value: +1.5.
+	# Restore the chapel precinct from the cult's recovered assets. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.4.option_a
 		ai_chance = { factor = 1 }
-		add_adm_power = 100
-		add_years_of_income = -0.25
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -292,11 +294,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Confiscate the cult's wealth. Option Weighing Value: +2.
+	# Recruit willing rescuers into the provincial watch. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.4.option_b
 		ai_chance = { factor = 1 }
-		add_years_of_income = 1
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -306,12 +310,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Honour the local helpers and recruit willing veterans. Option Weighing Value: +2.
+	# Endow a cathedral on the cleared chapel site. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.4.option_c
 		ai_chance = { factor = 1 }
-		add_yearly_manpower = 1
-		add_prestige_or_monarch_power = { amount = 25 }
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = cathedral }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = cathedral }
+				}
+				add_building = cathedral
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -344,9 +359,6 @@ country_event = {
 		event_target:war_adventurer_location_gotrek_felix = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gotrek_felix
-		    war_adventurer_gotrek_felix_home = yes
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -359,12 +371,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Sponsor a public archive. Option Weighing Value: +0.5.
+	# Catalogue Felix's account and identify its recovered heirlooms. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.5.option_a
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
-		add_years_of_income = -0.25
+		change_innovativeness = 1
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -374,11 +385,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Return the heirlooms diplomatically. Option Weighing Value: +1.
+	# Restore local households' property rights from the heirlooms' marks. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.5.option_b
 		ai_chance = { factor = 1 }
-		add_dip_power = 50
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -388,11 +401,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Sell a licensed edition. Option Weighing Value: +1.
+	# Establish a university archive for the expedition's records. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.5.option_c
 		ai_chance = { factor = 1 }
-		add_years_of_income = 0.5
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = university }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = university }
+				}
+				add_building = university
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -414,7 +439,7 @@ country_event = {
 	}
 }
 
-# GOF-FA01: The Siege Survivors' Petition. Intended event Weighing Value: +2. Lore: L6.
+# GOF-FA01: The Siege Survivors' Petition. Intended event Weighing Value: +1. Lore: L6.
 country_event = {
 	id = war_adventurer_gotrek_felix.6
 	title = war_adventurer_gotrek_felix.6.t
@@ -425,7 +450,6 @@ country_event = {
 		event_target:war_adventurer_location_gotrek_felix = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gotrek_felix
-		    war_adventurer_gotrek_felix_home = no
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -440,7 +464,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Settle the survivors. Option Weighing Value: +1.
+	# Settle the rescued households in the province. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.6.option_a
 		ai_chance = { factor = 1 }
@@ -456,12 +480,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Recruit veteran defenders and circulate their siege lessons. Option Weighing Value: +2.
+	# Enlist willing veterans in the local guard. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.6.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = 50
-		add_yearly_manpower = 1
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -471,64 +496,10 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Fund their onward journey. Option Weighing Value: +1.5.
+	# Reequip the survivors' workshops with their saved tools. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.6.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 50 }
-		add_years_of_income = -0.25
-		if = {
-			limit = {
-				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
-			}
-			custom_tooltip = war_adventurer_leaves_tt
-		}
-		else = { custom_tooltip = war_adventurer_stays_tt }
-	}
-
-	after = {
-		hidden_effect = {
-			event_target:war_adventurer_province = {
-				if = {
-					limit = { has_province_modifier = war_adventurer_gotrek_felix }
-					war_adventurer_move = { MODIFIER = war_adventurer_gotrek_felix LOCATION = war_adventurer_location_gotrek_felix BEER = no ARRIVAL_EVENT = war_adventurer_gotrek_felix.21 }
-				}
-			}
-		}
-	}
-}
-
-# GOF-FA02: The Airship's Returned Passengers. Intended event Weighing Value: +2. Lore: L3.
-country_event = {
-	id = war_adventurer_gotrek_felix.7
-	title = war_adventurer_gotrek_felix.7.t
-	desc = war_adventurer_gotrek_felix.7.d
-	picture = WAR_ADVENTURER_GOF_eventPicture
-	is_triggered_only = yes
-	trigger = {
-		event_target:war_adventurer_location_gotrek_felix = {
-		    owned_by = ROOT
-		    has_province_modifier = war_adventurer_gotrek_felix
-		    war_adventurer_gotrek_felix_home = no
-		    owner = { war_adventurer_enemy_a = no }
-
-		}
-	}
-	immediate = {
-		hidden_effect = {
-			event_target:war_adventurer_location_gotrek_felix = {
-				save_event_target_as = war_adventurer_province
-				war_adventurer_prepare_destination = yes
-			}
-		}
-	}
-	goto = war_adventurer_province
-
-	# Fit out a repair workshop and study the recovered tools. Option Weighing Value: +2.
-	option = {
-		name = war_adventurer_gotrek_felix.7.option_a
-		ai_chance = { factor = 1 }
-		change_innovativeness = 1
 		event_target:war_adventurer_province = {
 			add_base_production = 2
 		}
@@ -541,12 +512,50 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Buy the recovered equipment. Option Weighing Value: +1.5.
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				if = {
+					limit = { has_province_modifier = war_adventurer_gotrek_felix }
+					war_adventurer_move = { MODIFIER = war_adventurer_gotrek_felix LOCATION = war_adventurer_location_gotrek_felix BEER = no ARRIVAL_EVENT = war_adventurer_gotrek_felix.21 }
+				}
+			}
+		}
+	}
+}
+
+# GOF-FA02: The Airship's Returned Passengers. Intended event Weighing Value: +1. Lore: L3.
+country_event = {
+	id = war_adventurer_gotrek_felix.7
+	title = war_adventurer_gotrek_felix.7.t
+	desc = war_adventurer_gotrek_felix.7.d
+	picture = WAR_ADVENTURER_GOF_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_gotrek_felix = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_gotrek_felix
+		    owner = { war_adventurer_enemy_a = no }
+
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			event_target:war_adventurer_location_gotrek_felix = {
+				save_event_target_as = war_adventurer_province
+				war_adventurer_prepare_destination = yes
+			}
+		}
+	}
+	goto = war_adventurer_province
+
+	# Fit out a provincial airship repair workshop. Option Weighing Value: +1.
 	option = {
-		name = war_adventurer_gotrek_felix.7.option_b
+		name = war_adventurer_gotrek_felix.7.option_a
 		ai_chance = { factor = 1 }
-		add_mil_power = 100
-		add_years_of_income = -0.25
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -556,11 +565,27 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Help the survivors return home. Option Weighing Value: +2.
+	# Examine the recovered Dwarf tools. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_gotrek_felix.7.option_b
+		ai_chance = { factor = 1 }
+		change_innovativeness = 1
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
+	}
+
+	# Provide local homes for the rescued families. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.7.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 50 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -582,7 +607,7 @@ country_event = {
 	}
 }
 
-# GOF-FA03: A Slayer in the Summoning Pit. Intended event Weighing Value: +2. Lore: L4.
+# GOF-FA03: A Slayer in the Summoning Pit. Intended event Weighing Value: +1. Lore: L4.
 country_event = {
 	id = war_adventurer_gotrek_felix.8
 	title = war_adventurer_gotrek_felix.8.t
@@ -593,7 +618,6 @@ country_event = {
 		event_target:war_adventurer_location_gotrek_felix = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gotrek_felix
-		    war_adventurer_gotrek_felix_home = no
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -608,11 +632,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Seal and document the sanctuary. Option Weighing Value: +2.
+	# Document the ritual debris before sealing the sanctuary. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.8.option_a
 		ai_chance = { factor = 1 }
-		add_adm_power = 100
+		change_innovativeness = 1
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -622,7 +646,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Return rescued property. Option Weighing Value: +1.
+	# Restore the rescued captives' homes and property. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.8.option_b
 		ai_chance = { factor = 1 }
@@ -638,12 +662,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Honour the guides and recruit volunteers for the local watch. Option Weighing Value: +2.
+	# Enlist willing guides in a provincial sanctuary watch. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.8.option_c
 		ai_chance = { factor = 1 }
-		add_yearly_manpower = 1
-		add_prestige_or_monarch_power = { amount = 25 }
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -676,9 +701,6 @@ country_event = {
 		event_target:war_adventurer_location_gotrek_felix = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gotrek_felix
-		    war_adventurer_gotrek_felix_home = no
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -691,11 +713,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Recognize the villagers' rights. Option Weighing Value: +1.
+	# Let the endangered villagers process the lawful remains. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.9.option_a
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -705,12 +729,11 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Buy samples for scholars. Option Weighing Value: +0.5.
+	# Have scholars examine the dragon bones. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.9.option_b
 		ai_chance = { factor = 1 }
 		change_innovativeness = 1
-		add_years_of_income = -0.25
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -743,9 +766,6 @@ country_event = {
 		event_target:war_adventurer_location_gotrek_felix = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gotrek_felix
-		    war_adventurer_gotrek_felix_home = no
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -758,11 +778,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Recover the fraudulent takings. Option Weighing Value: +1.
+	# Correct the local levy from Felix's translated figures. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.10.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = 0.5
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -772,11 +794,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reform the guard's instructions. Option Weighing Value: +1.
+	# Retrain the provincial guard to protect the tax hearings. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.10.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = 50
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -786,11 +810,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Mediate compensation. Option Weighing Value: +1.
+	# Return fraudulently seized goods to the townsfolk. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gotrek_felix.10.option_c
 		ai_chance = { factor = 1 }
-		add_dip_power = 50
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -823,9 +849,6 @@ country_event = {
 		event_target:war_adventurer_location_gotrek_felix = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gotrek_felix
-		    war_adventurer_gotrek_felix_home = yes
-		    owner = { war_adventurer_enemy_a = yes }
-
 		}
 	}
 	immediate = {
@@ -838,7 +861,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Refund disputed payments. Option Weighing Value: -1.
+	# Refund the disputed levy. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.11.option_a
 		ai_chance = { factor = 1 }
@@ -852,11 +875,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Investigate the escort. Option Weighing Value: -1.
+	# Give the provincial communities oversight of collection. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.11.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -866,7 +891,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Suppress the account. Option Weighing Value: -1.
+	# Accept the publication of the pair's accusations. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.11.option_c
 		ai_chance = { factor = 1 }
@@ -892,7 +917,7 @@ country_event = {
 	}
 }
 
-# GOF-EH02: The Catacombs' Empty Cells. Intended event Weighing Value: -2. Lore: L2.
+# GOF-EH02: The Catacombs' Empty Cells. Intended event Weighing Value: -1. Lore: L2.
 country_event = {
 	id = war_adventurer_gotrek_felix.12
 	title = war_adventurer_gotrek_felix.12.t
@@ -903,7 +928,6 @@ country_event = {
 		event_target:war_adventurer_location_gotrek_felix = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gotrek_felix
-		    war_adventurer_gotrek_felix_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -918,11 +942,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Rebuild the damaged district. Option Weighing Value: -2.
+	# Rebuild the damaged quarter. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.12.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -932,7 +956,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Seal the lower passages. Option Weighing Value: -2.
+	# Seal the lower passages and abandon the ruined cellars. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.12.option_b
 		ai_chance = { factor = 1 }
@@ -948,12 +972,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reorganize security before the evidence spreads. Option Weighing Value: -2.
+	# Place local detention under independent provincial magistrates. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.12.option_c
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
-		add_prestige = -25
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -975,7 +1000,7 @@ country_event = {
 	}
 }
 
-# GOF-EH03: The Beast We Had Purchased. Intended event Weighing Value: -2. Lore: L5.
+# GOF-EH03: The Beast We Had Purchased. Intended event Weighing Value: -1. Lore: L5.
 country_event = {
 	id = war_adventurer_gotrek_felix.13
 	title = war_adventurer_gotrek_felix.13.t
@@ -986,7 +1011,6 @@ country_event = {
 		event_target:war_adventurer_location_gotrek_felix = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gotrek_felix
-		    war_adventurer_gotrek_felix_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1001,11 +1025,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace its military role. Option Weighing Value: -2.
+	# Purchase troops to replace the dead military beast. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.13.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1015,11 +1039,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Divert existing troops. Option Weighing Value: -2.
+	# Let provincial captains determine their own defensive commitments. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.13.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1029,7 +1055,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon the damaged compound. Option Weighing Value: -2.
+	# Abandon the ruined beast compound. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.13.option_c
 		ai_chance = { factor = 1 }
@@ -1057,7 +1083,7 @@ country_event = {
 	}
 }
 
-# GOF-EH04: The Summoner's Last Bargain. Intended event Weighing Value: -2. Lore: L4.
+# GOF-EH04: The Summoner's Last Bargain. Intended event Weighing Value: -1. Lore: L4.
 country_event = {
 	id = war_adventurer_gotrek_felix.14
 	title = war_adventurer_gotrek_felix.14.t
@@ -1068,7 +1094,6 @@ country_event = {
 		event_target:war_adventurer_location_gotrek_felix = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gotrek_felix
-		    war_adventurer_gotrek_felix_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1083,11 +1108,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Rebuild conventional defences. Option Weighing Value: -2.
+	# Build conventional defences to replace the ritual's promise. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.14.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1097,7 +1122,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Close the ruined chamber. Option Weighing Value: -2.
+	# Seal the collapsed chamber and abandon its surroundings. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.14.option_b
 		ai_chance = { factor = 1 }
@@ -1113,11 +1138,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Investigate the failed contract. Option Weighing Value: -2.
+	# Close the university that supplied the summoning apparatus. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.14.option_c
 		ai_chance = { factor = 1 }
-		add_adm_power = -100
+		trigger = {
+			event_target:war_adventurer_province = {
+				has_building = university
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					has_building = university
+				}
+				remove_building = university
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1150,9 +1187,6 @@ country_event = {
 		event_target:war_adventurer_location_gotrek_felix = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gotrek_felix
-		    war_adventurer_gotrek_felix_home = yes
-		    owner = { war_adventurer_enemy_a = yes }
-
 		}
 	}
 	immediate = {
@@ -1165,7 +1199,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Settle the victims' claims. Option Weighing Value: -1.
+	# Settle the extortion victims' claims. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.15.option_a
 		ai_chance = { factor = 1 }
@@ -1179,11 +1213,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Remove implicated officials. Option Weighing Value: -1.
+	# Transfer the implicated officers' powers to a provincial council. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.15.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1193,7 +1229,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Endure the circulation. Option Weighing Value: -1.
+	# Allow the accusations to circulate unanswered. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.15.option_c
 		ai_chance = { factor = 1 }
@@ -1219,7 +1255,7 @@ country_event = {
 	}
 }
 
-# GOF-EA01: The Supply Street at the Siege. Intended event Weighing Value: -2. Lore: L6.
+# GOF-EA01: The Supply Street at the Siege. Intended event Weighing Value: -1. Lore: L6.
 country_event = {
 	id = war_adventurer_gotrek_felix.16
 	title = war_adventurer_gotrek_felix.16.t
@@ -1230,7 +1266,6 @@ country_event = {
 		event_target:war_adventurer_location_gotrek_felix = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gotrek_felix
-		    war_adventurer_gotrek_felix_home = no
 			owner = { is_at_war = yes }
 		    owner = { war_adventurer_enemy_a = yes }
 
@@ -1246,11 +1281,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the stores. Option Weighing Value: -2.
+	# Replace the captured stores. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.16.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1260,11 +1295,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reorganize the encirclement. Option Weighing Value: -2.
+	# Let local commanders negotiate their own blockade duties. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.16.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1274,7 +1311,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Requisition nearby settlements. Option Weighing Value: -2.
+	# Strip nearby settlements of replacement supplies. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.16.option_c
 		ai_chance = { factor = 1 }
@@ -1302,7 +1339,7 @@ country_event = {
 	}
 }
 
-# GOF-EA02: The Airship Above the Prison. Intended event Weighing Value: -2. Lore: L3.
+# GOF-EA02: The Airship Above the Prison. Intended event Weighing Value: -1. Lore: L3.
 country_event = {
 	id = war_adventurer_gotrek_felix.17
 	title = war_adventurer_gotrek_felix.17.t
@@ -1313,7 +1350,6 @@ country_event = {
 		event_target:war_adventurer_location_gotrek_felix = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gotrek_felix
-		    war_adventurer_gotrek_felix_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1328,11 +1364,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Repair the machinery and guard. Option Weighing Value: -2.
+	# Repair the disabled landing machinery. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.17.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1342,11 +1378,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon aerial interception. Option Weighing Value: -2.
+	# Let the provincial engineers control aerial interception. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.17.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1356,11 +1394,10 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Conceal the loss of the heirlooms. Option Weighing Value: -2.
+	# Admit the loss of the stolen heirlooms. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.17.option_c
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
 		add_prestige = -25
 		if = {
 			limit = {
@@ -1383,7 +1420,7 @@ country_event = {
 	}
 }
 
-# GOF-EA03: The Daemon's Broken Chain. Intended event Weighing Value: -2. Lore: L4.
+# GOF-EA03: The Daemon's Broken Chain. Intended event Weighing Value: -1. Lore: L4.
 country_event = {
 	id = war_adventurer_gotrek_felix.18
 	title = war_adventurer_gotrek_felix.18.t
@@ -1394,7 +1431,6 @@ country_event = {
 		event_target:war_adventurer_location_gotrek_felix = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gotrek_felix
-		    war_adventurer_gotrek_felix_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1409,11 +1445,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the equipment. Option Weighing Value: -2.
+	# Replace the abandoned ritual equipment. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.18.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1423,11 +1459,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Dismantle the programme. Option Weighing Value: -2.
+	# Give local custodians authority to end the binding programme. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.18.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1437,7 +1475,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Leave the district to recover unaided. Option Weighing Value: -2.
+	# Leave the damaged ritual district to recover unaided. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.18.option_c
 		ai_chance = { factor = 1 }
@@ -1476,9 +1514,6 @@ country_event = {
 		event_target:war_adventurer_location_gotrek_felix = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gotrek_felix
-		    war_adventurer_gotrek_felix_home = no
-		    owner = { war_adventurer_enemy_a = yes }
-
 		}
 	}
 	immediate = {
@@ -1491,7 +1526,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Repay proven claims. Option Weighing Value: -1.
+	# Repay the proven claims to stolen property. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.19.option_a
 		ai_chance = { factor = 1 }
@@ -1505,11 +1540,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Investigate the purchase. Option Weighing Value: -1.
+	# Give provincial magistrates independent control of restitution. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.19.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1519,7 +1556,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Deny the evidence. Option Weighing Value: -1.
+	# Defend the governor's discredited collection. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.19.option_c
 		ai_chance = { factor = 1 }
@@ -1556,9 +1593,6 @@ country_event = {
 		event_target:war_adventurer_location_gotrek_felix = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gotrek_felix
-		    war_adventurer_gotrek_felix_home = no
-		    owner = { war_adventurer_enemy_a = yes }
-
 		}
 	}
 	immediate = {
@@ -1571,7 +1605,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Repair the cellar and repay victims. Option Weighing Value: -1.
+	# Repair the cellar and compensate those harmed. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.20.option_a
 		ai_chance = { factor = 1 }
@@ -1585,11 +1619,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Purge the compromised staff. Option Weighing Value: -1.
+	# Place palace accounts under an independent provincial council. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.20.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1599,11 +1635,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Hide the scandal. Option Weighing Value: -1.
+	# Seal and abandon the damaged cellar quarter. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gotrek_felix.20.option_c
 		ai_chance = { factor = 1 }
-		add_prestige = -25
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }

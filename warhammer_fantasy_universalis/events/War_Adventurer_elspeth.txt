@@ -1,6 +1,6 @@
 namespace = war_adventurer_elspeth
 
-# Generated from Dev Stuff/Adventurers/event_data.json; edit that authored source.
+# Choices and eligibility: Dev Stuff/Tools/adventurer_event_balance.tsv.
 # Budget source: Dev Stuff/Examples/Balance Guide.txt. No MTTH.
 
 # ELS-FH01: The Tower's Returned Reliquary. Intended event Weighing Value: +1. Lore: L1.
@@ -14,7 +14,6 @@ country_event = {
 		event_target:war_adventurer_location_elspeth = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_elspeth
-		    war_adventurer_elspeth_home = yes
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -29,11 +28,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Correct the burial register and rites. Option Weighing Value: +1.
+	# Reopen the corrected burial precinct and its local records. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.1.option_a
 		ai_chance = { factor = 1 }
-		add_adm_power = 50
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -43,7 +44,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Commission a guarded study. Option Weighing Value: +1.
+	# Have scholars examine the corrected funerary inscription. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.1.option_b
 		ai_chance = { factor = 1 }
@@ -57,11 +58,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Honour the keeper's cooperation. Option Weighing Value: +1.
+	# House the restored reliquary in a new cathedral. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.1.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = cathedral }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = cathedral }
+				}
+				add_building = cathedral
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -83,7 +96,7 @@ country_event = {
 	}
 }
 
-# ELS-FH02: Rawbones in the Reed Beds. Intended event Weighing Value: +2. Lore: L2.
+# ELS-FH02: Rawbones in the Reed Beds. Intended event Weighing Value: +1. Lore: L2.
 country_event = {
 	id = war_adventurer_elspeth.2
 	title = war_adventurer_elspeth.2.t
@@ -94,7 +107,6 @@ country_event = {
 		event_target:war_adventurer_location_elspeth = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_elspeth
-		    war_adventurer_elspeth_home = yes
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -109,12 +121,12 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Restore the waterways. Option Weighing Value: +1.
+	# Clear the sluices and reopen the provincial mills. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.2.option_a
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
-			add_base_tax = 2
+			add_base_production = 2
 		}
 		if = {
 			limit = {
@@ -125,11 +137,11 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Study the creature safely. Option Weighing Value: +2.
+	# Examine the remains under supervised conditions. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.2.option_b
 		ai_chance = { factor = 1 }
-		change_innovativeness = 2
+		change_innovativeness = 1
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -139,12 +151,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Sell surplus baggage and equip willing patrol recruits. Option Weighing Value: +2.
+	# Equip willing local marsh wardens with the recovered baggage. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.2.option_c
 		ai_chance = { factor = 1 }
-		add_years_of_income = 0.5
-		add_yearly_manpower = 1
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -177,7 +190,6 @@ country_event = {
 		event_target:war_adventurer_location_elspeth = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_elspeth
-		    war_adventurer_elspeth_home = yes
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -192,11 +204,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Investigate the correspondents. Option Weighing Value: +1.
+	# Remove the vampire's false contracts from provincial administration. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.3.option_a
 		ai_chance = { factor = 1 }
-		add_adm_power = 50
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -206,11 +220,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Quietly reverse the bargains. Option Weighing Value: +1.
+	# Return confiscated tools and goods to the local traders. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.3.option_b
 		ai_chance = { factor = 1 }
-		add_dip_power = 50
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -243,9 +259,6 @@ country_event = {
 		event_target:war_adventurer_location_elspeth = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_elspeth
-		    war_adventurer_elspeth_home = yes
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -258,11 +271,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Review their mandate and use the evidence. Option Weighing Value: +1.
+	# Reopen local offices compromised by the recovered criminal evidence. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.4.option_a
 		ai_chance = { factor = 1 }
-		add_adm_power = 50
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -272,11 +287,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Broker limits on future searches. Option Weighing Value: +1.
+	# Reorganize the provincial watch around lawful searches. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.4.option_b
 		ai_chance = { factor = 1 }
-		add_dip_power = 50
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -286,11 +303,10 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reward the useful discovery without endorsing the intrusion. Option Weighing Value: +1.
+	# File the hunters' testimony without endorsing another search. Option Weighing Value: +0.
 	option = {
 		name = war_adventurer_elspeth.4.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -312,7 +328,7 @@ country_event = {
 	}
 }
 
-# ELS-FH05: The Champion's Black Talisman. Intended event Weighing Value: +2. Lore: L6.
+# ELS-FH05: The Champion's Black Talisman. Intended event Weighing Value: +1. Lore: L6.
 country_event = {
 	id = war_adventurer_elspeth.5
 	title = war_adventurer_elspeth.5.t
@@ -323,7 +339,6 @@ country_event = {
 		event_target:war_adventurer_location_elspeth = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_elspeth
-		    war_adventurer_elspeth_home = yes
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -338,11 +353,10 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Have officers and scholars study the ward’s preparation. Option Weighing Value: +2.
+	# Have scholars document the ward's preparation. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.5.option_a
 		ai_chance = { factor = 1 }
-		add_mil_power = 50
 		change_innovativeness = 1
 		if = {
 			limit = {
@@ -353,12 +367,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Fund the champion's dependants. Option Weighing Value: +1.5.
+	# Provide a secure local holding for the champion's dependants. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.5.option_b
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 50 }
-		add_years_of_income = -0.25
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -368,11 +383,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Preserve the preparation records. Option Weighing Value: +2.
+	# Train provincial wardens from the surviving preparation records. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.5.option_c
 		ai_chance = { factor = 1 }
-		add_adm_power = 100
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -405,9 +422,6 @@ country_event = {
 		event_target:war_adventurer_location_elspeth = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_elspeth
-		    war_adventurer_elspeth_home = no
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -420,7 +434,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Translate and publish the notes. Option Weighing Value: +1.
+	# Translate the remaining archive notes. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.6.option_a
 		ai_chance = { factor = 1 }
@@ -434,7 +448,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Settle ownership claims and restore the archive. Option Weighing Value: +1.
+	# Restore the cleared archive and its provincial records office. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.6.option_b
 		ai_chance = { factor = 1 }
@@ -450,11 +464,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Keep the knowledge within the court. Option Weighing Value: +1.
+	# Establish a university around the recovered collection. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.6.option_c
 		ai_chance = { factor = 1 }
-		add_adm_power = 50
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = university }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = university }
+				}
+				add_building = university
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -476,7 +502,7 @@ country_event = {
 	}
 }
 
-# ELS-FA02: The Marsh's Borrowed Dead. Intended event Weighing Value: +2. Lore: L2.
+# ELS-FA02: The Marsh's Borrowed Dead. Intended event Weighing Value: +1. Lore: L2.
 country_event = {
 	id = war_adventurer_elspeth.7
 	title = war_adventurer_elspeth.7.t
@@ -487,7 +513,6 @@ country_event = {
 		event_target:war_adventurer_location_elspeth = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_elspeth
-		    war_adventurer_elspeth_home = no
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -502,15 +527,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Fund honourable burials and rebuild the survivors’ homes. Option Weighing Value: +1.5.
+	# Restore homes and burial records for the surviving families. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.7.option_a
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
 		event_target:war_adventurer_province = {
 			add_base_tax = 2
 		}
-		add_years_of_income = -0.25
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -520,11 +543,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Recover the desecrators' property. Option Weighing Value: +2.
+	# Return recovered ordinary tools to provincial households. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.7.option_b
 		ai_chance = { factor = 1 }
-		add_years_of_income = 1
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -534,11 +559,11 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Study the binding method under guard. Option Weighing Value: +2.
+	# Study the dismantled binding under guard. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.7.option_c
 		ai_chance = { factor = 1 }
-		add_adm_power = 100
+		change_innovativeness = 1
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -571,9 +596,6 @@ country_event = {
 		event_target:war_adventurer_location_elspeth = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_elspeth
-		    war_adventurer_elspeth_home = no
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -586,11 +608,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Disentangle the agreements. Option Weighing Value: +1.
+	# Restore provincial contracts freed from the enchantment. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.8.option_a
 		ai_chance = { factor = 1 }
-		add_dip_power = 50
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -600,11 +624,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Purify and sell the gifts. Option Weighing Value: +1.
+	# Put the purified ordinary gifts into local workshops. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.8.option_b
 		ai_chance = { factor = 1 }
-		add_years_of_income = 0.5
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -626,7 +652,7 @@ country_event = {
 	}
 }
 
-# ELS-FA04: The Dragon Above the Caravan. Intended event Weighing Value: +2. Lore: L5.
+# ELS-FA04: The Dragon Above the Caravan. Intended event Weighing Value: +1. Lore: L5.
 country_event = {
 	id = war_adventurer_elspeth.9
 	title = war_adventurer_elspeth.9.t
@@ -637,7 +663,6 @@ country_event = {
 		event_target:war_adventurer_location_elspeth = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_elspeth
-		    war_adventurer_elspeth_home = no
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -652,11 +677,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Circulate the raiders’ plans to our patrol officers. Option Weighing Value: +2.
+	# Train provincial patrols from the captured route plans. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.9.option_a
 		ai_chance = { factor = 1 }
-		add_mil_power = 100
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -666,11 +693,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reward rescuers and survivors. Option Weighing Value: +2.
+	# Restore the caravan survivors' waystations. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.9.option_b
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 50 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -680,11 +709,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Sell unclaimed military cargo. Option Weighing Value: +2.
+	# Return recovered cargo to provincial suppliers. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.9.option_c
 		ai_chance = { factor = 1 }
-		add_years_of_income = 1
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -706,7 +737,7 @@ country_event = {
 	}
 }
 
-# ELS-FA05: The Possessor's Empty Vessel. Intended event Weighing Value: +2. Lore: L6.
+# ELS-FA05: The Possessor's Empty Vessel. Intended event Weighing Value: +1. Lore: L6.
 country_event = {
 	id = war_adventurer_elspeth.10
 	title = war_adventurer_elspeth.10.t
@@ -717,9 +748,6 @@ country_event = {
 		event_target:war_adventurer_location_elspeth = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_elspeth
-		    war_adventurer_elspeth_home = no
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -732,11 +760,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Approve tightly supervised safeguards. Option Weighing Value: +2.
+	# Preserve the physician's preparation notes for careful study. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.10.option_a
 		ai_chance = { factor = 1 }
-		change_innovativeness = 2
+		change_innovativeness = 1
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -746,12 +774,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Compensate those affected and close the practice. Option Weighing Value: +1.5.
+	# Train provincial wardens to recognize possession risks. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_elspeth.10.option_b
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 50 }
-		add_years_of_income = -0.25
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -761,11 +790,10 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Preserve the warning for magistrates. Option Weighing Value: +2.
+	# Seal the notes and forbid further demonstrations. Option Weighing Value: +0.
 	option = {
 		name = war_adventurer_elspeth.10.option_c
 		ai_chance = { factor = 1 }
-		add_adm_power = 100
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -798,7 +826,6 @@ country_event = {
 		event_target:war_adventurer_location_elspeth = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_elspeth
-		    war_adventurer_elspeth_home = yes
 			owner = { has_country_modifier = undead_administration }
 		    owner = { war_adventurer_enemy_a = yes }
 
@@ -814,7 +841,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the lost services. Option Weighing Value: -1.
+	# Hire workers to replace the released bound spirits. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.11.option_a
 		ai_chance = { factor = 1 }
@@ -828,11 +855,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Audit the institution. Option Weighing Value: -1.
+	# Give local custodians control of the mortuary. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.11.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -842,11 +871,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Suppress the records. Option Weighing Value: -1.
+	# Close the cathedral that administered the coercive bindings. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.11.option_c
 		ai_chance = { factor = 1 }
-		add_prestige = -25
+		trigger = {
+			event_target:war_adventurer_province = {
+				has_building = cathedral
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					has_building = cathedral
+				}
+				remove_building = cathedral
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -868,7 +909,7 @@ country_event = {
 	}
 }
 
-# ELS-EH02: The Hulk That Fell Apart. Intended event Weighing Value: -2. Lore: L2.
+# ELS-EH02: The Hulk That Fell Apart. Intended event Weighing Value: -1. Lore: L2.
 country_event = {
 	id = war_adventurer_elspeth.12
 	title = war_adventurer_elspeth.12.t
@@ -879,7 +920,6 @@ country_event = {
 		event_target:war_adventurer_location_elspeth = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_elspeth
-		    war_adventurer_elspeth_home = yes
 			owner = { has_country_modifier = undead_administration }
 		    owner = { war_adventurer_enemy_a = yes }
 
@@ -895,11 +935,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Fund safe clearance. Option Weighing Value: -2.
+	# Pay specialist crews to clear the contaminated remains. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.12.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -909,7 +949,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon the yard. Option Weighing Value: -2.
+	# Abandon the ruined assembly yard. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.12.option_b
 		ai_chance = { factor = 1 }
@@ -925,11 +965,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Divert specialists to rebuild the project. Option Weighing Value: -2.
+	# Turn the workshops over to their own independent guild. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.12.option_c
 		ai_chance = { factor = 1 }
-		add_mil_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -962,9 +1004,6 @@ country_event = {
 		event_target:war_adventurer_location_elspeth = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_elspeth
-		    war_adventurer_elspeth_home = yes
-		    owner = { war_adventurer_enemy_a = yes }
-
 		}
 	}
 	immediate = {
@@ -977,11 +1016,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Renegotiate the agreements. Option Weighing Value: -1.
+	# Let the freed officials renegotiate their own provincial agreements. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.13.option_a
 		ai_chance = { factor = 1 }
-		add_dip_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -991,7 +1032,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Buy settlements. Option Weighing Value: -1.
+	# Purchase settlements with the disappointed beneficiaries. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.13.option_b
 		ai_chance = { factor = 1 }
@@ -1028,7 +1069,6 @@ country_event = {
 		event_target:war_adventurer_location_elspeth = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_elspeth
-		    war_adventurer_elspeth_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1043,11 +1083,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Review the operation. Option Weighing Value: -1.
+	# Transfer search authority to independent provincial magistrates. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.14.option_a
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1057,7 +1099,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Restore the officers' standing through compensation. Option Weighing Value: -1.
+	# Compensate the returning search party. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.14.option_b
 		ai_chance = { factor = 1 }
@@ -1071,7 +1113,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Accept the public embarrassment. Option Weighing Value: -1.
+	# Accept the public ridicule of the failed warrant. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.14.option_c
 		ai_chance = { factor = 1 }
@@ -1097,7 +1139,7 @@ country_event = {
 	}
 }
 
-# ELS-EH05: The Ward That Burned Its Master. Intended event Weighing Value: -2. Lore: L6.
+# ELS-EH05: The Ward That Burned Its Master. Intended event Weighing Value: -1. Lore: L6.
 country_event = {
 	id = war_adventurer_elspeth.15
 	title = war_adventurer_elspeth.15.t
@@ -1108,7 +1150,6 @@ country_event = {
 		event_target:war_adventurer_location_elspeth = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_elspeth
-		    war_adventurer_elspeth_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1123,11 +1164,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Rebuild elsewhere. Option Weighing Value: -2.
+	# Rebuild the ritual facilities elsewhere. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.15.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1137,7 +1178,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Seal the chamber. Option Weighing Value: -2.
+	# Leave the shattered ritual quarter sealed and unrepaired. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.15.option_b
 		ai_chance = { factor = 1 }
@@ -1153,11 +1194,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Suspend the programme and purge its records. Option Weighing Value: -2.
+	# Close the university responsible for the possession programme. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.15.option_c
 		ai_chance = { factor = 1 }
-		add_adm_power = -100
+		trigger = {
+			event_target:war_adventurer_province = {
+				has_building = university
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					has_building = university
+				}
+				remove_building = university
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1190,9 +1243,6 @@ country_event = {
 		event_target:war_adventurer_location_elspeth = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_elspeth
-		    war_adventurer_elspeth_home = no
-		    owner = { war_adventurer_enemy_a = yes }
-
 		}
 	}
 	immediate = {
@@ -1205,7 +1255,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Cancel the display. Option Weighing Value: -1.
+	# Cancel the promised display and explain the danger. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.16.option_a
 		ai_chance = { factor = 1 }
@@ -1219,7 +1269,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reimburse its sponsors. Option Weighing Value: -1.
+	# Reimburse the collection's sponsors. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.16.option_b
 		ai_chance = { factor = 1 }
@@ -1233,11 +1283,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Investigate the acquisition. Option Weighing Value: -1.
+	# Let the local custodians regulate future acquisitions. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.16.option_c
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1259,7 +1311,7 @@ country_event = {
 	}
 }
 
-# ELS-EA02: The Mire Engine's Ruin. Intended event Weighing Value: -2. Lore: L2.
+# ELS-EA02: The Mire Engine's Ruin. Intended event Weighing Value: -1. Lore: L2.
 country_event = {
 	id = war_adventurer_elspeth.17
 	title = war_adventurer_elspeth.17.t
@@ -1270,7 +1322,6 @@ country_event = {
 		event_target:war_adventurer_location_elspeth = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_elspeth
-		    war_adventurer_elspeth_home = no
 			owner = { has_country_modifier = undead_administration }
 		    owner = { war_adventurer_enemy_a = yes }
 
@@ -1286,11 +1337,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Pay specialist crews. Option Weighing Value: -2.
+	# Pay specialist crews to recover the trapped supplies. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.17.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1300,11 +1351,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon the trapped supplies. Option Weighing Value: -2.
+	# Leave the marsh road and its traffic to local wardens. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.17.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1314,7 +1367,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Force clearance through nearby land. Option Weighing Value: -2.
+	# Cut a destructive bypass through the neighbouring land. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.17.option_c
 		ai_chance = { factor = 1 }
@@ -1353,7 +1406,6 @@ country_event = {
 		event_target:war_adventurer_location_elspeth = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_elspeth
-		    war_adventurer_elspeth_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1368,11 +1420,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Repair relations. Option Weighing Value: -1.
+	# Give provincial officials independent control of diplomatic credentials. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.18.option_a
 		ai_chance = { factor = 1 }
-		add_dip_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1382,7 +1436,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Compensate the offended authorities. Option Weighing Value: -1.
+	# Compensate the authorities deceived by the operative. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.18.option_b
 		ai_chance = { factor = 1 }
@@ -1396,7 +1450,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Repudiate the mission. Option Weighing Value: -1.
+	# Publicly repudiate the compromised mission. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.18.option_c
 		ai_chance = { factor = 1 }
@@ -1422,7 +1476,7 @@ country_event = {
 	}
 }
 
-# ELS-EA04: A Rider Falls from the Clouds. Intended event Weighing Value: -2. Lore: L5.
+# ELS-EA04: A Rider Falls from the Clouds. Intended event Weighing Value: -1. Lore: L5.
 country_event = {
 	id = war_adventurer_elspeth.19
 	title = war_adventurer_elspeth.19.t
@@ -1433,7 +1487,6 @@ country_event = {
 		event_target:war_adventurer_location_elspeth = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_elspeth
-		    war_adventurer_elspeth_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1448,11 +1501,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replenish stores and defences. Option Weighing Value: -2.
+	# Replace the fortress's burned supplies. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.19.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1462,7 +1515,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon the damaged buildings. Option Weighing Value: -2.
+	# Abandon the damaged storehouse district. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.19.option_b
 		ai_chance = { factor = 1 }
@@ -1478,11 +1531,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reassign troops to replace aerial support. Option Weighing Value: -2.
+	# Allow local captains to arrange their own replacement patrols. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.19.option_c
 		ai_chance = { factor = 1 }
-		add_mil_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1504,7 +1559,7 @@ country_event = {
 	}
 }
 
-# ELS-EA05: The Trap in the Captive. Intended event Weighing Value: -2. Lore: L6.
+# ELS-EA05: The Trap in the Captive. Intended event Weighing Value: -1. Lore: L6.
 country_event = {
 	id = war_adventurer_elspeth.20
 	title = war_adventurer_elspeth.20.t
@@ -1515,7 +1570,6 @@ country_event = {
 		event_target:war_adventurer_location_elspeth = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_elspeth
-		    war_adventurer_elspeth_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1530,11 +1584,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Pay for recovery and replacements. Option Weighing Value: -2.
+	# Pay for recovery and replacement equipment. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.20.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1544,11 +1598,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Investigate every surviving order. Option Weighing Value: -2.
+	# Place interrogations under an independent provincial council. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.20.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1558,12 +1614,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Conceal the failure at court. Option Weighing Value: -2.
+	# Close the university that supplied the possession apparatus. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_elspeth.20.option_c
 		ai_chance = { factor = 1 }
-		add_mil_power = -50
-		add_prestige = -25
+		trigger = {
+			event_target:war_adventurer_province = {
+				has_building = university
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					has_building = university
+				}
+				remove_building = university
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }

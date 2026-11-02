@@ -1,6 +1,6 @@
 namespace = war_adventurer_repanse
 
-# Generated from Dev Stuff/Adventurers/event_data.json; edit that authored source.
+# Choices and eligibility: Dev Stuff/Tools/adventurer_event_balance.tsv.
 # Budget source: Dev Stuff/Examples/Balance Guide.txt. No MTTH.
 
 # REP-FH01: The Banner from the Chapel. Intended event Weighing Value: +1. Lore: L1.
@@ -29,12 +29,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Repair the chapel. Option Weighing Value: +0.5.
+	# Restore the chapel precinct and its village homes. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.1.option_a
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
-		add_years_of_income = -0.25
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -44,11 +45,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Enlist the rallied volunteers. Option Weighing Value: +1.
+	# Enlist the rallied provincial volunteers. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.1.option_b
 		ai_chance = { factor = 1 }
-		add_yearly_manpower = 1
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -58,11 +61,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Have veterans teach the village watch. Option Weighing Value: +1.
+	# Raise a cathedral around the rescued chapel banner. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.1.option_c
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.02
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = cathedral }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = cathedral }
+				}
+				add_building = cathedral
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -110,11 +125,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Hear the families' claims. Option Weighing Value: +1.
+	# Restore the families' holdings from their receipts. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.2.option_a
 		ai_chance = { factor = 1 }
-		add_adm_power = 50
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -124,11 +141,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Recognize their service publicly. Option Weighing Value: +1.
+	# Recruit a village watch to protect the claimants. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.2.option_b
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -138,11 +157,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Recover the collector's illicit proceeds. Option Weighing Value: +1.
+	# Return the collector's seized tools to local households. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.2.option_c
 		ai_chance = { factor = 1 }
-		add_years_of_income = 0.5
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -164,7 +185,7 @@ country_event = {
 	}
 }
 
-# REP-FH03: The Road to Couronne. Intended event Weighing Value: +2. Lore: L2.
+# REP-FH03: The Road to Couronne. Intended event Weighing Value: +1. Lore: L2.
 country_event = {
 	id = war_adventurer_repanse.3
 	title = war_adventurer_repanse.3.t
@@ -190,7 +211,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Restore the relief route. Option Weighing Value: +1.
+	# Reopen the relief road and its village stations. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.3.option_a
 		ai_chance = { factor = 1 }
@@ -206,12 +227,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Honour the escort and enlist willing volunteers. Option Weighing Value: +2.
+	# Enlist willing relief escorts in the provincial guard. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.3.option_b
 		ai_chance = { factor = 1 }
-		add_yearly_manpower = 1
-		add_prestige_or_monarch_power = { amount = 25 }
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -221,11 +243,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Study the breakthrough. Option Weighing Value: +2.
+	# Establish training fields for relief-column escorts. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.3.option_c
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.04
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = training_fields }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = training_fields }
+				}
+				add_building = training_fields
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -273,11 +307,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Publicly confirm the mediated settlement. Option Weighing Value: +1.
+	# Register the settlement and restore the disputed holdings. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.4.option_a
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -287,11 +323,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Preserve her testimony in the court record. Option Weighing Value: +1.
+	# Form a joint village watch under the settlement. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.4.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = 50
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -301,11 +339,10 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Recognize both villages' cooperation. Option Weighing Value: +1.
+	# Keep the temporary agreement in the court record. Option Weighing Value: +0.
 	option = {
 		name = war_adventurer_repanse.4.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -353,11 +390,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Acknowledge the rescue. Option Weighing Value: +1.
+	# Train willing village rescuers alongside the local guard. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.5.option_a
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -367,12 +406,11 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Fund military instruction for the volunteer. Option Weighing Value: +0.5.
+	# Teach the rescue as an exercise for army officers. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.5.option_b
 		ai_chance = { factor = 1 }
 		add_army_professionalism = 0.02
-		add_years_of_income = -0.25
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -382,11 +420,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Teach the deed as a military lesson without altering rank. Option Weighing Value: +1.
+	# Establish training fields open to the province's volunteers. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.5.option_c
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.02
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = training_fields }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = training_fields }
+				}
+				add_building = training_fields
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -408,7 +458,7 @@ country_event = {
 	}
 }
 
-# REP-FA01: The Foreign Chapel's Refugees. Intended event Weighing Value: +2. Lore: L1.
+# REP-FA01: The Foreign Chapel's Refugees. Intended event Weighing Value: +1. Lore: L1.
 country_event = {
 	id = war_adventurer_repanse.6
 	title = war_adventurer_repanse.6.t
@@ -419,7 +469,6 @@ country_event = {
 		event_target:war_adventurer_location_repanse = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_repanse
-		    war_adventurer_repanse_home = no
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -434,14 +483,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Settle the willing families. Option Weighing Value: +1.
+	# Settle the willing rescued families in the province. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.6.option_a
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
-			add_base_tax = 3
+			add_base_tax = 2
 		}
-		add_years_of_income = -0.25
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -451,11 +499,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reunite them with their communities. Option Weighing Value: +2.
+	# Equip the refugees to resume their local trades. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.6.option_b
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 50 }
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -465,12 +515,12 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Employ willing adults on public repairs. Option Weighing Value: +1.
+	# Recruit willing adults into the sanctuary watch. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.6.option_c
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
-			add_base_tax = 2
+			add_base_manpower = 2
 		}
 		if = {
 			limit = {
@@ -504,7 +554,6 @@ country_event = {
 		event_target:war_adventurer_location_repanse = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_repanse
-		    war_adventurer_repanse_home = no
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -519,11 +568,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Adopt the useful signals. Option Weighing Value: +1.
+	# Teach the banner signals to provincial recruits. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.7.option_a
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.02
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -533,7 +584,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Have the returning soldiers retrain their comrades. Option Weighing Value: +1.
+	# Circulate the returning soldiers' signal exercises to army officers. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.7.option_b
 		ai_chance = { factor = 1 }
@@ -547,11 +598,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Display the captured standards. Option Weighing Value: +1.
+	# Establish training fields for signalling drills. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.7.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = training_fields }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = training_fields }
+				}
+				add_building = training_fields
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -573,7 +636,7 @@ country_event = {
 	}
 }
 
-# REP-FA03: The Champion at the Water Gate. Intended event Weighing Value: +2. Lore: L2.
+# REP-FA03: The Champion at the Water Gate. Intended event Weighing Value: +1. Lore: L2.
 country_event = {
 	id = war_adventurer_repanse.8
 	title = war_adventurer_repanse.8.t
@@ -584,7 +647,6 @@ country_event = {
 		event_target:war_adventurer_location_repanse = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_repanse
-		    war_adventurer_repanse_home = no
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -599,7 +661,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Distribute the food. Option Weighing Value: +1.
+	# Restore the relieved households with recovered food. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.8.option_a
 		ai_chance = { factor = 1 }
@@ -615,11 +677,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Provision the garrison. Option Weighing Value: +2.
+	# Provision the provincial garrison from the captured stores. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.8.option_b
 		ai_chance = { factor = 1 }
-		add_yearly_manpower = 2
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -629,11 +693,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Sell surplus stores and retain the proceeds after repairs. Option Weighing Value: +2.
+	# Distribute surplus wagons and stores to local suppliers. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.8.option_c
 		ai_chance = { factor = 1 }
-		add_years_of_income = 1
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -666,9 +732,6 @@ country_event = {
 		event_target:war_adventurer_location_repanse = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_repanse
-		    war_adventurer_repanse_home = no
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -681,11 +744,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Prosecute the forgeries. Option Weighing Value: +1.
+	# Correct the customs rolls using the proven forgeries. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.9.option_a
 		ai_chance = { factor = 1 }
-		add_adm_power = 50
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -695,11 +760,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Recover fraudulent fees. Option Weighing Value: +1.
+	# Return illicitly seized goods to provincial merchants. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.9.option_b
 		ai_chance = { factor = 1 }
-		add_years_of_income = 0.5
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -709,11 +776,10 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Publish her testimony. Option Weighing Value: +1.
+	# Place Repanse's testimony in the public record. Option Weighing Value: +0.
 	option = {
 		name = war_adventurer_repanse.9.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -746,7 +812,6 @@ country_event = {
 		event_target:war_adventurer_location_repanse = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_repanse
-		    war_adventurer_repanse_home = no
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -761,11 +826,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Accept the patrol instruction. Option Weighing Value: +1.
+	# Train provincial patrols from the retainers' route sketch. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.10.option_a
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.02
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -775,11 +842,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Return the heirlooms with an official escort. Option Weighing Value: +1.
+	# Restore the reopened road's waystations. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.10.option_b
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -789,12 +858,22 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Keep the reopened road supplied. Option Weighing Value: +1.
+	# Establish training fields for the road patrols. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_repanse.10.option_c
 		ai_chance = { factor = 1 }
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = training_fields }
+			}
+		}
 		event_target:war_adventurer_province = {
-			add_base_tax = 2
+			if = {
+				limit = {
+					NOT = { has_building = training_fields }
+				}
+				add_building = training_fields
+			}
 		}
 		if = {
 			limit = {
@@ -843,7 +922,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Rebuild the cordon. Option Weighing Value: -1.
+	# Replace the broken guard cordon. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.11.option_a
 		ai_chance = { factor = 1 }
@@ -857,11 +936,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Negotiate the detainees' settlement. Option Weighing Value: -1.
+	# Let the chapel's communities oversee their own custodial disputes. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.11.option_b
 		ai_chance = { factor = 1 }
-		add_prestige = -25
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -871,11 +952,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Order a search that finds only abandoned camps. Option Weighing Value: -1.
+	# Scour the district through destructive camp searches. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.11.option_c
 		ai_chance = { factor = 1 }
-		add_mil_power = -50
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -897,7 +980,7 @@ country_event = {
 	}
 }
 
-# REP-EH02: The Relief Column We Missed. Intended event Weighing Value: -2. Lore: L2.
+# REP-EH02: The Relief Column We Missed. Intended event Weighing Value: -1. Lore: L2.
 country_event = {
 	id = war_adventurer_repanse.12
 	title = war_adventurer_repanse.12.t
@@ -908,7 +991,6 @@ country_event = {
 		event_target:war_adventurer_location_repanse = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_repanse
-		    war_adventurer_repanse_home = yes
 			owner = { is_at_war = yes }
 		    owner = { war_adventurer_enemy_a = yes }
 
@@ -924,11 +1006,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the lost stores and equipment. Option Weighing Value: -2.
+	# Replace the blockade's lost stores and equipment. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.12.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -938,11 +1020,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reorganize the blockade. Option Weighing Value: -2.
+	# Let provincial captains arrange their own blockade duties. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.12.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -952,7 +1036,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon damaged forward positions. Option Weighing Value: -2.
+	# Abandon the damaged forward positions. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.12.option_c
 		ai_chance = { factor = 1 }
@@ -1006,7 +1090,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Refund the disputed levy. Option Weighing Value: -1.
+	# Refund the levy collected under forged orders. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.13.option_a
 		ai_chance = { factor = 1 }
@@ -1020,11 +1104,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Investigate the officials responsible. Option Weighing Value: -1.
+	# Give the villages control of their own collection records. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.13.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1034,11 +1120,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Enforce collection despite the evidence. Option Weighing Value: -1.
+	# Enforce payment through destructive seizures. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.13.option_c
 		ai_chance = { factor = 1 }
-		add_prestige = -25
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1060,7 +1148,7 @@ country_event = {
 	}
 }
 
-# REP-EH04: Peasants Beneath the Banner. Intended event Weighing Value: -2. Lore: L1, L2.
+# REP-EH04: Peasants Beneath the Banner. Intended event Weighing Value: -1. Lore: L1, L2.
 country_event = {
 	id = war_adventurer_repanse.14
 	title = war_adventurer_repanse.14.t
@@ -1071,7 +1159,6 @@ country_event = {
 		event_target:war_adventurer_location_repanse = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_repanse
-		    war_adventurer_repanse_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1086,11 +1173,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Offer an amnesty and buy back the arms. Option Weighing Value: -2.
+	# Buy back the captured weapons under an amnesty. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.14.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1100,12 +1187,12 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Contain the holdouts. Option Weighing Value: -2.
+	# Withdraw the collection teams and let local councils collect dues. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.14.option_b
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
-			spawn_rebels = { type = particularist_rebels size = 1 }
+			add_local_autonomy = 50
 		}
 		if = {
 			limit = {
@@ -1116,11 +1203,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Withdraw exposed collection teams. Option Weighing Value: -2.
+	# Burn out the remaining armed camps. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.14.option_c
 		ai_chance = { factor = 1 }
-		add_adm_power = -100
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1182,11 +1271,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Revise the disputed judgment. Option Weighing Value: -1.
+	# Leave the disputed honours to provincial courts. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.15.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1196,7 +1287,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Uphold the sentence in her absence. Option Weighing Value: -1.
+	# Uphold the discredited sentence in Repanse's absence. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.15.option_c
 		ai_chance = { factor = 1 }
@@ -1222,7 +1313,7 @@ country_event = {
 	}
 }
 
-# REP-EA01: The Camp with Open Gates. Intended event Weighing Value: -2. Lore: L1, L2.
+# REP-EA01: The Camp with Open Gates. Intended event Weighing Value: -1. Lore: L1, L2.
 country_event = {
 	id = war_adventurer_repanse.16
 	title = war_adventurer_repanse.16.t
@@ -1233,7 +1324,6 @@ country_event = {
 		event_target:war_adventurer_location_repanse = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_repanse
-		    war_adventurer_repanse_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1248,11 +1338,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Rebuild and audit the camp. Option Weighing Value: -2.
+	# Rebuild the gatehouse and settle the lost contracts. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.16.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1262,11 +1352,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reconstruct the missing records. Option Weighing Value: -2.
+	# Place labour contracts under an independent provincial council. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.16.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1276,7 +1368,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Leave the ruined site abandoned. Option Weighing Value: -2.
+	# Leave the ruined camp abandoned. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.16.option_c
 		ai_chance = { factor = 1 }
@@ -1315,9 +1407,6 @@ country_event = {
 		event_target:war_adventurer_location_repanse = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_repanse
-		    war_adventurer_repanse_home = no
-		    owner = { war_adventurer_enemy_a = yes }
-
 		}
 	}
 	immediate = {
@@ -1330,7 +1419,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Compensate the guards and custodians. Option Weighing Value: -1.
+	# Compensate the disarmed guards and robbed custodians. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.17.option_a
 		ai_chance = { factor = 1 }
@@ -1344,11 +1433,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Investigate the original plunder. Option Weighing Value: -1.
+	# Give the sanctuary's custodians authority over restitution. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.17.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1358,7 +1449,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Dismiss the incident publicly. Option Weighing Value: -1.
+	# Dismiss the witnesses' evidence of plunder. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.17.option_c
 		ai_chance = { factor = 1 }
@@ -1384,7 +1475,7 @@ country_event = {
 	}
 }
 
-# REP-EA03: A Couronne in Foreign Soil. Intended event Weighing Value: -2. Lore: L2.
+# REP-EA03: A Couronne in Foreign Soil. Intended event Weighing Value: -1. Lore: L2.
 country_event = {
 	id = war_adventurer_repanse.18
 	title = war_adventurer_repanse.18.t
@@ -1395,7 +1486,6 @@ country_event = {
 		event_target:war_adventurer_location_repanse = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_repanse
-		    war_adventurer_repanse_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1410,11 +1500,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the damaged occupation force. Option Weighing Value: -2.
+	# Replace the damaged occupation force. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.18.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1424,11 +1514,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Review its command. Option Weighing Value: -2.
+	# Transfer the district's security to its own captains. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.18.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1438,11 +1530,10 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Try to contain the testimony. Option Weighing Value: -2.
+	# Accept the refugees' public testimony. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.18.option_c
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
 		add_prestige = -25
 		if = {
 			limit = {
@@ -1476,9 +1567,6 @@ country_event = {
 		event_target:war_adventurer_location_repanse = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_repanse
-		    war_adventurer_repanse_home = no
-		    owner = { war_adventurer_enemy_a = yes }
-
 		}
 	}
 	immediate = {
@@ -1491,7 +1579,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Compensate those harmed by the contracts. Option Weighing Value: -1.
+	# Compensate those harmed by the broker's contracts. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.19.option_a
 		ai_chance = { factor = 1 }
@@ -1505,11 +1593,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Purge the compromised registry. Option Weighing Value: -1.
+	# Let local magistrates control the compromised registry. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.19.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1519,7 +1609,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Defend the officials' conduct. Option Weighing Value: -1.
+	# Defend the officials who endorsed the false protection. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.19.option_c
 		ai_chance = { factor = 1 }
@@ -1556,7 +1646,6 @@ country_event = {
 		event_target:war_adventurer_location_repanse = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_repanse
-		    war_adventurer_repanse_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1571,7 +1660,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the weapons before rumours spread. Option Weighing Value: -1.
+	# Reequip the disarmed patrol. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.20.option_a
 		ai_chance = { factor = 1 }
@@ -1585,11 +1674,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Discipline the officer. Option Weighing Value: -1.
+	# Give the border communities control of pilgrim escorts. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.20.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1599,7 +1690,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Let the humiliation pass. Option Weighing Value: -1.
+	# Acknowledge the patrol's defeat. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_repanse.20.option_c
 		ai_chance = { factor = 1 }

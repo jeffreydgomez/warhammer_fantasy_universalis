@@ -1,9 +1,9 @@
 namespace = war_adventurer_wulfhart
 
-# Generated from Dev Stuff/Adventurers/event_data.json; edit that authored source.
+# Choices and eligibility: Dev Stuff/Tools/adventurer_event_balance.tsv.
 # Budget source: Dev Stuff/Examples/Balance Guide.txt. No MTTH.
 
-# WUL-FH01: The Arrow in the Giant's Eye. Intended event Weighing Value: +2. Lore: L1.
+# WUL-FH01: The Arrow in the Giant's Eye. Intended event Weighing Value: +1. Lore: L1.
 country_event = {
 	id = war_adventurer_wulfhart.1
 	title = war_adventurer_wulfhart.1.t
@@ -14,7 +14,6 @@ country_event = {
 		event_target:war_adventurer_location_wulfhart = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_wulfhart
-		    war_adventurer_wulfhart_home = yes
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -29,12 +28,12 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Return supplies to the villages. Option Weighing Value: +1.
+	# Return the recovered caravan goods to provincial workshops. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.1.option_a
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
-			add_base_tax = 2
+			add_base_production = 2
 		}
 		if = {
 			limit = {
@@ -45,12 +44,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Honour the hunters and recruit willing volunteers. Option Weighing Value: +2.
+	# Enlist willing hunters in the local watch. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.1.option_b
 		ai_chance = { factor = 1 }
-		add_yearly_manpower = 1
-		add_prestige_or_monarch_power = { amount = 25 }
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -60,11 +60,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Sell unclaimed goods. Option Weighing Value: +2.
+	# Restore the rescued households and their village holdings. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.1.option_c
 		ai_chance = { factor = 1 }
-		add_years_of_income = 1
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -97,7 +99,6 @@ country_event = {
 		event_target:war_adventurer_location_wulfhart = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_wulfhart
-		    war_adventurer_wulfhart_home = yes
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -112,9 +113,25 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Train selected scouts. Option Weighing Value: +1.
+	# Train provincial scouts from the field notebook. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.2.option_a
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
+	}
+
+	# Circulate the tracking methods to army officers. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_wulfhart.2.option_b
 		ai_chance = { factor = 1 }
 		add_army_professionalism = 0.02
 		if = {
@@ -126,25 +143,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Copy the notebook widely. Option Weighing Value: +1.
-	option = {
-		name = war_adventurer_wulfhart.2.option_b
-		ai_chance = { factor = 1 }
-		add_mil_power = 50
-		if = {
-			limit = {
-				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
-			}
-			custom_tooltip = war_adventurer_leaves_tt
-		}
-		else = { custom_tooltip = war_adventurer_stays_tt }
-	}
-
-	# Recognize the rescuers. Option Weighing Value: +1.
+	# Establish training fields for local search patrols. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.2.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = training_fields }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = training_fields }
+				}
+				add_building = training_fields
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -177,7 +192,6 @@ country_event = {
 		event_target:war_adventurer_location_wulfhart = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_wulfhart
-		    war_adventurer_wulfhart_home = yes
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -192,11 +206,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Organize an informed watch. Option Weighing Value: +1.
+	# Establish provincial watch teams trained to recognize the creatures. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.3.option_a
 		ai_chance = { factor = 1 }
-		add_mil_power = 50
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -206,7 +222,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Shelter exposed herds. Option Weighing Value: +1.
+	# Restore the recovered livestock to local farms. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.3.option_b
 		ai_chance = { factor = 1 }
@@ -222,14 +238,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Compensate and relocate frontier families. Option Weighing Value: +0.5.
+	# Settle the exposed families in safer provincial holdings. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.3.option_c
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
 			add_base_tax = 2
 		}
-		add_years_of_income = -0.25
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -251,7 +266,7 @@ country_event = {
 	}
 }
 
-# WUL-FH04: The Village He Would Not Leave. Intended event Weighing Value: +2. Lore: L1, L2.
+# WUL-FH04: The Village He Would Not Leave. Intended event Weighing Value: +1. Lore: L1, L2.
 country_event = {
 	id = war_adventurer_wulfhart.4
 	title = war_adventurer_wulfhart.4.t
@@ -262,7 +277,6 @@ country_event = {
 		event_target:war_adventurer_location_wulfhart = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_wulfhart
-		    war_adventurer_wulfhart_home = yes
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -277,7 +291,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Support reconstruction. Option Weighing Value: +1.
+	# Rebuild the village's homes and common store. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.4.option_a
 		ai_chance = { factor = 1 }
@@ -293,11 +307,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Enlist experienced volunteers. Option Weighing Value: +2.
+	# Enlist experienced village volunteers. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.4.option_b
 		ai_chance = { factor = 1 }
-		add_yearly_manpower = 2
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -307,12 +323,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Honour the village and copy its evacuation arrangements. Option Weighing Value: +2.
+	# Establish training fields for a permanent village guard. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.4.option_c
 		ai_chance = { factor = 1 }
-		add_adm_power = 50
-		add_prestige_or_monarch_power = { amount = 25 }
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = training_fields }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = training_fields }
+				}
+				add_building = training_fields
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -345,9 +372,6 @@ country_event = {
 		event_target:war_adventurer_location_wulfhart = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_wulfhart
-		    war_adventurer_wulfhart_home = yes
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -360,11 +384,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Repay victims from seized funds. Option Weighing Value: +1.
+	# Restore honest local assessments from the villagers' receipts. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.5.option_a
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -374,11 +400,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reform the patrol levy. Option Weighing Value: +1.
+	# Replace the false protection levy with a provincial watch. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.5.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = 50
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -400,7 +428,7 @@ country_event = {
 	}
 }
 
-# WUL-FA01: A Beast No Bestiary Names. Intended event Weighing Value: +2. Lore: L2.
+# WUL-FA01: A Beast No Bestiary Names. Intended event Weighing Value: +1. Lore: L2.
 country_event = {
 	id = war_adventurer_wulfhart.6
 	title = war_adventurer_wulfhart.6.t
@@ -411,9 +439,6 @@ country_event = {
 		event_target:war_adventurer_location_wulfhart = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_wulfhart
-		    war_adventurer_wulfhart_home = no
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -426,12 +451,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Fund supervised dissection. Option Weighing Value: +1.5.
+	# Dissect the unfamiliar carcass under supervision. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.6.option_a
 		ai_chance = { factor = 1 }
-		change_innovativeness = 2
-		add_years_of_income = -0.25
+		change_innovativeness = 1
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -441,11 +465,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Sell safe parts through licensed merchants. Option Weighing Value: +2.
+	# Let provincial craftsmen process the safe remains. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.6.option_b
 		ai_chance = { factor = 1 }
-		add_years_of_income = 1
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -455,14 +481,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Honour the guides and establish a permanent waystation. Option Weighing Value: +2.
+	# Establish a permanent waystation for the rescued caravans. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.6.option_c
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
 			add_base_tax = 2
 		}
-		add_prestige_or_monarch_power = { amount = 25 }
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -495,7 +520,6 @@ country_event = {
 		event_target:war_adventurer_location_wulfhart = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_wulfhart
-		    war_adventurer_wulfhart_home = no
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -510,24 +534,9 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Purchase the map. Option Weighing Value: +0.5.
+	# Register the cleared road and its water stops. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.7.option_a
-		ai_chance = { factor = 1 }
-		add_dip_power = 50
-		add_years_of_income = -0.25
-		if = {
-			limit = {
-				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
-			}
-			custom_tooltip = war_adventurer_leaves_tt
-		}
-		else = { custom_tooltip = war_adventurer_stays_tt }
-	}
-
-	# Protect the cleared route. Option Weighing Value: +1.
-	option = {
-		name = war_adventurer_wulfhart.7.option_b
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
 			add_base_tax = 2
@@ -541,11 +550,39 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Honour the survivors. Option Weighing Value: +1.
+	# Recruit provincial road guards from the surviving guides. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_wulfhart.7.option_b
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
+	}
+
+	# Establish a stock exchange at the reopened caravan stop. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.7.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = stock_exchange }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = stock_exchange }
+				}
+				add_building = stock_exchange
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -567,7 +604,7 @@ country_event = {
 	}
 }
 
-# WUL-FA03: The Northern Beasts' Broker. Intended event Weighing Value: +2. Lore: L3.
+# WUL-FA03: The Northern Beasts' Broker. Intended event Weighing Value: +1. Lore: L3.
 country_event = {
 	id = war_adventurer_wulfhart.8
 	title = war_adventurer_wulfhart.8.t
@@ -578,7 +615,6 @@ country_event = {
 		event_target:war_adventurer_location_wulfhart = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_wulfhart
-		    war_adventurer_wulfhart_home = no
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -593,11 +629,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Seize the stores. Option Weighing Value: +2.
+	# Distribute the concealed stores to local workshops. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.8.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = 1
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -607,12 +645,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Dismantle the broker network. Option Weighing Value: +2.
+	# Bring the exposed warehouses under honest provincial customs. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.8.option_b
 		ai_chance = { factor = 1 }
-		add_dip_power = 50
-		add_prestige_or_monarch_power = { amount = 25 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -622,12 +661,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Fund a cautious follow-up. Option Weighing Value: +1.5.
+	# Train local scouts to watch the broker's supply routes. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.8.option_c
 		ai_chance = { factor = 1 }
-		add_mil_power = 100
-		add_years_of_income = -0.25
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -660,9 +700,6 @@ country_event = {
 		event_target:war_adventurer_location_wulfhart = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_wulfhart
-		    war_adventurer_wulfhart_home = no
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -675,11 +712,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Reform the licence. Option Weighing Value: +1.
+	# Replace the hunting monopoly with a supervised provincial licence. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.9.option_a
 		ai_chance = { factor = 1 }
-		add_adm_power = 50
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -689,12 +728,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Compensate the guild and train volunteers. Option Weighing Value: +0.5.
+	# Train local rescue volunteers from the hunter's account. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.9.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = 50
-		add_years_of_income = -0.25
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -727,9 +767,6 @@ country_event = {
 		event_target:war_adventurer_location_wulfhart = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_wulfhart
-		    war_adventurer_wulfhart_home = no
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -742,14 +779,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Fund the wardens’ enclosure and restore the shrine buildings. Option Weighing Value: +0.5.
+	# Restore the shrine precinct around the safe enclosure. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.10.option_a
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
 			add_base_tax = 2
 		}
-		add_years_of_income = -0.25
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -759,11 +795,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Recruit and equip permanent shrine wardens. Option Weighing Value: +1.
+	# Recruit permanent provincial shrine wardens. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.10.option_b
 		ai_chance = { factor = 1 }
-		add_yearly_manpower = 1
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -773,11 +811,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Record the compromise as policy. Option Weighing Value: +1.
+	# Endow a cathedral around the protected shrine. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_wulfhart.10.option_c
 		ai_chance = { factor = 1 }
-		add_dip_power = 50
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = cathedral }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = cathedral }
+				}
+				add_building = cathedral
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -799,7 +849,7 @@ country_event = {
 	}
 }
 
-# WUL-EH01: The Beast Pen in the Forest. Intended event Weighing Value: -2. Lore: L1.
+# WUL-EH01: The Beast Pen in the Forest. Intended event Weighing Value: -1. Lore: L1.
 country_event = {
 	id = war_adventurer_wulfhart.11
 	title = war_adventurer_wulfhart.11.t
@@ -810,7 +860,6 @@ country_event = {
 		event_target:war_adventurer_location_wulfhart = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_wulfhart
-		    war_adventurer_wulfhart_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -825,11 +874,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Repair and replace the asset. Option Weighing Value: -2.
+	# Repair the beast pen and replace the lost military asset. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.11.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -839,7 +888,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon the enclosure. Option Weighing Value: -2.
+	# Abandon the enclosure and its damaged surroundings. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.11.option_b
 		ai_chance = { factor = 1 }
@@ -855,11 +904,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Substitute infantry units. Option Weighing Value: -2.
+	# Let provincial captains arrange their own substitute forces. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.11.option_c
 		ai_chance = { factor = 1 }
-		add_mil_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -892,7 +943,6 @@ country_event = {
 		event_target:war_adventurer_location_wulfhart = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_wulfhart
-		    war_adventurer_wulfhart_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -907,11 +957,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Reorganize the patrol system. Option Weighing Value: -1.
+	# Give the villages oversight of their own patrols. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.12.option_a
 		ai_chance = { factor = 1 }
-		add_mil_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -921,7 +973,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Compensate exposed households. Option Weighing Value: -1.
+	# Compensate the households exposed to forced service. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.12.option_b
 		ai_chance = { factor = 1 }
@@ -935,7 +987,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Suppress their testimony. Option Weighing Value: -1.
+	# Admit the abuse recorded in the exposed routes. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.12.option_c
 		ai_chance = { factor = 1 }
@@ -961,7 +1013,7 @@ country_event = {
 	}
 }
 
-# WUL-EH03: Telldros' Lost Convoy. Intended event Weighing Value: -2. Lore: L3.
+# WUL-EH03: Telldros' Lost Convoy. Intended event Weighing Value: -1. Lore: L3.
 country_event = {
 	id = war_adventurer_wulfhart.13
 	title = war_adventurer_wulfhart.13.t
@@ -972,7 +1024,6 @@ country_event = {
 		event_target:war_adventurer_location_wulfhart = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_wulfhart
-		    war_adventurer_wulfhart_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -987,11 +1038,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the shipment. Option Weighing Value: -2.
+	# Replace the destroyed shipment. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.13.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1001,12 +1052,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Cancel the arrangement. Option Weighing Value: -2.
+	# Let frontier communities control future supply contracts. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.13.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -50
-		add_prestige = -25
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1016,7 +1068,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Requisition local goods. Option Weighing Value: -2.
+	# Requisition civilian stores to replace the burned goods. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.13.option_c
 		ai_chance = { factor = 1 }
@@ -1055,7 +1107,6 @@ country_event = {
 		event_target:war_adventurer_location_wulfhart = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_wulfhart
-		    war_adventurer_wulfhart_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1070,11 +1121,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Negotiate a revised levy. Option Weighing Value: -1.
+	# Let the village councils negotiate their own levies. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.14.option_a
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1084,7 +1137,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Offer compensation. Option Weighing Value: -1.
+	# Compensate the households threatened by the beast-keeper. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.14.option_b
 		ai_chance = { factor = 1 }
@@ -1121,7 +1174,6 @@ country_event = {
 		event_target:war_adventurer_location_wulfhart = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_wulfhart
-		    war_adventurer_wulfhart_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1136,11 +1188,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Retrain the guard. Option Weighing Value: -1.
+	# Hire instructors to rebuild the provincial guard. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.15.option_a
 		ai_chance = { factor = 1 }
-		add_mil_power = -50
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1150,11 +1202,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Investigate the lodge staff. Option Weighing Value: -1.
+	# Place detention lodges under independent local inspectors. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.15.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1164,7 +1218,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Conceal the failed arrest. Option Weighing Value: -1.
+	# Admit the failure of the attempted arrest. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.15.option_c
 		ai_chance = { factor = 1 }
@@ -1190,7 +1244,7 @@ country_event = {
 	}
 }
 
-# WUL-EA01: The War Beast's Single Wound. Intended event Weighing Value: -2. Lore: L1.
+# WUL-EA01: The War Beast's Single Wound. Intended event Weighing Value: -1. Lore: L1.
 country_event = {
 	id = war_adventurer_wulfhart.16
 	title = war_adventurer_wulfhart.16.t
@@ -1201,7 +1255,6 @@ country_event = {
 		event_target:war_adventurer_location_wulfhart = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_wulfhart
-		    war_adventurer_wulfhart_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1216,11 +1269,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Buy replacement forces. Option Weighing Value: -2.
+	# Purchase forces to replace the dead giant. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.16.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1230,11 +1283,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Pursue the handlers. Option Weighing Value: -2.
+	# Leave the district's defence to its own captains. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.16.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1244,12 +1299,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reduce the frontier commitment. Option Weighing Value: -2.
+	# Abandon the exposed frontier settlements. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.16.option_c
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
-		add_prestige = -25
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1282,7 +1338,6 @@ country_event = {
 		event_target:war_adventurer_location_wulfhart = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_wulfhart
-		    war_adventurer_wulfhart_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1297,7 +1352,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Refund illicit buyers quietly. Option Weighing Value: -1.
+	# Settle the cancelled buyers' contracts. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.17.option_a
 		ai_chance = { factor = 1 }
@@ -1311,11 +1366,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Prosecute the officials. Option Weighing Value: -1.
+	# Give local magistrates control of the exposed trafficking cases. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.17.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1325,7 +1382,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Refuse the accusations. Option Weighing Value: -1.
+	# Accept the evidence of official protection for the trade. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.17.option_c
 		ai_chance = { factor = 1 }
@@ -1351,7 +1408,7 @@ country_event = {
 	}
 }
 
-# WUL-EA03: The Trail Back to Norsca. Intended event Weighing Value: -2. Lore: L3.
+# WUL-EA03: The Trail Back to Norsca. Intended event Weighing Value: -1. Lore: L3.
 country_event = {
 	id = war_adventurer_wulfhart.18
 	title = war_adventurer_wulfhart.18.t
@@ -1362,7 +1419,6 @@ country_event = {
 		event_target:war_adventurer_location_wulfhart = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_wulfhart
-		    war_adventurer_wulfhart_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1377,11 +1433,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Pay the traders. Option Weighing Value: -2.
+	# Compensate the traders for the destroyed cages. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.18.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1391,11 +1447,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Close the route and investigate. Option Weighing Value: -2.
+	# Let local communities regulate the closed route. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.18.option_b
 		ai_chance = { factor = 1 }
-		add_dip_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1405,7 +1463,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon the damaged holding ground. Option Weighing Value: -2.
+	# Abandon the damaged holding ground. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.18.option_c
 		ai_chance = { factor = 1 }
@@ -1444,7 +1502,6 @@ country_event = {
 		event_target:war_adventurer_location_wulfhart = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_wulfhart
-		    war_adventurer_wulfhart_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1459,11 +1516,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Disavow and reorganize the patrol. Option Weighing Value: -1.
+	# Put the provincial patrols under the communities' oversight. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.19.option_a
 		ai_chance = { factor = 1 }
-		add_mil_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1473,7 +1532,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Compensate victims. Option Weighing Value: -1.
+	# Compensate the households named in the seizure orders. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.19.option_b
 		ai_chance = { factor = 1 }
@@ -1510,9 +1569,6 @@ country_event = {
 		event_target:war_adventurer_location_wulfhart = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_wulfhart
-		    war_adventurer_wulfhart_home = no
-		    owner = { war_adventurer_enemy_a = yes }
-
 		}
 	}
 	immediate = {
@@ -1525,7 +1581,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Fund relief. Option Weighing Value: -1.
+	# Pay for relief after the menagerie's rampage. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.20.option_a
 		ai_chance = { factor = 1 }
@@ -1539,11 +1595,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Remove and investigate the governor. Option Weighing Value: -1.
+	# Transfer the governor's oversight to a provincial council. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.20.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1553,11 +1611,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Defend the collection. Option Weighing Value: -1.
+	# Leave the damaged streets unrepaired to protect the collection's funds. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_wulfhart.20.option_c
 		ai_chance = { factor = 1 }
-		add_prestige = -25
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }

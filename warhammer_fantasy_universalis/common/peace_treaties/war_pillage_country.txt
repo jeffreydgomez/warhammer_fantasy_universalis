@@ -36,8 +36,95 @@ po_pillage_country = {
 				limit = { any_owned_province = { always = yes } }
 				FROM = {
 					every_owned_province = {
-						war_pillage_country_province_effect = yes
+						# Province scope: the loser's province. ROOT remains the peace treaty recipient.
+						# Balance Guide: add_base_tax/production/manpower = 2 is Weighing Value 1.
+						# Each stolen point therefore gives the winner 0.5 and costs the loser 0.5.
+						# Snapshot the original total so crossing 20/40/60/... during removal cannot
+						# reduce the quota. Spending this total plus 20 in chunks of 20 gives
+						# exactly 1 + floor(original development / 20) transfer attempts.
+						export_to_variable = {
+							which = war_pillage_country_remaining
+							value = development
+						}
+						change_variable = {
+							which = war_pillage_country_remaining
+							value = 20
+						}
+						while = {
+							limit = {
+								check_variable = {
+									which = war_pillage_country_remaining
+									value = 20
+								}
+								OR = {
+									base_tax = 2
+									base_production = 2
+									base_manpower = 2
+								}
+							}
+							# Equal chances among eligible types; never select a type already at 1.
+							# Collect the stolen types first. After leaving FROM, the recipient
+							# distributes every point immediately in one continuous country scope.
+							random_list = {
+								1 = {
+									trigger = { base_tax = 2 }
+									add_base_tax = -1
+									ROOT = {
+										change_variable = { which = war_pillage_country_pending_tax value = 1 }
+									}
+								}
+								1 = {
+									trigger = { base_production = 2 }
+									add_base_production = -1
+									ROOT = {
+										change_variable = { which = war_pillage_country_pending_production value = 1 }
+									}
+								}
+								1 = {
+									trigger = { base_manpower = 2 }
+									add_base_manpower = -1
+									ROOT = {
+										change_variable = { which = war_pillage_country_pending_manpower value = 1 }
+									}
+								}
+							}
+							subtract_variable = {
+								which = war_pillage_country_remaining
+								value = 20
+							}
+						}
+						set_variable = { which = war_pillage_country_remaining value = 0 }
 					}
+				}
+
+				# Settle all stolen points now, including any older unpaid pool.
+				# Keep each random_owned_province directly in the same country scope.
+				# Re-entering ROOT inside each iteration can restart the destination RNG.
+				# There are no exclusions or caps: one province receives the whole pool;
+				# two provinces remain eligible on every draw, including consecutive wins.
+				while = {
+					limit = {
+						check_variable = { which = war_pillage_country_pending_tax value = 1 }
+						any_owned_province = { always = yes }
+					}
+					random_owned_province = { add_base_tax = 1 }
+					subtract_variable = { which = war_pillage_country_pending_tax value = 1 }
+				}
+				while = {
+					limit = {
+						check_variable = { which = war_pillage_country_pending_production value = 1 }
+						any_owned_province = { always = yes }
+					}
+					random_owned_province = { add_base_production = 1 }
+					subtract_variable = { which = war_pillage_country_pending_production value = 1 }
+				}
+				while = {
+					limit = {
+						check_variable = { which = war_pillage_country_pending_manpower value = 1 }
+						any_owned_province = { always = yes }
+					}
+					random_owned_province = { add_base_manpower = 1 }
+					subtract_variable = { which = war_pillage_country_pending_manpower value = 1 }
 				}
 			}
 		}

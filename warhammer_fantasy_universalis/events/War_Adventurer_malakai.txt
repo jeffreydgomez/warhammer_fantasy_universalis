@@ -1,6 +1,6 @@
 namespace = war_adventurer_malakai
 
-# Generated from Dev Stuff/Adventurers/event_data.json; edit that authored source.
+# Choices and eligibility: Dev Stuff/Tools/adventurer_event_balance.tsv.
 # Budget source: Dev Stuff/Examples/Balance Guide.txt. No MTTH.
 
 # MAL-FH01: The Unsinkable's Last Rivet. Intended event Weighing Value: +1. Lore: L1.
@@ -14,9 +14,6 @@ country_event = {
 		event_target:war_adventurer_location_malakai = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_malakai
-		    war_adventurer_malakai_home = yes
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -29,12 +26,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Fund another controlled trial. Option Weighing Value: +0.5.
+	# Test the surviving sealed-compartment measurements. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.1.option_a
 		ai_chance = { factor = 1 }
 		change_innovativeness = 1
-		add_years_of_income = -0.25
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -44,12 +40,12 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Adapt the compartments for storehouses. Option Weighing Value: +1.
+	# Fit provincial storehouses with watertight compartments. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.1.option_b
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
-			add_base_tax = 2
+			add_base_production = 2
 		}
 		if = {
 			limit = {
@@ -60,11 +56,10 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Publish the failure report. Option Weighing Value: +1.
+	# Archive the failed hull's trial report. Option Weighing Value: +0.
 	option = {
 		name = war_adventurer_malakai.1.option_c
 		ai_chance = { factor = 1 }
-		add_adm_power = 50
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -97,9 +92,6 @@ country_event = {
 		event_target:war_adventurer_location_malakai = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_malakai
-		    war_adventurer_malakai_home = yes
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -112,12 +104,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Repair the site and study the drawings. Option Weighing Value: +0.5.
+	# Compare the intact machinery with the corrected drawings. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.2.option_a
 		ai_chance = { factor = 1 }
 		change_innovativeness = 1
-		add_years_of_income = -0.25
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -127,11 +118,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Salvage the intact machinery. Option Weighing Value: +1.
+	# Install the salvaged machinery in local workshops. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.2.option_b
 		ai_chance = { factor = 1 }
-		add_years_of_income = 0.5
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -141,11 +134,25 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Circulate the safety lessons. Option Weighing Value: +1.
+	# Rebuild the workshop trade around a new counting house. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.2.option_c
 		ai_chance = { factor = 1 }
-		add_mil_power = 50
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = counting_house }
+				NOT = { trade_goods = gold }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = counting_house }
+					NOT = { trade_goods = gold }
+				}
+				add_building = counting_house
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -167,7 +174,7 @@ country_event = {
 	}
 }
 
-# MAL-FH03: Axes in the Target Wall. Intended event Weighing Value: +2. Lore: L4.
+# MAL-FH03: Axes in the Target Wall. Intended event Weighing Value: +1. Lore: L4.
 country_event = {
 	id = war_adventurer_malakai.3
 	title = war_adventurer_malakai.3.t
@@ -178,7 +185,6 @@ country_event = {
 		event_target:war_adventurer_location_malakai = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_malakai
-		    war_adventurer_malakai_home = yes
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -193,12 +199,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Rebuild the firing platform and train its guards. Option Weighing Value: +1.5.
+	# Equip provincial defenders with the recovered axes. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.3.option_a
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.04
-		add_years_of_income = -0.25
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -208,11 +215,11 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Train the surviving crew. Option Weighing Value: +2.
+	# Teach the surviving crew's loading drill to army officers. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.3.option_b
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.04
+		add_army_professionalism = 0.02
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -222,11 +229,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Distribute the recovered weapons. Option Weighing Value: +2.
+	# Establish training fields for safer firing-platform drills. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.3.option_c
 		ai_chance = { factor = 1 }
-		add_yearly_manpower = 2
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = training_fields }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = training_fields }
+				}
+				add_building = training_fields
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -259,9 +278,6 @@ country_event = {
 		event_target:war_adventurer_location_malakai = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_malakai
-		    war_adventurer_malakai_home = yes
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -274,11 +290,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Confirm the workshop settlement. Option Weighing Value: +1.
+	# Confirm the settlement and reopen the repaired workshop. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.4.option_a
 		ai_chance = { factor = 1 }
-		add_adm_power = 50
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -288,12 +306,11 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Buy copies for apprentices. Option Weighing Value: +0.5.
+	# Have engineers examine the apprentices' copied adjustments. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.4.option_b
 		ai_chance = { factor = 1 }
 		change_innovativeness = 1
-		add_years_of_income = -0.25
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -303,11 +320,25 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Honour the fulfilled debt. Option Weighing Value: +1.
+	# Endow a counting house for the restored workshop guild. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.4.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = counting_house }
+				NOT = { trade_goods = gold }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = counting_house }
+					NOT = { trade_goods = gold }
+				}
+				add_building = counting_house
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -329,7 +360,7 @@ country_event = {
 	}
 }
 
-# MAL-FH05: The Cargo Above the Pass. Intended event Weighing Value: +2. Lore: L3.
+# MAL-FH05: The Cargo Above the Pass. Intended event Weighing Value: +1. Lore: L3.
 country_event = {
 	id = war_adventurer_malakai.5
 	title = war_adventurer_malakai.5.t
@@ -340,7 +371,6 @@ country_event = {
 		event_target:war_adventurer_location_malakai = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_malakai
-		    war_adventurer_malakai_home = yes
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -355,11 +385,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Survey the samples. Option Weighing Value: +2.
+	# Catalogue the numbered mineral samples. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.5.option_a
 		ai_chance = { factor = 1 }
-		change_innovativeness = 2
+		change_innovativeness = 1
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -369,14 +399,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Develop the promising workings. Option Weighing Value: +1.
+	# Open the promising provincial workings. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.5.option_b
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
-			add_base_production = 3
+			add_base_production = 2
 		}
-		add_years_of_income = -0.25
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -386,12 +415,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Use the rescue account for officer training and public honours. Option Weighing Value: +2.
+	# Organize local rescue crews around the returned prospectors. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.5.option_c
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.02
-		add_prestige_or_monarch_power = { amount = 25 }
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -424,10 +454,7 @@ country_event = {
 		event_target:war_adventurer_location_malakai = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_malakai
-		    war_adventurer_malakai_home = no
 			has_port = yes
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -440,11 +467,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Adopt the hoist design. Option Weighing Value: +1.
+	# Install the improved hoist in provincial cargo yards. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.6.option_a
 		ai_chance = { factor = 1 }
-		change_innovativeness = 1
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -454,7 +483,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Extend its use to public cargo handling. Option Weighing Value: +1.
+	# Reopen the public cargo office around the repaired crane. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.6.option_b
 		ai_chance = { factor = 1 }
@@ -470,11 +499,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Auction the spare machinery. Option Weighing Value: +1.
+	# Establish a stock exchange beside the restored freight yards. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.6.option_c
 		ai_chance = { factor = 1 }
-		add_years_of_income = 0.5
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = stock_exchange }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = stock_exchange }
+				}
+				add_building = stock_exchange
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -507,9 +548,6 @@ country_event = {
 		event_target:war_adventurer_location_malakai = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_malakai
-		    war_adventurer_malakai_home = no
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -522,11 +560,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Circulate the rescue method through merchant shipping contacts. Option Weighing Value: +1.
+	# Train provincial ferrymen as permanent rescue crews. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.7.option_a
 		ai_chance = { factor = 1 }
-		add_dip_power = 50
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -536,14 +576,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Fund sealed relief barges. Option Weighing Value: +0.5.
+	# Build sealed cargo compartments for local carriers. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.7.option_b
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
-			add_base_tax = 2
+			add_base_production = 2
 		}
-		add_years_of_income = -0.25
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -553,7 +592,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Preserve the test results. Option Weighing Value: +1.
+	# Record the controlled flooding trial. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.7.option_c
 		ai_chance = { factor = 1 }
@@ -579,7 +618,7 @@ country_event = {
 	}
 }
 
-# MAL-FA03: The Foreign Range's Axe Rain. Intended event Weighing Value: +2. Lore: L4.
+# MAL-FA03: The Foreign Range's Axe Rain. Intended event Weighing Value: +1. Lore: L4.
 country_event = {
 	id = war_adventurer_malakai.8
 	title = war_adventurer_malakai.8.t
@@ -590,7 +629,6 @@ country_event = {
 		event_target:war_adventurer_location_malakai = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_malakai
-		    war_adventurer_malakai_home = no
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -605,11 +643,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Authorize supervised trials. Option Weighing Value: +2.
+	# Train provincial defenders from the axe-thrower's firing pattern. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.8.option_a
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.04
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -619,11 +659,11 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reorganize the frontier post around regular training. Option Weighing Value: +2.
+	# Have army officers study the frontier crew's drill. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.8.option_b
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.04
+		add_army_professionalism = 0.02
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -633,11 +673,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Display the recovered enemy standards. Option Weighing Value: +2.
+	# Establish training fields for supervised weapons trials. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.8.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 50 }
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = training_fields }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = training_fields }
+				}
+				add_building = training_fields
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -670,9 +722,6 @@ country_event = {
 		event_target:war_adventurer_location_malakai = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_malakai
-		    war_adventurer_malakai_home = no
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -685,11 +734,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Make the drill standard practice. Option Weighing Value: +1.
+	# Organize a permanent provincial evacuation watch. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.9.option_a
 		ai_chance = { factor = 1 }
-		add_adm_power = 50
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -699,12 +750,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Compensate the damage and honour the rescuers publicly. Option Weighing Value: +0.5.
+	# Restore the cleared market approaches and local stalls. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.9.option_b
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
-		add_years_of_income = -0.25
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -714,7 +766,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Study the discarded valves. Option Weighing Value: +1.
+	# Examine the discarded pressure valves. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.9.option_c
 		ai_chance = { factor = 1 }
@@ -740,7 +792,7 @@ country_event = {
 	}
 }
 
-# MAL-FA05: The Ruin Seen from Above. Intended event Weighing Value: +2. Lore: L3.
+# MAL-FA05: The Ruin Seen from Above. Intended event Weighing Value: +1. Lore: L3.
 country_event = {
 	id = war_adventurer_malakai.10
 	title = war_adventurer_malakai.10.t
@@ -751,7 +803,6 @@ country_event = {
 		event_target:war_adventurer_location_malakai = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_malakai
-		    war_adventurer_malakai_home = no
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -766,12 +817,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Fund a ground survey. Option Weighing Value: +1.5.
+	# Compare the aerial sketches with the ancient tools. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.10.option_a
 		ai_chance = { factor = 1 }
-		change_innovativeness = 2
-		add_years_of_income = -0.25
+		change_innovativeness = 1
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -781,7 +831,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Restore an identified route. Option Weighing Value: +1.
+	# Reopen the identified provincial road. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.10.option_b
 		ai_chance = { factor = 1 }
@@ -797,14 +847,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Purchase the recovered tools. Option Weighing Value: +1.
+	# Equip local workshops with the recovered tools. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_malakai.10.option_c
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
-			add_base_production = 3
+			add_base_production = 2
 		}
-		add_years_of_income = -0.25
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -826,7 +875,7 @@ country_event = {
 	}
 }
 
-# MAL-EH01: The Battery that Fired Axes. Intended event Weighing Value: -2. Lore: L4.
+# MAL-EH01: The Battery that Fired Axes. Intended event Weighing Value: -1. Lore: L4.
 country_event = {
 	id = war_adventurer_malakai.11
 	title = war_adventurer_malakai.11.t
@@ -837,7 +886,6 @@ country_event = {
 		event_target:war_adventurer_location_malakai = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_malakai
-		    war_adventurer_malakai_home = yes
 			owner = { is_at_war = yes }
 		    owner = { war_adventurer_enemy_a = yes }
 
@@ -853,11 +901,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the gun crew and stores. Option Weighing Value: -2.
+	# Replace the gun crew's equipment and stores. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.11.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -867,11 +915,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Redistribute the surviving battery. Option Weighing Value: -2.
+	# Let provincial battery commanders arrange their own supplies. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.11.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -881,7 +931,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon the damaged position. Option Weighing Value: -2.
+	# Abandon the damaged firing position. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.11.option_c
 		ai_chance = { factor = 1 }
@@ -920,7 +970,6 @@ country_event = {
 		event_target:war_adventurer_location_malakai = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_malakai
-		    war_adventurer_malakai_home = yes
 			has_port = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
@@ -936,7 +985,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Pay to raise the hull. Option Weighing Value: -1.
+	# Pay salvagers to raise the flooded hull. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.12.option_a
 		ai_chance = { factor = 1 }
@@ -950,11 +999,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Write off the naval experiment. Option Weighing Value: -1.
+	# Leave the dock guild to decide the experiment's future. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.12.option_b
 		ai_chance = { factor = 1 }
-		add_prestige = -25
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -964,11 +1015,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Investigate the stolen design. Option Weighing Value: -1.
+	# Dismantle the shipyard that held the seized prototype. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.12.option_c
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		trigger = {
+			event_target:war_adventurer_province = {
+				has_building = shipyard
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					has_building = shipyard
+				}
+				remove_building = shipyard
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -990,7 +1053,7 @@ country_event = {
 	}
 }
 
-# MAL-EH03: The Hangar's Escape Valve. Intended event Weighing Value: -2. Lore: L2, L3.
+# MAL-EH03: The Hangar's Escape Valve. Intended event Weighing Value: -1. Lore: L2, L3.
 country_event = {
 	id = war_adventurer_malakai.13
 	title = war_adventurer_malakai.13.t
@@ -1001,7 +1064,6 @@ country_event = {
 		event_target:war_adventurer_location_malakai = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_malakai
-		    war_adventurer_malakai_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1016,11 +1078,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the machinery. Option Weighing Value: -2.
+	# Purchase replacement lifting machinery. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.13.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1030,11 +1092,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Revise the air-defence programme. Option Weighing Value: -2.
+	# Give provincial engineers independent control of aerial security. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.13.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1044,7 +1108,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon the scorched installation. Option Weighing Value: -2.
+	# Abandon the scorched hangar district. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.13.option_c
 		ai_chance = { factor = 1 }
@@ -1083,7 +1147,6 @@ country_event = {
 		event_target:war_adventurer_location_malakai = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_malakai
-		    war_adventurer_malakai_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1098,7 +1161,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Hire replacement artisans. Option Weighing Value: -1.
+	# Hire artisans and buy replacement tools. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.14.option_a
 		ai_chance = { factor = 1 }
@@ -1112,11 +1175,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Rebuild the missing contract records. Option Weighing Value: -1.
+	# Allow the workshop guild to renegotiate its own military contracts. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.14.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1126,9 +1191,102 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Let the failed purchase become public. Option Weighing Value: -1.
+	# Close the deserted workshop's counting house. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.14.option_c
+		ai_chance = { factor = 1 }
+		trigger = {
+			event_target:war_adventurer_province = {
+				has_building = counting_house
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					has_building = counting_house
+				}
+				remove_building = counting_house
+			}
+		}
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				if = {
+					limit = { has_province_modifier = war_adventurer_malakai }
+					war_adventurer_move = { MODIFIER = war_adventurer_malakai LOCATION = war_adventurer_location_malakai BEER = no ARRIVAL_EVENT = war_adventurer_malakai.21 }
+				}
+			}
+		}
+	}
+}
+
+# MAL-EH05: The Pass Below the Airship. Intended event Weighing Value: -1. Lore: L3.
+country_event = {
+	id = war_adventurer_malakai.15
+	title = war_adventurer_malakai.15.t
+	desc = war_adventurer_malakai.15.d
+	picture = WAR_ADVENTURER_MAL_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_malakai = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_malakai
+		    owner = { war_adventurer_enemy_a = yes }
+
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			event_target:war_adventurer_location_malakai = {
+				save_event_target_as = war_adventurer_province
+				war_adventurer_prepare_destination = yes
+			}
+		}
+	}
+	goto = war_adventurer_province
+
+	# Expand the provincial watch and replace its equipment. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_malakai.15.option_a
+		ai_chance = { factor = 1 }
+		add_years_of_income = -0.5
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
+	}
+
+	# Let local captains determine how to guard the mountain approaches. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_malakai.15.option_b
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
+	}
+
+	# Admit that the expensive blockade failed. Option Weighing Value: -1.
+	option = {
+		name = war_adventurer_malakai.15.option_c
 		ai_chance = { factor = 1 }
 		add_prestige = -25
 		if = {
@@ -1152,87 +1310,7 @@ country_event = {
 	}
 }
 
-# MAL-EH05: The Pass Below the Airship. Intended event Weighing Value: -2. Lore: L3.
-country_event = {
-	id = war_adventurer_malakai.15
-	title = war_adventurer_malakai.15.t
-	desc = war_adventurer_malakai.15.d
-	picture = WAR_ADVENTURER_MAL_eventPicture
-	is_triggered_only = yes
-	trigger = {
-		event_target:war_adventurer_location_malakai = {
-		    owned_by = ROOT
-		    has_province_modifier = war_adventurer_malakai
-		    war_adventurer_malakai_home = yes
-		    owner = { war_adventurer_enemy_a = yes }
-
-		}
-	}
-	immediate = {
-		hidden_effect = {
-			event_target:war_adventurer_location_malakai = {
-				save_event_target_as = war_adventurer_province
-				war_adventurer_prepare_destination = yes
-			}
-		}
-	}
-	goto = war_adventurer_province
-
-	# Expand the watch and repair its equipment. Option Weighing Value: -2.
-	option = {
-		name = war_adventurer_malakai.15.option_a
-		ai_chance = { factor = 1 }
-		add_years_of_income = -1
-		if = {
-			limit = {
-				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
-			}
-			custom_tooltip = war_adventurer_leaves_tt
-		}
-		else = { custom_tooltip = war_adventurer_stays_tt }
-	}
-
-	# Retrain the garrison. Option Weighing Value: -2.
-	option = {
-		name = war_adventurer_malakai.15.option_b
-		ai_chance = { factor = 1 }
-		add_mil_power = -100
-		if = {
-			limit = {
-				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
-			}
-			custom_tooltip = war_adventurer_leaves_tt
-		}
-		else = { custom_tooltip = war_adventurer_stays_tt }
-	}
-
-	# Deny the value of the lost captives and trophies. Option Weighing Value: -2.
-	option = {
-		name = war_adventurer_malakai.15.option_c
-		ai_chance = { factor = 1 }
-		add_prestige = -50
-		if = {
-			limit = {
-				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
-			}
-			custom_tooltip = war_adventurer_leaves_tt
-		}
-		else = { custom_tooltip = war_adventurer_stays_tt }
-	}
-
-	after = {
-		hidden_effect = {
-			event_target:war_adventurer_province = {
-				if = {
-					limit = { has_province_modifier = war_adventurer_malakai }
-					war_adventurer_move = { MODIFIER = war_adventurer_malakai LOCATION = war_adventurer_location_malakai BEER = no ARRIVAL_EVENT = war_adventurer_malakai.21 }
-				}
-			}
-		}
-	}
-}
-
-# MAL-EA01: The Depot Under the Shadow. Intended event Weighing Value: -2. Lore: L3.
+# MAL-EA01: The Depot Under the Shadow. Intended event Weighing Value: -1. Lore: L3.
 country_event = {
 	id = war_adventurer_malakai.16
 	title = war_adventurer_malakai.16.t
@@ -1243,7 +1321,6 @@ country_event = {
 		event_target:war_adventurer_location_malakai = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_malakai
-		    war_adventurer_malakai_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1258,11 +1335,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the stores. Option Weighing Value: -2.
+	# Replace the burned military stores. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.16.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1272,11 +1349,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reorganize dispersed depots. Option Weighing Value: -2.
+	# Let provincial garrisons manage their own dispersed depots. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.16.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1286,7 +1365,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Leave the burnt district unrepaired. Option Weighing Value: -2.
+	# Leave the burned depot district unrepaired. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.16.option_c
 		ai_chance = { factor = 1 }
@@ -1325,7 +1404,6 @@ country_event = {
 		event_target:war_adventurer_location_malakai = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_malakai
-		    war_adventurer_malakai_home = no
 			has_port = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
@@ -1341,7 +1419,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Rebuild the vessel safely. Option Weighing Value: -1.
+	# Rebuild the vessel with inspected fittings. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.17.option_a
 		ai_chance = { factor = 1 }
@@ -1355,11 +1433,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Audit the procurement office. Option Weighing Value: -1.
+	# Give the dock guild independent control of procurement. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.17.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1369,11 +1449,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon the project publicly. Option Weighing Value: -1.
+	# Close the shipyard responsible for the failed stolen prototype. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.17.option_c
 		ai_chance = { factor = 1 }
-		add_prestige = -25
+		trigger = {
+			event_target:war_adventurer_province = {
+				has_building = shipyard
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					has_building = shipyard
+				}
+				remove_building = shipyard
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1395,7 +1487,7 @@ country_event = {
 	}
 }
 
-# MAL-EA03: The Axe Machine in the Alley. Intended event Weighing Value: -2. Lore: L4.
+# MAL-EA03: The Axe Machine in the Alley. Intended event Weighing Value: -1. Lore: L4.
 country_event = {
 	id = war_adventurer_malakai.18
 	title = war_adventurer_malakai.18.t
@@ -1406,7 +1498,6 @@ country_event = {
 		event_target:war_adventurer_location_malakai = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_malakai
-		    war_adventurer_malakai_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1421,11 +1512,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the escort's arms. Option Weighing Value: -2.
+	# Replace the escort's lost weapons. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.18.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1435,11 +1526,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reorganize convoy doctrine. Option Weighing Value: -2.
+	# Let provincial captains supervise future captive convoys. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.18.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1449,7 +1542,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon the contested street. Option Weighing Value: -2.
+	# Abandon and barricade the contested street. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.18.option_c
 		ai_chance = { factor = 1 }
@@ -1488,7 +1581,6 @@ country_event = {
 		event_target:war_adventurer_location_malakai = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_malakai
-		    war_adventurer_malakai_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1503,7 +1595,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Repair the roof and salvage records. Option Weighing Value: -1.
+	# Repair the foundry roof and salvage the records. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.19.option_a
 		ai_chance = { factor = 1 }
@@ -1517,11 +1609,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reconstruct the missing research. Option Weighing Value: -1.
+	# Put the provincial archive under independent guild supervision. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.19.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1531,11 +1625,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Acknowledge the security failure. Option Weighing Value: -1.
+	# Close the foundry's ruined counting house. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.19.option_c
 		ai_chance = { factor = 1 }
-		add_prestige = -25
+		trigger = {
+			event_target:war_adventurer_province = {
+				has_building = counting_house
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					has_building = counting_house
+				}
+				remove_building = counting_house
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1568,7 +1674,6 @@ country_event = {
 		event_target:war_adventurer_location_malakai = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_malakai
-		    war_adventurer_malakai_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1583,7 +1688,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the workshop's equipment. Option Weighing Value: -1.
+	# Replace the disabled lathes and missing tools. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.20.option_a
 		ai_chance = { factor = 1 }
@@ -1597,11 +1702,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reorganize the surviving workforce. Option Weighing Value: -1.
+	# Grant the remaining artisans control of their own workshop. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.20.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1611,7 +1718,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Repudiate the governor's coercion. Option Weighing Value: -1.
+	# Publicly repudiate the governor's coercion. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_malakai.20.option_c
 		ai_chance = { factor = 1 }

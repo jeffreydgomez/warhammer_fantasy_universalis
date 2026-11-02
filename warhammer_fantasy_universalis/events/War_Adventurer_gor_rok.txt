@@ -1,9 +1,9 @@
 namespace = war_adventurer_gor_rok
 
-# Generated from Dev Stuff/Adventurers/event_data.json; edit that authored source.
+# Choices and eligibility: Dev Stuff/Tools/adventurer_event_balance.tsv.
 # Budget source: Dev Stuff/Examples/Balance Guide.txt. No MTTH.
 
-# GOR-FH01: The Stela Returned with a Spear. Intended event Weighing Value: +2. Lore: L1.
+# GOR-FH01: The Stela Returned with a Spear. Intended event Weighing Value: +1. Lore: L1.
 country_event = {
 	id = war_adventurer_gor_rok.1
 	title = war_adventurer_gor_rok.1.t
@@ -29,11 +29,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Restore the shrine and catalogue the stone. Option Weighing Value: +2.
+	# Catalogue the recovered inscriptions. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.1.option_a
 		ai_chance = { factor = 1 }
-		change_innovativeness = 2
+		change_innovativeness = 1
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -43,11 +43,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Fortify its approach and train its guards. Option Weighing Value: +2.
+	# Train provincial guards for the restored shrine approach. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.1.option_b
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.04
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -57,11 +59,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Commemorate the recovery. Option Weighing Value: +2.
+	# Endow a cathedral around the recovered sacred stone. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.1.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 50 }
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = cathedral }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = cathedral }
+				}
+				add_building = cathedral
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -94,7 +108,6 @@ country_event = {
 		event_target:war_adventurer_location_gor_rok = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gor_rok
-		    war_adventurer_gor_rok_home = yes
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -109,7 +122,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Return the tools to their workshops. Option Weighing Value: +1.
+	# Return the captured tools to provincial workshops. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.2.option_a
 		ai_chance = { factor = 1 }
@@ -125,7 +138,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Examine the fragments. Option Weighing Value: +1.
+	# Compare the recovered fragments with the damaged inscriptions. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.2.option_b
 		ai_chance = { factor = 1 }
@@ -139,11 +152,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Train guards from the surviving witnesses. Option Weighing Value: +1.
+	# Train local causeway guards from the witnesses' account. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.2.option_c
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.02
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -165,7 +180,7 @@ country_event = {
 	}
 }
 
-# GOR-FH03: The Rider and the Wings. Intended event Weighing Value: +2. Lore: L2.
+# GOR-FH03: The Rider and the Wings. Intended event Weighing Value: +1. Lore: L2.
 country_event = {
 	id = war_adventurer_gor_rok.3
 	title = war_adventurer_gor_rok.3.t
@@ -176,7 +191,6 @@ country_event = {
 		event_target:war_adventurer_location_gor_rok = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gor_rok
-		    war_adventurer_gor_rok_home = yes
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -191,11 +205,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Study the carcass safely. Option Weighing Value: +2.
+	# Examine the carcasses under supervision. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.3.option_a
 		ai_chance = { factor = 1 }
-		change_innovativeness = 2
+		change_innovativeness = 1
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -205,11 +219,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Have the scouts teach other units how they protected civilians. Option Weighing Value: +2.
+	# Equip provincial scouts with the raiders' recovered gear. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.3.option_b
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.04
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -219,9 +235,78 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Use recovered raider supplies for relief. Option Weighing Value: +1.
+	# Return the raiders' captured stores to local households. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.3.option_c
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
+	}
+
+	after = {
+		hidden_effect = {
+			event_target:war_adventurer_province = {
+				if = {
+					limit = { has_province_modifier = war_adventurer_gor_rok }
+					war_adventurer_move = { MODIFIER = war_adventurer_gor_rok LOCATION = war_adventurer_location_gor_rok BEER = no ARRIVAL_EVENT = war_adventurer_gor_rok.21 }
+				}
+			}
+		}
+	}
+}
+
+# GOR-FH04: The Line That Did Not Move. Intended event Weighing Value: +1. Lore: L3.
+country_event = {
+	id = war_adventurer_gor_rok.4
+	title = war_adventurer_gor_rok.4.t
+	desc = war_adventurer_gor_rok.4.d
+	picture = WAR_ADVENTURER_GOR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		event_target:war_adventurer_location_gor_rok = {
+		    owned_by = ROOT
+		    has_province_modifier = war_adventurer_gor_rok
+		    owner = { war_adventurer_enemy_a = no }
+
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			event_target:war_adventurer_location_gor_rok = {
+				save_event_target_as = war_adventurer_province
+				war_adventurer_prepare_destination = yes
+			}
+		}
+	}
+	goto = war_adventurer_province
+
+	# Teach the defensive formation to provincial recruits. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_gor_rok.4.option_a
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
+	}
+
+	# Restore the settlement's battered approach and homes. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_gor_rok.4.option_b
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
 			add_base_tax = 2
@@ -235,78 +320,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	after = {
-		hidden_effect = {
-			event_target:war_adventurer_province = {
-				if = {
-					limit = { has_province_modifier = war_adventurer_gor_rok }
-					war_adventurer_move = { MODIFIER = war_adventurer_gor_rok LOCATION = war_adventurer_location_gor_rok BEER = no ARRIVAL_EVENT = war_adventurer_gor_rok.21 }
-				}
-			}
-		}
-	}
-}
-
-# GOR-FH04: The Line That Did Not Move. Intended event Weighing Value: +2. Lore: L3.
-country_event = {
-	id = war_adventurer_gor_rok.4
-	title = war_adventurer_gor_rok.4.t
-	desc = war_adventurer_gor_rok.4.d
-	picture = WAR_ADVENTURER_GOR_eventPicture
-	is_triggered_only = yes
-	trigger = {
-		event_target:war_adventurer_location_gor_rok = {
-		    owned_by = ROOT
-		    has_province_modifier = war_adventurer_gor_rok
-		    war_adventurer_gor_rok_home = yes
-		    owner = { war_adventurer_enemy_a = no }
-
-		}
-	}
-	immediate = {
-		hidden_effect = {
-			event_target:war_adventurer_location_gor_rok = {
-				save_event_target_as = war_adventurer_province
-				war_adventurer_prepare_destination = yes
-			}
-		}
-	}
-	goto = war_adventurer_province
-
-	# Teach the defensive formation. Option Weighing Value: +2.
-	option = {
-		name = war_adventurer_gor_rok.4.option_a
-		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.04
-		if = {
-			limit = {
-				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
-			}
-			custom_tooltip = war_adventurer_leaves_tt
-		}
-		else = { custom_tooltip = war_adventurer_stays_tt }
-	}
-
-	# Rebuild the battered approach and train its guards. Option Weighing Value: +1.5.
-	option = {
-		name = war_adventurer_gor_rok.4.option_b
-		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.04
-		add_years_of_income = -0.25
-		if = {
-			limit = {
-				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
-			}
-			custom_tooltip = war_adventurer_leaves_tt
-		}
-		else = { custom_tooltip = war_adventurer_stays_tt }
-	}
-
-	# Recognize the defenders' recovery. Option Weighing Value: +2.
+	# Establish training fields for holding narrow approaches. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.4.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 50 }
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = training_fields }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = training_fields }
+				}
+				add_building = training_fields
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -339,7 +369,6 @@ country_event = {
 		event_target:war_adventurer_location_gor_rok = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gor_rok
-		    war_adventurer_gor_rok_home = yes
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -354,11 +383,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Record the witnesses' account. Option Weighing Value: +1.
+	# Record the markings around the sealed breach. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.5.option_a
 		ai_chance = { factor = 1 }
-		add_mil_power = 50
+		change_innovativeness = 1
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -368,11 +397,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Retrain the wardens to hold their positions. Option Weighing Value: +1.
+	# Train the provincial temple wardens. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.5.option_b
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.02
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -382,11 +413,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Honour the successful defence. Option Weighing Value: +1.
+	# Rebuild the protected shrine as a cathedral. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.5.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = cathedral }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = cathedral }
+				}
+				add_building = cathedral
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -435,11 +478,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Map the winter approaches. Option Weighing Value: +1.
+	# Establish a provincial waystation on the mapped winter route. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.6.option_a
 		ai_chance = { factor = 1 }
-		add_mil_power = 50
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -449,12 +494,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Establish a shelter for patrols and train its guards. Option Weighing Value: +0.5.
+	# Train local winter patrols from the survivors' notes. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.6.option_b
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.02
-		add_years_of_income = -0.25
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -464,11 +510,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Recover abandoned raider stores. Option Weighing Value: +1.
+	# Supply provincial craftsmen with the recovered raider stores. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.6.option_c
 		ai_chance = { factor = 1 }
-		add_years_of_income = 0.5
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -490,7 +538,7 @@ country_event = {
 	}
 }
 
-# GOR-FA02: The Auction's Broken Chariot. Intended event Weighing Value: +2. Lore: L1.
+# GOR-FA02: The Auction's Broken Chariot. Intended event Weighing Value: +1. Lore: L1.
 country_event = {
 	id = war_adventurer_gor_rok.7
 	title = war_adventurer_gor_rok.7.t
@@ -501,9 +549,6 @@ country_event = {
 		event_target:war_adventurer_location_gor_rok = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gor_rok
-		    war_adventurer_gor_rok_home = no
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -516,11 +561,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Study the recovered inscription. Option Weighing Value: +2.
+	# Examine the recovered slab and its missing sections. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.7.option_a
 		ai_chance = { factor = 1 }
-		change_innovativeness = 2
+		change_innovativeness = 1
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -530,12 +575,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Compensate the yard and return stolen goods. Option Weighing Value: +1.5.
+	# Restore the damaged yard and return the claimants' property. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.7.option_b
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 50 }
-		add_years_of_income = -0.25
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -545,11 +591,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Prosecute the smuggling records. Option Weighing Value: +2.
+	# Return the smugglers' stolen tools to provincial craftsmen. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.7.option_c
 		ai_chance = { factor = 1 }
-		add_adm_power = 100
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -571,7 +619,7 @@ country_event = {
 	}
 }
 
-# GOR-FA03: The Wyvern Above the Quarry. Intended event Weighing Value: +2. Lore: L2.
+# GOR-FA03: The Wyvern Above the Quarry. Intended event Weighing Value: +1. Lore: L2.
 country_event = {
 	id = war_adventurer_gor_rok.8
 	title = war_adventurer_gor_rok.8.t
@@ -582,7 +630,6 @@ country_event = {
 		event_target:war_adventurer_location_gor_rok = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gor_rok
-		    war_adventurer_gor_rok_home = no
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -597,11 +644,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Equip a local watch. Option Weighing Value: +2.
+	# Equip a provincial quarry watch. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.8.option_a
 		ai_chance = { factor = 1 }
-		add_yearly_manpower = 2
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -611,11 +660,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Sell surplus equipment and retain the balance after repairs. Option Weighing Value: +2.
+	# Distribute spare harness and tools to local workshops. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.8.option_b
 		ai_chance = { factor = 1 }
-		add_years_of_income = 1
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -625,11 +676,11 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Catalogue the beast's remains. Option Weighing Value: +2.
+	# Catalogue the flying beast's remains. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.8.option_c
 		ai_chance = { factor = 1 }
-		change_innovativeness = 2
+		change_innovativeness = 1
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -662,7 +713,6 @@ country_event = {
 		event_target:war_adventurer_location_gor_rok = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gor_rok
-		    war_adventurer_gor_rok_home = no
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -677,7 +727,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Preserve and examine the foundation. Option Weighing Value: +1.
+	# Examine the exposed ancient foundation. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.9.option_a
 		ai_chance = { factor = 1 }
@@ -691,7 +741,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Rebuild and staff the public refuge with recovered stone. Option Weighing Value: +1.
+	# Rebuild the public refuge beside the preserved masonry. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.9.option_b
 		ai_chance = { factor = 1 }
@@ -707,11 +757,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Honour the workers for protecting their neighbours. Option Weighing Value: +1.
+	# Enlist willing workers in the provincial watch. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.9.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -733,7 +785,7 @@ country_event = {
 	}
 }
 
-# GOR-FA05: The Horror in the Foreign Gate. Intended event Weighing Value: +2. Lore: L3, L4.
+# GOR-FA05: The Horror in the Foreign Gate. Intended event Weighing Value: +1. Lore: L3, L4.
 country_event = {
 	id = war_adventurer_gor_rok.10
 	title = war_adventurer_gor_rok.10.t
@@ -744,7 +796,6 @@ country_event = {
 		event_target:war_adventurer_location_gor_rok = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gor_rok
-		    war_adventurer_gor_rok_home = no
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -759,11 +810,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Reward and train the defenders. Option Weighing Value: +2.
+	# Train the provincial gate defenders. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.10.option_a
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.04
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -773,11 +826,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Repair the gate from recovered supplies and train its guards. Option Weighing Value: +2.
+	# Restore the gate district with recovered supplies. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.10.option_b
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.04
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -787,11 +842,11 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Investigate the breach's remains. Option Weighing Value: +2.
+	# Examine the sealed breach's remains. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_gor_rok.10.option_c
 		ai_chance = { factor = 1 }
-		change_innovativeness = 2
+		change_innovativeness = 1
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -813,7 +868,7 @@ country_event = {
 	}
 }
 
-# GOR-EH01: The Stela's Empty Wagon. Intended event Weighing Value: -2. Lore: L1.
+# GOR-EH01: The Stela's Empty Wagon. Intended event Weighing Value: -1. Lore: L1.
 country_event = {
 	id = war_adventurer_gor_rok.11
 	title = war_adventurer_gor_rok.11.t
@@ -824,7 +879,6 @@ country_event = {
 		event_target:war_adventurer_location_gor_rok = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gor_rok
-		    war_adventurer_gor_rok_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -839,11 +893,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the convoy and guards. Option Weighing Value: -2.
+	# Replace the relic convoy and its guards. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.11.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -853,11 +907,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reorganize relic transport. Option Weighing Value: -2.
+	# Let local custodians regulate relic transport. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.11.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -867,7 +923,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon the wrecked depot. Option Weighing Value: -2.
+	# Abandon the wrecked convoy depot. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.11.option_c
 		ai_chance = { factor = 1 }
@@ -895,7 +951,7 @@ country_event = {
 	}
 }
 
-# GOR-EH02: The Wyvern Pen's Two Corpses. Intended event Weighing Value: -2. Lore: L2.
+# GOR-EH02: The Wyvern Pen's Two Corpses. Intended event Weighing Value: -1. Lore: L2.
 country_event = {
 	id = war_adventurer_gor_rok.12
 	title = war_adventurer_gor_rok.12.t
@@ -906,7 +962,6 @@ country_event = {
 		event_target:war_adventurer_location_gor_rok = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gor_rok
-		    war_adventurer_gor_rok_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -921,11 +976,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the lost military capacity. Option Weighing Value: -2.
+	# Purchase troops to replace the Wyvern and its rider. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.12.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -935,11 +990,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reorganize beast-handling detachments. Option Weighing Value: -2.
+	# Give provincial commanders control of their own beast detachments. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.12.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -949,7 +1006,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Leave the compound ruined. Option Weighing Value: -2.
+	# Leave the ruined beast compound abandoned. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.12.option_c
 		ai_chance = { factor = 1 }
@@ -988,7 +1045,6 @@ country_event = {
 		event_target:war_adventurer_location_gor_rok = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gor_rok
-		    war_adventurer_gor_rok_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1003,7 +1059,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Pay the troops' recovery costs. Option Weighing Value: -1.
+	# Pay for the hired troops' treatment and equipment. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.13.option_a
 		ai_chance = { factor = 1 }
@@ -1017,11 +1073,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Replace their officers. Option Weighing Value: -1.
+	# Allow local captains to direct future operations at the causeway. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.13.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1031,7 +1089,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Deny the defeat's significance. Option Weighing Value: -1.
+	# Deny the defeat despite the witnesses. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.13.option_c
 		ai_chance = { factor = 1 }
@@ -1057,7 +1115,7 @@ country_event = {
 	}
 }
 
-# GOR-EH04: The Greater Horror's Failed Blow. Intended event Weighing Value: -2. Lore: L3.
+# GOR-EH04: The Greater Horror's Failed Blow. Intended event Weighing Value: -1. Lore: L3.
 country_event = {
 	id = war_adventurer_gor_rok.14
 	title = war_adventurer_gor_rok.14.t
@@ -1068,7 +1126,6 @@ country_event = {
 		event_target:war_adventurer_location_gor_rok = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gor_rok
-		    war_adventurer_gor_rok_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1083,11 +1140,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the shattered apparatus. Option Weighing Value: -2.
+	# Replace the shattered ritual apparatus. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.14.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1097,11 +1154,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon the ritual programme. Option Weighing Value: -2.
+	# Return control of the shrine to local custodians. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.14.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1111,7 +1170,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Close the ruined shrine. Option Weighing Value: -2.
+	# Close the ruined shrine and leave the surrounding works unrepaired. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.14.option_c
 		ai_chance = { factor = 1 }
@@ -1150,7 +1209,6 @@ country_event = {
 		event_target:war_adventurer_location_gor_rok = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gor_rok
-		    war_adventurer_gor_rok_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1165,7 +1223,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the escort and display. Option Weighing Value: -1.
+	# Replace the broken display and escort. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.15.option_a
 		ai_chance = { factor = 1 }
@@ -1179,11 +1237,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Investigate the trophies' provenance. Option Weighing Value: -1.
+	# Let local custodians investigate the trophies' ownership. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.15.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1193,7 +1253,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Endure the public humiliation. Option Weighing Value: -1.
+	# Accept the public humiliation. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.15.option_c
 		ai_chance = { factor = 1 }
@@ -1219,7 +1279,7 @@ country_event = {
 	}
 }
 
-# GOR-EA01: The Camp Beyond the Snowline. Intended event Weighing Value: -2. Lore: L4.
+# GOR-EA01: The Camp Beyond the Snowline. Intended event Weighing Value: -1. Lore: L4.
 country_event = {
 	id = war_adventurer_gor_rok.16
 	title = war_adventurer_gor_rok.16.t
@@ -1246,11 +1306,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the winter stores. Option Weighing Value: -2.
+	# Purchase replacement winter stores. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.16.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1260,11 +1320,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reorganize the exposed patrol routes. Option Weighing Value: -2.
+	# Give frontier communities control of their own patrol routes. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.16.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1274,7 +1336,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon the damaged camp. Option Weighing Value: -2.
+	# Abandon the wrecked supply camp. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.16.option_c
 		ai_chance = { factor = 1 }
@@ -1313,7 +1375,6 @@ country_event = {
 		event_target:war_adventurer_location_gor_rok = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gor_rok
-		    war_adventurer_gor_rok_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1328,7 +1389,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the equipment. Option Weighing Value: -1.
+	# Replace the lifting equipment. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.17.option_a
 		ai_chance = { factor = 1 }
@@ -1342,11 +1403,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Relocate the work crews. Option Weighing Value: -1.
+	# Let the quarry workers decide how future excavation proceeds. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.17.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1356,12 +1419,12 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Leave the quarry closed. Option Weighing Value: -1.
+	# Leave the damaged quarry closed. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.17.option_c
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
-			add_devastation = 25
+			add_devastation = 50
 		}
 		if = {
 			limit = {
@@ -1384,7 +1447,7 @@ country_event = {
 	}
 }
 
-# GOR-EA03: The Foreign Champion's Fallen Mount. Intended event Weighing Value: -2. Lore: L2.
+# GOR-EA03: The Foreign Champion's Fallen Mount. Intended event Weighing Value: -1. Lore: L2.
 country_event = {
 	id = war_adventurer_gor_rok.18
 	title = war_adventurer_gor_rok.18.t
@@ -1395,7 +1458,6 @@ country_event = {
 		event_target:war_adventurer_location_gor_rok = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gor_rok
-		    war_adventurer_gor_rok_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1410,11 +1472,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the district's security. Option Weighing Value: -2.
+	# Hire replacement guards for the labour district. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.18.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1424,11 +1486,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reconstruct the missing labour records. Option Weighing Value: -2.
+	# Give local workers control of the district's labour records. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.18.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1438,7 +1502,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon the damaged yard. Option Weighing Value: -2.
+	# Abandon the damaged holding yard. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.18.option_c
 		ai_chance = { factor = 1 }
@@ -1477,7 +1541,6 @@ country_event = {
 		event_target:war_adventurer_location_gor_rok = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gor_rok
-		    war_adventurer_gor_rok_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1492,7 +1555,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Pay for the soldiers' recovery. Option Weighing Value: -1.
+	# Pay for the soldiers' treatment and replacement shields. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.19.option_a
 		ai_chance = { factor = 1 }
@@ -1506,11 +1569,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Revise their tactical training. Option Weighing Value: -1.
+	# Let provincial officers set their own tactical training. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.19.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1520,7 +1585,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Dismiss the failed spectacle. Option Weighing Value: -1.
+	# Accept the public failure of the spectacle. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.19.option_c
 		ai_chance = { factor = 1 }
@@ -1546,7 +1611,7 @@ country_event = {
 	}
 }
 
-# GOR-EA05: The Relic Behind the Daemon. Intended event Weighing Value: -2. Lore: L1, L3, L4.
+# GOR-EA05: The Relic Behind the Daemon. Intended event Weighing Value: -1. Lore: L1, L3, L4.
 country_event = {
 	id = war_adventurer_gor_rok.20
 	title = war_adventurer_gor_rok.20.t
@@ -1557,7 +1622,6 @@ country_event = {
 		event_target:war_adventurer_location_gor_rok = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_gor_rok
-		    war_adventurer_gor_rok_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1572,11 +1636,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Repair the vault and its guards. Option Weighing Value: -2.
+	# Repair the vault and replace its guards. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.20.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1586,11 +1650,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Investigate the failed guardian. Option Weighing Value: -2.
+	# Give local custodians control of the surviving collection. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.20.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1600,7 +1666,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Seal the ruined galleries. Option Weighing Value: -2.
+	# Seal the collapsed galleries without repairs. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_gor_rok.20.option_c
 		ai_chance = { factor = 1 }

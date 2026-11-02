@@ -1,0 +1,60 @@
+namespace = war_pillage_country
+
+# Compatibility recovery for points left in saves by the former delayed payout.
+# New peace deals distribute their pools synchronously inside the treaty effect.
+# Keep this naturally triggered event so older unpaid pools are not stranded;
+# it has nothing to do after a successful immediate payout and cannot pay twice.
+# No player-facing choice or narrative is needed for this technical event.
+# Balance Guide: each 1 development is Weighing Value 0.5. These are the exact
+# points already removed by the treaty, not an additional development reward.
+# Deliver any legacy unpaid pillage points, with repeated recipients allowed.
+country_event = {
+	id = war_pillage_country.1
+	hidden = yes
+
+	trigger = {
+		OR = {
+			check_variable = { which = war_pillage_country_pending_tax value = 1 }
+			check_variable = { which = war_pillage_country_pending_production value = 1 }
+			check_variable = { which = war_pillage_country_pending_manpower value = 1 }
+		}
+		any_owned_province = { always = yes }
+	}
+	mean_time_to_happen = { days = 1 }
+
+	immediate = {
+		# Keep each random_owned_province directly in the same country scope.
+		# Re-entering ROOT inside each iteration can restart the destination RNG.
+		# There are no exclusions or caps: one province receives the whole pool;
+		# two provinces remain eligible on every draw, including consecutive wins.
+		while = {
+			limit = {
+				check_variable = { which = war_pillage_country_pending_tax value = 1 }
+				any_owned_province = { always = yes }
+			}
+			random_owned_province = { add_base_tax = 1 }
+			subtract_variable = { which = war_pillage_country_pending_tax value = 1 }
+		}
+		while = {
+			limit = {
+				check_variable = { which = war_pillage_country_pending_production value = 1 }
+				any_owned_province = { always = yes }
+			}
+			random_owned_province = { add_base_production = 1 }
+			subtract_variable = { which = war_pillage_country_pending_production value = 1 }
+		}
+		while = {
+			limit = {
+				check_variable = { which = war_pillage_country_pending_manpower value = 1 }
+				any_owned_province = { always = yes }
+			}
+			random_owned_province = { add_base_manpower = 1 }
+			subtract_variable = { which = war_pillage_country_pending_manpower value = 1 }
+		}
+	}
+
+	option = {
+		name = OK
+		# Finish the automatic payout without displaying a choice.
+	}
+}

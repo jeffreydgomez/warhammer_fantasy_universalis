@@ -1,9 +1,9 @@
 namespace = war_adventurer_harald
 
-# Generated from Dev Stuff/Adventurers/event_data.json; edit that authored source.
+# Choices and eligibility: Dev Stuff/Tools/adventurer_event_balance.tsv.
 # Budget source: Dev Stuff/Examples/Balance Guide.txt. No MTTH.
 
-# HAR-FH01: The Hammer's Trophy. Intended event Weighing Value: +2. Lore: L1.
+# HAR-FH01: The Hammer's Trophy. Intended event Weighing Value: +1. Lore: L1.
 country_event = {
 	id = war_adventurer_harald.1
 	title = war_adventurer_harald.1.t
@@ -29,12 +29,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Divide the spoils among the camps. Option Weighing Value: +2.
+	# Return the recovered tools to the tributary workshops. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.1.option_a
 		ai_chance = { factor = 1 }
-		add_yearly_manpower = 1
-		add_prestige_or_monarch_power = { amount = 25 }
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -44,11 +45,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Claim a ruler's share. Option Weighing Value: +2.
+	# Equip provincial camp guards with the captured armour. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.1.option_b
 		ai_chance = { factor = 1 }
-		add_years_of_income = 1
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -58,11 +61,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Have the scouts teach other patrols their approach. Option Weighing Value: +2.
+	# Restore the tribute rolls from the recovered accounts. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.1.option_c
 		ai_chance = { factor = 1 }
-		add_mil_power = 100
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -95,9 +100,6 @@ country_event = {
 		event_target:war_adventurer_location_harald = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_harald
-		    war_adventurer_harald_home = yes
-		    owner = { war_adventurer_enemy_c = no }
-
 		}
 	}
 	immediate = {
@@ -110,7 +112,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Confiscate dangerous relics for study. Option Weighing Value: +1.
+	# Have guarded scholars examine the harmless inscriptions. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.2.option_a
 		ai_chance = { factor = 1 }
@@ -124,11 +126,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Auction mundane treasure. Option Weighing Value: +1.
+	# Distribute mundane salvaged tools to local craftsmen. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.2.option_b
 		ai_chance = { factor = 1 }
-		add_years_of_income = 0.5
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -138,11 +142,10 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reward the warning. Option Weighing Value: +1.
+	# Leave the deeper chambers sealed. Option Weighing Value: +0.
 	option = {
 		name = war_adventurer_harald.2.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -164,7 +167,7 @@ country_event = {
 	}
 }
 
-# HAR-FH03: A Night of Broken Bones. Intended event Weighing Value: +2. Lore: L2, L3.
+# HAR-FH03: A Night of Broken Bones. Intended event Weighing Value: +1. Lore: L2, L3.
 country_event = {
 	id = war_adventurer_harald.3
 	title = war_adventurer_harald.3.t
@@ -175,7 +178,6 @@ country_event = {
 		event_target:war_adventurer_location_harald = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_harald
-		    war_adventurer_harald_home = yes
 		    owner = { war_adventurer_enemy_c = no }
 
 		}
@@ -190,7 +192,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Rebuild with the rescued households. Option Weighing Value: +1.
+	# Settle the rescued households in a rebuilt camp. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.3.option_a
 		ai_chance = { factor = 1 }
@@ -206,12 +208,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Honour the defenders and enlist willing survivors. Option Weighing Value: +2.
+	# Enlist the surviving defenders in the provincial guard. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.3.option_b
 		ai_chance = { factor = 1 }
-		add_yearly_manpower = 1
-		add_prestige_or_monarch_power = { amount = 25 }
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -221,12 +224,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Sell surplus supplies and revise the relief registers. Option Weighing Value: +2.
+	# Restore the families' workshops with their salvaged goods. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.3.option_c
 		ai_chance = { factor = 1 }
-		add_years_of_income = 0.5
-		add_adm_power = 50
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -259,7 +263,6 @@ country_event = {
 		event_target:war_adventurer_location_harald = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_harald
-		    war_adventurer_harald_home = yes
 		    owner = { war_adventurer_enemy_c = no }
 
 		}
@@ -274,7 +277,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Clear and reopen the road. Option Weighing Value: +1.
+	# Reopen the cleared road under provincial toll officers. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.4.option_a
 		ai_chance = { factor = 1 }
@@ -290,11 +293,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Recover military stores. Option Weighing Value: +1.
+	# Equip local road guards from the abandoned stores. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.4.option_b
 		ai_chance = { factor = 1 }
-		add_yearly_manpower = 1
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -342,11 +347,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Organize supervised contests. Option Weighing Value: +1.
+	# Organize the eager provincial recruits. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.5.option_a
 		ai_chance = { factor = 1 }
-		add_mil_power = 50
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -356,11 +363,11 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Enlist the eager recruits. Option Weighing Value: +1.
+	# Circulate the disciplined formation exercises to army officers. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.5.option_b
 		ai_chance = { factor = 1 }
-		add_yearly_manpower = 1
+		add_army_professionalism = 0.02
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -370,12 +377,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Sponsor a victory feast. Option Weighing Value: +0.5.
+	# Establish training fields for supervised contests. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.5.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
-		add_years_of_income = -0.25
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = training_fields }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = training_fields }
+				}
+				add_building = training_fields
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -408,9 +426,6 @@ country_event = {
 		event_target:war_adventurer_location_harald = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_harald
-		    war_adventurer_harald_home = no
-		    owner = { war_adventurer_enemy_c = no }
-
 		}
 	}
 	immediate = {
@@ -423,7 +438,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Restore it under our guards. Option Weighing Value: +1.
+	# Restore the caravanserai as a provincial waystation. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.6.option_a
 		ai_chance = { factor = 1 }
@@ -439,11 +454,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Salvage its stores. Option Weighing Value: +1.
+	# Distribute its usable stores to local workshops. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.6.option_b
 		ai_chance = { factor = 1 }
-		add_years_of_income = 0.5
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -453,14 +470,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Pay for funerary clearance. Option Weighing Value: +0.5.
+	# Establish a stock exchange beside the reopened caravan stop. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.6.option_c
 		ai_chance = { factor = 1 }
-		event_target:war_adventurer_province = {
-			add_base_tax = 2
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = stock_exchange }
+			}
 		}
-		add_years_of_income = -0.25
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = stock_exchange }
+				}
+				add_building = stock_exchange
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -482,7 +508,7 @@ country_event = {
 	}
 }
 
-# HAR-FA02: A Daemon's Broken Idol. Intended event Weighing Value: +2. Lore: L1.
+# HAR-FA02: A Daemon's Broken Idol. Intended event Weighing Value: +1. Lore: L1.
 country_event = {
 	id = war_adventurer_harald.7
 	title = war_adventurer_harald.7.t
@@ -493,7 +519,6 @@ country_event = {
 		event_target:war_adventurer_location_harald = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_harald
-		    war_adventurer_harald_home = no
 		    owner = { war_adventurer_enemy_c = no }
 
 		}
@@ -508,14 +533,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Return tools to their owners. Option Weighing Value: +2.
+	# Return the liberated tools to the provincial craftsmen. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.7.option_a
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
 			add_base_production = 2
 		}
-		add_prestige_or_monarch_power = { amount = 25 }
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -525,11 +549,11 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Inspect the remains under guard. Option Weighing Value: +2.
+	# Examine the broken idol under scholarly guard. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.7.option_b
 		ai_chance = { factor = 1 }
-		change_innovativeness = 2
+		change_innovativeness = 1
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -539,11 +563,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Claim unowned tribute. Option Weighing Value: +2.
+	# Restore the workshops to the provincial tax rolls. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.7.option_c
 		ai_chance = { factor = 1 }
-		add_years_of_income = 1
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -576,9 +602,6 @@ country_event = {
 		event_target:war_adventurer_location_harald = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_harald
-		    war_adventurer_harald_home = no
-		    owner = { war_adventurer_enemy_c = no }
-
 		}
 	}
 	immediate = {
@@ -591,11 +614,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Permit supervised burials. Option Weighing Value: +1.
+	# Reopen the cemetery and its surrounding households. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.8.option_a
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -605,11 +630,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Seize the keeper's accumulated fees. Option Weighing Value: +1.
+	# Recruit a living watch for the cleared burial ground. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.8.option_b
 		ai_chance = { factor = 1 }
-		add_years_of_income = 0.5
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -631,7 +658,7 @@ country_event = {
 	}
 }
 
-# HAR-FA04: The Foreign Barrow's Warning. Intended event Weighing Value: +2. Lore: L2.
+# HAR-FA04: The Foreign Barrow's Warning. Intended event Weighing Value: +1. Lore: L2.
 country_event = {
 	id = war_adventurer_harald.9
 	title = war_adventurer_harald.9.t
@@ -642,9 +669,6 @@ country_event = {
 		event_target:war_adventurer_location_harald = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_harald
-		    war_adventurer_harald_home = no
-		    owner = { war_adventurer_enemy_c = no }
-
 		}
 	}
 	immediate = {
@@ -657,11 +681,10 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Translate the tablets. Option Weighing Value: +2.
+	# Translate the surviving warning tablets. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.9.option_a
 		ai_chance = { factor = 1 }
-		add_adm_power = 50
 		change_innovativeness = 1
 		if = {
 			limit = {
@@ -672,11 +695,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Have officers record and practise the cleared approach. Option Weighing Value: +2.
+	# Train provincial ruin wardens along the cleared approach. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.9.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = 100
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -686,11 +711,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Charge merchants for access to the cleared outer chambers. Option Weighing Value: +2.
+	# Establish a university archive for the recovered tablets. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.9.option_c
 		ai_chance = { factor = 1 }
-		add_years_of_income = 1
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = university }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = university }
+				}
+				add_building = university
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -723,9 +760,6 @@ country_event = {
 		event_target:war_adventurer_location_harald = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_harald
-		    war_adventurer_harald_home = no
-		    owner = { war_adventurer_enemy_c = no }
-
 		}
 	}
 	immediate = {
@@ -738,7 +772,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Return verified payments and restore the damaged waystation. Option Weighing Value: +1.
+	# Restore the waystation with the recovered tolls. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.10.option_a
 		ai_chance = { factor = 1 }
@@ -754,12 +788,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Pay and recruit a new body of road wardens. Option Weighing Value: +0.5.
+	# Equip local road wardens from the abandoned stores. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.10.option_b
 		ai_chance = { factor = 1 }
-		add_yearly_manpower = 1
-		add_years_of_income = -0.25
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -769,11 +804,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Retain unclaimed funds. Option Weighing Value: +1.
+	# Return recovered tools and freight to provincial craftsmen. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_harald.10.option_c
 		ai_chance = { factor = 1 }
-		add_years_of_income = 0.5
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -795,7 +832,7 @@ country_event = {
 	}
 }
 
-# HAR-EH01: Bones at the Northern Gate. Intended event Weighing Value: -2. Lore: L3.
+# HAR-EH01: Bones at the Northern Gate. Intended event Weighing Value: -1. Lore: L3.
 country_event = {
 	id = war_adventurer_harald.11
 	title = war_adventurer_harald.11.t
@@ -806,7 +843,6 @@ country_event = {
 		event_target:war_adventurer_location_harald = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_harald
-		    war_adventurer_harald_home = yes
 			owner = { has_country_modifier = undead_administration }
 		    owner = { war_adventurer_enemy_c = yes }
 
@@ -822,11 +858,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Rebuild the guard. Option Weighing Value: -2.
+	# Purchase and equip replacement gate guards. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.11.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -836,11 +872,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Redirect other forces. Option Weighing Value: -2.
+	# Let district captains organize their own defensive forces. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.11.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -850,7 +888,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon the exposed district. Option Weighing Value: -2.
+	# Abandon the exposed gate district. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.11.option_c
 		ai_chance = { factor = 1 }
@@ -889,7 +927,6 @@ country_event = {
 		event_target:war_adventurer_location_harald = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_harald
-		    war_adventurer_harald_home = yes
 		    owner = { war_adventurer_enemy_c = yes }
 
 		}
@@ -904,7 +941,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the champion's retinue. Option Weighing Value: -1.
+	# Recruit a replacement for the champion's retinue. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.12.option_a
 		ai_chance = { factor = 1 }
@@ -918,11 +955,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reorganize the defence. Option Weighing Value: -1.
+	# Let local warriors choose their own protectors. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.12.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -932,7 +971,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Absorb the humiliation. Option Weighing Value: -1.
+	# Accept the public humiliation at the shrine. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.12.option_c
 		ai_chance = { factor = 1 }
@@ -958,7 +997,7 @@ country_event = {
 	}
 }
 
-# HAR-EH03: The Barrow We Reopened. Intended event Weighing Value: -2. Lore: L2.
+# HAR-EH03: The Barrow We Reopened. Intended event Weighing Value: -1. Lore: L2.
 country_event = {
 	id = war_adventurer_harald.13
 	title = war_adventurer_harald.13.t
@@ -969,9 +1008,6 @@ country_event = {
 		event_target:war_adventurer_location_harald = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_harald
-		    war_adventurer_harald_home = yes
-		    owner = { war_adventurer_enemy_c = yes }
-
 		}
 	}
 	immediate = {
@@ -984,11 +1020,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Pay a new survey team. Option Weighing Value: -2.
+	# Pay a new team to clear and stabilize the dig. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.13.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -998,7 +1034,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Seal the site permanently. Option Weighing Value: -2.
+	# Leave the collapsed excavation and its camp abandoned. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.13.option_b
 		ai_chance = { factor = 1 }
@@ -1014,11 +1050,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Salvage only the records. Option Weighing Value: -2.
+	# Turn all future excavations over to the local communities. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.13.option_c
 		ai_chance = { factor = 1 }
-		add_adm_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1051,7 +1089,6 @@ country_event = {
 		event_target:war_adventurer_location_harald = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_harald
-		    war_adventurer_harald_home = yes
 		    owner = { war_adventurer_enemy_c = yes }
 
 		}
@@ -1066,7 +1103,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Recover and replace equipment. Option Weighing Value: -1.
+	# Recover and replace the patrol's equipment. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.14.option_a
 		ai_chance = { factor = 1 }
@@ -1080,11 +1117,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Discontinue patrols through the ruin. Option Weighing Value: -1.
+	# Leave the ancestral ruin beyond the state patrols' authority. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.14.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1117,7 +1156,6 @@ country_event = {
 		event_target:war_adventurer_location_harald = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_harald
-		    war_adventurer_harald_home = yes
 		    owner = { war_adventurer_enemy_c = yes }
 
 		}
@@ -1132,11 +1170,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Renegotiate the pledges. Option Weighing Value: -1.
+	# Recognize the tribes' right to negotiate their own obligations. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.15.option_a
 		ai_chance = { factor = 1 }
-		add_dip_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1146,7 +1186,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Buy renewed loyalty. Option Weighing Value: -1.
+	# Purchase renewed loyalty with compensation. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.15.option_b
 		ai_chance = { factor = 1 }
@@ -1160,7 +1200,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Maintain the claim despite ridicule. Option Weighing Value: -1.
+	# Admit that the officer's submission claims were false. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.15.option_c
 		ai_chance = { factor = 1 }
@@ -1186,7 +1226,7 @@ country_event = {
 	}
 }
 
-# HAR-EA01: A Procession of Empty Armour. Intended event Weighing Value: -2. Lore: L3.
+# HAR-EA01: A Procession of Empty Armour. Intended event Weighing Value: -1. Lore: L3.
 country_event = {
 	id = war_adventurer_harald.16
 	title = war_adventurer_harald.16.t
@@ -1197,7 +1237,6 @@ country_event = {
 		event_target:war_adventurer_location_harald = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_harald
-		    war_adventurer_harald_home = no
 			owner = { has_country_modifier = undead_administration }
 		    owner = { war_adventurer_enemy_c = yes }
 
@@ -1213,11 +1252,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Restore the procession at expense. Option Weighing Value: -2.
+	# Rebuild the ceremonial escort. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.16.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1227,11 +1266,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Suspend ceremonies and reorganize security. Option Weighing Value: -2.
+	# Let the provincial custodians arrange their own processions. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.16.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1241,11 +1282,11 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Accept the public humiliation. Option Weighing Value: -2.
+	# Acknowledge the destruction of the sacred escort. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.16.option_c
 		ai_chance = { factor = 1 }
-		add_prestige = -50
+		add_prestige = -25
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1278,7 +1319,6 @@ country_event = {
 		event_target:war_adventurer_location_harald = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_harald
-		    war_adventurer_harald_home = no
 		    owner = { war_adventurer_enemy_c = yes }
 
 		}
@@ -1293,7 +1333,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Hire replacements. Option Weighing Value: -1.
+	# Hire soldiers to replace the abandoned outer watch. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.17.option_a
 		ai_chance = { factor = 1 }
@@ -1307,11 +1347,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Retrain the garrison. Option Weighing Value: -1.
+	# Let the garrison captains decide which districts they will protect. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.17.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1333,7 +1375,7 @@ country_event = {
 	}
 }
 
-# HAR-EA03: A Tomb Opened for Tribute. Intended event Weighing Value: -2. Lore: L2.
+# HAR-EA03: A Tomb Opened for Tribute. Intended event Weighing Value: -1. Lore: L2.
 country_event = {
 	id = war_adventurer_harald.18
 	title = war_adventurer_harald.18.t
@@ -1344,9 +1386,6 @@ country_event = {
 		event_target:war_adventurer_location_harald = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_harald
-		    war_adventurer_harald_home = no
-		    owner = { war_adventurer_enemy_c = yes }
-
 		}
 	}
 	immediate = {
@@ -1359,11 +1398,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Rehouse the workers and repair the road. Option Weighing Value: -2.
+	# Rehouse the workers and repair the excavation road. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.18.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1373,7 +1412,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon the site. Option Weighing Value: -2.
+	# Abandon the ruined camp and treasury workings. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.18.option_b
 		ai_chance = { factor = 1 }
@@ -1389,11 +1428,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Investigate the failed excavation. Option Weighing Value: -2.
+	# Give the local custodians authority over future tomb surveys. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.18.option_c
 		ai_chance = { factor = 1 }
-		add_adm_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1426,7 +1467,6 @@ country_event = {
 		event_target:war_adventurer_location_harald = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_harald
-		    war_adventurer_harald_home = no
 			owner = { has_country_modifier = undead_administration }
 		    owner = { war_adventurer_enemy_c = yes }
 
@@ -1442,7 +1482,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Purchase mundane guards. Option Weighing Value: -1.
+	# Hire ordinary guards for the exposed route. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.19.option_a
 		ai_chance = { factor = 1 }
@@ -1456,11 +1496,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Redesign the defences. Option Weighing Value: -1.
+	# Leave the road communities to organize their own protection. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.19.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1470,11 +1512,11 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Conceal the weakness. Option Weighing Value: -1.
+	# Admit that the bound guardian is gone for good. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.19.option_c
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		add_prestige = -25
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1507,9 +1549,6 @@ country_event = {
 		event_target:war_adventurer_location_harald = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_harald
-		    war_adventurer_harald_home = no
-		    owner = { war_adventurer_enemy_c = yes }
-
 		}
 	}
 	immediate = {
@@ -1522,7 +1561,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Recognize the result. Option Weighing Value: -1.
+	# Recognize Harald's victory before the observers. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.20.option_a
 		ai_chance = { factor = 1 }
@@ -1536,7 +1575,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Compensate the defeated company. Option Weighing Value: -1.
+	# Compensate the defeated provincial company. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.20.option_b
 		ai_chance = { factor = 1 }
@@ -1550,11 +1589,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Discipline the organizers. Option Weighing Value: -1.
+	# Let the local martial guild administer future tournaments. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_harald.20.option_c
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }

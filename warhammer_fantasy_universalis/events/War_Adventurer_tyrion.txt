@@ -1,9 +1,9 @@
 namespace = war_adventurer_tyrion
 
-# Generated from Dev Stuff/Adventurers/event_data.json; edit that authored source.
+# Choices and eligibility: Dev Stuff/Tools/adventurer_event_balance.tsv.
 # Budget source: Dev Stuff/Examples/Balance Guide.txt. No MTTH.
 
-# TYR-FH01: The Shrine's Renewed Watch. Intended event Weighing Value: +2. Lore: L1.
+# TYR-FH01: The Shrine's Renewed Watch. Intended event Weighing Value: +1. Lore: L1.
 country_event = {
 	id = war_adventurer_tyrion.1
 	title = war_adventurer_tyrion.1.t
@@ -29,7 +29,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Restore the sanctuary with the offerings. Option Weighing Value: +1.
+	# Restore the sanctuary precinct with the recovered offerings. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.1.option_a
 		ai_chance = { factor = 1 }
@@ -45,11 +45,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Train a disciplined watch for the restored sanctuary. Option Weighing Value: +2.
+	# Train the provincial sanctuary watch. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.1.option_b
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.04
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -59,11 +61,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Commemorate the rescue. Option Weighing Value: +2.
+	# Raise a cathedral around the restored sanctuary. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.1.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 50 }
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = cathedral }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = cathedral }
+				}
+				add_building = cathedral
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -96,7 +110,6 @@ country_event = {
 		event_target:war_adventurer_location_tyrion = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_tyrion
-		    war_adventurer_tyrion_home = yes
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -111,11 +124,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Adopt the revised training. Option Weighing Value: +1.
+	# Teach the corrected sword drill to provincial recruits. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.2.option_a
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.02
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -125,7 +140,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Use the battle commentary in regular officer training. Option Weighing Value: +1.
+	# Circulate the battle commentary to our army officers. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.2.option_b
 		ai_chance = { factor = 1 }
@@ -139,11 +154,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reward the officer for accepting correction. Option Weighing Value: +1.
+	# Establish training fields for the revised exercises. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.2.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = training_fields }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = training_fields }
+				}
+				add_building = training_fields
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -165,7 +192,7 @@ country_event = {
 	}
 }
 
-# TYR-FH03: One Rider at the Culvert. Intended event Weighing Value: +2. Lore: L3.
+# TYR-FH03: One Rider at the Culvert. Intended event Weighing Value: +1. Lore: L3.
 country_event = {
 	id = war_adventurer_tyrion.3
 	title = war_adventurer_tyrion.3.t
@@ -191,11 +218,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Recover the stores for the garrison. Option Weighing Value: +2.
+	# Equip the provincial road guard from the recovered stores. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.3.option_a
 		ai_chance = { factor = 1 }
-		add_yearly_manpower = 2
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -205,11 +234,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Study and seal the route. Option Weighing Value: +2.
+	# Restore the road's offices and its cleared culvert. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.3.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = 100
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -219,11 +250,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Sell unclaimed cargo to repair the road. Option Weighing Value: +2.
+	# Return unclaimed civilian cargo to local suppliers. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.3.option_c
 		ai_chance = { factor = 1 }
-		add_years_of_income = 1
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -256,9 +289,6 @@ country_event = {
 		event_target:war_adventurer_location_tyrion = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_tyrion
-		    war_adventurer_tyrion_home = yes
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -271,11 +301,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Investigate the accomplices. Option Weighing Value: +1.
+	# Establish an inspected provincial tournament registry. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.4.option_a
 		ai_chance = { factor = 1 }
-		add_adm_power = 50
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -285,11 +317,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Establish safer tournament inspections. Option Weighing Value: +1.
+	# Train local guards to check competitors' weapons. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.4.option_b
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.02
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -299,11 +333,10 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Honour the attendants publicly. Option Weighing Value: +1.
+	# Enter the attendants' testimony in the public record. Option Weighing Value: +0.
 	option = {
 		name = war_adventurer_tyrion.4.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -351,11 +384,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Restore the records. Option Weighing Value: +1.
+	# Restore the shrine's neglected provincial records. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.5.option_a
 		ai_chance = { factor = 1 }
-		add_adm_power = 50
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -365,11 +400,11 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Exhibit the recovered token. Option Weighing Value: +1.
+	# Catalogue the ancestral token and its register. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.5.option_b
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
+		change_innovativeness = 1
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -379,12 +414,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Fund a public ceremony honouring the sanctuary’s custodians. Option Weighing Value: +0.5.
+	# Endow a cathedral for the recovered token. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.5.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
-		add_years_of_income = -0.25
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = cathedral }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = cathedral }
+				}
+				add_building = cathedral
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -406,7 +452,7 @@ country_event = {
 	}
 }
 
-# TYR-FA01: The Stranger at the Defiled Shrine. Intended event Weighing Value: +2. Lore: L1.
+# TYR-FA01: The Stranger at the Defiled Shrine. Intended event Weighing Value: +1. Lore: L1.
 country_event = {
 	id = war_adventurer_tyrion.6
 	title = war_adventurer_tyrion.6.t
@@ -417,7 +463,6 @@ country_event = {
 		event_target:war_adventurer_location_tyrion = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_tyrion
-		    war_adventurer_tyrion_home = no
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -432,11 +477,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Share the warding records. Option Weighing Value: +2.
+	# Compare the custodians' warding accounts. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.6.option_a
 		ai_chance = { factor = 1 }
-		change_innovativeness = 2
+		change_innovativeness = 1
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -446,7 +491,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Support the displaced custodians. Option Weighing Value: +1.
+	# Restore the displaced custodians' sanctuary precinct. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.6.option_b
 		ai_chance = { factor = 1 }
@@ -462,11 +507,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Recognize the rescue across religious differences. Option Weighing Value: +2.
+	# Endow a cathedral around the cleansed sanctuary. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.6.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 50 }
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = cathedral }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = cathedral }
+				}
+				add_building = cathedral
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -499,7 +556,6 @@ country_event = {
 		event_target:war_adventurer_location_tyrion = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_tyrion
-		    war_adventurer_tyrion_home = no
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -514,9 +570,25 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Teach the feint to officers. Option Weighing Value: +1.
+	# Teach the translated feint to provincial recruits. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.7.option_a
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
+	}
+
+	# Have army officers practise the annotated manoeuvre. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_tyrion.7.option_b
 		ai_chance = { factor = 1 }
 		add_army_professionalism = 0.02
 		if = {
@@ -528,26 +600,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reward the rescued interpreter. Option Weighing Value: +1.
-	option = {
-		name = war_adventurer_tyrion.7.option_b
-		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
-		if = {
-			limit = {
-				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
-			}
-			custom_tooltip = war_adventurer_leaves_tt
-		}
-		else = { custom_tooltip = war_adventurer_stays_tt }
-	}
-
-	# Purchase and translate the full account. Option Weighing Value: +0.5.
+	# Establish training fields for the translated sword exercises. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.7.option_c
 		ai_chance = { factor = 1 }
-		add_mil_power = 50
-		add_years_of_income = -0.25
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = training_fields }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = training_fields }
+				}
+				add_building = training_fields
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -569,7 +638,7 @@ country_event = {
 	}
 }
 
-# TYR-FA03: Malhandir on the Caravan Road. Intended event Weighing Value: +2. Lore: L3.
+# TYR-FA03: Malhandir on the Caravan Road. Intended event Weighing Value: +1. Lore: L3.
 country_event = {
 	id = war_adventurer_tyrion.8
 	title = war_adventurer_tyrion.8.t
@@ -580,7 +649,6 @@ country_event = {
 		event_target:war_adventurer_location_tyrion = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_tyrion
-		    war_adventurer_tyrion_home = no
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -595,11 +663,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Map the raiders' routes. Option Weighing Value: +2.
+	# Secure the caravan route under provincial customs. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.8.option_a
 		ai_chance = { factor = 1 }
-		add_mil_power = 100
+		event_target:war_adventurer_province = {
+			add_base_tax = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -609,11 +679,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Recover unclaimed merchandise. Option Weighing Value: +2.
+	# Return recovered merchandise to local suppliers. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.8.option_b
 		ai_chance = { factor = 1 }
-		add_years_of_income = 1
+		event_target:war_adventurer_province = {
+			add_base_production = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -623,11 +695,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Train escorts from the survivors' account. Option Weighing Value: +2.
+	# Train provincial escorts from the survivors' account. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.8.option_c
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.04
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -649,7 +723,7 @@ country_event = {
 	}
 }
 
-# TYR-FA04: A Prison Opened by One Rider. Intended event Weighing Value: +2. Lore: L3.
+# TYR-FA04: A Prison Opened by One Rider. Intended event Weighing Value: +1. Lore: L3.
 country_event = {
 	id = war_adventurer_tyrion.9
 	title = war_adventurer_tyrion.9.t
@@ -660,7 +734,6 @@ country_event = {
 		event_target:war_adventurer_location_tyrion = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_tyrion
-		    war_adventurer_tyrion_home = no
 		    owner = { war_adventurer_enemy_a = no }
 
 		}
@@ -675,11 +748,13 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Accept their instruction. Option Weighing Value: +2.
+	# Enlist willing released soldiers in the provincial guard. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.9.option_a
 		ai_chance = { factor = 1 }
-		add_army_professionalism = 0.04
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -689,14 +764,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Settle civilian survivors. Option Weighing Value: +1.
+	# Settle the rescued civilian households. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.9.option_b
 		ai_chance = { factor = 1 }
 		event_target:war_adventurer_province = {
-			add_base_tax = 3
+			add_base_tax = 2
 		}
-		add_years_of_income = -0.25
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -706,11 +780,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Celebrate the prisoners' return. Option Weighing Value: +2.
+	# Establish training fields for the former prisoners' instruction. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.9.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 50 }
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = training_fields }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = training_fields }
+				}
+				add_building = training_fields
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -743,9 +829,6 @@ country_event = {
 		event_target:war_adventurer_location_tyrion = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_tyrion
-		    war_adventurer_tyrion_home = no
-		    owner = { war_adventurer_enemy_a = no }
-
 		}
 	}
 	immediate = {
@@ -758,9 +841,25 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Revise the school's curriculum. Option Weighing Value: +1.
+	# Teach the corrected curriculum to provincial recruits. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.10.option_a
+		ai_chance = { factor = 1 }
+		event_target:war_adventurer_province = {
+			add_base_manpower = 2
+		}
+		if = {
+			limit = {
+				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
+			}
+			custom_tooltip = war_adventurer_leaves_tt
+		}
+		else = { custom_tooltip = war_adventurer_stays_tt }
+	}
+
+	# Circulate the translated training notes to army officers. Option Weighing Value: +1.
+	option = {
+		name = war_adventurer_tyrion.10.option_b
 		ai_chance = { factor = 1 }
 		add_army_professionalism = 0.02
 		if = {
@@ -772,26 +871,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Fund translated training notes. Option Weighing Value: +0.5.
-	option = {
-		name = war_adventurer_tyrion.10.option_b
-		ai_chance = { factor = 1 }
-		add_mil_power = 50
-		add_years_of_income = -0.25
-		if = {
-			limit = {
-				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
-			}
-			custom_tooltip = war_adventurer_leaves_tt
-		}
-		else = { custom_tooltip = war_adventurer_stays_tt }
-	}
-
-	# Honour the instructor's candour. Option Weighing Value: +1.
+	# Establish training fields for the reformed sword school. Option Weighing Value: +1.
 	option = {
 		name = war_adventurer_tyrion.10.option_c
 		ai_chance = { factor = 1 }
-		add_prestige_or_monarch_power = { amount = 25 }
+		trigger = {
+			event_target:war_adventurer_province = {
+				NOT = { has_building = training_fields }
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					NOT = { has_building = training_fields }
+				}
+				add_building = training_fields
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -813,7 +909,7 @@ country_event = {
 	}
 }
 
-# TYR-EH01: The Occupier's Empty Shrine. Intended event Weighing Value: -2. Lore: L1.
+# TYR-EH01: The Occupier's Empty Shrine. Intended event Weighing Value: -1. Lore: L1.
 country_event = {
 	id = war_adventurer_tyrion.11
 	title = war_adventurer_tyrion.11.t
@@ -824,7 +920,6 @@ country_event = {
 		event_target:war_adventurer_location_tyrion = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_tyrion
-		    war_adventurer_tyrion_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -839,11 +934,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Rebuild conventional security. Option Weighing Value: -2.
+	# Install conventional guards around the sanctuary. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.11.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -853,11 +948,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Investigate the lost ritual. Option Weighing Value: -2.
+	# Give local custodians authority over the damaged shrine. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.11.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -867,7 +964,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon the chamber. Option Weighing Value: -2.
+	# Seal and abandon the shattered ritual chamber. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.11.option_c
 		ai_chance = { factor = 1 }
@@ -906,7 +1003,6 @@ country_event = {
 		event_target:war_adventurer_location_tyrion = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_tyrion
-		    war_adventurer_tyrion_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -921,7 +1017,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the officer's equipment and escort. Option Weighing Value: -1.
+	# Replace the defeated escort's equipment. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.12.option_a
 		ai_chance = { factor = 1 }
@@ -935,11 +1031,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Revise the garrison's command. Option Weighing Value: -1.
+	# Let provincial captains reorganize their own commands. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.12.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -949,7 +1047,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Endure the public comparisons. Option Weighing Value: -1.
+	# Accept the public comparisons with the defeated champion. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.12.option_c
 		ai_chance = { factor = 1 }
@@ -975,7 +1073,7 @@ country_event = {
 	}
 }
 
-# TYR-EH03: The Column that Met Malhandir. Intended event Weighing Value: -2. Lore: L3.
+# TYR-EH03: The Column that Met Malhandir. Intended event Weighing Value: -1. Lore: L3.
 country_event = {
 	id = war_adventurer_tyrion.13
 	title = war_adventurer_tyrion.13.t
@@ -986,7 +1084,6 @@ country_event = {
 		event_target:war_adventurer_location_tyrion = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_tyrion
-		    war_adventurer_tyrion_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1001,11 +1098,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the lost supplies. Option Weighing Value: -2.
+	# Purchase replacement supplies. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.13.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1015,11 +1112,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reorganize the march order. Option Weighing Value: -2.
+	# Give provincial quartermasters independent control of their routes. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.13.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1029,7 +1128,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Requisition replacements locally. Option Weighing Value: -2.
+	# Requisition replacement stores from the surrounding households. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.13.option_c
 		ai_chance = { factor = 1 }
@@ -1083,7 +1182,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Compensate the defeated guards. Option Weighing Value: -1.
+	# Compensate the guards defeated at the sanctuary. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.14.option_a
 		ai_chance = { factor = 1 }
@@ -1097,11 +1196,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Rebuild the sanctuary's security. Option Weighing Value: -1.
+	# Return sanctuary security to its local custodians. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.14.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1111,7 +1212,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Dismiss the relic's importance. Option Weighing Value: -1.
+	# Deny the relic's importance despite the witnesses. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.14.option_c
 		ai_chance = { factor = 1 }
@@ -1148,7 +1249,6 @@ country_event = {
 		event_target:war_adventurer_location_tyrion = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_tyrion
-		    war_adventurer_tyrion_home = yes
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1163,7 +1263,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Recruit replacement instructors. Option Weighing Value: -1.
+	# Hire and equip replacement instructors. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.15.option_a
 		ai_chance = { factor = 1 }
@@ -1177,11 +1277,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reorganize military education. Option Weighing Value: -1.
+	# Let the provincial schools regulate their own instruction. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.15.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1191,11 +1293,23 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Tolerate the loss of authority. Option Weighing Value: -1.
+	# Close the deserted sword school's training fields. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.15.option_c
 		ai_chance = { factor = 1 }
-		add_prestige = -25
+		trigger = {
+			event_target:war_adventurer_province = {
+				has_building = training_fields
+			}
+		}
+		event_target:war_adventurer_province = {
+			if = {
+				limit = {
+					has_building = training_fields
+				}
+				remove_building = training_fields
+			}
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1217,7 +1331,7 @@ country_event = {
 	}
 }
 
-# TYR-EA01: The Broken Summoning Escort. Intended event Weighing Value: -2. Lore: L1.
+# TYR-EA01: The Broken Summoning Escort. Intended event Weighing Value: -1. Lore: L1.
 country_event = {
 	id = war_adventurer_tyrion.16
 	title = war_adventurer_tyrion.16.t
@@ -1228,7 +1342,6 @@ country_event = {
 		event_target:war_adventurer_location_tyrion = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_tyrion
-		    war_adventurer_tyrion_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1243,11 +1356,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace the convoy's military role. Option Weighing Value: -2.
+	# Purchase conventional forces to replace the bound daemon. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.16.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1257,11 +1370,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Investigate the failed containment. Option Weighing Value: -2.
+	# Let local commanders control future containment work. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.16.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1271,7 +1386,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon its damaged staging ground. Option Weighing Value: -2.
+	# Abandon the damaged convoy staging ground. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.16.option_c
 		ai_chance = { factor = 1 }
@@ -1310,9 +1425,6 @@ country_event = {
 		event_target:war_adventurer_location_tyrion = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_tyrion
-		    war_adventurer_tyrion_home = no
-		    owner = { war_adventurer_enemy_a = yes }
-
 		}
 	}
 	immediate = {
@@ -1325,7 +1437,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Pay compensation to restore order. Option Weighing Value: -1.
+	# Compensate the prisoners used as tournament stakes. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.17.option_a
 		ai_chance = { factor = 1 }
@@ -1339,11 +1451,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Retrain the humiliated guard. Option Weighing Value: -1.
+	# Let local courts supervise future martial displays. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.17.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1353,7 +1467,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Preserve the governor's account despite witnesses. Option Weighing Value: -1.
+	# Uphold the governor's account against the witnesses. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.17.option_c
 		ai_chance = { factor = 1 }
@@ -1379,7 +1493,7 @@ country_event = {
 	}
 }
 
-# TYR-EA03: The Tunnel Mouth's Lone Rider. Intended event Weighing Value: -2. Lore: L3.
+# TYR-EA03: The Tunnel Mouth's Lone Rider. Intended event Weighing Value: -1. Lore: L3.
 country_event = {
 	id = war_adventurer_tyrion.18
 	title = war_adventurer_tyrion.18.t
@@ -1390,7 +1504,6 @@ country_event = {
 		event_target:war_adventurer_location_tyrion = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_tyrion
-		    war_adventurer_tyrion_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1405,11 +1518,11 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Rebuild the mechanism. Option Weighing Value: -2.
+	# Replace the broken tunnel mechanism. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.18.option_a
 		ai_chance = { factor = 1 }
-		add_years_of_income = -1
+		add_years_of_income = -0.5
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1419,11 +1532,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Reorganize the tunnel garrison. Option Weighing Value: -2.
+	# Give the tunnel district's captains independent command. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.18.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -100
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1433,7 +1548,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Abandon the entrance. Option Weighing Value: -2.
+	# Abandon the entrance and trapped equipment. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.18.option_c
 		ai_chance = { factor = 1 }
@@ -1472,7 +1587,6 @@ country_event = {
 		event_target:war_adventurer_location_tyrion = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_tyrion
-		    war_adventurer_tyrion_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1501,11 +1615,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Examine the custodians' claims. Option Weighing Value: -1.
+	# Recognize the local custodians' authority over the relic. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.19.option_b
 		ai_chance = { factor = 1 }
-		add_adm_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1515,11 +1631,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Deny the public accusation. Option Weighing Value: -1.
+	# Seal the damaged excavation without restoration. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.19.option_c
 		ai_chance = { factor = 1 }
-		add_prestige = -25
+		event_target:war_adventurer_province = {
+			add_devastation = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1552,7 +1670,6 @@ country_event = {
 		event_target:war_adventurer_location_tyrion = {
 		    owned_by = ROOT
 		    has_province_modifier = war_adventurer_tyrion
-		    war_adventurer_tyrion_home = no
 		    owner = { war_adventurer_enemy_a = yes }
 
 		}
@@ -1567,7 +1684,7 @@ country_event = {
 	}
 	goto = war_adventurer_province
 
-	# Replace damaged equipment and reassure the troops. Option Weighing Value: -1.
+	# Replace the arrest party's damaged equipment. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.20.option_a
 		ai_chance = { factor = 1 }
@@ -1581,11 +1698,13 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Overhaul officer training. Option Weighing Value: -1.
+	# Let provincial officers devise their own training standards. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.20.option_b
 		ai_chance = { factor = 1 }
-		add_mil_power = -50
+		event_target:war_adventurer_province = {
+			add_local_autonomy = 50
+		}
 		if = {
 			limit = {
 				event_target:war_adventurer_destination_country = { war_adventurer_destination_country = yes }
@@ -1595,7 +1714,7 @@ country_event = {
 		else = { custom_tooltip = war_adventurer_stays_tt }
 	}
 
-	# Forbid the story and accept the ridicule. Option Weighing Value: -1.
+	# Forbid the story despite its circulation through the barracks. Option Weighing Value: -1.
 	option = {
 		name = war_adventurer_tyrion.20.option_c
 		ai_chance = { factor = 1 }
