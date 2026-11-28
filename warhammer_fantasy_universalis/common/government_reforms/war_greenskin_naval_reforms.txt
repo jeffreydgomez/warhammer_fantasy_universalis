@@ -1,0 +1,30 @@
+# Tier 2: Greenskin bosses take the WAAAGH! to sea in search of loot and fights.
+# Weighing Value: 30 plus unscored regiment_disembark_speed.
+# Naval morale 5 + ship capture chance 5 + conditional coastal raiding 10
+# + conditional same-religion raiding 10 (Dev Stuff/Examples/Balance Guide.txt).
+# Raiding permissions live in war_greenskin_naval_modifiers.txt so the force-limit
+# requirement is rechecked monthly, rather than only when selecting this reform.
+war_greenskin_freebooter_captains_reform = {
+	icon = "pirate_republic"
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			culture_group = greenskins_group
+			culture_group = hobgoblin_group
+		}
+	}
+	trigger = {
+		naval_forcelimit = 10
+	}
+	modifiers = {
+		naval_morale = 0.05 # Weighing Value: 5
+		capture_ship_chance = 0.05 # Weighing Value: 5
+		regiment_disembark_speed = 0.25 # Not scored by the balance guide.
+	}
+	custom_attributes = {
+		war_greenskin_coastal_raiding = yes
+	}
+	ai = {
+		factor = 0 # Player choice only: the AI must never select this reform.
+	}
+}

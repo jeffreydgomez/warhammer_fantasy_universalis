@@ -1035,12 +1035,13 @@ war_nobles_lead_the_charge = {
 }
 
 
-# Tall reform placeholders: one new option for each non-starting reform level.
+# Tall reforms: one option for each non-starting reform level.
 # Level key: M = monarchy, R = republic, T = theocracy, Tr = tribal, N = native, C = chaos_gov.
 # Typical bonuses below are comment-only script examples, each scaled to 10 WV where priced in the Balance Guide.
-# No modifier values or government mechanics are implemented by these stubs.
-# AI weight is 5 below 50% governing capacity usage and 0 at or above 50%.
-# A base weight of 5 is multiplied by 0 at the threshold.
+# AI: base weight 0.5 (formerly 5); Order and elven nations each receive x2.
+# Eligible one-province nations receive x100; Athel Loren (B01) receives x200 instead.
+# Chaos and Destruction nations always receive weight 0, overriding every preference.
+# The 50% governing-capacity cutoff applies except to one-province nations and Athel Loren.
 
 # Theme: Centralization, regional government, and the administration of provinces.
 # Levels: M3, R7, Tr5.
@@ -1068,10 +1069,42 @@ territorial_administration_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1102,10 +1135,42 @@ religion_and_state_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1139,10 +1204,42 @@ military_organization_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1174,10 +1271,42 @@ administrative_personnel_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1209,10 +1338,42 @@ economic_policy_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1248,10 +1409,42 @@ governing_philosophy_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1284,10 +1477,42 @@ constitutional_settlement_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1321,10 +1546,42 @@ separation_of_powers_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1357,10 +1614,42 @@ internal_external_mission_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1392,10 +1681,42 @@ education_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1430,10 +1751,42 @@ secularization_tall_reform = {
 		warscore_cost_vs_other_religion = 0.25
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1467,10 +1820,42 @@ sacred_cause_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1502,10 +1887,42 @@ cultural_integration_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1540,10 +1957,42 @@ faith_and_world_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1584,10 +2033,42 @@ government_transformation_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1624,10 +2105,42 @@ settlement_and_mobility_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1658,10 +2171,42 @@ aristocratic_privileges_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1704,10 +2249,42 @@ deliberative_assembly_tall_reform = {
 		has_parliament = yes
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1738,10 +2315,42 @@ republican_virtues_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1772,10 +2381,42 @@ election_frequency_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1807,10 +2448,42 @@ executive_consolidation_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1846,10 +2519,42 @@ electorate_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1882,10 +2587,42 @@ inherited_traditions_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
@@ -1917,10 +2654,42 @@ legal_foundations_tall_reform = {
 		administrative_efficiency = -0.1
 	}
 	ai = {
-		factor = 5
+		factor = 0.5
+		# Chaos and evil factions never choose this, including one-province nations.
+		modifier = {
+			factor = 0
+			OR = {
+				destruction_culture = yes
+				government = chaos_gov
+			}
+		}
+		# Preserve the capacity cutoff without cancelling the strongest preferences.
 		modifier = {
 			factor = 0
 			governing_capacity_percentage = 0.5
+			num_of_cities = 2
+			NOT = { tag = B01 }
+		}
+		# One-province nations usually favor internal development.
+		modifier = {
+			factor = 100
+			num_of_cities = 1
+			NOT = { num_of_cities = 2 }
+			NOT = { tag = B01 }
+		}
+		# Good nations and elves have modest, cumulative preferences.
+		modifier = {
+			factor = 2
+			order_culture = yes
+		}
+		modifier = {
+			factor = 2
+			country_is_elven = yes
+		}
+		# Athel Loren very strongly favors preserving and developing its forest realm.
+		modifier = {
+			factor = 200
+			tag = B01
 		}
 	}
 }
